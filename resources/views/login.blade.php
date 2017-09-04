@@ -56,28 +56,6 @@
                         </form>
                     </div>
                 </div>
-                <div class="row text-center social">
-                    <div class="col-xs-12">
-                        <p class="alter">Sign in with</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2">
-                            <div class="col-xs-4">
-                                <a href="#" class="btn btn-lg btn-facebook">
-                                    <i class="ti-facebook"></i>
-                                </a>
-                            </div>
-                            <div class="col-xs-4">
-                                <a href="#" class="btn btn-lg btn-twitter">
-                                    <i class="ti-twitter-alt"></i>
-                                </a>
-                            </div>
-                            <div class="col-xs-4">
-                                <a href="#" class="btn btn-lg btn-google">
-                                    <i class="ti-google"></i>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
