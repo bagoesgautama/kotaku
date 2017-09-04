@@ -30,13 +30,19 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <form action="{{url('login')}}" id="authentication" method="post" class="signup_validator">
+                    <form action="{{ route('register') }}" id="authentication" method="post" class="signup_validator">
+                        {{ csrf_field() }}
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="first" class="sr-only">First Name</label>
-                                <input type="text" class="form-control  form-control-lg" id="first" name="first_name"
-                                       placeholder="First name">
-                            </div>
+                                <input type="text" class="form-control  form-control-lg" id="name" name="name"
+                                       placeholder="First name" value="{{ old('name') }}" required autofocus>
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div> 
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -48,22 +54,34 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="email" class="sr-only"> E-mail</label>
-                                <input type="text" class="form-control  form-control-lg" id="email" name="email"
-                                       placeholder="E-mail">
+                                <input id="email" type="email" class="form-control  form-control-lg" name="email" value="{{ old('email') }}" placeholder="E-mail" required>
+
+                                <!-- <input type="text" class="form-control  form-control-lg" id="email" name="email" placeholder="E-mail"> -->
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="password" class="sr-only">Password</label>
                                 <input type="password" class="form-control form-control-lg" id="password"
-                                       name="password" placeholder="Password">
+                                       name="password" placeholder="Password" required>
+
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="confirm-password" class="sr-only">Password</label>
-                                <input type="password" class="form-control form-control-lg" id="confirm-password"
-                                       name="password_confirm" placeholder="Confirm Password">
+                                <!-- <input type="password" class="form-control form-control-lg" id="confirm-password" name="password_confirm" placeholder="Confirm Password"> -->
+                                <input id="password-confirm" type="password" class="form-control form-control-lg" name="password_confirmation" placeholder="Confirm Password" required>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -77,7 +95,7 @@
                             <div class="form-group">
                                 <input type="submit" value="Sign Up" class="btn btn-primary btn-block"/>
                             </div>
-                            <span class="sign-in">Already a member? <a href="login.html">Sign In</a></span>
+                            <span class="sign-in">Already a member? <a href="login">Sign In</a></span>
                         </div>
                     </form>
                 </div>

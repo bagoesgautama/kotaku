@@ -12,8 +12,18 @@
 */
 
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 
-Route::get('{name?}', 'ClearController@showView');
+// Route::get('{name?}', 'ClearController@showView');
+
+Route::get('/', 'HomeController@index');
+Route::get('/login', 'Auth\LoginController@index');
+Route::get('/register', 'Auth\RegisterController@index');
+Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('/test', 'TestController@index');
+
+Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');

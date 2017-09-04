@@ -89,7 +89,7 @@
                     <img src="{{url('img/authors/avatar1.jpg')}}" width="35" class="img-circle img-responsive pull-left" height="35" alt="User Image">
                     <div class="riot">
                         <div>
-                            Addison
+                            {{ $username }}
                             <span>
                                         <i class="caret"></i>
                                     </span>
@@ -100,7 +100,7 @@
                     <!-- User image -->
                     <li class="user-header">
                         <img src="{{url('img/authors/avatar1.jpg')}}" class="img-circle" alt="User Image">
-                        <p> Addison</p>
+                        <p> {{ $username }}</p>
                     </li>
                     <!-- Menu Body -->
                     <li class="p-t-3">
@@ -123,7 +123,7 @@
                             </a>
                         </div>
                         <div class="pull-right">
-                            <a href="{{url('login')}}">
+                            <a href="{{url('logout')}}">
                                 <i class="fa fa-fw ti-shift-right"></i> Logout
                             </a>
                         </div>

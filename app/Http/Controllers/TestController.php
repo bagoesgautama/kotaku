@@ -5,21 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use View;
 
-class ClearController extends Controller
+class TestController extends Controller
 {
-
-    public function showView($name)
-    {
-        if(View::exists($name))
-        {
-           return view($name);
-
-        }
-        else
-        {
-            return view('404');
-        }
-    }
 
     /**
      * Display a listing of the resource.
@@ -29,6 +16,7 @@ class ClearController extends Controller
     public function index()
     {
         //
+        echo 'test';
     }
 
     /**
