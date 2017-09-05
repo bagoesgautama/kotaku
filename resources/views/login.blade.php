@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>::Admin Login::</title>
+    <title>SIM Kotaku Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="img/favicon.ico"/>
     <!-- Bootstrap -->
@@ -25,7 +25,7 @@
         <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 login-form">
             <div class="panel-header">
                 <h2 class="text-center">
-                    <img src="{{asset('img/pages/clear_black.png')}}" alt="Logo">
+                    <img src="{{asset('img/pages/kotaku.png')}}" alt="Logo">
                 </h2>
             </div>
             <div class="panel-body">
