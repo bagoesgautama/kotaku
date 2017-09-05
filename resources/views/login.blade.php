@@ -56,7 +56,7 @@
                         </form>
                     </div>
                 </div>
-                <!--<div class="row text-center social">
+                <div class="row text-center social">
                     <div class="col-xs-12">
                         <p class="alter">Sign in with</p>
                     </div>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                     </div>
-                </div>-->
+                </div>
             </div>
         </div>
     </div>
