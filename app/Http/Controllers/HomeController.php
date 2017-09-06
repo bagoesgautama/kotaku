@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $data['username'] = '';
-
+		$data['test']=true
         if (Auth::check()) {
             $user = Auth::user();
             $data['username'] = Auth::user()->name;
