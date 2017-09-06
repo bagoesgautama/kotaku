@@ -23,7 +23,7 @@ Route::get('/login', 'Auth\LoginController@index');
 Route::get('/register', 'Auth\RegisterController@index');
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/test', 'TestController@index');
-
+Route::get('/index', 'HomeController@index');
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

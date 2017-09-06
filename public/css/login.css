@@ -10,7 +10,7 @@ body {
 }
 
 #sign-in, #sign-up {
-    background: radial-gradient(ellipse at center, #5A93AF 0%, #004E74 100%);
+    background: radial-gradient(ellipse at center, #00a8ff 0%, #0d2d6c 100%);
 }
 .login-form {
     background-color: rgba(255, 255, 255, .9);
