@@ -464,6 +464,243 @@
             </li>
         </ul>
     </li>
+	<li>
+        <a href="javascript:void(0)">
+            <i class="menu-icon ti-gallery"></i>
+            <span class="mm-text">Pages</span>
+        </a>
+        <ul>
+            <li {!! (Request::is( 'login') || Request::is( 'lockscreen') || Request::is( 'forgot_password') || Request::is( 'register') || Request::is( 'reset_password') ? 'class="menu-dropdown active "': 'class="menu-dropdown "') !!}>
+                <a href="javascript:void(0) ">
+                    <i class="menu-icon ti-files "></i>
+                    <span class="mm-text ">Pages</span>
+                </a>
+                <ul class="sub-menu ">
+                    <li {!! (Request::is( 'login')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'login')}} ">
+                            <i class="fa fa-fw ti-shift-right "></i><span class="mm-text "> Login</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'register')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'register')}} ">
+                            <i class="fa fa-fw ti-check-box "></i><span class="mm-text "> Register</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'forgot_password')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'forgot_password')}} ">
+                            <i class="fa fa-fw ti-help "></i><span class="mm-text "> Forgot Password</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'reset_password') ? 'class="active "': " ") !!}>
+                        <a href="{{url( 'reset_password')}} ">
+                            <i class="fa fa-fw ti-key "></i><span class="mm-text "> Reset Password</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'lockscreen')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'lockscreen')}} ">
+                            <i class="fa fa-fw ti-lock "></i><span class="mm-text "> Lockscreen</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li {!! (Request::is( '404') || Request::is( '500') || Request::is( 'blank') || Request::is( 'invoice') ||Request::is( 'session_timeout') || Request::is( 'pricing_table') ? 'class="menu-dropdown active "': 'class="menu-dropdown "') !!}>
+                <a href="javascript:void(0) ">
+                    <i class="menu-icon ti-face-smile "></i>
+                    <span class="mm-text ">Extra Pages</span>
+                </a>
+                <ul class="sub-menu ">
+                    <li {!! (Request::is( 'blank')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'blank')}} ">
+                            <i class="fa fa-fw ti-file "></i><span class="mm-text "> Blank</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'invoice')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'invoice')}} ">
+                            <i class="fa fa-fw ti-layout-cta-left "></i> <span class="mm-text ">Invoice</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'session_timeout')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'session_timeout')}} ">
+                            <i class="fa fa-fw ti-time "></i><span class="mm-text "> Session Timeout</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'pricing_table')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'pricing_table')}} ">
+                            <i class="fa fa-fw ti-time "></i><span class="mm-text "> Pricing</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( '404')? 'class="active "': " ") !!}>
+                        <a href="{{url( '404')}} ">
+                            <i class="fa fa-fw ti-unlink "></i><span class="mm-text "> 404 Error</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( '500')? 'class="active "': " ") !!}>
+                        <a href="{{url( '500')}} ">
+                            <i class="fa fa-fw ti-face-sad "></i><span class="mm-text "> 500 Error</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+	<li>
+        <a href="javascript:void(0)">
+            <i class="menu-icon ti-gallery"></i>
+            <span class="mm-text">Pages</span>
+        </a>
+        <ul>
+            <li {!! (Request::is( 'login') || Request::is( 'lockscreen') || Request::is( 'forgot_password') || Request::is( 'register') || Request::is( 'reset_password') ? 'class="menu-dropdown active "': 'class="menu-dropdown "') !!}>
+                <a href="javascript:void(0) ">
+                    <i class="menu-icon ti-files "></i>
+                    <span class="mm-text ">Pages</span>
+                </a>
+                <ul class="sub-menu ">
+                    <li {!! (Request::is( 'login')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'login')}} ">
+                            <i class="fa fa-fw ti-shift-right "></i><span class="mm-text "> Login</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'register')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'register')}} ">
+                            <i class="fa fa-fw ti-check-box "></i><span class="mm-text "> Register</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'forgot_password')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'forgot_password')}} ">
+                            <i class="fa fa-fw ti-help "></i><span class="mm-text "> Forgot Password</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'reset_password') ? 'class="active "': " ") !!}>
+                        <a href="{{url( 'reset_password')}} ">
+                            <i class="fa fa-fw ti-key "></i><span class="mm-text "> Reset Password</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'lockscreen')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'lockscreen')}} ">
+                            <i class="fa fa-fw ti-lock "></i><span class="mm-text "> Lockscreen</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li {!! (Request::is( '404') || Request::is( '500') || Request::is( 'blank') || Request::is( 'invoice') ||Request::is( 'session_timeout') || Request::is( 'pricing_table') ? 'class="menu-dropdown active "': 'class="menu-dropdown "') !!}>
+                <a href="javascript:void(0) ">
+                    <i class="menu-icon ti-face-smile "></i>
+                    <span class="mm-text ">Extra Pages</span>
+                </a>
+                <ul class="sub-menu ">
+                    <li {!! (Request::is( 'blank')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'blank')}} ">
+                            <i class="fa fa-fw ti-file "></i><span class="mm-text "> Blank</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'invoice')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'invoice')}} ">
+                            <i class="fa fa-fw ti-layout-cta-left "></i> <span class="mm-text ">Invoice</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'session_timeout')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'session_timeout')}} ">
+                            <i class="fa fa-fw ti-time "></i><span class="mm-text "> Session Timeout</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'pricing_table')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'pricing_table')}} ">
+                            <i class="fa fa-fw ti-time "></i><span class="mm-text "> Pricing</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( '404')? 'class="active "': " ") !!}>
+                        <a href="{{url( '404')}} ">
+                            <i class="fa fa-fw ti-unlink "></i><span class="mm-text "> 404 Error</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( '500')? 'class="active "': " ") !!}>
+                        <a href="{{url( '500')}} ">
+                            <i class="fa fa-fw ti-face-sad "></i><span class="mm-text "> 500 Error</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+	<li>
+        <a href="javascript:void(0)">
+            <i class="menu-icon ti-gallery"></i>
+            <span class="mm-text">Pages</span>
+        </a>
+        <ul>
+            <li {!! (Request::is( 'login') || Request::is( 'lockscreen') || Request::is( 'forgot_password') || Request::is( 'register') || Request::is( 'reset_password') ? 'class="menu-dropdown active "': 'class="menu-dropdown "') !!}>
+                <a href="javascript:void(0) ">
+                    <i class="menu-icon ti-files "></i>
+                    <span class="mm-text ">Pages</span>
+                </a>
+                <ul class="sub-menu ">
+                    <li {!! (Request::is( 'login')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'login')}} ">
+                            <i class="fa fa-fw ti-shift-right "></i><span class="mm-text "> Login</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'register')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'register')}} ">
+                            <i class="fa fa-fw ti-check-box "></i><span class="mm-text "> Register</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'forgot_password')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'forgot_password')}} ">
+                            <i class="fa fa-fw ti-help "></i><span class="mm-text "> Forgot Password</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'reset_password') ? 'class="active "': " ") !!}>
+                        <a href="{{url( 'reset_password')}} ">
+                            <i class="fa fa-fw ti-key "></i><span class="mm-text "> Reset Password</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'lockscreen')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'lockscreen')}} ">
+                            <i class="fa fa-fw ti-lock "></i><span class="mm-text "> Lockscreen</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li {!! (Request::is( '404') || Request::is( '500') || Request::is( 'blank') || Request::is( 'invoice') ||Request::is( 'session_timeout') || Request::is( 'pricing_table') ? 'class="menu-dropdown active "': 'class="menu-dropdown "') !!}>
+                <a href="javascript:void(0) ">
+                    <i class="menu-icon ti-face-smile "></i>
+                    <span class="mm-text ">Extra Pages</span>
+                </a>
+                <ul class="sub-menu ">
+                    <li {!! (Request::is( 'blank')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'blank')}} ">
+                            <i class="fa fa-fw ti-file "></i><span class="mm-text "> Blank</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'invoice')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'invoice')}} ">
+                            <i class="fa fa-fw ti-layout-cta-left "></i> <span class="mm-text ">Invoice</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'session_timeout')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'session_timeout')}} ">
+                            <i class="fa fa-fw ti-time "></i><span class="mm-text "> Session Timeout</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( 'pricing_table')? 'class="active "': " ") !!}>
+                        <a href="{{url( 'pricing_table')}} ">
+                            <i class="fa fa-fw ti-time "></i><span class="mm-text "> Pricing</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( '404')? 'class="active "': " ") !!}>
+                        <a href="{{url( '404')}} ">
+                            <i class="fa fa-fw ti-unlink "></i><span class="mm-text "> 404 Error</span>
+                        </a>
+                    </li>
+                    <li {!! (Request::is( '500')? 'class="active "': " ") !!}>
+                        <a href="{{url( '500')}} ">
+                            <i class="fa fa-fw ti-face-sad "></i><span class="mm-text "> 500 Error</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
     <li {!! (Request::is( 'menubarfold') || Request::is( 'horizontal_menu') || Request::is( 'boxed_movable_header') |Request::is( 'movable_header') || Request::is( 'boxed_fixed_header') || Request::is( 'layout_fixed') |Request::is( 'mini_sidebar') ? 'class="active menu-dropdown "': 'class="menu-dropdown "') !!}>
         <a href="javascript:void(0) ">
             <i class="menu-icon ti-layout-grid3 "></i>
