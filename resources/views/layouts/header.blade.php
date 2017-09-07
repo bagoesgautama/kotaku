@@ -9,9 +9,10 @@
     <div>
         <a href="javascript:void(0)" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button"> <i class="fa fa-fw ti-menu"></i>
         </a>
-		@if($test)
+		<!--@if($test)
 		<a href="javascript:void(0)" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button"> <i class="fa fa-fw ti-menu"></i>
         </a>
+		@endif-->
     </div>
     <div class="navbar-right">
         <ul class="nav navbar-nav">
