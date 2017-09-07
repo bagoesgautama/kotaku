@@ -25,7 +25,7 @@ class Blank extends Controller
      */
     public function index()
     {
-        return view('blank',$data);
+        return view('blank');
     }
 
     public function logout()
