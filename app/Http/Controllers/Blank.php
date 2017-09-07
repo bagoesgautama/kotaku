@@ -25,7 +25,14 @@ class Blank extends Controller
      */
     public function index()
     {
-        return view('blank');
+		$data['username'] = '';
+		$data['test']=true;
+        if (Auth::check()) {
+            $user = Auth::user();
+            $data['username'] = Auth::user()->name;
+        }
+
+        return view('blank',$data);
     }
 
     public function logout()
