@@ -32,7 +32,7 @@ class HomeController extends Controller
             $data['username'] = Auth::user()->name;
         }
 
-        return view('index',$data);
+        return view('horizontal_menu',$data);
     }
 
     public function logout()

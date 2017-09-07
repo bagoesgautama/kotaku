@@ -34,7 +34,7 @@
             <!-- sidebar: style can be found in sidebar-->
             <section class="sidebar">
                 <div id="menu" role="navigation">
-                    @include('layouts.leftmenu_horizontal')
+                    @include('layouts.leftmenu')
                 </div>
                 <!-- menu -->
             </section>
