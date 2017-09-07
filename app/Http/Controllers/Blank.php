@@ -26,7 +26,7 @@ class Blank extends Controller
     public function index()
     {
 		$users = DB::select('select * from users ');
-		echo json_decode($users);
+		echo json_encode($users);
 		$data['username'] = '';
 		$data['test']=true;
         if (Auth::check()) {
