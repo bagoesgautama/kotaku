@@ -25,6 +25,7 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/test', 'TestController@index');
 Route::get('/index', 'HomeController@index');
 Route::get('/index_horizontal', 'HomeControllerHori@index');
+Route::get('/blank', 'Blank@index');
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

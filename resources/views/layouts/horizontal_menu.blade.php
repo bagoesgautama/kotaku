@@ -46,7 +46,7 @@
         <!-- </section> -->
         <!-- /.sidebar -->
         <!-- </aside> -->
-        <aside class="right-side">
+        <aside class="right-side strech">
             @yield('page-header')
             <!-- Main content -->
             <section class="content">
