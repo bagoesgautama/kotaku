@@ -84,7 +84,7 @@ class LoginController extends Controller
 			{
 
 				// validation not successful, send back to form
-				//return Redirect::to('checklogin');
+				return Redirect::to('login');
 			}
 		}
 	}

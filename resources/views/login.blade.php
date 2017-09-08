@@ -33,6 +33,9 @@
                     <div class="col-xs-12">
 						<form action="{{ url('login') }}" id="authentication" method="post" class="login_validator">
                             {{ csrf_field() }}
+							@if (Session::has('flash_error'))
+						        <div id="flash_error">{{ Session::get('flash_error') }}</div>
+						    @endif
                             <div class="form-group">
                                 <label for="email" class="sr-only"> E-mail</label>
                                 <input type="text" class="form-control  form-control-lg" id="email" name="email"

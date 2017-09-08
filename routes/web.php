@@ -20,7 +20,7 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('/login', 'Auth\LoginController@showLoginForm');
-Route::post('login', array('uses' => 'Auth\LoginController@doLogin'));
+Route::post('login', 'Auth\LoginController@doLogin'));
 Route::get('/register', 'Auth\RegisterController@index');
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/test', 'TestController@index');
