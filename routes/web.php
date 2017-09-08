@@ -20,7 +20,6 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('/login', 'Auth\LoginController@showLoginForm');
-Route::post('login', 'Auth\LoginController@doLogin');
 Route::get('/register', 'Auth\RegisterController@index');
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/test', 'TestController@index');
@@ -30,3 +29,7 @@ Route::get('/blank', 'Blank@index');
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
