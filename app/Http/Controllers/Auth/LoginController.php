@@ -45,6 +45,7 @@ class LoginController extends Controller
 	function doLogin()
 	{
 		// Creating Rules for Email and Password
+		echo asdasd;
 		$rules = array(
 			'email' => 'required|email', // make sure the email is an actual email
 			'password' => 'required|alphaNum|min:8'
@@ -82,8 +83,8 @@ class LoginController extends Controller
 		  else
 			{
 
-			// validation not successful, send back to form
-			return Redirect::to('checklogin');
+				// validation not successful, send back to form
+				//return Redirect::to('checklogin');
 			}
 		}
 	}
