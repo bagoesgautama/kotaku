@@ -79,12 +79,11 @@ class LoginController extends Controller
 				return Redirect::to('index');
 
 				}
-			  else
-				{
+		  else
+			{
 
-				// validation not successful, send back to form
-				return Redirect::to('checklogin');
-				}
+			// validation not successful, send back to form
+			return Redirect::to('checklogin');
 			}
 		}
 	}
