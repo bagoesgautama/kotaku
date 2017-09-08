@@ -31,7 +31,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12">
-						<form action="{{ url('login') }}" id="authentication" method="post" class="login_validator">
+						<form action="{{url('index')}}" id="authentication" method="post" class="login_validator">
                             {{ csrf_field() }}
 							@if (Session::has('flash_error'))
 						        <div id="flash_error">{{ Session::get('flash_error') }}</div>
