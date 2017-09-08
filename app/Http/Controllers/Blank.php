@@ -41,4 +41,9 @@ class Blank extends Controller
     {
         Auth::logout();
     }
+
+	public function test()
+    {
+        Auth::logout();
+    }
 }

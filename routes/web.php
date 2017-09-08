@@ -19,7 +19,7 @@
 // Route::get('{name?}', 'ClearController@showView');
 
 Route::get('/', 'HomeController@index');
-Route::get('/login', 'Auth\LoginController@index');
+Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::get('/register', 'Auth\RegisterController@index');
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/test', 'TestController@index');
