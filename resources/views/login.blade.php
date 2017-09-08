@@ -31,8 +31,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12">
-						<form action="{{ action('HomeController@index') }}" id="authentication" method="post" class="login_validator">
-                        <!--<form action="{{ route('index') }}" id="authentication" method="post" class="login_validator">-->
+						<form action="{{ route('index') }}" id="authentication" method="post" class="login_validator">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="email" class="sr-only"> E-mail</label>
