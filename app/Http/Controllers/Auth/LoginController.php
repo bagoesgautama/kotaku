@@ -48,7 +48,7 @@ class LoginController extends Controller
 		$rules = array(
 			'email' => 'required|email', // make sure the email is an actual email
 			'password' => 'required|alphaNum|min:8'
-
+		);
 		// password has to be greater than 3 characters and can only be alphanumeric and);
 		// checking all field
 
