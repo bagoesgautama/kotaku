@@ -20,16 +20,18 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('/login', 'Auth\LoginController@showLoginForm');
+//Route::post('/login', 'Auth\LoginController@dologin');
 Route::get('/register', 'Auth\RegisterController@index');
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/test', 'TestController@index');
 Route::get('/index', 'HomeController@index');
 Route::get('/index_horizontal', 'HomeControllerHori@index');
 Route::get('/blank', 'Blank@index');
+Route::get('/test_table', 'TestTable@index');
+Route::post('/allposts', 'PostController@allPosts' );
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

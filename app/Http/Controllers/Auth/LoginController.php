@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Http\Request;
+use Auth;
 class LoginController extends Controller
 {
     /*
@@ -20,18 +21,24 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+	/*protected function authenticated(Request $request, $user)
+	{
+	return redirect('/index');
+}*/
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/index';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
+
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
@@ -47,7 +54,7 @@ class LoginController extends Controller
 		// Creating Rules for Email and Password
 		echo asdasd;
 		$rules = array(
-			'email' => 'required|email', // make sure the email is an actual email
+			'name' => 'required', // make sure the email is an actual email
 			'password' => 'required|alphaNum|min:8'
 		);
 		// password has to be greater than 3 characters and can only be alphanumeric and);
@@ -68,7 +75,7 @@ class LoginController extends Controller
 			// create our user data for the authentication
 
 			$userdata = array(
-				'email' => Input::get('email') ,
+				'name' => Input::get('email') ,
 				'password' => Input::get('password')
 			);
 
@@ -77,7 +84,7 @@ class LoginController extends Controller
 			if (Auth::attempt($userdata))
 				{
 
-				return Redirect::to('index');
+				return Redirect::to('aaaa');
 
 				}
 		  else
@@ -91,6 +98,10 @@ class LoginController extends Controller
 
     public function index()
     {
-       return view('index');
+       return view('login');
     }
+	public function logout(Request $request) {
+		Auth::logout();
+		return redirect('/login');
+	}
 }

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class HomeControllerHori extends Controller
+class TestTable extends Controller
 {
     /**
      * Create a new controller instance.
@@ -25,16 +25,22 @@ class HomeControllerHori extends Controller
      */
     public function index()
     {
-        $data['username'] = '';
+		$data['username'] = '';
 		$data['test']=true;
         if (Auth::check()) {
             $user = Auth::user();
             $data['username'] = Auth::user()->name;
         }
-		return view('index_horizontal',$data);
+
+        return view('test_datatables',$data);
     }
 
     public function logout()
+    {
+        Auth::logout();
+    }
+
+	public function test()
     {
         Auth::logout();
     }

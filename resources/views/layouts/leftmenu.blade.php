@@ -1,37 +1,4 @@
-<div class="nav_profile">
-    <div class="media profile-left">
-        <a class="pull-left profile-thumb" href="javascript:void(0)">
-            <img src="{{asset('img/authors/avatar1.jpg')}}" class="img-circle" alt="User Image">
-        </a>
-        <div class="content-profile">
-            <h4 class="media-heading">
-                                Addison
-                            </h4>
-            <ul class="icon-list">
-                <li>
-                    <a href="{{url('users')}}" title="user">
-                        <i class="fa fa-fw ti-user"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{url('lockscreen')}}" title="lock">
-                        <i class="fa fa-fw ti-lock"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{url('edit_user')}}" title="settings">
-                        <i class="fa fa-fw ti-settings"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{url('login')}}" title="Login">
-                        <i class="fa fa-fw ti-shift-right"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+
 <ul class="navigation slimmenu" id="navigation">
     <li {!! (Request::is( 'index')|| Request::is( '/')? 'class="active"': "") !!}>
         <a href="{{url('/')}}">

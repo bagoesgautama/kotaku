@@ -31,12 +31,9 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12">
-						<form action="{{ route('login') }}" id="authentication" method="POST" class="login_validator">
-                            {{ csrf_field() }}
-							@if (Session::has('flash_error'))
-						        <div id="flash_error">{{ Session::get('flash_error') }}</div>
-						    @endif
-                            <div class="form-group">
+						<form class="form-login_validator" method="POST" id="authentication" >
+	                        {{ csrf_field() }}
+							<div class="form-group">
                                 <label for="email" class="sr-only"> E-mail</label>
                                 <input type="text" class="form-control  form-control-lg" id="email" name="email"
                                        placeholder="E-mail">

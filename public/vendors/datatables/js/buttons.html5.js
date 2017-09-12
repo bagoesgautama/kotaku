@@ -777,12 +777,13 @@ DataTable.ext.buttons.copyHtml5 = {
 	className: 'buttons-copy buttons-html5',
 
 	text: function ( dt ) {
-		return dt.i18n( 'buttons.copy', 'Copy' );
+		return dt.i18n( 'buttons.copy', 'Coppy' );
 	},
 
 	action: function ( e, dt, button, config ) {
 		this.processing( true );
-
+		console.log('data')
+console.log(dt)
 		var that = this;
 		var exportData = _exportData( dt, config );
 		var info = dt.buttons.exportInfo( config );
@@ -833,7 +834,7 @@ DataTable.ext.buttons.copyHtml5 = {
 						dt.i18n( 'buttons.copyTitle', 'Copy to clipboard' ),
 						dt.i18n( 'buttons.copySuccess', {
 							1: 'Copied one row to clipboard',
-							_: 'Copied %d rows to clipboard'
+							_: 'Copied %d rowsss to clipboard'
 						}, exportData.rows ),
 						2000
 					);
