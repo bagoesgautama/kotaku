@@ -47,8 +47,14 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return view('login');
+		echo 'asdasdsa';
     }
 
+	public function authenticate()
+	{
+		return view('login');
+		echo 'asdasdsa';
+	}
 	function doLogin()
 	{
 		// Creating Rules for Email and Password

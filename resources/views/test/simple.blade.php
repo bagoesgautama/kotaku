@@ -5,7 +5,9 @@
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/rowReorder.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/scroller.bootstrap.css')}}"> @stop {{-- Page Header--}} @section('page-header')
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/scroller.bootstrap.css')}}">
+<link href="{{asset('vendors/hover/css/hover-min.css')}}" rel="stylesheet">
+<link href="{{asset('css/buttons_sass.css')}}" rel="stylesheet">@stop {{-- Page Header--}} @section('page-header')
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -16,9 +18,8 @@
                 <i class="fa fa-fw fa-home"></i> Dashboard
             </a>
         </li>
-        <li> Datatables</li>
         <li class="active">
-            Advanced Datatables
+            Simple
         </li>
     </ol>
 </section>
@@ -31,7 +32,9 @@
                 <div class="panel-title pull-left">
                     <i class="ti-export"></i> <b>Want to export data?</b>
                 </div>
-                <div class="tools pull-right"></div>
+                <div class="tools pull-right">
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('simple/create') }}">Create</a>
+				</div>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -42,32 +45,9 @@
                                 <th>name</th>
                                 <th>email</th>
                                 <th>password</th>
+								<th>option</th>
                             </tr>
                         </thead>
-						<!--<thead>
-							<tr>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>User email</th>
-								<th>
-									Account Type
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Demetrius</td>
-								<td>Cole</td>
-								<td>Demetrius.Cole@yahoo.com</td>
-								<td>Credit Card Account</td>
-							</tr>
-							<tr>
-								<td>Sydnee</td>
-								<td>Beahan</td>
-								<td>Sydnee_Beahan41@gmail.com</td>
-								<td>Home Loan Account</td>
-							</tr>
-							<tbody>-->
                     </table>
                 </div>
             </div>
@@ -87,7 +67,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('test_posts') }}",
+                     "url": "{{ url('simple') }}",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -95,7 +75,8 @@
             "columns": [
                 { "data": "name" , name:"name"},
                 { "data": "email" , name:"email"},
-                { "data": "password" , name:"password"}
+                { "data": "password" , name:"password"},
+				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
     });
@@ -113,5 +94,4 @@
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.print.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.scroller.js')}}"></script>
 <script src="{{asset('js/custom_js/advanced_datatables.js')}}" type="text/javascript"></script>
-
 @stop

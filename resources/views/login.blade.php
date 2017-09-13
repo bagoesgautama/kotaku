@@ -31,7 +31,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12">
-						<form class="form-login_validator" method="POST" id="authentication" >
+						<form class="form-login_validator" method="POST" id="authentication" action="{{ route('login') }}">
 	                        {{ csrf_field() }}
 							<div class="form-group">
                                 <label for="email" class="sr-only"> E-mail</label>

@@ -25,10 +25,15 @@ Route::get('/register', 'Auth\RegisterController@index');
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/test', 'TestController@index');
 Route::get('/index', 'HomeController@index');
-Route::get('/index_horizontal', 'HomeControllerHori@index');
 Route::get('/blank', 'Blank@index');
 Route::get('/test_table', 'TestTable@index');
-Route::post('/allposts', 'PostController@allPosts' );
+Route::post('/test_posts', 'TestTable@Posts' );
+Route::get('/simple', 'Test\simple@index');
+Route::get('/simple/create', 'Test\simple@create');
+Route::get('/simple/{id}', 'Test\simple@show');
+Route::post('/simple', 'Test\simple@post');
+Route::put('/simple', 'Test\simple@put');
+Route::delete('/simple', 'Test\simple@delete');
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

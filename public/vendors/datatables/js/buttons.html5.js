@@ -271,6 +271,7 @@ var _exportData = function ( dt, config )
 {
 	var newLine = _newLine( config );
 	var data = dt.buttons.exportData( config.exportOptions );
+	console.log(data)
 	var boundary = config.fieldBoundary;
 	var separator = config.fieldSeparator;
 	var reBoundary = new RegExp( boundary, 'g' );
@@ -786,6 +787,7 @@ DataTable.ext.buttons.copyHtml5 = {
 console.log(dt)
 		var that = this;
 		var exportData = _exportData( dt, config );
+		console.log(exportData)
 		var info = dt.buttons.exportInfo( config );
 		var newline = _newLine(config);
 		var output = exportData.str;
