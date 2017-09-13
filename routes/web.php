@@ -28,12 +28,23 @@ Route::get('/index', 'HomeController@index');
 Route::get('/blank', 'Blank@index');
 Route::get('/test_table', 'TestTable@index');
 Route::post('/test_posts', 'TestTable@Posts' );
+
+//simple form CRUD
 Route::get('/simple', 'Test\simple@index');
 Route::get('/simple/create', 'Test\simple@create');
 Route::get('/simple/{id}', 'Test\simple@show');
 Route::post('/simple', 'Test\simple@post');
 Route::put('/simple', 'Test\simple@put');
 Route::delete('/simple', 'Test\simple@delete');
+
+//wizard form CRUD
+Route::get('/wizard', 'Test\wizard@index');
+Route::get('/wizard/create', 'Test\wizard@create');
+Route::get('/wizard/{id}', 'Test\wizard@show');
+Route::post('/wizard', 'Test\wizard@post');
+Route::put('/wizard', 'Test\wizard@put');
+Route::delete('/wizard', 'Test\wizard@delete');
+
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

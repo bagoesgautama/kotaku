@@ -1,4 +1,6 @@
-@extends('layouts/default') {{-- Page title --}} @section('title') Blank @stop {{-- local styles --}} @section('header_styles') @stop {{-- Page Header--}} @section('page-header')
+@extends('layouts/default') {{-- Page title --}} @section('title') Blank @stop {{-- local styles --}} @section('header_styles')
+<link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>Blank</h1>
