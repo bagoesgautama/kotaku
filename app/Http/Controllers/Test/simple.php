@@ -50,7 +50,7 @@ class Simple extends Controller
 			$rowData = DB::select('select * from users where id='.$data['id']);
 			$data['name'] = $rowData[0]->name;
 			$data['email'] = $rowData[0]->email;
-			$data['pswd']) = $rowData[0]->password; 
+			$data['pswd'] = $rowData[0]->password; 
 		}else{
 			$data['name'] = null;
 			$data['email'] = null;
@@ -62,7 +62,7 @@ class Simple extends Controller
 		}
 		return view('test/simple_create',$data);
 	}
-	
+
 
 	public function post_create(Request $request)
 	{
@@ -71,14 +71,11 @@ class Simple extends Controller
 		if ($request->input('example-id-input')!=null){
 			echo $request->input('example-id-input');
 			DB::table('users')->where('id', $request->input('example-id-input'))
-			->update(['name' => $request->input('example-text-input')]);
+			->update(['name' => $request->input('example-text-input'), 'email' => $request->input('example-email'), 'password' => bcrypt($request->input('example-password'))]);
+
 		}else{
 			DB::table('users')->insert(
-       			['email' => 'john@example.com',
-    			'name'=>'john',
-    			'password'=>'asd',
-    			'last_name'=>'wick']
-   );
+       			['name' => $request->input('example-text-input'), 'email' => $request->input('example-email'), 'password' => bcrypt($request->input('example-password')), 'last_name' => $request->input('example-textarea-input')]);
 		}
 	}
 
