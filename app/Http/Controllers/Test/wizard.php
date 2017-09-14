@@ -37,12 +37,14 @@ class Wizard extends Controller
 		return view('test_wizard/wizard',$data);
 	}
 
-	public function create()
+	public function create(Request $request )
 	{
 		//$users = DB::select('select * from users ');
-		//echo json_encode($users);
+		echo json_encode($request->input('id'));
 		$data['username'] = '';
 		$data['test']=true;
+		$data['id']=$request->input['id'];
+		
 		if (Auth::check()) {
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;

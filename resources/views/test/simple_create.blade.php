@@ -18,7 +18,7 @@
 </section>
 @stop {{-- Page content --}} @section('content')
 <div class="panel-body border">
-	<form method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+	<form enctype="multipart/form-data" class="form-horizontal form-bordered">
 		<div class="row">
 			<div class="form-group striped-col">
 				<label class="col-sm-3 control-label">Static</label>
@@ -31,7 +31,8 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="example-text-input1">Text</label>
 				<div class="col-sm-6">
-					<input type="text" id="example-text-input1" name="example-text-input" class="form-control" placeholder="Text">
+				<input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $id }}">
+					<input type="text" id="example-text-input1" name="example-text-input" class="form-control" placeholder="Text" value="{{ $name }}">
 					<span class="help-block">
 						This is a help text
 					</span>
@@ -40,13 +41,13 @@
 			<div class="form-group striped-col">
 				<label class="col-sm-3 control-label" for="example-email1">Email</label>
 				<div class="col-sm-6">
-					<input type="email" id="example-email1" name="example-email" class="form-control" placeholder="Email">
+					<input type="email" id="example-email1" name="example-email" class="form-control" placeholder="Email" value="{{ $email }}">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="example-password1">Password</label>
 				<div class="col-sm-6">
-					<input type="password" id="example-password1" name="example-password" class="form-control" placeholder="Password">
+					<input type="password" id="example-password1" name="example-password" class="form-control" placeholder="Password" value="{{ $pswd }}">
 				</div>
 			</div>
 			<div class="form-group striped-col">
@@ -198,7 +199,7 @@
 					<a href="{{url('simple')}}" type="button" class="btn btn-effect-ripple btn-danger">
 						Cancel
 					</a>
-					<button type="button" class="btn btn-effect-ripple btn-primary">
+					<button type="submit" id="dodol" class="btn btn-effect-ripple btn-primary">
 						Submit
 					</button>
 					<button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
@@ -209,4 +210,27 @@
 		</div>
 	</form>
 </div>
-@stop {{-- local scripts --}} @section('footer_scripts') @stop
+@stop {{-- local scripts --}} @section('footer_scripts') 
+<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script>
+      $(document).ready(function () {
+        $('#dodol').on('click', function (e) {
+          e.preventDefault();
+          $.ajax({
+            type: 'post',
+            "url": "{{ url('simple/create') }}",
+            data: $('form').serialize(),
+            success: function () {
+    alert('form was submitted');
+   },
+   error: function (xhr, ajaxOptions, thrownError) {
+          alert(xhr.status);
+          alert(thrownError);
+        }
+          });
+        });
+      });
+</script>
+@stop
+

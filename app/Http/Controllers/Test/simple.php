@@ -37,17 +37,46 @@ class Simple extends Controller
 		return view('test/simple',$data);
 	}
 
-	public function create()
+	public function create(Request $request)
 	{
 		//$users = DB::select('select * from users ');
 		//echo json_encode($users);
 		$data['username'] = '';
 		$data['test']=true;
+		$data['id']=$request->input('id');
+		if($data['id']!=null){
+			$rowData = DB::select('select * from users where id='.$data['id']);
+			$data['name'] = $rowData[0]->name;
+			$data['email'] = $rowData[0]->email;
+			$data['pswd']) = $rowData[0]->password; 
+		}else{
+			$data['name'] = null;
+			$data['email'] = null;
+			$data['pswd'] = null;
+		}
 		if (Auth::check()) {
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
 		return view('test/simple_create',$data);
+	}
+
+	public function post_create(Request $request)
+	{
+		echo json_encode($request->all());
+		
+		if ($request->input('example-id-input')!=null){
+			echo $request->input('example-id-input');
+			DB::table('users')->where('id', $request->input('example-id-input'))
+			->update(['name' => $request->input('example-text-input')]);
+		}else{
+			DB::table('users')->insert(
+       			['email' => 'john@example.com',
+    			'name'=>'john',
+    			'password'=>'asd',
+    			'last_name'=>'wick']
+   );
+		}
 	}
 
 	public function show()
@@ -96,10 +125,11 @@ class Simple extends Controller
 				//$edit =  route('posts.edit',$post->id);
 				$show =  $post->id;
 				$edit =  $post->id;
+				$url=url('/')."/simple/create?id=".$show;
 				$nestedData['name'] = $post->name;
 				$nestedData['email'] = $post->email;
 				$nestedData['password'] = $post->password;
-				$nestedData['option'] = "&emsp;<a href='{$show}' title='SHOW' ><span class='glyphicon glyphicon-list'></span></a>
+				$nestedData['option'] = "&emsp;<a href='{$url}' title='SHOW' ><span class='glyphicon glyphicon-list'></span></a>
 				                          &emsp;<a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>";
 				$data[] = $nestedData;
 			}
