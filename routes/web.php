@@ -39,6 +39,7 @@ Route::delete('/simple', 'Test\simple@delete');
 
 //wizard form CRUD
 Route::get('/wizard', 'Test\wizard@index');
+Route::post('/wizard/create', 'Test\wizard@post_create');
 Route::get('/wizard/create', 'Test\wizard@create');
 Route::get('/wizard/{id}', 'Test\wizard@show');
 Route::post('/wizard', 'Test\wizard@post');

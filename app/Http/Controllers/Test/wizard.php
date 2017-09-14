@@ -50,6 +50,11 @@ class Wizard extends Controller
 		return view('test_wizard/wizard_create',$data);
 	}
 
+	public function post_create(Request $request)
+	{
+		echo json_encode($request->all());
+	}
+
 	public function show()
 	{
 		//$users = DB::select('select * from users ');

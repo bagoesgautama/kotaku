@@ -11,7 +11,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Advanced Datatables</h1>
+    <h1>Simple form</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{url('index')}}">
@@ -73,7 +73,7 @@
                    },
 
             "columns": [
-                { "data": "name" , name:"name"},
+				{ "data": "name" , name:"name"},
                 { "data": "email" , name:"email"},
                 { "data": "password" , name:"password"},
 				{ "data": "option" , name:"option",orderable:false}

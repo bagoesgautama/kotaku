@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Blank</h1>
+    <h1>Simple form CRUD</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{url('index')}}">

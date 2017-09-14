@@ -19,7 +19,7 @@
             </a>
         </li>
         <li class="active">
-            Simple
+            Wizard
         </li>
     </ol>
 </section>
@@ -33,7 +33,7 @@
                     <i class="ti-export"></i> <b>Want to export data?</b>
                 </div>
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('simple/create') }}">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('wizard/create') }}">Create</a>
 				</div>
             </div>
             <div class="panel-body">
