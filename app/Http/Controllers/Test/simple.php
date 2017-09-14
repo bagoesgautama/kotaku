@@ -60,6 +60,7 @@ class Simple extends Controller
 		}
 		return view('test/simple_create',$data);
 	}
+	
 
 	public function post_create(Request $request)
 	{
