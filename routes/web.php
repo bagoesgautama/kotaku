@@ -31,6 +31,7 @@ Route::post('/test_posts', 'TestTable@Posts' );
 
 //simple form CRUD
 Route::get('/simple', 'Test\simple@index');
+Route::post('/simple/create', 'Test\simple@post_create');
 Route::get('/simple/create', 'Test\simple@create');
 Route::get('/simple/{id}', 'Test\simple@show');
 Route::post('/simple', 'Test\simple@post');
