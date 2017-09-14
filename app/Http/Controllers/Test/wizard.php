@@ -37,12 +37,15 @@ class Wizard extends Controller
 		return view('test_wizard/wizard',$data);
 	}
 
-	public function create()
+	public function create(Request $request)
 	{
 		//$users = DB::select('select * from users ');
 		//echo json_encode($users);
+		echo json_encode($request->input('id'));
 		$data['username'] = '';
 		$data['test']=true;
+		$data['id']=$request->input('id');
+		$data['name']=$request->input('name');
 		if (Auth::check()) {
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
@@ -52,7 +55,21 @@ class Wizard extends Controller
 
 	public function post_create(Request $request)
 	{
-		echo json_encode($request->all());
+
+		DB::beginTransaction();
+		try{
+			DB::table('users')->insert(
+			    ['email' => 'john@example.com',
+				'name'=>'john',
+				'password'=>'asd',
+				'last_name'=>'wick']
+			);
+		} catch(ValidationException $e)
+		{
+			//echo $e;
+		}
+		//echo json_encode($request->all());
+		DB::commit();
 	}
 
 	public function show()
@@ -101,10 +118,11 @@ class Wizard extends Controller
 				//$edit =  route('posts.edit',$post->id);
 				$show =  $post->id;
 				$edit =  $post->id;
+				$url=url('/')."/wizard/create?id=".$show;
 				$nestedData['name'] = $post->name;
 				$nestedData['email'] = $post->email;
 				$nestedData['password'] = $post->password;
-				$nestedData['option'] = "&emsp;<a href='{$show}' title='SHOW' ><span class='glyphicon glyphicon-list'></span></a>
+				$nestedData['option'] = "&emsp;<a href='{$url}' title='SHOW' ><span class='glyphicon glyphicon-list'></span></a>
 				                          &emsp;<a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>";
 				$data[] = $nestedData;
 			}

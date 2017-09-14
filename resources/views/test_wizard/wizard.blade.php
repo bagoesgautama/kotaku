@@ -67,7 +67,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('simple') }}",
+                     "url": "{{ url('wizard') }}",
                      "dataType": "json",
                      "type": "POST"
                    },

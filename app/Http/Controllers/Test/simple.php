@@ -34,6 +34,8 @@ class Simple extends Controller
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
+		echo url('/');
+
 		return view('test/simple',$data);
 	}
 

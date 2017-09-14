@@ -17,6 +17,7 @@
     </ol>
 </section>
 @stop {{-- Page content --}} @section('content')
+
 <div class="row">
     <div class="col-lg-12">
         <div class="panel">
@@ -45,7 +46,7 @@
                 </ul>
             </div>
             <div class="panel-body">
-				<form method="post" enctype="multipart/form-data" class="form-horizontal form-bordered" action="{{url('wizard/create')}}">
+				<form enctype="multipart/form-data" class="form-horizontal form-bordered">
                 <div class="tab-content">
 					<div id="tab1" class="tab-pane fade active in">
 						<div class="panel " >
@@ -71,7 +72,7 @@
 										<div class="form-group striped-col">
 											<label class="col-sm-3 control-label" for="example-email1">Email</label>
 											<div class="col-sm-6">
-												<input type="email" id="example-email1" name="example-email" class="form-control" placeholder="Email">
+												<input type="email" id="example-email1" name="example-email" class="form-control" placeholder="Email" value="{{ $id }}">
 											</div>
 										</div>
 										<div class="form-group">
@@ -83,13 +84,13 @@
 										<div class="form-group striped-col">
 											<label class="col-sm-3 control-label" for="example-disabled1">Disabled</label>
 											<div class="col-sm-6">
-												<input type="text" id="example-disabled1" name="example-disabled" class="form-control" placeholder="Disabled" disabled>
+												<input type="text" id="example-disabled1" name="example-disabled" class="form-control" placeholder="Disabled" disabled value="{{ $name }}">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-3 control-label" for="example-textarea-input2">Textarea</label>
 											<div class="col-sm-6">
-												<textarea id="example-textarea-input2" name="example-textarea-input" rows="7" class="form-control resize_vertical" placeholder="Description...."></textarea>
+												<textarea id="example-textarea-input2"  name="example-textarea-input" rows="7" class="form-control resize_vertical" placeholder="Description...."></textarea>
 											</div>
 										</div>
 										<div class="form-group striped-col">
@@ -257,7 +258,7 @@
 							<a href="{{url('wizard')}}" type="button" class="btn btn-effect-ripple btn-danger">
 								Cancel
 							</a>
-							<button type="submit" class="btn btn-effect-ripple btn-primary">
+							<button type="submit" id="dodol" class="btn btn-effect-ripple btn-primary">
 								Submit
 							</button>
 							<button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
@@ -274,4 +275,23 @@
 @stop {{-- local scripts --}} @section('footer_scripts')
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script>
+      $(document).ready(function () {
+        $('#dodol').on('click', function (e) {
+          e.preventDefault();
+          $.ajax({
+            type: 'post',
+            "url": "{{ url('wizard/create') }}",
+            data: $('form').serialize(),
+            success: function () {
+				alert('form was submitted');
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+	        	alert(xhr.status);
+	        	alert(thrownError);
+	      	}
+          });
+        });
+      });
+</script>
 @stop

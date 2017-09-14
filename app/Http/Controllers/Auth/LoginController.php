@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
+use Validator;
+use Redirect;
 class LoginController extends Controller
 {
     /*
@@ -55,48 +57,38 @@ class LoginController extends Controller
 		return view('login');
 		echo 'asdasdsa';
 	}
-	function doLogin()
-	{
+	public function login(Request $request){
 		// Creating Rules for Email and Password
-		echo asdasd;
 		$rules = array(
-			'name' => 'required', // make sure the email is an actual email
+			'email' => 'required', // make sure the email is an actual email
 			'password' => 'required|alphaNum|min:8'
 		);
 		// password has to be greater than 3 characters and can only be alphanumeric and);
 		// checking all field
-
-		$validator = Validator::make(Input::all() , $rules);
+		$validator = Validator::make($request->all() , $rules);
 
 		// if the validator fails, redirect back to the form
 
 		if ($validator->fails())
-			{
+		{
 			return Redirect::to('login')->withErrors($validator) // send back all errors to the login form
-			->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
-			}
-		  else
-			{
-
+			->withInput($request->input('email')); // send back the input (not the password) so that we can repopulate the form
+		}
+	  	else
+		{
 			// create our user data for the authentication
-
 			$userdata = array(
-				'name' => Input::get('email') ,
-				'password' => Input::get('password')
+				'email' => $request->input('email') ,
+				'password' => $request->input('password')
 			);
 
 			// attempt to do the login
-
 			if (Auth::attempt($userdata))
-				{
-
-				return Redirect::to('aaaa');
-
-				}
-		  else
 			{
-
-				// validation not successful, send back to form
+				return Redirect::to('index');
+			}
+		  	else
+			{
 				return Redirect::to('login');
 			}
 		}
