@@ -39,7 +39,7 @@ Route::get('/simple/create', 'Test\simple@create');
 //insert or update data
 Route::post('/simple/create', 'Test\simple@post_create');
 //delete data
-Route::delete('/simple', 'Test\simple@delete');
+Route::get('/simple/delete', 'Test\simple@delete');
 
 //wizard form CRUD
 Route::get('/wizard', 'Test\wizard@index');

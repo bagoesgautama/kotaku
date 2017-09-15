@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use Redirect;
 class Simple extends Controller
 {
     /**
@@ -69,7 +69,6 @@ class Simple extends Controller
 		echo json_encode($request->all());
 		
 		if ($request->input('example-id-input')!=null){
-			echo $request->input('example-id-input');
 			DB::table('users')->where('id', $request->input('example-id-input'))
 			->update(['name' => $request->input('example-text-input'), 'email' => $request->input('example-email'), 'password' => bcrypt($request->input('example-password'))]);
 
@@ -125,12 +124,14 @@ class Simple extends Controller
 				//$edit =  route('posts.edit',$post->id);
 				$show =  $post->id;
 				$edit =  $post->id;
-				$url=url('/')."/simple/create?id=".$show;
+				$delete = $post->id;
+				$url_edit=url('/')."/simple/create?id=".$show;
+				$url_delete=url('/')."/simple/delete?id=".$delete;
 				$nestedData['name'] = $post->name;
 				$nestedData['email'] = $post->email;
 				$nestedData['password'] = $post->password;
-				$nestedData['option'] = "&emsp;<a href='{$url}' title='SHOW' ><span class='glyphicon glyphicon-list'></span></a>
-				                          &emsp;<a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>";
+				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>
+				                          &emsp;<a href='{$url_delete}' title='DELETE' ><span class='fa fa-fw fa-trash-o'></span></a>";
 				$data[] = $nestedData;
 			}
 		}
@@ -144,6 +145,12 @@ class Simple extends Controller
 
 		echo json_encode($json_data);
 	}
+
+	public function delete(Request $request)
+	{
+		DB::table('users')->where('id', $request->input('id'))->delete(); 
+        return Redirect::to('simple');
+    }
 
     public function logout()
     {
