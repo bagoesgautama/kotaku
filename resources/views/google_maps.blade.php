@@ -51,10 +51,9 @@
         </div>
     </div>
 </div>
-<!-- row -->
+
 <div class="row">
     <div class="col-lg-6">
-        <!-- Basic charts strats here-->
         <div class="panel">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -71,7 +70,6 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <!-- Basic charts strats here-->
         <div class="panel">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -88,7 +86,6 @@
         </div>
     </div>
 </div>
-<!-- row -->
 <div class="row">
     <div class="col-lg-6">
         <div class="panel">
@@ -106,9 +103,7 @@
             </div>
         </div>
     </div>
-    <!-- row -->
     <div class="col-lg-6">
-        <!-- Basic charts strats here-->
         <div class="panel">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -125,8 +120,9 @@
         </div>
     </div>
 </div>
-<!-- row -->@stop {{-- local scripts --}} @section('footer_scripts')
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyADWjiTRjsycXf3Lo0ahdc7dDxcQb475qw&libraries=places"></script>
+<!-- row -->
+@stop {{-- local scripts --}} @section('footer_scripts')
+<script type="text/javascript" src="{{asset('js/custom_js/gmaps.js?key=AIzaSyCZ3sUKS6BLuxnrGVQl2xRR2FFaljwPb2o&libraries=places')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/gmaps/js/gmaps.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/custom_js/custommaps.js')}}"></script>
 @stop

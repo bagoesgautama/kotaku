@@ -3,8 +3,8 @@ $(document).ready(function() {
 
     var map5 = new GMaps({
         div: "#gmap-styled",
-        lat: 41.895465,
-        lng: 12.482324,
+		lat: -6.2495644,
+        lng: 106.8312846,
         zoom: 15,
         zoomControl: true,
         zoomControlOpt: {
@@ -44,8 +44,8 @@ $(document).ready(function() {
 
     var map6 = new GMaps({
         el: '#gmap-types',
-        lat: -12.043333,
-        lng: -77.028333,
+		lat: -6.2495644,
+        lng: 106.8312846,
         zoom: 12,
         mapTypeControlOptions: {
             mapTypeIds: ["hybrid", "roadmap", "satellite", "terrain", "osm", "cloudmade"]
@@ -72,8 +72,8 @@ $(document).ready(function() {
     map1 = new GMaps({
         el: '#gmap-top',
         zoom: 12,
-        lat: -12.043333,
-        lng: -77.028333,
+        lat: -6.2495644,
+        lng: 106.8312846,
         zoomControl: true,
         zoomControlOpt: {
             style: 'SMALL',
@@ -88,12 +88,12 @@ $(document).ready(function() {
     map4 = new GMaps({
         el: '#gmap-markers',
         zoom: 12,
-        lat: -12.043333,
-        lng: -77.028333
+		lat: -6.2495644,
+        lng: 106.8312846
     });
     map4.addMarker({
-        lat: -12.043333,
-        lng: -77.03,
+		lat: -6.2495644,
+        lng: 106.8312846,
         title: 'Lima',
         details: {
             database_id: 42,
@@ -110,8 +110,8 @@ $(document).ready(function() {
         }
     });
     map4.addMarker({
-        lat: -12.042,
-        lng: -77.028333,
+		lat: -6.2495644,
+        lng: 106.8312846,
         title: 'Marker with InfoWindow',
         infoWindow: {
             content: '<p>HTML Content</p>'
@@ -122,8 +122,8 @@ $(document).ready(function() {
     map3 = new GMaps({
         el: '#gmap-satellite',
         zoom: 12,
-        lat: -12.043333,
-        lng: -77.028333,
+		lat: -6.2495644,
+        lng: 106.8312846,
         zoomControl: true,
         zoomControlOpt: {
             style: 'SMALL',
@@ -140,8 +140,8 @@ $(document).ready(function() {
     map2 = new GMaps({
         el: '#gmap-terrain',
         zoom: 12,
-        lat: -12.043333,
-        lng: -77.028333,
+		lat: -6.2495644,
+        lng: 106.8312846,
         zoomControl: true,
         zoomControlOpt: {
             style: 'SMALL',

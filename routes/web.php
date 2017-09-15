@@ -48,6 +48,7 @@ Route::get('/wizard/create', 'Test\wizard@create');
 Route::post('/wizard', 'Test\wizard@post');
 Route::delete('/wizard', 'Test\wizard@delete');
 
+Route::get('/map', 'HomeController@map');
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

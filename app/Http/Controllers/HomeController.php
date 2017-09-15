@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
         // parent::__construct();
     }
 
@@ -34,6 +34,17 @@ class HomeController extends Controller
 		echo json_encode(Auth::user()->role);
         return view('index',$data);
     }
+
+	public function map()
+	{
+		$data['username'] = '';
+		$data['test']=true;
+		if (Auth::check()) {
+			$user = Auth::user();
+			$data['username'] = Auth::user()->name;
+		}
+		return view('google_maps',$data);
+	}
 
     public function logout()
     {
