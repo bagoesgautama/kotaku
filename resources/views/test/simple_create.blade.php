@@ -222,7 +222,8 @@
             "url": "{{ url('simple/create') }}",
             data: $('form').serialize(),
             success: function () {
-    alert('form was submitted');
+    alert('Success !!!');
+    window.location.href = "{{ url('simple') }}";
    },
    error: function (xhr, ajaxOptions, thrownError) {
           alert(xhr.status);
