@@ -34,7 +34,6 @@ class Simple extends Controller
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		echo url('/');
 
 		return view('test/simple',$data);
 	}
@@ -50,7 +49,7 @@ class Simple extends Controller
 			$rowData = DB::select('select * from users where id='.$data['id']);
 			$data['name'] = $rowData[0]->name;
 			$data['email'] = $rowData[0]->email;
-			$data['pswd'] = $rowData[0]->password; 
+			$data['pswd'] = $rowData[0]->password;
 		}else{
 			$data['name'] = null;
 			$data['email'] = null;
@@ -66,8 +65,6 @@ class Simple extends Controller
 
 	public function post_create(Request $request)
 	{
-		echo json_encode($request->all());
-		
 		if ($request->input('example-id-input')!=null){
 			DB::table('users')->where('id', $request->input('example-id-input'))
 			->update(['name' => $request->input('example-text-input'), 'email' => $request->input('example-email'), 'password' => bcrypt($request->input('example-password'))]);
@@ -112,7 +109,7 @@ class Simple extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. 'where name like "%'.$search.'%" or email like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. 'where name like "%'.$search.'%" or email like "%'.$search.'%")');
+			$totalFiltered=DB::select('select count(1) from ('.$query. 'where name like "%'.$search.'%" or email like "%'.$search.'%") a');
 		}
 
 		$data = array();
@@ -120,8 +117,6 @@ class Simple extends Controller
 		{
 			foreach ($posts as $post)
 			{
-				//$show =  route('posts.show',$post->id);
-				//$edit =  route('posts.edit',$post->id);
 				$show =  $post->id;
 				$edit =  $post->id;
 				$delete = $post->id;
@@ -131,7 +126,7 @@ class Simple extends Controller
 				$nestedData['email'] = $post->email;
 				$nestedData['password'] = $post->password;
 				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>
-				                          &emsp;<a href='{$url_delete}' title='DELETE' ><span class='fa fa-fw fa-trash-o'></span></a>";
+				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				$data[] = $nestedData;
 			}
 		}
@@ -148,7 +143,7 @@ class Simple extends Controller
 
 	public function delete(Request $request)
 	{
-		DB::table('users')->where('id', $request->input('id'))->delete(); 
+		DB::table('users')->where('id', $request->input('id'))->delete();
         return Redirect::to('simple');
     }
 

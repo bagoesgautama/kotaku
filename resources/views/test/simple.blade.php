@@ -24,7 +24,6 @@
     </ol>
 </section>
 @stop {{-- Page content --}} @section('content')
-
 <div class="row">
     <div class="col-lg-12">
         <div class="panel filterable">
@@ -38,7 +37,6 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-
 					<table class="table table-striped" id="users">
 						<thead>
                             <tr>
@@ -54,6 +52,7 @@
         </div>
     </div>
 </div>
+
 <!-- /.modal ends here -->@stop {{-- local scripts --}} @section('footer_scripts')
 
 <script>
@@ -79,6 +78,7 @@
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
+
     });
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
@@ -93,5 +93,5 @@
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.bootstrap.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.print.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.scroller.js')}}"></script>
-<script src="{{asset('js/custom_js/advanced_datatables.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/alert.js')}}" type="text/javascript"></script>
 @stop

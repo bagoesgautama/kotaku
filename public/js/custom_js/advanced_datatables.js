@@ -15,7 +15,7 @@ $(document).ready(function () {
         "dom": '<"m-t-10 pull-left"l><"m-t-10 pull-right"f>rt<"pull-left m-t-10"i><"m-t-10 pull-right"p>',
     });
 
-    new $.fn.dataTable.ColReorder(table2);
+    //new $.fn.dataTable.ColReorder(table2);
 
 
     // add row, delete row example
