@@ -55,7 +55,6 @@ class Wizard extends Controller
 
 	public function post_create(Request $request)
 	{
-
 		DB::beginTransaction();
 		try{
 			DB::table('users')->insert(

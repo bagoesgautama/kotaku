@@ -85,6 +85,7 @@ class LoginController extends Controller
 			// attempt to do the login
 			if (Auth::attempt($userdata))
 			{
+				Auth::user()->setAttribute('role','master');
 				return Redirect::to('index');
 			}
 		  	else

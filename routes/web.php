@@ -30,21 +30,22 @@ Route::get('/test_table', 'TestTable@index');
 Route::post('/test_posts', 'TestTable@Posts' );
 
 //simple form CRUD
+//get html form data
 Route::get('/simple', 'Test\simple@index');
-Route::post('/simple/create', 'Test\simple@post_create');
-Route::get('/simple/create', 'Test\simple@create');
-Route::get('/simple/{id}', 'Test\simple@show');
+//get data for datatable
 Route::post('/simple', 'Test\simple@post');
-Route::put('/simple', 'Test\simple@put');
+//get html for form CRUD
+Route::get('/simple/create', 'Test\simple@create');
+//insert or update data
+Route::post('/simple/create', 'Test\simple@post_create');
+//delete data
 Route::delete('/simple', 'Test\simple@delete');
 
 //wizard form CRUD
 Route::get('/wizard', 'Test\wizard@index');
 Route::post('/wizard/create', 'Test\wizard@post_create');
 Route::get('/wizard/create', 'Test\wizard@create');
-Route::get('/wizard/{id}', 'Test\wizard@show');
 Route::post('/wizard', 'Test\wizard@post');
-Route::put('/wizard', 'Test\wizard@put');
 Route::delete('/wizard', 'Test\wizard@delete');
 
 Auth::routes();

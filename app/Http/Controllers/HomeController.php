@@ -31,7 +31,7 @@ class HomeController extends Controller
             $user = Auth::user();
             $data['username'] = Auth::user()->name;
         }
-		echo json_encode($data);
+		echo json_encode(Auth::user()->role);
         return view('index',$data);
     }
 

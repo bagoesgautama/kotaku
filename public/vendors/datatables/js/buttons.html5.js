@@ -919,7 +919,10 @@ DataTable.ext.buttons.csvHtml5 = {
 
 	action: function ( e, dt, button, config ) {
 		this.processing( true );
-
+console.log('dt')
+console.log(dt)
+console.log('config')
+console.log(config)
 		// Set the text
 		var output = _exportData( dt, config ).str;
 		var info = dt.buttons.exportInfo(config);

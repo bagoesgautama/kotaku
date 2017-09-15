@@ -45,6 +45,11 @@
                                 <th>name</th>
                                 <th>email</th>
                                 <th>password</th>
+								<th>password</th>
+								<th>password</th>
+								<th>password</th>
+								<th>password</th>
+								<th>password</th>
 								<th>option</th>
                             </tr>
                         </thead>
@@ -62,7 +67,7 @@
 	        // dom: 'Bflrtip',
 	        "dom": '<"m-t-10"B><"m-t-10 pull-left"f><"m-t-10 pull-right"l>rt<"pull-left m-t-10"i><"m-t-10 pull-right"p>',
 	        buttons: [
-	            'copy', 'csv', 'excel', 'pdf', 'print'
+	             'csv', 'excel', 'pdf', 'print'
 	        ],
 			"processing": true,
             "serverSide": true,
@@ -76,9 +81,14 @@
                 { "data": "name" , name:"name"},
                 { "data": "email" , name:"email"},
                 { "data": "password" , name:"password"},
+				{ "data": "password" , name:"password"},
+				{ "data": "password" , name:"password"},
+				{ "data": "password" , name:"password"},
+				{ "data": "password" , name:"password"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
+		console.log(table)
     });
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
