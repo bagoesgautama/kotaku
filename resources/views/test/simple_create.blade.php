@@ -6,11 +6,11 @@
     <h1>Simple form CRUD</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="{{url('index')}}">
+            <a href="/blank">
                 <i class="fa fa-fw fa-home"></i> Dashboard
             </a>
         </li>
-        <li><a href="{{url('simple')}}"> Simple</a></li>
+        <li><a href="/simple"> Simple</a></li>
         <li class="active">
             Create
         </li>
@@ -196,7 +196,7 @@
 			</div>
 			<div class="form-group form-actions">
 				<div class="col-sm-9 col-sm-offset-3">
-					<a href="{{url('simple')}}" type="button" class="btn btn-effect-ripple btn-danger">
+					<a href="/simple" type="button" class="btn btn-effect-ripple btn-danger">
 						Cancel
 					</a>
 					<button type="submit" id="dodol" class="btn btn-effect-ripple btn-primary">
@@ -210,7 +210,7 @@
 		</div>
 	</form>
 </div>
-@stop {{-- local scripts --}} @section('footer_scripts') 
+@stop {{-- local scripts --}} @section('footer_scripts')
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script>
@@ -219,11 +219,11 @@
           e.preventDefault();
           $.ajax({
             type: 'post',
-            "url": "{{ url('simple/create') }}",
+            "url": "/simple/create",
             data: $('form').serialize(),
             success: function () {
     alert('Success !!!');
-    window.location.href = "{{ url('simple') }}";
+    window.location.href = "/simple";
    },
    error: function (xhr, ajaxOptions, thrownError) {
           alert(xhr.status);
@@ -234,4 +234,3 @@
       });
 </script>
 @stop
-

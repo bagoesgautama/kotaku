@@ -24,7 +24,6 @@ Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::get('/register', 'Auth\RegisterController@index');
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/test', 'TestController@index');
-Route::get('/index', 'HomeController@index');
 Route::get('/blank', 'Blank@index');
 Route::get('/test_table', 'TestTable@index');
 Route::post('/test_posts', 'TestTable@Posts' );
@@ -49,6 +48,13 @@ Route::post('/wizard', 'Test\wizard@post');
 Route::delete('/wizard', 'Test\wizard@delete');
 
 Route::get('/map', 'HomeController@map');
+
+
+//module HRM route here
+Route::get('/hrm', 'HomeController@hrm');
+
+//module HRM route here
+Route::get('/main', 'HomeController@main');
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

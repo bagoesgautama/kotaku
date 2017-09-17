@@ -26,18 +26,36 @@ class HomeController extends Controller
     public function index()
     {
         $data['username'] = '';
-		$data['test']=true;
-        if (Auth::check()) {
+	    if (Auth::check()) {
             $user = Auth::user();
             $data['username'] = Auth::user()->name;
         }
-		return view('index',$data);
+		return view('module',$data);
     }
+
+	public function hrm()
+	{
+		$data['username'] = '';
+		if (Auth::check()) {
+			$user = Auth::user();
+			$data['username'] = Auth::user()->name;
+		}
+		return view('HRM/main/index',$data);
+	}
+
+	public function main()
+	{
+		$data['username'] = '';
+		if (Auth::check()) {
+			$user = Auth::user();
+			$data['username'] = Auth::user()->name;
+		}
+		return view('MAIN/main/index',$data);
+	}
 
 	public function map()
 	{
 		$data['username'] = '';
-		$data['test']=true;
 		if (Auth::check()) {
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;

@@ -32,7 +32,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/index';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -49,14 +49,8 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return view('login');
-		echo 'asdasdsa';
     }
 
-	public function authenticate()
-	{
-		return view('login');
-		echo 'asdasdsa';
-	}
 	public function login(Request $request){
 		// Creating Rules for Email and Password
 		$rules = array(
@@ -86,7 +80,7 @@ class LoginController extends Controller
 			if (Auth::attempt($userdata))
 			{
 				Auth::user()->setAttribute('role','master');
-				return Redirect::to('index');
+				return Redirect::to('');
 			}
 		  	else
 			{
