@@ -49,9 +49,44 @@ Route::delete('/wizard', 'Test\wizard@delete');
 
 Route::get('/map', 'HomeController@map');
 
-
 //module HRM route here
 Route::get('/hrm', 'HomeController@hrm');
+
+//role form CRUD
+//get html form data
+Route::get('/hrm/role', 'HRM\main\role@index');
+//get data for datatable
+Route::post('hrm/role', 'HRM\main\role@post');
+//get html for form CRUD
+Route::get('/hrm/role/create', 'HRM\main\role@create');
+//insert or update data
+Route::post('/hrm/role/create', 'HRM\main\role@post_create');
+//delete data
+Route::get('/hrm/role/delete', 'HRM\main\role@delete');
+
+//role_level form CRUD
+//get html form data
+Route::get('/hrm/role_level', 'HRM\main\role_level@index');
+//get data for datatable
+Route::post('hrm/role_level', 'HRM\main\role_level@post');
+//get html for form CRUD
+Route::get('/hrm/role_level/create', 'HRM\main\role_level@create');
+//insert or update data
+Route::post('/hrm/role_level/create', 'HRM\main\role_level@post_create');
+//delete data
+Route::get('/hrm/role_level/delete', 'HRM\main\role_level@delete');
+
+//modul form CRUD
+//get html form data
+Route::get('/hrm/modul', 'HRM\main\modul@index');
+//get data for datatable
+Route::post('hrm/modul', 'HRM\main\modul@post');
+//get html for form CRUD
+Route::get('/hrm/modul/create', 'HRM\main\modul@create');
+//insert or update data
+Route::post('/hrm/modul/create', 'HRM\main\modul@post_create');
+//delete data
+Route::get('/hrm/modul/delete', 'HRM\main\modul@delete');
 
 //module HRM route here
 Route::get('/main', 'HomeController@main');

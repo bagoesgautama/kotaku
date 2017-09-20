@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
+
 class Simple extends Controller
 {
     /**
@@ -61,7 +62,6 @@ class Simple extends Controller
 		}
 		return view('test/simple_create',$data);
 	}
-
 
 	public function post_create(Request $request)
 	{

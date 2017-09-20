@@ -1,4 +1,5 @@
-@extends('layouts/default') {{-- Page title --}} @section('title') Advanced Datatables @stop {{-- local styles --}} @section('header_styles')
+@extends('HRM/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/colReorder.bootstrap.css')}}" />
@@ -10,18 +11,12 @@
 <link href="{{asset('css/buttons_sass.css')}}" rel="stylesheet">
 
 @stop {{-- Page Header--}} @section('page-header')
-
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Simple form</h1>
+    <h1>HRM Module</h1>
     <ol class="breadcrumb">
-        <li>
-            <a href="{{url('index')}}">
-                <i class="fa fa-fw fa-home"></i> Dashboard
-            </a>
-        </li>
         <li class="active">
-            Simple
+            <i class="fa fa-fw fa-home"></i> HRM
         </li>
     </ol>
 </section>
@@ -34,17 +29,22 @@
                     <i class="ti-export"></i> <b>Want to export data?</b>
                 </div>
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('simple/create') }}">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('hrm/role/create') }}">Create</a>
 				</div>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users">
+					<table class="table table-striped" id="role" >
 						<thead>
                             <tr>
-                                <th>name</th>
-                                <th>email</th>
-                                <th>password</th>
+                                <th>nama</th>
+                                <th>deskripsi</th>
+                                <th>status</th>
+                                <th>kode level</th>
+                                <th>created time</th>
+                                <th>created by</th>
+                                <th>updated time</th>
+                                <th>updated by</th>
 								<th>option</th>
                             </tr>
                         </thead>
@@ -59,7 +59,7 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#users').DataTable({
+		var table = $('#role').DataTable({
 	        // dom: 'Bflrtip',
 	        "dom": '<"m-t-10"B><"m-t-10 pull-left"f><"m-t-10 pull-right"l>rt<"pull-left m-t-10"i><"m-t-10 pull-right"p>',
 	        buttons: [
@@ -68,15 +68,20 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('simple') }}",
+                     "url": "{{ url('hrm/role') }}",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-				{ "data": "name" , name:"name"},
-                { "data": "email" , name:"email"},
-                { "data": "password" , name:"password"},
+				{ "data": "nama" , name:"nama"},
+                { "data": "deskripsi" , name:"deskripsi"},
+                { "data": "status" , name:"status"},
+                { "data": "kode_level" , name:"kode_level"},
+                { "data": "created_time" , name:"created_time"},
+                { "data": "created_by" , name:"created_by"},
+                { "data": "updated_time" , name:"updated_time"},
+                { "data": "updated_by" , name:"updated_by"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
