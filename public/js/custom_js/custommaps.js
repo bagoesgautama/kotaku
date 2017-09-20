@@ -55,10 +55,10 @@ $(document).ready(function() {
            zoom: 5,
 		   center: {lat: -2.600029,
           lng: 118.015776},
-		  scrollwheel: false,
-		  disableDoubleClickZoom: true,
+		  //scrollwheel: false,
+		  //disableDoubleClickZoom: true,
 		  zoomControl: true,
-		  draggable: false,
+		  //draggable: false,
           /*zoomControlOpt: {
               style: 'SMALL',
               position: 'TOP_LEFT'
