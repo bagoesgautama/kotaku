@@ -49,6 +49,9 @@ Route::delete('/wizard', 'Test\wizard@delete');
 
 Route::get('/map', 'HomeController@map');
 
+//reigistrasi
+Route::post('/registrasi', 'Registrasi\RegistrasiController@registrasi_create_post');
+
 
 //module HRM route here
 Route::get('/hrm', 'HomeController@hrm');
