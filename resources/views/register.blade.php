@@ -248,13 +248,6 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group checkbox">
-                                <label for="terms">
-                                    <input type="checkbox" name="terms" id="terms">&nbsp; I accept the <a href="javascript:void(0)">terms &amp; Conditions</a>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
                             <div class="form-group">
                                 <input type="submit" value="Sign Up" class="btn btn-primary btn-block"/>
                             </div>
