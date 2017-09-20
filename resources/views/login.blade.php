@@ -43,11 +43,6 @@
                                 <input type="password" class="form-control form-control-lg" id="password"
                                        name="password" placeholder="Password">
                             </div>
-                            <div class="form-group checkbox">
-                                <label for="remember">
-                                    <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>&nbsp; Remember Me
-                                </label>
-                            </div>
                             <div class="form-group">
                                 <input type="submit" value="Sign In" class="btn btn-primary btn-block"/>
                             </div>

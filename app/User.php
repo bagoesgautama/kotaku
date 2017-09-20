@@ -14,15 +14,20 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','last_name',
+        'user_name', 'email', 'password',
     ];
-
+	/**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+	protected $table = 'bkt_02010111_user';
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
     ];
 }
