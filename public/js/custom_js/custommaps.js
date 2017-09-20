@@ -58,6 +58,7 @@ $(document).ready(function() {
 		  scrollwheel: false,
 		  disableDoubleClickZoom: true,
 		  zoomControl: true,
+		  draggable: false,
           /*zoomControlOpt: {
               style: 'SMALL',
               position: 'TOP_LEFT'

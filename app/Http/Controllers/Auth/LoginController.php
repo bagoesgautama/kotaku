@@ -55,14 +55,13 @@ class LoginController extends Controller
 		// Creating Rules for Email and Password
 		$rules = array(
 			'email' => 'required', // make sure the email is an actual email
-			'password' => 'required|alphaNum|min:8'
+			'password' => 'required'
 		);
 		// password has to be greater than 3 characters and can only be alphanumeric and);
 		// checking all field
 		$validator = Validator::make($request->all() , $rules);
 
 		// if the validator fails, redirect back to the form
-
 		if ($validator->fails())
 		{
 			return Redirect::to('login')->withErrors($validator) // send back all errors to the login form
@@ -70,19 +69,17 @@ class LoginController extends Controller
 		}
 	  	else
 		{
-			// create our user data for the authentication
 			$userdata = array(
-				'email' => $request->input('email') ,
+				'user_name' => $request->input('email') ,
 				'password' => $request->input('password')
 			);
-
-			// attempt to do the login
-			if (Auth::attempt($userdata))
-			{
-				Auth::user()->setAttribute('role','master');
-				return Redirect::to('');
+			if (Auth::attempt(['user_name'=> $request->input('email'), 'password' => $request->input('password')])){
+			        return Redirect::to('');
 			}
-		  	else
+			elseif (Auth::attempt(['email'=> $request->input('email'), 'password' => $request->input('password')])) {
+			        return Redirect::to('');
+			}
+			else
 			{
 				return Redirect::to('login');
 			}
