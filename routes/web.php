@@ -47,16 +47,15 @@ Route::get('/wizard/create', 'Test\wizard@create');
 Route::post('/wizard', 'Test\wizard@post');
 Route::delete('/wizard', 'Test\wizard@delete');
 
-Route::get('/map', 'HomeController@map');
-
 //reigistrasi
 Route::post('/registrasi', 'Registrasi\RegistrasiController@registrasi_create_post');
 
-
-//module HRM route here
+/**
+ *
+ *
+ *module MAIN route here
+ */
 Route::get('/hrm', 'HomeController@hrm');
-
-//role form CRUD
 //get html form data
 Route::get('/hrm/role', 'HRM\main\role@index');
 //get data for datatable
@@ -92,7 +91,17 @@ Route::post('/hrm/modul/create', 'HRM\main\modul@post_create');
 //delete data
 Route::get('/hrm/modul/delete', 'HRM\main\modul@delete');
 
-//module HRM route here
+/**
+ *
+ *
+ *module MAIN route here
+ */
 Route::get('/main', 'HomeController@main');
-Auth::routes();
 
+/**
+ *
+ *
+ *module GIS route here
+ */
+Route::get('/gis', 'GIS\bk040101Controller@index');
+Auth::routes();
