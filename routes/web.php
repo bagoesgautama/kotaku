@@ -57,39 +57,39 @@ Route::post('/registrasi', 'Registrasi\RegistrasiController@registrasi_create_po
  */
 Route::get('/hrm', 'HomeController@hrm');
 //get html form data
-Route::get('/hrm/role', 'HRM\main\role@index');
+Route::get('/hrm/role', 'HRM\bk020102Controller@index');
 //get data for datatable
-Route::post('hrm/role', 'HRM\main\role@post');
+Route::post('hrm/role', 'HRM\bk020102Controller@post');
 //get html for form CRUD
-Route::get('/hrm/role/create', 'HRM\main\role@create');
+Route::get('/hrm/role/create', 'HRM\bk020102Controller@create');
 //insert or update data
-Route::post('/hrm/role/create', 'HRM\main\role@post_create');
+Route::post('/hrm/role/create', 'HRM\bk020102Controller@post_create');
 //delete data
-Route::get('/hrm/role/delete', 'HRM\main\role@delete');
+Route::get('/hrm/role/delete', 'HRM\bk020102Controller@delete');
 
 //role_level form CRUD
 //get html form data
-Route::get('/hrm/role_level', 'HRM\main\role_level@index');
+Route::get('/hrm/role_level', 'HRM\bk020101Controller@index');
 //get data for datatable
-Route::post('hrm/role_level', 'HRM\main\role_level@post');
+Route::post('hrm/role_level', 'HRM\bk020101Controller@post');
 //get html for form CRUD
-Route::get('/hrm/role_level/create', 'HRM\main\role_level@create');
+Route::get('/hrm/role_level/create', 'HRM\bk020101Controller@create');
 //insert or update data
-Route::post('/hrm/role_level/create', 'HRM\main\role_level@post_create');
+Route::post('/hrm/role_level/create', 'HRM\bk020101Controller@post_create');
 //delete data
-Route::get('/hrm/role_level/delete', 'HRM\main\role_level@delete');
+Route::get('/hrm/role_level/delete', 'HRM\bk020101Controller@delete');
 
 //modul form CRUD
 //get html form data
-Route::get('/hrm/modul', 'HRM\main\modul@index');
+Route::get('/hrm/modul', 'HRM\bk020104Controller@index');
 //get data for datatable
-Route::post('hrm/modul', 'HRM\main\modul@post');
+Route::post('hrm/modul', 'HRM\bk020104Controller@post');
 //get html for form CRUD
-Route::get('/hrm/modul/create', 'HRM\main\modul@create');
+Route::get('/hrm/modul/create', 'HRM\bk020104Controller@create');
 //insert or update data
-Route::post('/hrm/modul/create', 'HRM\main\modul@post_create');
+Route::post('/hrm/modul/create', 'HRM\bk020104Controller@post_create');
 //delete data
-Route::get('/hrm/modul/delete', 'HRM\main\modul@delete');
+Route::get('/hrm/modul/delete', 'HRM\bk020104Controller@delete');
 
 /**
  *

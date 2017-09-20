@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\HRM\main;
+namespace App\Http\Controllers\HRM;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
 
-class Role_level extends Controller
+class bk020101Controller extends Controller
 {
     /**
      * Create a new controller instance.

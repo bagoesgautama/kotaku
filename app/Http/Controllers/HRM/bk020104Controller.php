@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\HRM\main;
+namespace App\Http\Controllers\HRM;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
 
-class Role extends Controller
+class bk020104Controller extends Controller
 {
     /**
      * Create a new controller instance.
@@ -32,7 +32,7 @@ class Role extends Controller
             $user = Auth::user();
             $data['username'] = Auth::user()->name;
         }
-		return view('HRM/main/role',$data);
+		return view('HRM/main/modul',$data);
     }
 
 	public function show()
@@ -45,7 +45,7 @@ class Role extends Controller
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		return view('role',$data);
+		return view('modul',$data);
 	}
 
 	public function Post(Request $request)
@@ -54,14 +54,14 @@ class Role extends Controller
 			0 =>'nama',
 			1 =>'deskripsi',
 			2 =>'status',
-			3 =>'kode_level',
+			3 =>'kode_apps',
 			4 =>'created_time',
 			5 =>'created_by',
-			6 =>'updated_time',
-			7 =>'updated_by'
+			6 =>'update_time',
+			7 =>'update_by'
 		);
-		$query='select * from bkt_02010102_role ';
-		$totalData = DB::select('select count(1) cnt from bkt_02010102_role ');
+		$query='select * from bkt_02010104_modul ';
+		$totalData = DB::select('select count(1) cnt from bkt_02010104_modul ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -73,8 +73,8 @@ class Role extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. 'where nama like "%'.$search.'%" or deskripsi like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. 'where nama like "%'.$search.'%" or deskripsi like "%'.$search.'%") a');
+			$posts=DB::select($query. 'where name like "%'.$search.'%" or email like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. 'where name like "%'.$search.'%" or email like "%'.$search.'%") a');
 		}
 
 		$data = array();
@@ -85,16 +85,16 @@ class Role extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_edit=url('/')."/hrm/role/create?kode=".$show;
-				$url_delete=url('/')."/hrm/role/delete?kode=".$delete;
+				$url_edit=url('/')."/hrm/modul/create?kode=".$show;
+				$url_delete=url('/')."/hrm/modul/delete?kode=".$delete;
 				$nestedData['nama'] = $post->nama;
 				$nestedData['deskripsi'] = $post->deskripsi;
 				$nestedData['status'] = $post->status;
-				$nestedData['kode_level'] = $post->kode_level;
+				$nestedData['kode_apps'] = $post->kode_apps;
 				$nestedData['created_time'] = $post->created_time;
 				$nestedData['created_by'] = $post->created_by;
-				$nestedData['updated_time'] = $post->updated_time;
-				$nestedData['updated_by'] = $post->updated_by;
+				$nestedData['update_time'] = $post->update_time;
+				$nestedData['update_by'] = $post->update_by;
 				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>
 				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				$data[] = $nestedData;
@@ -117,42 +117,31 @@ class Role extends Controller
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
 		if($data['kode']!=null){
-			$rowData = DB::select('select * from bkt_02010102_role where kode='.$data['kode']);
+			$rowData = DB::select('select * from bkt_02010104_modul where kode='.$data['kode']);
 			$data['nama'] = $rowData[0]->nama;
 			$data['deskripsi'] = $rowData[0]->deskripsi;
 			$data['status'] = $rowData[0]->status;
-			$data['kode_level'] = $rowData[0]->kode_level;
-			$data['created_time'] = $rowData[0]->created_time;
-			$data['created_by'] = $rowData[0]->created_by;
-			$data['update_time'] = $rowData[0]->update_time;
-			$data['update_by'] = $rowData[0]->update_by;
 		}else{
 			$data['nama'] = null;
 			$data['deskripsi'] = null;
 			$data['status'] = null;
-			$data['kode_level'] = null;
-			$data['created_time'] = null;
-			$data['created_by'] = null;
-			$data['update_time'] = null;
-			$data['update_by'] = null;
 		}
-		//echo json_encode($data);
 		if (Auth::check()) {
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		return view('HRM/main/role_create',$data);
+		return view('HRM/main/modul_create',$data);
 	}
 
 	public function post_create(Request $request)
 	{
 		if ($request->input('example-id-input')!=null){
-			DB::table('bkt_02010102_role')->where('kode', $request->input('example-id-input'))
+			DB::table('bkt_02010104_modul')->where('kode', $request->input('example-id-input'))
 			->update(['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select')
 				]);
 
 		}else{
-			DB::table('bkt_02010102_role')->insert(
+			DB::table('bkt_02010104_modul')->insert(
        			['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select')
        			]);
 		}
@@ -160,7 +149,7 @@ class Role extends Controller
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_02010102_role')->where('kode', $request->input('kode'))->delete();
-        return Redirect::to('hrm/role');
+		DB::table('bkt_02010104_modul')->where('kode', $request->input('kode'))->delete();
+        return Redirect::to('hrm/modul');
     }
 }
