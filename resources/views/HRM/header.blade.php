@@ -88,7 +88,7 @@
             <!-- User Account: style can be found in dropdown-->
             <li class="dropdown user user-menu">
                 <a href="javascript:void(0)" class="dropdown-toggle padding-user" data-toggle="dropdown">
-                    <img src="{{url('img/authors/avatar1.jpg')}}" width="35" class="img-circle img-responsive pull-left" height="35" alt="User Image">
+                    <img src="{{asset('img/original.jpg')}}" width="35" class="img-circle img-responsive pull-left" height="35" alt="User Image">
                     <div class="riot">
                         <div>
                             {{ $username }}
@@ -101,7 +101,7 @@
                 <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header">
-                        <img src="{{url('img/authors/avatar1.jpg')}}" class="img-circle" alt="User Image">
+                        <img src="{{asset('img/original.jpg')}}" class="img-circle" alt="User Image">
                         <p> {{ $username }}</p>
                     </li>
                     <!-- Menu Body -->

@@ -67,7 +67,7 @@
 				</div>
 				<div class="col-md-4 ">
 				    <div class="panel-body">
-						<a href='#'>
+						<a href='gis'>
 							<div class="panel panel-widget">
 					            <div class="panel-body bg-primary text-center careers-item">
 					                <div>
