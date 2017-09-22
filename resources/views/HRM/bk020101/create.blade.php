@@ -1,4 +1,7 @@
-@extends('layouts/default') {{-- Page title --}} @section('title') Blank @stop {{-- local styles --}} @section('header_styles')
+<!--
+    bk020101
+-->
+@extends('HRM/default') {{-- Page title --}} @section('title') Role Level Form Input @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
@@ -31,19 +34,16 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-textarea-input2">Deskripsi</label>
                 <div class="col-sm-6">
-                    <textarea id="example-textarea-input2" name="example-textarea-input" rows="7" class="form-control resize_vertical" placeholder="Description...." value="{{ $deskripsi }}"></textarea>
+                    <textarea id="example-textarea-input2" name="example-textarea-input" rows="7" class="form-control resize_vertical" placeholder="Description....">{{ $deskripsi }}</textarea>
                 </div>
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-select1">Status</label>
                 <div class="col-sm-6">
                     <select id="example-select1" name="example-select" class="form-control" size="1">
-                        <option value="{{ $status }}">
-                            Please select
-                        </option>
-                        <option value="0">Tidak Aktif</option>
-                        <option value="1">Aktif</option>
-                        <option value="2">Dihapus</option>
+                        <option value="0" @if($status==0) selected="selected" @endif >Tidak Aktif</option>
+                        <option value="1" @if($status==1) selected="selected" @endif >Aktif</option>
+                        <option value="2" @if($status==2) selected="selected" @endif >Dihapus</option>
                     </select>
                 </div>
             </div>
@@ -76,11 +76,10 @@
             "url": "/hrm/role_level/create",
             data: $('form').serialize(),
             success: function () {
-    alert('Success !!!');
     window.location.href = "/hrm/role_level";
    },
    error: function (xhr, ajaxOptions, thrownError) {
-          alert(xhr.status);
+          
           alert(thrownError);
         }
           });

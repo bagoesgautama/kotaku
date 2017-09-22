@@ -3,14 +3,14 @@
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Role Input Form</h1>
+    <h1>Role User Form</h1>
     <ol class="breadcrumb">
         <li>
             <a href="/hrm">
                 <i class="fa fa-fw fa-home"></i> HRM
             </a>
         </li>
-        <li><a href="/hrm/role"> Role Input Form</a></li>
+        <li><a href="/hrm/role"> Role Input </a></li>
         <li class="active">
             Create
         </li>
@@ -38,12 +38,19 @@
                 <label class="col-sm-3 control-label" for="example-select1">Status</label>
                 <div class="col-sm-6">
                     <select id="example-select1" name="example-select" class="form-control" size="1">
-                        <option >
-                            Please select
-                        </option>
                         <option value="0" @if($status==0) selected="selected" @endif >Tidak Aktif</option>
                         <option value="1" @if($status==1) selected="selected" @endif >Aktif</option>
                         <option value="2" @if($status==2) selected="selected" @endif >Dihapus</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="example-select1">Level</label>
+                <div class="col-sm-6">
+                    <select id="example-select1" name="example-select-level" class="form-control" size="1">
+                        @foreach($kode_level_list as $list)
+                            <option value="{{ $list->kode }}" @if($list->kode==$kode_level) selected="selected" @endif >{{ $list->nama }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -76,11 +83,10 @@
             "url": "/hrm/role/create",
             data: $('form').serialize(),
             success: function () {
-    alert('Success !!!');
     window.location.href = "/hrm/role";
    },
    error: function (xhr, ajaxOptions, thrownError) {
-          alert(xhr.status);
+    
           alert(thrownError);
         }
           });

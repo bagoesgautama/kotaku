@@ -1,3 +1,4 @@
+
 @extends('HRM/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
@@ -14,10 +15,16 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>HRM Module</h1>
-    <ol class="breadcrumb">
+    <h1>Role Level User List</h1>
+     <ol class="breadcrumb">
+        <li>
+            <a href="/hrm">
+                <i class="fa fa-fw fa-home"></i> HRM
+            </a>
+        </li>
+        <li><a href="/hrm/role_level"> Role Level</a></li>
         <li class="active">
-            <i class="fa fa-fw fa-home"></i> HRM
+            List
         </li>
     </ol>
 </section>
@@ -35,7 +42,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="role_level">
+					<table class="table table-striped" id="users">
 						<thead>
                             <tr>
                                 <th>nama</th>
@@ -59,12 +66,9 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#role_level').DataTable({
+		var table = $('#users').DataTable({
 	        // dom: 'Bflrtip',
-	        "dom": '<"m-t-10"B><"m-t-10 pull-left"f><"m-t-10 pull-right"l>rt<"pull-left m-t-10"i><"m-t-10 pull-right"p>',
-	        buttons: [
-	            'copy', 'csv', 'excel', 'pdf', 'print'
-	        ],
+	       
 			"processing": true,
             "serverSide": true,
             "ajax":{
@@ -79,13 +83,18 @@
                 { "data": "status" , name:"status"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "created_by" , name:"created_by"},
-                { "data": "update_time" , name:"update_time"},
-                { "data": "update_by" , name:"update_by"},
+                { "data": "updated_time" , name:"updated_time"},
+                { "data": "updated_by" , name:"updated_by"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
-
-    });
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
+        if(e.keyCode == 13) {
+            table.search(this.value).draw();
+        }
+    })
+});
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>
