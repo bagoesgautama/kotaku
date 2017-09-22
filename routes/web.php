@@ -104,4 +104,33 @@ Route::get('/main', 'HomeController@main');
  *module GIS route here
  */
 Route::get('/gis', 'GIS\bk040101Controller@index');
+
+//gis Provinsi
+Route::get('/gis/provinsi', 'GIS\bk040102Controller@index');
+Route::post('/gis/provinsi', 'GIS\bk040102Controller@post');
+Route::get('/gis/provinsi/create', 'GIS\bk040102Controller@create');
+Route::post('/gis/provinsi/create', 'GIS\bk040102Controller@post_create');
+Route::get('/gis/provinsi/delete', 'GIS\bk040102Controller@delete');
+
+//gis kota
+Route::get('/gis/kota', 'GIS\bk040103Controller@index');
+Route::post('/gis/kota', 'GIS\bk040103Controller@post');
+Route::get('/gis/kota/create', 'GIS\bk040103Controller@create');
+Route::post('/gis/kota/create', 'GIS\bk040103Controller@post_create');
+Route::get('/gis/kota/delete', 'GIS\bk040103Controller@delete');
+
+//gis kecamatan
+Route::get('/gis/kecamatan', 'GIS\bk040104Controller@index');
+Route::post('/gis/kecamatan', 'GIS\bk040104Controller@post');
+Route::get('/gis/kecamatan/create', 'GIS\bk040104Controller@create');
+Route::post('/gis/kecamatan/create', 'GIS\bk040104Controller@post_create');
+Route::get('/gis/kecamatan/delete', 'GIS\bk040104Controller@delete');
+
+//gis kelurahan
+Route::get('/gis/kelurahan', 'GIS\bk040105Controller@index');
+Route::post('/gis/kelurahan', 'GIS\bk040105Controller@post');
+Route::get('/gis/kelurahan/create', 'GIS\bk040105Controller@create');
+Route::post('/gis/kelurahan/create', 'GIS\bk040105Controller@post_create');
+Route::get('/gis/kelurahan/delete', 'GIS\bk040105Controller@delete');
+
 Auth::routes();
