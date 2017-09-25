@@ -58,7 +58,6 @@
                 <label class="col-sm-3 control-label">Kode Kec</label>
                 <div class="col-sm-6">
                     <select id="kode-kec-input" name="kode-kec-input" class="form-control" size="1">
-                        <option value="0">Kode Kec</option>
                         @foreach ($kode_kec_list as $kkl)
                             <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                         @endforeach
@@ -75,9 +74,9 @@
                 <label class="col-sm-3 control-label">Status</label>
                 <div class="col-sm-6">
                     <select id="status-input" name="status-input" class="form-control" size="1">
-                        <option value="0">Tidak Aktif</option>
-                        <option value="1">Aktif</option>
-                        <option value="2">Dihapus</option>
+                        <option value="0" {!! $status==0 ? 'selected':'' !!}>Tidak Aktif</option>
+                        <option value="1" {!! $status==1 ? 'selected':'' !!}>Aktif</option>
+                        <option value="2" {!! $status==2 ? 'selected':'' !!}>Dihapus</option>
                     </select>
                 </div>
             </div>

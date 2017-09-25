@@ -46,7 +46,6 @@
                 <label class="col-sm-3 control-label">Kode Prop</label>
                 <div class="col-sm-6">
                     <select id="kode-prop-input" name="kode-prop-input" class="form-control" size="1">
-                        <option value="0">Kode Prop</option>
                         @foreach ($kode_prop_list as $kpl)
                             <option value="{{$kpl->kode}}" {!! $kode_prop==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
                         @endforeach
@@ -63,9 +62,9 @@
                 <label class="col-sm-3 control-label">Status</label>
                 <div class="col-sm-6">
                     <select id="status-input" name="status-input" class="form-control" size="1">
-                        <option value="0">Tidak Aktif</option>
-                        <option value="1">Aktif</option>
-                        <option value="2">Dihapus</option>
+                        <option value="0" {!! $status==0 ? 'selected':'' !!}>Tidak Aktif</option>
+                        <option value="1" {!! $status==1 ? 'selected':'' !!}>Aktif</option>
+                        <option value="2" {!! $status==2 ? 'selected':'' !!}>Dihapus</option>
                     </select>
                 </div>
             </div>

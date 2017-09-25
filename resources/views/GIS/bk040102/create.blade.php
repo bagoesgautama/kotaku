@@ -27,7 +27,7 @@
 </section>
 @stop {{-- Page content --}} @section('content') 
 <div class="panel-body border">
-    <form enctype="multipart/form-data" class="form-horizontal form-bordered">
+    <form id="form" class="form-horizontal form-bordered" enctype="multipart/form-data">
         <div class="row">
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label">Nama</label>
@@ -51,16 +51,16 @@
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label">File</label>
                 <div class="col-sm-6">
-                    <input id="file-input" type="file" class="file" data-show-preview="false" name="file-input">
+                    <input id="file-input" type="file" class="file" data-show-preview="false" name="image">
                 </div>
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label">Status</label>
                 <div class="col-sm-6">
                     <select id="status-input" name="status-input" class="form-control" size="1">
-                        <option value="0">Tidak Aktif</option>
-                        <option value="1">Aktif</option>
-                        <option value="2">Dihapus</option>
+                        <option value="0" {!! $status==0 ? 'selected':'' !!}>Tidak Aktif</option>
+                        <option value="1" {!! $status==1 ? 'selected':'' !!}>Aktif</option>
+                        <option value="2" {!! $status==2 ? 'selected':'' !!}>Dihapus</option>
                     </select>
                 </div>
             </div>
@@ -88,6 +88,7 @@
 <script>
       $(document).ready(function () {
         $('#submit').on('click', function (e) {
+        var formData = new FormData($('form')[0]);
           e.preventDefault();
           $.ajax({
             type: 'post',

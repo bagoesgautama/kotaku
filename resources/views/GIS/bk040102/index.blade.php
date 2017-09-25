@@ -45,6 +45,9 @@
                                 <th>Wilayah</th>
                                 <th>Status</th>
                                 <th>Created Time</th>
+                                <th>Created By</th>
+                                <th>Updated Time</th>
+                                <th>Updated By</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -75,6 +78,9 @@
                 { "data": "wilayah" , name:"wilayah"},
                 { "data": "status" , name:"status"},
                 { "data": "created_time" , name:"created_time"},
+                { "data": "created_by" , name:"created_by"},
+                { "data": "updated_time" , name:"updated_time"},
+                { "data": "updated_by" , name:"updated_by"},
                 { "data": "option" , name:"option"}
             ]
         });
