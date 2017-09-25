@@ -53,7 +53,7 @@ Route::post('/registrasi', 'Registrasi\RegistrasiController@registrasi_create_po
 /**
  *
  *
- *module MAIN route here
+ *module HRM route here
  */
 Route::get('/hrm', 'HomeController@hrm');
 //get html form data
@@ -90,6 +90,13 @@ Route::get('/hrm/modul/create', 'HRM\bk020104Controller@create');
 Route::post('/hrm/modul/create', 'HRM\bk020104Controller@post_create');
 //delete data
 Route::get('/hrm/modul/delete', 'HRM\bk020104Controller@delete');
+
+//role akses form CRUD
+Route::get('/hrm/role_akses', 'HRM\bk020109Controller@index');
+Route::post('hrm/role_akses', 'HRM\bk020109Controller@post');
+Route::get('/hrm/role_akses/create', 'HRM\bk020109Controller@create');
+Route::post('/hrm/role_akses/create', 'HRM\bk020109Controller@post_create');
+Route::get('/hrm/role_akses/delete', 'HRM\bk020109Controller@delete');
 
 /**
  *
