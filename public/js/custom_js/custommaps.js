@@ -110,10 +110,11 @@ $(document).ready(function() {
 
 	var map = new google.maps.Map(document.getElementById("gmap-top"), mapProp);
 
-	map.data.loadGeoJson('http://localhost:8000/storage/geojson/provinsi/RIAU.geojson');
-	//map.data.loadGeoJson('http://localhost:8000/storage/geojson/TULANGBAWANG.geojson');
+	/*map.data.loadGeoJson('http://localhost:8000/storage/geojson/provinsi/RIAU.geojson');
+	map.data.loadGeoJson('http://localhost:8000/storage/geojson/TULANGBAWANG.geojson');
 	map.data.setStyle(function(feature) {
 		console.log('asd')
 		console.log(feature.f)
-	})
+	})*/
+	
 });

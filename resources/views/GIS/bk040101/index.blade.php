@@ -27,7 +27,80 @@
 
 <!-- row -->
 @stop {{-- local scripts --}} @section('footer_scripts')
+<script>
+$(document).ready(function() {
+
+	var mapProp = {
+		center: new google.maps.LatLng(-2.600029, 118.015776),
+		zoom: 5,
+		//scrollwheel: false,
+		//disableDoubleClickZoom: true,
+		zoomControl: true,
+		//draggable: false,
+		zoomControlOpt: {
+			style: 'SMALL',
+			position: 'TOP_LEFT'
+		},
+		panControl: false,
+		streetViewControl: false,
+		mapTypeControl: false,
+		overviewMapControl: false
+	};
+
+	var map = new google.maps.Map(document.getElementById("gmap-top"), mapProp);
+	var prop = {!! json_encode($prop) !!};
+	var attr={}
+	for(var i=0;i<prop.length;i++){
+		map.data.loadGeoJson('/uploads/provinsi/'+prop[i].url_border_area);
+		attr[prop[i].nama]=prop[i]
+		attr[prop[i].nama].contentString = '<div id="content">'+
+	      '<div id="siteNotice">'+
+	      '</div>'+
+	      '<h1 id="firstHeading" class="firstHeading">'+prop[i].nama+'</h1>'+
+	      '<div id="bodyContent">'+
+	      '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+	      'sandstone rock formation in the southern part of the '+
+	      'Heritage Site.</p>'+
+	      '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+	      'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+	      '(last visited June 22, 2009).</p>'+
+	      '</div>'+
+	      '</div>';
+	  	attr[prop[i].nama].infowindow = new google.maps.InfoWindow({
+  			content: attr[prop[i].nama].contentString,
+			position:{lat: 4.9133446, lng: 117.7325848}
+  		});
+	}
+	//map.data.loadGeoJson('/uploads/provinsi/ACEH.geojson');
+	/*map.data.loadGeoJson('http://localhost:8000/storage/geojson/TULANGBAWANG.geojson');
+	map.data.setStyle(function(feature) {
+		console.log('asd')
+		console.log(feature.f)
+	})*/
+
+	map.data.setStyle(function(feature) {
+		if(attr[feature.f.Propinsi].kode%2==0){
+			return ({
+			    fillColor: 'red',
+			    strokeWeight: 1
+			  });
+		}else{
+			return ({
+			    fillColor: 'green',
+			    strokeWeight: 2
+			  });
+		}
+	})
+	map.data.addListener('mouseover', function(event) {
+	  	for(var key in attr)
+			attr[key].infowindow.close();
+		attr[event.feature.f.Propinsi].infowindow.open(map);
+		//infowindow.open(map);
+	});
+	//alert(JSON.stringify(prop));
+});
+</script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyCZ3sUKS6BLuxnrGVQl2xRR2FFaljwPb2o&libraries=places"></script>
 <script type="text/javascript" src="{{asset('vendors/gmaps/js/gmaps.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/custom_js/custommaps.js')}}"></script>
+<!--<script type="text/javascript" src="{{asset('js/custom_js/custommaps.js')}}"></script>-->
 @stop

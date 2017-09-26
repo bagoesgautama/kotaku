@@ -33,9 +33,24 @@ class bk040101Controller extends Controller
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		//$contents = Storage::get('public/geojson/BALI.geojson');
-		//$files = Storage::files('public/geojson');
-		//echo json_encode($contents);
+		$rowData = DB::select('select * from bkt_01010101_prop where status=1 and url_border_area is not null');
+		$data['prop']=$rowData;
 		return view('GIS/bk040101/index',$data);
+    }
+
+	public function kota(Request $request)
+    {
+		$id=$request->input('id');
+		$data['username'] = '';
+		if (Auth::check()) {
+			$user = Auth::user();
+			$data['username'] = Auth::user()->name;
+		}
+		$rowData = DB::select('select * from bkt_01010101_prop where status=1 and kode='.$id);
+		$data['propinsi']=$rowData[0]->nama;
+		$rowData = DB::select('select * from bkt_01010102_kota where status=1 and url_border_area is not null and kode_prop='.$id);
+		$data['prop']=$rowData;
+		//echo json_encode($data['prop']);
+		return view('GIS/bk040101/kota',$data);
     }
 }

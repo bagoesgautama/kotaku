@@ -159,6 +159,7 @@ Route::get('/main/kel_faskel/delete', 'MAIN\bk010114Controller@delete');
  *module GIS route here
  */
 Route::get('/gis', 'GIS\bk040101Controller@index');
+Route::get('/gis/map-kota', 'GIS\bk040101Controller@kota');
 
 //gis Provinsi
 Route::get('/gis/provinsi', 'GIS\bk040102Controller@index');
