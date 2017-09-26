@@ -17,7 +17,7 @@ class bk040102Controller extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
         // parent::__construct();
     }
 
@@ -74,6 +74,8 @@ class bk040102Controller extends Controller
 		}else{
 			DB::table('bkt_01010101_prop')->insert(
        			['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'wilayah' => $request->input('wilayah-input')]);
+			// var_dump($request['image']);
+			
 		}
 	}
 
@@ -97,7 +99,10 @@ class bk040102Controller extends Controller
 			1 =>'nama_pendek',
 			2 =>'wilayah',
 			3 =>'status',
-			4 =>'created_time'
+			4 =>'created_time',
+			5 =>'created_by',
+			6 =>'updatede_time',
+			7 =>'updated_by'
 		);
 		$query='select * from bkt_01010101_prop ';
 		$totalData = DB::select('select count(1) cnt from bkt_01010101_prop ');
@@ -124,13 +129,26 @@ class bk040102Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
+				$status = null;
+
+				if($post->status == 0){
+					$status = 'Tidak Aktif';
+				}elseif($post->status == 1){
+					$status = 'Aktif';
+				}elseif($post->status == 2){
+					$status = 'Dihapus';
+				}
+
 				$url_edit=url('/')."/gis/provinsi/create?kode=".$show;
 				$url_delete=url('/')."/gis/provinsi/delete?kode=".$delete;
 				$nestedData['nama'] = $post->nama;
 				$nestedData['nama_pendek'] = $post->nama_pendek;
 				$nestedData['wilayah'] = $post->wilayah;
-				$nestedData['status'] = $post->status;
+				$nestedData['status'] = $status;
 				$nestedData['created_time'] = $post->created_time;
+				$nestedData['created_by'] = null;
+				$nestedData['updated_time'] = null;
+				$nestedData['updated_by'] = null;
 				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>
 				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				$data[] = $nestedData;

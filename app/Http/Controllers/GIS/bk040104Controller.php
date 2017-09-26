@@ -17,7 +17,7 @@ class bk040104Controller extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
         // parent::__construct();
     }
 
@@ -128,12 +128,20 @@ class bk040104Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
+				$status = null;
+				if($post->status == 0){
+					$status = 'Tidak Aktif';
+				}elseif($post->status == 1){
+					$status = 'Aktif';
+				}elseif($post->status == 2){
+					$status = 'Dihapus';
+				}
 				$url_edit=url('/')."/gis/kecamatan/create?kode=".$show;
 				$url_delete=url('/')."/gis/kecamatan/delete?kode=".$delete;
 				$nestedData['nama'] = $post->nama;
 				$nestedData['nama_pendek'] = $post->nama_pendek;
 				$nestedData['kode_kota'] = $post->kode_kota;
-				$nestedData['status'] = $post->status;
+				$nestedData['status'] = $status;
 				$nestedData['created_time'] = $post->created_time;
 				$nestedData['created_by'] = null;
 				$nestedData['updated_time'] = null;
