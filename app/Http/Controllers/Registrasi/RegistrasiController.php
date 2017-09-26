@@ -26,7 +26,8 @@ class RegistrasiController extends Controller
      */
     public function registrasi_create_post(Request $request)
     {
-        $date = date_create($request->input('hari').'-'.$request->input('bulan').'-'.$request->input('tahun'));
+        $date = strtotime($request->input('tgl_lahir'));
+        $date_convert = date('Y-m-d', $date);
         DB::table('bkt_02020201_registrasi')->insert([
             'user_name' => $request->input('username'), 
             'password' => $request->input('password'), 
@@ -37,7 +38,7 @@ class RegistrasiController extends Controller
             'alamat' => $request->input('alamat'),
             'kodepos' => $request->input('kodepos'),
             'kode_jenis_kelamin' => $request->input('kode-jk'),
-            'tgl_lahir' => $date,
+            'tgl_lahir' => $date_convert,
             'email' => $request->input('email'),
             'no_hp' => $request->input('no_hp'),
             'jenis_registrasi' => $request->input('kode-jr')

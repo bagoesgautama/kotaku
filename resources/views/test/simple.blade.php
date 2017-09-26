@@ -80,7 +80,12 @@
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
-
+		$('#users_filter input').unbind();
+		$('#users_filter input').bind('keyup', function(e) {
+			if(e.keyCode == 13) {
+				table.search(this.value).draw();
+			}
+		})
     });
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>

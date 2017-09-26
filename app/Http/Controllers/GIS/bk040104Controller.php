@@ -17,7 +17,7 @@ class bk040104Controller extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
         // parent::__construct();
     }
 
@@ -36,7 +36,7 @@ class bk040104Controller extends Controller
 			$data['username'] = Auth::user()->name;
 		}
 
-		return view('test/simple',$data);
+		return view('GIS/bk040104/index',$data);
 	}
 
 	public function create(Request $request)
@@ -45,33 +45,36 @@ class bk040104Controller extends Controller
 		//echo json_encode($users);
 		$data['username'] = '';
 		$data['test']=true;
-		$data['id']=$request->input('id');
-		if($data['id']!=null){
-			$rowData = DB::select('select * from users where id='.$data['id']);
-			$data['name'] = $rowData[0]->name;
-			$data['email'] = $rowData[0]->email;
-			$data['pswd'] = $rowData[0]->password;
+		$data['kode']=$request->input('kode');
+		if($data['kode']!=null){
+			$rowData = DB::select('select * from bkt_01010103_kec where kode='.$data['kode']);
+			$data['nama'] = $rowData[0]->nama;
+			$data['nama_pendek'] = $rowData[0]->nama_pendek;
+			$data['kode_kota'] = $rowData[0]->kode_kota;
+			$data['status'] = $rowData[0]->status;
 		}else{
-			$data['name'] = null;
-			$data['email'] = null;
-			$data['pswd'] = null;
+			$data['nama'] = null;
+			$data['nama_pendek'] = null;
+			$data['kode_kota'] = null;
+			$data['status'] = null;
 		}
 		if (Auth::check()) {
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		return view('test/simple_create',$data);
+		$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
+		return view('GIS/bk040104/create',$data);
 	}
 
 	public function post_create(Request $request)
 	{
-		if ($request->input('example-id-input')!=null){
-			DB::table('users')->where('id', $request->input('example-id-input'))
-			->update(['name' => $request->input('example-text-input'), 'email' => $request->input('example-email'), 'password' => bcrypt($request->input('example-password'))]);
+		if ($request->input('kode')!=null){
+			DB::table('bkt_01010103_kec')->where('kode', $request->input('kode'))
+			->update(['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'kode_kota' => $request->input('kode-kota-input'), 'status' => $request->input('status-input')]);
 
 		}else{
-			DB::table('users')->insert(
-       			['name' => $request->input('example-text-input'), 'email' => $request->input('example-email'), 'password' => bcrypt($request->input('example-password')), 'last_name' => $request->input('example-textarea-input')]);
+			DB::table('bkt_01010103_kec')->insert(
+       			['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'kode_kota' => $request->input('kode-kota-input')]);
 		}
 	}
 
@@ -91,12 +94,17 @@ class bk040104Controller extends Controller
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'name',
-			1 =>'email',
-			2 =>'password'
+			0 =>'nama',
+			1 =>'nama_pendek',
+			2 =>'kode_kota',
+			3 =>'status',
+			4 =>'created_time',
+			5 =>'created_by',
+			6 =>'updatede_time',
+			7 =>'updated_by'
 		);
-		$query='select * from users ';
-		$totalData = DB::select('select count(1) cnt from users ');
+		$query='select bkt_01010103_kec.kode, bkt_01010103_kec.nama, bkt_01010103_kec.nama_pendek, bkt_01010102_kota.nama as kode_kota, bkt_01010103_kec.status, bkt_01010103_kec.created_time from bkt_01010103_kec inner join bkt_01010102_kota on bkt_01010103_kec.kode_kota = bkt_01010102_kota.kode ';
+		$totalData = DB::select('select count(1) cnt from bkt_01010103_kec ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -104,12 +112,12 @@ class bk040104Controller extends Controller
 		$dir = $request->input('order.0.dir');
 		if(empty($request->input('search.value')))
 		{
-			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$posts=DB::select($query .' order by bkt_01010103_kec.'.$order.' '.$dir.' limit '.$start.','.$limit);
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. 'where name like "%'.$search.'%" or email like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. 'where name like "%'.$search.'%" or email like "%'.$search.'%") a');
+			$posts=DB::select($query. 'where nama like "%'.$search.'%" or nama_pendek like "%'.$search.'%" or kode_kota like "%'.$search.'%" or status like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. 'where nama like "%'.$search.'%" or nama_pendek like "%'.$search.'%" or kode_kota like "%'.$search.'%" or status like "%'.$search.'%") a');
 		}
 
 		$data = array();
@@ -117,14 +125,27 @@ class bk040104Controller extends Controller
 		{
 			foreach ($posts as $post)
 			{
-				$show =  $post->id;
-				$edit =  $post->id;
-				$delete = $post->id;
-				$url_edit=url('/')."/simple/create?id=".$show;
-				$url_delete=url('/')."/simple/delete?id=".$delete;
-				$nestedData['name'] = $post->name;
-				$nestedData['email'] = $post->email;
-				$nestedData['password'] = $post->password;
+				$show =  $post->kode;
+				$edit =  $post->kode;
+				$delete = $post->kode;
+				$status = null;
+				if($post->status == 0){
+					$status = 'Tidak Aktif';
+				}elseif($post->status == 1){
+					$status = 'Aktif';
+				}elseif($post->status == 2){
+					$status = 'Dihapus';
+				}
+				$url_edit=url('/')."/gis/kecamatan/create?kode=".$show;
+				$url_delete=url('/')."/gis/kecamatan/delete?kode=".$delete;
+				$nestedData['nama'] = $post->nama;
+				$nestedData['nama_pendek'] = $post->nama_pendek;
+				$nestedData['kode_kota'] = $post->kode_kota;
+				$nestedData['status'] = $status;
+				$nestedData['created_time'] = $post->created_time;
+				$nestedData['created_by'] = null;
+				$nestedData['updated_time'] = null;
+				$nestedData['updated_by'] = null;
 				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>
 				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				$data[] = $nestedData;
@@ -143,8 +164,8 @@ class bk040104Controller extends Controller
 
 	public function delete(Request $request)
 	{
-		DB::table('users')->where('id', $request->input('id'))->delete();
-        return Redirect::to('simple');
+		DB::table('bkt_01010103_kec')->where('kode', $request->input('kode'))->delete();
+        return Redirect::to('/gis/kecamatan');
     }
 
     public function logout()

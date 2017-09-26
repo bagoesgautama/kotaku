@@ -53,7 +53,7 @@ Route::post('/registrasi', 'Registrasi\RegistrasiController@registrasi_create_po
 /**
  *
  *
- *module MAIN route here
+ *module HRM route here
  */
 Route::get('/hrm', 'HomeController@hrm');
 //get html form data
@@ -91,12 +91,67 @@ Route::post('/hrm/modul/create', 'HRM\bk020104Controller@post_create');
 //delete data
 Route::get('/hrm/modul/delete', 'HRM\bk020104Controller@delete');
 
+//role akses form CRUD
+Route::get('/hrm/role_akses', 'HRM\bk020109Controller@index');
+Route::post('hrm/role_akses', 'HRM\bk020109Controller@post');
+Route::get('/hrm/role_akses/create', 'HRM\bk020109Controller@create');
+Route::post('/hrm/role_akses/create', 'HRM\bk020109Controller@post_create');
+Route::get('/hrm/role_akses/delete', 'HRM\bk020109Controller@delete');
+
 /**
  *
  *
  *module MAIN route here
  */
 Route::get('/main', 'HomeController@main');
+
+Route::get('/main/slum_program', 'MAIN\bk010107Controller@index');
+Route::post('/main/slum_program', 'MAIN\bk010107Controller@post');
+Route::get('/main/slum_program/create', 'MAIN\bk010107Controller@create');
+Route::post('/main/slum_program/create', 'MAIN\bk010107Controller@post_create');
+Route::get('/main/slum_program/delete', 'MAIN\bk010107Controller@delete');
+
+Route::get('/main/kmp', 'MAIN\bk010108Controller@index');
+Route::post('/main/kmp', 'MAIN\bk010108Controller@post');
+Route::get('/main/kmp/create', 'MAIN\bk010108Controller@create');
+Route::post('/main/kmp/create', 'MAIN\bk010108Controller@post_create');
+Route::get('/main/kmp/delete', 'MAIN\bk010108Controller@delete');
+
+Route::get('/main/kmp_slum_program', 'MAIN\bk010109Controller@index');
+Route::post('/main/kmp_slum_program', 'MAIN\bk010109Controller@post');
+Route::get('/main/kmp_slum_program/create', 'MAIN\bk010109Controller@create');
+Route::post('/main/kmp_slum_program/create', 'MAIN\bk010109Controller@post_create');
+Route::get('/main/kmp_slum_program/delete', 'MAIN\bk010109Controller@delete');
+
+Route::get('/main/kmw', 'MAIN\bk010110Controller@index');
+Route::post('/main/kmw', 'MAIN\bk010110Controller@post');
+Route::get('/main/kmw/create', 'MAIN\bk010110Controller@create');
+Route::post('/main/kmw/create', 'MAIN\bk010110Controller@post_create');
+Route::get('/main/kmw/delete', 'MAIN\bk010110Controller@delete');
+
+Route::get('/main/korkot', 'MAIN\bk010111Controller@index');
+Route::post('/main/korkot', 'MAIN\bk010111Controller@post');
+Route::get('/main/korkot/create', 'MAIN\bk010111Controller@create');
+Route::post('/main/korkot/create', 'MAIN\bk010111Controller@post_create');
+Route::get('/main/korkot/delete', 'MAIN\bk010111Controller@delete');
+
+Route::get('/main/kota_korkot', 'MAIN\bk010112Controller@index');
+Route::post('/main/kota_korkot', 'MAIN\bk010112Controller@post');
+Route::get('/main/kota_korkot/create', 'MAIN\bk010112Controller@create');
+Route::post('/main/kota_korkot/create', 'MAIN\bk010112Controller@post_create');
+Route::get('/main/kota_korkot/delete', 'MAIN\bk010112Controller@delete');
+
+Route::get('/main/faskel', 'MAIN\bk010113Controller@index');
+Route::post('/main/faskel', 'MAIN\bk010113Controller@post');
+Route::get('/main/faskel/create', 'MAIN\bk010113Controller@create');
+Route::post('/main/faskel/create', 'MAIN\bk010113Controller@post_create');
+Route::get('/main/faskel/delete', 'MAIN\bk010113Controller@delete');
+
+Route::get('/main/kel_faskel', 'MAIN\bk010114Controller@index');
+Route::post('/main/kel_faskel', 'MAIN\bk010114Controller@post');
+Route::get('/main/kel_faskel/create', 'MAIN\bk010114Controller@create');
+Route::post('/main/kel_faskel/create', 'MAIN\bk010114Controller@post_create');
+Route::get('/main/kel_faskel/delete', 'MAIN\bk010114Controller@delete');
 
 /**
  *
