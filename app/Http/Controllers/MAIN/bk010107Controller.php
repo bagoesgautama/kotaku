@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\HRM;
+namespace App\Http\Controllers\MAIN;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
 
-class bk020101Controller extends Controller
+class bk010107Controller extends Controller
 {
     /**
      * Create a new controller instance.
@@ -32,7 +32,7 @@ class bk020101Controller extends Controller
             $user = Auth::user();
             $data['username'] = Auth::user()->name;
         }
-		return view('HRM/main/role_level',$data);
+		return view('MAIN/bk010107/index',$data);
     }
 
 	public function show()
@@ -45,22 +45,42 @@ class bk020101Controller extends Controller
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		return view('role_level',$data);
+		return view('slum_program',$data);
 	}
 
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'nama',
-			1 =>'deskripsi',
-			2 =>'status',
-			3 =>'created_time',
-			4 =>'created_by',
-			5 =>'update_time',
-			6 =>'update_by'
+			0 =>'nourut',
+			1 =>'nama',
+			2 =>'keterangan',
+			3 =>'kode_kota',
+			4 =>'alamat',
+			5 =>'kodepos',
+			6 =>'contact_person',
+			7 =>'no_phone',
+			8 =>'no_fax',
+			9 => 'no_hp1',
+			10 => 'no_hp2',
+			11 => 'email1',
+			12 => 'email2',
+			13 => 'pms_nama',
+			14 => 'pms_alamat',
+			15 => 'tgl_akhir',
+			16 => 'thn_apbd1',
+			17 => 'thn_apbd2',
+			18 => 'status',
+			19 => 'project',
+			20 => 'kode_departemen',
+			21 => 'glosary_caption',
+			22 => 'jenis_siklus',
+			23 => 'created_time',
+			24 => 'created_by',
+			25 => 'update_time',
+			26 => 'update_by'
 		);
-		$query='select * from bkt_02010101_role_level ';
-		$totalData = DB::select('select count(1) cnt from bkt_02010101_role_level ');
+		$query='select * from bkt_01010107_slum_program ';
+		$totalData = DB::select('select count(1) cnt from bkt_01010107_slum_program ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');

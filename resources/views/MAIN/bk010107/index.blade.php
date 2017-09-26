@@ -14,10 +14,10 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>HRM Module</h1>
+    <h1>MAIN Module</h1>
     <ol class="breadcrumb">
         <li class="active">
-            <i class="fa fa-fw fa-home"></i> HRM
+            <i class="fa fa-fw fa-home"></i> MAIN
         </li>
     </ol>
 </section>
@@ -27,7 +27,7 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <i class="ti-export"></i> <b>Want to export data?</b>
+                    <b>bk010107 index</b>
                 </div>
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('hrm/role_level/create') }}">Create</a>
@@ -38,12 +38,12 @@
 					<table class="table table-striped" id="role_level">
 						<thead>
                             <tr>
-                                <th>nama</th>
-                                <th>deskripsi</th>
-                                <th>status</th>
-                                <th>created time</th>
-                                <th>created by</th>
-                                <th>update time</th>
+                                <th>No Urut</th>
+                                <th>Nama</th>
+                                <th>Keterangan</th>
+                                <th>Kota</th>
+                                <th>Alamat</th>
+                                <th></th>
                                 <th>update by</th>
 								<th>option</th>
                             </tr>
@@ -61,10 +61,7 @@
     $(document).ready(function () {
 		var table = $('#role_level').DataTable({
 	        // dom: 'Bflrtip',
-	        "dom": '<"m-t-10"B><"m-t-10 pull-left"f><"m-t-10 pull-right"l>rt<"pull-left m-t-10"i><"m-t-10 pull-right"p>',
-	        buttons: [
-	            'copy', 'csv', 'excel', 'pdf', 'print'
-	        ],
+	        
 			"processing": true,
             "serverSide": true,
             "ajax":{
@@ -84,8 +81,13 @@
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
-
-    });
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
+        if(e.keyCode == 13) {
+            table.search(this.value).draw();
+        }
+    })
+});
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>
