@@ -51,7 +51,11 @@
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label">File</label>
                 <div class="col-sm-6">
-                    <input id="file-input" type="file" class="file" data-show-preview="false" name="image">
+
+                    <input id="file-input" type="file" class="file" data-show-preview="false" name="file-input">
+                    <br>
+                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file" value="{{$file}}" {!! $file==null ? 'style="display:none"':'' !!}>{{$file}}</button>
+                    
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -88,12 +92,22 @@
 <script>
       $(document).ready(function () {
         $('#submit').on('click', function (e) {
-        var formData = new FormData($('form')[0]);
+            var file_data = document.getElementById('file-input').files[0];  
+            var form_data = new FormData();
+            form_data.append('kode', $('#kode').val());
+            form_data.append('file-input', file_data);
+            form_data.append('uploaded-file', $('#uploaded-file').val());
+            form_data.append('nama-input', $('#nama-input').val());
+            form_data.append('nama-pndk-input', $('#nama-pndk-input').val());
+            form_data.append('wilayah-input', $('#wilayah-input').val());
+            form_data.append('status-input', $('#status-input').val());
           e.preventDefault();
           $.ajax({
             type: 'post',
+            processData: false,
+            contentType: false,
             "url": "/gis/provinsi/create",
-            data: $('form').serialize(),
+            data: form_data,
             success: function () {
     alert('Form Submitted.');
     window.location.href = "/gis/provinsi";

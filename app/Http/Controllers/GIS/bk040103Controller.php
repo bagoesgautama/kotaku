@@ -52,11 +52,13 @@ class bk040103Controller extends Controller
 			$data['nama_pendek'] = $rowData[0]->nama_pendek;
 			$data['kode_prop'] = $rowData[0]->kode_prop;
 			$data['status'] = $rowData[0]->status;
+			$data['file'] = $rowData[0]->url_border_area;
 		}else{
 			$data['nama'] = null;
 			$data['nama_pendek'] = null;
 			$data['kode_prop'] = null;
 			$data['status'] = null;
+			$data['file'] = null;
 		}
 		if (Auth::check()) {
 			$user = Auth::user();
@@ -68,13 +70,29 @@ class bk040103Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		$file = $request->file('file-input');
+		$url = null;
+		$upload = false;
+		if($request->input('uploaded-file') != null && $file == null){
+			$url = $request->input('uploaded-file');
+			$upload = false;
+		}elseif($request->input('uploaded-file') != null && $file != null){
+			$url = $file->getClientOriginalName();
+			$upload = true;
+		}elseif($request->input('uploaded-file') == null && $file != null){
+			$url = $file->getClientOriginalName();
+			$upload = true;
+		}
+
 		if ($request->input('kode')!=null){
 			DB::table('bkt_01010102_kota')->where('kode', $request->input('kode'))
-			->update(['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'kode_prop' => $request->input('kode-prop-input'), 'status' => $request->input('status-input')]);
+			->update(['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'kode_prop' => $request->input('kode-prop-input'), 'url_border_area' => $url, 'status' => $request->input('status-input')]);
+			$file->move(public_path('/uploads/kota'), $file->getClientOriginalName());
 
 		}else{
 			DB::table('bkt_01010102_kota')->insert(
-       			['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'kode_prop' => $request->input('kode-prop-input')]);
+       			['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'kode_prop' => $request->input('kode-prop-input'), 'url_border_area' => $url]);
+			$file->move(public_path('/uploads/kota'), $file->getClientOriginalName());
 		}
 	}
 
@@ -103,8 +121,8 @@ class bk040103Controller extends Controller
 			6 =>'updatede_time',
 			7 =>'updated_by'
 		);
-		$query='select bkt_01010102_kota.kode, bkt_01010102_kota.nama, bkt_01010102_kota.nama_pendek, bkt_01010101_prop.nama as kode_prop, bkt_01010102_kota.status, bkt_01010102_kota.created_time from bkt_01010102_kota inner join bkt_01010101_prop on bkt_01010102_kota.kode_prop = bkt_01010101_prop.kode';
-		$totalData = DB::select('select count(1) cnt from bkt_01010102_kota ');
+		$query='select bkt_01010102_kota.kode, bkt_01010102_kota.nama, bkt_01010102_kota.nama_pendek, bkt_01010101_prop.nama as kode_prop, bkt_01010102_kota.status, bkt_01010102_kota.created_time from bkt_01010102_kota inner join bkt_01010101_prop on bkt_01010102_kota.kode_prop = bkt_01010101_prop.kode where bkt_01010102_kota.status = 0 or bkt_01010102_kota.status = 1';
+		$totalData = DB::select('select count(1) cnt from bkt_01010102_kota  where bkt_01010102_kota.status = 0 or bkt_01010102_kota.status = 1');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -116,8 +134,8 @@ class bk040103Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. 'where nama like "%'.$search.'%" or nama_pendek like "%'.$search.'%" or kode_prop like "%'.$search.'%" or status like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. 'where nama like "%'.$search.'%" or nama_pendek like "%'.$search.'%" or kode_prop like "%'.$search.'%" or status like "%'.$search.'%") a');
+			$posts=DB::select($query.' and bkt_01010102_kota.nama like "%'.$search.'%" or bkt_01010102_kota.nama_pendek like "%'.$search.'%" or bkt_01010101_prop.nama like "%'.$search.'%" or bkt_01010102_kota.status like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query.' and bkt_01010102_kota.nama like "%'.$search.'%" or bkt_01010102_kota.nama_pendek like "%'.$search.'%" or bkt_01010101_prop.nama like "%'.$search.'%" or bkt_01010102_kota.status like "%'.$search.'%") a');
 		}
 
 		$data = array();
@@ -164,7 +182,7 @@ class bk040103Controller extends Controller
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_01010102_kota')->where('kode', $request->input('kode'))->delete();
+		DB::table('bkt_01010102_kota')->where('kode', $request->input('kode'))->update(['status' => 2]);;
         return Redirect::to('/gis/kota');
     }
 
