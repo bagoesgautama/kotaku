@@ -52,11 +52,13 @@ class bk040102Controller extends Controller
 			$data['nama_pendek'] = $rowData[0]->nama_pendek;
 			$data['wilayah'] = $rowData[0]->wilayah;
 			$data['status'] = $rowData[0]->status;
+			$data['file'] = $rowData[0]->url_border_area;
 		}else{
 			$data['nama'] = null;
 			$data['nama_pendek'] = null;
 			$data['wilayah'] = null;
 			$data['status'] = null;
+			$data['file'] = null;
 		}
 		if (Auth::check()) {
 			$user = Auth::user();
@@ -67,16 +69,40 @@ class bk040102Controller extends Controller
 
 	public function post_create(Request $request)
 	{
-		if ($request->input('kode')!=null){
-			DB::table('bkt_01010101_prop')->where('kode', $request->input('kode'))
-			->update(['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'wilayah' => $request->input('wilayah-input'), 'status' => $request->input('status-input')]);
+		$file = $request->file('file-input');
+		$string = file_get_contents($file);
+		$json_file = json_decode($string, true);
+		var_dump($json_file);
+		// $url = null;
+		// $upload = false;
+		// if($request->input('uploaded-file') != null && $file == null){
+		// 	$url = $request->input('uploaded-file');
+		// 	$upload = false;
+		// }elseif($request->input('uploaded-file') != null && $file != null){
+		// 	$url = $file->getClientOriginalName();
+		// 	$upload = true;
+		// }elseif($request->input('uploaded-file') == null && $file != null){
+		// 	$url = $file->getClientOriginalName();
+		// 	$upload = true;
+		// }
+		
 
-		}else{
-			DB::table('bkt_01010101_prop')->insert(
-       			['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'wilayah' => $request->input('wilayah-input')]);
-			// var_dump($request['image']);
+		// if ($request->input('kode')!=null){
+		// 	DB::table('bkt_01010101_prop')->where('kode', $request->input('kode'))
+		// 	->update(['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'wilayah' => $request->input('wilayah-input'), 'url_border_area' => $url, 'status' => $request->input('status-input')]);
+
+		// 	if($upload == true){
+		// 		$file->move(public_path('/uploads/provinsi'), $file->getClientOriginalName());
+		// 	}
 			
-		}
+
+		// }else{
+		// 	DB::table('bkt_01010101_prop')->insert(
+  //      			['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'wilayah' => $request->input('wilayah-input'), 'url_border_area' => $url]);
+		// 	$file->move(public_path('/uploads/provinsi'), $file->getClientOriginalName());
+		// }
+
+		
 	}
 
 	public function show()
@@ -104,8 +130,8 @@ class bk040102Controller extends Controller
 			6 =>'updatede_time',
 			7 =>'updated_by'
 		);
-		$query='select * from bkt_01010101_prop ';
-		$totalData = DB::select('select count(1) cnt from bkt_01010101_prop ');
+		$query='select * from bkt_01010101_prop where status = 0 or status = 1 ';
+		$totalData = DB::select('select count(1) cnt from bkt_01010101_prop where status = 0 or status = 1');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -117,8 +143,8 @@ class bk040102Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. 'where nama like "%'.$search.'%" or nama_pendek like "%'.$search.'%" or wilayah like "%'.$search.'%" or status like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. 'where nama like "%'.$search.'%" or nama_pendek like "%'.$search.'%" or wilayah like "%'.$search.'%" or status like "%'.$search.'%") a');
+			$posts=DB::select($query. 'and nama like "%'.$search.'%" or nama_pendek like "%'.$search.'%" or wilayah like "%'.$search.'%" or status like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. 'and nama like "%'.$search.'%" or nama_pendek like "%'.$search.'%" or wilayah like "%'.$search.'%" or status like "%'.$search.'%") a');
 		}
 
 		$data = array();
@@ -167,7 +193,7 @@ class bk040102Controller extends Controller
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_01010101_prop')->where('kode', $request->input('kode'))->delete();
+		DB::table('bkt_01010101_prop')->where('kode', $request->input('kode'))->update(['status' => 2]);
         return Redirect::to('/gis/provinsi');
     }
 
