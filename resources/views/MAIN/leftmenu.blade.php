@@ -67,12 +67,12 @@
 						<ul class="sub-menu form-submenu">
 							<li {!! (Request::is( '/main/persiapan/nasional/pokja/pembentukan')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/nasional/pokja/pembentukan">
-				                    <i class="fa fa-fw ti-receipt"></i><span class="mm-text">Pembentukan</span>
+				                    <span class="mm-text">Pembentukan</span>
 				                </a>
 						    </li>
 							<li {!! (Request::is( '/main/persiapan/nasional/pokja/kegiatan')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/nasional/pokja/kegiatan">
-				                    <i class="fa fa-fw ti-receipt"></i><span class="mm-text">Kegiatan / Monitoring</span>
+				                    <span class="mm-text">Kegiatan / Monitoring</span>
 				                </a>
 						    </li>
 						</ul>
@@ -93,12 +93,12 @@
 						<ul class="sub-menu form-submenu">
 							<li {!! (Request::is( '/main/persiapan/propinsi/pokja/pembentukan')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/propinsi/pokja/pembentukan">
-				                    <i class="fa fa-fw ti-receipt"></i><span class="mm-text">Pembentukan</span>
+				                    <span class="mm-text">Pembentukan</span>
 				                </a>
 						    </li>
 							<li {!! (Request::is( '/main/persiapan/propinsi/pokja/kegiatan')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/propinsi/pokja/kegiatan">
-				                    <i class="fa fa-fw ti-receipt"></i><span class="mm-text">Kegiatan / Monitoring</span>
+				                    <span class="mm-text">Kegiatan / Monitoring</span>
 				                </a>
 						    </li>
 						</ul>
@@ -124,7 +124,7 @@
 						<ul class="sub-menu form-submenu">
 							<li {!! (Request::is( '/main/persiapan/kota/pokja/pembentukan')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/pokja/pembentukan">
-				                    <i class="fa fa-fw ti-receipt"></i><span class="mm-text">Pembentukan</span>
+				                    <span class="mm-text">Pembentukan</span>
 				                </a>
 						    </li>
 							<li {!! (Request::is( '/main/persiapan/kota/pokja/kegiatan')? 'class="active"': "") !!}>
