@@ -84,6 +84,21 @@ class bk040103Controller extends Controller
 			$upload = true;
 		}
 
+		if($upload == false){
+			$file = public_path('/uploads/kota/'.$url);
+			$string = file_get_contents($file);
+			$json_file = json_decode($string, true);
+			$json_file['properties']['KOTA'] = $request->input('nama-input');
+			$new_String = json_encode($json_file);
+			file_put_contents($file, $new_String);
+		}elseif($upload == true){
+			$string = file_get_contents($file);
+			$json_file = json_decode($string, true);
+			$json_file['properties']['KOTA'] = $request->input('nama-input');
+			$new_String = json_encode($json_file);
+			file_put_contents($file, $new_String);
+		}
+
 		if ($request->input('kode')!=null){
 			DB::table('bkt_01010102_kota')->where('kode', $request->input('kode'))
 			->update(['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'kode_prop' => $request->input('kode-prop-input'), 'url_border_area' => $url, 'status' => $request->input('status-input')]);

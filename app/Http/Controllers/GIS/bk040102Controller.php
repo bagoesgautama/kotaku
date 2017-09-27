@@ -70,37 +70,50 @@ class bk040102Controller extends Controller
 	public function post_create(Request $request)
 	{
 		$file = $request->file('file-input');
-		$string = file_get_contents($file);
-		$json_file = json_decode($string, true);
-		var_dump($json_file);
-		// $url = null;
-		// $upload = false;
-		// if($request->input('uploaded-file') != null && $file == null){
-		// 	$url = $request->input('uploaded-file');
-		// 	$upload = false;
-		// }elseif($request->input('uploaded-file') != null && $file != null){
-		// 	$url = $file->getClientOriginalName();
-		// 	$upload = true;
-		// }elseif($request->input('uploaded-file') == null && $file != null){
-		// 	$url = $file->getClientOriginalName();
-		// 	$upload = true;
-		// }
+		$url = null;
+		$upload = false;
+
+		if($request->input('uploaded-file') != null && $file == null){
+			$url = $request->input('uploaded-file');
+			$upload = false;
+		}elseif($request->input('uploaded-file') != null && $file != null){
+			$url = $file->getClientOriginalName();
+			$upload = true;
+		}elseif($request->input('uploaded-file') == null && $file != null){
+			$url = $file->getClientOriginalName();
+			$upload = true;
+		}
+
+		if($upload == false){
+			$file = public_path('/uploads/provinsi/'.$url);
+			$string = file_get_contents($file);
+			$json_file = json_decode($string, true);
+			$json_file['properties']['PROPINSI'] = $request->input('nama-input');
+			$new_String = json_encode($json_file);
+			file_put_contents($file, $new_String);
+		}elseif($upload == true){
+			$string = file_get_contents($file);
+			$json_file = json_decode($string, true);
+			$json_file['properties']['PROPINSI'] = $request->input('nama-input');
+			$new_String = json_encode($json_file);
+			file_put_contents($file, $new_String);
+		}
 		
 
-		// if ($request->input('kode')!=null){
-		// 	DB::table('bkt_01010101_prop')->where('kode', $request->input('kode'))
-		// 	->update(['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'wilayah' => $request->input('wilayah-input'), 'url_border_area' => $url, 'status' => $request->input('status-input')]);
+		if ($request->input('kode')!=null){
+			DB::table('bkt_01010101_prop')->where('kode', $request->input('kode'))
+			->update(['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'wilayah' => $request->input('wilayah-input'), 'url_border_area' => $url, 'status' => $request->input('status-input')]);
 
-		// 	if($upload == true){
-		// 		$file->move(public_path('/uploads/provinsi'), $file->getClientOriginalName());
-		// 	}
+			if($upload == true){
+				$file->move(public_path('/uploads/provinsi'), $file->getClientOriginalName());
+			}
 			
 
-		// }else{
-		// 	DB::table('bkt_01010101_prop')->insert(
-  //      			['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'wilayah' => $request->input('wilayah-input'), 'url_border_area' => $url]);
-		// 	$file->move(public_path('/uploads/provinsi'), $file->getClientOriginalName());
-		// }
+		}else{
+			DB::table('bkt_01010101_prop')->insert(
+       			['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'wilayah' => $request->input('wilayah-input'), 'url_border_area' => $url]);
+			$file->move(public_path('/uploads/provinsi'), $file->getClientOriginalName());
+		}
 
 		
 	}
