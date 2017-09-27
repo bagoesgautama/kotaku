@@ -71,13 +71,7 @@ $(document).ready(function() {
 			position:{lat: 4.9133446, lng: 117.7325848}
   		});
 	}
-	//map.data.loadGeoJson('/uploads/provinsi/ACEH.geojson');
-	/*map.data.loadGeoJson('http://localhost:8000/storage/geojson/TULANGBAWANG.geojson');
-	map.data.setStyle(function(feature) {
-		console.log('asd')
-		console.log(feature.f)
-	})*/
-
+	
 	map.data.setStyle(function(feature) {
 		if(attr[feature.f.Propinsi].kode%2==0){
 			return ({

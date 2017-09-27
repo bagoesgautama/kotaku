@@ -50,7 +50,6 @@ class bk040101Controller extends Controller
 		$data['propinsi']=$rowData[0]->nama;
 		$rowData = DB::select('select * from bkt_01010102_kota where status=1 and url_border_area is not null and kode_prop='.$id);
 		$data['prop']=$rowData;
-		//echo json_encode($data['prop']);
 		return view('GIS/bk040101/kota',$data);
     }
 }

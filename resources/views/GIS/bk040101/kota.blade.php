@@ -23,6 +23,7 @@
                             </h4>
             </div>
             <div class="panel-body">
+				<table id='info'></table>
                 <div id="gmap-top" class="gmap"></div>
             </div>
         </div>
@@ -54,7 +55,6 @@ $(document).ready(function() {
 	var map = new google.maps.Map(document.getElementById("gmap-top"), mapProp);
 	var prop = {!! json_encode($prop) !!};
 	var attr={}
-	console.log(prop);
 	for(var i=0;i<prop.length;i++){
 		map.data.loadGeoJson('/uploads/kota/'+prop[i].url_border_area);
 		attr[prop[i].nama]=prop[i]
@@ -71,20 +71,9 @@ $(document).ready(function() {
 	      '(last visited June 22, 2009).</p>'+
 	      '</div>'+
 	      '</div>';
-	  	attr[prop[i].nama].infowindow = new google.maps.InfoWindow({
-  			content: attr[prop[i].nama].contentString,
-			position:{lat: 4.9133446, lng: 117.7325848}
-  		});
 	}
-	//map.data.loadGeoJson('/uploads/provinsi/ACEH.geojson');
-	/*map.data.loadGeoJson('http://localhost:8000/storage/geojson/TULANGBAWANG.geojson');
-	map.data.setStyle(function(feature) {
-		console.log('asd')
-		console.log(feature.f)
-	})*/
 
 	map.data.setStyle(function(feature) {
-		console.log(feature.f.kota)
 		if(attr[feature.f.kota].kode%2==0){
 			return ({
 			    fillColor: 'red',
@@ -96,13 +85,17 @@ $(document).ready(function() {
 			    strokeWeight: 2
 			  });
 		}
-		console.log(feature)
 	})
 	map.data.addListener('mouseover', function(event) {
-	  	for(var key in attr)
-			attr[key].infowindow.close();
-		attr[event.feature.f.kota].infowindow.open(map);
-		//infowindow.open(map);
+	  	var data_detil=attr[event.feature.f.kota]
+    	var row = '';
+		for(var key in data_detil){
+			row += '<tr>';
+			row+='<td>' + key + '</td>';
+			row+='<td>' + data_detil[key]+' </td>';
+			row +='<tr>'
+		}
+	    $('#info').html(row);
 	});
 	//alert(JSON.stringify(prop));
 });
