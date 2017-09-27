@@ -46,7 +46,7 @@ class bk020101Controller extends Controller
 			5 =>'updated_time',
 			6 =>'updated_by'
 		);
-		$query='select *, (case when (status = 0) then "Tidak Aktif" when (status = 1) then "Aktif" else "Dihapus" end) nama_status from bkt_02010101_role_level ';
+		$query='select *, (case when (status = 0) then "Tidak Aktif" when (status = 1) then "Aktif" else "Dihapus" end) nama_status from bkt_02010101_role_level where status!=2 ';
 		$totalData = DB::select('select count(1) cnt from bkt_02010101_role_level ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');

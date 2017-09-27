@@ -48,7 +48,7 @@ class bk010107Controller extends Controller
 		return view('slum_program',$data);
 	}
 
-	public function Post(Request $request)
+	public function post(Request $request)
 	{
 		$columns = array(
 			0 =>'nourut',
@@ -67,8 +67,8 @@ class bk010107Controller extends Controller
 			13 => 'pms_nama',
 			14 => 'pms_alamat',
 			15 => 'tgl_akhir',
-			16 => 'thn_apbd1',
-			17 => 'thn_apbd2',
+			16 => 'tahun_apbd1',
+			17 => 'tahun_apbd2',
 			18 => 'status',
 			19 => 'project',
 			20 => 'kode_departemen',
@@ -76,9 +76,11 @@ class bk010107Controller extends Controller
 			22 => 'jenis_siklus',
 			23 => 'created_time',
 			24 => 'created_by',
-			25 => 'update_time',
-			26 => 'update_by'
+			25 => 'updated_time',
+			26 => 'updated_by'
 		);
+
+		
 		$query='select * from bkt_01010107_slum_program ';
 		$totalData = DB::select('select count(1) cnt from bkt_01010107_slum_program ');
 		$totalFiltered = $totalData[0]->cnt;
@@ -92,8 +94,8 @@ class bk010107Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. 'where name like "%'.$search.'%" or email like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. 'where name like "%'.$search.'%" or email like "%'.$search.'%") a');
+			$posts=DB::select($query. 'where nama like "%'.$search.'%" or email1 like "%'.$search.'%" or no_hp1 like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. 'where nama like "%'.$search.'%" or email1 like "%'.$search.'%" or no_hp1 like "%'.$search.'%") a');
 		}
 
 		$data = array();
@@ -104,16 +106,36 @@ class bk010107Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_edit=url('/')."/hrm/role_level/create?kode=".$show;
-				$url_delete=url('/')."/hrm/role_level/delete?kode=".$delete;
+				$url_edit=url('/')."/main/slum_program/create?kode=".$show;
+				$url_delete=url('/')."main/slum_program/delete?kode=".$delete;
+				$nestedData['nourut'] = $post->nourut;
 				$nestedData['nama'] = $post->nama;
-				$nestedData['deskripsi'] = $post->deskripsi;
+				$nestedData['keterangan'] = $post->keterangan;
+				$nestedData['kode_kota'] = $post->kode_kota;
+				$nestedData['alamat'] = $post->alamat;
+				$nestedData['kodepos'] = $post->kodepos;
+				$nestedData['contact_person'] = $post->contact_person;
+				$nestedData['no_phone'] = $post->no_phone;
+				$nestedData['no_fax'] = $post->no_fax;
+				$nestedData['no_hp1'] = $post->no_hp1;
+				$nestedData['no_hp2'] = $post->no_hp2;
+				$nestedData['email1'] = $post->email1;
+				$nestedData['email2'] = $post->email2;
+				$nestedData['pms_nama'] = $post->pms_nama;
+				$nestedData['pms_alamat'] = $post->pms_alamat;
+				$nestedData['tgl_akhir'] = $post->tgl_akhir;
+				$nestedData['tahun_apbd1'] = $post->tahun_apbd1;
+				$nestedData['tahun_apbd2'] = $post->tahun_apbd2;
 				$nestedData['status'] = $post->status;
+				$nestedData['project'] = $post->project;
+				$nestedData['kode_departemen'] = $post->kode_departemen;
+				$nestedData['glosary_caption'] = $post->glosary_caption;
+				$nestedData['jenis_siklus'] = $post->jenis_siklus;
 				$nestedData['created_time'] = $post->created_time;
 				$nestedData['created_by'] = $post->created_by;
-				$nestedData['update_time'] = $post->update_time;
-				$nestedData['update_by'] = $post->update_by;
-				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>
+				$nestedData['updated_time'] = $post->updated_time;
+				$nestedData['updated_by'] = $post->updated_by;
+				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>
 				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				$data[] = $nestedData;
 			}
@@ -135,47 +157,140 @@ class bk010107Controller extends Controller
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
 		if($data['kode']!=null){
-			$rowData = DB::select('select * from bkt_02010101_role_level where kode='.$data['kode']);
+			$rowData = DB::select('select * from bkt_01010107_slum_program where kode='.$data['kode']);
+			$data['nourut'] = $rowData[0]->nourut;
 			$data['nama'] = $rowData[0]->nama;
-			$data['deskripsi'] = $rowData[0]->deskripsi;
+			$data['keterangan'] = $rowData[0]->keterangan;
+			$data['kode_kota'] = $rowData[0]->kode_kota;
+			$data['alamat'] = $rowData[0]->alamat;
+			$data['kodepos'] = $rowData[0]->kodepos;
+			$data['contact_person'] = $rowData[0]->contact_person;
+			$data['no_phone'] = $rowData[0]->no_phone;
+			$data['no_fax'] = $rowData[0]->no_fax;
+			$data['no_hp1'] = $rowData[0]->no_hp1;
+			$data['no_hp2'] = $rowData[0]->no_hp2;
+			$data['email1'] = $rowData[0]->email1;
+			$data['email2'] = $rowData[0]->email2;
+			$data['pms_nama'] = $rowData[0]->pms_nama;
+			$data['pms_alamat'] = $rowData[0]->pms_alamat;
+			$data['tgl_akhir'] = $rowData[0]->tgl_akhir;
+			$data['tahun_apbd1'] = $rowData[0]->tahun_apbd1;
+			$data['tahun_apbd2'] = $rowData[0]->tahun_apbd2;
 			$data['status'] = $rowData[0]->status;
+			$data['project'] = $rowData[0]->project;
+			$data['kode_departemen'] = $rowData[0]->kode_departemen;
+			$data['glosary_caption'] = $rowData[0]->glosary_caption;
+			$data['jenis_siklus'] = $rowData[0]->jenis_siklus;
 			$data['created_time'] = $rowData[0]->created_time;
 			$data['created_by'] = $rowData[0]->created_by;
-			$data['update_time'] = $rowData[0]->update_time;
-			$data['update_by'] = $rowData[0]->update_by;
+			$data['updated_time'] = $rowData[0]->updated_time;
+			$data['updated_by'] = $rowData[0]->updated_by;
 		}else{
+			$data['nourut'] = null;
 			$data['nama'] = null;
-			$data['deskripsi'] = null;
+			$data['keterangan'] = null;
+			$data['kode_kota'] = null;
+			$data['alamat'] = null;
+			$data['kodepos'] = null;
+			$data['contact_person'] = null;
+			$data['no_phone'] = null;
+			$data['no_fax'] = null;
+			$data['no_hp1'] = null;
+			$data['no_hp2'] = null;
+			$data['email1'] = null;
+			$data['email2'] = null;
+			$data['pms_nama'] = null;
+			$data['pms_alamat'] = null;
+			$data['tgl_akhir'] = null;
+			$data['tahun_apbd1'] = null;
+			$data['tahun_apbd2'] = null;
 			$data['status'] = null;
+			$data['project'] = null;
+			$data['kode_departemen'] = null;
+			$data['glosary_caption'] = null;
+			$data['jenis_siklus'] = null;
 			$data['created_time'] = null;
 			$data['created_by'] = null;
-			$data['update_time'] = null;
-			$data['update_by'] = null;
+			$data['updated_time'] = null;
+			$data['updated_by'] = null;
 		}
+
+		//get dropdown list from Database
+		$kode_kota = DB::select('select kode, nama from bkt_01010102_kota where status=1');
+		$data['kode_kota_list'] = $kode_kota;
+
 		if (Auth::check()) {
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		return view('HRM/main/role_level_create',$data);
+		return view('MAIN/bk010107/create',$data);
 	}
 
+	
 	public function post_create(Request $request)
 	{
 		if ($request->input('example-id-input')!=null){
-			DB::table('bkt_02010101_role_level')->where('kode', $request->input('example-id-input'))
-			->update(['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select')
+			$date = strtotime($request->input('tgl_akhir'));
+        	$date_convert = date('Y-m-d', $date);
+			DB::table('bkt_01010107_slum_program')->where('kode', $request->input('example-id-input'))
+			->update(
+				['nourut' => $request->input('example-no_urut-input'), 
+				'nama' => $request->input('example-nama-input'), 
+				'keterangan' => $request->input('example-keterangan-input'), 
+				'kode_kota' => $request->input('example-select-kota'), 
+				'alamat' => $request->input('example-alamat-input'), 
+				'kodepos' => $request->input('example-kodepos-input'), 
+				'contact_person' => $request->input('example-contact_person-input'), 
+				'no_phone' => $request->input('example-no_phone-input'), 
+				'no_fax' => $request->input('example-no_fax-input'), 
+				'no_hp1' => $request->input('example-no_hp1-input'), 
+				'no_hp2' => $request->input('example-no_hp2-input'), 
+				'email1' => $request->input('example-email1'), 
+				'email2' => $request->input('example-email2'), 
+				'pms_nama' => $request->input('example-pms_nama-input'), 
+				'pms_alamat' => $request->input('example-pms_alamat-input'),
+				'tgl_akhir' => $date_convert,
+				'tahun_apbd1' => $request->input('example-tahun_apbd1-input'),
+				'tahun_apbd2' => $request->input('example-tahun_apbd2-input'),
+				'status' => $request->input('example-select-status'),
+				'project' => $request->input('example-project-input'),
+				'glosary_caption' => $request->input('example-glosary_caption-input'), 
+				'jenis_siklus' => $request->input('example-select-jenis_siklus'),
 				]);
-
 		}else{
-			DB::table('bkt_02010101_role_level')->insert(
-       			['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select')
+			$date = strtotime($request->input('tgl_akhir'));
+        	$date_convert = date('Y-m-d', $date);
+			DB::table('bkt_01010107_slum_program')->insert(
+       			['nourut' => $request->input('example-no_urut-input'), 
+       				'nama' => $request->input('example-nama-input'), 
+       				'keterangan' => $request->input('example-keterangan-input'), 
+       				'kode_kota' => $request->input('example-select-kota'), 
+       				'alamat' => $request->input('example-alamat-input'), 
+       				'kodepos' => $request->input('example-kodepos-input'), 
+       				'contact_person' => $request->input('example-contact_person-input'), 
+       				'no_phone' => $request->input('example-no_phone-input'), 
+       				'no_fax' => $request->input('example-no_fax-input'), 
+       				'no_hp1' => $request->input('example-no_hp1-input'), 
+       				'no_hp2' => $request->input('example-no_hp2-input'), 
+       				'email1' => $request->input('example-email1'), 
+       				'email2' => $request->input('example-email2'), 
+       				'pms_nama' => $request->input('example-pms_nama-input'), 
+       				'pms_alamat' => $request->input('example-pms_alamat-input'),
+       				'tgl_akhir' => $date_convert,
+       				'tahun_apbd1' => $request->input('example-tahun_apbd1-input'),
+       				'tahun_apbd2' => $request->input('example-tahun_apbd2-input'),
+       				'status' => $request->input('example-select-status'),
+       				'project' => $request->input('example-project-input'),
+       				'glosary_caption' => $request->input('example-glosary_caption-input'),
+       				'jenis_siklus' => $request->input('example-select-jenis_siklus')
        			]);
 		}
 	}
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_02010101_role_level')->where('kode', $request->input('kode'))->delete();
-        return Redirect::to('/hrm/role_level');
+		DB::table('bkt_01010107_slum_program')->where('kode', $request->input('example-id-input'))
+			->update(['status' => '2']);
+        return Redirect::to('/main/slum_program');
     }
 }

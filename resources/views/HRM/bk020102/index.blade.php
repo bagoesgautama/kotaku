@@ -31,6 +31,9 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
+                <div class="panel-title pull-left">
+                    <b>bk010107 index</b>
+                </div>
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('hrm/role/create') }}">Create</a>
 				</div>

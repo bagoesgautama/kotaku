@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Slum Program @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,10 +14,16 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Slum Program</h1>
     <ol class="breadcrumb">
+        <li>
+            <a href="/main">
+                <i class="fa fa-fw fa-home"></i> MAIN
+            </a>
+        </li>
+        <li><a href="/hrm/slum_program">Slum Program</a></li>
         <li class="active">
-            <i class="fa fa-fw fa-home"></i> MAIN
+            Table
         </li>
     </ol>
 </section>
@@ -30,22 +36,26 @@
                     <b>bk010107 index</b>
                 </div>
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('hrm/role_level/create') }}">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('main/slum_program/create') }}">Create</a>
 				</div>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="role_level">
+					<table class="table table-striped" id="users">
 						<thead>
                             <tr>
-                                <th>No Urut</th>
                                 <th>Nama</th>
-                                <th>Keterangan</th>
                                 <th>Kota</th>
                                 <th>Alamat</th>
-                                <th></th>
-                                <th>update by</th>
-								<th>option</th>
+                                <th>Contact Person</th>
+								<th>No Telepon</th>
+                                <th>No Handphone</th>
+                                <th>Email</th>
+                                <th>created time</th>
+                                <th>created by</th>
+                                <th>updated time</th>
+                                <th>updated by</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -59,25 +69,33 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#role_level').DataTable({
-	        // dom: 'Bflrtip',
-	        
-			"processing": true,
+        var table = $('#users').DataTable({
+	    	"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('hrm/role_level') }}",
+                     "url": "/main/slum_program",
                      "dataType": "json",
                      "type": "POST"
                    },
-
+            success: function(data) {
+                 alert('suces')
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+              },
             "columns": [
 				{ "data": "nama" , name:"nama"},
-                { "data": "deskripsi" , name:"deskripsi"},
-                { "data": "status" , name:"status"},
+                { "data": "kode_kota" , name:"kode_kota"},
+                { "data": "alamat" , name:"alamat"},
+                { "data": "contact_person" , name:"contact_person"},
+                { "data": "no_phone" , name:"no_phone"},
+                { "data": "no_hp1" , name:"no_hp1"},
+                { "data": "email1" , name:"email1"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "created_by" , name:"created_by"},
-                { "data": "update_time" , name:"update_time"},
-                { "data": "update_by" , name:"update_by"},
+                { "data": "updated_time" , name:"updated_time"},
+                { "data": "updated_by" , name:"updated_by"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });

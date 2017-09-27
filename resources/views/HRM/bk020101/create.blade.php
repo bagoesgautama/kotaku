@@ -43,7 +43,6 @@
                     <select id="example-select1" name="example-select" class="form-control" size="1">
                         <option value="0" @if($status==0) selected="selected" @endif >Tidak Aktif</option>
                         <option value="1" @if($status==1) selected="selected" @endif >Aktif</option>
-                        <option value="2" @if($status==2) selected="selected" @endif >Dihapus</option>
                     </select>
                 </div>
             </div>

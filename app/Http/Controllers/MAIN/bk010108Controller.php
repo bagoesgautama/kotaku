@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\HRM;
+namespace App\Http\Controllers\MAIN;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
 
-class bk020101Controller extends Controller
+class bk010108Controller extends Controller
 {
     /**
      * Create a new controller instance.
@@ -32,7 +32,7 @@ class bk020101Controller extends Controller
             $user = Auth::user();
             $data['username'] = Auth::user()->name;
         }
-		return view('HRM/main/role_level',$data);
+		return view('MAIN/bk010108/index',$data);
     }
 
 	public function show()
@@ -45,22 +45,30 @@ class bk020101Controller extends Controller
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		return view('role_level',$data);
+		return view('kmp',$data);
 	}
 
 	public function Post(Request $request)
 	{
 		$columns = array(
 			0 =>'nama',
-			1 =>'deskripsi',
-			2 =>'status',
-			3 =>'created_time',
-			4 =>'created_by',
-			5 =>'update_time',
-			6 =>'update_by'
+			1 =>'alamat',
+			2 =>'kodepos',
+			3 =>'contact_person',
+			4 =>'no_phone',
+			5 =>'no_hp1',
+			6 =>'no_hp2',
+			7 =>'email1',
+			8 =>'email2',
+			9 =>'pms_nama',
+			10 => 'pms_alamat',
+			11 =>'created_time',
+			12 =>'created_by',
+			13 =>'updated_time',
+			14 =>'updated_by'
 		);
-		$query='select * from bkt_02010101_role_level ';
-		$totalData = DB::select('select count(1) cnt from bkt_02010101_role_level ');
+		$query='select * from bkt_01010108_kmp ';
+		$totalData = DB::select('select count(1) cnt from bkt_01010108_kmp ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -72,8 +80,8 @@ class bk020101Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. 'where name like "%'.$search.'%" or email like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. 'where name like "%'.$search.'%" or email like "%'.$search.'%") a');
+			$posts=DB::select($query. 'where nama like "%'.$search.'%" or email1 like "%'.$search.'%" or no_hp1 like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. 'where nama like "%'.$search.'%" or email1 like "%'.$search.'%" or no_hp1 like "%'.$search.'%") a');
 		}
 
 		$data = array();
@@ -84,16 +92,24 @@ class bk020101Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_edit=url('/')."/hrm/role_level/create?kode=".$show;
-				$url_delete=url('/')."/hrm/role_level/delete?kode=".$delete;
+				$url_edit=url('/')."/main/kmp/create?kode=".$show;
+				$url_delete=url('/')."/main/kmp/delete?kode=".$delete;
 				$nestedData['nama'] = $post->nama;
-				$nestedData['deskripsi'] = $post->deskripsi;
-				$nestedData['status'] = $post->status;
+				$nestedData['alamat'] = $post->alamat;
+				$nestedData['kodepos'] = $post->kodepos;
+				$nestedData['contact_person'] = $post->contact_person;
+				$nestedData['no_phone'] = $post->no_phone;
+				$nestedData['no_hp1'] = $post->no_hp1;
+				$nestedData['no_hp2'] = $post->no_hp2;
+				$nestedData['email1'] = $post->email1;
+				$nestedData['email2'] = $post->email2;
+				$nestedData['pms_nama'] = $post->pms_nama;
+				$nestedData['pms_alamat'] = $post->pms_alamat;
 				$nestedData['created_time'] = $post->created_time;
 				$nestedData['created_by'] = $post->created_by;
-				$nestedData['update_time'] = $post->update_time;
-				$nestedData['update_by'] = $post->update_by;
-				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>
+				$nestedData['updated_time'] = $post->updated_time;
+				$nestedData['updated_by'] = $post->updated_by;
+				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>
 				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				$data[] = $nestedData;
 			}
@@ -115,47 +131,85 @@ class bk020101Controller extends Controller
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
 		if($data['kode']!=null){
-			$rowData = DB::select('select * from bkt_02010101_role_level where kode='.$data['kode']);
+			$rowData = DB::select('select * from bkt_01010108_kmp where kode='.$data['kode']);
 			$data['nama'] = $rowData[0]->nama;
-			$data['deskripsi'] = $rowData[0]->deskripsi;
-			$data['status'] = $rowData[0]->status;
+			$data['alamat'] = $rowData[0]->alamat;
+			$data['kodepos'] = $rowData[0]->kodepos;
+			$data['contact_person'] = $rowData[0]->contact_person;
+			$data['no_phone'] = $rowData[0]->no_phone;
+			$data['no_hp1'] = $rowData[0]->no_hp1;
+			$data['no_hp2'] = $rowData[0]->no_hp2;
+			$data['email1'] = $rowData[0]->email1;
+			$data['email2'] = $rowData[0]->email2;
+			$data['pms_nama'] = $rowData[0]->pms_nama;
+			$data['pms_alamat'] = $rowData[0]->pms_alamat;
 			$data['created_time'] = $rowData[0]->created_time;
 			$data['created_by'] = $rowData[0]->created_by;
-			$data['update_time'] = $rowData[0]->update_time;
-			$data['update_by'] = $rowData[0]->update_by;
+			$data['updated_time'] = $rowData[0]->updated_time;
+			$data['updated_by'] = $rowData[0]->updated_by;
 		}else{
 			$data['nama'] = null;
-			$data['deskripsi'] = null;
-			$data['status'] = null;
+			$data['alamat'] = null;
+			$data['kodepos'] = null;
+			$data['contact_person'] = null;
+			$data['no_phone'] = null;
+			$data['no_hp1'] = null;
+			$data['no_hp2'] = null;
+			$data['email1'] = null;
+			$data['email2'] = null;
+			$data['pms_nama'] = null;
+			$data['pms_alamat'] = null;
 			$data['created_time'] = null;
 			$data['created_by'] = null;
-			$data['update_time'] = null;
-			$data['update_by'] = null;
+			$data['updated_time'] = null;
+			$data['updated_by'] = null;
 		}
 		if (Auth::check()) {
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		return view('HRM/main/role_level_create',$data);
+		return view('MAIN/bk010108/create',$data);
 	}
 
 	public function post_create(Request $request)
 	{
 		if ($request->input('example-id-input')!=null){
-			DB::table('bkt_02010101_role_level')->where('kode', $request->input('example-id-input'))
-			->update(['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select')
+			DB::table('bkt_01010108_kmp')->where('kode', $request->input('example-id-input'))
+			->update(
+				['nama' => $request->input('example-nama-input'), 
+				'alamat' => $request->input('example-alamat-input'), 
+				'kodepos' => $request->input('example-kodepos-input'), 
+				'contact_person' => $request->input('example-contact_person-input'), 
+				'no_phone' => $request->input('example-no_phone-input'), 
+				'no_hp1' => $request->input('example-no_hp1-input'), 
+				'no_hp2' => $request->input('example-no_hp2-input'), 
+				'email1' => $request->input('example-email1'), 
+				'email2' => $request->input('example-email2'), 
+				'pms_nama' => $request->input('example-pms_nama-input'), 
+				'pms_alamat' => $request->input('example-pms_alamat-input')
 				]);
 
 		}else{
-			DB::table('bkt_02010101_role_level')->insert(
-       			['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select')
+			DB::table('bkt_01010108_kmp')->insert(
+       			['nama' => $request->input('example-nama-input'), 
+				'alamat' => $request->input('example-alamat-input'), 
+				'kodepos' => $request->input('example-kodepos-input'), 
+				'contact_person' => $request->input('example-contact_person-input'), 
+				'no_phone' => $request->input('example-no_phone-input'), 
+				'no_hp1' => $request->input('example-no_hp1-input'), 
+				'no_hp2' => $request->input('example-no_hp2-input'), 
+				'email1' => $request->input('example-email1'), 
+				'email2' => $request->input('example-email2'), 
+				'pms_nama' => $request->input('example-pms_nama-input'), 
+				'pms_alamat' => $request->input('example-pms_alamat-input')
        			]);
 		}
 	}
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_02010101_role_level')->where('kode', $request->input('kode'))->delete();
-        return Redirect::to('/hrm/role_level');
+		DB::table('bkt_01010108_kmp')->where('kode', $request->input('example-id-input'))
+			->update(['status' => '2']);
+        return Redirect::to('/main/kmp');
     }
 }

@@ -60,7 +60,7 @@ class bk020102Controller extends Controller
 			6 =>'a.updated_time',
 			7 =>'a.updated_by'
 		);
-		$query='select a.* ,case when (a.status = 0) then "Tidak Aktif" when (a.status = 1) then "Aktif" else "Dihapus" end nama_status , b.nama nama_level from bkt_02010102_role a, bkt_02010101_role_level b where a.kode_level=b.kode';
+		$query='select a.* ,case when (a.status = 0) then "Tidak Aktif" when (a.status = 1) then "Aktif" else "Dihapus" end nama_status , b.nama nama_level from bkt_02010102_role a, bkt_02010101_role_level b where a.kode_level=b.kode and a.status!=2';
 		$totalData = DB::select('select count(1) cnt from bkt_02010102_role ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -137,7 +137,7 @@ class bk020102Controller extends Controller
 			$data['updated_by'] = null;
 		}
 
-//get dropdown list from Database
+		//get dropdown list from Database
 		$kode_level = DB::select('select kode, nama from bkt_02010101_role_level where status=1');
 		$data['kode_level_list'] = $kode_level;
 		
