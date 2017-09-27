@@ -213,6 +213,7 @@ Route::get('/main/persiapan/kota/kegiatan/sosialisasi/delete', 'MAIN\bk010208Con
  */
 Route::get('/gis', 'GIS\bk040101Controller@index');
 Route::get('/gis/map-kota', 'GIS\bk040101Controller@kota');
+Route::get('/gis/map-kecamatan', 'GIS\bk040101Controller@kecamatan');
 
 //gis Provinsi
 Route::get('/gis/provinsi', 'GIS\bk040102Controller@index');
