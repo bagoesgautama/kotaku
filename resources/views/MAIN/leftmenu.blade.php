@@ -47,31 +47,31 @@
 		    </li>
 		</ul>
 	</li>
-	<li {!! (Request::is( 'form_elements') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+	<li {!! (Request::is( '/main/persiapan/kota/kegiatan/sosialisasi')||Request::is( '/main/persiapan/kota/info')||Request::is( '/main/persiapan/kota/pokja/pembentukan')||Request::is( '/main/persiapan/kota/pokja/kegiatan')||Request::is( '/main/persiapan/propinsi/pokja/pembentukan')||Request::is( '/main/persiapan/propinsi/pokja/kegiatan')||Request::is( '/main/persiapan/nasional/pokja/pembentukan')||Request::is( '/main/persiapan/nasional/pokja/kegiatan') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
             <span class="mm-text">Persiapan</span>
             <span class="fa arrow"></span>
         </a>
 		<ul class="sub-menu">
-			<li {!! (Request::is( 'form_elements')? 'class="active"': 'class=""') !!}>
+			<li {!! (Request::is( '/main/persiapan/nasional/pokja/pembentukan')||Request::is( '/main/persiapan/nasional/pokja/kegiatan')? 'class="active"': 'class=""') !!}>
                 <a href="javascript:void(0)">
                     <span class="mm-text">Nasional</span>
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="sub-menu form-submenu">
-					<li {!! (Request::is( '/main/kel_faskel')? 'class="active"': "") !!}>
+					<li {!! (Request::is( '/main/persiapan/nasional/pokja/pembentukan')||Request::is( '/main/persiapan/nasional/pokja/kegiatan')? 'class="active"': "") !!}>
 						<a href="javascript:void(0)">
 		                    <span class="mm-text">Kelompok Kerja (Pokja)</span>
 		                    <span class="fa arrow"></span>
 		                </a>
 						<ul class="sub-menu form-submenu">
-							<li {!! (Request::is( '/main/kel_faskel')? 'class="active"': "") !!}>
-								<a href="javascript:void(0)">
+							<li {!! (Request::is( '/main/persiapan/nasional/pokja/pembentukan')? 'class="active"': "") !!}>
+								<a href="/main/persiapan/nasional/pokja/pembentukan">
 				                    <i class="fa fa-fw ti-receipt"></i><span class="mm-text">Pembentukan</span>
 				                </a>
 						    </li>
-							<li {!! (Request::is( '/main/kel_faskel')? 'class="active"': "") !!}>
-								<a href="javascript:void(0)">
+							<li {!! (Request::is( '/main/persiapan/nasional/pokja/kegiatan')? 'class="active"': "") !!}>
+								<a href="/main/persiapan/nasional/pokja/kegiatan">
 				                    <i class="fa fa-fw ti-receipt"></i><span class="mm-text">Kegiatan / Monitoring</span>
 				                </a>
 						    </li>
@@ -79,25 +79,25 @@
 				    </li>
 				</ul>
 			</li>
-			<li {!! (Request::is( 'form_elements')? 'class="active"': 'class=""') !!}>
+			<li {!! (Request::is( '/main/persiapan/propinsi/pokja/pembentukan')||Request::is( '/main/persiapan/propinsi/pokja/kegiatan')? 'class="active"': 'class=""') !!}>
                 <a href="javascript:void(0)">
                     <span class="mm-text">Propinsi</span>
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="sub-menu form-submenu">
-					<li {!! (Request::is( '/main/kel_faskel')? 'class="active"': "") !!}>
+					<li {!! (Request::is( '/main/persiapan/propinsi/pokja/pembentukan')||Request::is( '/main/persiapan/propinsi/pokja/kegiatan')? 'class="active"': "") !!}>
 						<a href="javascript:void(0)">
 		                    <span class="mm-text">Kelompok Kerja (Pokja)</span>
 		                    <span class="fa arrow"></span>
 		                </a>
 						<ul class="sub-menu form-submenu">
-							<li {!! (Request::is( '/main/kel_faskel')? 'class="active"': "") !!}>
-								<a href="javascript:void(0)">
+							<li {!! (Request::is( '/main/persiapan/propinsi/pokja/pembentukan')? 'class="active"': "") !!}>
+								<a href="/main/persiapan/propinsi/pokja/pembentukan">
 				                    <i class="fa fa-fw ti-receipt"></i><span class="mm-text">Pembentukan</span>
 				                </a>
 						    </li>
-							<li {!! (Request::is( '/main/kel_faskel')? 'class="active"': "") !!}>
-								<a href="javascript:void(0)">
+							<li {!! (Request::is( '/main/persiapan/propinsi/pokja/kegiatan')? 'class="active"': "") !!}>
+								<a href="/main/persiapan/propinsi/pokja/kegiatan">
 				                    <i class="fa fa-fw ti-receipt"></i><span class="mm-text">Kegiatan / Monitoring</span>
 				                </a>
 						    </li>
@@ -105,43 +105,43 @@
 				    </li>
 				</ul>
 			</li>
-			<li {!! (Request::is( 'form_elements')? 'class="active"': 'class=""') !!}>
+			<li {!! (Request::is( '/main/persiapan/kota/kegiatan/sosialisasi')||Request::is( '/main/persiapan/kota/info')||Request::is( '/main/persiapan/kota/pokja/pembentukan')||Request::is( '/main/persiapan/kota/pokja/kegiatan')? 'class="active"': 'class=""') !!}>
                 <a href="javascript:void(0)">
                     <span class="mm-text">Kota/Kabupaten</span>
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="sub-menu form-submenu">
-					<li {!! (Request::is( '/main/kel_faskel')? 'class="active"': "") !!}>
-						<a href="javascript:void(0)">
+					<li {!! (Request::is( '/main/persiapan/kota/info')? 'class="active"': "") !!}>
+						<a href="/main/persiapan/kota/info">
 							<span class="mm-text">Informasi Umum</span>
 						</a>
 					</li>
-					<li {!! (Request::is( '/main/kel_faskel')? 'class="active"': "") !!}>
+					<li {!! (Request::is( '/main/persiapan/kota/pokja/pembentukan')||Request::is( '/main/persiapan/kota/pokja/kegiatan')? 'class="active"': "") !!}>
 						<a href="javascript:void(0)">
 		                    <span class="mm-text">Kelompok Kerja (Pokja)</span>
 		                    <span class="fa arrow"></span>
 		                </a>
 						<ul class="sub-menu form-submenu">
-							<li {!! (Request::is( '/main/kel_faskel')? 'class="active"': "") !!}>
-								<a href="javascript:void(0)">
+							<li {!! (Request::is( '/main/persiapan/kota/pokja/pembentukan')? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kota/pokja/pembentukan">
 				                    <i class="fa fa-fw ti-receipt"></i><span class="mm-text">Pembentukan</span>
 				                </a>
 						    </li>
-							<li {!! (Request::is( '/main/kel_faskel')? 'class="active"': "") !!}>
-								<a href="javascript:void(0)">
+							<li {!! (Request::is( '/main/persiapan/kota/pokja/kegiatan')? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kota/pokja/kegiatan">
 				                    <span class="mm-text">Kegiatan / Monitoring</span>
 				                </a>
 						    </li>
 						</ul>
 				    </li>
-					<li {!! (Request::is( '/main/kel_faskel')? 'class="active"': "") !!}>
+					<li {!! (Request::is( '/main/persiapan/kota/kegiatan/sosialisasi')? 'class="active"': "") !!}>
 						<a href="javascript:void(0)">
 		                    <span class="mm-text">Kegiatan</span>
 		                    <span class="fa arrow"></span>
 		                </a>
 						<ul class="sub-menu form-submenu">
-							<li {!! (Request::is( '/main/kel_faskel')? 'class="active"': "") !!}>
-								<a href="javascript:void(0)">
+							<li {!! (Request::is( '/main/persiapan/kota/kegiatan/sosialisasi')? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kota/kegiatan/sosialisasi">
 				                    <span class="mm-text">Sosialisasi & Relawan</span>
 				                </a>
 						    </li>
