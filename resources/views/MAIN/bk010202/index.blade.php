@@ -15,36 +15,49 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>MAIN Module</h1>
-    <ol class="breadcrumb">
-        <li class="active">
-            <i class="fa fa-fw fa-home"></i> MAIN
-        </li>
-    </ol>
+    <div class="bs-example">
+        <ul class="breadcrumb">
+            <li class="next">
+                <a href="/main">
+                    <i class="fa fa-fw fa-home"></i> MAIN
+                </a>
+            </li>
+            <li class="next">
+                Persiapan
+            </li>
+            <li class="next">
+                Nasional
+            </li>
+            <li class="next">
+                Pokja
+            </li>
+            <li class="next">
+                Kegiatan atau Monitoring
+            </li>
+        </ul>
+    </div>
 </section>
 @stop {{-- Page content --}} @section('content')
 <div class="row">
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <div class="panel-title pull-left">
+                <!-- <div class="panel-title pull-left">
                     <b>bk010107 index</b>
-                </div>
+                </div> -->
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('hrm/role_level/create') }}">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/nasional/pokja/kegiatan/create' }}">Create</a>
 				</div>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="role_level">
+					<table class="table table-striped" id="kegiatan">
 						<thead>
                             <tr>
-                                <th>No Urut</th>
-                                <th>Nama</th>
-                                <th>Keterangan</th>
-                                <th>Kota</th>
-                                <th>Alamat</th>
-                                <th></th>
-                                <th>update by</th>
+                                <th>Kode Pokja</th>
+                                <th>Jenis Sub Kegiatan</th>
+                                <th>Tanggal Kegiatan</th>
+                                <th>Lokasi Kegiatan</th>
 								<th>option</th>
                             </tr>
                         </thead>
@@ -59,25 +72,22 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#role_level').DataTable({
+		var table = $('#kegiatan').DataTable({
 	        // dom: 'Bflrtip',
 	        
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('hrm/role_level') }}",
+                     "url": "/main/persiapan/nasional/pokja/kegiatan",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-				{ "data": "nama" , name:"nama"},
-                { "data": "deskripsi" , name:"deskripsi"},
-                { "data": "status" , name:"status"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
-                { "data": "update_time" , name:"update_time"},
-                { "data": "update_by" , name:"update_by"},
+				{ "data": "kode_pokja" , name:"kode_pokja"},
+                { "data": "jenis_subkegiatan" , name:"jenis_subkegiatan"},
+                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
+                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
