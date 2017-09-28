@@ -93,10 +93,8 @@ Route::get('/hrm/modul/delete', 'HRM\bk020104Controller@delete');
 
 //role akses form CRUD
 Route::get('/hrm/role_akses', 'HRM\bk020109Controller@index');
-Route::post('hrm/role_akses', 'HRM\bk020109Controller@post');
-Route::get('/hrm/role_akses/create', 'HRM\bk020109Controller@create');
-Route::post('/hrm/role_akses/create', 'HRM\bk020109Controller@post_create');
-Route::get('/hrm/role_akses/delete', 'HRM\bk020109Controller@delete');
+Route::get('/hrm/role_akses/show', 'HRM\bk020109Controller@show');
+Route::post('/hrm/role_akses', 'HRM\bk020109Controller@post');
 
 /**
  *

@@ -50,6 +50,7 @@ $(document).ready(function() {
 	var map = new google.maps.Map(document.getElementById("gmap-top"), mapProp);
 	var prop = {!! json_encode($prop) !!};
 	var attr={}
+	console.log(prop)
 	for(var i=0;i<prop.length;i++){
 		map.data.loadGeoJson('/uploads/provinsi/'+prop[i].url_border_area);
 		attr[prop[i].nama]=prop[i]
@@ -71,9 +72,9 @@ $(document).ready(function() {
 			position:{lat: 4.9133446, lng: 117.7325848}
   		});
 	}
-	
+
 	map.data.setStyle(function(feature) {
-		if(attr[feature.f.Propinsi].kode%2==0){
+		if(attr[feature.f.PROPINSI].kode%2==0){
 			return ({
 			    fillColor: 'red',
 			    strokeWeight: 1
@@ -88,7 +89,7 @@ $(document).ready(function() {
 	map.data.addListener('mouseover', function(event) {
 	  	for(var key in attr)
 			attr[key].infowindow.close();
-		attr[event.feature.f.Propinsi].infowindow.open(map);
+		attr[event.feature.f.PROPINSI].infowindow.open(map);
 		//infowindow.open(map);
 	});
 	//alert(JSON.stringify(prop));

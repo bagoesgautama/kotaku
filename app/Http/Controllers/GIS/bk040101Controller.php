@@ -77,7 +77,7 @@ class bk040101Controller extends Controller
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		$rowData = DB::select('select b.nama prop,a.* from bkt_01010102_kota a,bkt_01010101_prop b where a.kode_prop=b.kode and a.status=1 and a.kode='.$id);
+		$rowData = DB::select('select b.nama kota,a.* from bkt_01010103_kec a,bkt_01010101_prop b where a.kode_prop=b.kode and a.status=1 and a.kode='.$id);
 		$data['propinsi']=$rowData[0]->prop;
 		$data['kode_propinsi']=$rowData[0]->kode_prop;
 		$data['kota']=$rowData[0]->nama;

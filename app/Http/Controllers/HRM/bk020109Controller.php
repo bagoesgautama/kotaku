@@ -32,145 +32,46 @@ class bk020109Controller extends Controller
             $user = Auth::user();
             $data['username'] = Auth::user()->name;
         }
-		$totalData = DB::select('select a.kode menu_id,a.nama menu,b.kode modul_id,b.nama modul,c.kode apps_id,c.nama apps
-			from bkt_02010106_menu a,bkt_02010104_modul b,bkt_02010103_apps c
-			where a.kode_modul=b.kode
-			and b.kode_apps=c.kode');
-		$data['apps']=new \stdClass();
-		foreach($totalData as $item) {
-			if(empty($data['apps']->{$item->apps})){
-				$data['apps']->{$item->apps} = new \stdClass();
-				$data['apps']->{$item->apps}->{$item->modul}=new \stdClass();
-				$data['apps']->{$item->apps}->{$item->modul}->{$item->menu}='';
-			}else {
-				$data['apps']->{$item->apps}->{$item->modul}->{$item->menu}='';
-			}
-		}
-		//echo json_encode($data);
+		$data['totalData'] = DB::select('select b.kode modul_id,b.nama modul,c.kode apps_id,c.nama apps
+			from bkt_02010104_modul b,bkt_02010103_apps c
+			where b.kode_apps=c.kode');
+		$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
 		return view('HRM/bk020109/index',$data);
     }
 
-	public function show()
+	public function show(Request $request)
 	{
-		//$users = DB::select('select * from users ');
-		//echo json_encode($users);
-		$data['username'] = '';
-		$data['test']=true;
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
-		return view('role_level',$data);
+		$data = DB::select('select menu.*,case when ISNULL(kode) then "0" else "1" end akses from (select a.kode menu_id,a.nama menu,b.nama detil,b.kode detil_id
+			from bkt_02010106_menu a,bkt_02010108_menu_detil b
+			where b.kode_menu=a.kode and a.kode_modul='.$request->modul.')menu
+			left join (select * from bkt_02010109_akses_role_detail where kode_role='.$request->role.') akses
+			on detil_id=akses.kode_menu_detil');
+		echo json_encode($data);
 	}
 
-	public function Post(Request $request)
+	public function post(Request $request)
 	{
-		$columns = array(
-			0 =>'nama',
-			1 =>'deskripsi',
-			2 =>'status',
-			3 =>'created_time',
-			4 =>'created_by',
-			5 =>'update_time',
-			6 =>'update_by'
-		);
-		$query='select * from bkt_02010101_role_level ';
-		$totalData = DB::select('select count(1) cnt from bkt_02010101_role_level ');
-		$totalFiltered = $totalData[0]->cnt;
-		$limit = $request->input('length');
-		$start = $request->input('start');
-		$order = $columns[$request->input('order.0.column')];
-		$dir = $request->input('order.0.dir');
-		if(empty($request->input('search.value')))
-		{
-			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+		$json=$request->json()->all();
+		DB::beginTransaction();
+		foreach ($json as $item) {
+		    if($item['flag']==1)
+				DB::table('bkt_02010109_akses_role_detail')->insert(
+					['kode_menu' => $item['menu_id'],
+					'kode_menu_detil'=>$item['detil_id'],
+					'kode_role'=>$item['role'],
+					'created_by'=>Auth::user()->id]
+				);
+			else
+				DB::table('bkt_02010109_akses_role_detail')->
+				where([['kode_menu', '=', $item['menu_id']],
+				['kode_menu_detil', '=', $item['detil_id']],['kode_role', '=', $item['role']]])->delete();
 		}
-		else {
-			$search = $request->input('search.value');
-			$posts=DB::select($query. 'where name like "%'.$search.'%" or email like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. 'where name like "%'.$search.'%" or email like "%'.$search.'%") a');
-		}
-
-		$data = array();
-		if(!empty($posts))
-		{
-			foreach ($posts as $post)
-			{
-				$show =  $post->kode;
-				$edit =  $post->kode;
-				$delete = $post->kode;
-				$url_edit=url('/')."/hrm/role_level/create?kode=".$show;
-				$url_delete=url('/')."/hrm/role_level/delete?kode=".$delete;
-				$nestedData['nama'] = $post->nama;
-				$nestedData['deskripsi'] = $post->deskripsi;
-				$nestedData['status'] = $post->status;
-				$nestedData['created_time'] = $post->created_time;
-				$nestedData['created_by'] = $post->created_by;
-				$nestedData['update_time'] = $post->update_time;
-				$nestedData['update_by'] = $post->update_by;
-				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>
-				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				$data[] = $nestedData;
-			}
-		}
-
-		$json_data = array(
-					"draw"            => intval($request->input('draw')),
-					"recordsTotal"    => intval($totalData[0]->cnt),
-					"recordsFiltered" => intval($totalFiltered),
-					"data"            => $data
-					);
-
-		echo json_encode($json_data);
+		DB::commit();
+		echo "success";
 	}
 
-	public function create(Request $request)
-	{
-		$data['username'] = '';
-		$data['test']=true;
-		$data['kode']=$request->input('kode');
-		if($data['kode']!=null){
-			$rowData = DB::select('select * from bkt_02010101_role_level where kode='.$data['kode']);
-			$data['nama'] = $rowData[0]->nama;
-			$data['deskripsi'] = $rowData[0]->deskripsi;
-			$data['status'] = $rowData[0]->status;
-			$data['created_time'] = $rowData[0]->created_time;
-			$data['created_by'] = $rowData[0]->created_by;
-			$data['update_time'] = $rowData[0]->update_time;
-			$data['update_by'] = $rowData[0]->update_by;
-		}else{
-			$data['nama'] = null;
-			$data['deskripsi'] = null;
-			$data['status'] = null;
-			$data['created_time'] = null;
-			$data['created_by'] = null;
-			$data['update_time'] = null;
-			$data['update_by'] = null;
-		}
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
-		return view('HRM/main/role_level_create',$data);
-	}
-
-	public function post_create(Request $request)
-	{
-		if ($request->input('example-id-input')!=null){
-			DB::table('bkt_02010101_role_level')->where('kode', $request->input('example-id-input'))
-			->update(['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select')
-				]);
-
-		}else{
-			DB::table('bkt_02010101_role_level')->insert(
-       			['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select')
-       			]);
-		}
-	}
-
-	public function delete(Request $request)
-	{
-		DB::table('bkt_02010101_role_level')->where('kode', $request->input('kode'))->delete();
-        return Redirect::to('/hrm/role_level');
-    }
+	/*public function logout()
+    {
+        Auth::logout();
+    }*/
 }
