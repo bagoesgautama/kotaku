@@ -80,8 +80,7 @@ class bk010107Controller extends Controller
 			26 => 'updated_by'
 		);
 
-		
-		$query='select * from bkt_01010107_slum_program ';
+		$query='select a.*, b.nama nama_kota from bkt_01010107_slum_program a, bkt_01010102_kota b where a.kode_kota=b.kode and a.status!=2';
 		$totalData = DB::select('select count(1) cnt from bkt_01010107_slum_program ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -107,11 +106,11 @@ class bk010107Controller extends Controller
 				$edit =  $post->kode;
 				$delete = $post->kode;
 				$url_edit=url('/')."/main/slum_program/create?kode=".$show;
-				$url_delete=url('/')."main/slum_program/delete?kode=".$delete;
+				$url_delete=url('/')."/main/slum_program/delete?kode=".$delete;
 				$nestedData['nourut'] = $post->nourut;
 				$nestedData['nama'] = $post->nama;
 				$nestedData['keterangan'] = $post->keterangan;
-				$nestedData['kode_kota'] = $post->kode_kota;
+				$nestedData['nama_kota'] = $post->nama_kota;
 				$nestedData['alamat'] = $post->alamat;
 				$nestedData['kodepos'] = $post->kodepos;
 				$nestedData['contact_person'] = $post->contact_person;
@@ -289,8 +288,7 @@ class bk010107Controller extends Controller
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_01010107_slum_program')->where('kode', $request->input('example-id-input'))
-			->update(['status' => '2']);
-        return Redirect::to('/main/slum_program');
+		DB::table('bkt_01010107_slum_program')->where('kode', $request->input('kode'))->delete();
+        return Redirect::to('main/slum_program');
     }
 }

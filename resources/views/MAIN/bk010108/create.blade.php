@@ -27,6 +27,7 @@
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">Nama</label>
                 <div class="col-sm-6">
+                    <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
                     <input type="text" id="example-text-input1" name="example-nama-input" class="form-control" placeholder="Nama" value="{{ $nama }}">
                 </div>
             </div>
@@ -39,7 +40,7 @@
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">Kode POS</label>
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-kodepos-input" class="form-control" placeholder="Kode POS" value="{{ $kodepos }}">
+                    <input type="text" id="example-text-input1" name="example-kodepos-input" class="form-control" placeholder="Kode POS" value="{{ $kodepos }}" maxlength="5">
                 </div>
             </div>
             <div class="form-group">
@@ -70,11 +71,11 @@
                 <label class="col-sm-3 control-label" for="example-email">Email 1</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 1</label>
-                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email1" value="{{ old('email') }}" placeholder="E-mail" required>
+                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email1" value="{{ old('email1') }}" placeholder="E-mail" required>
 
-                    @if ($errors->has('email'))
+                    @if ($errors->has('email1'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
+                            <strong>{{ $errors->first('email1') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -83,11 +84,11 @@
                 <label class="col-sm-3 control-label" for="example-email">Email 2</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 2</label>
-                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email2" value="{{ old('email') }}" placeholder="E-mail" required>
+                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email2" value="{{ old('email2') }}" placeholder="E-mail" required>
 
-                    @if ($errors->has('email'))
+                    @if ($errors->has('email2'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
+                            <strong>{{ $errors->first('email2') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -102,6 +103,30 @@
                 <label class="col-sm-3 control-label" for="example-textarea-input2">Alamat PMS</label>
                 <div class="col-sm-6">
                     <textarea id="example-textarea-input2" name="example-pms_alamat-input" rows="7" class="form-control resize_vertical" placeholder="Alamat PMS">{{ $pms_alamat }}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="example-text-input1">Created Time</label>
+                <div class="col-sm-6">
+                    <label class="form-control">{{ $created_time }}</label>
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
+                <div class="col-sm-6">
+                    <label class="form-control">{{ $created_by }}</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="example-text-input1">Updated Time</label>
+                <div class="col-sm-6">
+                    <label class="form-control">{{ $updated_time }}</label>
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="example-text-input1">Updated By</label>
+                <div class="col-sm-6">
+                    <label class="form-control">{{ $updated_by }}</label>
                 </div>
             </div>
             <div class="form-group form-actions">

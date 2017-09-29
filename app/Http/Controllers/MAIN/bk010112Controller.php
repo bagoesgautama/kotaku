@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\HRM;
+namespace App\Http\Controllers\MAIN;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
 
-class bk020101Controller extends Controller
+class bk010112Controller extends Controller
 {
     /**
      * Create a new controller instance.
@@ -32,7 +32,7 @@ class bk020101Controller extends Controller
             $user = Auth::user();
             $data['username'] = Auth::user()->name;
         }
-		return view('HRM/main/role_level',$data);
+		return view('MAIN/bk010112/index',$data);
     }
 
 	public function show()
@@ -45,22 +45,23 @@ class bk020101Controller extends Controller
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		return view('role_level',$data);
+		return view('main/kota_korkot',$data);
 	}
 
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'nama',
-			1 =>'deskripsi',
-			2 =>'status',
-			3 =>'created_time',
-			4 =>'created_by',
-			5 =>'update_time',
-			6 =>'update_by'
+			0 =>'kode_korkot',
+			1 =>'kode_kota',
+			2 =>'ms_kode',
+			3 =>'ms_paket,',
+			4 =>'created_time',
+			5 =>'created_by',
+			6 =>'updated_time',
+			7 =>'updated_by'
 		);
-		$query='select * from bkt_02010101_role_level ';
-		$totalData = DB::select('select count(1) cnt from bkt_02010101_role_level ');
+		$query='select * from bkt_01010112_kota_korkot ';
+		$totalData = DB::select('select count(1) cnt from bkt_01010112_kota_korkot ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -86,14 +87,15 @@ class bk020101Controller extends Controller
 				$delete = $post->kode;
 				$url_edit=url('/')."/hrm/role_level/create?kode=".$show;
 				$url_delete=url('/')."/hrm/role_level/delete?kode=".$delete;
-				$nestedData['nama'] = $post->nama;
-				$nestedData['deskripsi'] = $post->deskripsi;
-				$nestedData['status'] = $post->status;
+				$nestedData['kode_korkot'] = $post->kode_korkot;
+				$nestedData['kode_kota'] = $post->kode_kota;
+				$nestedData['ms_kode'] = $post->ms_kode;
+				$nestedData['ms_paket'] = $post->ms_paket;
 				$nestedData['created_time'] = $post->created_time;
 				$nestedData['created_by'] = $post->created_by;
-				$nestedData['update_time'] = $post->update_time;
-				$nestedData['update_by'] = $post->update_by;
-				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>
+				$nestedData['updated_time'] = $post->updated_time;
+				$nestedData['updated_by'] = $post->updated_by;
+				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>
 				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				$data[] = $nestedData;
 			}
@@ -115,28 +117,30 @@ class bk020101Controller extends Controller
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
 		if($data['kode']!=null){
-			$rowData = DB::select('select * from bkt_02010101_role_level where kode='.$data['kode']);
-			$data['nama'] = $rowData[0]->nama;
-			$data['deskripsi'] = $rowData[0]->deskripsi;
-			$data['status'] = $rowData[0]->status;
+			$rowData = DB::select('select * from bkt_01010112_kota_korkot where kode='.$data['kode']);
+			$data['kode_korkot'] = $rowData[0]->kota_korkot;
+			$data['kode_kota'] = $rowData[0]->kode_kota;
+			$data['ms_kode'] = $rowData[0]->ms_kode;
+			$data['ms_paket'] = $rowData[0]->ms_paket;
 			$data['created_time'] = $rowData[0]->created_time;
 			$data['created_by'] = $rowData[0]->created_by;
-			$data['update_time'] = $rowData[0]->update_time;
-			$data['update_by'] = $rowData[0]->update_by;
+			$data['updated_time'] = $rowData[0]->updated_time;
+			$data['updated_by'] = $rowData[0]->updated_by;
 		}else{
-			$data['nama'] = null;
-			$data['deskripsi'] = null;
-			$data['status'] = null;
+			$data['kode_korkot'] = null;
+			$data['kode_kota'] = null;
+			$data['ms_kode'] = null;
+			$data['ms_paket'] = null;
 			$data['created_time'] = null;
 			$data['created_by'] = null;
-			$data['update_time'] = null;
-			$data['update_by'] = null;
+			$data['updated_time'] = null;
+			$data['updated_by'] = null;
 		}
 		if (Auth::check()) {
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		return view('HRM/main/role_level_create',$data);
+		return view('MAIN/bk010112/create',$data);
 	}
 
 	public function post_create(Request $request)

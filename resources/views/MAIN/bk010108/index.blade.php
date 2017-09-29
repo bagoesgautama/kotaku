@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-   <h1>Konsultan Manajemen Pusat (KMP) Form</h1>
+   <h1>Konsultan Manajemen Pusat (KMP)</h1>
     <ol class="breadcrumb">
         <li>
             <a href="/main">
@@ -50,11 +50,8 @@
                                 <th>No Telepon</th>
                                 <th>No Handphone</th>
                                 <th>Email</th>
-                                <th>created time</th>
-                                <th>created by</th>
-                                <th>updated time</th>
-                                <th>updated by</th>
-								<th>option</th>
+                                <th>Nama PMS</th>
+								<th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -86,10 +83,7 @@
                 { "data": "no_phone" , name:"no_phone"},
                 { "data": "no_hp1" , name:"no_hp1"},
                 { "data": "email1" , name:"email1"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
-                { "data": "updated_time" , name:"updated_time"},
-                { "data": "updated_by" , name:"updated_by"},
+                { "data": "pms_nama" , name:"pms_nama"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });

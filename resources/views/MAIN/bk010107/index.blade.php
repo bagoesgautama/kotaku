@@ -46,15 +46,13 @@
                             <tr>
                                 <th>Nama</th>
                                 <th>Kota</th>
-                                <th>Alamat</th>
                                 <th>Contact Person</th>
 								<th>No Telepon</th>
+                                <th>No Fax</th>
                                 <th>No Handphone</th>
                                 <th>Email</th>
-                                <th>created time</th>
-                                <th>created by</th>
-                                <th>updated time</th>
-                                <th>updated by</th>
+                                <th>Nama PMS</th>
+                                <th>Project</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -86,16 +84,14 @@
               },
             "columns": [
 				{ "data": "nama" , name:"nama"},
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "alamat" , name:"alamat"},
+                { "data": "nama_kota" , name:"nama_kota"},
                 { "data": "contact_person" , name:"contact_person"},
                 { "data": "no_phone" , name:"no_phone"},
+                { "data": "no_fax" , name:"no_fax"},
                 { "data": "no_hp1" , name:"no_hp1"},
                 { "data": "email1" , name:"email1"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
-                { "data": "updated_time" , name:"updated_time"},
-                { "data": "updated_by" , name:"updated_by"},
+                { "data": "pms_nama" , name:"pms_nama"},
+                { "data": "project" , name:"project"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });

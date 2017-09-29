@@ -43,15 +43,11 @@
 					<table class="table table-striped" id="users" >
 						<thead>
                             <tr>
-                                <th>nama</th>
-                                <th>deskripsi</th>
-                                <th>status</th>
-                                <th>level</th>
-                                <th>created time</th>
-                                <th>created by</th>
-                                <th>updated time</th>
-                                <th>updated by</th>
-								<th>option</th>
+                                <th>Nama</th>
+                                <th>Deskripsi</th>
+                                <th>Status</th>
+                                <th>Level</th>
+								<th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -80,10 +76,6 @@
                 { "data": "deskripsi" , name:"deskripsi"},
                 { "data": "status" , name:"status"},
                 { "data": "nama_level" , name:"nama_level"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
-                { "data": "updated_time" , name:"updated_time"},
-                { "data": "updated_by" , name:"updated_by"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });

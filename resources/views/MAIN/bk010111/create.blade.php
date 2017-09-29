@@ -1,16 +1,16 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Blank @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Koordinator Kota (KorKot) @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Role Level User Form</h1>
+    <h1>Koordinator Kota (KorKot) Form</h1>
     <ol class="breadcrumb">
         <li>
             <a href="/hrm">
                 <i class="fa fa-fw fa-home"></i> HRM
             </a>
         </li>
-        <li><a href="/hrm/role_level"> Role Level</a></li>
+        <li><a href="/hrm/role_level"> KorKot</a></li>
         <li class="active">
             Create
         </li>
@@ -22,29 +22,119 @@
     <form enctype="multipart/form-data" class="form-horizontal form-bordered">
         <div class="row">
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Nama</label>
+                <label class="col-sm-3 control-label" for="example-text-input1">Nama Konsultan Manakemen Wilayah</label>
                 <div class="col-sm-6">
-                <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
-                    <input type="text" id="example-text-input1" name="example-text-input" class="form-control" placeholder="Text" value="{{ $nama }}">
+                    <input type="text" id="example-text-input1" name="example-kode_kmw-input" class="form-control" placeholder="Nama" value="{{ $kode_kmw }}">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="example-textarea-input2">Deskripsi</label>
+                 <label class="col-sm-3 control-label" for="example-text-input1">Nama</label>
                 <div class="col-sm-6">
-                    <textarea id="example-textarea-input2" name="example-textarea-input" rows="7" class="form-control resize_vertical" placeholder="Description...." value="{{ $deskripsi }}"></textarea>
+                    <input type="text" id="example-text-input1" name="example-nama-input" class="form-control" placeholder="Nama" value="{{ $nama }}">
                 </div>
             </div>
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-select1">Status</label>
+                <label class="col-sm-3 control-label" for="example-textarea-input2">Alamat</label>
                 <div class="col-sm-6">
-                    <select id="example-select1" name="example-select" class="form-control" size="1">
-                        <option value="{{ $status }}">
-                            Please select
-                        </option>
-                        <option value="0">Tidak Aktif</option>
-                        <option value="1">Aktif</option>
-                        <option value="2">Dihapus</option>
-                    </select>
+                    <textarea id="example-textarea-input2" name="example-alamat-input" rows="7" class="form-control resize_vertical" placeholder="Alamat">{{ $alamat }}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="example-text-input1">Kode POS</label>
+                <div class="col-sm-6">
+                    <input type="text" id="example-text-input1" name="example-kodepos-input" class="form-control" placeholder="Kode POS" value="{{ $kodepos }}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="example-text-input1">Contact Person</label>
+                <div class="col-sm-6">    
+                    <input type="text" id="example-text-input1" name="example-contact_person-input" class="form-control" placeholder="Contact Person" value="{{ $contact_person }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="example-text-input1">No Telepon</label>
+                <div class="col-sm-6">
+                    <input type="text" id="example-text-input1" name="example-no_phone-input" class="form-control" placeholder="Telepon" value="{{ $no_phone }}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="example-text-input1">No FAX</label>
+                <div class="col-sm-6">
+                    <input type="text" id="example-text-input1" name="example-no_fax-input" class="form-control" placeholder="FAX" value="{{ $no_fax }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="example-text-input1">No Handphone 1</label>
+                <div class="col-sm-6">
+                    <input type="text" id="example-text-input1" name="example-no_hp1-input" class="form-control" placeholder="Handphone 1" value="{{ $no_hp1 }}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="example-text-input1">No Handphone 2</label>
+                <div class="col-sm-6">
+                    <input type="text" id="example-text-input1" name="example-no_hp2-input" class="form-control" placeholder="Handphone 2" value="{{ $no_hp2 }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="example-email">Email 1</label>
+                <div class="col-sm-6">
+                    <label for="email" class="sr-only"> E-mail 1</label>
+                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email1" value="{{ old('email') }}" placeholder="E-mail" required>
+
+                    @if ($errors->has('email'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
+            <div class="form-group  striped-col">
+                <label class="col-sm-3 control-label" for="example-email">Email 2</label>
+                <div class="col-sm-6">
+                    <label for="email" class="sr-only"> E-mail 2</label>
+                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email2" value="{{ old('email') }}" placeholder="E-mail" required>
+
+                    @if ($errors->has('email'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="example-text-input1">Nama PMS</label>
+                <div class="col-sm-6">
+                    <input type="text" id="example-text-input1" name="example-pms_nama-input" class="form-control" placeholder="Nama PMS" value="{{ $pms_nama }}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="example-textarea-input2">Alamat PMS</label>
+                <div class="col-sm-6">
+                    <textarea id="example-textarea-input2" name="example-pms_alamat-input" rows="7" class="form-control resize_vertical" placeholder="Alamat PMS">{{ $pms_alamat }}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="example-text-input1">Created Time</label>
+                <div class="col-sm-6">
+                    <label class="form-control">{{ $created_time }}</label>
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
+                <div class="col-sm-6">
+                    <label class="form-control">{{ $created_by }}</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="example-text-input1">Updated Time</label>
+                <div class="col-sm-6">
+                    <label class="form-control">{{ $updated_time }}</label>
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="example-text-input1">Updated By</label>
+                <div class="col-sm-6">
+                    <label class="form-control">{{ $updated_by }}</label>
                 </div>
             </div>
             <div class="form-group form-actions">
@@ -73,11 +163,11 @@
           e.preventDefault();
           $.ajax({
             type: 'post',
-            "url": "/hrm/role_level/create",
+            "url": "/main/korkot/create",
             data: $('form').serialize(),
             success: function () {
     alert('Success !!!');
-    window.location.href = "/hrm/role_level";
+    window.location.href = "/main/korkot";
    },
    error: function (xhr, ajaxOptions, thrownError) {
           alert(xhr.status);

@@ -62,7 +62,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Kode POS</label>
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-kodepos-input" class="form-control" placeholder="Kode POS" value="{{ $kodepos }}">
+                    <input type="text" id="example-text-input1" name="example-kodepos-input" class="form-control" placeholder="Kode POS" value="{{ $kodepos }}" maxlength="5">
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -99,11 +99,11 @@
                 <label class="col-sm-3 control-label" for="example-email">Email 1</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 1</label>
-                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email1" value="{{ old('email') }}" placeholder="E-mail" required>
+                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email1" value="{{ $email1}}" placeholder="E-mail" required>
 
-                    @if ($errors->has('email'))
+                    @if ($errors->has('email1'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
+                            <strong>{{ $errors->first('email1') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -112,11 +112,11 @@
                 <label class="col-sm-3 control-label" for="example-email">Email 2</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 2</label>
-                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email2" value="{{ old('email') }}" placeholder="E-mail" required>
+                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email2" value="{{ $email2 }}" placeholder="E-mail" required>
 
-                    @if ($errors->has('email'))
+                    @if ($errors->has('email2'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
+                            <strong>{{ $errors->first('email2') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -136,7 +136,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="return_date">Tanggal Akhir</label>
                 <div class="col-sm-6">
-                    <input class="form-control" id="return_date" name="tgl_akhir" placeholder="Klik disini untuk memilih tanggal" data-provide="datepicker">
+                    <input class="form-control" id="return_date" name="tgl_akhir" placeholder="Klik disini untuk memilih tanggal" data-provide="datepicker" value="{{ $tgl_akhir}}">
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -157,14 +157,13 @@
                     <select id="example-select1" name="example-select-status" class="form-control" size="1">
                         <option value="0" @if($status==0) selected="selected" @endif >Tidak Aktif</option>
                         <option value="1" @if($status==1) selected="selected" @endif >Aktif</option>
-                        <option value="2" @if($status==2) selected="selected" @endif >Dihapus</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Project</label>
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-project-input" class="form-control" placeholder="Project" value="{{ $project }}">
+                    <input type="text" id="example-text-input1" name="example-project-input" class="form-control" placeholder="Project" value="{{ $project }}" maxlength="4">
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -186,6 +185,30 @@
                         <option value="1" @if($jenis_siklus==1) selected="selected" @endif >1</option>
                         <option value="2" @if($jenis_siklus==2) selected="selected" @endif >2</option>
                     </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="example-text-input1">Created Time</label>
+                <div class="col-sm-6">
+                    <label class="form-control">{{ $created_time }}</label>
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
+                <div class="col-sm-6">
+                    <label class="form-control">{{ $created_by }}</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="example-text-input1">Updated Time</label>
+                <div class="col-sm-6">
+                    <label class="form-control">{{ $updated_time }}</label>
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="example-text-input1">Updated By</label>
+                <div class="col-sm-6">
+                    <label class="form-control">{{ $updated_by }}</label>
                 </div>
             </div>
             <div class="form-group form-actions">

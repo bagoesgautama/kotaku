@@ -208,8 +208,7 @@ class bk010108Controller extends Controller
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_01010108_kmp')->where('kode', $request->input('example-id-input'))
-			->update(['status' => '2']);
-        return Redirect::to('/main/kmp');
+		DB::table('bkt_01010108_kmp')->where('kode', $request->input('kode'))->delete();
+        return Redirect::to('main/kmp');
     }
 }

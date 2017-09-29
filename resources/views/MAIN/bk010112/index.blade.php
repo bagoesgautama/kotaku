@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Mapping Kota ke KorKot @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,10 +14,16 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>HRM Module</h1>
+    <h1>Mapping Kota ke KorKot</h1>
     <ol class="breadcrumb">
+        <li>
+            <a href="/main">
+                <i class="fa fa-fw fa-home"></i> MAIN
+            </a>
+        </li>
+        <li><a href="/hrm/kmp_slum_program">Mapping Kota ke KorKot</a></li>
         <li class="active">
-            <i class="fa fa-fw fa-home"></i> HRM
+            Table
         </li>
     </ol>
 </section>
@@ -27,25 +33,22 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <i class="ti-export"></i> <b>Want to export data?</b>
+                    <b>bk010112 Index</b>
                 </div>
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('hrm/role_level/create') }}">Create</a>
-				</div>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/kota_korkot/create">Create</a>
+                </div>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="role_level">
-						<thead>
+                    <table class="table table-striped" id="users">
+                        <thead>
                             <tr>
-                                <th>nama</th>
-                                <th>deskripsi</th>
-                                <th>status</th>
-                                <th>created time</th>
-                                <th>created by</th>
-                                <th>update time</th>
-                                <th>update by</th>
-								<th>option</th>
+                                <th>Nama KorKot</th>
+                                <th>Nama Kota</th>
+                                <th>Nama MS</th>
+                                <th>Paket MS</th>
+                                <th>option</th>
                             </tr>
                         </thead>
                     </table>
@@ -59,28 +62,22 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#role_level').DataTable({
+		var table = $('#users').DataTable({
 	        // dom: 'Bflrtip',
-	        "dom": '<"m-t-10"B><"m-t-10 pull-left"f><"m-t-10 pull-right"l>rt<"pull-left m-t-10"i><"m-t-10 pull-right"p>',
-	        buttons: [
-	            'copy', 'csv', 'excel', 'pdf', 'print'
-	        ],
+	        
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('hrm/role_level') }}",
+                     "url": "/main/kota_korkot",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-				{ "data": "nama" , name:"nama"},
-                { "data": "deskripsi" , name:"deskripsi"},
-                { "data": "status" , name:"status"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
-                { "data": "update_time" , name:"update_time"},
-                { "data": "update_by" , name:"update_by"},
+				{ "data": "kode_korkot" , name:"kode_korkot"},
+                { "data": "kode_kota" , name:"kode_kota"},
+                { "data": "ms_kode" , name:"ms_kode"},
+                { "data": "ms_paket" , name:"ms_kode"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
