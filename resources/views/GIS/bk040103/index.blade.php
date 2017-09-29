@@ -44,10 +44,6 @@
                                 <th>Nama Pendek</th>
                                 <th>Kode Prop</th>
                                 <th>Status</th>
-                                <th>Created Time</th>
-                                <th>Created By</th>
-                                <th>Updated Time</th>
-                                <th>Updated By</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -77,16 +73,12 @@
                 { "data": "nama_pendek" , name:"nama_pendek"},
                 { "data": "kode_prop" , name:"kode_prop"},
                 { "data": "status" , name:"status"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
-                { "data": "updated_time" , name:"updated_time"},
-                { "data": "updated_by" , name:"updated_by"},
                 { "data": "option" , name:"option"}
             ]
         });
 
-        $('#users_filter input').unbind();
-		$('#users_filter input').bind('keyup', function(e) {
+        $('#kota_filter input').unbind();
+		$('#kota_filter input').bind('keyup', function(e) {
 			if(e.keyCode == 13) {
 				table.search(this.value).draw();
 			}

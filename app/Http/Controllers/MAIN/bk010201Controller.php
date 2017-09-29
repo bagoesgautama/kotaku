@@ -83,11 +83,18 @@ class bk010201Controller extends Controller
 				$edit =  $post->kode;
 				$delete = $post->kode;
 				$jenis_kegiatan = null;
+				$status_pokja = null;
 
 				if($post->jenis_kegiatan == '2.1'){
 					$jenis_kegiatan = 'Tingkat Nasional';
 				}elseif($post->jenis_kegiatan == '2.2'){
 					$jenis_kegiatan = 'Tingkat Propinsi';
+				}
+
+				if($post->status_pokja == 0){
+					$status_pokja = 'Lama';
+				}elseif($post->status_pokja == 1){
+					$status_pokja = 'Baru';
 				}
 
 				$url_edit=url('/')."/main/persiapan/nasional/pokja/pembentukan/create?kode=".$edit;
@@ -96,7 +103,7 @@ class bk010201Controller extends Controller
 				$nestedData['kode_prop'] = $post->kode_prop;
 				$nestedData['jenis_kegiatan'] = $jenis_kegiatan;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
-				$nestedData['status_pokja'] = $post->status_pokja;
+				$nestedData['status_pokja'] = $status_pokja;
 				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>
 				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				$data[] = $nestedData;
@@ -193,6 +200,7 @@ class bk010201Controller extends Controller
 	public function post_create(Request $request)
 	{
 		if ($request->input('kode')!=null){
+			date_default_timezone_set('Asia/Jakarta');
 			DB::table('bkt_01020202_pokja')->where('kode', $request->input('kode'))
 			->update([
 				'tahun' => $request->input('tahun-input'), 
@@ -219,7 +227,9 @@ class bk010201Controller extends Controller
 				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
 				'diket_oleh' => $request->input('diket-oleh-input'),
 				'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				'diver_oleh' => $request->input('diver-oleh-input')
+				'diver_oleh' => $request->input('diver-oleh-input'), 
+				'updated_by' => Auth::user()->id, 
+				'updated_time' => date('Y-m-d H:i:s')
 				]);
 
 		}else{
@@ -248,7 +258,8 @@ class bk010201Controller extends Controller
 				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
 				'diket_oleh' => $request->input('diket-oleh-input'),
 				'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				'diver_oleh' => $request->input('diver-oleh-input')
+				'diver_oleh' => $request->input('diver-oleh-input'), 
+				'created_by' => Auth::user()->id
        			]);
 		}
 	}

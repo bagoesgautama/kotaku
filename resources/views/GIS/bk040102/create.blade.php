@@ -68,6 +68,18 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Latitude</label>
+                <div class="col-sm-6">
+                    <input type="number" id="latitude-input" name="latitude-input" class="form-control" placeholder="Latitude" value="{{$latitude}}" step="0.001">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Longitude</label>
+                <div class="col-sm-6">
+                    <input type="number" id="longitude-input" name="longitude-input" class="form-control" placeholder="Longitude" value="{{$longitude}}" step="0.001">
+                </div>
+            </div>
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
                     <a href="/hrm/registrasi" type="button" class="btn btn-effect-ripple btn-danger">
@@ -101,6 +113,8 @@
             form_data.append('nama-pndk-input', $('#nama-pndk-input').val());
             form_data.append('wilayah-input', $('#wilayah-input').val());
             form_data.append('status-input', $('#status-input').val());
+            form_data.append('latitude-input', $('#latitude-input').val());
+            form_data.append('longitude-input', $('#longitude-input').val());
           e.preventDefault();
           $.ajax({
             type: 'post',

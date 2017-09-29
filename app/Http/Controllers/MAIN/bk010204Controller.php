@@ -65,7 +65,7 @@ class bk010204Controller extends Controller
 		$dir = $request->input('order.0.dir');
 		if(empty($request->input('search.value')))
 		{
-			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$posts=DB::select($query .' order by bkt_01020203_fungsi_pokja.'.$order.' '.$dir.' limit '.$start.','.$limit);
 		}
 		else {
 			$search = $request->input('search.value');
@@ -163,6 +163,7 @@ class bk010204Controller extends Controller
 	public function post_create(Request $request)
 	{
 		if ($request->input('kode')!=null){
+			date_default_timezone_set('Asia/Jakarta');
 			DB::table('bkt_01020203_fungsi_pokja')->where('kode', $request->input('kode'))
 			->update([
 				'kode_pokja' => $request->input('kode-pokja-input'), 
@@ -176,7 +177,9 @@ class bk010204Controller extends Controller
 				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
 				'diket_oleh' => $request->input('diket-oleh-input'),
 				'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				'diver_oleh' => $request->input('diver-oleh-input')
+				'diver_oleh' => $request->input('diver-oleh-input'),
+				'updated_by' => Auth::user()->id, 
+				'updated_time' => date('Y-m-d H:i:s')
 				]);
 
 		}else{
@@ -192,7 +195,8 @@ class bk010204Controller extends Controller
 				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
 				'diket_oleh' => $request->input('diket-oleh-input'),
 				'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				'diver_oleh' => $request->input('diver-oleh-input')
+				'diver_oleh' => $request->input('diver-oleh-input'),
+				'created_by' => Auth::user()->id
        			]);
 		}
 	}

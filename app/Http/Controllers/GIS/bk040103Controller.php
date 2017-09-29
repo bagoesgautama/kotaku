@@ -53,12 +53,16 @@ class bk040103Controller extends Controller
 			$data['kode_prop'] = $rowData[0]->kode_prop;
 			$data['status'] = $rowData[0]->status;
 			$data['file'] = $rowData[0]->url_border_area;
+			$data['latitude'] = $rowData[0]->latitude;
+			$data['longitude'] = $rowData[0]->longitude;
 		}else{
 			$data['nama'] = null;
 			$data['nama_pendek'] = null;
 			$data['kode_prop'] = null;
 			$data['status'] = null;
 			$data['file'] = null;
+			$data['latitude'] = null;
+			$data['longitude'] = null;
 		}
 		if (Auth::check()) {
 			$user = Auth::user();
@@ -100,13 +104,17 @@ class bk040103Controller extends Controller
 		}
 
 		if ($request->input('kode')!=null){
+			date_default_timezone_set('Asia/Jakarta');
 			DB::table('bkt_01010102_kota')->where('kode', $request->input('kode'))
-			->update(['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'kode_prop' => $request->input('kode-prop-input'), 'url_border_area' => $url, 'status' => $request->input('status-input')]);
-			$file->move(public_path('/uploads/kota'), $file->getClientOriginalName());
+			->update(['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'kode_prop' => $request->input('kode-prop-input'), 'url_border_area' => $url, 'status' => $request->input('status-input'), 'latitude' => $request->input('latitude-input'), 'longitude' => $request->input('longitude-input'), 'updated_by' => Auth::user()->id, 'updated_time' => date('Y-m-d H:i:s')]);
+
+			if($upload == true){
+				$file->move(public_path('/uploads/kota'), $file->getClientOriginalName());
+			}
 
 		}else{
 			DB::table('bkt_01010102_kota')->insert(
-       			['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'kode_prop' => $request->input('kode-prop-input'), 'url_border_area' => $url]);
+       			['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'kode_prop' => $request->input('kode-prop-input'), 'url_border_area' => $url, 'latitude' => $request->input('latitude-input'), 'longitude' => $request->input('longitude-input'), 'created_by' => Auth::user()->id]);
 			$file->move(public_path('/uploads/kota'), $file->getClientOriginalName());
 		}
 	}
@@ -130,11 +138,7 @@ class bk040103Controller extends Controller
 			0 =>'nama',
 			1 =>'nama_pendek',
 			2 =>'kode_prop',
-			3 =>'status',
-			4 =>'created_time',
-			5 =>'created_by',
-			6 =>'updatede_time',
-			7 =>'updated_by'
+			3 =>'status'
 		);
 		$query='select bkt_01010102_kota.kode, bkt_01010102_kota.nama, bkt_01010102_kota.nama_pendek, bkt_01010101_prop.nama as kode_prop, bkt_01010102_kota.status, bkt_01010102_kota.created_time from bkt_01010102_kota inner join bkt_01010101_prop on bkt_01010102_kota.kode_prop = bkt_01010101_prop.kode where bkt_01010102_kota.status = 0 or bkt_01010102_kota.status = 1';
 		$totalData = DB::select('select count(1) cnt from bkt_01010102_kota  where bkt_01010102_kota.status = 0 or bkt_01010102_kota.status = 1');
@@ -175,10 +179,6 @@ class bk040103Controller extends Controller
 				$nestedData['nama_pendek'] = $post->nama_pendek;
 				$nestedData['kode_prop'] = $post->kode_prop;
 				$nestedData['status'] = $status;
-				$nestedData['created_time'] = $post->created_time;
-				$nestedData['created_by'] = null;
-				$nestedData['updated_time'] = null;
-				$nestedData['updated_by'] = null;
 				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>
 				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				$data[] = $nestedData;

@@ -91,8 +91,8 @@
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
-        $('#users_filter input').unbind();
-        $('#users_filter input').bind('keyup', function(e) {
+        $('#kegiatan_filter input').unbind();
+        $('#kegiatan_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
             table.search(this.value).draw();
         }

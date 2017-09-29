@@ -46,10 +46,6 @@
                                 <th>Stat Kode BPS</th>
                                 <th>Kode Kec</th>
                                 <th>Status</th>
-                                <th>Created Time</th>
-                                <th>Created By</th>
-                                <th>Updated Time</th>
-                                <th>Updated By</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -81,16 +77,12 @@
                 { "data": "stat_kode_bps" , name:"stat_kode_bps"},
                 { "data": "kode_kec" , name:"kode_kec"},
                 { "data": "status" , name:"status"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
-                { "data": "updated_time" , name:"updated_time"},
-                { "data": "updated_by" , name:"updated_by"},
                 { "data": "option" , name:"option"}
             ]
         });
 
-        $('#users_filter input').unbind();
-		$('#users_filter input').bind('keyup', function(e) {
+        $('#kelurahan_filter input').unbind();
+		$('#kelurahan_filter input').bind('keyup', function(e) {
 			if(e.keyCode == 13) {
 				table.search(this.value).draw();
 			}

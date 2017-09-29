@@ -57,7 +57,7 @@
                                 <th>Tahun</th>
                                 <th>Kode Prop</th>
                                 <th>Jenis Kegiatan</th>
-                                <th>Tanggal Kegiatan</th>
+                                <th>Tanggal Pembentukan</th>
                                 <th>Status Pokja</th>
                                 <th>Option</th>
                             </tr>
@@ -93,8 +93,8 @@
                 { "data": "option" , name:"option",orderable:false}
             ]
         });
-        $('#users_filter input').unbind();
-        $('#users_filter input').bind('keyup', function(e) {
+        $('#pokja_filter input').unbind();
+        $('#pokja_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
             table.search(this.value).draw();
         }
