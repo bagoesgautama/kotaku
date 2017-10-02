@@ -30,7 +30,7 @@
     </header>
     <div class="wrapper row-offcanvas row-offcanvas-left">
         <!-- Left side column. contains the logo and sidebar -->
-        <aside class="left-side sidebar-offcanvas">
+        <aside class="left-side sidebar-offcanvas collapse-left">
             <!-- sidebar: style can be found in sidebar-->
             <section class="sidebar">
                 <div id="menu" role="navigation">
@@ -40,7 +40,7 @@
             </section>
             <!-- /.sidebar -->
         </aside>
-        <aside class="right-side">
+        <aside class="right-side strech">
             @yield('page-header')
             <!-- Main content -->
             <section class="content">

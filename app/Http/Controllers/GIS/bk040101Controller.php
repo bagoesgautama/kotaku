@@ -33,9 +33,56 @@ class bk040101Controller extends Controller
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		//$contents = Storage::get('public/geojson/BALI.geojson');
-		//$files = Storage::files('public/geojson');
-		//echo json_encode($contents);
+		$rowData = DB::select('select * from bkt_01010101_prop where status=1 and url_border_area is not null');
+		$data['prop']=$rowData;
 		return view('GIS/bk040101/index',$data);
+    }
+
+	public function kota(Request $request)
+    {
+		$id=$request->input('id');
+		$data['username'] = '';
+		if (Auth::check()) {
+			$user = Auth::user();
+			$data['username'] = Auth::user()->name;
+		}
+		$rowData = DB::select('select * from bkt_01010101_prop where status=1 and kode='.$id);
+		$data['propinsi']=$rowData[0]->nama;
+		$rowData = DB::select('select * from bkt_01010102_kota where status=1 and url_border_area is not null and kode_prop='.$id);
+		$data['prop']=$rowData;
+		return view('GIS/bk040101/kota',$data);
+    }
+
+	public function kecamatan(Request $request)
+    {
+		$id=$request->input('id');
+		$data['username'] = '';
+		if (Auth::check()) {
+			$user = Auth::user();
+			$data['username'] = Auth::user()->name;
+		}
+		$rowData = DB::select('select b.nama prop,a.* from bkt_01010102_kota a,bkt_01010101_prop b where a.kode_prop=b.kode and a.status=1 and a.kode='.$id);
+		$data['propinsi']=$rowData[0]->prop;
+		$data['kode_propinsi']=$rowData[0]->kode_prop;
+		$data['kota']=$rowData[0]->nama;
+		$rowData = DB::select('select * from bkt_01010103_kec where status=1 and url_border_area is not null and kode_kota='.$id);
+		$data['prop']=$rowData;
+		return view('GIS/bk040101/kecamatan',$data);
+    }
+	public function kelurahan(Request $request)
+    {
+		$id=$request->input('id');
+		$data['username'] = '';
+		if (Auth::check()) {
+			$user = Auth::user();
+			$data['username'] = Auth::user()->name;
+		}
+		$rowData = DB::select('select b.nama kota,a.* from bkt_01010103_kec a,bkt_01010101_prop b where a.kode_prop=b.kode and a.status=1 and a.kode='.$id);
+		$data['propinsi']=$rowData[0]->prop;
+		$data['kode_propinsi']=$rowData[0]->kode_prop;
+		$data['kota']=$rowData[0]->nama;
+		$rowData = DB::select('select * from bkt_01010103_kec where status=1 and url_border_area is not null and kode_kota='.$id);
+		$data['prop']=$rowData;
+		return view('GIS/bk040101/kelurahan',$data);
     }
 }

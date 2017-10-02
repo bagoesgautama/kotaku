@@ -68,6 +68,8 @@
                 <label class="col-sm-3 control-label">File</label>
                 <div class="col-sm-6">
                     <input id="file-input" type="file" class="file" data-show-preview="false" name="file-input">
+                    <br>
+                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file" value="{{$file}}" {!! $file==null ? 'style="display:none"':'' !!}>{{$file}}</button>
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -80,7 +82,18 @@
                     </select>
                 </div>
             </div>
-            
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Latitude</label>
+                <div class="col-sm-6">
+                    <input type="number" id="latitude-input" name="latitude-input" class="form-control" placeholder="Latitude" value="{{$latitude}}" step="0.001">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Longitude</label>
+                <div class="col-sm-6">
+                    <input type="number" id="longitude-input" name="longitude-input" class="form-control" placeholder="Longitude" value="{{$longitude}}" step="0.001">
+                </div>
+            </div>
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
                     <a href="/hrm/registrasi" type="button" class="btn btn-effect-ripple btn-danger">
@@ -105,11 +118,26 @@
 <script>
       $(document).ready(function () {
         $('#submit').on('click', function (e) {
+            var file_data = document.getElementById('file-input').files[0];  
+            var form_data = new FormData();
+            form_data.append('kode', $('#kode').val());
+            form_data.append('file-input', file_data);
+            form_data.append('uploaded-file', $('#uploaded-file').val());
+            form_data.append('nama-input', $('#nama-input').val());
+            form_data.append('keterangan-input', $('#keterangan-input').val());
+            form_data.append('kode-bps-input', $('#kode-bps-input').val());
+            form_data.append('stat-kode-bps', $('#stat-kode-bps').val());
+            form_data.append('kode-kec-input', $('#kode-kec-input').val());
+            form_data.append('status-input', $('#status-input').val());
+            form_data.append('latitude-input', $('#latitude-input').val());
+            form_data.append('longitude-input', $('#longitude-input').val());
           e.preventDefault();
           $.ajax({
             type: 'post',
+            processData: false,
+            contentType: false,
             "url": "/gis/kelurahan/create",
-            data: $('form').serialize(),
+            data: form_data,
             success: function () {
     alert('Form Submitted.');
     window.location.href = "/gis/kelurahan";

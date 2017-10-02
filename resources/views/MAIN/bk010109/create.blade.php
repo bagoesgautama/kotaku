@@ -1,6 +1,11 @@
 @extends('MAIN/default') {{-- Page title --}} @section('title') Mapping KMP ke Slum Program @stop {{-- local styles --}} @section('header_styles')
-<link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
+<link href="{{asset('vendors/bootstrap-multiselect/css/bootstrap-multiselect.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>Mapping KMP ke Slum Program Form</h1>
@@ -18,18 +23,64 @@
 </section>
 @stop
 {{-- Page content --}} @section('content')
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel ">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="select21" class="control-label">
+                                Select2 single select
+                            </label>
+                            <select id="select21" class="form-control select2" style="width:100%">
+                                <option value="">Select value...</option>
+                                <optgroup label="Alaskan/Hawaiian Time Zone">
+                                    <option value="AK">Alaska</option>
+                                    <option value="HI">Hawaii</option>
+                                </optgroup>
+                                <optgroup label="Pacific Time Zone">
+                                    <option value="CA">California</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="WA">Washington</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="panel-body border">
     <form enctype="multipart/form-data" class="form-horizontal form-bordered">
         <div class="row">
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">Nama KMP</label>
                 <div class="col-sm-6">
-                <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
-                    <select id="select21" class="form-control select2" style="width:100%">
-                        @foreach($kode_kmp_list as $list)
-                            <option value="{{ $list->kode }}" @if($list->kode==$kode_kmp) selected="selected" @endif >{{ $list->nama }}</option>
-                        @endforeach            
-                    </select>
+                    <div class="panel ">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
+                                            <div class="form-group">
+                                            <select id="select21" class="form-control select2" style="width:100%">
+                                                @foreach($kode_kmp_list as $list)
+                                                    <option value="{{ $list->kode }}" @if($list->kode==$kode_kmp) selected="selected" @endif >{{ $list->nama }}
+                                                    </option>
+                                                @endforeach            
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
                 </div>
             </div>
             <div class="form-group">
@@ -87,7 +138,7 @@
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script>
-      $(document).ready(function () {
+      /*$(document).ready(function () {
         $('#dodol').on('click', function (e) {
           e.preventDefault();
           $.ajax({
@@ -104,6 +155,14 @@
         }
           });
         });
-      });
+      });*/
 </script>
+<script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
+
+@stop {{-- local scripts --}} @section('footer_scripts')
 @stop

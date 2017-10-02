@@ -93,10 +93,8 @@ Route::get('/hrm/modul/delete', 'HRM\bk020104Controller@delete');
 
 //role akses form CRUD
 Route::get('/hrm/role_akses', 'HRM\bk020109Controller@index');
-Route::post('hrm/role_akses', 'HRM\bk020109Controller@post');
-Route::get('/hrm/role_akses/create', 'HRM\bk020109Controller@create');
-Route::post('/hrm/role_akses/create', 'HRM\bk020109Controller@post_create');
-Route::get('/hrm/role_akses/delete', 'HRM\bk020109Controller@delete');
+Route::get('/hrm/role_akses/show', 'HRM\bk020109Controller@show');
+Route::post('/hrm/role_akses', 'HRM\bk020109Controller@post');
 
 /**
  *
@@ -105,6 +103,7 @@ Route::get('/hrm/role_akses/delete', 'HRM\bk020109Controller@delete');
  */
 Route::get('/main', 'HomeController@main');
 
+//master menu
 Route::get('/main/slum_program', 'MAIN\bk010107Controller@index');
 Route::post('/main/slum_program', 'MAIN\bk010107Controller@post');
 Route::get('/main/slum_program/create', 'MAIN\bk010107Controller@create');
@@ -153,12 +152,66 @@ Route::get('/main/kel_faskel/create', 'MAIN\bk010114Controller@create');
 Route::post('/main/kel_faskel/create', 'MAIN\bk010114Controller@post_create');
 Route::get('/main/kel_faskel/delete', 'MAIN\bk010114Controller@delete');
 
+//persiapan menu
+//nasional
+Route::get('/main/persiapan/nasional/pokja/pembentukan', 'MAIN\bk010201Controller@index');
+Route::post('/main/persiapan/nasional/pokja/pembentukan', 'MAIN\bk010201Controller@post');
+Route::get('/main/persiapan/nasional/pokja/pembentukan/create', 'MAIN\bk010201Controller@create');
+Route::post('/main/persiapan/nasional/pokja/pembentukan/create', 'MAIN\bk010201Controller@post_create');
+Route::get('/main/persiapan/nasional/pokja/pembentukan/delete', 'MAIN\bk010201Controller@delete');
+
+Route::get('/main/persiapan/nasional/pokja/kegiatan', 'MAIN\bk010202Controller@index');
+Route::post('/main/persiapan/nasional/pokja/kegiatan', 'MAIN\bk010202Controller@post');
+Route::get('/main/persiapan/nasional/pokja/kegiatan/create', 'MAIN\bk010202Controller@create');
+Route::post('/main/persiapan/nasional/pokja/kegiatan/create', 'MAIN\bk010202Controller@post_create');
+Route::get('/main/persiapan/nasional/pokja/kegiatan/delete', 'MAIN\bk010202Controller@delete');
+
+//propinsi
+Route::get('/main/persiapan/propinsi/pokja/pembentukan', 'MAIN\bk010203Controller@index');
+Route::post('/main/persiapan/propinsi/pokja/pembentukan', 'MAIN\bk010203Controller@post');
+Route::get('/main/persiapan/propinsi/pokja/pembentukan/create', 'MAIN\bk010203Controller@create');
+Route::post('/main/persiapan/propinsi/pokja/pembentukan/create', 'MAIN\bk010203Controller@post_create');
+Route::get('/main/persiapan/propinsi/pokja/pembentukan/delete', 'MAIN\bk010203Controller@delete');
+
+Route::get('/main/persiapan/propinsi/pokja/kegiatan', 'MAIN\bk010204Controller@index');
+Route::post('/main/persiapan/propinsi/pokja/kegiatan', 'MAIN\bk010204Controller@post');
+Route::get('/main/persiapan/propinsi/pokja/kegiatan/create', 'MAIN\bk010204Controller@create');
+Route::post('/main/persiapan/propinsi/pokja/kegiatan/create', 'MAIN\bk010204Controller@post_create');
+Route::get('/main/persiapan/propinsi/pokja/kegiatan/delete', 'MAIN\bk010204Controller@delete');
+
+//kota
+Route::get('/main/persiapan/kota/info', 'MAIN\bk010205Controller@index');
+Route::post('/main/persiapan/kota/info', 'MAIN\bk010205Controller@post');
+Route::get('/main/persiapan/kota/info/create', 'MAIN\bk010205Controller@create');
+Route::post('/main/persiapan/kota/info/create', 'MAIN\bk010205Controller@post_create');
+Route::get('/main/persiapan/kota/info/delete', 'MAIN\bk010205Controller@delete');
+
+Route::get('/main/persiapan/kota/pokja/pembentukan', 'MAIN\bk010206Controller@index');
+Route::post('/main/persiapan/kota/pokja/pembentukan', 'MAIN\bk010206Controller@post');
+Route::get('/main/persiapan/kota/pokja/pembentukan/create', 'MAIN\bk010206Controller@create');
+Route::post('/main/persiapan/kota/pokja/pembentukan/create', 'MAIN\bk010206Controller@post_create');
+Route::get('/main/persiapan/kota/pokja/pembentukan/delete', 'MAIN\bk010206Controller@delete');
+
+Route::get('/main/persiapan/kota/pokja/kegiatan', 'MAIN\bk010207Controller@index');
+Route::post('/main/persiapan/kota/pokja/kegiatan', 'MAIN\bk010207Controller@post');
+Route::get('/main/persiapan/kota/pokja/kegiatan/create', 'MAIN\bk010207Controller@create');
+Route::post('/main/persiapan/kota/pokja/kegiatan/create', 'MAIN\bk010207Controller@post_create');
+Route::get('/main/persiapan/kota/pokja/kegiatan/delete', 'MAIN\bk010207Controller@delete');
+
+Route::get('/main/persiapan/kota/kegiatan/sosialisasi', 'MAIN\bk010208Controller@index');
+Route::post('/main/persiapan/kota/kegiatan/sosialisasi', 'MAIN\bk010208Controller@post');
+Route::get('/main/persiapan/kota/kegiatan/sosialisasi/create', 'MAIN\bk010208Controller@create');
+Route::post('/main/persiapan/kota/kegiatan/sosialisasi/create', 'MAIN\bk010208Controller@post_create');
+Route::get('/main/persiapan/kota/kegiatan/sosialisasi/delete', 'MAIN\bk010208Controller@delete');
+
 /**
  *
  *
  *module GIS route here
  */
 Route::get('/gis', 'GIS\bk040101Controller@index');
+Route::get('/gis/map-kota', 'GIS\bk040101Controller@kota');
+Route::get('/gis/map-kecamatan', 'GIS\bk040101Controller@kecamatan');
 
 //gis Provinsi
 Route::get('/gis/provinsi', 'GIS\bk040102Controller@index');

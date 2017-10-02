@@ -66,7 +66,8 @@ body > .header {
   left: 0;
   right: 0;
   z-index: 1030;
-  background: #2E576B;
+  background: #f7e97e;
+  /*background: #2E576B;*/
 }
 
 body > .header .navbar {
@@ -101,7 +102,8 @@ body > .header .logo {
   padding: 3px 10px;
   text-align: center;
   width: 251px;
-  background-color: #2E576B;
+  background-color: #f7e97e;
+  /*background-color: #2E576B;*/
 }
 
 body > .header .logo .icon {
@@ -556,7 +558,7 @@ input[type="range"] {
 }
 
 .skin-default .navbar {
-  background: url("../img/nav_bg.jpg") repeat;
+  /*background: url("../img/nav_bg.jpg") repeat;*/
 }
 
 .left-side {
@@ -1134,7 +1136,7 @@ a {
 /********* 6. LEFT MENU COLLAPSE STYLES *********/
 body > .header .navbar .sidebar-toggle {
   float: left;
-  color: #FFF;
+  color: #18458e;
   font-size: 23px;
   font-weight: bold;
   margin-left: 10px;
@@ -1230,7 +1232,8 @@ body > .header .navbar .sidebar-toggle i {
 }
 
 .text-white {
-  color: #FFFFFF;
+	color:#18458e
+  /*color: #FFFFFF;*/
 }
 
 .input-group-addon {

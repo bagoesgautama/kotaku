@@ -30,21 +30,17 @@
                     <i class="ti-export"></i> <b>Want to export data?</b>
                 </div>
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('hrm/role_level/create') }}">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('/main/faskel/create') }}">Create</a>
 				</div>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="role_level">
+					<table class="table table-striped" id="users">
 						<thead>
                             <tr>
-                                <th>nama</th>
-                                <th>deskripsi</th>
-                                <th>status</th>
-                                <th>created time</th>
-                                <th>created by</th>
-                                <th>update time</th>
-                                <th>update by</th>
+                                <th>Nama KMW</th>
+                                <th>Nama Korkot</th>
+                                <th>Nama</th>
 								<th>option</th>
                             </tr>
                         </thead>
@@ -59,28 +55,21 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#role_level').DataTable({
+		var table = $('#users').DataTable({
 	        // dom: 'Bflrtip',
-	        "dom": '<"m-t-10"B><"m-t-10 pull-left"f><"m-t-10 pull-right"l>rt<"pull-left m-t-10"i><"m-t-10 pull-right"p>',
-	        buttons: [
-	            'copy', 'csv', 'excel', 'pdf', 'print'
-	        ],
+	        
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('hrm/role_level') }}",
+                     "url": "/main/faskel",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-				{ "data": "nama" , name:"nama"},
-                { "data": "deskripsi" , name:"deskripsi"},
-                { "data": "status" , name:"status"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
-                { "data": "update_time" , name:"update_time"},
-                { "data": "update_by" , name:"update_by"},
+				{ "data": "nama_kmw" , name:"nama_kmw"},
+                { "data": "nama_korkot" , name:"nama_korkot"},
+                { "data": "nama" , name:"nama"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });

@@ -4,8 +4,12 @@
 <section class="content-header">
     <h1>GIS</h1>
     <ol class="breadcrumb">
-        <li class="active">
-            Map
+        <li >
+			<a href="/hrm">
+            Map</a>
+        </li>
+		<li class="active">
+            {{$propinsi}}
         </li>
     </ol>
 </section>
@@ -15,10 +19,11 @@
 		<div class="panel">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                                <i class="ti-map"></i> bk040101-index
+                                <i class="ti-map"></i> bk040101-kota
                             </h4>
             </div>
             <div class="panel-body">
+				<table id='info'></table>
                 <div id="gmap-top" class="gmap"></div>
             </div>
         </div>
@@ -50,9 +55,8 @@ $(document).ready(function() {
 	var map = new google.maps.Map(document.getElementById("gmap-top"), mapProp);
 	var prop = {!! json_encode($prop) !!};
 	var attr={}
-	console.log(prop)
 	for(var i=0;i<prop.length;i++){
-		map.data.loadGeoJson('/uploads/provinsi/'+prop[i].url_border_area);
+		map.data.loadGeoJson('/uploads/kota/'+prop[i].url_border_area);
 		attr[prop[i].nama]=prop[i]
 		attr[prop[i].nama].contentString = '<div id="content">'+
 	      '<div id="siteNotice">'+
@@ -67,14 +71,10 @@ $(document).ready(function() {
 	      '(last visited June 22, 2009).</p>'+
 	      '</div>'+
 	      '</div>';
-	  	attr[prop[i].nama].infowindow = new google.maps.InfoWindow({
-  			content: attr[prop[i].nama].contentString,
-			position:{lat: 4.9133446, lng: 117.7325848}
-  		});
 	}
 
 	map.data.setStyle(function(feature) {
-		if(attr[feature.f.PROPINSI].kode%2==0){
+		if(attr[feature.f.kota].kode%2==0){
 			return ({
 			    fillColor: 'red',
 			    strokeWeight: 1
@@ -87,10 +87,15 @@ $(document).ready(function() {
 		}
 	})
 	map.data.addListener('mouseover', function(event) {
-	  	for(var key in attr)
-			attr[key].infowindow.close();
-		attr[event.feature.f.PROPINSI].infowindow.open(map);
-		//infowindow.open(map);
+	  	var data_detil=attr[event.feature.f.kota]
+    	var row = '';
+		for(var key in data_detil){
+			row += '<tr>';
+			row+='<td>' + key + '</td>';
+			row+='<td>' + data_detil[key]+' </td>';
+			row +='<tr>'
+		}
+	    $('#info').html(row);
 	});
 	//alert(JSON.stringify(prop));
 });
