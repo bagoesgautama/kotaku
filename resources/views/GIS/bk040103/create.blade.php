@@ -124,14 +124,18 @@
             contentType: false,
             "url": "/gis/kota/create",
             data: form_data,
+            beforeSend: function (){
+                $("#submit").prop('disabled', true);
+            },
             success: function () {
-    alert('Form Submitted.');
-    window.location.href = "/gis/kota";
-   },
-   error: function (xhr, ajaxOptions, thrownError) {
-          alert(xhr.status);
-          alert(thrownError);
-        }
+            alert('Form Submitted.');
+            window.location.href = "/gis/kota";
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+            $("#submit").prop('disabled', false);
+            }
           });
         });
       });

@@ -138,14 +138,18 @@
             contentType: false,
             "url": "/gis/kelurahan/create",
             data: form_data,
+            beforeSend: function (){
+                $("#submit").prop('disabled', true);
+            },
             success: function () {
-    alert('Form Submitted.');
-    window.location.href = "/gis/kelurahan";
-   },
-   error: function (xhr, ajaxOptions, thrownError) {
-          alert(xhr.status);
-          alert(thrownError);
-        }
+            alert('Form Submitted.');
+            window.location.href = "/gis/kelurahan";
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+            $("#submit").prop('disabled', false);
+            }
           });
         });
       });

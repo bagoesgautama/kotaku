@@ -272,7 +272,7 @@ class bk010203Controller extends Controller
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_02010101_role_level')->where('kode', $request->input('kode'))->delete();
-        return Redirect::to('/hrm/role_level');
+		DB::table('bkt_01020202_pokja')->where('kode', $request->input('kode'))->delete();
+        return Redirect::to('/main/persiapan/propinsi/pokja/pembentukan');
     }
 }

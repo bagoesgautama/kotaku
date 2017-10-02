@@ -128,14 +128,18 @@
             type: 'post',
             "url": "/main/persiapan/propinsi/pokja/kegiatan/create",
             data: $('form').serialize(),
+            beforeSend: function (){
+                $("#submit").prop('disabled', true);
+            },
             success: function () {
-    alert('From Submitted.');
-    window.location.href = "/main/persiapan/propinsi/pokja/kegiatan";
-   },
-   error: function (xhr, ajaxOptions, thrownError) {
-          alert(xhr.status);
-          alert(thrownError);
-        }
+            alert('From Submitted.');
+            window.location.href = "/main/persiapan/propinsi/pokja/kegiatan";
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+            $("#submit").prop('disabled', false);
+            }
           });
         });
       });

@@ -215,14 +215,19 @@
             type: 'post',
             "url": "/main/persiapan/nasional/pokja/pembentukan/create",
             data: $('form').serialize(),
+            beforeSend: function (){
+                $("#submit").prop('disabled', true);
+            },
             success: function () {
-    alert('From Submitted.');
-    window.location.href = "/main/persiapan/nasional/pokja/pembentukan";
-   },
-   error: function (xhr, ajaxOptions, thrownError) {
-          alert(xhr.status);
-          alert(thrownError);
-        }
+    
+            alert('From Submitted.');
+            window.location.href = "/main/persiapan/nasional/pokja/pembentukan";
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              alert(xhr.status);
+              alert(thrownError);
+              $("#submit").prop('disabled', false);
+            }
           });
         });
       });

@@ -273,6 +273,6 @@ class bk010201Controller extends Controller
 	public function delete(Request $request)
 	{
 		DB::table('bkt_01020202_pokja')->where('kode', $request->input('kode'))->delete();
-        return Redirect::to('/main/persiapan/propinsi/pokja/pembentukan');
+        return Redirect::to('/main/persiapan/nasional/pokja/pembentukan');
     }
 }

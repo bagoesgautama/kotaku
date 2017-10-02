@@ -122,14 +122,18 @@
             contentType: false,
             "url": "/gis/provinsi/create",
             data: form_data,
+            beforeSend: function (){
+                $("#submit").prop('disabled', true);
+            },
             success: function () {
-    alert('Form Submitted.');
-    window.location.href = "/gis/provinsi";
-   },
-   error: function (xhr, ajaxOptions, thrownError) {
-          alert(xhr.status);
-          alert(thrownError);
-        }
+            alert('Form Submitted.');
+            window.location.href = "/gis/provinsi";
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+            $("#submit").prop('disabled', false);
+            }
           });
         });
       });
