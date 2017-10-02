@@ -23,25 +23,29 @@
 <div class="row">
     <div class="col-md-12 " >
 		<div class="form-group">
-		    <label>Role :
-				<select name="role" id="role">
-					<option value=undefined>Please select</option>
-				</select>
-		    </label>
-		</div>
-		<div class="form-group">
-		    <label>Aplikasi :
-				<select name="apps" id="apps">
-					<option value=undefined>Please select</option>
-				</select>
-		    </label>
-		</div>
-		<div class="form-group">
-		    <label>Modul :
-				<select name="modul" id="modul">
-					<option value=undefined>Please select</option>
-				</select>
-		    </label>
+			<table>
+				<tr>
+				    <td>Role :</td>
+					<td><select name="role" id="role">
+							<option value=undefined>Please select</option>
+						</select>
+				    </td>
+				</tr>
+				<tr>
+				    <td>Aplikasi :</td>
+					<td><select name="apps" id="apps">
+							<option value=undefined>Please select</option>
+						</select>
+				    </td>
+				</tr>
+				<tr>
+				    <td>Modul :</td>
+					<td><select name="modul" id="modul">
+							<option value=undefined>Please select</option>
+						</select>
+				    </td>
+				</tr>
+			</table>
 		</div>
 		<div class="tools pull-left">
 			<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" id="show" href="#">Show</a>

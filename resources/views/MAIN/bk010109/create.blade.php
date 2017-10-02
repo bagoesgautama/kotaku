@@ -23,7 +23,7 @@
 </section>
 @stop
 {{-- Page content --}} @section('content')
-<div class="row">
+<!--<div class="row">
     <div class="col-md-6">
         <div class="panel ">
             <div class="panel-body">
@@ -52,87 +52,82 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
-
-<div class="panel-body border">
-    <form enctype="multipart/form-data" class="form-horizontal form-bordered">
-        <div class="row">
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Nama KMP</label>
-                <div class="col-sm-6">
-                    <div class="panel ">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
-                                            <div class="form-group">
-                                            <select id="select21" class="form-control select2" style="width:100%">
-                                                @foreach($kode_kmp_list as $list)
-                                                    <option value="{{ $list->kode }}" @if($list->kode==$kode_kmp) selected="selected" @endif >{{ $list->nama }}
-                                                    </option>
-                                                @endforeach            
-                                            </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel ">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+    					<form enctype="multipart/form-data" class="form-horizontal form-bordered">
+				            <div class="form-group striped-col">
+				                <label class="col-sm-3 control-label" for="example-text-input1">Nama KMP</label>
+                                <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
+								<div class="col-sm-6">
+	                                <select id="select21" class="form-control select2" >
+	                                    @foreach($kode_kmp_list as $list)
+	                                        <option value="{{ $list->kode }}" @if($list->kode==$kode_kmp) selected="selected" @endif >{{ $list->nama }}
+	                                        </option>
+	                                    @endforeach
+	                                </select>
+								</div>
                             </div>
-                        </div>
-                    </div>    
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label" for="example-text-input1">Nama Slum Program</label>
-                <div class="col-sm-6">
-                    <select id="select21" class="form-control select2" style="width:100%">
-                        @foreach($kode_slum_prog_list as $list)
-                            <option value="{{ $list->kode }}" @if($list->kode==$kode_slum_prog) selected="selected" @endif >{{ $list->nama }}</option>
-                        @endforeach            
-                    </select>
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
-                <div class="col-sm-6">
-                    <label class="form-control">{{ $created_time }}</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
-                <div class="col-sm-6">
-                    <label class="form-control">{{ $created_by }}</label>
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Updated TIme</label>
-                <div class="col-sm-6">
-                    <label class="form-control">{{ $updated_time }}</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label" for="example-text-input1">Updated By</label>
-                <div class="col-sm-6">
-                    <label class="form-control">{{ $updated_by }}</label>
-                </div>
-            </div>
-            <div class="form-group form-actions">
-                <div class="col-sm-9 col-sm-offset-3">
-                    <a href="/hrm/role" type="button" class="btn btn-effect-ripple btn-danger">
-                        Cancel
-                    </a>
-                    <button type="submit" id="dodol" class="btn btn-effect-ripple btn-primary">
-                        Submit
-                    </button>
-                    <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
-                        Reset
-                    </button>
+							<div class="form-group">
+				                <label class="col-sm-3 control-label" for="example-text-input1">Nama Slum Program</label>
+				                <div class="col-sm-6">
+				                    <select id="select21" class="form-control select2" style="width:100%">
+				                        @foreach($kode_slum_prog_list as $list)
+				                            <option value="{{ $list->kode }}" @if($list->kode==$kode_slum_prog) selected="selected" @endif >{{ $list->nama }}</option>
+				                        @endforeach
+				                    </select>
+				                </div>
+				            </div>
+				            <div class="form-group striped-col">
+				                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
+				                <div class="col-sm-6">
+				                    <label class="form-control">{{ $created_time }}</label>
+				                </div>
+				            </div>
+				            <div class="form-group">
+				                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
+				                <div class="col-sm-6">
+				                    <label class="form-control">{{ $created_by }}</label>
+				                </div>
+				            </div>
+				            <div class="form-group striped-col">
+				                <label class="col-sm-3 control-label" for="example-text-input1">Updated TIme</label>
+				                <div class="col-sm-6">
+				                    <label class="form-control">{{ $updated_time }}</label>
+				                </div>
+				            </div>
+				            <div class="form-group">
+				                <label class="col-sm-3 control-label" for="example-text-input1">Updated By</label>
+				                <div class="col-sm-6">
+				                    <label class="form-control">{{ $updated_by }}</label>
+				                </div>
+				            </div>
+				            <div class="form-group form-actions">
+				                <div class="col-sm-9 col-sm-offset-3">
+				                    <a href="/hrm/role" type="button" class="btn btn-effect-ripple btn-danger">
+				                        Cancel
+				                    </a>
+				                    <button type="submit" id="dodol" class="btn btn-effect-ripple btn-primary">
+				                        Submit
+				                    </button>
+				                    <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
+				                        Reset
+				                    </button>
+				                </div>
+				            </div>
+						</form>
+                    </div>
                 </div>
             </div>
         </div>
-    </form>
+	</div>
 </div>
+
 @stop
 {{-- local scripts --}} @section('footer_scripts')
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>

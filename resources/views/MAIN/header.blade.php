@@ -9,7 +9,6 @@
     <div>
         <a href="javascript:void(0)" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button"> <i class="fa fa-fw ti-menu"></i>
         </a>
-
     </div>
 	<a href="javascript:void(0)" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button"> <i class="fa-1x fa fa-tasks text-white">MAIN</i></a>
 	<div class="navbar-right">
@@ -22,7 +21,6 @@
                     <li class="dropdown-title">New Messages</li>
                     <li>
                         <a href="" class="message striped-col">
-                            <img class="message-image img-circle" src="{{url('img/authors/avatar7.jpg')}}" alt="avatar-image">
                             <div class="message-body"><strong>Ernest Kerry</strong>
                                 <br> Can we Meet?
                                 <br>
@@ -33,45 +31,11 @@
                     </li>
                     <li>
                         <a href="" class="message">
-                            <img class="message-image img-circle" src="{{url('img/authors/avatar6.jpg')}}" alt="avatar-image">
                             <div class="message-body"><strong>John</strong>
                                 <br> Dont forgot to call...
                                 <br>
                                 <small>5 minutes ago</small>
                                 <span class="label label-success label-mini msg-lable">New</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="message striped-col">
-                            <img class="message-image img-circle" src="{{url('img/authors/avatar5.jpg')}}" alt="avatar-image">
-                            <div class="message-body">
-                                <strong>Wilton Zeph</strong>
-                                <br> If there is anything else &hellip;
-                                <br>
-                                <small>14/10/2014 1:31 pm</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="message">
-                            <img class="message-image img-circle" src="{{url('img/authors/avatar1.jpg')}}" alt="avatar-image">
-                            <div class="message-body">
-                                <strong>Jenny Kerry</strong>
-                                <br> Let me know when you free
-                                <br>
-                                <small>5 days ago</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="message striped-col">
-                            <img class="message-image img-circle" src="{{url('img/authors/avatar.jpg')}}" alt="avatar-image">
-                            <div class="message-body">
-                                <strong>Tony</strong>
-                                <br> Let me know when you free
-                                <br>
-                                <small>5 days ago</small>
                             </div>
                         </a>
                     </li>

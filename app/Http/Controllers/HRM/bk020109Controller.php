@@ -28,7 +28,8 @@ class bk020109Controller extends Controller
     public function index()
     {
         $data['username'] = '';
-	    if (Auth::check()) {
+		echo (Auth::user());
+	    /*if (Auth::check()) {
             $user = Auth::user();
             $data['username'] = Auth::user()->name;
         }
@@ -36,7 +37,7 @@ class bk020109Controller extends Controller
 			from bkt_02010104_modul b,bkt_02010103_apps c
 			where b.kode_apps=c.kode');
 		$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
-		return view('HRM/bk020109/index',$data);
+		return view('HRM/bk020109/index',$data);*/
     }
 
 	public function show(Request $request)
@@ -67,7 +68,6 @@ class bk020109Controller extends Controller
 				['kode_menu_detil', '=', $item['detil_id']],['kode_role', '=', $item['role']]])->delete();
 		}
 		DB::commit();
-		echo "success";
 	}
 
 	/*public function logout()
