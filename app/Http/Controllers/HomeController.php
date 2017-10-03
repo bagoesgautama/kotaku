@@ -45,12 +45,25 @@ class HomeController extends Controller
 
 	public function main()
 	{
-		$data['username'] = '';
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				//if($item->kode_menu==10)
+					//$data['detil'][$item->kode_menu_detil]='a';
+			}
+			if(!empty($data['menu'])){
+			    $data['username'] = $user->name;
+				return view('MAIN/main/index',$data);
+			}
+			else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
 		}
-		return view('MAIN/main/index',$data);
+
 	}
 
 	public function map()

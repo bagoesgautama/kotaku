@@ -27,12 +27,29 @@ class bk010107Controller extends Controller
      */
     public function index()
     {
-        $data['username'] = '';
-	    if (Auth::check()) {
-            $user = Auth::user();
-            $data['username'] = Auth::user()->name;
-        }
-		return view('MAIN/bk010107/index',$data);
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==24)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			if(!empty($data['detil'])){
+			    $data['username'] = $user->name;
+				$data['totalData'] = DB::select('select b.kode modul_id,b.nama modul,c.kode apps_id,c.nama apps
+					from bkt_02010104_modul b,bkt_02010103_apps c
+					where b.kode_apps=c.kode');
+				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
+				return view('MAIN/bk010107/index',$data);
+			}
+			else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
+
     }
 
 	public function show()
@@ -225,7 +242,7 @@ class bk010107Controller extends Controller
 		return view('MAIN/bk010107/create',$data);
 	}
 
-	
+
 	public function post_create(Request $request)
 	{
 		date_default_timezone_set('Asia/Jakarta');
@@ -234,27 +251,27 @@ class bk010107Controller extends Controller
         	$date_convert = date('Y-m-d', $date);
 			DB::table('bkt_01010107_slum_program')->where('kode', $request->input('example-id-input'))
 			->update(
-				['nourut' => $request->input('example-no_urut-input'), 
-				'nama' => $request->input('example-nama-input'), 
-				'keterangan' => $request->input('example-keterangan-input'), 
-				'kode_kota' => $request->input('example-select-kota'), 
-				'alamat' => $request->input('example-alamat-input'), 
-				'kodepos' => $request->input('example-kodepos-input'), 
-				'contact_person' => $request->input('example-contact_person-input'), 
-				'no_phone' => $request->input('example-no_phone-input'), 
-				'no_fax' => $request->input('example-no_fax-input'), 
-				'no_hp1' => $request->input('example-no_hp1-input'), 
-				'no_hp2' => $request->input('example-no_hp2-input'), 
-				'email1' => $request->input('example-email1'), 
-				'email2' => $request->input('example-email2'), 
-				'pms_nama' => $request->input('example-pms_nama-input'), 
+				['nourut' => $request->input('example-no_urut-input'),
+				'nama' => $request->input('example-nama-input'),
+				'keterangan' => $request->input('example-keterangan-input'),
+				'kode_kota' => $request->input('example-select-kota'),
+				'alamat' => $request->input('example-alamat-input'),
+				'kodepos' => $request->input('example-kodepos-input'),
+				'contact_person' => $request->input('example-contact_person-input'),
+				'no_phone' => $request->input('example-no_phone-input'),
+				'no_fax' => $request->input('example-no_fax-input'),
+				'no_hp1' => $request->input('example-no_hp1-input'),
+				'no_hp2' => $request->input('example-no_hp2-input'),
+				'email1' => $request->input('example-email1'),
+				'email2' => $request->input('example-email2'),
+				'pms_nama' => $request->input('example-pms_nama-input'),
 				'pms_alamat' => $request->input('example-pms_alamat-input'),
 				'tgl_akhir' => $date_convert,
 				'tahun_apbd1' => $request->input('example-tahun_apbd1-input'),
 				'tahun_apbd2' => $request->input('example-tahun_apbd2-input'),
 				'status' => $request->input('example-select-status'),
 				'project' => $request->input('example-project-input'),
-				'glosary_caption' => $request->input('example-glosary_caption-input'), 
+				'glosary_caption' => $request->input('example-glosary_caption-input'),
 				'jenis_siklus' => $request->input('example-select-jenis_siklus'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
@@ -263,20 +280,20 @@ class bk010107Controller extends Controller
 			$date = strtotime($request->input('tgl_akhir'));
         	$date_convert = date('Y-m-d', $date);
 			DB::table('bkt_01010107_slum_program')->insert(
-       			['nourut' => $request->input('example-no_urut-input'), 
-       				'nama' => $request->input('example-nama-input'), 
-       				'keterangan' => $request->input('example-keterangan-input'), 
-       				'kode_kota' => $request->input('example-select-kota'), 
-       				'alamat' => $request->input('example-alamat-input'), 
-       				'kodepos' => $request->input('example-kodepos-input'), 
-       				'contact_person' => $request->input('example-contact_person-input'), 
-       				'no_phone' => $request->input('example-no_phone-input'), 
-       				'no_fax' => $request->input('example-no_fax-input'), 
-       				'no_hp1' => $request->input('example-no_hp1-input'), 
-       				'no_hp2' => $request->input('example-no_hp2-input'), 
-       				'email1' => $request->input('example-email1'), 
-       				'email2' => $request->input('example-email2'), 
-       				'pms_nama' => $request->input('example-pms_nama-input'), 
+       			['nourut' => $request->input('example-no_urut-input'),
+       				'nama' => $request->input('example-nama-input'),
+       				'keterangan' => $request->input('example-keterangan-input'),
+       				'kode_kota' => $request->input('example-select-kota'),
+       				'alamat' => $request->input('example-alamat-input'),
+       				'kodepos' => $request->input('example-kodepos-input'),
+       				'contact_person' => $request->input('example-contact_person-input'),
+       				'no_phone' => $request->input('example-no_phone-input'),
+       				'no_fax' => $request->input('example-no_fax-input'),
+       				'no_hp1' => $request->input('example-no_hp1-input'),
+       				'no_hp2' => $request->input('example-no_hp2-input'),
+       				'email1' => $request->input('example-email1'),
+       				'email2' => $request->input('example-email2'),
+       				'pms_nama' => $request->input('example-pms_nama-input'),
        				'pms_alamat' => $request->input('example-pms_alamat-input'),
        				'tgl_akhir' => $date_convert,
        				'tahun_apbd1' => $request->input('example-tahun_apbd1-input'),

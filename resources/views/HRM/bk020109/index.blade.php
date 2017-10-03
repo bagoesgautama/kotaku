@@ -75,13 +75,14 @@
 		var attr={}
 		var role = $('#role');
 		var apps = $('#apps');
+		var apps_id,modul_id;
 		var modul = $('#modul');
 		for(var i=0;i<prop.length;i++){
 			if(attr[prop[i].apps]==undefined){
 				attr[prop[i].apps]={id:prop[i].apps_id,modul:{}};
-				attr[prop[i].apps].modul[prop[i].modul]={id:prop[i].modul_id,menu:{}}
+				attr[prop[i].apps].modul[prop[i].modul]={id:prop[i].modul_id}
 			}else{
-
+				attr[prop[i].apps].modul[prop[i].modul]={id:prop[i].modul_id}
 			}
 		}
 		for (var i=0;i<prop_role.length;i++){
@@ -104,6 +105,8 @@
 		});
 		$("#show").click(function(e) {
 			e.preventDefault();
+			apps_id=apps.val();
+			modul_id=modul.val();
 		    $.ajax({
 		        type: "GET",
 		        url: "/hrm/role_akses/show",
@@ -153,11 +156,11 @@
 			var data=[];
 			$('#akses tbody tr').each(function(row, tr){
 				if($(this).find('input').val()==0 && $(this).find('input').is(':checked')){
-					var json={val:$(this).find('input').val(),role:role.val(),menu_id:$(this).find('td:eq(1)').text(),detil_id:$(this).find('td:eq(3)').text()}
+					var json={apps:apps_id,modul:modul_id,role:role.val(),menu_id:$(this).find('td:eq(1)').text(),detil_id:$(this).find('td:eq(3)').text()}
 					json.flag=1;
 					data.push(json);
 				}else if ($(this).find('input').val()==1 && !$(this).find('input').is(':checked')){
-					var json={val:$(this).find('input').val(),role:role.val(),menu_id:$(this).find('td:eq(1)').text(),detil_id:$(this).find('td:eq(3)').text()}
+					var json={apps:apps_id,modul:modul_id,role:role.val(),menu_id:$(this).find('td:eq(1)').text(),detil_id:$(this).find('td:eq(3)').text()}
 					json.flag=0;
 					data.push(json);
 				}
