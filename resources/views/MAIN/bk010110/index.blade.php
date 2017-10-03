@@ -77,7 +77,13 @@
                      "dataType": "json",
                      "type": "POST"
                    },
-
+            success: function(data) {
+                 alert('success')
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+              },
             "columns": [
 				{ "data": "kode_kmp_slum_prog" , name:"kode_kmp_slum_prog"},
                 { "data": "nama" , name:"nama"},

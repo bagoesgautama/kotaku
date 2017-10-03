@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Koordinator Kota (Korkot) @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -21,7 +21,7 @@
                 <i class="fa fa-fw fa-home"></i> MAIN
             </a>
         </li>
-        <li><a href="/main/kmw">KorKot</a></li>
+        <li><a href="/main/korkot">KorKot</a></li>
         <li class="active">
             Table
         </li>
@@ -77,7 +77,13 @@
                      "dataType": "json",
                      "type": "POST"
                    },
-
+            success: function(data) {
+                 alert('success')
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+              },
             "columns": [
                 { "data": "nama_kmw" , name:"nama_kmw"},
                 { "data": "nama" , name:"nama"},

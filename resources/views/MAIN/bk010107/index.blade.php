@@ -21,7 +21,7 @@
                 <i class="fa fa-fw fa-home"></i> MAIN
             </a>
         </li>
-        <li><a href="/hrm/slum_program">Slum Program</a></li>
+        <li><a href="/main/slum_program">Slum Program</a></li>
         <li class="active">
             Table
         </li>
@@ -76,7 +76,7 @@
                      "type": "POST"
                    },
             success: function(data) {
-                 alert('suces')
+                 alert('success')
               },
               error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);

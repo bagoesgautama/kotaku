@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Konsultan Manajemen Pusat (KMP) Form@stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Konsultan Manajemen Pusat (KMP) @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -21,7 +21,7 @@
                 <i class="fa fa-fw fa-home"></i> MAIN
             </a>
         </li>
-        <li><a href="/hrm/kmp">Konsultan Manajemen Pusat (KMP)</a></li>
+        <li><a href="/main/kmp">Konsultan Manajemen Pusat (KMP)</a></li>
         <li class="active">
             Table
         </li>
@@ -36,7 +36,7 @@
                     <b>bk010108 Index</b>
                 </div>
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('main/kmp/create') }}">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('/main/kmp/create') }}">Create</a>
 				</div>
             </div>
             <div class="panel-body">
@@ -75,7 +75,13 @@
                      "dataType": "json",
                      "type": "POST"
                    },
-
+            success: function(data) {
+                 alert('success')
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+              },
             "columns": [
 				{ "data": "nama" , name:"nama"},
                 { "data": "alamat" , name:"alamat"},

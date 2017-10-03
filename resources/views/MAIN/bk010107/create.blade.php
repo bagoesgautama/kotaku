@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Slum Program @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Slum Program Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('css/app.css')}}" rel="stylesheet">
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
@@ -6,14 +6,14 @@
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Slum Program Form</h1>
+    <h1>Slum Program</h1>
     <ol class="breadcrumb">
         <li>
             <a href="/main">
                 <i class="fa fa-fw fa-home"></i> MAIN
             </a>
         </li>
-        <li><a href="/hrm/slum_program">Slum Program</a></li>
+        <li><a href="/main/slum_program">Slum Program</a></li>
         <li class="active">
             Create
         </li>
