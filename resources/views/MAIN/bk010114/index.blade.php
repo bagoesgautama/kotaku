@@ -35,9 +35,11 @@
                 <div class="panel-title pull-left">
                     <b>bk010114 Index</b>
                 </div>
+                @if( ! empty($detil['57']))
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('/main/kel_faskel/create') }}">Create</a>
 				</div>
+                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -85,13 +87,13 @@
               },
             "columns": [
 				{ "data": "kode_kmp_slum_prog" , name:"kode_kmp_slum_prog"},
-                { "data": "kode_faskel" , name:"kode_faskel"},
-                { "data": "kode_kel" , name:"kode_kel"},
+                { "data": "nama_faskel" , name:"nama_faskel"},
+                { "data": "nama_kel" , name:"nama_kel"},
                 { "data": "blm" , name:"blm"},
                 { "data": "jenis_project" , name:"jenis_project"},
-                { "data": "kode_kec" , name:"kode_kec"},
+                { "data": "nama_kec" , name:"nama_kec"},
                 { "data": "lokasi_blm" , name:"lokasi_blm"},
-                { "data": "Lokasi_kumuh" , name:"Lokasi_kumuh"},
+                { "data": "Lokasi_Kumuh" , name:"Lokasi_Kumuh"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });

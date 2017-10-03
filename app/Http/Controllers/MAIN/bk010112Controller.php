@@ -27,12 +27,28 @@ class bk010112Controller extends Controller
      */
     public function index()
     {
-        $data['username'] = '';
-	    if (Auth::check()) {
-            $user = Auth::user();
-            $data['username'] = Auth::user()->name;
-        }
-		return view('MAIN/bk010112/index',$data);
+        $user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==29)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			if(!empty($data['detil'])){
+			    $data['username'] = $user->name;
+				$data['totalData'] = DB::select('select b.kode modul_id,b.nama modul,c.kode apps_id,c.nama apps
+					from bkt_02010104_modul b,bkt_02010103_apps c
+					where b.kode_apps=c.kode');
+				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
+				return view('MAIN/bk010112/index',$data);
+			}
+			else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
     }
 
 	public function show()
@@ -73,8 +89,8 @@ class bk010112Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. 'where name like "%'.$search.'%" or email like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. 'where name like "%'.$search.'%" or email like "%'.$search.'%") a');
+			$posts=DB::select($query. 'and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. 'and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
 		}
 
 		$data = array();
@@ -95,8 +111,23 @@ class bk010112Controller extends Controller
 				$nestedData['created_by'] = $post->created_by;
 				$nestedData['updated_time'] = $post->updated_time;
 				$nestedData['updated_by'] = $post->updated_by;
-				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>
-				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
+				$user = Auth::user();
+		        $akses= $user->menu()->where('kode_apps', 1)->get();
+				if(count($akses) > 0){
+					foreach ($akses as $item) {
+						if($item->kode_menu==29)
+							$detil[$item->kode_menu_detil]='a';
+					}
+				}
+
+				$option = '';
+				if(!empty($detil['50'])){
+					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
+				}
+				if(!empty($detil['51'])){
+					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
+				}		
+				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
 		}

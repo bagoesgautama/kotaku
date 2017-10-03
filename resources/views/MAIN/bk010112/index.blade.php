@@ -35,9 +35,11 @@
                 <div class="panel-title pull-left">
                     <b>bk010112 Index</b>
                 </div>
+                @if( ! empty($detil['49']))
                 <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/kota_korkot/create">Create</a>
                 </div>
+                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">

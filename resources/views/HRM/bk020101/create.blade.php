@@ -28,13 +28,13 @@
                 <label class="col-sm-3 control-label" for="example-text-input1">Nama</label>
                 <div class="col-sm-6">
                 <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
-                    <input type="text" id="example-text-input1" name="example-text-input" class="form-control" placeholder="Text" value="{{ $nama }}">
+                    <input type="text" id="example-text-input1" name="example-text-input" class="form-control" placeholder="Text" value="{{ $nama }}" maxlength="50">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-textarea-input2">Deskripsi</label>
                 <div class="col-sm-6">
-                    <textarea id="example-textarea-input2" name="example-textarea-input" rows="7" class="form-control resize_vertical" placeholder="Description....">{{ $deskripsi }}</textarea>
+                    <textarea id="example-textarea-input2" name="example-textarea-input" rows="7" class="form-control resize_vertical" placeholder="Description...." maxlength="300">{{ $deskripsi }}</textarea>
                 </div>
             </div>
             <div class="form-group striped-col">

@@ -27,12 +27,28 @@ class bk010114Controller extends Controller
      */
     public function index()
     {
-        $data['username'] = '';
-	    if (Auth::check()) {
-            $user = Auth::user();
-            $data['username'] = Auth::user()->name;
-        }
-		return view('MAIN/bk010114/index',$data);
+        $user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==31)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			if(!empty($data['detil'])){
+			    $data['username'] = $user->name;
+				$data['totalData'] = DB::select('select b.kode modul_id,b.nama modul,c.kode apps_id,c.nama apps
+					from bkt_02010104_modul b,bkt_02010103_apps c
+					where b.kode_apps=c.kode');
+				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
+				return view('MAIN/bk010114/index',$data);
+			}
+			else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
     }
 
 	public function show()
@@ -72,7 +88,7 @@ class bk010114Controller extends Controller
 			18 =>'update_time',
 			19 =>'update_by'
 		);
-		$query='select * from bkt_01010114_kel_faskel ';
+		$query='select a.*, b.nama nama_faskel, c.nama nama_kel, d.nama nama_kec from bkt_01010114_kel_faskel a, bkt_01010113_faskel b, bkt_01010104_kel c, bkt_01010103_kec d where a.kode_faskel=b.kode and a.kode_kel=c.kode and a.kode_kec=d.kode';
 		$totalData = DB::select('select count(1) cnt from bkt_01010114_kel_faskel ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -100,27 +116,42 @@ class bk010114Controller extends Controller
 				$url_edit=url('/')."/main/kel_faskel/create?kode=".$show;
 				$url_delete=url('/')."/main/kel_faskel/delete?kode=".$delete;
 				$nestedData['kode_kmp_slum_prog'] = $post->kode_kmp_slum_prog;
-				$nestedData['kode_faskel'] = $post->kode_faskel;
-				$nestedData['kode_kel'] = $post->kode_kel;
+				$nestedData['nama_faskel'] = $post->nama_faskel;
+				$nestedData['nama_kel'] = $post->nama_kel;
 				$nestedData['blm'] = $post->blm;
 				$nestedData['jenis_project'] = $post->jenis_project;
 				$nestedData['tahun_glossary'] = $post->tahun_glossary;
 				$nestedData['tahun_project'] = $post->tahun_project;
 				$nestedData['awal_project'] = $post->awal_project;
 				$nestedData['kode_ms'] = $post->kode_ms;
-				$nestedData['kode_kec'] = $post->kode_kec;
+				$nestedData['nama_kec'] = $post->nama_kec;
 				$nestedData['kode_kota'] = $post->kode_kota;
 				$nestedData['kode_prop'] = $post->kode_prop;
 				$nestedData['lokasi_blm'] = $post->lokasi_blm;
-				$nestedData['Lokasi_kumuh'] = $post->Lokasi_kumuh;
+				$nestedData['Lokasi_Kumuh'] = $post->Lokasi_Kumuh;
 				$nestedData['flag_kumuh'] = $post->flag_kumuh;
 				$nestedData['flag_lokasi_ppmk'] = $post->flag_lokasi_ppmk;
 				$nestedData['created_time'] = $post->created_time;
 				$nestedData['created_by'] = $post->created_by;
-				$nestedData['update_time'] = $post->update_time;
-				$nestedData['update_by'] = $post->update_by;
-				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>
-				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
+				$nestedData['updated_time'] = $post->updated_time;
+				$nestedData['updated_by'] = $post->updated_by;
+				$user = Auth::user();
+		        $akses= $user->menu()->where('kode_apps', 1)->get();
+				if(count($akses) > 0){
+					foreach ($akses as $item) {
+						if($item->kode_menu==31)
+							$detil[$item->kode_menu_detil]='a';
+					}
+				}
+
+				$option = '';
+				if(!empty($detil['58'])){
+					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
+				}
+				if(!empty($detil['59'])){
+					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
+				}		
+				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
 		}
@@ -155,7 +186,7 @@ class bk010114Controller extends Controller
 			$data['kode_kota'] = $rowData[0]->kode_kota;
 			$data['kode_prop'] = $rowData[0]->kode_prop;
 			$data['lokasi_blm'] = $rowData[0]->lokasi_blm;
-			$data['Lokasi_kumuh'] = $rowData[0]->Lokasi_kumuh;
+			$data['Lokasi_Kumuh'] = $rowData[0]->Lokasi_Kumuh;
 			$data['flag_kumuh'] = $rowData[0]->flag_kumuh;
 			$data['flag_lokasi_ppmk'] = $rowData[0]->flag_lokasi_ppmk;
 			$data['created_time'] = $rowData[0]->created_time;
@@ -176,7 +207,7 @@ class bk010114Controller extends Controller
 			$data['kode_kota'] = null;
 			$data['kode_prop'] = null;
 			$data['lokasi_blm'] = null;
-			$data['Lokasi_kumuh'] = null;
+			$data['Lokasi_Kumuh'] = null;
 			$data['flag_kumuh'] = null;
 			$data['flag_lokasi_ppmk'] = null;
 			$data['created_time'] = null;
@@ -186,7 +217,7 @@ class bk010114Controller extends Controller
 		}
 
 		//get dropdown list from Database
-		$kode_kmp_slum_program = DB::select('select kode from bkt_01010109_kmp_slum_prog');
+		$kode_kmp_slum_program = DB::select('select kode from bkt_01010107_slum_program');
 		$data['kode_kmp_slum_program_list'] = $kode_kmp_slum_program;
 
 		$kode_faskel = DB::select('select kode, nama from bkt_01010113_faskel');

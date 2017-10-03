@@ -27,12 +27,28 @@ class bk020101Controller extends Controller
      */
     public function index()
     {
-        $data['username'] = '';
-	    if (Auth::check()) {
-            $user = Auth::user();
-            $data['username'] = Auth::user()->name;
-        }
-		return view('HRM/bk020101/index',$data);
+        $user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 2)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==7)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			if(!empty($data['detil'])){
+			    $data['username'] = $user->name;
+				$data['totalData'] = DB::select('select b.kode modul_id,b.nama modul,c.kode apps_id,c.nama apps
+					from bkt_02010104_modul b,bkt_02010103_apps c
+					where b.kode_apps=c.kode');
+				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
+				return view('MAIN/bk010101/index',$data);
+			}
+			else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
     }
 
 	public function Post(Request $request)
@@ -80,8 +96,24 @@ class bk020101Controller extends Controller
 				$nestedData['created_by'] = $post->created_by;
 				$nestedData['updated_time'] = $post->updated_time;
 				$nestedData['updated_by'] = $post->updated_by;
-				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>
-				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
+				
+				$user = Auth::user();
+		        $akses= $user->menu()->where('kode_apps', 2)->get();
+				if(count($akses) > 0){
+					foreach ($akses as $item) {
+						if($item->kode_menu==7)
+							$detil[$item->kode_menu_detil]='a';
+					}
+				}
+
+				$option = '';
+				if(!empty($detil['13'])){
+					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
+				}
+				if(!empty($detil['14'])){
+					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
+				}		
+				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
 		}

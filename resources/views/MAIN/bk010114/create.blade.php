@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Role Level User Form</h1>
+    <h1>RMapping FasKel ke Kelurahan</h1>
     <ol class="breadcrumb">
         <li>
             <a href="/main">
@@ -24,7 +24,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form enctype="multipart/form-data" class="form-horizontal form-bordered">
+                        <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator" >
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Kode KMP</label>
                                 <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
@@ -63,9 +63,9 @@
                                 <label class="col-sm-3 control-label" for="example-select1">BLM</label>
                                 <div class="col-sm-6">
                                     <select id="example-select1" name="example-select-blm" class="form-control" size="1">
-                                        <option value="1" @if($blm==1) selected="selected" @endif >BLM 1</option>
-                                        <option value="2" @if($blm==2) selected="selected" @endif >BLM 2</option>
-                                        <option value="3" @if($blm==3) selected="selected" @endif >BLM 3</option>
+                                        <option value="0" @if($blm==1) selected="selected" @endif >B</option>
+                                        <option value="1" @if($blm==2) selected="selected" @endif >L</option>
+                                        <option value="2" @if($blm==3) selected="selected" @endif >C</option>
                                     </select>
                                 </div>
                             </div>
@@ -82,19 +82,19 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tahun Glossary</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="example-text-input1" name="example-tahun_glossary-input" class="form-control" placeholder="Tahun Glossary" value="{{ $tahun_glossary }}">
+                                    <input type="text" id="example-text-input1" name="example-tahun_glossary-input" class="form-control" placeholder="Tahun Glossary" value="{{ $tahun_glossary }}" maxlength="4">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tahun Project</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="example-text-input1" name="example-tahun_project-input" class="form-control" placeholder="Tahun Project" value="{{ $tahun_project }}">
+                                    <input type="text" id="example-text-input1" name="example-tahun_project-input" class="form-control" placeholder="Tahun Project" value="{{ $tahun_project }}" maxlength="4">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Awal Project</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="example-text-input1" name="example-tahun_project-input" class="form-control" placeholder="Awal Project" value="{{ $awal_project }}">
+                                    <input type="text" id="example-text-input1" name="example-awal_project-input" class="form-control" placeholder="Awal Project" value="{{ $awal_project }}" maxlength="4">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -154,9 +154,9 @@
                                 <label class="col-sm-3 control-label" for="example-select1">Lokasi Kumuh</label>
                                 <div class="col-sm-6">
                                     <select id="example-select1" name="example-select-Lokasi_kumuh" class="form-control" size="1">
-                                        <option value="1" @if($Lokasi_kumuh==1) selected="selected" @endif >Lokasi Kumuh 1</option>
-                                        <option value="2" @if($Lokasi_kumuh==2) selected="selected" @endif >Lokasi Kumuh 2</option>
-                                        <option value="3" @if($Lokasi_kumuh==3) selected="selected" @endif >Lokasi Kumuh 3</option>
+                                        <option value="1" @if($Lokasi_Kumuh==1) selected="selected" @endif >Lokasi Kumuh 1</option>
+                                        <option value="2" @if($Lokasi_Kumuh==2) selected="selected" @endif >Lokasi Kumuh 2</option>
+                                        <option value="3" @if($Lokasi_Kumuh==3) selected="selected" @endif >Lokasi Kumuh 3</option>
                                     </select>
                                 </div>
                             </div>
@@ -164,9 +164,8 @@
                                 <label class="col-sm-3 control-label" for="example-select1">Flag Kumuh</label>
                                 <div class="col-sm-6">
                                     <select id="example-select1" name="example-select-flag_kumuh" class="form-control" size="1">
-                                        <option value="1" @if($flag_kumuh==1) selected="selected" @endif >Flag Kumuh 1</option>
-                                        <option value="2" @if($flag_kumuh==2) selected="selected" @endif >Flag Kumuh 2</option>
-                                        <option value="3" @if($flag_kumuh==3) selected="selected" @endif >Flag Kumuh 3</option>
+                                        <option value="0" @if($flag_kumuh==0) selected="selected" @endif >Peningkatan (Kumuh)</option>
+                                        <option value="1" @if($flag_kumuh==1) selected="selected" @endif >Pencegahan (Tidak Kumuh)</option>
                                     </select>
                                 </div>
                             </div>
@@ -174,9 +173,8 @@
                                 <label class="col-sm-3 control-label" for="example-select1">Lokasi Lokasi PPMK</label>
                                 <div class="col-sm-6">
                                     <select id="example-select1" name="example-select-flag_lokasi_ppmk" class="form-control" size="1">
-                                        <option value="1" @if($flag_lokasi_ppmk==1) selected="selected" @endif >Flag Lokasi PPMK 1</option>
-                                        <option value="2" @if($flag_lokasi_ppmk==2) selected="selected" @endif >Flag Lokasi PPMK 2</option>
-                                        <option value="3" @if($flag_lokasi_ppmk==3) selected="selected" @endif >Flag Lokasi PPMK 3</option>
+                                        <option value="0" @if($flag_lokasi_ppmk==1) selected="selected" @endif >Non PPMK</option>
+                                        <option value="1" @if($flag_lokasi_ppmk==2) selected="selected" @endif >PPMK</option>
                                     </select>
                                 </div>
                             </div>
