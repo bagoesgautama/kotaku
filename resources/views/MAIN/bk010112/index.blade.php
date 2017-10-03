@@ -21,7 +21,7 @@
                 <i class="fa fa-fw fa-home"></i> MAIN
             </a>
         </li>
-        <li><a href="/hrm/kmp_slum_program">Mapping Kota ke KorKot</a></li>
+        <li><a href="/main/kota_korkot">Mapping Kota ke KorKot</a></li>
         <li class="active">
             Table
         </li>
@@ -72,7 +72,13 @@
                      "dataType": "json",
                      "type": "POST"
                    },
-
+            success: function(data) {
+                 alert('success')
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+              },
             "columns": [
 				{ "data": "nama_korkot" , name:"nama_korkot"},
                 { "data": "nama_kota" , name:"nama_kota"},
@@ -81,8 +87,13 @@
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
-
-    });
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
+        if(e.keyCode == 13) {
+            table.search(this.value).draw();
+        }
+    })
+});
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>

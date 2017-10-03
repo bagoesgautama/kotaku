@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Mapping Kota ke KorKot @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Mapping Kota ke KorKot Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
@@ -6,7 +6,7 @@
     <h1>Mapping Kota ke KorKot Form</h1>
     <ol class="breadcrumb">
         <li>
-            <a href="/hrm">
+            <a href="/main">
                 <i class="fa fa-fw fa-home"></i> MAIN
             </a>
         </li>
@@ -98,7 +98,7 @@
                                     <a href="/hrm/role" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
-                                    <button type="submit" id="dodol" class="btn btn-effect-ripple btn-primary">
+                                    <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
                                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
@@ -119,20 +119,25 @@
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
-        $('#dodol').on('click', function (e) {
+        $('#submit').on('click', function (e) {
           e.preventDefault();
           $.ajax({
             type: 'post',
             "url": "/main/kota_korkot/create",
             data: $('form').serialize(),
+            beforeSend: function (){
+                $("#submit").prop('disabled', true);
+            },
             success: function () {
-    alert('Success !!!');
-    window.location.href = "/main/kota_korkot";
-   },
-   error: function (xhr, ajaxOptions, thrownError) {
-          alert(xhr.status);
-          alert(thrownError);
-        }
+    
+            alert('From Submitted.');
+            window.location.href = "/main/kota_korkot";
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+            $("#submit").prop('disabled', false);
+            }
           });
         });
       });

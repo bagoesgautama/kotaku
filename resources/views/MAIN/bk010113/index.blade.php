@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Tim Fasilitator Kelurahan (FasKel) @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,10 +14,16 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>HRM Module</h1>
+    <h1>Tim Fasilitator Kelurahan (FasKel)</h1>
     <ol class="breadcrumb">
+        <li>
+            <a href="/main">
+                <i class="fa fa-fw fa-home"></i> MAIN
+            </a>
+        </li>
+        <li><a href="/main/faskel">FasKel</a></li>
         <li class="active">
-            <i class="fa fa-fw fa-home"></i> HRM
+            Table
         </li>
     </ol>
 </section>
@@ -27,7 +33,7 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <i class="ti-export"></i> <b>Want to export data?</b>
+                    <b>bk010113 index</b>
                 </div>
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('/main/faskel/create') }}">Create</a>
@@ -65,7 +71,13 @@
                      "dataType": "json",
                      "type": "POST"
                    },
-
+            success: function(data) {
+                 alert('success')
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+              },
             "columns": [
 				{ "data": "nama_kmw" , name:"nama_kmw"},
                 { "data": "nama_korkot" , name:"nama_korkot"},
@@ -73,8 +85,13 @@
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
-
-    });
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
+        if(e.keyCode == 13) {
+            table.search(this.value).draw();
+        }
+    })
+});
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>
