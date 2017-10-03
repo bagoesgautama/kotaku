@@ -21,7 +21,7 @@
                 <i class="fa fa-fw fa-home"></i> MAIN
             </a>
         </li>
-        <li><a href="/hrm/kmp_slum_program">Mapping KMP ke Slum Program</a></li>
+        <li><a href="/main/kmp_slum_program">Mapping KMP ke Slum Program</a></li>
         <li class="active">
             Table
         </li>
@@ -35,9 +35,11 @@
                 <div class="panel-title pull-left">
                     <b>bk010109 Index</b>
                 </div>
+                @if( ! empty($detil['37']))
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('main/kmp_slum_program/create') }}">Create</a>
 				</div>
+                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -70,15 +72,26 @@
                      "dataType": "json",
                      "type": "POST"
                    },
-
+            success: function(data) {
+                 alert('suces')
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+              },
             "columns": [
 				{ "data": "nama_kmp" , name:"nama_kmp"},
                 { "data": "nama_slum_prog" , name:"nama_slum_prog"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
-
-    });
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
+        if(e.keyCode == 13) {
+            table.search(this.value).draw();
+        }
+    })
+});
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>

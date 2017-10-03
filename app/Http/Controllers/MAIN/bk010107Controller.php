@@ -151,8 +151,24 @@ class bk010107Controller extends Controller
 				$nestedData['created_by'] = $post->created_by;
 				$nestedData['updated_time'] = $post->updated_time;
 				$nestedData['updated_by'] = $post->updated_by;
-				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>
-				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
+
+				$user = Auth::user();
+		        $akses= $user->menu()->where('kode_apps', 1)->get();
+				if(count($akses) > 0){
+					foreach ($akses as $item) {
+						if($item->kode_menu==24)
+							$detil[$item->kode_menu_detil]='a';
+					}
+				}
+
+				$option = '';
+				if(!empty($detil['30'])){
+					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
+				}
+				if(!empty($detil['31'])){
+					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
+				}		
+				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
 		}

@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Mapping FasKel ke Kelurahan @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,10 +14,16 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>HRM Module</h1>
+    <h1>Mapping FasKel ke Kelurahan</h1>
     <ol class="breadcrumb">
+        <li>
+            <a href="/main">
+                <i class="fa fa-fw fa-home"></i> MAIN
+            </a>
+        </li>
+        <li><a href="/main/kel_faskel">Mapping FasKel ke Kelurahan</a></li>
         <li class="active">
-            <i class="fa fa-fw fa-home"></i> HRM
+            Table
         </li>
     </ol>
 </section>
@@ -27,25 +33,28 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <i class="ti-export"></i> <b>Want to export data?</b>
+                    <b>bk010114 Index</b>
                 </div>
+                @if( ! empty($detil['57']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('hrm/role_level/create') }}">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('/main/kel_faskel/create') }}">Create</a>
 				</div>
+                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="role_level">
+					<table class="table table-striped" id="users">
 						<thead>
                             <tr>
-                                <th>nama</th>
-                                <th>deskripsi</th>
-                                <th>status</th>
-                                <th>created time</th>
-                                <th>created by</th>
-                                <th>update time</th>
-                                <th>update by</th>
-								<th>option</th>
+                                <th>Mapping KMP ke Slum Program</th>
+                                <th>Faskel</th>
+                                <th>Kelurahan</th>
+                                <th>BLM</th>
+                                <th>Project</th>
+                                <th>Kecamatan</th>
+                                <th>Lokasi BLM</th>
+                                <th>Lokasi Kumuh</th>
+								<th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -59,33 +68,42 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#role_level').DataTable({
+		var table = $('#users').DataTable({
 	        // dom: 'Bflrtip',
-	        "dom": '<"m-t-10"B><"m-t-10 pull-left"f><"m-t-10 pull-right"l>rt<"pull-left m-t-10"i><"m-t-10 pull-right"p>',
-	        buttons: [
-	            'copy', 'csv', 'excel', 'pdf', 'print'
-	        ],
+	        
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('hrm/role_level') }}",
+                     "url": "{{ url('main/kel_faskel') }}",
                      "dataType": "json",
                      "type": "POST"
                    },
-
+            success: function(data) {
+                 alert('success')
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+              },
             "columns": [
-				{ "data": "nama" , name:"nama"},
-                { "data": "deskripsi" , name:"deskripsi"},
-                { "data": "status" , name:"status"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
-                { "data": "update_time" , name:"update_time"},
-                { "data": "update_by" , name:"update_by"},
+				{ "data": "kode_kmp_slum_prog" , name:"kode_kmp_slum_prog"},
+                { "data": "nama_faskel" , name:"nama_faskel"},
+                { "data": "nama_kel" , name:"nama_kel"},
+                { "data": "blm" , name:"blm"},
+                { "data": "jenis_project" , name:"jenis_project"},
+                { "data": "nama_kec" , name:"nama_kec"},
+                { "data": "lokasi_blm" , name:"lokasi_blm"},
+                { "data": "Lokasi_Kumuh" , name:"Lokasi_Kumuh"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
-
-    });
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
+        if(e.keyCode == 13) {
+            table.search(this.value).draw();
+        }
+    })
+});
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>

@@ -35,9 +35,11 @@
                 <div class="panel-title pull-left">
                     <b>bk010110 Index</b>
                 </div>
+                @if( ! empty($detil['41']))
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('/main/kmw/create') }}">Create</a>
 				</div>
+                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -77,7 +79,13 @@
                      "dataType": "json",
                      "type": "POST"
                    },
-
+            success: function(data) {
+                 alert('success')
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+              },
             "columns": [
 				{ "data": "kode_kmp_slum_prog" , name:"kode_kmp_slum_prog"},
                 { "data": "nama" , name:"nama"},
