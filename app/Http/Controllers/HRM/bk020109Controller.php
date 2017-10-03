@@ -17,8 +17,7 @@ class bk020109Controller extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
-        // parent::__construct();
+        $this->middleware('auth');
     }
 
     /**
@@ -27,17 +26,28 @@ class bk020109Controller extends Controller
      */
     public function index()
     {
-        $data['username'] = '';
-		echo (Auth::user());
-	    /*if (Auth::check()) {
-            $user = Auth::user();
-            $data['username'] = Auth::user()->name;
-        }
-		$data['totalData'] = DB::select('select b.kode modul_id,b.nama modul,c.kode apps_id,c.nama apps
-			from bkt_02010104_modul b,bkt_02010103_apps c
-			where b.kode_apps=c.kode');
-		$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
-		return view('HRM/bk020109/index',$data);*/
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 2)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==10)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			if(!empty($data['detil'])){
+			    $data['username'] = $user->name;
+				$data['totalData'] = DB::select('select b.kode modul_id,b.nama modul,c.kode apps_id,c.nama apps
+					from bkt_02010104_modul b,bkt_02010103_apps c
+					where b.kode_apps=c.kode');
+				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
+				return view('HRM/bk020109/index',$data);
+			}
+			else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
     }
 
 	public function show(Request $request)
@@ -57,7 +67,9 @@ class bk020109Controller extends Controller
 		foreach ($json as $item) {
 		    if($item['flag']==1)
 				DB::table('bkt_02010109_akses_role_detail')->insert(
-					['kode_menu' => $item['menu_id'],
+					['kode_modul' => $item['modul'],
+					'kode_apps' => $item['apps'],
+					'kode_menu' => $item['menu_id'],
 					'kode_menu_detil'=>$item['detil_id'],
 					'kode_role'=>$item['role'],
 					'created_by'=>Auth::user()->id]
@@ -69,9 +81,4 @@ class bk020109Controller extends Controller
 		}
 		DB::commit();
 	}
-
-	/*public function logout()
-    {
-        Auth::logout();
-    }*/
 }

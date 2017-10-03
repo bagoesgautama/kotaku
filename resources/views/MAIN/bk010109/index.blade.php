@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Mapping KMP ke Slum Program @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Mapping KMP ke Slum Program @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -62,7 +62,7 @@
     $(document).ready(function () {
 		var table = $('#users').DataTable({
 	        // dom: 'Bflrtip',
-	        
+
 			"processing": true,
             "serverSide": true,
             "ajax":{

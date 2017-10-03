@@ -51,11 +51,6 @@ class LoginController extends Controller
         return view('login');
     }
 
-	public function check(Request $request){
-		echo "aaaaaa";
-		echo json_encode($request->all());
-	}
-
 	public function login(Request $request){
 		// Creating Rules for Email and Password
 		$rules = array(

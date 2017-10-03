@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -30,4 +31,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+	public function menu(){
+        return $this->hasMany('App\Menu','kode_role','kode_role');
+    }
 }
