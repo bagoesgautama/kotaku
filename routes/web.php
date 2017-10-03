@@ -204,6 +204,24 @@ Route::get('/main/persiapan/kota/kegiatan/sosialisasi/create', 'MAIN\bk010208Con
 Route::post('/main/persiapan/kota/kegiatan/sosialisasi/create', 'MAIN\bk010208Controller@post_create');
 Route::get('/main/persiapan/kota/kegiatan/sosialisasi/delete', 'MAIN\bk010208Controller@delete');
 
+Route::get('/main/persiapan/kota/forum/bkm', 'MAIN\bk010209Controller@index');
+Route::post('/main/persiapan/kota/forum/bkm', 'MAIN\bk010209Controller@post');
+Route::get('/main/persiapan/kota/forum/bkm/create', 'MAIN\bk010209Controller@create');
+Route::post('/main/persiapan/kota/forum/bkm/create', 'MAIN\bk010209Controller@post_create');
+Route::get('/main/persiapan/kota/forum/bkm/delete', 'MAIN\bk010209Controller@delete');
+
+Route::get('/main/persiapan/kota/forum/kolaborasi', 'MAIN\bk010210Controller@index');
+Route::post('/main/persiapan/kota/forum/kolaborasi', 'MAIN\bk010210Controller@post');
+Route::get('/main/persiapan/kota/forum/kolaborasi/create', 'MAIN\bk010210Controller@create');
+Route::post('/main/persiapan/kota/forum/kolaborasi/create', 'MAIN\bk010210Controller@post_create');
+Route::get('/main/persiapan/kota/forum/kolaborasi/delete', 'MAIN\bk010210Controller@delete');
+
+Route::get('/main/persiapan/kota/forum/f_forum', 'MAIN\bk010211Controller@index');
+Route::post('/main/persiapan/kota/forum/f_forum', 'MAIN\bk010211Controller@post');
+Route::get('/main/persiapan/kota/forum/f_forum/create', 'MAIN\bk010211Controller@create');
+Route::post('/main/persiapan/kota/forum/f_forum/create', 'MAIN\bk010211Controller@post_create');
+Route::get('/main/persiapan/kota/forum/f_forum/delete', 'MAIN\bk010211Controller@delete');
+
 /**
  *
  *

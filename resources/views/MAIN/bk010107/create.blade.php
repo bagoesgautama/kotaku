@@ -22,7 +22,7 @@
 @stop
 {{-- Page content --}} @section('content')
 <div class="panel-body border">
-    <form enctype="multipart/form-data" class="form-horizontal form-bordered">
+    <form enctype="multipart/form-data" class="signup_validator form-horizontal form-bordered">
         <div class="row">
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">No Urut</label>
