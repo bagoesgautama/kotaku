@@ -69,7 +69,7 @@ class bk010111Controller extends Controller
 			15 =>'updated_time',
 			16 =>'updated_by'
 		);
-		$query='select * from bkt_01010111_korkot';
+		$query='select a.*, b.nama nama_kmw from bkt_01010111_korkot a, bkt_01010110_kmw b where a.kode_kmw=b.kode';
 		$totalData = DB::select('select count(1) cnt from bkt_01010111_korkot');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -82,8 +82,8 @@ class bk010111Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. 'where name like "%'.$search.'%" or email like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. 'where name like "%'.$search.'%" or email like "%'.$search.'%") a');
+			$posts=DB::select($query. 'where nama like "%'.$search.'%" or email1 like "%'.$search.'%" or no_hp1 like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. 'where nama like "%'.$search.'%" or email1 like "%'.$search.'%" or no_hp1 like "%'.$search.'%") a');
 		}
 
 		$data = array();
@@ -94,9 +94,9 @@ class bk010111Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_edit=url('/')."/main/bk010111/create?kode=".$show;
-				$url_delete=url('/')."/main/bk010111/delete?kode=".$delete;
-				$nestedData['kode_kmw'] = $post->kode_kmw;
+				$url_edit=url('/')."/main/korkot/create?kode=".$show;
+				$url_delete=url('/')."/main/korkot/delete?kode=".$delete;
+				$nestedData['nama_kmw'] = $post->nama_kmw;
 				$nestedData['nama'] = $post->nama;
 				$nestedData['alamat'] = $post->alamat;
 				$nestedData['kodepos'] = $post->kodepos;
@@ -136,8 +136,8 @@ class bk010111Controller extends Controller
 		$data['kode']=$request->input('kode');
 		if($data['kode']!=null){
 			$rowData = DB::select('select * from bkt_01010111_korkot where kode='.$data['kode']);
-			$$data['kode_kmw'] = $rowData[0]->kode_kmw;
-			$$data['nama'] = $rowData[0]->nama;
+			$data['kode_kmw'] = $rowData[0]->kode_kmw;
+			$data['nama'] = $rowData[0]->nama;
 			$data['alamat'] = $rowData[0]->alamat;
 			$data['kodepos'] = $rowData[0]->kodepos;
 			$data['contact_person'] = $rowData[0]->contact_person;
@@ -172,6 +172,11 @@ class bk010111Controller extends Controller
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
 		}
+
+		//get dropdown list from Database
+		$kode_kmw_list = DB::select('select kode from bkt_01010110_kmw');
+		$data['kode_kmw_list'] = $kode_kmw_list;
+
 		if (Auth::check()) {
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
@@ -181,14 +186,43 @@ class bk010111Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
-			DB::table('bkt_02010101_role_level')->where('kode', $request->input('example-id-input'))
-			->update(['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select')
+			DB::table('bkt_01010111_korkot')->where('kode', $request->input('example-id-input'))
+			->update(
+				['kode_kmw' => $request->input('example-kode_kmw-input'),
+				'nama' => $request->input('example-nama-input'), 
+				'alamat' => $request->input('example-alamat-input'), 
+				'kodepos' => $request->input('example-kodepos-input'), 
+				'contact_person' => $request->input('example-contact_person-input'), 
+				'no_phone' => $request->input('example-no_phone-input'),
+				'no_fax' => $request->input('example-no_fax-input'),  
+				'no_hp1' => $request->input('example-no_hp1-input'), 
+				'no_hp2' => $request->input('example-no_hp2-input'), 
+				'email1' => $request->input('example-email1'), 
+				'email2' => $request->input('example-email2'), 
+				'pms_nama' => $request->input('example-pms_nama-input'), 
+				'pms_alamat' => $request->input('example-pms_alamat-input'),
+				'updated_time' => date('Y-m-d H:i:s'),
+				'updated_by' => Auth::user()->id
 				]);
 
 		}else{
-			DB::table('bkt_02010101_role_level')->insert(
-       			['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select')
+			DB::table('bkt_01010111_korkot')->insert(
+       			['kode_kmw' => $request->input('example-kode_kmw-input'),
+       			'nama' => $request->input('example-nama-input'), 
+				'alamat' => $request->input('example-alamat-input'), 
+				'kodepos' => $request->input('example-kodepos-input'), 
+				'contact_person' => $request->input('example-contact_person-input'), 
+				'no_phone' => $request->input('example-no_phone-input'),
+				'no_fax' => $request->input('example-no_fax-input'), 
+				'no_hp1' => $request->input('example-no_hp1-input'), 
+				'no_hp2' => $request->input('example-no_hp2-input'), 
+				'email1' => $request->input('example-email1'), 
+				'email2' => $request->input('example-email2'), 
+				'pms_nama' => $request->input('example-pms_nama-input'), 
+				'pms_alamat' => $request->input('example-pms_alamat-input'), 
+       			'created_by' => Auth::user()->id
        			]);
 		}
 	}
@@ -196,6 +230,6 @@ class bk010111Controller extends Controller
 	public function delete(Request $request)
 	{
 		DB::table('bkt_02010101_role_level')->where('kode', $request->input('kode'))->delete();
-        return Redirect::to('/hrm/role_level');
+        return Redirect::to('/main/korkot');
     }
 }

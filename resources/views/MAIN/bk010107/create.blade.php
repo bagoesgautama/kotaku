@@ -216,7 +216,7 @@
                     <a href="/main/slum_program" type="button" class="btn btn-effect-ripple btn-danger">
                         Cancel
                     </a>
-                    <button type="submit" id="dodol" class="btn btn-effect-ripple btn-primary">
+                    <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                         Submit
                     </button>
                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
@@ -232,20 +232,25 @@
 {{-- local scripts --}} @section('footer_scripts')
 <script>
       $(document).ready(function () {
-        $('#dodol').on('click', function (e) {
+        $('#submit').on('click', function (e) {
         e.preventDefault();
         $.ajax({
             type: 'post',
             "url": "/main/slum_program/create",
             data: $('form').serialize(),
+            beforeSend: function (){
+                $("#submit").prop('disabled', true);
+            },
             success: function () {
-                alert('Success !!!');
+    
+            alert('From Submitted.');
             window.location.href = "/main/slum_program";
-           },
-           error: function (xhr, ajaxOptions, thrownError) {
-                  alert(xhr.status);
-                  alert(thrownError);
-                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+            $("#submit").prop('disabled', false);
+            }
           });
         });
       });

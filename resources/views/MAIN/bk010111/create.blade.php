@@ -22,9 +22,14 @@
     <form enctype="multipart/form-data" class="form-horizontal form-bordered">
         <div class="row">
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Nama Konsultan Manakemen Wilayah</label>
+                <label class="col-sm-3 control-label" for="example-text-input1">Kode KMW</label>
+                <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-kode_kmw-input" class="form-control" placeholder="Nama" value="{{ $kode_kmw }}">
+                    <select id="example-select1" name="example-kode_kmw-input" class="form-control" size="1">
+                        @foreach($kode_kmw_list as $list)
+                            <option value="{{ $list->kode }}" @if($list->kode==$kode_kmw) selected="selected" @endif >{{ $list->kode }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -42,7 +47,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Kode POS</label>
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-kodepos-input" class="form-control" placeholder="Kode POS" value="{{ $kodepos }}">
+                    <input type="text" id="example-text-input1" name="example-kodepos-input" class="form-control" placeholder="Kode POS" value="{{ $kodepos }}" maxlength="5">
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -139,7 +144,7 @@
             </div>
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <a href="/hrm/role" type="button" class="btn btn-effect-ripple btn-danger">
+                    <a href="/main/korkot" type="button" class="btn btn-effect-ripple btn-danger">
                         Cancel
                     </a>
                     <button type="submit" id="dodol" class="btn btn-effect-ripple btn-primary">

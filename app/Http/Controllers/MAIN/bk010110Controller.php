@@ -95,8 +95,8 @@ class bk010110Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_edit=url('/')."/main/kmp/create?kode=".$show;
-				$url_delete=url('/')."/main/kmp/delete?kode=".$delete;
+				$url_edit=url('/')."/main/kmw/create?kode=".$show;
+				$url_delete=url('/')."/main/kmw/delete?kode=".$delete;
 				$nestedData['kode_kmp_slum_prog'] = $post->kode_kmp_slum_prog;
 				$nestedData['nama'] = $post->nama;
 				$nestedData['alamat'] = $post->alamat;
@@ -136,8 +136,9 @@ class bk010110Controller extends Controller
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
 		if($data['kode']!=null){
-			$$data['kode_kmp_slum_prog'] = $rowData[0]->kode_kmp_slum_prog;
-			$$data['nama'] = $rowData[0]->nama;
+			$rowData = DB::select('select * from bkt_01010110_kmw where kode='.$data['kode']);
+			$data['kode_kmp_slum_prog'] = $rowData[0]->kode_kmp_slum_prog;
+			$data['nama'] = $rowData[0]->nama;
 			$data['alamat'] = $rowData[0]->alamat;
 			$data['kodepos'] = $rowData[0]->kodepos;
 			$data['contact_person'] = $rowData[0]->contact_person;
@@ -172,6 +173,11 @@ class bk010110Controller extends Controller
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
 		}
+
+		//get dropdown list from Database
+		$kmp_slum_prog_list = DB::select('select kode from bkt_01010109_kmp_slum_prog');
+		$data['kode_kmp_slum_prog_list'] = $kmp_slum_prog_list;
+
 		if (Auth::check()) {
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
@@ -181,8 +187,9 @@ class bk010110Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
-			DB::table('bkt_01010110_kmp')->where('kode', $request->input('example-id-input'))
+			DB::table('bkt_01010110_kmw')->where('kode', $request->input('example-id-input'))
 			->update(
 				['kode_kmp_slum_prog' => $request->input('example-kode_kmp_slum_prog-input'),
 				'nama' => $request->input('example-nama-input'), 
@@ -196,7 +203,9 @@ class bk010110Controller extends Controller
 				'email1' => $request->input('example-email1'), 
 				'email2' => $request->input('example-email2'), 
 				'pms_nama' => $request->input('example-pms_nama-input'), 
-				'pms_alamat' => $request->input('example-pms_alamat-input')
+				'pms_alamat' => $request->input('example-pms_alamat-input'),
+				'updated_time' => date('Y-m-d H:i:s'),
+				'updated_by' => Auth::user()->id
 				]);
 
 		}else{
@@ -213,7 +222,8 @@ class bk010110Controller extends Controller
 				'email1' => $request->input('example-email1'), 
 				'email2' => $request->input('example-email2'), 
 				'pms_nama' => $request->input('example-pms_nama-input'), 
-				'pms_alamat' => $request->input('example-pms_alamat-input')
+				'pms_alamat' => $request->input('example-pms_alamat-input'), 
+       			'created_by' => Auth::user()->id
        			]);
 		}
 	}

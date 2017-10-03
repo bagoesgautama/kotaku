@@ -23,36 +23,6 @@
 </section>
 @stop
 {{-- Page content --}} @section('content')
-<!--<div class="row">
-    <div class="col-md-6">
-        <div class="panel ">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="select21" class="control-label">
-                                Select2 single select
-                            </label>
-                            <select id="select21" class="form-control select2" style="width:100%">
-                                <option value="">Select value...</option>
-                                <optgroup label="Alaskan/Hawaiian Time Zone">
-                                    <option value="AK">Alaska</option>
-                                    <option value="HI">Hawaii</option>
-                                </optgroup>
-                                <optgroup label="Pacific Time Zone">
-                                    <option value="CA">California</option>
-                                    <option value="NV">Nevada</option>
-                                    <option value="OR">Oregon</option>
-                                    <option value="WA">Washington</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->
 
 <div class="row">
     <div class="col-md-12">
@@ -65,7 +35,7 @@
 				                <label class="col-sm-3 control-label" for="example-text-input1">Nama KMP</label>
                                 <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
 								<div class="col-sm-6">
-	                                <select id="select21" class="form-control select2" >
+	                                <select id="select21" class="form-control select2" name="example-kode_kmp-input">
 	                                    @foreach($kode_kmp_list as $list)
 	                                        <option value="{{ $list->kode }}" @if($list->kode==$kode_kmp) selected="selected" @endif >{{ $list->nama }}
 	                                        </option>
@@ -74,14 +44,15 @@
 								</div>
                             </div>
 							<div class="form-group">
-				                <label class="col-sm-3 control-label" for="example-text-input1">Nama Slum Program</label>
-				                <div class="col-sm-6">
-				                    <select id="select21" class="form-control select2" style="width:100%">
-				                        @foreach($kode_slum_prog_list as $list)
-				                            <option value="{{ $list->kode }}" @if($list->kode==$kode_slum_prog) selected="selected" @endif >{{ $list->nama }}</option>
-				                        @endforeach
-				                    </select>
-				                </div>
+				                <label class="col-sm-3 control-label" for="example-text-input2">Nama Slum Program</label>
+                                <div class="col-sm-6">
+                                    <select id="select22" class="form-control select2" name="example-kode_slum_prog-input" >
+                                        @foreach($kode_slum_prog_list as $list)
+                                            <option value="{{ $list->kode }}" @if($list->kode==$kode_slum_prog) selected="selected" @endif >{{ $list->nama }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
 				            </div>
 				            <div class="form-group striped-col">
 				                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
@@ -109,7 +80,7 @@
 				            </div>
 				            <div class="form-group form-actions">
 				                <div class="col-sm-9 col-sm-offset-3">
-				                    <a href="/hrm/role" type="button" class="btn btn-effect-ripple btn-danger">
+				                    <a href="/main/kmp_slum_program" type="button" class="btn btn-effect-ripple btn-danger">
 				                        Cancel
 				                    </a>
 				                    <button type="submit" id="dodol" class="btn btn-effect-ripple btn-primary">
@@ -133,7 +104,7 @@
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script>
-      /*$(document).ready(function () {
+      $(document).ready(function () {
         $('#dodol').on('click', function (e) {
           e.preventDefault();
           $.ajax({
@@ -150,7 +121,7 @@
         }
           });
         });
-      });*/
+      });
 </script>
 <script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>

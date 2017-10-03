@@ -44,9 +44,9 @@
 					<table class="table table-striped" id="users">
 						<thead>
                             <tr>
-                                <th>nama KMP</th>
-                                <th>nama Slum Program</th>
-								<th>option</th>
+                                <th>Mama KMP</th>
+                                <th>Nama Slum Program</th>
+								<th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -72,8 +72,8 @@
                    },
 
             "columns": [
-				{ "data": "kode_kmp" , name:"kode_kmp"},
-                { "data": "kode_slum_prog" , name:"kode_slum_prog"},
+				{ "data": "nama_kmp" , name:"nama_kmp"},
+                { "data": "nama_slum_prog" , name:"nama_slum_prog"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });

@@ -93,8 +93,8 @@ class bk010107Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. 'where nama like "%'.$search.'%" or email1 like "%'.$search.'%" or no_hp1 like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. 'where nama like "%'.$search.'%" or email1 like "%'.$search.'%" or no_hp1 like "%'.$search.'%") a');
+			$posts=DB::select($query. ' and a.nama like "%'.$search.'%" or a.email1 like "%'.$search.'%" or no_hp1 like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' and a.nama like "%'.$search.'%" or a.email1 like "%'.$search.'%" or a.no_hp1 like "%'.$search.'%") a');
 		}
 
 		$data = array();
@@ -228,6 +228,7 @@ class bk010107Controller extends Controller
 	
 	public function post_create(Request $request)
 	{
+		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
 			$date = strtotime($request->input('tgl_akhir'));
         	$date_convert = date('Y-m-d', $date);
@@ -255,6 +256,8 @@ class bk010107Controller extends Controller
 				'project' => $request->input('example-project-input'),
 				'glosary_caption' => $request->input('example-glosary_caption-input'), 
 				'jenis_siklus' => $request->input('example-select-jenis_siklus'),
+				'updated_time' => date('Y-m-d H:i:s'),
+				'updated_by' => Auth::user()->id
 				]);
 		}else{
 			$date = strtotime($request->input('tgl_akhir'));
@@ -281,7 +284,8 @@ class bk010107Controller extends Controller
        				'status' => $request->input('example-select-status'),
        				'project' => $request->input('example-project-input'),
        				'glosary_caption' => $request->input('example-glosary_caption-input'),
-       				'jenis_siklus' => $request->input('example-select-jenis_siklus')
+       				'jenis_siklus' => $request->input('example-select-jenis_siklus'),
+       				'created_by' => Auth::user()->id
        			]);
 		}
 	}

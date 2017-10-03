@@ -151,14 +151,24 @@ class bk020102Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_02010102_role')->where('kode', $request->input('example-id-input'))
-			->update(['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select'), 'kode_level' => $request->input('example-select-level')
+			->update(['nama' => $request->input('example-text-input'), 
+				'deskripsi' => $request->input('example-textarea-input'), 
+				'status' => $request->input('example-select'), 
+				'kode_level' => $request->input('example-select-level'),
+				'updated_time' => date('Y-m-d H:i:s'),
+				'updated_by' => Auth::user()->id
 				]);
 
 		}else{
 			DB::table('bkt_02010102_role')->insert(
-       			['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select'), 'kode_level' => $request->input('example-select-level')
+       			['nama' => $request->input('example-text-input'), 
+       			'deskripsi' => $request->input('example-textarea-input'), 
+       			'status' => $request->input('example-select'), 
+       			'kode_level' => $request->input('example-select-level'), 
+       			'created_by' => Auth::user()->id
        			]);
 		}
 	}
