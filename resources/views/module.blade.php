@@ -24,6 +24,7 @@
     <div class="row">
         <div class="col-md-12 ">
 			<div class="row">
+				@if( ! empty($apps['2']))
 				<div class="col-md-4 ">
 				    <div class="panel-body">
 						<a href='hrm'>
@@ -37,6 +38,8 @@
 						</a>
 		            </div>
 				</div>
+				@endif
+				@if( ! empty($apps['1']))
 				<div class="col-md-4 ">
 				    <div class="panel-body">
 						<a href='main'>
@@ -50,8 +53,10 @@
 						</a>
 		            </div>
 				</div>
+				@endif
 			</div>
 			<div class="row">
+				@if( ! empty($apps['3']))
 				<div class="col-md-4 ">
 					<div class="panel-body">
 						<a href='#'>
@@ -65,6 +70,8 @@
 						</a>
 		            </div>
 				</div>
+				@endif
+				@if( ! empty($apps['4']))
 				<div class="col-md-4 ">
 				    <div class="panel-body">
 						<a href='gis'>
@@ -78,6 +85,7 @@
 						</a>
 		            </div>
 				</div>
+				@endif
 			</div>
         </div>
     </div>

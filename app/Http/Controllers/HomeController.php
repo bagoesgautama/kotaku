@@ -25,22 +25,44 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['username'] = '';
-	    if (Auth::check()) {
-            $user = Auth::user();
-            $data['username'] = Auth::user()->name;
-        }
-		return view('module',$data);
+		$akses= Auth::user()->menu()->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['apps'][$item->kode_apps] =  'a' ;
+				//if($item->kode_menu==10)
+					//$data['detil'][$item->kode_menu_detil]='a';
+			}
+			if(!empty($data['apps'])){
+			    return view('module',$data);
+			}
+			else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
     }
 
 	public function hrm()
 	{
-		$data['username'] = '';
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 2)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				//if($item->kode_menu==10)
+					//$data['detil'][$item->kode_menu_detil]='a';
+			}
+			if(!empty($data['menu'])){
+			    $data['username'] = $user->name;
+				return view('HRM/main/index',$data);
+			}
+			else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
 		}
-		return view('HRM/main/index',$data);
 	}
 
 	public function main()
@@ -63,7 +85,6 @@ class HomeController extends Controller
 		}else{
 			return Redirect::to('/');
 		}
-
 	}
 
 	public function map()

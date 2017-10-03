@@ -121,8 +121,8 @@
 					$("#imgSpinner1").hide();
 		            var row = `<thead>
 						<tr>
-						<th>menu</th>
 						<th>menu ID</th>
+						<th>menu</th>
 						<th>menu detail</th>
 						<th>menu detail ID</th>
 						<th>akses</th>
@@ -131,8 +131,8 @@
 					result=JSON.parse(result);
 					for(var i=0;i< result.length;i++){
 						row += '<tr>';
-						row+='<td>' + result[i].menu + '</td>';
 						row+='<td id="menu_id">' + result[i].menu_id + '</td>';
+						row+='<td>' + result[i].menu + '</td>';
 						row+='<td>' + result[i].detil+' </td>';
 						row+='<td id="detil_id">' + result[i].detil_id+' </td>';
 						if(result[i].akses==0)
