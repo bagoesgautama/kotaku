@@ -53,12 +53,14 @@ class bk010209Controller extends Controller
 		$columns = array(
 			0 =>'tahun',
 			1 =>'kode_kota',
-			2 =>'jenis_kegiatan',
-			3 =>'tgl_kegiatan',
-			4 =>'lok_kegiatan'
+			2 =>'kode_korkot',
+			3 =>'kode_kec',
+			4 =>'jenis_kegiatan',
+			5 =>'tgl_kegiatan',
+			6 =>'lok_kegiatan'
 		);
-		$query='select bkt_01020206_sos_rel_kota.kode, bkt_01010102_kota.nama as kode_kota, bkt_01020206_sos_rel_kota.jenis_kegiatan, bkt_01020206_sos_rel_kota.tgl_kegiatan, bkt_01020206_sos_rel_kota.lok_kegiatan from bkt_01020206_sos_rel_kota inner join bkt_01010102_kota on bkt_01020206_sos_rel_kota.kode_kota = bkt_01010102_kota.kode';
-		$totalData = DB::select('select count(1) cnt from bkt_01020206_sos_rel_kota ');
+		$query='select bkt_01020207_bkm_kota.kode, bkt_01020207_bkm_kota.tahun, bkt_01010102_kota.nama, bkt_01010111_korkot.nama, bkt_01010103_kec.nama, bkt_01020207_bkm_kota.jenis_kegiatan, bkt_01020207_bkm_kota.tgl_kegiatan, bkt_01020207_bkm_kota.lok_kegiatan from bkt_01020207_bkm_kota inner join bkt_01010102_kota on bkt_01020207_bkm_kota.kode_kota = bkt_01010102_kota.kode inner join bkt_01010111_korkot on bkt_01020207_bkm_kota.kode_korkot = bkt_01010111_korkot.kode inner join bkt_01010103_kec on bkt_01020207_bkm_kota.kode_kec = bkt_01010103_kec.kode';
+		$totalData = DB::select('select count(1) cnt from bkt_01020207_bkm_kota ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -66,12 +68,12 @@ class bk010209Controller extends Controller
 		$dir = $request->input('order.0.dir');
 		if(empty($request->input('search.value')))
 		{
-			$posts=DB::select($query .' order by bkt_01020206_sos_rel_kota.'.$order.' '.$dir.' limit '.$start.','.$limit);
+			$posts=DB::select($query .' order by bkt_01020207_bkm_kota.'.$order.' '.$dir.' limit '.$start.','.$limit);
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and bkt_01020206_sos_rel_kota.tahun like "%'.$search.'%" or bkt_01010102_kota.nama like "%'.$search.'%" or bkt_01020206_sos_rel_kota.jenis_kegiatan like "%'.$search.'%" or bkt_01020206_sos_rel_kota.tgl_kegiatan like "%'.$search.'%" or bkt_01020206_sos_rel_kota.lok_kegiatan like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and bkt_01020206_sos_rel_kota.tahun like "%'.$search.'%" or bkt_01010102_kota.nama like "%'.$search.'%" or bkt_01020206_sos_rel_kota.jenis_kegiatan like "%'.$search.'%" or bkt_01020206_sos_rel_kota.tgl_kegiatan like "%'.$search.'%" or bkt_01020206_sos_rel_kota.lok_kegiatan like "%'.$search.'%") a');
+			$posts=DB::select($query. ' and bkt_01020207_bkm_kota.tahun like "%'.$search.'%" or bkt_01010102_kota.nama like "%'.$search.'%" or bkt_01010111_korkot.nama like "%'.$search.'%" or bkt_01010103_kkec.nama like "%'.$search.'%" or bkt_01020207_bkm_kota.jenis_kegiatan like "%'.$search.'%" or bkt_01020207_bkm_kota.tgl_kegiatan like "%'.$search.'%" or bkt_01020207_bkm_kota.lok_kegiatan like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' and bkt_01020207_bkm_kota.tahun like "%'.$search.'%" or bkt_01010102_kota.nama like "%'.$search.'%" or bkt_01010111_korkot.nama like "%'.$search.'%" or bkt_01010103_kkec.nama like "%'.$search.'%" or bkt_01020207_bkm_kota.jenis_kegiatan like "%'.$search.'%" or bkt_01020207_bkm_kota.tgl_kegiatan like "%'.$search.'%" or bkt_01020207_bkm_kota.lok_kegiatan like "%'.$search.'%") a');
 		}
 
 		$data = array();
