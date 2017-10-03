@@ -80,9 +80,9 @@
 		for(var i=0;i<prop.length;i++){
 			if(attr[prop[i].apps]==undefined){
 				attr[prop[i].apps]={id:prop[i].apps_id,modul:{}};
-				attr[prop[i].apps].modul[prop[i].modul]={id:prop[i].modul_id,menu:{}}
+				attr[prop[i].apps].modul[prop[i].modul]={id:prop[i].modul_id}
 			}else{
-
+				attr[prop[i].apps].modul[prop[i].modul]={id:prop[i].modul_id}
 			}
 		}
 		for (var i=0;i<prop_role.length;i++){
@@ -91,6 +91,7 @@
 		for (var key in attr){
 			apps.append("<option value='"+ attr[key].id +"'>" + key + "</option>");
 		}
+		console.log(attr)
 		apps.change(function(){
 			apps_id=apps.val();
 			if(apps_id!=undefined){
