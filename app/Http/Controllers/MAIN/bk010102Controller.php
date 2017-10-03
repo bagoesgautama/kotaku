@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\GIS;
+namespace App\Http\Controllers\MAIN;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
 
-class bk040103Controller extends Controller
+class bk010102Controller extends Controller
 {
     /**
      * Create a new controller instance.
@@ -27,49 +27,66 @@ class bk040103Controller extends Controller
      */
     public function index()
 	{
-		//$users = DB::select('select * from users ');
-		//echo json_encode($users);
-		$data['username'] = '';
-		$data['test']=true;
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==21)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			if(!empty($data['detil'])){
+			    $data['username'] = $user->name;
+				return view('MAIN/bk010102/index',$data);
+			}
+			else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
 		}
-
-		return view('GIS/bk040103/index',$data);
 	}
 
 	public function create(Request $request)
 	{
-		//$users = DB::select('select * from users ');
-		//echo json_encode($users);
-		$data['username'] = '';
-		$data['test']=true;
-		$data['kode']=$request->input('kode');
-		if($data['kode']!=null){
-			$rowData = DB::select('select * from bkt_01010102_kota where kode='.$data['kode']);
-			$data['nama'] = $rowData[0]->nama;
-			$data['nama_pendek'] = $rowData[0]->nama_pendek;
-			$data['kode_prop'] = $rowData[0]->kode_prop;
-			$data['status'] = $rowData[0]->status;
-			$data['file'] = $rowData[0]->url_border_area;
-			$data['latitude'] = $rowData[0]->latitude;
-			$data['longitude'] = $rowData[0]->longitude;
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==21)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			if(!empty($data['detil'])){
+			    $data['username'] = $user->name;
+				$data['kode']=$request->input('kode');
+				if($data['kode']!=null){
+					$rowData = DB::select('select * from bkt_01010102_kota where kode='.$data['kode']);
+					$data['nama'] = $rowData[0]->nama;
+					$data['nama_pendek'] = $rowData[0]->nama_pendek;
+					$data['kode_prop'] = $rowData[0]->kode_prop;
+					$data['status'] = $rowData[0]->status;
+					$data['file'] = $rowData[0]->url_border_area;
+					$data['latitude'] = $rowData[0]->latitude;
+					$data['longitude'] = $rowData[0]->longitude;
+				}else{
+					$data['nama'] = null;
+					$data['nama_pendek'] = null;
+					$data['kode_prop'] = null;
+					$data['status'] = null;
+					$data['file'] = null;
+					$data['latitude'] = null;
+					$data['longitude'] = null;
+				}
+				$data['kode_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
+				return view('MAIN/bk010102/create',$data);
+			}
+			else {
+				return Redirect::to('/');
+			}
 		}else{
-			$data['nama'] = null;
-			$data['nama_pendek'] = null;
-			$data['kode_prop'] = null;
-			$data['status'] = null;
-			$data['file'] = null;
-			$data['latitude'] = null;
-			$data['longitude'] = null;
+			return Redirect::to('/');
 		}
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
-		$data['kode_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
-		return view('GIS/bk040103/create',$data);
 	}
 
 	public function post_create(Request $request)
@@ -173,8 +190,8 @@ class bk040103Controller extends Controller
 				}elseif($post->status == 2){
 					$status = 'Dihapus';
 				}
-				$url_edit=url('/')."/gis/kota/create?kode=".$show;
-				$url_delete=url('/')."/gis/kota/delete?kode=".$delete;
+				$url_edit="/main/data_wilayah/kota/create?kode=".$show;
+				$url_delete="/main/data_wilayah/kota/delete?kode=".$delete;
 				$nestedData['nama'] = $post->nama;
 				$nestedData['nama_pendek'] = $post->nama_pendek;
 				$nestedData['kode_prop'] = $post->kode_prop;
@@ -198,16 +215,6 @@ class bk040103Controller extends Controller
 	public function delete(Request $request)
 	{
 		DB::table('bkt_01010102_kota')->where('kode', $request->input('kode'))->update(['status' => 2]);;
-        return Redirect::to('/gis/kota');
-    }
-
-    public function logout()
-    {
-        Auth::logout();
-    }
-
-	public function test()
-    {
-        Auth::logout();
+        return Redirect::to('/main/data_wilayah/kota');
     }
 }

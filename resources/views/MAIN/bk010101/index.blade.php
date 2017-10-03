@@ -1,5 +1,5 @@
-@extends('GIS/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}}
-@section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}}
+@section('header_styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/colReorder.bootstrap.css')}}" />
@@ -12,37 +12,39 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>GIS Module</h1>
+    <h1>MAIN Module</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-            	<a href="/gis">
-            		<i class="fa fa-fw fa-home"></i> GIS
+            	<a href="/main">
+            		<i class="fa fa-fw fa-home"></i> MAIN
             	</a>
             </li>
             <li class="next">
-	            Master Data Kota
+	            Master Data Provinsi
             </li>
         </ul>
     </div>
 </section>
-@stop {{-- Page content --}} @section('content') 
+@stop {{-- Page content --}} @section('content')
 <div class="row">
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
+				@if( ! empty($detil['4']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('gis/kota/create') }}">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_wilayah/provinsi/create">Create</a>
                 </div>
+				@endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="kota">
+                    <table class="table table-striped" id="provinsi">
                         <thead>
                             <tr>
                                 <th>Nama</th>
                                 <th>Nama Pendek</th>
-                                <th>Kode Prop</th>
+                                <th>Wilayah</th>
                                 <th>Status</th>
                                 <th>Option</th>
                             </tr>
@@ -54,16 +56,16 @@
     </div>
 </div>
 
-@stop {{-- local scripts --}} @section('footer_scripts') 
+@stop {{-- local scripts --}} @section('footer_scripts')
 <script>
     $(document).ready(function () {
-        var table = $('#kota').DataTable({
+        var table = $('#provinsi').DataTable({
             // dom: 'Bflrtip',
-            
+
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/gis/kota",
+                     "url": "/main/data_wilayah/provinsi",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -71,14 +73,14 @@
             "columns": [
                 { "data": "nama" , name:"nama"},
                 { "data": "nama_pendek" , name:"nama_pendek"},
-                { "data": "kode_prop" , name:"kode_prop"},
+                { "data": "wilayah" , name:"wilayah"},
                 { "data": "status" , name:"status"},
                 { "data": "option" , name:"option"}
             ]
         });
 
-        $('#kota_filter input').unbind();
-		$('#kota_filter input').bind('keyup', function(e) {
+        $('#provinsi_filter input').unbind();
+		$('#provinsi_filter input').bind('keyup', function(e) {
 			if(e.keyCode == 13) {
 				table.search(this.value).draw();
 			}
