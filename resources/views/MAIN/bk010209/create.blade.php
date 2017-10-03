@@ -69,8 +69,8 @@
                 <label class="col-sm-3 control-label">Jenis kegiatan</label>
                 <div class="col-sm-6">
                     <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1">
-                        <option value="2.4.1" {!! $jenis_kegiatan=='2.4.1' ? 'selected':'' !!}>Sosialisasi Tingkat Kota</option>
-                        <option value="2.4.2" {!! $jenis_kegiatan=='2.4.2' ? 'selected':'' !!}>Relawan Kota</option>
+                        <option value="2.4.3" {!! $jenis_kegiatan=='2.4.3' ? 'selected':'' !!}>LKM/BKM Kota</option>
+                        <option value="2.4.4" {!! $jenis_kegiatan=='2.4.4' ? 'selected':'' !!}>LKM/BKM Kecamatan</option>
                     </select>
                 </div>
             </div>
@@ -89,13 +89,13 @@
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                 <div class="col-sm-6">
-                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}">
+                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_p}}">
                 </div>
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                 <div class="col-sm-6">
-                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}">
+                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_w}}">
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -152,14 +152,14 @@
           e.preventDefault();
           $.ajax({
             type: 'post',
-            "url": "/main/persiapan/kota/kegiatan/sosialisasi/create",
+            "url": "/main/persiapan/kota/forum/bkm/create",
             data: $('form').serialize(),
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
             },
             success: function () {
             alert('From Submitted.');
-            window.location.href = "/main/persiapan/kota/kegiatan/sosialisasi";
+            window.location.href = "/main/persiapan/kota/forum/bkm";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

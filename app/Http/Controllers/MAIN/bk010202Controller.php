@@ -132,51 +132,61 @@ class bk010202Controller extends Controller
 
 	public function create(Request $request)
 	{
-		$data['username'] = '';
-		$data['test']=true;
-		$data['kode']=$request->input('kode');
-		if($data['kode']!=null){
-			$rowData = DB::select('select * from bkt_01020203_fungsi_pokja where kode='.$data['kode']);
-			$data['kode_pokja'] = $rowData[0]->kode_pokja;
-			$data['jenis_subkegiatan'] = $rowData[0]->jenis_subkegiatan;
-			$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
-			$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
-			$data['q_anggota_p'] = $rowData[0]->q_anggota_p;
-			$data['q_anggota_w'] = $rowData[0]->q_anggota_w;
-			$data['diser_tgl'] = $rowData[0]->diser_tgl;
-			$data['diser_oleh'] = $rowData[0]->diser_oleh;
-			$data['diket_tgl'] = $rowData[0]->diket_tgl;
-			$data['diket_oleh'] = $rowData[0]->diket_oleh;
-			$data['diver_tgl'] = $rowData[0]->diver_tgl;
-			$data['diver_oleh'] = $rowData[0]->diver_oleh;
-			$data['created_time'] = $rowData[0]->created_time;
-			$data['created_by'] = $rowData[0]->created_by;
-			$data['updated_time'] = $rowData[0]->updated_time;
-			$data['updated_by'] = $rowData[0]->updated_by;
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==48)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			$data['username'] = $user->name;
+			$data['kode']=$request->input('kode');
+			if($data['kode']!=null  && !empty($data['detil']['66'])){
+				$rowData = DB::select('select * from bkt_01020203_fungsi_pokja where kode='.$data['kode']);
+				$data['kode_pokja'] = $rowData[0]->kode_pokja;
+				$data['jenis_subkegiatan'] = $rowData[0]->jenis_subkegiatan;
+				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
+				$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
+				$data['q_anggota_p'] = $rowData[0]->q_anggota_p;
+				$data['q_anggota_w'] = $rowData[0]->q_anggota_w;
+				$data['diser_tgl'] = $rowData[0]->diser_tgl;
+				$data['diser_oleh'] = $rowData[0]->diser_oleh;
+				$data['diket_tgl'] = $rowData[0]->diket_tgl;
+				$data['diket_oleh'] = $rowData[0]->diket_oleh;
+				$data['diver_tgl'] = $rowData[0]->diver_tgl;
+				$data['diver_oleh'] = $rowData[0]->diver_oleh;
+				$data['created_time'] = $rowData[0]->created_time;
+				$data['created_by'] = $rowData[0]->created_by;
+				$data['updated_time'] = $rowData[0]->updated_time;
+				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_pokja_list'] = DB::select('select * from bkt_01020202_pokja where jenis_kegiatan = 2.1');
+				return view('MAIN/bk010202/create',$data);
+			}else if($data['kode']==null  && !empty($data['detil']['65'])){
+				$data['kode_pokja'] = null;
+				$data['jenis_subkegiatan'] = null;
+				$data['tgl_kegiatan'] = null;
+				$data['lok_kegiatan'] = null;
+				$data['q_anggota_p'] = null;
+				$data['q_anggota_w'] = null;
+				$data['diser_tgl'] = null;
+				$data['diser_oleh'] = null;
+				$data['diket_tgl'] = null;
+				$data['diket_oleh'] = null;
+				$data['diver_tgl'] = null;
+				$data['diver_oleh'] = null;
+				$data['created_time'] = null;
+				$data['created_by'] = null;
+				$data['updated_time'] = null;
+				$data['updated_by'] = null;
+				$data['kode_pokja_list'] = DB::select('select * from bkt_01020202_pokja where jenis_kegiatan = 2.1');
+				return view('MAIN/bk010202/create',$data);
+			}else{
+				return Redirect::to('/');
+			}
 		}else{
-			$data['kode_pokja'] = null;
-			$data['jenis_subkegiatan'] = null;
-			$data['tgl_kegiatan'] = null;
-			$data['lok_kegiatan'] = null;
-			$data['q_anggota_p'] = null;
-			$data['q_anggota_w'] = null;
-			$data['diser_tgl'] = null;
-			$data['diser_oleh'] = null;
-			$data['diket_tgl'] = null;
-			$data['diket_oleh'] = null;
-			$data['diver_tgl'] = null;
-			$data['diver_oleh'] = null;
-			$data['created_time'] = null;
-			$data['created_by'] = null;
-			$data['updated_time'] = null;
-			$data['updated_by'] = null;
+			return Redirect::to('/');
 		}
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
-		$data['kode_pokja_list'] = DB::select('select * from bkt_01020202_pokja where jenis_kegiatan = 2.1');
-		return view('MAIN/bk010202/create',$data);
 	}
 
 	public function post_create(Request $request)

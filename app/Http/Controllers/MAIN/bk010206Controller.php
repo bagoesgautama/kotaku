@@ -141,79 +141,91 @@ class bk010206Controller extends Controller
 
 	public function create(Request $request)
 	{
-		$data['username'] = '';
-		$data['test']=true;
-		$data['kode']=$request->input('kode');
-		if($data['kode']!=null){
-			$rowData = DB::select('select * from bkt_01020204_pokja_kota where kode='.$data['kode']);
-			$data['tahun'] = $rowData[0]->tahun;
-			$data['kode_kota'] = $rowData[0]->kode_kota;
-			$data['kode_korkot'] = $rowData[0]->kode_korkot;
-			$data['kode_faskel'] = $rowData[0]->kode_faskel;
-			$data['jenis_kegiatan'] = $rowData[0]->jenis_kegiatan;
-			$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
-			$data['status_pokja'] = $rowData[0]->status_pokja;
-			$data['ds_hkm'] = $rowData[0]->ds_hkm;
-			$data['q_anggota_p'] = $rowData[0]->q_anggota_p;
-			$data['q_anggota_w'] = $rowData[0]->q_anggota_w;
-			$data['upp_opd'] = $rowData[0]->upp_opd;
-			$data['upp_dprd'] = $rowData[0]->upp_dprd;
-			$data['upn_bkm'] = $rowData[0]->upn_bkm;
-			$data['upn_lsm'] = $rowData[0]->upn_lsm;
-			$data['unp_bu'] = $rowData[0]->unp_bu;
-			$data['upn_praktisi'] = $rowData[0]->upn_praktisi;
-			$data['nilai_dana_ops'] = $rowData[0]->nilai_dana_ops;
-			$data['url_rencana_kerja'] = $rowData[0]->url_rencana_kerja;
-			$data['ket_rencana_kerja'] = $rowData[0]->ket_rencana_kerja;
-			$data['diser_tgl'] = $rowData[0]->diser_tgl;
-			$data['diser_oleh'] = $rowData[0]->diser_oleh;
-			$data['diket_tgl'] = $rowData[0]->diket_tgl;
-			$data['diket_oleh'] = $rowData[0]->diket_oleh;
-			$data['diver_tgl'] = $rowData[0]->diver_tgl;
-			$data['diver_oleh'] = $rowData[0]->diver_oleh;
-			$data['created_time'] = $rowData[0]->created_time;
-			$data['created_by'] = $rowData[0]->created_by;
-			$data['updated_time'] = $rowData[0]->updated_time;
-			$data['updated_by'] = $rowData[0]->updated_by;
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==51)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			$data['username'] = $user->name;
+			$data['kode']=$request->input('kode');
+			if($data['kode']!=null && !empty($data['detil']['78'])){
+				$rowData = DB::select('select * from bkt_01020204_pokja_kota where kode='.$data['kode']);
+				$data['tahun'] = $rowData[0]->tahun;
+				$data['kode_kota'] = $rowData[0]->kode_kota;
+				$data['kode_korkot'] = $rowData[0]->kode_korkot;
+				$data['kode_faskel'] = $rowData[0]->kode_faskel;
+				$data['jenis_kegiatan'] = $rowData[0]->jenis_kegiatan;
+				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
+				$data['status_pokja'] = $rowData[0]->status_pokja;
+				$data['ds_hkm'] = $rowData[0]->ds_hkm;
+				$data['q_anggota_p'] = $rowData[0]->q_anggota_p;
+				$data['q_anggota_w'] = $rowData[0]->q_anggota_w;
+				$data['upp_opd'] = $rowData[0]->upp_opd;
+				$data['upp_dprd'] = $rowData[0]->upp_dprd;
+				$data['upn_bkm'] = $rowData[0]->upn_bkm;
+				$data['upn_lsm'] = $rowData[0]->upn_lsm;
+				$data['unp_bu'] = $rowData[0]->unp_bu;
+				$data['upn_praktisi'] = $rowData[0]->upn_praktisi;
+				$data['nilai_dana_ops'] = $rowData[0]->nilai_dana_ops;
+				$data['url_rencana_kerja'] = $rowData[0]->url_rencana_kerja;
+				$data['ket_rencana_kerja'] = $rowData[0]->ket_rencana_kerja;
+				$data['diser_tgl'] = $rowData[0]->diser_tgl;
+				$data['diser_oleh'] = $rowData[0]->diser_oleh;
+				$data['diket_tgl'] = $rowData[0]->diket_tgl;
+				$data['diket_oleh'] = $rowData[0]->diket_oleh;
+				$data['diver_tgl'] = $rowData[0]->diver_tgl;
+				$data['diver_oleh'] = $rowData[0]->diver_oleh;
+				$data['created_time'] = $rowData[0]->created_time;
+				$data['created_by'] = $rowData[0]->created_by;
+				$data['updated_time'] = $rowData[0]->updated_time;
+				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
+				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
+				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
+				return view('MAIN/bk010206/create',$data);
+			}else if($data['kode']==null && !empty($data['detil']['77'])){
+				$data['tahun'] = null;
+				$data['kode_kota'] = null;
+				$data['kode_korkot'] = null;
+				$data['kode_faskel'] = null;
+				$data['jenis_kegiatan'] = null;
+				$data['tgl_kegiatan'] = null;
+				$data['status_pokja'] = null;
+				$data['ds_hkm'] = null;
+				$data['q_anggota_p'] = null;
+				$data['q_anggota_w'] = null;
+				$data['upp_opd'] = null;
+				$data['upp_dprd'] = null;
+				$data['upn_bkm'] = null;
+				$data['upn_lsm'] = null;
+				$data['unp_bu'] = null;
+				$data['upn_praktisi'] = null;
+				$data['nilai_dana_ops'] = null;
+				$data['url_rencana_kerja'] = null;
+				$data['ket_rencana_kerja'] = null;
+				$data['diser_tgl'] = null;
+				$data['diser_oleh'] = null;
+				$data['diket_tgl'] = null;
+				$data['diket_oleh'] = null;
+				$data['diver_tgl'] = null;
+				$data['diver_oleh'] = null;
+				$data['created_time'] = null;
+				$data['created_by'] = null;
+				$data['updated_time'] = null;
+				$data['updated_by'] = null;
+				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
+				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
+				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
+				return view('MAIN/bk010206/create',$data);
+			}else{
+				return Redirect::to('/');
+			}
 		}else{
-			$data['tahun'] = null;
-			$data['kode_kota'] = null;
-			$data['kode_korkot'] = null;
-			$data['kode_faskel'] = null;
-			$data['jenis_kegiatan'] = null;
-			$data['tgl_kegiatan'] = null;
-			$data['status_pokja'] = null;
-			$data['ds_hkm'] = null;
-			$data['q_anggota_p'] = null;
-			$data['q_anggota_w'] = null;
-			$data['upp_opd'] = null;
-			$data['upp_dprd'] = null;
-			$data['upn_bkm'] = null;
-			$data['upn_lsm'] = null;
-			$data['unp_bu'] = null;
-			$data['upn_praktisi'] = null;
-			$data['nilai_dana_ops'] = null;
-			$data['url_rencana_kerja'] = null;
-			$data['ket_rencana_kerja'] = null;
-			$data['diser_tgl'] = null;
-			$data['diser_oleh'] = null;
-			$data['diket_tgl'] = null;
-			$data['diket_oleh'] = null;
-			$data['diver_tgl'] = null;
-			$data['diver_oleh'] = null;
-			$data['created_time'] = null;
-			$data['created_by'] = null;
-			$data['updated_time'] = null;
-			$data['updated_by'] = null;
+			return Redirect::to('/');
 		}
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
-		$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
-		$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
-		$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
-		return view('MAIN/bk010206/create',$data);
 	}
 
 	public function post_create(Request $request)
