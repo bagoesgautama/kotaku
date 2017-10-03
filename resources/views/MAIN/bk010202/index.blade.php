@@ -45,9 +45,11 @@
                 <!-- <div class="panel-title pull-left">
                     <b>bk010107 index</b>
                 </div> -->
+                @if( ! empty($detil['65']))
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/nasional/pokja/kegiatan/create' }}">Create</a>
 				</div>
+                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">

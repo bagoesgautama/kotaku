@@ -45,9 +45,11 @@
                 <!-- <div class="panel-title pull-left">
                     <b>bk010107 index</b>
                 </div> -->
+                @if( ! empty($detil['154']))
                 <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/kota/forum/bkm/create' }}">Create</a>
                 </div>
+                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
