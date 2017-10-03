@@ -173,6 +173,7 @@ class bk010108Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_01010108_kmp')->where('kode', $request->input('example-id-input'))
 			->update(
@@ -186,7 +187,9 @@ class bk010108Controller extends Controller
 				'email1' => $request->input('example-email1'), 
 				'email2' => $request->input('example-email2'), 
 				'pms_nama' => $request->input('example-pms_nama-input'), 
-				'pms_alamat' => $request->input('example-pms_alamat-input')
+				'pms_alamat' => $request->input('example-pms_alamat-input'),
+				'updated_time' => date('Y-m-d H:i:s'),
+				'updated_by' => Auth::user()->id
 				]);
 
 		}else{
@@ -201,7 +204,8 @@ class bk010108Controller extends Controller
 				'email1' => $request->input('example-email1'), 
 				'email2' => $request->input('example-email2'), 
 				'pms_nama' => $request->input('example-pms_nama-input'), 
-				'pms_alamat' => $request->input('example-pms_alamat-input')
+				'pms_alamat' => $request->input('example-pms_alamat-input'), 
+       			'created_by' => Auth::user()->id
        			]);
 		}
 	}

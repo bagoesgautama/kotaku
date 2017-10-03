@@ -41,7 +41,7 @@
                                 <th>Nama KMW</th>
                                 <th>Nama Korkot</th>
                                 <th>Nama</th>
-								<th>option</th>
+								<th>Option</th>
                             </tr>
                         </thead>
                     </table>

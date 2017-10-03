@@ -60,7 +60,7 @@ class bk010112Controller extends Controller
 			6 =>'updated_time',
 			7 =>'updated_by'
 		);
-		$query='select * from bkt_01010112_kota_korkot ';
+		$query='select a.*, b.nama nama_korkot, c.nama nama_kota from bkt_01010112_kota_korkot a, bkt_01010102_kota b, bkt_01010111_korkot c where a.kode_kota=b.kode and a.kode_korkot=c.kode ';
 		$totalData = DB::select('select count(1) cnt from bkt_01010112_kota_korkot ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -85,10 +85,10 @@ class bk010112Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_edit=url('/')."/hrm/role_level/create?kode=".$show;
-				$url_delete=url('/')."/hrm/role_level/delete?kode=".$delete;
-				$nestedData['kode_korkot'] = $post->kode_korkot;
-				$nestedData['kode_kota'] = $post->kode_kota;
+				$url_edit=url('/')."/main/kota_korkot/create?kode=".$show;
+				$url_delete=url('/')."/main/kota_korkot/delete?kode=".$delete;
+				$nestedData['nama_korkot'] = $post->nama_korkot;
+				$nestedData['nama_kota'] = $post->nama_kota;
 				$nestedData['ms_kode'] = $post->ms_kode;
 				$nestedData['ms_paket'] = $post->ms_paket;
 				$nestedData['created_time'] = $post->created_time;
@@ -118,7 +118,7 @@ class bk010112Controller extends Controller
 		$data['kode']=$request->input('kode');
 		if($data['kode']!=null){
 			$rowData = DB::select('select * from bkt_01010112_kota_korkot where kode='.$data['kode']);
-			$data['kode_korkot'] = $rowData[0]->kota_korkot;
+			$data['kode_korkot'] = $rowData[0]->kode_korkot;
 			$data['kode_kota'] = $rowData[0]->kode_kota;
 			$data['ms_kode'] = $rowData[0]->ms_kode;
 			$data['ms_paket'] = $rowData[0]->ms_paket;
@@ -136,6 +136,14 @@ class bk010112Controller extends Controller
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
 		}
+
+		//get dropdown list from Database
+		$kode_korkot_list = DB::select('select kode, nama from bkt_01010111_korkot');
+		$data['kode_korkot_list'] = $kode_korkot_list;
+
+		$kode_kota_list = DB::select('select kode, nama from bkt_01010102_kota');
+		$data['kode_kota_list'] = $kode_kota_list;
+
 		if (Auth::check()) {
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
@@ -145,21 +153,31 @@ class bk010112Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
-			DB::table('bkt_02010101_role_level')->where('kode', $request->input('example-id-input'))
-			->update(['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select')
+			DB::table('bkt_01010112_kota_korkot')->where('kode', $request->input('example-id-input'))
+			->update(['kode_korkot' => $request->input('example-kode_korkot-input'), 
+				'kode_kota' => $request->input('example-kode_kota-input'), 
+				'ms_kode' => $request->input('example-select-ms_kode'),
+				'ms_paket' => $request->input('example-select-ms_paket'),
+				'updated_time' => date('Y-m-d H:i:s'),
+				'updated_by' => Auth::user()->id
 				]);
 
 		}else{
-			DB::table('bkt_02010101_role_level')->insert(
-       			['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select')
-       			]);
+			DB::table('bkt_01010112_kota_korkot')->insert(
+       			['kode_korkot' => $request->input('example-kode_korkot-input'), 
+				'kode_kota' => $request->input('example-kode_kota-input'), 
+				'ms_kode' => $request->input('example-select-ms_kode'),
+				'ms_paket' => $request->input('example-select-ms_paket'), 
+       			'created_by' => Auth::user()->id
+				]);
 		}
 	}
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_02010101_role_level')->where('kode', $request->input('kode'))->delete();
-        return Redirect::to('/hrm/role_level');
+		DB::table('bkt_01010112_kota_korkot')->where('kode', $request->input('kode'))->delete();
+        return Redirect::to('/main/kota_korkot');
     }
 }

@@ -68,14 +68,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="example-email">Email 1</label>
+                                <label class="col-sm-3 control-label" for="example-email">Email 1</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 1</label>
-                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email1" value="{{ old('email1') }}" placeholder="E-mail" required>
+                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email1" value="{{ old('email') }}" placeholder="E-mail" required>
 
-                    @if ($errors->has('email1'))
+                    @if ($errors->has('email'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('email1') }}</strong>
+                            <strong>{{ $errors->first('email') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -84,11 +84,11 @@
                 <label class="col-sm-3 control-label" for="example-email">Email 2</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 2</label>
-                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email2" value="{{ old('email2') }}" placeholder="E-mail" required>
+                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email2" value="{{ old('email') }}" placeholder="E-mail" required>
 
-                    @if ($errors->has('email2'))
+                    @if ($errors->has('email'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('email2') }}</strong>
+                            <strong>{{ $errors->first('email') }}</strong>
                         </span>
                     @endif
                 </div>
@@ -134,7 +134,7 @@
                     <a href="/main/kmp" type="button" class="btn btn-effect-ripple btn-danger">
                         Cancel
                     </a>
-                    <button type="submit" id="dodol" class="btn btn-effect-ripple btn-primary">
+                    <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                         Submit
                     </button>
                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
@@ -150,20 +150,25 @@
 {{-- local scripts --}} @section('footer_scripts')
 <script>
       $(document).ready(function () {
-        $('#dodol').on('click', function (e) {
+        $('#submit').on('click', function (e) {
         e.preventDefault();
         $.ajax({
             type: 'post',
             "url": "/main/kmp/create",
             data: $('form').serialize(),
+            beforeSend: function (){
+                $("#submit").prop('disabled', true);
+            },
             success: function () {
-                alert('Success !!!');
+    
+            alert('From Submitted.');
             window.location.href = "/main/kmp";
-           },
-           error: function (xhr, ajaxOptions, thrownError) {
-                  alert(xhr.status);
-                  alert(thrownError);
-                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+            $("#submit").prop('disabled', false);
+            }
           });
         });
       });

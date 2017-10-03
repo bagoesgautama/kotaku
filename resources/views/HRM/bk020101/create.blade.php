@@ -72,10 +72,10 @@
             </div>
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <a href="/hrm/role" type="button" class="btn btn-effect-ripple btn-danger">
+                    <a href="/hrm/role_level" type="button" class="btn btn-effect-ripple btn-danger">
                         Cancel
                     </a>
-                    <button type="submit" id="dodol" class="btn btn-effect-ripple btn-primary">
+                    <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                         Submit
                     </button>
                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
@@ -92,19 +92,25 @@
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
-        $('#dodol').on('click', function (e) {
+        $('#submit').on('click', function (e) {
           e.preventDefault();
           $.ajax({
             type: 'post',
             "url": "/hrm/role_level/create",
             data: $('form').serialize(),
+            beforeSend: function (){
+                $("#submit").prop('disabled', true);
+            },
             success: function () {
-    window.location.href = "/hrm/role_level";
-   },
-   error: function (xhr, ajaxOptions, thrownError) {
-          
-          alert(thrownError);
-        }
+
+            alert('From Submitted.');
+            window.location.href = "/hrm/role_level";
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+            $("#submit").prop('disabled', false);
+            }
           });
         });
       });

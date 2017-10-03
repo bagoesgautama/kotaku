@@ -59,8 +59,8 @@ class bk020101Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' where nama like "%'.$search.'%" or deskripsi like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' where nama like "%'.$search.'%" or deskripsi like "%'.$search.'%") a');
+			$posts=DB::select($query. 'and nama like "%'.$search.'%" or deskripsi like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' and nama like "%'.$search.'%" or deskripsi like "%'.$search.'%") a');
 		}
 
 		$data = array();
@@ -119,6 +119,7 @@ class bk020101Controller extends Controller
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
 		}
+
 		if (Auth::check()) {
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
@@ -128,14 +129,22 @@ class bk020101Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_02010101_role_level')->where('kode', $request->input('example-id-input'))
-			->update(['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select')
+			->update(['nama' => $request->input('example-text-input'), 
+				'deskripsi' => $request->input('example-textarea-input'), 
+				'status' => $request->input('example-select'), 
+				'updated_time' => date('Y-m-d H:i:s'),
+				'updated_by' => Auth::user()->id
 				]);
 
 		}else{
 			DB::table('bkt_02010101_role_level')->insert(
-       			['nama' => $request->input('example-text-input'), 'deskripsi' => $request->input('example-textarea-input'), 'status' => $request->input('example-select')
+       			['nama' => $request->input('example-text-input'), 
+       			'deskripsi' => $request->input('example-textarea-input'), 
+       			'status' => $request->input('example-select'), 
+       			'created_by' => Auth::user()->id
        			]);
 		}
 	}

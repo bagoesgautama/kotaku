@@ -44,7 +44,7 @@
 					<table class="table table-striped" id="users">
 						<thead>
                             <tr>
-                                <th>Nama Mapping KMP ke Slum Program</th>
+                                <th>Kode Mapping KMP ke Slum Program</th>
                                 <th>Nama</th>
                                 <th>Alamat</th>
                                 <th>Contact Person</th>

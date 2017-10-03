@@ -74,8 +74,8 @@
                    },
 
             "columns": [
-				{ "data": "kode_korkot" , name:"kode_korkot"},
-                { "data": "kode_kota" , name:"kode_kota"},
+				{ "data": "nama_korkot" , name:"nama_korkot"},
+                { "data": "nama_kota" , name:"nama_kota"},
                 { "data": "ms_kode" , name:"ms_kode"},
                 { "data": "ms_paket" , name:"ms_kode"},
 				{ "data": "option" , name:"option",orderable:false}

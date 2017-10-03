@@ -20,7 +20,7 @@
                 <i class="fa fa-fw fa-home"></i> HRM
             </a>
         </li>
-        <li><a href="/hrm/role"> Role Input </a></li>
+        <li><a href="/hrm/role"> Role </a></li>
         <li class="active">
             List
         </li>

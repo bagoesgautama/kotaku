@@ -24,7 +24,7 @@
         </li>
         <li><a href="/hrm/role_level"> Role Level</a></li>
         <li class="active">
-            List
+            Table
         </li>
     </ol>
 </section>

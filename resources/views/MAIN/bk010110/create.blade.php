@@ -22,9 +22,14 @@
     <form enctype="multipart/form-data" class="form-horizontal form-bordered">
         <div class="row">
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Nama Mapping KMP ke Slum Program</label>
+                <label class="col-sm-3 control-label" for="example-select1">Kode Mapping KMP ke Slum Program</label>
+                <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-kode_kmp_slum_prog-input" class="form-control" placeholder="Nama" value="{{ $kode_kmp_slum_prog }}">
+                    <select id="example-select1" name="example-kode_kmp_slum_prog-input" class="form-control" size="1">
+                        @foreach($kode_kmp_slum_prog_list as $list)
+                            <option value="{{ $list->kode }}" @if($list->kode==$kode_kmp_slum_prog) selected="selected" @endif >{{ $list->kode }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -42,7 +47,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Kode POS</label>
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-kodepos-input" class="form-control" placeholder="Kode POS" value="{{ $kodepos }}">
+                    <input type="text" id="example-text-input1" name="example-kodepos-input" class="form-control" placeholder="Kode POS" value="{{ $kodepos }}" maxlength="5">
                 </div>
             </div>
             <div class="form-group striped-col">

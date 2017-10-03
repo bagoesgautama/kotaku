@@ -22,29 +22,31 @@
     <form enctype="multipart/form-data" class="form-horizontal form-bordered">
         <div class="row">
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Nama</label>
-                <div class="col-sm-6">
+                <label class="col-sm-3 control-label" for="example-text-input1">Nama KMW</label>
                 <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
-                    <input type="text" id="example-text-input1" name="example-text-input" class="form-control" placeholder="Text" value="{{ $nama }}">
+                <div class="col-sm-6">
+                    <select id="example-select1" name="example-kode_kmw-input" class="form-control" size="1">
+                        @foreach($kode_kmw_list as $list)
+                            <option value="{{ $list->kode }}" @if($list->kode==$kode_kmw) selected="selected" @endif >{{ $list->nama }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="example-textarea-input2">Deskripsi</label>
+                <label class="col-sm-3 control-label" for="example-text-input1">Nama KorKot</label>
+                <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
                 <div class="col-sm-6">
-                    <textarea id="example-textarea-input2" name="example-textarea-input" rows="7" class="form-control resize_vertical" placeholder="Description...." value="{{ $deskripsi }}"></textarea>
+                    <select id="example-select1" name="example-kode_korkot-input" class="form-control" size="1">
+                        @foreach($kode_korkot_list as $list)
+                            <option value="{{ $list->kode }}" @if($list->kode==$kode_korkot) selected="selected" @endif >{{ $list->nama }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-select1">Status</label>
+                 <label class="col-sm-3 control-label" for="example-text-input1">Nama</label>
                 <div class="col-sm-6">
-                    <select id="example-select1" name="example-select" class="form-control" size="1">
-                        <option value="{{ $status }}">
-                            Please select
-                        </option>
-                        <option value="0">Tidak Aktif</option>
-                        <option value="1">Aktif</option>
-                        <option value="2">Dihapus</option>
-                    </select>
+                    <input type="text" id="example-text-input1" name="example-nama-input" class="form-control" placeholder="Nama" value="{{ $nama }}">
                 </div>
             </div>
             <div class="form-group form-actions">
@@ -73,11 +75,11 @@
           e.preventDefault();
           $.ajax({
             type: 'post',
-            "url": "/hrm/role_level/create",
+            "url": "/main/faskel/create",
             data: $('form').serialize(),
             success: function () {
     alert('Success !!!');
-    window.location.href = "/hrm/role_level";
+    window.location.href = "/main/faskel";
    },
    error: function (xhr, ajaxOptions, thrownError) {
           alert(xhr.status);

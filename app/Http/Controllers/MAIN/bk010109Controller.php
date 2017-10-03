@@ -59,7 +59,8 @@ class bk010109Controller extends Controller
 			5 =>'updated_time',
 			6 =>'updated_by'
 		);
-		$query='select * from bkt_01010109_kmp_slum_prog ';
+		$query='select a.*, b.nama nama_kmp, c.nama nama_slum_prog from bkt_01010109_kmp_slum_prog a, bkt_01010108_kmp b, bkt_01010107_slum_program c where a.kode_kmp=b.kode and a.kode_slum_prog=c.kode';
+
 		$totalData = DB::select('select count(1) cnt from bkt_01010109_kmp_slum_prog ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -86,12 +87,12 @@ class bk010109Controller extends Controller
 				$delete = $post->kode;
 				$url_edit=url('/')."/main/kmp_slum_program/create?kode=".$show;
 				$url_delete=url('/')."/main/kmp_slum_program/delete?kode=".$delete;
-				$nestedData['kode_kmp'] = $post->kode_kmp;
-				$nestedData['kode_slum_prog'] = $post->kode_slum_prog;
+				$nestedData['nama_kmp'] = $post->nama_kmp;
+				$nestedData['nama_slum_prog'] = $post->nama_slum_prog;
 				$nestedData['created_time'] = $post->created_time;
 				$nestedData['created_by'] = $post->created_by;
-				$nestedData['updated_time'] = $post->update_time;
-				$nestedData['updated_by'] = $post->update_by;
+				$nestedData['updated_time'] = $post->updated_time;
+				$nestedData['updated_by'] = $post->updated_by;
 				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='SHOW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>
 				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				$data[] = $nestedData;
@@ -146,16 +147,20 @@ class bk010109Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_01010109_kmp_slum_prog')->where('kode', $request->input('example-id-input'))
 			->update(['kode_kmp' => $request->input('example-kode_kmp-input'), 
-				'kode_slum_prog' => $request->input('example-kode_slum_prog-input')
+				'kode_slum_prog' => $request->input('example-kode_slum_prog-input'),
+				'updated_time' => date('Y-m-d H:i:s'),
+				'updated_by' => Auth::user()->id
 				]);
 
 		}else{
 			DB::table('bkt_01010109_kmp_slum_prog')->insert(
 				['kode_kmp' => $request->input('example-kode_kmp-input'), 
-				'kode_slum_prog' => $request->input('example-kode_slum_prog-input')
+				'kode_slum_prog' => $request->input('example-kode_slum_prog-input'), 
+       			'created_by' => Auth::user()->id
        			]);
 		}
 	}

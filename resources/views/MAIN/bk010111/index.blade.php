@@ -79,7 +79,7 @@
                    },
 
             "columns": [
-                { "data": "kode_kmw" , name:"kode_kmw"},
+                { "data": "nama_kmw" , name:"nama_kmw"},
                 { "data": "nama" , name:"nama"},
                 { "data": "alamat" , name:"alamat"},
                 { "data": "contact_person" , name:"contact_person"},
