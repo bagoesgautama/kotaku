@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Slum Program @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Slum Program @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -35,9 +35,11 @@
                 <div class="panel-title pull-left">
                     <b>bk010107 index</b>
                 </div>
+				@if( ! empty($detil['29']))
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('main/slum_program/create') }}">Create</a>
 				</div>
+				@endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
