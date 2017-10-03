@@ -1,5 +1,5 @@
-@extends('GIS/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}}
-@section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}}
+@section('header_styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/colReorder.bootstrap.css')}}" />
@@ -12,39 +12,37 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>GIS Module</h1>
+    <h1>MAIN Module</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-            	<a href="/gis">
-            		<i class="fa fa-fw fa-home"></i> GIS
+            	<a href="/main">
+            		<i class="fa fa-fw fa-home"></i> MAIN
             	</a>
             </li>
             <li class="next">
-	            Master Data Kelurahan
+	            Master Data Kecamatan
             </li>
         </ul>
     </div>
 </section>
-@stop {{-- Page content --}} @section('content') 
+@stop {{-- Page content --}} @section('content')
 <div class="row">
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('gis/kelurahan/create') }}">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_wilayah/kecamatan/create">Create</a>
                 </div>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="kelurahan">
+                    <table class="table table-striped" id="kecamatan">
                         <thead>
                             <tr>
                                 <th>Nama</th>
-                                <th>Keterangan</th>
-                                <th>Kode BPS</th>
-                                <th>Stat Kode BPS</th>
-                                <th>Kode Kec</th>
+                                <th>Nama Pendek</th>
+                                <th>Kode Kota</th>
                                 <th>Status</th>
                                 <th>Option</th>
                             </tr>
@@ -56,38 +54,32 @@
     </div>
 </div>
 
-@stop {{-- local scripts --}} @section('footer_scripts') 
+@stop {{-- local scripts --}} @section('footer_scripts')
 <script>
     $(document).ready(function () {
-        var table = $('#kelurahan').DataTable({
+        var table = $('#kecamatan').DataTable({
             // dom: 'Bflrtip',
-            
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/gis/kelurahan",
+                     "url": "/main/data_wilayah/kecamatan",
                      "dataType": "json",
                      "type": "POST"
                    },
-
             "columns": [
                 { "data": "nama" , name:"nama"},
-                { "data": "keterangan" , name:"keterangan"},
-                { "data": "kode_bps" , name:"kode_bps"},
-                { "data": "stat_kode_bps" , name:"stat_kode_bps"},
-                { "data": "kode_kec" , name:"kode_kec"},
+                { "data": "nama_pendek" , name:"nama_pendek"},
+                { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "status" , name:"status"},
                 { "data": "option" , name:"option"}
             ]
         });
-
-        $('#kelurahan_filter input').unbind();
-		$('#kelurahan_filter input').bind('keyup', function(e) {
+        $('#kecamatan_filter input').unbind();
+		$('#kecamatan_filter input').bind('keyup', function(e) {
 			if(e.keyCode == 13) {
 				table.search(this.value).draw();
 			}
 		});
-
     });
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>

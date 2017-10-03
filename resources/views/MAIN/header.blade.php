@@ -1,5 +1,5 @@
 <nav class="navbar navbar-static-top" role="navigation">
-    <a href="{{url('/')}}" class="logo">
+    <a href="/" class="logo">
         <!-- Add the class icon to your logo image or logo icon to add the margining -->
         <img src="{{url('img/logo1.png')}}" alt="logo" />
     </a>

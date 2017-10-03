@@ -1,5 +1,5 @@
-@extends('GIS/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}}
-@section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}}
+@section('header_styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/colReorder.bootstrap.css')}}" />
@@ -12,37 +12,39 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>GIS Module</h1>
+    <h1>MAIN Module</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-            	<a href="/gis">
-            		<i class="fa fa-fw fa-home"></i> GIS
+            	<a href="/main">
+            		<i class="fa fa-fw fa-home"></i> MAIN
             	</a>
             </li>
             <li class="next">
-	            Master Data Provinsi
+	            Master Data Kelurahan
             </li>
         </ul>
     </div>
 </section>
-@stop {{-- Page content --}} @section('content') 
+@stop {{-- Page content --}} @section('content')
 <div class="row">
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('gis/provinsi/create') }}">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_wilayah/kelurahan/create">Create</a>
                 </div>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="provinsi">
+                    <table class="table table-striped" id="kelurahan">
                         <thead>
                             <tr>
                                 <th>Nama</th>
-                                <th>Nama Pendek</th>
-                                <th>Wilayah</th>
+                                <th>Keterangan</th>
+                                <th>Kode BPS</th>
+                                <th>Stat Kode BPS</th>
+                                <th>Kode Kec</th>
                                 <th>Status</th>
                                 <th>Option</th>
                             </tr>
@@ -54,31 +56,33 @@
     </div>
 </div>
 
-@stop {{-- local scripts --}} @section('footer_scripts') 
+@stop {{-- local scripts --}} @section('footer_scripts')
 <script>
     $(document).ready(function () {
-        var table = $('#provinsi').DataTable({
+        var table = $('#kelurahan').DataTable({
             // dom: 'Bflrtip',
-            
+
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/gis/provinsi",
+                     "url": "/main/data_wilayah/kelurahan",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
                 { "data": "nama" , name:"nama"},
-                { "data": "nama_pendek" , name:"nama_pendek"},
-                { "data": "wilayah" , name:"wilayah"},
+                { "data": "keterangan" , name:"keterangan"},
+                { "data": "kode_bps" , name:"kode_bps"},
+                { "data": "stat_kode_bps" , name:"stat_kode_bps"},
+                { "data": "kode_kec" , name:"kode_kec"},
                 { "data": "status" , name:"status"},
                 { "data": "option" , name:"option"}
             ]
         });
 
-        $('#provinsi_filter input').unbind();
-		$('#provinsi_filter input').bind('keyup', function(e) {
+        $('#kelurahan_filter input').unbind();
+		$('#kelurahan_filter input').bind('keyup', function(e) {
 			if(e.keyCode == 13) {
 				table.search(this.value).draw();
 			}
