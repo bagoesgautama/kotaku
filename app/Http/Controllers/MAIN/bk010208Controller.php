@@ -135,59 +135,72 @@ class bk010208Controller extends Controller
 
 	public function create(Request $request)
 	{
-		$data['username'] = '';
-		$data['test']=true;
-		$data['kode']=$request->input('kode');
-		if($data['kode']!=null){
-			$rowData = DB::select('select * from bkt_01020206_sos_rel_kota where kode='.$data['kode']);
-			$data['tahun'] = $rowData[0]->tahun;
-			$data['kode_kota'] = $rowData[0]->kode_kota;
-			$data['kode_korkot'] = $rowData[0]->kode_korkot;
-			$data['kode_kec'] = $rowData[0]->kode_kec;
-			$data['jenis_kegiatan'] = $rowData[0]->jenis_kegiatan;
-			$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
-			$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
-			$data['q_peserta_p'] = $rowData[0]->q_peserta_p;
-			$data['q_peserta_w'] = $rowData[0]->q_peserta_w;
-			$data['diser_tgl'] = $rowData[0]->diser_tgl;
-			$data['diser_oleh'] = $rowData[0]->diser_oleh;
-			$data['diket_tgl'] = $rowData[0]->diket_tgl;
-			$data['diket_oleh'] = $rowData[0]->diket_oleh;
-			$data['diver_tgl'] = $rowData[0]->diver_tgl;
-			$data['diver_oleh'] = $rowData[0]->diver_oleh;
-			$data['created_time'] = $rowData[0]->created_time;
-			$data['created_by'] = $rowData[0]->created_by;
-			$data['updated_time'] = $rowData[0]->updated_time;
-			$data['updated_by'] = $rowData[0]->updated_by;
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==53)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			$data['username'] = $user->name;
+			$data['kode']=$request->input('kode');
+			if($data['kode']!=null && !empty($data['detil']['152'])){
+				$rowData = DB::select('select * from bkt_01020206_sos_rel_kota where kode='.$data['kode']);
+				$data['tahun'] = $rowData[0]->tahun;
+				$data['kode_kota'] = $rowData[0]->kode_kota;
+				$data['kode_korkot'] = $rowData[0]->kode_korkot;
+				$data['kode_kec'] = $rowData[0]->kode_kec;
+				$data['jenis_kegiatan'] = $rowData[0]->jenis_kegiatan;
+				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
+				$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
+				$data['q_peserta_p'] = $rowData[0]->q_peserta_p;
+				$data['q_peserta_w'] = $rowData[0]->q_peserta_w;
+				$data['diser_tgl'] = $rowData[0]->diser_tgl;
+				$data['diser_oleh'] = $rowData[0]->diser_oleh;
+				$data['diket_tgl'] = $rowData[0]->diket_tgl;
+				$data['diket_oleh'] = $rowData[0]->diket_oleh;
+				$data['diver_tgl'] = $rowData[0]->diver_tgl;
+				$data['diver_oleh'] = $rowData[0]->diver_oleh;
+				$data['created_time'] = $rowData[0]->created_time;
+				$data['created_by'] = $rowData[0]->created_by;
+				$data['updated_time'] = $rowData[0]->updated_time;
+				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
+				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
+				$data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
+				return view('MAIN/bk010208/create',$data);
+			}else if($data['kode']==null && !empty($data['detil']['151'])){
+				$data['tahun'] = null;
+				$data['kode_kota'] = null;
+				$data['kode_korkot'] = null;
+				$data['kode_kec'] = null;
+				$data['jenis_kegiatan'] = null;
+				$data['tgl_kegiatan'] = null;
+				$data['lok_kegiatan'] = null;
+				$data['q_peserta_p'] = null;
+				$data['q_peserta_w'] = null;
+				$data['diser_tgl'] = null;
+				$data['diser_oleh'] = null;
+				$data['diket_tgl'] = null;
+				$data['diket_oleh'] = null;
+				$data['diver_tgl'] = null;
+				$data['diver_oleh'] = null;
+				$data['created_time'] = null;
+				$data['created_by'] = null;
+				$data['updated_time'] = null;
+				$data['updated_by'] = null;
+				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
+				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
+				$data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
+				return view('MAIN/bk010208/create',$data);
+			}else{
+				return Redirect::to('/');
+			}
 		}else{
-			$data['tahun'] = null;
-			$data['kode_kota'] = null;
-			$data['kode_korkot'] = null;
-			$data['kode_kec'] = null;
-			$data['jenis_kegiatan'] = null;
-			$data['tgl_kegiatan'] = null;
-			$data['lok_kegiatan'] = null;
-			$data['q_peserta_p'] = null;
-			$data['q_peserta_w'] = null;
-			$data['diser_tgl'] = null;
-			$data['diser_oleh'] = null;
-			$data['diket_tgl'] = null;
-			$data['diket_oleh'] = null;
-			$data['diver_tgl'] = null;
-			$data['diver_oleh'] = null;
-			$data['created_time'] = null;
-			$data['created_by'] = null;
-			$data['updated_time'] = null;
-			$data['updated_by'] = null;
+			return Redirect::to('/');
 		}
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
-		$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
-		$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
-		$data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
-		return view('MAIN/bk010208/create',$data);
+		
 	}
 
 	public function post_create(Request $request)

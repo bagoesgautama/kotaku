@@ -75,7 +75,7 @@
 
 <!-- /.modal ends here -->@stop {{-- local scripts --}} @section('footer_scripts')
 
-<!-- <script>
+<script>
     $(document).ready(function () {
         var table = $('#kegiatan').DataTable({
             // dom: 'Bflrtip',
@@ -106,7 +106,7 @@
         }
     })
 });
-</script> -->
+</script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.bootstrap.js')}}"></script>
