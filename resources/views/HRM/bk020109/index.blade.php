@@ -91,7 +91,6 @@
 		for (var key in attr){
 			apps.append("<option value='"+ attr[key].id +"'>" + key + "</option>");
 		}
-		console.log(attr)
 		apps.change(function(){
 			apps_id=apps.val();
 			if(apps_id!=undefined){

@@ -1,7 +1,6 @@
 <ul class="navigation slimmenu" id="navigation">
 	@if( ! empty($menu['11']))
-	<li {!! (Request::is( '/main/data_wilayah/propinsi')||Request::is( '/main/data_wilayah/propinsi/create')||Request::is( '/main/data_wilayah/kota')||Request::is( '/main/data_wilayah/kota/create')||Request::is( '/main/data_wilayah/kecamatan')||Request::is( '/main/data_wilayah/kecamatan/create')||Request::is( '/main/data_wilayah/kelurahan')||Request::is( '/main/data_wilayah/kelurahan/create')
-	? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+	<li {!! (Request::is( '/main/data_wilayah/propinsi')||Request::is( '/main/data_wilayah/propinsi/create')||Request::is( '/main/data_wilayah/kota')||Request::is( '/main/data_wilayah/kota/create')||Request::is( '/main/data_wilayah/kecamatan')||Request::is( '/main/data_wilayah/kecamatan/create')||Request::is( '/main/data_wilayah/kelurahan')||Request::is( '/main/data_wilayah/kelurahan/create')? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
             <span class="mm-text">Master Data</span>
             <span class="fa arrow"></span>
@@ -48,8 +47,9 @@
 					@endif
 				</ul>
 			</li>
+			@endif
 			@if( ! empty($menu['19']))
-			<li {!! (Request::is( '/main/slum_program')||Request::is( '/main/slum_program/create')||Request::is( '/main/kmp')||Request::is( '/main/kmp/create')? 'class="active"': "") !!}>
+			<li {!! (Request::is( '/main/kel_faskel')||Request::is( '/main/kel_faskel/create')||Request::is( '/main/faskel')||Request::is( '/main/faskel/create')||Request::is( '/main/kota_korkot')||Request::is( '/main/kota_korkot/create')||Request::is( '/main/korkot')||Request::is( '/main/korkot/create')||Request::is( '/main/kmw')||Request::is( '/main/kmw/create')||Request::is( '/main/kmp_slum_program')||Request::is( '/main/kmp_slum_program/create')||Request::is( '/main/slum_program')||Request::is( '/main/slum_program/create')||Request::is( '/main/kmp')||Request::is( '/main/kmp/create')? 'class="active"': "") !!}>
 				<a href="javascript:void(0)">
 					<span class="mm-text">Data Cakupan Program</span>
 					<span class="fa arrow"></span>
