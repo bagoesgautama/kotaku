@@ -78,8 +78,8 @@
                 <label class="col-sm-3 control-label">Jenis kegiatan</label>
                 <div class="col-sm-6">
                     <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1">
-                        <option value="2.4.1" {!! $jenis_kegiatan=='2.4.1' ? 'selected':'' !!}>Sosialisasi Tingkat Kota</option>
-                        <option value="2.4.2" {!! $jenis_kegiatan=='2.4.2' ? 'selected':'' !!}>Relawan Kota</option>
+                        <option value="2.4.5" {!! $jenis_kegiatan=='2.4.5' ? 'selected':'' !!}>Kolaborasi Kota</option>
+                        <option value="2.4.6" {!! $jenis_kegiatan=='2.4.6' ? 'selected':'' !!}>Kolaborasi Kecamatan</option>
                     </select>
                 </div>
             </div>

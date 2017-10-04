@@ -91,10 +91,10 @@ class bk010210Controller extends Controller
 				$delete = $post->kode;
 				$jenis_kegiatan = null;
 
-				if($post->jenis_kegiatan == '2.4.1'){
-					$jenis_kegiatan = 'Sosialisasi Tingkat Kota';
-				}elseif($post->jenis_kegiatan == '2.4.2'){
-					$jenis_kegiatan = 'Relawan Kota';
+				if($post->jenis_kegiatan == '2.4.5'){
+					$jenis_kegiatan = 'Forum Kolaborasi Kota';
+				}elseif($post->jenis_kegiatan == '2.4.6'){
+					$jenis_kegiatan = 'Forum Kolaborasi Kecamatan';
 				}
 
 				$url_edit=url('/')."/main/persiapan/kota/forum/kolaborasi/create?kode=".$edit;
@@ -179,7 +179,7 @@ class bk010210Controller extends Controller
 				return view('MAIN/bk010210/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['157'])){
 				$data['tahun'] = null;
-				$data['tk_forum'] = null;
+				$data['tk_forum'] = 1;
 				$data['kode_kota'] = null;
 				$data['kode_korkot'] = null;
 				$data['kode_kec'] = null;

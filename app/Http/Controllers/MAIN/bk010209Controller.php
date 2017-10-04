@@ -179,7 +179,7 @@ class bk010209Controller extends Controller
 				return view('MAIN/bk010209/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['154'])){
 				$data['tahun'] = null;
-				$data['tk_forum'] = null;
+				$data['tk_forum'] = 1;
 				$data['kode_kota'] = null;
 				$data['kode_korkot'] = null;
 				$data['kode_kec'] = null;
