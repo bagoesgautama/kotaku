@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
@@ -74,10 +75,12 @@ class LoginController extends Controller
 				'password' => $request->input('password')
 			);
 			if (Auth::attempt(['user_name'=> $request->input('email'), 'password' => $request->input('password')])){
-			        return Redirect::to('');
+				DB::table('bkt_02030210_log_login')->insert(['kode_user' => Auth::user()->id,'dt_login'  => new \DateTime,'alamat_ip'=> $request->ip()]);
+			    return Redirect::to('');
 			}
 			elseif (Auth::attempt(['email'=> $request->input('email'), 'password' => $request->input('password')])) {
-			        return Redirect::to('');
+				DB::table('bkt_02030210_log_login')->insert(['kode_user' => Auth::user()->id,'dt_login'  => new \DateTime,'alamat_ip'=> $request->ip()]);
+			    return Redirect::to('');
 			}
 			else
 			{

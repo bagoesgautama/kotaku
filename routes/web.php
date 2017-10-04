@@ -251,6 +251,127 @@ Route::get('/main/persiapan/kota/forum/f_forum/create', 'MAIN\bk010211Controller
 Route::post('/main/persiapan/kota/forum/f_forum/create', 'MAIN\bk010211Controller@post_create');
 Route::get('/main/persiapan/kota/forum/f_forum/delete', 'MAIN\bk010211Controller@delete');
 
+//kecamatan
+Route::get('/main/persiapan/kecamatan/bkm', 'MAIN\bk010212Controller@index');
+Route::post('/main/persiapan/kecamatan/bkm', 'MAIN\bk010212Controller@post');
+Route::get('/main/persiapan/kecamatan/bkm/create', 'MAIN\bk010212Controller@create');
+Route::post('/main/persiapan/kecamatan/bkm/create', 'MAIN\bk010212Controller@post_create');
+Route::get('/main/persiapan/kecamatan/bkm/delete', 'MAIN\bk010212Controller@delete');
+
+Route::get('/main/persiapan/kecamatan/kolaborasi', 'MAIN\bk010213Controller@index');
+Route::post('/main/persiapan/kecamatan/kolaborasi', 'MAIN\bk010213Controller@post');
+Route::get('/main/persiapan/kecamatan/kolaborasi/create', 'MAIN\bk010213Controller@create');
+Route::post('/main/persiapan/kecamatan/kolaborasi/create', 'MAIN\bk010213Controller@post_create');
+Route::get('/main/persiapan/kecamatan/kolaborasi/delete', 'MAIN\bk010213Controller@delete');
+
+Route::get('/main/persiapan/kecamatan/keberfungsian', 'MAIN\bk010214Controller@index');
+Route::post('/main/persiapan/kecamatan/keberfungsian', 'MAIN\bk010214Controller@post');
+Route::get('/main/persiapan/kecamatan/keberfungsian/create', 'MAIN\bk010214Controller@create');
+Route::post('/main/persiapan/kecamatan/keberfungsian/create', 'MAIN\bk010214Controller@post_create');
+Route::get('/main/persiapan/kecamatan/keberfungsian/delete', 'MAIN\bk010214Controller@delete');
+
+//kelurahan
+Route::get('/main/persiapan/kelurahan/info', 'MAIN\bk010215Controller@index');
+Route::post('/main/persiapan/kelurahan/info', 'MAIN\bk010215Controller@post');
+Route::get('/main/persiapan/kelurahan/info/create', 'MAIN\bk010215Controller@create');
+Route::post('/main/persiapan/kelurahan/info/create', 'MAIN\bk010215Controller@post_create');
+Route::get('/main/persiapan/kelurahan/info/delete', 'MAIN\bk010215Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/sosialisasi', 'MAIN\bk010216Controller@index');
+Route::post('/main/persiapan/kelurahan/sosialisasi', 'MAIN\bk010216Controller@post');
+Route::get('/main/persiapan/kelurahan/sosialisasi/create', 'MAIN\bk010216Controller@create');
+Route::post('/main/persiapan/kelurahan/sosialisasi/create', 'MAIN\bk010216Controller@post_create');
+Route::get('/main/persiapan/kelurahan/sosialisasi/delete', 'MAIN\bk010216Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/relawan', 'MAIN\bk010217Controller@index');
+Route::post('/main/persiapan/kelurahan/relawan', 'MAIN\bk010217Controller@post');
+Route::get('/main/persiapan/kelurahan/relawan/create', 'MAIN\bk010217Controller@create');
+Route::post('/main/persiapan/kelurahan/relawan/create', 'MAIN\bk010217Controller@post_create');
+Route::get('/main/persiapan/kelurahan/relawan/delete', 'MAIN\bk010217Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/agen_sosialilasi', 'MAIN\bk010218Controller@index');
+Route::post('/main/persiapan/kelurahan/agen_sosialilasi', 'MAIN\bk010218Controller@post');
+Route::get('/main/persiapan/kelurahan/agen_sosialilasi/create', 'MAIN\bk010218Controller@create');
+Route::post('/main/persiapan/kelurahan/agen_sosialilasi/create', 'MAIN\bk010218Controller@post_create');
+Route::get('/main/persiapan/kelurahan/agen_sosialilasi/delete', 'MAIN\bk010218Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/pelatihan', 'MAIN\bk010219Controller@index');
+Route::post('/main/persiapan/kelurahan/pelatihan', 'MAIN\bk010219Controller@post');
+Route::get('/main/persiapan/kelurahan/pelatihan/create', 'MAIN\bk010219Controller@create');
+Route::post('/main/persiapan/kelurahan/pelatihan/create', 'MAIN\bk010219Controller@post_create');
+Route::get('/main/persiapan/kelurahan/pelatihan/delete', 'MAIN\bk010219Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/forum/keanggotaan', 'MAIN\bk010220Controller@index');
+Route::post('/main/persiapan/kelurahan/forum/keanggotaan', 'MAIN\bk010220Controller@post');
+Route::get('/main/persiapan/kelurahan/forum/keanggotaan/create', 'MAIN\bk010220Controller@create');
+Route::post('/main/persiapan/kelurahan/forum/keanggotaan/create', 'MAIN\bk010220Controller@post_create');
+Route::get('/main/persiapan/kelurahan/forum/keanggotaan/delete', 'MAIN\bk010220Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/forum/keberfungsian', 'MAIN\bk010221Controller@index');
+Route::post('/main/persiapan/kelurahan/forum/keberfungsian', 'MAIN\bk010221Controller@post');
+Route::get('/main/persiapan/kelurahan/forum/keberfungsian/create', 'MAIN\bk010221Controller@create');
+Route::post('/main/persiapan/kelurahan/forum/keberfungsian/create', 'MAIN\bk010221Controller@post_create');
+Route::get('/main/persiapan/kelurahan/forum/keberfungsian/delete', 'MAIN\bk010221Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/pemilu_bkm', 'MAIN\bk010222Controller@index');
+Route::post('/main/persiapan/kelurahan/pemilu_bkm', 'MAIN\bk010222Controller@post');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/create', 'MAIN\bk010222Controller@create');
+Route::post('/main/persiapan/kelurahan/pemilu_bkm/create', 'MAIN\bk010222Controller@post_create');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/delete', 'MAIN\bk010222Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/lembaga/tapp', 'MAIN\bk010223Controller@index');
+Route::post('/main/persiapan/kelurahan/lembaga/tapp', 'MAIN\bk010223Controller@post');
+Route::get('/main/persiapan/kelurahan/lembaga/tapp/create', 'MAIN\bk010223Controller@create');
+Route::post('/main/persiapan/kelurahan/lembaga/tapp/create', 'MAIN\bk010223Controller@post_create');
+Route::get('/main/persiapan/kelurahan/lembaga/tapp/delete', 'MAIN\bk010223Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/lembaga/tipp', 'MAIN\bk010224Controller@index');
+Route::post('/main/persiapan/kelurahan/lembaga/tipp', 'MAIN\bk010224Controller@post');
+Route::get('/main/persiapan/kelurahan/lembaga/tipp/create', 'MAIN\bk010224Controller@create');
+Route::post('/main/persiapan/kelurahan/lembaga/tipp/create', 'MAIN\bk010224Controller@post_create');
+Route::get('/main/persiapan/kelurahan/lembaga/tipp/delete', 'MAIN\bk010224Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/lembaga/organisasai_pengelola', 'MAIN\bk010225Controller@index');
+Route::post('/main/persiapan/kelurahan/lembaga/organisasai_pengelola', 'MAIN\bk010225Controller@post');
+Route::get('/main/persiapan/kelurahan/lembaga/organisasai_pengelola/create', 'MAIN\bk010225Controller@create');
+Route::post('/main/persiapan/kelurahan/lembaga/organisasai_pengelola/create', 'MAIN\bk010225Controller@post_create');
+Route::get('/main/persiapan/kelurahan/lembaga/organisasai_pengelola/delete', 'MAIN\bk010225Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/lembaga/ksm/ppmk', 'MAIN\bk010226Controller@index');
+Route::post('/main/persiapan/kelurahan/lembaga/ksm/ppmk', 'MAIN\bk010226Controller@post');
+Route::get('/main/persiapan/kelurahan/lembaga/ksm/ppmk/create', 'MAIN\bk010226Controller@create');
+Route::post('/main/persiapan/kelurahan/lembaga/ksm/ppmk/create', 'MAIN\bk010226Controller@post_create');
+Route::get('/main/persiapan/kelurahan/lembaga/ksm/ppmk/delete', 'MAIN\bk010226Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/lembaga/ksm/syariah', 'MAIN\bk010227Controller@index');
+Route::post('/main/persiapan/kelurahan/lembaga/ksm/syariah', 'MAIN\bk010227Controller@post');
+Route::get('/main/persiapan/kelurahan/lembaga/ksm/syariah/create', 'MAIN\bk010227Controller@create');
+Route::post('/main/persiapan/kelurahan/lembaga/ksm/syariah/create', 'MAIN\bk010227Controller@post_create');
+Route::get('/main/persiapan/kelurahan/lembaga/ksm/syariah/delete', 'MAIN\bk010227Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/lembaga/ksm/fasil_bdc', 'MAIN\bk010228Controller@index');
+Route::post('/main/persiapan/kelurahan/lembaga/ksm/fasil_bdc', 'MAIN\bk010228Controller@post');
+Route::get('/main/persiapan/kelurahan/lembaga/ksm/fasil_bdc/create', 'MAIN\bk010228Controller@create');
+Route::post('/main/persiapan/kelurahan/lembaga/ksm/fasil_bdc/create', 'MAIN\bk010228Controller@post_create');
+Route::get('/main/persiapan/kelurahan/lembaga/ksm/fasil_bdc/delete', 'MAIN\bk010228Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/lembaga/ksm/tabungan', 'MAIN\bk010229Controller@index');
+Route::post('/main/persiapan/kelurahan/lembaga/ksm/tabungan', 'MAIN\bk010229Controller@post');
+Route::get('/main/persiapan/kelurahan/lembaga/ksm/tabungan/create', 'MAIN\bk010229Controller@create');
+Route::post('/main/persiapan/kelurahan/lembaga/ksm/tabungan/create', 'MAIN\bk010229Controller@post_create');
+Route::get('/main/persiapan/kelurahan/lembaga/ksm/tabungan/delete', 'MAIN\bk010229Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/lembaga/bdc', 'MAIN\bk010230Controller@index');
+Route::post('/main/persiapan/kelurahan/lembaga/bdc', 'MAIN\bk010230Controller@post');
+Route::get('/main/persiapan/kelurahan/lembaga/bdc/create', 'MAIN\bk010230Controller@create');
+Route::post('/main/persiapan/kelurahan/lembaga/bdc/create', 'MAIN\bk010230Controller@post_create');
+Route::get('/main/persiapan/kelurahan/lembaga/bdc/delete', 'MAIN\bk010230Controller@delete');
+
+Route::get('/main/persiapan/kelurahan/lembaga/federasi_upk', 'MAIN\bk010231Controller@index');
+Route::post('/main/persiapan/kelurahan/lembaga/federasi_upk', 'MAIN\bk010231Controller@post');
+Route::get('/main/persiapan/kelurahan/lembaga/federasi_upk/create', 'MAIN\bk010231Controller@create');
+Route::post('/main/persiapan/kelurahan/lembaga/federasi_upk/create', 'MAIN\bk010231Controller@post_create');
+Route::get('/main/persiapan/kelurahan/lembaga/federasi_upk/delete', 'MAIN\bk010231Controller@delete');
 /**
  *
  *

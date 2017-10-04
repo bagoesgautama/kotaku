@@ -134,7 +134,7 @@
 		                    <span class="mm-text">Kelompok Kerja (Pokja)</span>
 		                    <span class="fa arrow"></span>
 		                </a>
-						<ul class="sub-menu form-submenu">
+						<ul class="form-sub-submenu">
 							@if( ! empty($menu['47']))
 							<li {!! (Request::is( 'main/persiapan/nasional/pokja/pembentukan')||Request::is( 'main/persiapan/nasional/pokja/pembentukan/create') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/nasional/pokja/pembentukan">
@@ -168,7 +168,7 @@
 		                    <span class="mm-text">Kelompok Kerja (Pokja)</span>
 		                    <span class="fa arrow"></span>
 		                </a>
-						<ul class="sub-menu form-submenu">
+						<ul class="form-sub-submenu">
 							@if( ! empty($menu['49']))
 							<li {!! (Request::is( 'main/persiapan/propinsi/pokja/pembentukan')||Request::is( 'main/persiapan/propinsi/pokja/pembentukan/create')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/propinsi/pokja/pembentukan">
@@ -209,7 +209,7 @@
 		                    <span class="mm-text">Kelompok Kerja (Pokja)</span>
 		                    <span class="fa arrow"></span>
 		                </a>
-						<ul class="sub-menu form-submenu">
+						<ul class="form-sub-submenu">
 							@if( ! empty($menu['51']))
 							<li {!! (Request::is( 'main/persiapan/kota/pokja/pembentukan')||Request::is( 'main/persiapan/kota/pokja/pembentukan/create')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/pokja/pembentukan">
@@ -233,7 +233,7 @@
 		                    <span class="mm-text">Kegiatan</span>
 		                    <span class="fa arrow"></span>
 		                </a>
-						<ul class="sub-menu form-submenu">
+						<ul class="form-sub-submenu">
 							@if( ! empty($menu['53']))
 							<li {!! (Request::is( 'main/persiapan/kota/kegiatan/sosialisasi')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi/create') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/kegiatan/sosialisasi">
@@ -250,7 +250,7 @@
 		                    <span class="mm-text">Forum Kota</span>
 		                    <span class="fa arrow"></span>
 		                </a>
-						<ul class="sub-menu form-submenu">
+						<ul class="form-sub-submenu">
 							@if( ! empty($menu['54']))
 							<li {!! (Request::is( 'main/persiapan/kota/forum/bkm')||Request::is( 'main/persiapan/kota/forum/bkm/create') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/forum/bkm">
@@ -258,8 +258,6 @@
 				                </a>
 						    </li>
 							@endif
-						</ul>
-						<ul class="sub-menu form-submenu">
 							@if( ! empty($menu['55']))
 							<li {!! (Request::is( 'main/persiapan/kota/forum/kolaborasi')||Request::is( 'main/persiapan/kota/forum/kolaborasi/create') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/forum/kolaborasi">
@@ -267,8 +265,6 @@
 				                </a>
 						    </li>
 							@endif
-						</ul>
-						<ul class="sub-menu form-submenu">
 							@if( ! empty($menu['56']))
 							<li {!! (Request::is( 'main/persiapan/kota/forum/f_forum')||Request::is( 'main/persiapan/kota/forum/f_forum/create') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/forum/f_forum">
@@ -278,6 +274,207 @@
 							@endif
 						</ul>
 				    </li>
+					@endif
+				</ul>
+			</li>
+			@endif
+			@if( ! empty($menu['35']))
+			<li {!! (Request::is( 'main/persiapan/kecamatan/keberfungsian')||Request::is( 'main/persiapan/kecamatan/keberfungsian/create')||Request::is( 'main/persiapan/kecamatan/kolaborasi')||Request::is( 'main/persiapan/kecamatan/kolaborasi/create')||Request::is( 'main/persiapan/kecamatan/bkm')||Request::is( 'main/persiapan/kecamatan/bkm/create') ? 'class="active"': 'class=""') !!}>
+                <a href="javascript:void(0)">
+                    <span class="mm-text">Kecamatan</span>
+                    <span class="fa arrow"></span>
+                </a>
+				<ul class="sub-menu form-submenu">
+					@if( ! empty($menu['57']))
+					<li {!! (Request::is( 'main/persiapan/kecamatan/bkm')||Request::is( 'main/persiapan/kecamatan/bkm/create') ? 'class="active"': "") !!}>
+						<a href="/main/persiapan/kecamatan/bkm">
+							<span class="mm-text">Forum BKM/LKM</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['58']))
+					<li {!! (Request::is( 'main/persiapan/kecamatan/kolaborasi')||Request::is( 'main/persiapan/kecamatan/kolaborasi/create') ? 'class="active"': "") !!}>
+						<a href="/main/persiapan/kecamatan/kolaborasi">
+							<span class="mm-text">Forum Kolaborasi</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['59']))
+					<li {!! (Request::is( 'main/persiapan/kecamatan/keberfungsian')||Request::is( 'main/persiapan/kecamatan/keberfungsian/create') ? 'class="active"': "") !!}>
+						<a href="/main/persiapan/kecamatan/keberfungsian">
+							<span class="mm-text">Keberfungsian Forum</span>
+						</a>
+					</li>
+					@endif
+				</ul>
+			</li>
+			@endif
+			@if( ! empty($menu['36']))
+			<li {!! (Request::is( 'main/persiapan/kelurahan/lembaga/federasi_upk')||Request::is( 'main/persiapan/kelurahan/lembaga/federasi_upk/create')||Request::is( 'main/persiapan/kelurahan/lembaga/bdc')||Request::is( 'main/persiapan/kelurahan/lembaga/bdc/create')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/tabungan')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/tabungan/create')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/fasil_bdc')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/fasil_bdc/create')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/syariah')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/syariah/create')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/ppmk')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/ppmk/create')||Request::is( 'main/persiapan/kelurahan/lembaga/tapp')||Request::is( 'main/persiapan/kelurahan/lembaga/tapp/create')||Request::is( 'main/persiapan/kelurahan/lembaga/tipp')||Request::is( 'main/persiapan/kelurahan/lembaga/tipp/create')||Request::is( 'main/persiapan/kelurahan/lembaga/organisasai_pengelola')||Request::is( 'main/persiapan/kelurahan/lembaga/organisasai_pengelola/create')||
+			Request::is( 'main/persiapan/kelurahan/pemilu_bkm')||Request::is( 'main/persiapan/kelurahan/pemilu_bkm/create')||Request::is( 'main/persiapan/kelurahan/forum/keberfungsian')||Request::is( 'main/persiapan/kelurahan/forum/keberfungsian/create')||Request::is( 'main/persiapan/kelurahan/forum/keanggotaan')||Request::is( 'main/persiapan/kelurahan/forum/keanggotaan/create')||Request::is( 'main/persiapan/kelurahan/pelatihan')||Request::is( 'main/persiapan/kelurahan/pelatihan/create')||Request::is( 'main/persiapan/kelurahan/agen_sosialilasi')||Request::is( 'main/persiapan/kelurahan/agen_sosialilasi/create')||Request::is( 'main/persiapan/kelurahan/relawan')||Request::is( 'main/persiapan/kelurahan/relawan/create')||Request::is( 'main/persiapan/kelurahan/sosialisasi')||Request::is( 'main/persiapan/kelurahan/sosialisasi/create')||Request::is( 'main/persiapan/kelurahan/info')||Request::is( 'main/persiapan/kelurahan/info/create') ? 'class="active"': 'class=""') !!}>
+                <a href="javascript:void(0)">
+                    <span class="mm-text">Kelurahan</span>
+                    <span class="fa arrow"></span>
+                </a>
+				<ul class="sub-menu form-submenu">
+					@if( ! empty($menu['66']))
+					<li {!! (Request::is( 'main/persiapan/kelurahan/info')||Request::is( 'main/persiapan/kelurahan/info/create') ? 'class="active"': "") !!}>
+						<a href="/main/persiapan/kelurahan/info">
+							<span class="mm-text">Informasi Umum</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['60']))
+					<li {!! (Request::is( 'main/persiapan/kelurahan/pelatihan')||Request::is( 'main/persiapan/kelurahan/pelatihan/create')||Request::is( 'main/persiapan/kelurahan/agen_sosialilasi')||Request::is( 'main/persiapan/kelurahan/agen_sosialilasi/create')||Request::is( 'main/persiapan/kelurahan/relawan')||Request::is( 'main/persiapan/kelurahan/relawan/create')||Request::is( 'main/persiapan/kelurahan/sosialisasi')||Request::is( 'main/persiapan/kelurahan/sosialisasi/create') ? 'class="active"': "") !!}>
+						<a href="javascript:void(0)">
+							<span class="mm-text">Kegiatan Kelurahan</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="form-sub-submenu">
+							@if( ! empty($menu['62']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/sosialisasi')||Request::is( 'main/persiapan/kelurahan/sosialisasi/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/sosialisasi">
+									<span class="mm-text">Kegiatan Sosialisasi</span>
+								</a>
+							</li>
+							@endif
+							@if( ! empty($menu['63']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/relawan')||Request::is( 'main/persiapan/kelurahan/relawan/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/relawan">
+									<span class="mm-text">Relawan</span>
+								</a>
+							</li>
+							@endif
+							@if( ! empty($menu['64']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/agen_sosialilasi')||Request::is( 'main/persiapan/kelurahan/agen_sosialilasi/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/agen_sosialilasi">
+									<span class="mm-text">Agen Sosialisasi</span>
+								</a>
+							</li>
+							@endif
+							@if( ! empty($menu['65']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/pelatihan')||Request::is( 'main/persiapan/kelurahan/pelatihan/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/pelatihan">
+									<span class="mm-text">Pelatihan Masyarakat</span>
+								</a>
+							</li>
+							@endif
+						</ul>
+					</li>
+					@endif
+					@if( ! empty($menu['67']))
+					<li {!! (Request::is( 'main/persiapan/kelurahan/forum/keberfungsian')||Request::is( 'main/persiapan/kelurahan/forum/keberfungsian/create')||Request::is( 'main/persiapan/kelurahan/forum/keanggotaan')||Request::is( 'main/persiapan/kelurahan/forum/keanggotaan/create') ? 'class="active"': "") !!}>
+						<a href="javascript:void(0)">
+							<span class="mm-text">Forum Kolaborasi</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="form-sub-submenu">
+							@if( ! empty($menu['70']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/forum/keanggotaan')||Request::is( 'main/persiapan/kelurahan/forum/keanggotaan/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/forum/keanggotaan">
+									<span class="mm-text">Keanggotaan</span>
+								</a>
+							</li>
+							@endif
+							@if( ! empty($menu['71']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/forum/keberfungsian')||Request::is( 'main/persiapan/kelurahan/forum/keberfungsian/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/forum/keberfungsian">
+									<span class="mm-text">Keberfungsian Forum</span>
+								</a>
+							</li>
+							@endif
+						</ul>
+					</li>
+					@endif
+					@if( ! empty($menu['68']))
+					<li {!! (Request::is( 'main/persiapan/kelurahan/pemilu_bkm')||Request::is( 'main/persiapan/kelurahan/pemilu_bkm/create') ? 'class="active"': "") !!}>
+						<a href="/main/persiapan/kelurahan/pemilu_bkm">
+							<span class="mm-text">Pemilihan Ulang BKM/LKM</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['69']))
+					<li {!! (Request::is( 'main/persiapan/kelurahan/lembaga/federasi_upk')||Request::is( 'main/persiapan/kelurahan/lembaga/federasi_upk/create')||Request::is( 'main/persiapan/kelurahan/lembaga/bdc')||Request::is( 'main/persiapan/kelurahan/lembaga/bdc/create')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/tabungan')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/tabungan/create')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/fasil_bdc')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/fasil_bdc/create')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/syariah')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/syariah/create')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/ppmk')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/ppmk/create')||Request::is( 'main/persiapan/kelurahan/lembaga/tapp')||Request::is( 'main/persiapan/kelurahan/lembaga/tapp/create')||Request::is( 'main/persiapan/kelurahan/lembaga/tipp')||Request::is( 'main/persiapan/kelurahan/lembaga/tipp/create')||Request::is( 'main/persiapan/kelurahan/lembaga/organisasai_pengelola')||Request::is( 'main/persiapan/kelurahan/lembaga/organisasai_pengelola/create') ? 'class="active"': "") !!}>
+						<a href="javascript:void(0)">
+							<span class="mm-text">Kegiatan Kelembagaan</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="form-sub-submenu">
+							@if( ! empty($menu['72']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/lembaga/tapp')||Request::is( 'main/persiapan/kelurahan/lembaga/tapp/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/lembaga/tapp">
+									<span class="mm-text">TAPP</span>
+								</a>
+							</li>
+							@endif
+							@if( ! empty($menu['73']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/lembaga/tipp')||Request::is( 'main/persiapan/kelurahan/lembaga/tipp/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/lembaga/tipp">
+									<span class="mm-text">Pembentukan/Penguatan TIPP</span>
+								</a>
+							</li>
+							@endif
+							@if( ! empty($menu['74']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/lembaga/organisasai_pengelola')||Request::is( 'main/persiapan/kelurahan/lembaga/organisasai_pengelola/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/lembaga/organisasai_pengelola">
+									<span class="mm-text">Organisasi Pengelola O & P</span>
+								</a>
+							</li>
+							@endif
+							@if( ! empty($menu['75']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/lembaga/ksm/tabungan')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/tabungan/create')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/fasil_bdc')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/fasil_bdc/create')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/syariah')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/syariah/create')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/ppmk')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/ppmk/create') ? 'class="active"': "") !!}>
+								<a href="javascript:void(0)">
+									<span class="mm-text">KSM Ekonomi</span>
+									<span class="fa arrow"></span>
+								</a>
+								<ul class="form-sub-submenu">
+									@if( ! empty($menu['78']))
+									<li {!! (Request::is( 'main/persiapan/kelurahan/lembaga/ksm/ppmk')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/ppmk/create') ? 'class="active"': "") !!}>
+										<a href="/main/persiapan/kelurahan/lembaga/ksm/ppmk">
+											<span class="mm-text">Kelurahan PPMK</span>
+										</a>
+									</li>
+									@endif
+									@if( ! empty($menu['79']))
+									<li {!! (Request::is( 'main/persiapan/kelurahan/lembaga/ksm/syariah')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/syariah/create') ? 'class="active"': "") !!}>
+										<a href="/main/persiapan/kelurahan/lembaga/ksm/syariah">
+											<span class="mm-text">KSM Syariah</span>
+										</a>
+									</li>
+									@endif
+									@if( ! empty($menu['80']))
+									<li {!! (Request::is( 'main/persiapan/kelurahan/lembaga/ksm/fasil_bdc')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/fasil_bdc/create') ? 'class="active"': "") !!}>
+										<a href="/main/persiapan/kelurahan/lembaga/ksm/fasil_bdc">
+											<span class="mm-text">KSM Difasilitasi Melalui BDC</span>
+										</a>
+									</li>
+									@endif
+									@if( ! empty($menu['81']))
+									<li {!! (Request::is( 'main/persiapan/kelurahan/lembaga/ksm/tabungan')||Request::is( 'main/persiapan/kelurahan/lembaga/ksm/tabungan/create') ? 'class="active"': "") !!}>
+										<a href="/main/persiapan/kelurahan/lembaga/ksm/tabungan">
+											<span class="mm-text">KSM Memiliki Tabungan di Lembaga Keuangan Resmi</span>
+										</a>
+									</li>
+									@endif
+								</ul>
+							</li>
+							@endif
+							@if( ! empty($menu['76']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/lembaga/bdc')||Request::is( 'main/persiapan/kelurahan/lembaga/bdc/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/lembaga/bdc">
+									<span class="mm-text">BDC</span>
+								</a>
+							</li>
+							@endif
+							@if( ! empty($menu['77']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/lembaga/federasi_upk')||Request::is( 'main/persiapan/kelurahan/lembaga/federasi_upk/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/lembaga/federasi_upk">
+									<span class="mm-text">Federasi UPK</span>
+								</a>
+							</li>
+							@endif
+						</ul>
+					</li>
 					@endif
 				</ul>
 			</li>

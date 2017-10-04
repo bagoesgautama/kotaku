@@ -1365,9 +1365,12 @@ body.fixed-top > .header {
 }
 
 #menu .form-submenu > li > a {
-  padding-left: 55px;
+  padding-left: 45px;
 }
 
+#menu .form-sub-submenu > li > a {
+  padding-left: 25px;
+}
 /*image-magnifier*/
 .img_height {
   height: 200px;
