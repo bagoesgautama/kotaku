@@ -41,6 +41,8 @@ class bk010108Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
+				
+				$this->log_aktivitas('View', 34);
 				return view('MAIN/bk010108/index',$data);
 			}
 			else {
@@ -235,7 +237,7 @@ class bk010108Controller extends Controller
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
-
+			$this->log_aktivitas('Update', 34);
 		}else{
 			DB::table('bkt_01010108_kmp')->insert(
        			['nama' => $request->input('example-nama-input'), 
@@ -251,12 +253,27 @@ class bk010108Controller extends Controller
 				'pms_alamat' => $request->input('example-pms_alamat-input'), 
        			'created_by' => Auth::user()->id
        			]);
+			$this->log_aktivitas('Create', 33);
 		}
 	}
 
 	public function delete(Request $request)
 	{
 		DB::table('bkt_01010108_kmp')->where('kode', $request->input('kode'))->delete();
+        $this->log_aktivitas('Delete', 35);
         return Redirect::to('main/kmp');
+    }
+
+    public function log_aktivitas($aktifitas, $detil)
+    {
+    	DB::table('bkt_02030201_log_aktivitas')->insert([
+				'kode_user' => Auth::user()->id,
+				'kode_apps' => 1,
+				'kode_modul' => 2, 
+				'kode_menu' => 25,   
+				'kode_menu_detil' => $detil, 
+				'aktifitas' => $aktifitas, 
+				'deskripsi' => $aktifitas
+       			]);
     }
 }

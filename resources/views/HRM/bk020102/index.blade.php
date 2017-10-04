@@ -79,7 +79,6 @@
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
-        
         $('#users_filter input').unbind();
         $('#users_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {

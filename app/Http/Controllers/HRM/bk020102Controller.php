@@ -41,6 +41,8 @@ class bk020102Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
+				
+				$this->log_aktivitas('View', 15);
 				return view('HRM/bk020102/index',$data);
 			}
 			else {
@@ -112,7 +114,7 @@ class bk020102Controller extends Controller
 				$nestedData['updated_time'] = $post->updated_time;
 				$nestedData['updated_by'] = $post->updated_by;
 				$user = Auth::user();
-		        $akses= $user->menu()->where('kode_apps', 1)->get();
+		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
 						if($item->kode_menu==9)
@@ -144,10 +146,25 @@ class bk020102Controller extends Controller
 
 	public function create(Request $request)
 	{
+
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 2)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==9)
+					$data['detil'][$item->kode_menu_detil]='a';
+		}
+
 		$data['username'] = '';
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
-		if($data['kode']!=null){
+
+		//get dropdown list from Database
+		$kode_level = DB::select('select kode, nama from bkt_02010101_role_level where status=1');
+		$data['kode_level_list'] = $kode_level;
+		
+		if($data['kode']!=null && !empty($data['detil']['17'])){
 			$rowData = DB::select('select * from bkt_02010102_role where kode='.$data['kode']);
 			$data['nama'] = $rowData[0]->nama;
 			$data['deskripsi'] = $rowData[0]->deskripsi;
@@ -157,7 +174,8 @@ class bk020102Controller extends Controller
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
 			$data['updated_by'] = $rowData[0]->updated_by;
-		}else{
+			return view('HRM/bk020102/create',$data);
+		}else if($data['kode']==null && !empty($data['detil']['16'])){
 			$data['nama'] = null;
 			$data['deskripsi'] = null;
 			$data['status'] = null;
@@ -166,18 +184,14 @@ class bk020102Controller extends Controller
 			$data['created_by'] = null;
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
-		}
-
-		//get dropdown list from Database
-		$kode_level = DB::select('select kode, nama from bkt_02010101_role_level where status=1');
-		$data['kode_level_list'] = $kode_level;
 		
-		//echo json_encode($data);
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
 		return view('HRM/bk020102/create',$data);
+			}else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
 	}
 
 	public function post_create(Request $request)
@@ -192,7 +206,7 @@ class bk020102Controller extends Controller
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
-
+		$this->log_aktivitas('Update', 17);
 		}else{
 			DB::table('bkt_02010102_role')->insert(
        			['nama' => $request->input('example-text-input'), 
@@ -201,12 +215,31 @@ class bk020102Controller extends Controller
        			'kode_level' => $request->input('example-select-level'), 
        			'created_by' => Auth::user()->id
        			]);
+		$this->log_aktivitas('Create', 16);
 		}
 	}
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_02010102_role')->where('kode', $request->input('kode'))->delete();
-        return Redirect::to('hrm/role');
+		DB::table('bkt_02010102_role')->where('kode', $request->input('kode'))
+			->update(['status' => '2', 
+				'updated_time' => date('Y-m-d H:i:s'),
+				'updated_by' => Auth::user()->id
+				]);
+        $this->log_aktivitas('Delete', 18);
+        return Redirect::to('/hrm/role');
+    }
+
+    public function log_aktivitas($aktifitas, $detil)
+    {
+    	DB::table('bkt_02030201_log_aktivitas')->insert([
+				'kode_user' => Auth::user()->id,
+				'kode_apps' => 2,
+				'kode_modul' => 4, 
+				'kode_menu' => 9,   
+				'kode_menu_detil' => $detil, 
+				'aktifitas' => $aktifitas, 
+				'deskripsi' => $aktifitas
+       			]);
     }
 }

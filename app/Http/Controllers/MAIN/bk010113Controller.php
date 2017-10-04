@@ -41,6 +41,8 @@ class bk010113Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
+				
+				$this->log_aktivitas('View', 52);
 				return view('MAIN/bk010113/index',$data);
 			}
 			else {
@@ -201,6 +203,7 @@ class bk010113Controller extends Controller
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
+			$this->log_aktivitas('Update', 54);
 
 		}else{
 			DB::table('bkt_01010113_faskel')->insert(
@@ -209,12 +212,27 @@ class bk010113Controller extends Controller
 				'nama' => $request->input('example-nama-input'), 
        			'created_by' => Auth::user()->id
 				]);
+			$this->log_aktivitas('Create', 53);
 		}
 	}
 
 	public function delete(Request $request)
 	{
 		DB::table('bkt_01010113_faskel')->where('kode', $request->input('kode'))->delete();
+        $this->log_aktivitas('Delete', 55);
         return Redirect::to('/main/faskel');
+    }
+
+    public function log_aktivitas($aktifitas, $detil)
+    {
+    	DB::table('bkt_02030201_log_aktivitas')->insert([
+				'kode_user' => Auth::user()->id,
+				'kode_apps' => 1,
+				'kode_modul' => 2, 
+				'kode_menu' => 30,   
+				'kode_menu_detil' => $detil, 
+				'aktifitas' => $aktifitas, 
+				'deskripsi' => $aktifitas
+       			]);
     }
 }

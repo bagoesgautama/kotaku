@@ -64,7 +64,6 @@
     $(document).ready(function () {
 		var table = $('#users').DataTable({
 	        // dom: 'Bflrtip',
-	       
 			"processing": true,
             "serverSide": true,
             "ajax":{
