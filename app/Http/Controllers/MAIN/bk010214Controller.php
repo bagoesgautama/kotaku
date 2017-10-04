@@ -210,7 +210,7 @@ class bk010214Controller extends Controller
 						$edit =  $post->kode;
 						$delete = $post->kode;
 						$kode_kegiatan = null;
-						$jns_kegiatan = null;
+						$jns_forum = null;
 
 						if($post->kode_kegiatan == '0'){
 							$kode_kegiatan = 'Rapat Internal';
@@ -218,21 +218,22 @@ class bk010214Controller extends Controller
 							$kode_kegiatan = 'Rapat Dengan Pemda';
 						}
 
-						if($post->jns_kegiatan == '1'){
-							$jns_kegiatan = 'BKM/LKM Tingkat Kota';
-						}elseif($post->jns_kegiatan == '2'){
-							$jns_kegiatan = 'Kolaborasi Tingkat Kota';
+						if($post->jns_forum == '1'){
+							$jns_forum = 'BKM/LKM Tingkat Kota';
+						}elseif($post->jns_forum == '2'){
+							$jns_forum = 'Kolaborasi Tingkat Kota';
 						}
 
 						$url_edit=url('/')."/main/persiapan/kecamatan/keberfungsian/create?kode=".$edit;
 						$url_delete=url('/')."/main/persiapan/kecamatan/keberfungsian/delete?kode=".$delete;
-						$nestedData['jns_kegiatan'] = $jenis_kegiatan;
+						$nestedData['jns_forum'] = $jns_forum;
 						$nestedData['kode_bkm'] = $post->kode_bkm;
 						$nestedData['kode_kolab'] = $post->kode_kolab;
 						$nestedData['kode_kegiatan'] = $kode_kegiatan;
 						$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 						$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
-						
+						$nestedData['option'] = "";
+
 						if(!empty($data2['detil']['173']))
 							$nestedData['option'] =$nestedData['option']."&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 						if(!empty($data2['detil']['174']))

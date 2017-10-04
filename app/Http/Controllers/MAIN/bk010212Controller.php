@@ -233,6 +233,7 @@ class bk010212Controller extends Controller
 						$nestedData['jenis_kegiatan'] = $jenis_kegiatan;
 						$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 						$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
+						$nestedData['option'] = "";
 						
 						if(!empty($data2['detil']['164']))
 							$nestedData['option'] =$nestedData['option']."&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
