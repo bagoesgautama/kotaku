@@ -129,6 +129,7 @@ class bk010111Controller extends Controller
 				$nestedData['created_by'] = $post->created_by;
 				$nestedData['updated_time'] = $post->updated_time;
 				$nestedData['updated_by'] = $post->updated_by;
+				
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){
@@ -162,10 +163,24 @@ class bk010111Controller extends Controller
 
 	public function create(Request $request)
 	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==28)
+					$data['detil'][$item->kode_menu_detil]='a';
+		}
+
 		$data['username'] = '';
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
-		if($data['kode']!=null){
+		
+		//get dropdown list from Database
+		$kode_kmw_list = DB::select('select kode from bkt_01010110_kmw');
+		$data['kode_kmw_list'] = $kode_kmw_list;
+
+		if($data['kode']!=null && !empty($data['detil']['46'])){
 			$rowData = DB::select('select * from bkt_01010111_korkot where kode='.$data['kode']);
 			$data['kode_kmw'] = $rowData[0]->kode_kmw;
 			$data['nama'] = $rowData[0]->nama;
@@ -184,7 +199,8 @@ class bk010111Controller extends Controller
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
 			$data['updated_by'] = $rowData[0]->updated_by;
-		}else{
+			return view('MAIN/bk010111/create',$data);
+		}else if($data['kode']==null && !empty($data['detil']['45'])){
 			$data['kode_kmw'] = null;
 			$data['nama'] = null;
 			$data['alamat'] = null;
@@ -202,17 +218,14 @@ class bk010111Controller extends Controller
 			$data['created_by'] = null;
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
-		}
 
-		//get dropdown list from Database
-		$kode_kmw_list = DB::select('select kode from bkt_01010110_kmw');
-		$data['kode_kmw_list'] = $kode_kmw_list;
-
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
 		return view('MAIN/bk010111/create',$data);
+			}else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
 	}
 
 	public function post_create(Request $request)
@@ -260,7 +273,7 @@ class bk010111Controller extends Controller
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_02010101_role_level')->where('kode', $request->input('kode'))->delete();
+		DB::table('bkt_01010111_korkot')->where('kode', $request->input('kode'))->delete();
         return Redirect::to('/main/korkot');
     }
 }

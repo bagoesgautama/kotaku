@@ -142,25 +142,18 @@ class bk010109Controller extends Controller
 
 	public function create(Request $request)
 	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==26)
+					$data['detil'][$item->kode_menu_detil]='a';
+		}
+
 		$data['username'] = '';
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
-		if($data['kode']!=null){
-			$rowData = DB::select('select * from bkt_01010109_kmp_slum_prog where kode='.$data['kode']);
-			$data['kode_kmp'] = $rowData[0]->kode_kmp;
-			$data['kode_slum_prog'] = $rowData[0]->kode_slum_prog;
-			$data['created_time'] = $rowData[0]->created_time;
-			$data['created_by'] = $rowData[0]->created_by;
-			$data['updated_time'] = $rowData[0]->updated_time;
-			$data['updated_by'] = $rowData[0]->updated_by;
-		}else{
-			$data['kode_kmp'] = null;
-			$data['kode_slum_prog'] = null;
-			$data['created_time'] = null;
-			$data['created_by'] = null;
-			$data['updated_time'] = null;
-			$data['updated_by'] = null;
-		}
 
 		//get dropdown list from Database
 		$kode_kmp = DB::select('select kode, nama from bkt_01010108_kmp');
@@ -169,11 +162,30 @@ class bk010109Controller extends Controller
 		$kode_slum_prog = DB::select('select kode, nama from bkt_01010107_slum_program');
 		$data['kode_slum_prog_list'] = $kode_slum_prog;
 
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
+		if($data['kode']!=null && !empty($data['detil']['38'])){
+			$rowData = DB::select('select * from bkt_01010109_kmp_slum_prog where kode='.$data['kode']);
+			$data['kode_kmp'] = $rowData[0]->kode_kmp;
+			$data['kode_slum_prog'] = $rowData[0]->kode_slum_prog;
+			$data['created_time'] = $rowData[0]->created_time;
+			$data['created_by'] = $rowData[0]->created_by;
+			$data['updated_time'] = $rowData[0]->updated_time;
+			$data['updated_by'] = $rowData[0]->updated_by;
+			return view('MAIN/bk010109/create',$data);
+		}else if($data['kode']==null && !empty($data['detil']['37'])){
+			$data['kode_kmp'] = null;
+			$data['kode_slum_prog'] = null;
+			$data['created_time'] = null;
+			$data['created_by'] = null;
+			$data['updated_time'] = null;
+			$data['updated_by'] = null;
+
 		return view('MAIN/bk010109/create',$data);
+			}else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
 	}
 
 	public function post_create(Request $request)

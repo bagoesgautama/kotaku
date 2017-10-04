@@ -101,8 +101,8 @@ class bk010114Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. 'where name like "%'.$search.'%" or email like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. 'where name like "%'.$search.'%" or email like "%'.$search.'%") a');
+			$posts=DB::select($query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
 		}
 
 		$data = array();
@@ -168,10 +168,39 @@ class bk010114Controller extends Controller
 
 	public function create(Request $request)
 	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==31)
+					$data['detil'][$item->kode_menu_detil]='a';
+		}
+
 		$data['username'] = '';
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
-		if($data['kode']!=null){
+
+		//get dropdown list from Database
+		$kode_kmp_slum_program = DB::select('select kode from bkt_01010107_slum_program');
+		$data['kode_kmp_slum_program_list'] = $kode_kmp_slum_program;
+
+		$kode_faskel = DB::select('select kode, nama from bkt_01010113_faskel');
+		$data['kode_faskel_list'] = $kode_faskel;
+
+		$kode_kel = DB::select('select kode, nama from bkt_01010104_kel');
+		$data['kode_kel_list'] = $kode_kel;
+
+		$kode_kec = DB::select('select kode, nama from bkt_01010103_kec');
+		$data['kode_kec_list'] = $kode_kec;
+
+		$kode_kota = DB::select('select kode, nama from bkt_01010102_kota');
+		$data['kode_kota_list'] = $kode_kota;
+
+		$kode_prop = DB::select('select kode, nama from bkt_01010101_prop');
+		$data['kode_prop_list'] = $kode_prop;
+
+		if($data['kode']!=null && !empty($data['detil']['58'])){
 			$rowData = DB::select('select * from bkt_01010114_kel_faskel where kode='.$data['kode']);
 			$data['kode_kmp_slum_prog'] = $rowData[0]->kode_kmp_slum_prog;
 			$data['kode_faskel'] = $rowData[0]->kode_faskel;
@@ -193,7 +222,8 @@ class bk010114Controller extends Controller
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
 			$data['updated_by'] = $rowData[0]->updated_by;
-		}else{
+			return view('MAIN/bk010114/create',$data);
+		}else if($data['kode']==null && !empty($data['detil']['57'])){
 			$data['kode_kmp_slum_prog'] = null;
 			$data['kode_faskel'] = null;
 			$data['kode_kel'] = null;
@@ -214,32 +244,14 @@ class bk010114Controller extends Controller
 			$data['created_by'] = null;
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
-		}
-
-		//get dropdown list from Database
-		$kode_kmp_slum_program = DB::select('select kode from bkt_01010107_slum_program');
-		$data['kode_kmp_slum_program_list'] = $kode_kmp_slum_program;
-
-		$kode_faskel = DB::select('select kode, nama from bkt_01010113_faskel');
-		$data['kode_faskel_list'] = $kode_faskel;
-
-		$kode_kel = DB::select('select kode, nama from bkt_01010104_kel');
-		$data['kode_kel_list'] = $kode_kel;
-
-		$kode_kec = DB::select('select kode, nama from bkt_01010103_kec');
-		$data['kode_kec_list'] = $kode_kec;
-
-		$kode_kota = DB::select('select kode, nama from bkt_01010102_kota');
-		$data['kode_kota_list'] = $kode_kota;
-
-		$kode_prop = DB::select('select kode, nama from bkt_01010101_prop');
-		$data['kode_prop_list'] = $kode_prop;
-
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
+		
 		return view('MAIN/bk010114/create',$data);
+			}else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
 	}
 
 	public function post_create(Request $request)

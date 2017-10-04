@@ -144,10 +144,27 @@ class bk010112Controller extends Controller
 
 	public function create(Request $request)
 	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==29)
+					$data['detil'][$item->kode_menu_detil]='a';
+		}
+
 		$data['username'] = '';
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
-		if($data['kode']!=null){
+		
+		//get dropdown list from Database
+		$kode_korkot_list = DB::select('select kode, nama from bkt_01010111_korkot');
+		$data['kode_korkot_list'] = $kode_korkot_list;
+
+		$kode_kota_list = DB::select('select kode, nama from bkt_01010102_kota');
+		$data['kode_kota_list'] = $kode_kota_list;
+
+		if($data['kode']!=null && !empty($data['detil']['50'])){
 			$rowData = DB::select('select * from bkt_01010112_kota_korkot where kode='.$data['kode']);
 			$data['kode_korkot'] = $rowData[0]->kode_korkot;
 			$data['kode_kota'] = $rowData[0]->kode_kota;
@@ -157,7 +174,8 @@ class bk010112Controller extends Controller
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
 			$data['updated_by'] = $rowData[0]->updated_by;
-		}else{
+			return view('MAIN/bk010112/create',$data);
+		}else if($data['kode']==null && !empty($data['detil']['49'])){
 			$data['kode_korkot'] = null;
 			$data['kode_kota'] = null;
 			$data['ms_kode'] = null;
@@ -166,20 +184,14 @@ class bk010112Controller extends Controller
 			$data['created_by'] = null;
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
-		}
 
-		//get dropdown list from Database
-		$kode_korkot_list = DB::select('select kode, nama from bkt_01010111_korkot');
-		$data['kode_korkot_list'] = $kode_korkot_list;
-
-		$kode_kota_list = DB::select('select kode, nama from bkt_01010102_kota');
-		$data['kode_kota_list'] = $kode_kota_list;
-
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
 		return view('MAIN/bk010112/create',$data);
+			}else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
 	}
 
 	public function post_create(Request $request)

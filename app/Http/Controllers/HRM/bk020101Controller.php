@@ -41,7 +41,7 @@ class bk020101Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
-				return view('MAIN/bk010101/index',$data);
+				return view('HRM/bk020101/index',$data);
 			}
 			else {
 				return Redirect::to('/');
