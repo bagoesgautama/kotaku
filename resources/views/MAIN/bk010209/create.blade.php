@@ -14,7 +14,7 @@
             </li>
             <li class="next">
                 <a href="/main/persiapan/kota/pokja/kegiatan">
-                    Persiapan / Kota atau Kabupaten / Sosialisasi & Relawan
+                    Persiapan / Kota atau Kabupaten / Forum Kota / BKM atau LKM
                 </a>
             </li>
             <li class="next">
@@ -33,6 +33,15 @@
                 <div class="col-sm-6">
                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                     <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Tingkat Forum</label>
+                <div class="col-sm-6">
+                    <select id="tk-forum-input" name="tk-forum-input" class="form-control" size="1">
+                        <option value="1" {!! $tk_forum=='1' ? 'selected':'' !!}>Kota</option>
+                        <option value="2" {!! $tk_forum=='2' ? 'selected':'' !!}>Kecamatan</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group striped-col">
