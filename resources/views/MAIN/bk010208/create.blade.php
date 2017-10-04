@@ -13,7 +13,7 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/persiapan/kota/pokja/kegiatan">
+                <a href="/main/persiapan/kota/kegiatan/sosialisasi">
                     Persiapan / Kota atau Kabupaten / Sosialisasi & Relawan
                 </a>
             </li>

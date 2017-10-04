@@ -185,10 +185,24 @@ class bk010107Controller extends Controller
 
 	public function create(Request $request)
 	{
-		$data['username'] = '';
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==24)
+					$data['detil'][$item->kode_menu_detil]='a';
+		}
+
+		$data['username'] = $user->name;
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
-		if($data['kode']!=null){
+
+		//get dropdown list from Database
+		$kode_kota = DB::select('select kode, nama from bkt_01010102_kota where status=1');
+		$data['kode_kota_list'] = $kode_kota;
+		
+		if($data['kode']!=null && !empty($data['detil']['30'])){
 			$rowData = DB::select('select * from bkt_01010107_slum_program where kode='.$data['kode']);
 			$data['nourut'] = $rowData[0]->nourut;
 			$data['nama'] = $rowData[0]->nama;
@@ -217,7 +231,8 @@ class bk010107Controller extends Controller
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
 			$data['updated_by'] = $rowData[0]->updated_by;
-		}else{
+			return view('MAIN/bk010107/create',$data);
+		}else if($data['kode']==null && !empty($data['detil']['29'])){
 			$data['nourut'] = null;
 			$data['nama'] = null;
 			$data['keterangan'] = null;
@@ -245,17 +260,14 @@ class bk010107Controller extends Controller
 			$data['created_by'] = null;
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
-		}
 
-		//get dropdown list from Database
-		$kode_kota = DB::select('select kode, nama from bkt_01010102_kota where status=1');
-		$data['kode_kota_list'] = $kode_kota;
-
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
+			return view('MAIN/bk010107/create',$data);
+			}else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
 		}
-		return view('MAIN/bk010107/create',$data);
 	}
 
 

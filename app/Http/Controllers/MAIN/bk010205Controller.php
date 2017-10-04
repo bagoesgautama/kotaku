@@ -41,6 +41,8 @@ class bk010205Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
+
+				$this->log_aktivitas('View', 107);
 				return view('MAIN/bk010205/index',$data);
 			}
 			else {
@@ -214,4 +216,17 @@ class bk010205Controller extends Controller
 	// 	DB::table('bkt_02010101_role_level')->where('kode', $request->input('kode'))->delete();
  //        return Redirect::to('/hrm/role_level');
  //    }
+
+	public function log_aktivitas($aktifitas, $detil)
+    {
+    	DB::table('bkt_02030201_log_aktivitas')->insert([
+				'kode_user' => Auth::user()->id,
+				'kode_apps' => 1,
+				'kode_modul' => 5, 
+				'kode_menu' => 40,   
+				'kode_menu_detil' => $detil, 
+				'aktifitas' => $aktifitas, 
+				'deskripsi' => $aktifitas
+       			]);
+    }
 }

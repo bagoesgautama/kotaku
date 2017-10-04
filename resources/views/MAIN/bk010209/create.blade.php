@@ -13,8 +13,8 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/persiapan/kota/pokja/kegiatan">
-                    Persiapan / Kota atau Kabupaten / Sosialisasi & Relawan
+                <a href="/main/persiapan/kota/forum/bkm">
+                    Persiapan / Kota atau Kabupaten / Forum Kota / BKM atau LKM
                 </a>
             </li>
             <li class="next">
@@ -33,6 +33,15 @@
                 <div class="col-sm-6">
                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                     <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Tingkat Forum</label>
+                <div class="col-sm-6">
+                    <select id="tk-forum-input" name="tk-forum-input" class="form-control" size="1">
+                        <option value="1" {!! $tk_forum=='1' ? 'selected':'' !!}>Kota</option>
+                        <option value="2" {!! $tk_forum=='2' ? 'selected':'' !!}>Kecamatan</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -127,7 +136,7 @@
             </div>
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <a href="/main/persiapan/kota/kegiatan/sosialisasi" type="button" class="btn btn-effect-ripple btn-danger">
+                    <a href="/main/persiapan/kota/forum/bkm" type="button" class="btn btn-effect-ripple btn-danger">
                         Cancel
                     </a>
                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">

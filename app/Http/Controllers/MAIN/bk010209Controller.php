@@ -17,7 +17,7 @@ class bk010209Controller extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
         // parent::__construct();
     }
 
@@ -41,6 +41,8 @@ class bk010209Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
+
+				$this->log_aktivitas('View', 114);
 				return view('MAIN/bk010209/index',$data);
 			}
 			else {
@@ -63,7 +65,7 @@ class bk010209Controller extends Controller
 			5 =>'tgl_kegiatan',
 			6 =>'lok_kegiatan'
 		);
-		$query='select bkt_01020207_bkm_kota.kode, bkt_01020207_bkm_kota.tahun, bkt_01010102_kota.nama as kode_kota, bkt_01010111_korkot.nama as kode_korkot, bkt_01010103_kec.nama as kode_kec, bkt_01020207_bkm_kota.jenis_kegiatan, bkt_01020207_bkm_kota.tgl_kegiatan, bkt_01020207_bkm_kota.lok_kegiatan from bkt_01020207_bkm_kota inner join bkt_01010102_kota on bkt_01020207_bkm_kota.kode_kota = bkt_01010102_kota.kode inner join bkt_01010111_korkot on bkt_01020207_bkm_kota.kode_korkot = bkt_01010111_korkot.kode inner join bkt_01010103_kec on bkt_01020207_bkm_kota.kode_kec = bkt_01010103_kec.kode';
+		$query='select bkt_01020207_bkm_kota.kode, bkt_01020207_bkm_kota.tahun, bkt_01010102_kota.nama as kode_kota, bkt_01010111_korkot.nama as kode_korkot, bkt_01010103_kec.nama as kode_kec, bkt_01020207_bkm_kota.jenis_kegiatan, bkt_01020207_bkm_kota.tgl_kegiatan, bkt_01020207_bkm_kota.lok_kegiatan from bkt_01020207_bkm_kota inner join bkt_01010102_kota on bkt_01020207_bkm_kota.kode_kota = bkt_01010102_kota.kode inner join bkt_01010111_korkot on bkt_01020207_bkm_kota.kode_korkot = bkt_01010111_korkot.kode inner join bkt_01010103_kec on bkt_01020207_bkm_kota.kode_kec = bkt_01010103_kec.kode where bkt_01020207_bkm_kota.tk_forum = 1';
 		$totalData = DB::select('select count(1) cnt from bkt_01020207_bkm_kota ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -152,6 +154,7 @@ class bk010209Controller extends Controller
 			if($data['kode']!=null && !empty($data['detil']['155'])){
 				$rowData = DB::select('select * from bkt_01020207_bkm_kota where kode='.$data['kode']);
 				$data['tahun'] = $rowData[0]->tahun;
+				$data['tk_forum'] = $rowData[0]->tk_forum;
 				$data['kode_kota'] = $rowData[0]->kode_kota;
 				$data['kode_korkot'] = $rowData[0]->kode_korkot;
 				$data['kode_kec'] = $rowData[0]->kode_kec;
@@ -176,6 +179,7 @@ class bk010209Controller extends Controller
 				return view('MAIN/bk010209/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['154'])){
 				$data['tahun'] = null;
+				$data['tk_forum'] = null;
 				$data['kode_kota'] = null;
 				$data['kode_korkot'] = null;
 				$data['kode_kec'] = null;
@@ -213,11 +217,12 @@ class bk010209Controller extends Controller
 			DB::table('bkt_01020207_bkm_kota')->where('kode', $request->input('kode'))
 			->update([
 				'tahun' => $request->input('tahun-input'),
+				'tk_forum' => $request->input('tk-forum-input'),
 				'kode_kota' => $request->input('kode-kota-input'),
 				'kode_korkot' => $request->input('kode-korkot-input'), 
 				'kode_kec' => $request->input('kode-kec-input'),   
 				'jenis_kegiatan' => $request->input('jns-kegiatan-input'), 
-				'tgl_kegiatan' => $request->input('tgl-kegiatan-input'), 
+				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_anggota_p' => $request->input('q-laki-input'),
 				'q_anggota_w' => $request->input('q-perempuan-input'),
@@ -231,9 +236,12 @@ class bk010209Controller extends Controller
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
 
+			$this->log_aktivitas('Update', 155);
+
 		}else{
 			DB::table('bkt_01020207_bkm_kota')->insert([
 				'tahun' => $request->input('tahun-input'),
+				'tk_forum' => $request->input('tk-forum-input'),
 				'kode_kota' => $request->input('kode-kota-input'),
 				'kode_korkot' => $request->input('kode-korkot-input'), 
 				'kode_kec' => $request->input('kode-kec-input'),   
@@ -250,6 +258,8 @@ class bk010209Controller extends Controller
 				'diver_oleh' => $request->input('diver-oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
+
+			$this->log_aktivitas('Create', 154);
 		}
 	}
 
@@ -262,6 +272,20 @@ class bk010209Controller extends Controller
 	public function delete(Request $request)
 	{
 		DB::table('bkt_01020207_bkm_kota')->where('kode', $request->input('kode'))->delete();
+		$this->log_aktivitas('Delete', 156);
         return Redirect::to('/main/persiapan/kota/forum/bkm');
+    }
+
+    public function log_aktivitas($aktifitas, $detil)
+    {
+    	DB::table('bkt_02030201_log_aktivitas')->insert([
+				'kode_user' => Auth::user()->id,
+				'kode_apps' => 1,
+				'kode_modul' => 5, 
+				'kode_menu' => 54,   
+				'kode_menu_detil' => $detil, 
+				'aktifitas' => $aktifitas, 
+				'deskripsi' => $aktifitas
+       			]);
     }
 }

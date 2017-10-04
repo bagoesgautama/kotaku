@@ -75,7 +75,7 @@ class bk010113Controller extends Controller
 			5 =>'updated_time',
 			6 =>'updated_by'
 		);
-		$query='select a.*, b.nama nama_kmw, c.nama nama_korkot from bkt_01010113_faskel a, bkt_01010110_kmw b, bkt_01010111_korkot c where a.kode_kmw=b.kode and a.kode_korkot=b.kode ';
+		$query='select a.*, b.nama nama_kmw, c.nama nama_korkot from bkt_01010113_faskel a, bkt_01010110_kmw b, bkt_01010111_korkot c where (b.kode = a.kode_kmw and c.kode = a.kode_korkot) ';
 		$totalData = DB::select('select count(1) cnt from bkt_01010113_faskel ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -101,7 +101,7 @@ class bk010113Controller extends Controller
 				$edit =  $post->kode;
 				$delete = $post->kode;
 				$url_edit=url('/')."/main/faskel/create?kode=".$show;
-				$url_delete=url('/')."/main/fasle;/delete?kode=".$delete;
+				$url_delete=url('/')."/main/faskel/delete?kode=".$delete;
 				$nestedData['nama_kmw'] = $post->nama_kmw;
 				$nestedData['nama_korkot'] = $post->nama_korkot;
 				$nestedData['nama'] = $post->nama;
@@ -142,10 +142,27 @@ class bk010113Controller extends Controller
 
 	public function create(Request $request)
 	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==30)
+					$data['detil'][$item->kode_menu_detil]='a';
+		}
+
 		$data['username'] = '';
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
-		if($data['kode']!=null){
+		
+		//get dropdown list from Database
+		$kode_kmw_list = DB::select('select kode, nama from bkt_01010110_kmw');
+		$data['kode_kmw_list'] = $kode_kmw_list;
+
+		$kode_korkot_list = DB::select('select kode, nama from bkt_01010111_korkot');
+		$data['kode_korkot_list'] = $kode_korkot_list;
+
+		if($data['kode']!=null && !empty($data['detil']['54'])){
 			$rowData = DB::select('select * from bkt_01010113_faskel where kode='.$data['kode']);
 			$data['kode_kmw'] = $rowData[0]->kode_kmw;
 			$data['kode_korkot'] = $rowData[0]->kode_korkot;
@@ -154,7 +171,8 @@ class bk010113Controller extends Controller
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
 			$data['updated_by'] = $rowData[0]->updated_by;
-		}else{
+			return view('MAIN/bk010113/create',$data);
+		}else if($data['kode']==null && !empty($data['detil']['53'])){
 			$data['kode_kmw'] = null;
 			$data['kode_korkot'] = null;
 			$data['nama'] = null;
@@ -162,20 +180,14 @@ class bk010113Controller extends Controller
 			$data['created_by'] = null;
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
-		}
 
-		//get dropdown list from Database
-		$kode_kmw_list = DB::select('select kode, nama from bkt_01010110_kmw');
-		$data['kode_kmw_list'] = $kode_kmw_list;
-
-		$kode_korkot_list = DB::select('select kode, nama from bkt_01010111_korkot');
-		$data['kode_korkot_list'] = $kode_korkot_list;
-
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
 		return view('MAIN/bk010113/create',$data);
+			}else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
 	}
 
 	public function post_create(Request $request)

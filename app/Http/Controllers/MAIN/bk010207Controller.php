@@ -17,7 +17,7 @@ class bk010207Controller extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
         // parent::__construct();
     }
 
@@ -41,6 +41,8 @@ class bk010207Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
+
+				$this->log_aktivitas('View', 80);
 				return view('MAIN/bk010207/index',$data);
 			}
 			else {
@@ -204,7 +206,7 @@ class bk010207Controller extends Controller
 			->update([
 				'kode_pokja_kota' => $request->input('kode-pokja-kota-input'), 
 				'jenis_subkegiatan' => $request->input('sub-kegiatan-input'), 
-				'tgl_kegiatan' => $request->input('tgl-kegiatan-input'), 
+				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
@@ -220,6 +222,8 @@ class bk010207Controller extends Controller
 				'updated_by' => Auth::user()->id, 
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
+
+			$this->log_aktivitas('Update', 82);
 
 		}else{
 			DB::table('bkt_01020205_f_pokja_kota')->insert([
@@ -240,6 +244,8 @@ class bk010207Controller extends Controller
 				'diver_oleh' => $request->input('diver-oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
+
+			$this->log_aktivitas('Create', 81);
 		}
 	}
 
@@ -252,6 +258,20 @@ class bk010207Controller extends Controller
 	public function delete(Request $request)
 	{
 		DB::table('bkt_01020205_f_pokja_kota')->where('kode', $request->input('kode'))->delete();
+		$this->log_aktivitas('Delete', 83);
         return Redirect::to('/main/persiapan/kota/pokja/kegiatan');
+    }
+
+    public function log_aktivitas($aktifitas, $detil)
+    {
+    	DB::table('bkt_02030201_log_aktivitas')->insert([
+				'kode_user' => Auth::user()->id,
+				'kode_apps' => 1,
+				'kode_modul' => 5, 
+				'kode_menu' => 52,   
+				'kode_menu_detil' => $detil, 
+				'aktifitas' => $aktifitas, 
+				'deskripsi' => $aktifitas
+       			]);
     }
 }

@@ -13,8 +13,8 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/persiapan/kota/pokja/kegiatan">
-                    Persiapan / Kota atau Kabupaten / Sosialisasi & Relawan
+                <a href="/main/persiapan/kota/forum/kolaborasi">
+                    Persiapan / Kota atau Kabupaten / Forum Kota / Kolaborasi
                 </a>
             </li>
             <li class="next">
@@ -33,6 +33,15 @@
                 <div class="col-sm-6">
                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                     <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Tingkat Forum</label>
+                <div class="col-sm-6">
+                    <select id="tk-forum-input" name="tk-forum-input" class="form-control" size="1">
+                        <option value="1" {!! $tk_forum=='1' ? 'selected':'' !!}>Kota</option>
+                        <option value="2" {!! $tk_forum=='2' ? 'selected':'' !!}>Kecamatan</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -89,13 +98,19 @@
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                 <div class="col-sm-6">
-                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}">
+                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_p}}">
                 </div>
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                 <div class="col-sm-6">
-                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}">
+                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_w}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="kode">Anggota BKM</label>
+                <div class="col-sm-6">
+                    <input type="number" id="q-bkm-input" name="q-bkm-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_bkm}}">
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -127,7 +142,7 @@
             </div>
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <a href="/main/persiapan/kota/kegiatan/sosialisasi" type="button" class="btn btn-effect-ripple btn-danger">
+                    <a href="/main/persiapan/kota/forum/kolaborasi" type="button" class="btn btn-effect-ripple btn-danger">
                         Cancel
                     </a>
                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -152,14 +167,14 @@
           e.preventDefault();
           $.ajax({
             type: 'post',
-            "url": "/main/persiapan/kota/kegiatan/sosialisasi/create",
+            "url": "/main/persiapan/kota/forum/kolaborasi/create",
             data: $('form').serialize(),
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
             },
             success: function () {
             alert('From Submitted.');
-            window.location.href = "/main/persiapan/kota/kegiatan/sosialisasi";
+            window.location.href = "/main/persiapan/kota/forum/kolaborasi";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
