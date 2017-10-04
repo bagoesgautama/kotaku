@@ -159,10 +159,19 @@ class bk010108Controller extends Controller
 
 	public function create(Request $request)
 	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==25)
+					$data['detil'][$item->kode_menu_detil]='a';
+		}
+
 		$data['username'] = '';
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
-		if($data['kode']!=null){
+		if($data['kode']!=null && !empty($data['detil']['34'])){
 			$rowData = DB::select('select * from bkt_01010108_kmp where kode='.$data['kode']);
 			$data['nama'] = $rowData[0]->nama;
 			$data['alamat'] = $rowData[0]->alamat;
@@ -179,7 +188,8 @@ class bk010108Controller extends Controller
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
 			$data['updated_by'] = $rowData[0]->updated_by;
-		}else{
+			return view('MAIN/bk010108/create',$data);
+		}else if($data['kode']==null && !empty($data['detil']['33'])){
 			$data['nama'] = null;
 			$data['alamat'] = null;
 			$data['kodepos'] = null;
@@ -195,12 +205,14 @@ class bk010108Controller extends Controller
 			$data['created_by'] = null;
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
-		}
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
+		
 		return view('MAIN/bk010108/create',$data);
+			}else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
 	}
 
 	public function post_create(Request $request)
