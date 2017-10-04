@@ -64,7 +64,7 @@ class bk010210Controller extends Controller
 			5 =>'tgl_kegiatan',
 			6 =>'lok_kegiatan'
 		);
-		$query='select bkt_01020208_kolab_kota.kode, bkt_01020208_kolab_kota.tahun, bkt_01010102_kota.nama as kode_kota, bkt_01010111_korkot.nama as kode_korkot, bkt_01010103_kec.nama as kode_kec, bkt_01020208_kolab_kota.jenis_kegiatan, bkt_01020208_kolab_kota.tgl_kegiatan, bkt_01020208_kolab_kota.lok_kegiatan from bkt_01020208_kolab_kota inner join bkt_01010102_kota on bkt_01020208_kolab_kota.kode_kota = bkt_01010102_kota.kode inner join bkt_01010111_korkot on bkt_01020208_kolab_kota.kode_korkot = bkt_01010111_korkot.kode inner join bkt_01010103_kec on bkt_01020208_kolab_kota.kode_kec = bkt_01010103_kec.kode';
+		$query='select bkt_01020208_kolab_kota.kode, bkt_01020208_kolab_kota.tahun, bkt_01010102_kota.nama as kode_kota, bkt_01010111_korkot.nama as kode_korkot, bkt_01010103_kec.nama as kode_kec, bkt_01020208_kolab_kota.jenis_kegiatan, bkt_01020208_kolab_kota.tgl_kegiatan, bkt_01020208_kolab_kota.lok_kegiatan from bkt_01020208_kolab_kota inner join bkt_01010102_kota on bkt_01020208_kolab_kota.kode_kota = bkt_01010102_kota.kode inner join bkt_01010111_korkot on bkt_01020208_kolab_kota.kode_korkot = bkt_01010111_korkot.kode inner join bkt_01010103_kec on bkt_01020208_kolab_kota.kode_kec = bkt_01010103_kec.kode where bkt_01020208_kolab_kota.tk_forum = 1';
 		$totalData = DB::select('select count(1) cnt from bkt_01020208_kolab_kota ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -153,7 +153,7 @@ class bk010210Controller extends Controller
 			if($data['kode']!=null && !empty($data['detil']['158'])){
 				$rowData = DB::select('select * from bkt_01020208_kolab_kota where kode='.$data['kode']);
 				$data['tahun'] = $rowData[0]->tahun;
-				// $data['tk_forum'] = $rowData[0]->tk_forum;
+				$data['tk_forum'] = $rowData[0]->tk_forum;
 				$data['kode_kota'] = $rowData[0]->kode_kota;
 				$data['kode_korkot'] = $rowData[0]->kode_korkot;
 				$data['kode_kec'] = $rowData[0]->kode_kec;
@@ -179,7 +179,7 @@ class bk010210Controller extends Controller
 				return view('MAIN/bk010210/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['157'])){
 				$data['tahun'] = null;
-				// $data['tk_forum'] = null;
+				$data['tk_forum'] = null;
 				$data['kode_kota'] = null;
 				$data['kode_korkot'] = null;
 				$data['kode_kec'] = null;
@@ -218,12 +218,12 @@ class bk010210Controller extends Controller
 			DB::table('bkt_01020208_kolab_kota')->where('kode', $request->input('kode'))
 			->update([
 				'tahun' => $request->input('tahun-input'),
-				// 'tk_forum' => $request->input('tk-forum-input'),
+				'tk_forum' => $request->input('tk-forum-input'),
 				'kode_kota' => $request->input('kode-kota-input'),
 				'kode_korkot' => $request->input('kode-korkot-input'), 
 				'kode_kec' => $request->input('kode-kec-input'),   
 				'jenis_kegiatan' => $request->input('jns-kegiatan-input'), 
-				'tgl_kegiatan' => $request->input('tgl-kegiatan-input'), 
+				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_anggota_p' => $request->input('q-laki-input'),
 				'q_anggota_w' => $request->input('q-perempuan-input'),
@@ -243,7 +243,7 @@ class bk010210Controller extends Controller
 		}else{
 			DB::table('bkt_01020208_kolab_kota')->insert([
 				'tahun' => $request->input('tahun-input'),
-				// 'tk_forum' => $request->input('tk-forum-input'),
+				'tk_forum' => $request->input('tk-forum-input'),
 				'kode_kota' => $request->input('kode-kota-input'),
 				'kode_korkot' => $request->input('kode-korkot-input'), 
 				'kode_kec' => $request->input('kode-kec-input'),   

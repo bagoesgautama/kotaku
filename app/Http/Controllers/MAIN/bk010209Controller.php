@@ -222,7 +222,7 @@ class bk010209Controller extends Controller
 				'kode_korkot' => $request->input('kode-korkot-input'), 
 				'kode_kec' => $request->input('kode-kec-input'),   
 				'jenis_kegiatan' => $request->input('jns-kegiatan-input'), 
-				'tgl_kegiatan' => $request->input('tgl-kegiatan-input'), 
+				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_anggota_p' => $request->input('q-laki-input'),
 				'q_anggota_w' => $request->input('q-perempuan-input'),

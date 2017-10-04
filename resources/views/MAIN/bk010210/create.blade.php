@@ -13,7 +13,7 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/persiapan/kota/pokja/kegiatan">
+                <a href="/main/persiapan/kota/forum/kolaborasi">
                     Persiapan / Kota atau Kabupaten / Forum Kota / Kolaborasi
                 </a>
             </li>
@@ -35,7 +35,15 @@
                     <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}">
                 </div>
             </div>
-            
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Tingkat Forum</label>
+                <div class="col-sm-6">
+                    <select id="tk-forum-input" name="tk-forum-input" class="form-control" size="1">
+                        <option value="1" {!! $tk_forum=='1' ? 'selected':'' !!}>Kota</option>
+                        <option value="2" {!! $tk_forum=='2' ? 'selected':'' !!}>Kecamatan</option>
+                    </select>
+                </div>
+            </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label">Kode Kota</label>
                 <div class="col-sm-6">
@@ -70,8 +78,8 @@
                 <label class="col-sm-3 control-label">Jenis kegiatan</label>
                 <div class="col-sm-6">
                     <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1">
-                        <option value="2.4.3" {!! $jenis_kegiatan=='2.4.3' ? 'selected':'' !!}>LKM/BKM Kota</option>
-                        <option value="2.4.4" {!! $jenis_kegiatan=='2.4.4' ? 'selected':'' !!}>LKM/BKM Kecamatan</option>
+                        <option value="2.4.1" {!! $jenis_kegiatan=='2.4.1' ? 'selected':'' !!}>Sosialisasi Tingkat Kota</option>
+                        <option value="2.4.2" {!! $jenis_kegiatan=='2.4.2' ? 'selected':'' !!}>Relawan Kota</option>
                     </select>
                 </div>
             </div>
@@ -134,7 +142,7 @@
             </div>
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <a href="/main/persiapan/kota/kegiatan/sosialisasi" type="button" class="btn btn-effect-ripple btn-danger">
+                    <a href="/main/persiapan/kota/forum/kolaborasi" type="button" class="btn btn-effect-ripple btn-danger">
                         Cancel
                     </a>
                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">

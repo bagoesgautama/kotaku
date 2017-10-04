@@ -13,7 +13,7 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/persiapan/kota/pokja/kegiatan">
+                <a href="/main/persiapan/kota/forum/bkm">
                     Persiapan / Kota atau Kabupaten / Forum Kota / BKM atau LKM
                 </a>
             </li>
@@ -136,7 +136,7 @@
             </div>
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <a href="/main/persiapan/kota/kegiatan/sosialisasi" type="button" class="btn btn-effect-ripple btn-danger">
+                    <a href="/main/persiapan/kota/forum/bkm" type="button" class="btn btn-effect-ripple btn-danger">
                         Cancel
                     </a>
                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">

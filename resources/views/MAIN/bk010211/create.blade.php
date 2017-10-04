@@ -13,8 +13,8 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/persiapan/kota/pokja/kegiatan">
-                    Persiapan / Kota atau Kabupaten / Sosialisasi & Relawan
+                <a href="/main/persiapan/kota/forum/f_forum">
+                    Persiapan / Kota atau Kabupaten / Forum Kota / Keberfungsian Forum
                 </a>
             </li>
             <li class="next">
@@ -29,48 +29,41 @@
     <form enctype="multipart/form-data" class="form-horizontal form-bordered">
         <div class="row">
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="kode">Tahun</label>
+                <label class="col-sm-3 control-label" for="kode">Jenis Forum</label>
                 <div class="col-sm-6">
                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                    <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}">
+                    <select id="jns-forum-input" name="jns-forum-input" class="form-control" size="1">
+                        <option value="1" {!! $jns_forum=='1' ? 'selected':'' !!}>BKM/LKM Tingkat Kota</option>
+                        <option value="2" {!! $jns_forum=='2' ? 'selected':'' !!}>Kolaborasi Tingkat Kota</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Kode Kota</label>
+                <label class="col-sm-3 control-label">Kode BKM</label>
                 <div class="col-sm-6">
-                    <select id="kode-kota-input" name="kode-kota-input" class="form-control" size="1">
-                        @foreach ($kode_kota_list as $kkl)
-                            <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                    <select id="kode-bkm-input" name="kode-bkm-input" class="form-control" size="1">
+                        @foreach ($kode_bkm_list as $kbl)
+                            <option value="{{$kbl->kode}}" {!! $kode_bkm==$kbl->kode ? 'selected':'' !!}>{{$kbl->kode}}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Kode Korkot</label>
+                <label class="col-sm-3 control-label">Kode Kolab</label>
                 <div class="col-sm-6">
-                    <select id="kode-korkot-input" name="kode-korkot-input" class="form-control" size="1">
-                        @foreach ($kode_korkot_list as $kkl)
-                            <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                    <select id="kode-kolab-input" name="kode-kolab-input" class="form-control" size="1">
+                        @foreach ($kode_kolab_list as $kkl)
+                            <option value="{{$kkl->kode}}" {!! $kode_kolab==$kkl->kode ? 'selected':'' !!}>{{$kkl->kode}}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Kode Kecamatan</label>
+                <label class="col-sm-3 control-label">Kode kegiatan</label>
                 <div class="col-sm-6">
-                    <select id="kode-kec-input" name="kode-kec-input" class="form-control" size="1">
-                        @foreach ($kode_kec_list as $kkl)
-                            <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Jenis kegiatan</label>
-                <div class="col-sm-6">
-                    <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1">
-                        <option value="2.4.1" {!! $jenis_kegiatan=='2.4.1' ? 'selected':'' !!}>Sosialisasi Tingkat Kota</option>
-                        <option value="2.4.2" {!! $jenis_kegiatan=='2.4.2' ? 'selected':'' !!}>Relawan Kota</option>
+                    <select id="kode-keg-input" name="kode-keg-input" class="form-control" size="1">
+                        <option value="0" {!! $kode_kegiatan=='0' ? 'selected':'' !!}>Rapat Internal</option>
+                        <option value="1" {!! $kode_kegiatan=='1' ? 'selected':'' !!}>Rapat Dengan Pemda</option>
                     </select>
                 </div>
             </div>
@@ -96,6 +89,12 @@
                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                 <div class="col-sm-6">
                     <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="kode">Anggota Pemda</label>
+                <div class="col-sm-6">
+                    <input type="number" id="q-pemda-input" name="q-pemda-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_pemda}}">
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -127,7 +126,7 @@
             </div>
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <a href="/main/persiapan/kota/kegiatan/sosialisasi" type="button" class="btn btn-effect-ripple btn-danger">
+                    <a href="/main/persiapan/kota/forum/forum_f" type="button" class="btn btn-effect-ripple btn-danger">
                         Cancel
                     </a>
                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -152,14 +151,14 @@
           e.preventDefault();
           $.ajax({
             type: 'post',
-            "url": "/main/persiapan/kota/kegiatan/sosialisasi/create",
+            "url": "/main/persiapan/kota/forum/forum_f/create",
             data: $('form').serialize(),
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
             },
             success: function () {
             alert('From Submitted.');
-            window.location.href = "/main/persiapan/kota/kegiatan/sosialisasi";
+            window.location.href = "/main/persiapan/kota/forum/forum_f";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

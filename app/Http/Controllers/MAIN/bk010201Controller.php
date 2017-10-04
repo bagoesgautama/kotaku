@@ -41,6 +41,8 @@ class bk010201Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
+
+				$this->log_aktivitas('View', 60);
 				return view('MAIN/bk010201/index',$data);
 			}
 			else {
@@ -263,6 +265,8 @@ class bk010201Controller extends Controller
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
 
+			$this->log_aktivitas('Update', 62);
+
 		}else{
 			DB::table('bkt_01020202_pokja')->insert([
 				'tahun' => $request->input('tahun-input'), 
@@ -292,6 +296,8 @@ class bk010201Controller extends Controller
 				'diver_oleh' => $request->input('diver-oleh-input'), 
 				'created_by' => Auth::user()->id
        			]);
+
+			$this->log_aktivitas('Create', 61);
 		}
 	}
 
@@ -304,6 +310,20 @@ class bk010201Controller extends Controller
 	public function delete(Request $request)
 	{
 		DB::table('bkt_01020202_pokja')->where('kode', $request->input('kode'))->delete();
+		$this->log_aktivitas('Delete', 63);
         return Redirect::to('/main/persiapan/nasional/pokja/pembentukan');
+    }
+
+    public function log_aktivitas($aktifitas, $detil)
+    {
+    	DB::table('bkt_02030201_log_aktivitas')->insert([
+				'kode_user' => Auth::user()->id,
+				'kode_apps' => 1,
+				'kode_modul' => 5, 
+				'kode_menu' => 47,   
+				'kode_menu_detil' => $detil, 
+				'aktifitas' => $aktifitas, 
+				'deskripsi' => $aktifitas
+       			]);
     }
 }
