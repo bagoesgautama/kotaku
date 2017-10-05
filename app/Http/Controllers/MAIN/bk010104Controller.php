@@ -18,7 +18,6 @@ class bk010104Controller extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        // parent::__construct();
     }
 
     /**
@@ -109,14 +108,15 @@ class bk010104Controller extends Controller
 			$upload = true;
 		}
 
-		if($upload == false){
+		/*if($upload == false){
 			$file = public_path('/uploads/kelurahan/'.$url);
 			$string = file_get_contents($file);
 			$json_file = json_decode($string, true);
 			$json_file['properties']['KELURAHAN'] = $request->input('nama-input');
 			$new_String = json_encode($json_file);
 			file_put_contents($file, $new_String);
-		}elseif($upload == true){
+		}else*/
+		if($upload == true){
 			$string = file_get_contents($file);
 			$json_file = json_decode($string, true);
 			$json_file['properties']['KELURAHAN'] = $request->input('nama-input');
@@ -136,88 +136,90 @@ class bk010104Controller extends Controller
 		}else{
 			DB::table('bkt_01010104_kel')->insert(
        			['nama' => $request->input('nama-input'), 'keterangan' => $request->input('keterangan-input'), 'kode_bps' => $request->input('kode-bps-input'), 'stat_kode_bps' => $request->input('stat-kode-bps-input'), 'kode_kec' => $request->input('kode-kec-input'), 'url_border_area' => $url, 'status' => $request->input('status-input'), 'latitude' => $request->input('latitude-input'), 'longitude' => $request->input('longitude-input'), 'created_by' => Auth::user()->id]);
-			$file->move(public_path('/uploads/kelurahan'), $file->getClientOriginalName());
+			if($upload == true){
+				$file->move(public_path('/uploads/kelurahan'), $file->getClientOriginalName());
+			}
 		}
-	}
-
-	public function show()
-	{
-		//$users = DB::select('select * from users ');
-		//echo json_encode($users);
-		$data['username'] = '';
-		$data['test']=true;
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
-		return view('simple',$data);
 	}
 
 	public function Post(Request $request)
 	{
-		$columns = array(
-			0 =>'nama',
-			1 =>'keterangan',
-			2 =>'kode_bps',
-			3 =>'stat_kode_bps',
-			4 =>'kode_kec',
-			5 =>'status'
-		);
-		$query='select bkt_01010104_kel.kode, bkt_01010104_kel.nama, bkt_01010104_kel.keterangan, bkt_01010104_kel.kode_bps, bkt_01010104_kel.stat_kode_bps, bkt_01010103_kec.nama as kode_kec, bkt_01010104_kel.status, bkt_01010104_kel.created_time from bkt_01010104_kel inner join bkt_01010103_kec on bkt_01010104_kel.kode_kec = bkt_01010103_kec.kode where bkt_01010104_kel.status = 0 or bkt_01010104_kel.status = 1';
-		$totalData = DB::select('select count(1) cnt from bkt_01010104_kel where bkt_01010104_kel.status = 0 or bkt_01010104_kel.status = 1');
-		$totalFiltered = $totalData[0]->cnt;
-		$limit = $request->input('length');
-		$start = $request->input('start');
-		$order = $columns[$request->input('order.0.column')];
-		$dir = $request->input('order.0.dir');
-		if(empty($request->input('search.value')))
-		{
-			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-		}
-		else {
-			$search = $request->input('search.value');
-			$posts=DB::select($query.' and bkt_01010104_kel.nama like "%'.$search.'%" or bkt_01010104_kel.keterangan like "%'.$search.'%" or bkt_01010104_kel.kode_bps like "%'.$search.'%" or bkt_01010104_kel.stat_kode_bps like "%'.$search.'%" or bkt_01010103_kec.nama like "%'.$search.'%" or bkt_01010104_kel.status like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query.' and bkt_01010104_kel.nama like "%'.$search.'%" or bkt_01010104_kel.keterangan like "%'.$search.'%" or bkt_01010104_kel.kode_bps like "%'.$search.'%" or bkt_01010104_kel.stat_kode_bps like "%'.$search.'%" or bkt_01010103_kec.nama like "%'.$search.'%" or bkt_01010104_kel.status like "%'.$search.'%") a');
-		}
-
-		$data = array();
-		if(!empty($posts))
-		{
-			foreach ($posts as $post)
-			{
-				$show =  $post->kode;
-				$edit =  $post->kode;
-				$delete = $post->kode;
-				$status = null;
-				if($post->status == 0){
-					$status = 'Tidak Aktif';
-				}elseif($post->status == 1){
-					$status = 'Aktif';
-				}elseif($post->status == 2){
-					$status = 'Dihapus';
-				}
-				$url_edit="/main/data_wilayah/kelurahan/create?kode=".$show;
-				$url_delete="/main/data_wilayah/kelurahan/delete?kode=".$delete;
-				$nestedData['nama'] = $post->nama;
-				$nestedData['keterangan'] = $post->keterangan;
-				$nestedData['kode_bps'] = $post->kode_bps;
-				$nestedData['stat_kode_bps'] = $post->stat_kode_bps;
-				$nestedData['kode_kec'] = $post->kode_kec;
-				$nestedData['status'] = $status;
-				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>
-				                          &emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				$data[] = $nestedData;
+		$akses= Auth::user()->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data2['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==23)
+					$data2['detil'][$item->kode_menu_detil]='a';
 			}
-		}
+			if(!empty($data2['detil'])){
+				$columns = array(
+					0 =>'nama',
+					1 =>'keterangan',
+					2 =>'kode_bps',
+					3 =>'stat_kode_bps',
+					4 =>'kode_kec',
+					5 =>'status'
+				);
+				$query='select bkt_01010104_kel.kode, bkt_01010104_kel.nama, bkt_01010104_kel.keterangan, bkt_01010104_kel.kode_bps, bkt_01010104_kel.stat_kode_bps, bkt_01010103_kec.nama as kode_kec, bkt_01010104_kel.status, bkt_01010104_kel.created_time from bkt_01010104_kel inner join bkt_01010103_kec on bkt_01010104_kel.kode_kec = bkt_01010103_kec.kode where bkt_01010104_kel.status = 0 or bkt_01010104_kel.status = 1';
+				$totalData = DB::select('select count(1) cnt from bkt_01010104_kel where bkt_01010104_kel.status = 0 or bkt_01010104_kel.status = 1');
+				$totalFiltered = $totalData[0]->cnt;
+				$limit = $request->input('length');
+				$start = $request->input('start');
+				$order = $columns[$request->input('order.0.column')];
+				$dir = $request->input('order.0.dir');
+				if(empty($request->input('search.value')))
+				{
+					$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+				}
+				else {
+					$search = $request->input('search.value');
+					$posts=DB::select($query.' and bkt_01010104_kel.nama like "%'.$search.'%" or bkt_01010104_kel.keterangan like "%'.$search.'%" or bkt_01010104_kel.kode_bps like "%'.$search.'%" or bkt_01010104_kel.stat_kode_bps like "%'.$search.'%" or bkt_01010103_kec.nama like "%'.$search.'%" or bkt_01010104_kel.status like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+					$totalFiltered=DB::select('select count(1) from ('.$query.' and bkt_01010104_kel.nama like "%'.$search.'%" or bkt_01010104_kel.keterangan like "%'.$search.'%" or bkt_01010104_kel.kode_bps like "%'.$search.'%" or bkt_01010104_kel.stat_kode_bps like "%'.$search.'%" or bkt_01010103_kec.nama like "%'.$search.'%" or bkt_01010104_kel.status like "%'.$search.'%") a');
+				}
 
-		$json_data = array(
+				$data = array();
+				if(!empty($posts))
+				{
+					foreach ($posts as $post)
+					{
+						$show =  $post->kode;
+						$edit =  $post->kode;
+						$delete = $post->kode;
+						$status = null;
+						if($post->status == 0){
+							$status = 'Tidak Aktif';
+						}elseif($post->status == 1){
+							$status = 'Aktif';
+						}elseif($post->status == 2){
+							$status = 'Dihapus';
+						}
+						$url_edit="/main/data_wilayah/kelurahan/create?kode=".$show;
+						$url_delete="/main/data_wilayah/kelurahan/delete?kode=".$delete;
+						$nestedData['nama'] = $post->nama;
+						$nestedData['keterangan'] = $post->keterangan;
+						$nestedData['kode_bps'] = $post->kode_bps;
+						$nestedData['stat_kode_bps'] = $post->stat_kode_bps;
+						$nestedData['kode_kec'] = $post->kode_kec;
+						$nestedData['status'] = $status;
+						$nestedData['option'] = "";
+						if(!empty($data2['detil']['26']))
+							$nestedData['option'] .="&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
+						if(!empty($data2['detil']['27']))
+							$nestedData['option'] .="&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
+						$data[] = $nestedData;
+					}
+				}
+
+				$json_data = array(
 					"draw"            => intval($request->input('draw')),
 					"recordsTotal"    => intval($totalData[0]->cnt),
 					"recordsFiltered" => intval($totalFiltered),
 					"data"            => $data
-					);
+				);
 
-		echo json_encode($json_data);
+				echo json_encode($json_data);
+			}
+		}
 	}
 
 	public function delete(Request $request)
