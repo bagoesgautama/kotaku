@@ -59,7 +59,7 @@ class bk010205Controller extends Controller
 		$columns = array(
 			0 =>'kode_kota'
 		);
-		$query='select bkt_01010102_kota.nama as kode_kota from bkv_01020201_info_kota inner join bkt_01010102_kota on bkv_01020201_info_kota.kode_kota = bkt_01010102_kota.kode';
+		$query='select bkv_01020201_info_kota.kode_kota as kode_kota, bkt_01010102_kota.nama as nama from bkv_01020201_info_kota inner join bkt_01010102_kota on bkv_01020201_info_kota.kode_kota = bkt_01010102_kota.kode';
 		$totalData = DB::select('select count(1) cnt from bkv_01020201_info_kota ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -86,7 +86,7 @@ class bk010205Controller extends Controller
 				$delete = $post->kode_kota;
 				$url_edit=url('/')."/main/persiapan/kota/info/create?kode_kota=".$show;
 				$url_delete=url('/')."/main/persiapan/kota/info/delete?kode_kota=".$delete;
-				$nestedData['kode_kota'] = $post->kode_kota;
+				$nestedData['kode_kota'] = $post->nama;
 				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='Show' ><span class='fa fa-fw fa-edit'></span></a>";
 				$data[] = $nestedData;
 			}
@@ -106,7 +106,7 @@ class bk010205Controller extends Controller
 	{
 		$data['username'] = '';
 		$data['test']=true;
-		$data['kode_kota']=$request->input('kode');
+		$data['kode_kota']=$request->input('kode_kota');
 		if($data['kode_kota']!=null){
 			$rowData = DB::select('select * from bkv_01020201_info_kota where kode_kota='.$data['kode_kota']);
 			$data['ca_q_kec'] = $rowData[0]->ca_q_kec;
@@ -138,16 +138,6 @@ class bk010205Controller extends Controller
 			$data['cpk_q_kk_miskin'] = $rowData[0]->cpk_q_kk_miskin;
 			$data['cpk_r_pdt_kpdk'] = $rowData[0]->cpk_r_pdt_kpdk;
 			$data['cpk_t_pdk_thn'] = $rowData[0]->cpk_t_pdk_thn;
-			$data['diser_tgl'] = $rowData[0]->diser_tgl;
-			$data['diser_oleh'] = $rowData[0]->diser_oleh;
-			$data['diket_tgl'] = $rowData[0]->diket_tgl;
-			$data['diket_oleh'] = $rowData[0]->diket_oleh;
-			$data['diver_tgl'] = $rowData[0]->diver_tgl;
-			$data['diver_oleh'] = $rowData[0]->diver_oleh;
-			$data['created_time'] = $rowData[0]->created_time;
-			$data['created_by'] = $rowData[0]->created_by;
-			$data['updated_time'] = $rowData[0]->updated_time;
-			$data['updated_by'] = $rowData[0]->updated_by;
 		}else{
 			$data['ca_q_kec'] = null;
 			$data['ca_q_kel'] = null;
@@ -178,16 +168,6 @@ class bk010205Controller extends Controller
 			$data['cpk_q_kk_miskin'] = null;
 			$data['cpk_r_pdt_kpdk'] = null;
 			$data['cpk_t_pdk_thn'] = null;
-			$data['diser_tgl'] = null;
-			$data['diser_oleh'] = null;
-			$data['diket_tgl'] = null;
-			$data['diket_oleh'] = null;
-			$data['diver_tgl'] = null;
-			$data['diver_oleh'] = null;
-			$data['created_time'] = null;
-			$data['created_by'] = null;
-			$data['updated_time'] = null;
-			$data['updated_by'] = null;
 		}
 		if (Auth::check()) {
 			$user = Auth::user();
