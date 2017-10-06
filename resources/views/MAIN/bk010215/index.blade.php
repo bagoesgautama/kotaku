@@ -58,7 +58,7 @@
                                 <th>Kode Kec</th>
                                 <th>Kode KMW</th>
                                 <th>Kode Korkot</th>
-                                <th>Koode Faskel</th>
+                                <th>Kode Faskel</th>
                                 <th>option</th>
                             </tr>
                         </thead>
