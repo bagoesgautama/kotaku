@@ -1,5 +1,5 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}}
-@section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/colReorder.bootstrap.css')}}" />
@@ -9,19 +9,30 @@
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/scroller.bootstrap.css')}}">
 <link href="{{asset('vendors/hover/css/hover-min.css')}}" rel="stylesheet">
 <link href="{{asset('css/buttons_sass.css')}}" rel="stylesheet">
+
 @stop {{-- Page Header--}} @section('page-header')
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>MAIN Module</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-            	<a href="/main">
-            		<i class="fa fa-fw fa-home"></i> MAIN
-            	</a>
+                <a href="/main">
+                    <i class="fa fa-fw fa-home"></i> MAIN
+                </a>
             </li>
             <li class="next">
-	            Master Data Provinsi
+                Persiapan
+            </li>
+            <li class="next">
+                Kelurahan
+            </li>
+            <li class="next">
+                Kegiatan Kelurahan
+            </li>
+            <li class="next">
+                Relawan
             </li>
         </ul>
     </div>
@@ -31,22 +42,30 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-				@if( ! empty($detil['4']))
+                <!-- <div class="panel-title pull-left">
+                    <b>bk010107 index</b>
+                </div> -->
+                @if( ! empty($detil['191']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_wilayah/provinsi/create">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/kelurahan/relawan/create' }}">Create</a>
                 </div>
-				@endif
+                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="provinsi">
+                    <table class="table table-striped" id="kegiatan">
                         <thead>
                             <tr>
-                                <th>Nama</th>
-                                <th>Nama Pendek</th>
-                                <th>Wilayah</th>
-                                <th>Status</th>
-                                <th>Option</th>
+                                <th>Kode Kota</th>
+                                <th>Kode Kec</th>
+                                <th>Kode Kel</th>
+                                <th>Kode KMW</th>
+                                <th>Kode Korkot</th>
+                                <th>Kode Faskel</th>
+                                <th>Jenis Kegiatan</th>
+                                <th>Tgl Kegiatan</th>
+                                <th>Lokasi Kegiatan</th>
+                                <th>option</th>
                             </tr>
                         </thead>
                     </table>
@@ -56,37 +75,41 @@
     </div>
 </div>
 
-@stop {{-- local scripts --}} @section('footer_scripts')
+<!-- /.modal ends here -->@stop {{-- local scripts --}} @section('footer_scripts')
+
 <script>
     $(document).ready(function () {
-        var table = $('#provinsi').DataTable({
+        var table = $('#kegiatan').DataTable({
             // dom: 'Bflrtip',
-
+            
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/data_wilayah/provinsi",
+                     "url": "/main/persiapan/kelurahan/relawan",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-                { "data": "nama" , name:"nama"},
-                { "data": "nama_pendek" , name:"nama_pendek"},
-                { "data": "wilayah" , name:"wilayah"},
-                { "data": "status" , name:"status"},
-                { "data": "option" , name:"option"}
+                { "data": "kode_kota" , name:"kode_kota"},
+                { "data": "kode_kec" , name:"kode_kec"},
+                { "data": "kode_kel" , name:"kode_kel"},
+                { "data": "kode_kmw" , name:"kode_kmw"},
+                { "data": "kode_korkot" , name:"kode_korkot"},
+                { "data": "kode_faskel" , name:"kode_faskel"},
+                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
+                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
+                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+                { "data": "option" , name:"option",orderable:false}
             ]
         });
-
-        $('#provinsi_filter input').unbind();
-		$('#provinsi_filter input').bind('keyup', function(e) {
-			if(e.keyCode == 13) {
-				table.search(this.value).draw();
-			}
-		});
-
-    });
+        $('#kegiatan_filter input').unbind();
+        $('#kegiatan_filter input').bind('keyup', function(e) {
+        if(e.keyCode == 13) {
+            table.search(this.value).draw();
+        }
+    })
+});
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>

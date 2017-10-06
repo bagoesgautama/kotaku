@@ -289,11 +289,11 @@ Route::get('/main/persiapan/kelurahan/relawan/create', 'MAIN\bk010217Controller@
 Route::post('/main/persiapan/kelurahan/relawan/create', 'MAIN\bk010217Controller@post_create');
 Route::get('/main/persiapan/kelurahan/relawan/delete', 'MAIN\bk010217Controller@delete');
 
-Route::get('/main/persiapan/kelurahan/agen_sosialilasi', 'MAIN\bk010218Controller@index');
-Route::post('/main/persiapan/kelurahan/agen_sosialilasi', 'MAIN\bk010218Controller@post');
-Route::get('/main/persiapan/kelurahan/agen_sosialilasi/create', 'MAIN\bk010218Controller@create');
-Route::post('/main/persiapan/kelurahan/agen_sosialilasi/create', 'MAIN\bk010218Controller@post_create');
-Route::get('/main/persiapan/kelurahan/agen_sosialilasi/delete', 'MAIN\bk010218Controller@delete');
+Route::get('/main/persiapan/kelurahan/agen_sosialisasi', 'MAIN\bk010218Controller@index');
+Route::post('/main/persiapan/kelurahan/agen_sosialisasi', 'MAIN\bk010218Controller@post');
+Route::get('/main/persiapan/kelurahan/agen_sosialisasi/create', 'MAIN\bk010218Controller@create');
+Route::post('/main/persiapan/kelurahan/agen_sosialisasi/create', 'MAIN\bk010218Controller@post_create');
+Route::get('/main/persiapan/kelurahan/agen_sosialisasi/delete', 'MAIN\bk010218Controller@delete');
 
 Route::get('/main/persiapan/kelurahan/pelatihan', 'MAIN\bk010219Controller@index');
 Route::post('/main/persiapan/kelurahan/pelatihan', 'MAIN\bk010219Controller@post');

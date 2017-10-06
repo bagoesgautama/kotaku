@@ -14,7 +14,7 @@
             </li>
             <li class="next">
                 <a href="/main/persiapan/kelurahan/sosialisasi">
-                    Persiapan / Kelurahan / Kegiatan Sosialisasi
+                    Persiapan / Kelurahan / Kegiatan Kelurahan / Kegiatan Sosialisasi
                 </a>
             </li>
             <li class="next">
