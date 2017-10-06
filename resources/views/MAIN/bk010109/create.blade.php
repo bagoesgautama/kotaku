@@ -44,7 +44,7 @@
 								</div>
                             </div>
 							<div class="form-group">
-				                <label class="col-sm-3 control-label" for="example-text-input2">Nama Slum Program</label>
+				                <label class="col-sm-3 control-label" for="example-text-input1">Nama Slum Program</label>
                                 <div class="col-sm-6">
                                     <select id="select22" class="form-control select2" name="example-kode_slum_prog-input" >
                                         @foreach($kode_slum_prog_list as $list)

@@ -87,8 +87,8 @@ class bk010114Controller extends Controller
 			15 =>'flag_lokasi_ppmk',
 			16 =>'created_time',
 			17 =>'created_by',
-			18 =>'update_time',
-			19 =>'update_by'
+			18 =>'updated_time',
+			19 =>'updated_by'
 		);
 		$query='select a.*, b.nama nama_faskel, c.nama nama_kel, d.nama nama_kec from bkt_01010114_kel_faskel a, bkt_01010113_faskel b, bkt_01010104_kel c, bkt_01010103_kec d where a.kode_faskel=b.kode and a.kode_kel=c.kode and a.kode_kec=d.kode';
 		$totalData = DB::select('select count(1) cnt from bkt_01010114_kel_faskel ');

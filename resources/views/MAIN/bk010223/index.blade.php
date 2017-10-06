@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}}
+@extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - TAPP @stop {{-- local styles --}}
 @section('header_styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -12,16 +12,19 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Persiapan Kelurahan - TAPP</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
             	<a href="/main">
-            		<i class="fa fa-fw fa-home"></i> MAIN
+            		<i class="fa fa-fw fa-home"></i> PERSIAPAN KELURAHAN
             	</a>
             </li>
             <li class="next">
-	            Master Data Provinsi
+	            TAPP
+            </li>
+            <li class="next">
+                Table
             </li>
         </ul>
     </div>
@@ -31,9 +34,9 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-				@if( ! empty($detil['4']))
+				@if( ! empty($detil['207']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_wilayah/provinsi/create">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/lembaga/tapp/create">Create</a>
                 </div>
 				@endif
             </div>
@@ -42,10 +45,14 @@
                     <table class="table table-striped" id="provinsi">
                         <thead>
                             <tr>
-                                <th>Nama</th>
-                                <th>Nama Pendek</th>
-                                <th>Wilayah</th>
-                                <th>Status</th>
+                                <th>Tahun</th>
+                                <th>Kota</th>
+                                <th>Korkot</th>
+                                <th>Kecamatan</th>
+                                <th>KMW</th>
+                                <th>Kelurahan</th>
+                                <th>Faskel</th>
+                                <th>Kegiatan</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -65,16 +72,20 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/data_wilayah/provinsi",
+                     "url": "/main/persiapan/kelurahan/lembaga/tapp",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-                { "data": "nama" , name:"nama"},
-                { "data": "nama_pendek" , name:"nama_pendek"},
-                { "data": "wilayah" , name:"wilayah"},
-                { "data": "status" , name:"status"},
+                { "data": "tahun" , name:"tahun"},
+                { "data": "kode_kota" , name:"kode_kota"},
+                { "data": "kode_korkot" , name:"kode_korkot"},
+                { "data": "kode_kecamatan" , name:"kode_kecamatan"},
+                { "data": "kode_kmw" , name:"kode_kmw"},
+                { "data": "kode_kel" , name:"kode_kel"},
+                { "data": "kode_faskel" , name:"kode_faskel"},
+                { "data": "id_kegiatan" , name:"id_kegiatan"},
                 { "data": "option" , name:"option"}
             ]
         });
