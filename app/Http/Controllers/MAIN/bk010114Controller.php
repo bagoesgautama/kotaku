@@ -41,7 +41,7 @@ class bk010114Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
-				
+
 				$this->log_aktivitas('View', 56);
 				return view('MAIN/bk010114/index',$data);
 			}
@@ -152,7 +152,7 @@ class bk010114Controller extends Controller
 				}
 				if(!empty($detil['59'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}		
+				}
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
@@ -168,6 +168,22 @@ class bk010114Controller extends Controller
 		echo json_encode($json_data);
 	}
 
+	public function select(Request $request)
+	{
+		if(!empty($request->input('prov'))){
+			$kota = DB::select('select kode, nama from bkt_01010102_kota where kode_prop='.$request->input('prov'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('kota'))){
+			$kota = DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$request->input('kota'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('kec'))){
+			$kota = DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$request->input('kec'));
+			echo json_encode($kota);
+		}
+	}
+
 	public function create(Request $request)
 	{
 		$user = Auth::user();
@@ -177,77 +193,77 @@ class bk010114Controller extends Controller
 				$data['menu'][$item->kode_menu] =  'a' ;
 				if($item->kode_menu==31)
 					$data['detil'][$item->kode_menu_detil]='a';
-		}
+			}
 
-		$data['username'] = '';
-		$data['test']=true;
-		$data['kode']=$request->input('kode');
+			$data['username'] = '';
+			$data['test']=true;
+			$data['kode']=$request->input('kode');
 
-		//get dropdown list from Database
-		$kode_kmp_slum_program = DB::select('select kode from bkt_01010107_slum_program');
-		$data['kode_kmp_slum_program_list'] = $kode_kmp_slum_program;
+			//get dropdown list from Database
+			$kode_kmp_slum_program = DB::select('select kode from bkt_01010107_slum_program');
+			$data['kode_kmp_slum_program_list'] = $kode_kmp_slum_program;
 
-		$kode_faskel = DB::select('select kode, nama from bkt_01010113_faskel');
-		$data['kode_faskel_list'] = $kode_faskel;
+			$kode_faskel = DB::select('select kode, nama from bkt_01010113_faskel');
+			$data['kode_faskel_list'] = $kode_faskel;
 
-		$kode_kel = DB::select('select kode, nama from bkt_01010104_kel');
-		$data['kode_kel_list'] = $kode_kel;
+			/*$kode_kel = DB::select('select kode, nama from bkt_01010104_kel');
+			$data['kode_kel_list'] = $kode_kel;
 
-		$kode_kec = DB::select('select kode, nama from bkt_01010103_kec');
-		$data['kode_kec_list'] = $kode_kec;
+			$kode_kec = DB::select('select kode, nama from bkt_01010103_kec');
+			$data['kode_kec_list'] = $kode_kec;
 
-		$kode_kota = DB::select('select kode, nama from bkt_01010102_kota');
-		$data['kode_kota_list'] = $kode_kota;
+			$kode_kota = DB::select('select kode, nama from bkt_01010102_kota');
+			$data['kode_kota_list'] = $kode_kota;*/
 
-		$kode_prop = DB::select('select kode, nama from bkt_01010101_prop');
-		$data['kode_prop_list'] = $kode_prop;
+			$kode_prop = DB::select('select kode, nama from bkt_01010101_prop');
+			$data['kode_prop_list'] = $kode_prop;
 
-		if($data['kode']!=null && !empty($data['detil']['58'])){
-			$rowData = DB::select('select * from bkt_01010114_kel_faskel where kode='.$data['kode']);
-			$data['kode_kmp_slum_prog'] = $rowData[0]->kode_kmp_slum_prog;
-			$data['kode_faskel'] = $rowData[0]->kode_faskel;
-			$data['kode_kel'] = $rowData[0]->kode_kel;
-			$data['blm'] = $rowData[0]->blm;
-			$data['jenis_project'] = $rowData[0]->jenis_project;
-			$data['tahun_glossary'] = $rowData[0]->tahun_glossary;
-			$data['tahun_project'] = $rowData[0]->tahun_project;
-			$data['awal_project'] = $rowData[0]->awal_project;
-			$data['kode_ms'] = $rowData[0]->kode_ms;
-			$data['kode_kec'] = $rowData[0]->kode_kec;
-			$data['kode_kota'] = $rowData[0]->kode_kota;
-			$data['kode_prop'] = $rowData[0]->kode_prop;
-			$data['lokasi_blm'] = $rowData[0]->lokasi_blm;
-			$data['Lokasi_Kumuh'] = $rowData[0]->Lokasi_Kumuh;
-			$data['flag_kumuh'] = $rowData[0]->flag_kumuh;
-			$data['flag_lokasi_ppmk'] = $rowData[0]->flag_lokasi_ppmk;
-			$data['created_time'] = $rowData[0]->created_time;
-			$data['created_by'] = $rowData[0]->created_by;
-			$data['updated_time'] = $rowData[0]->updated_time;
-			$data['updated_by'] = $rowData[0]->updated_by;
-			return view('MAIN/bk010114/create',$data);
-		}else if($data['kode']==null && !empty($data['detil']['57'])){
-			$data['kode_kmp_slum_prog'] = null;
-			$data['kode_faskel'] = null;
-			$data['kode_kel'] = null;
-			$data['blm'] = null;
-			$data['jenis_project'] = null;
-			$data['tahun_glossary'] = null;
-			$data['tahun_project'] = null;
-			$data['awal_project'] = null;
-			$data['kode_ms'] = null;
-			$data['kode_kec'] = null;
-			$data['kode_kota'] = null;
-			$data['kode_prop'] = null;
-			$data['lokasi_blm'] = null;
-			$data['Lokasi_Kumuh'] = null;
-			$data['flag_kumuh'] = null;
-			$data['flag_lokasi_ppmk'] = null;
-			$data['created_time'] = null;
-			$data['created_by'] = null;
-			$data['updated_time'] = null;
-			$data['updated_by'] = null;
-		
-		return view('MAIN/bk010114/create',$data);
+			if($data['kode']!=null && !empty($data['detil']['58'])){
+				$rowData = DB::select('select * from bkt_01010114_kel_faskel where kode='.$data['kode']);
+				$data['kode_kmp_slum_prog'] = $rowData[0]->kode_kmp_slum_prog;
+				$data['kode_faskel'] = $rowData[0]->kode_faskel;
+				$data['kode_kel'] = $rowData[0]->kode_kel;
+				$data['blm'] = $rowData[0]->blm;
+				$data['jenis_project'] = $rowData[0]->jenis_project;
+				$data['tahun_glossary'] = $rowData[0]->tahun_glossary;
+				$data['tahun_project'] = $rowData[0]->tahun_project;
+				$data['awal_project'] = $rowData[0]->awal_project;
+				$data['kode_ms'] = $rowData[0]->kode_ms;
+				$data['kode_kec'] = $rowData[0]->kode_kec;
+				$data['kode_kota'] = $rowData[0]->kode_kota;
+				$data['kode_prop'] = $rowData[0]->kode_prop;
+				$data['lokasi_blm'] = $rowData[0]->lokasi_blm;
+				$data['Lokasi_Kumuh'] = $rowData[0]->Lokasi_Kumuh;
+				$data['flag_kumuh'] = $rowData[0]->flag_kumuh;
+				$data['flag_lokasi_ppmk'] = $rowData[0]->flag_lokasi_ppmk;
+				$data['created_time'] = $rowData[0]->created_time;
+				$data['created_by'] = $rowData[0]->created_by;
+				$data['updated_time'] = $rowData[0]->updated_time;
+				$data['updated_by'] = $rowData[0]->updated_by;
+				return view('MAIN/bk010114/create',$data);
+			}else if($data['kode']==null && !empty($data['detil']['57'])){
+				$data['kode_kmp_slum_prog'] = null;
+				$data['kode_faskel'] = null;
+				$data['kode_kel'] = null;
+				$data['blm'] = null;
+				$data['jenis_project'] = null;
+				$data['tahun_glossary'] = null;
+				$data['tahun_project'] = null;
+				$data['awal_project'] = null;
+				$data['kode_ms'] = null;
+				$data['kode_kec'] = null;
+				$data['kode_kota'] = null;
+				$data['kode_prop'] = null;
+				$data['lokasi_blm'] = null;
+				$data['Lokasi_Kumuh'] = null;
+				$data['flag_kumuh'] = null;
+				$data['flag_lokasi_ppmk'] = null;
+				$data['created_time'] = null;
+				$data['created_by'] = null;
+				$data['updated_time'] = null;
+				$data['updated_by'] = null;
+
+				return view('MAIN/bk010114/create',$data);
 			}else {
 				return Redirect::to('/');
 			}
@@ -261,10 +277,10 @@ class bk010114Controller extends Controller
 		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_01010114_kel_faskel')->where('kode', $request->input('example-id-input'))
-			->update(['kode_kmp_slum_prog' => $request->input('example-kode_kmp_slum_prog-input'), 
-				'kode_faskel' => $request->input('example-kode_faskel-input'), 
-				'kode_kel' => $request->input('example-kode_kel-input'), 
-				'blm' => $request->input('example-select-blm'), 
+			->update(['kode_kmp_slum_prog' => $request->input('example-kode_kmp_slum_prog-input'),
+				'kode_faskel' => $request->input('example-kode_faskel-input'),
+				'kode_kel' => $request->input('example-kode_kel-input'),
+				'blm' => $request->input('example-select-blm'),
 				'jenis_project' => $request->input('example-select-jenis_project'),
 				'tahun_glossary' => $request->input('example-tahun_glossary-input'),
 				'tahun_project' => $request->input('example-tahun_project-input'),
@@ -284,10 +300,10 @@ class bk010114Controller extends Controller
 
 		}else{
 			DB::table('bkt_01010114_kel_faskel')->insert(
-       			['kode_kmp_slum_prog' => $request->input('example-kode_kmp_slum_prog-input'), 
-				'kode_faskel' => $request->input('example-kode_faskel-input'), 
-				'kode_kel' => $request->input('example-kode_kel-input'), 
-				'blm' => $request->input('example-select-blm'), 
+       			['kode_kmp_slum_prog' => $request->input('example-kode_kmp_slum_prog-input'),
+				'kode_faskel' => $request->input('example-kode_faskel-input'),
+				'kode_kel' => $request->input('example-kode_kel-input'),
+				'blm' => $request->input('example-select-blm'),
 				'jenis_project' => $request->input('example-select-jenis_project'),
 				'tahun_glossary' => $request->input('example-tahun_glossary-input'),
 				'tahun_project' => $request->input('example-tahun_project-input'),
@@ -318,10 +334,10 @@ class bk010114Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
-				'kode_modul' => 2, 
-				'kode_menu' => 31,   
-				'kode_menu_detil' => $detil, 
-				'aktifitas' => $aktifitas, 
+				'kode_modul' => 2,
+				'kode_menu' => 31,
+				'kode_menu_detil' => $detil,
+				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas
        			]);
     }

@@ -176,6 +176,7 @@ Route::post('/main/faskel/create', 'MAIN\bk010113Controller@post_create');
 Route::get('/main/faskel/delete', 'MAIN\bk010113Controller@delete');
 
 Route::get('/main/kel_faskel', 'MAIN\bk010114Controller@index');
+Route::get('/main/kel_faskel/select', 'MAIN\bk010114Controller@select');
 Route::post('/main/kel_faskel', 'MAIN\bk010114Controller@post');
 Route::get('/main/kel_faskel/create', 'MAIN\bk010114Controller@create');
 Route::post('/main/kel_faskel/create', 'MAIN\bk010114Controller@post_create');
