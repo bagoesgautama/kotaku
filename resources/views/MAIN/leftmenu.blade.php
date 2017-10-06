@@ -480,5 +480,101 @@
 		</ul>
 	</li>
 	@endif
+
+	@if( ! empty($menu['12']))
+	<li {!! (Request::is( 'main/perencanaan/penanganan/pengamanan_dampak')||Request::is( 'main/perencanaan/penanganan/pengamanan_dampak/create')||Request::is( 'main/perencanaan/penanganan/rencana_investasi')||Request::is( 'main/perencanaan/penanganan/rencana_investasi/create')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn/create')||Request::is( 'main/perencanaan/penanganan/lokasi_profile')||Request::is( 'main/perencanaan/penanganan/lokasi_profile/create')||Request::is( 'main/perencanaan/penanganan/konsultasi_perencanaan')||Request::is( 'main/perencanaan/penanganan/konsultasi_perencanaan/create')||Request::is( 'main/perencanaan/penanganan/lokakarya_perencanaan')||Request::is( 'main/perencanaan/penanganan/lokakarya_perencanaan/create')||Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk')||Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk/create')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi/create')? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+        <a href="javascript:void(0)">
+            <span class="mm-text">Perencanaan</span>
+            <span class="fa arrow"></span>
+        </a>
+		<ul class="sub-menu">
+			@if( ! empty($menu['18']))
+			<li {!! (Request::is( 'main/perencanaan/penanganan/pengamanan_dampak')||Request::is( 'main/perencanaan/penanganan/pengamanan_dampak/create')||Request::is( 'main/perencanaan/penanganan/rencana_investasi')||Request::is( 'main/perencanaan/penanganan/rencana_investasi/create')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn/create')||Request::is( 'main/perencanaan/penanganan/lokasi_profile')||Request::is( 'main/perencanaan/penanganan/lokasi_profile/create')||Request::is( 'main/perencanaan/penanganan/konsultasi_perencanaan')||Request::is( 'main/perencanaan/penanganan/konsultasi_perencanaan/create')||Request::is( 'main/perencanaan/penanganan/lokakarya_perencanaan')||Request::is( 'main/perencanaan/penanganan/lokakarya_perencanaan/create')||Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk')||Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk/create')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi/create')? 'class="active"': "") !!}>
+				<a href="javascript:void(0)">
+					<span class="mm-text">Penanganan Pemukiman Kota</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="sub-menu form-submenu">
+					@if( ! empty($menu['47']))
+					<li {!! (Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk')||Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk/create')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi/create')? 'class="active"': "") !!}>
+						<a href="javascript:void(0)">
+							<span class="mm-text">Perencanaan Penanganan Permukiman</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="form-sub-submenu">
+							@if( ! empty($menu['47']))
+							<li {!! (Request::is( 'main/perencanaan/penanganan/pembangunan_visi')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi/create') ? 'class="active"': "") !!}>
+								<a href="/main/perencanaan/penanganan/pembangunan_visi">
+				                    <span class="mm-text">Pembangunan Visi</span>
+				                </a>
+						    </li>
+							@endif
+							@if( ! empty($menu['47']))
+							<li {!! (Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk')||Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk/create') ? 'class="active"': "") !!}>
+								<a href="/main/perencanaan/penanganan/pelaksanaan_rpk">
+				                    <span class="mm-text">Pelaksanaan RPK</span>
+				                </a>
+						    </li>
+							@endif
+						</ul>
+					</li>
+					@endif
+					@if( ! empty($menu['47']))
+					<li {!! (Request::is( 'main/perencanaan/penanganan/lokakarya_perencanaan')||Request::is( 'main/perencanaan/penanganan/lokakarya_perencanaan/create')? 'class="active"': "") !!}>
+						<a href="/main/perencanaan/penanganan/lokakarya_perencanaan">
+							<span class="mm-text">Lokakarya Perencanaan</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['47']))
+					<li {!! (Request::is( 'main/perencanaan/penanganan/konsultasi_perencanaan')||Request::is( 'main/perencanaan/penanganan/konsultasi_perencanaan/create')? 'class="active"': "") !!}>
+						<a href="/main/perencanaan/penanganan/konsultasi_perencanaan">
+							<span class="mm-text">Konsultasi Perencanaan</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['47']))
+					<li {!! (Request::is( 'main/perencanaan/penanganan/lokasi_profile')||Request::is( 'main/perencanaan/penanganan/lokasi_profile/create')? 'class="active"': "") !!}>
+						<a href="/main/perencanaan/penanganan/lokasi_profile">
+							<span class="mm-text">Lokasi & Profile Permukiman, Produk Perencanaan, Profile Kumuh</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['47']))
+					<li {!! (Request::is( 'main/perencanaan/penanganan/rencana_investasi')||Request::is( 'main/perencanaan/penanganan/rencana_investasi/create')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn/create')? 'class="active"': "") !!}>
+						<a href="javascript:void(0)">
+							<span class="mm-text">RP2KP-KP/SIAP</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="form-sub-submenu">
+							@if( ! empty($menu['47']))
+							<li {!! (Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn/create') ? 'class="active"': "") !!}>
+								<a href="/main/perencanaan/penanganan/profile_rencana_5thn">
+				                    <span class="mm-text">Profile Kumuh & Rencana Penangan 5 Tahun</span>
+				                </a>
+						    </li>
+							@endif
+							@if( ! empty($menu['47']))
+							<li {!! (Request::is( 'main/perencanaan/penanganan/rencana_investasi')||Request::is( 'main/perencanaan/penanganan/rencana_investasi/create') ? 'class="active"': "") !!}>
+								<a href="/main/perencanaan/penanganan/rencana_investasi">
+				                    <span class="mm-text">Rencana Investasi Tahunan</span>
+				                </a>
+						    </li>
+							@endif
+						</ul>
+					</li>
+					@endif
+					@if( ! empty($menu['47']))
+					<li {!! (Request::is( 'main/perencanaan/penanganan/pengamanan_dampak')||Request::is( 'main/perencanaan/penanganan/pengamanan_dampak/create')? 'class="active"': "") !!}>
+						<a href="/main/perencanaan/penanganan/pengamanan_dampak">
+							<span class="mm-text">Pengamanan Dampak Sosial & Lingkungan</span>
+						</a>
+					</li>
+					@endif
+				</ul>
+			</li>
+			@endif
+		</ul>
+	</li>
+	@endif
 </ul>
-<!-- / .navigation -->

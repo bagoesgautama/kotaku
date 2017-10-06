@@ -48,47 +48,39 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input33">Kelurahan</label>
-                                <div class="col-sm-6">
-                                    <select id="select33" class="form-control select2" name="example-kode_kel-input" >
-                                        @foreach($kode_kel_list as $list)
-                                            <option value="{{ $list->kode }}" @if($list->kode==$kode_kel) selected="selected" @endif >{{ $list->nama }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="example-text-input34">Kecamatan</label>
-                                <div class="col-sm-6">
-                                    <select id="select34" class="form-control select2" name="example-kode_kec-input" >
-                                        @foreach($kode_kec_list as $list)
-                                            <option value="{{ $list->kode }}" @if($list->kode==$kode_kec) selected="selected" @endif >{{ $list->nama }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input35">Kota</label>
-                                <div class="col-sm-6">
-                                    <select id="select35" class="form-control select2" name="example-kode_kota-input" >
-                                        @foreach($kode_kota_list as $list)
-                                            <option value="{{ $list->kode }}" @if($list->kode==$kode_kota) selected="selected" @endif >{{ $list->nama }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
+							<div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input36">Propinsi</label>
                                 <div class="col-sm-6">
                                     <select id="select36" class="form-control select2" name="example-kode_prop-input" >
+										<option value=undefined>Please select</option>
                                         @foreach($kode_prop_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_prop) selected="selected" @endif >{{ $list->nama }}
                                             </option>
                                         @endforeach
+                                    </select>
+                                </div>
+                            </div>
+							<div class="form-group ">
+                                <label class="col-sm-3 control-label" for="example-text-input35">Kota</label>
+                                <div class="col-sm-6">
+                                    <select id="select35" class="form-control select2" name="example-kode_kota-input" >
+										<option value=undefined>Please select</option>
+                                    </select>
+                                </div>
+                            </div>
+							<div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="example-text-input34">Kecamatan</label>
+                                <div class="col-sm-6">
+                                    <select id="select34" class="form-control select2" name="example-kode_kec-input" >
+										<option value=undefined>Please select</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-sm-3 control-label" for="example-text-input33">Kelurahan</label>
+                                <div class="col-sm-6">
+                                    <select id="select33" class="form-control select2" name="example-kode_kel-input" >
+										<option value=undefined>Please select</option>
                                     </select>
                                 </div>
                             </div>
@@ -238,7 +230,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/kel_faskel";
             },
@@ -249,6 +241,114 @@
             }
           });
         });
+		var prov = $('#select36');
+		var kota = $('#select35');
+		var kec = $('#select34');
+		var kel = $('#select33');
+		var prov_id,kota_id;
+		var kode_prop = {!! json_encode($kode_prop) !!};
+		var kode_kota = {!! json_encode($kode_kota) !!};
+		var kode_kec = {!! json_encode($kode_kec) !!};
+		var kode_kel = {!! json_encode($kode_kel) !!};
+		if(kode_prop!=null){
+			kota.empty();
+			kota.append("<option value=undefined>Please select</option>");
+			$.ajax({
+				type: 'get',
+				"url": "/main/kel_faskel/select?prov="+kode_prop,
+				success: function (data) {
+					data=JSON.parse(data)
+					for (var i=0;i<data.length;i++){
+						if(data[i].kode==kode_kota)
+							kota.append("<option value="+data[i].kode+" selected='selected'>"+data[i].nama+"</option>");
+						else
+							kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+					}
+				}
+			});
+			kec.empty();
+			kec.append("<option value=undefined>Please select</option>");
+			$.ajax({
+				type: 'get',
+				"url": "/main/kel_faskel/select?kota="+kode_kota,
+				success: function (data) {
+					data=JSON.parse(data)
+					for (var i=0;i<data.length;i++){
+						if(data[i].kode==kode_kec)
+							kec.append("<option value="+data[i].kode+" selected='selected'>"+data[i].nama+"</option>");
+						else
+							kec.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+					}
+				}
+			});
+			kel.empty();
+			kel.append("<option value=undefined>Please select</option>");
+			$.ajax({
+				type: 'get',
+				"url": "/main/kel_faskel/select?kec="+kode_kec,
+				success: function (data) {
+					data=JSON.parse(data)
+					for (var i=0;i<data.length;i++){
+						if(data[i].kode==kode_kel)
+							kel.append("<option value="+data[i].kode+" selected='selected'>"+data[i].nama+"</option>");
+						else
+							kel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+					}
+				}
+			});
+		}
+
+		prov.change(function(){
+			prov_id=prov.val();
+			if(prov_id!=undefined){
+				kota.empty();
+				kota.append("<option value=undefined>Please select</option>");
+				$.ajax({
+					type: 'get',
+					"url": "/main/kel_faskel/select?prov="+prov_id,
+					success: function (data) {
+						data=JSON.parse(data)
+						for (var i=0;i<data.length;i++){
+							kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+						}
+					}
+				});
+			}
+		});
+		kota.change(function(){
+			kota_id=kota.val();
+			if(kota_id!=undefined){
+				kec.empty();
+				kec.append("<option value=undefined>Please select</option>");
+				$.ajax({
+					type: 'get',
+					"url": "/main/kel_faskel/select?kota="+kota_id,
+					success: function (data) {
+						data=JSON.parse(data)
+						for (var i=0;i<data.length;i++){
+							kec.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+						}
+					}
+				});
+			}
+		});
+		kec.change(function(){
+			kec_id=kec.val();
+			if(kec_id!=undefined){
+				kel.empty();
+				kel.append("<option value=undefined>Please select</option>");
+				$.ajax({
+					type: 'get',
+					"url": "/main/kel_faskel/select?kec="+kec_id,
+					success: function (data) {
+						data=JSON.parse(data)
+						for (var i=0;i<data.length;i++){
+							kel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+						}
+					}
+				});
+			}
+		});
       });
 </script>
 @stop
