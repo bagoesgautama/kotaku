@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
 
-class bk010301Controller extends Controller
+class bk010303Controller extends Controller
 {
     /**
      * Create a new controller instance.
