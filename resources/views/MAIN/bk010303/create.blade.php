@@ -1,7 +1,8 @@
 @extends('MAIN/default') {{-- Page title --}} @section('title') Blank @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
-<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">@stop {{-- Page Header--}} @section('page-header')
+<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
+@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>MAIN Module</h1>
@@ -13,8 +14,8 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/persiapan/kelurahan/relawan">
-                    Persiapan / Kelurahan / Kegiatan Kelurahan / Relawan
+                <a href="/main/persiapan/nasional/pokja/pembentukan">
+                    Persiapan / Nasional / Pokja / Pembentukan
                 </a>
             </li>
             <li class="next">
@@ -29,42 +30,18 @@
     <form enctype="multipart/form-data" class="form-horizontal form-bordered">
         <div class="row">
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Kode Kota</label>
+                <label class="col-sm-3 control-label" for="kode">Tahun</label>
                 <div class="col-sm-6">
-                    <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                    <select id="kode-kota-input" name="kode-kota-input" class="form-control" size="1">
-                        @foreach ($kode_kota_list as $kkl)
-                            <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                        @endforeach
-                    </select>
+                <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
+                    <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}">
                 </div>
             </div>
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Kode Kecamatan</label>
+                <label class="col-sm-3 control-label">Kode Prop</label>
                 <div class="col-sm-6">
-                    <select id="kode-kec-input" name="kode-kec-input" class="form-control" size="1">
-                        @foreach ($kode_kec_list as $kkl)
-                            <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Kode Kelurahan</label>
-                <div class="col-sm-6">
-                    <select id="kode-kel-input" name="kode-kel-input" class="form-control" size="1">
-                        @foreach ($kode_kel_list as $kkl)
-                            <option value="{{$kkl->kode}}" {!! $kode_kel==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Kode KMW</label>
-                <div class="col-sm-6">
-                    <select id="kode-kmw-input" name="kode-kmw-input" class="form-control" size="1">
-                        @foreach ($kode_kmw_list as $kkl)
-                            <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                    <select id="kode-prop-input" name="kode-prop-input" class="form-control" size="1">
+                        @foreach ($kode_prop_list as $kpl)
+                            <option value="{{$kpl->kode}}" {!! $kode_prop==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -90,14 +67,9 @@
                 </div>
             </div>
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Jenis kegiatan</label>
+                <label class="col-sm-3 control-label" for="example-text-input1">Jenis Kegiatan</label>
                 <div class="col-sm-6">
-                    <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1">
-                        <option value="2.5.1" {!! $jenis_kegiatan=='2.5.1' ? 'selected':'' !!}>Sosialisasi</option>
-                        <option value="2.5.1.4" {!! $jenis_kegiatan=='2.5.1.4' ? 'selected':'' !!}>Relawan</option>
-                        <option value="2.5.1.5" {!! $jenis_kegiatan=='2.5.1.5' ? 'selected':'' !!}>Agen Sosialisasi</option>
-                        <option value="2.5.3" {!! $jenis_kegiatan=='2.5.3' ? 'selected':'' !!}>Pelatihan Masyarakat</option>
-                    </select>
+                    <input type="text" id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" value="{{$jenis_kegiatan}}">
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -107,33 +79,84 @@
                 </div>
             </div>
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Lokasi Kegiatan</label>
+                <label class="col-sm-3 control-label">Status Pokja</label>
                 <div class="col-sm-6">
-                    <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}">
+                    <select id="status-pokja-input" name="status-pokja-input" class="form-control" size="1">
+                        <option value="0" {!! $status_pokja==0 ? 'selected':'' !!}>Lama</option>
+                        <option value="1" {!! $status_pokja==1 ? 'selected':'' !!}>Baru</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="example-text-input1">Dasar Pembentukan</label>
+                <div class="col-sm-6">
+                    <input type="text" id="dsr-pembentukan-input" name="dsr-pembentukan-input" class="form-control" value="{{$ds_hkm}}">
                 </div>
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                 <div class="col-sm-6">
-                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}">
+                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_p}}">
                 </div>
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                 <div class="col-sm-6">
-                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}">
+                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_w}}">
                 </div>
             </div>
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="kode">Anggota Miskin/MBR</label>
+                <label class="col-sm-3 control-label" for="kode">UPP Kementrian/KL</label>
                 <div class="col-sm-6">
-                    <input type="number" id="q-mbr-input" name="q-mbr-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_mbr}}">
+                    <input type="number" id="upp-kementrian-input" name="upp-kementrian-input" class="form-control" placeholder="" value="{{$upp_kl}}">
                 </div>
             </div>
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="kode">Bahan Sosialisasi</label>
+                <label class="col-sm-3 control-label" for="kode">UPP Dinas/Badan</label>
                 <div class="col-sm-6">
-                    <input type="text" id="bhn-sosialisasi-input" name="bhn-sosialisasi-input" class="form-control" placeholder="Bahan Sosialisasi" value="{{$bahan_sosialisasi}}">
+                    <input type="number" id="upp-dinas-input" name="upp-dinas-input" class="form-control" placeholder="" value="{{$upp_dinas}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="kode">UPP DPR/DPD Pusat/DPRD</label>
+                <div class="col-sm-6">
+                    <input type="number" id="upp-dpr-input" name="upp-dpr-input" class="form-control" placeholder="" value="{{$upp_dpr}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="kode">UPNP LSM/Pemerhati Permukiman</label>
+                <div class="col-sm-6">
+                    <input type="number" id="upnp-lsm-input" name="upnp-lsm-input" class="form-control" placeholder="" value="{{$upn_lsm}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="kode">UPNP Swasta/Badan Usaha</label>
+                <div class="col-sm-6">
+                    <input type="number" id="upnp-swasta-input" name="upnp-swasta-input" class="form-control" placeholder="" value="{{$unp_bu}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="kode">UPNP Praktisi/Profesional/Perguruan Tinggi</label>
+                <div class="col-sm-6">
+                    <input type="number" id="upnp-praktisi-input" name="upnp-praktisi-input" class="form-control" placeholder="" value="{{$upn_praktisi}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="kode">Nilai Dana Operasional</label>
+                <div class="col-sm-6">
+                    <input type="number" id="dana-ops-input" name="dana-ops-input" class="form-control" placeholder="Jumlah" value="{{$nilai_dana_ops}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="kode">Rencana Kerja</label>
+                <div class="col-sm-6">
+                    <input type="text" id="rencana-kerja-input" name="rencana-kerja-input" class="form-control" placeholder="Rencana Kerja" value="{{$url_rencana_kerja}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="kode">Keterangan Rencana Kerja</label>
+                <div class="col-sm-6">
+                    <input type="text" id="ket-rencana-kerja-input" name="ket-rencana-kerja-input" class="form-control" placeholder="Ket. Rencana Kerja" value="{{$ket_rencana_kerja}}">
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -165,7 +188,7 @@
             </div>
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <a href="/main/persiapan/kelurahan/relawan" type="button" class="btn btn-effect-ripple btn-danger">
+                    <a href="/main/persiapan/nasional/pokja/pembentukan" type="button" class="btn btn-effect-ripple btn-danger">
                         Cancel
                     </a>
                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -190,19 +213,20 @@
           e.preventDefault();
           $.ajax({
             type: 'post',
-            "url": "/main/persiapan/kelurahan/relawan/create",
+            "url": "/main/persiapan/nasional/pokja/pembentukan/create",
             data: $('form').serialize(),
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
             },
             success: function () {
+    
             alert('From Submitted.');
-            window.location.href = "/main/persiapan/kelurahan/relawan";
+            window.location.href = "/main/persiapan/nasional/pokja/pembentukan";
             },
             error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-            $("#submit").prop('disabled', false);
+              alert(xhr.status);
+              alert(thrownError);
+              $("#submit").prop('disabled', false);
             }
           });
         });

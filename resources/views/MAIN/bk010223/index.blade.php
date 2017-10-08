@@ -23,9 +23,6 @@
             <li class="next">
 	            TAPP
             </li>
-            <li class="next">
-                Table
-            </li>
         </ul>
     </div>
 </section>
@@ -42,7 +39,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="provinsi">
+                    <table class="table table-striped" id="users">
                         <thead>
                             <tr>
                                 <th>Tahun</th>
@@ -66,7 +63,7 @@
 @stop {{-- local scripts --}} @section('footer_scripts')
 <script>
     $(document).ready(function () {
-        var table = $('#provinsi').DataTable({
+        var table = $('#users').DataTable({
             // dom: 'Bflrtip',
 
             "processing": true,
@@ -79,13 +76,13 @@
 
             "columns": [
                 { "data": "tahun" , name:"tahun"},
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
-                { "data": "kode_kecamatan" , name:"kode_kecamatan"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
-                { "data": "kode_kel" , name:"kode_kel"},
-                { "data": "kode_faskel" , name:"kode_faskel"},
-                { "data": "id_kegiatan" , name:"id_kegiatan"},
+                { "data": "nama_kota" , name:"nama_kota"},
+                { "data": "nama_korkot" , name:"nama_korkot"},
+                { "data": "nama_kec" , name:"nama_kec"},
+                { "data": "nama_kmw" , name:"nama_kmw"},
+                { "data": "nama_kel" , name:"nama_kel"},
+                { "data": "nama_faskel" , name:"nama_faskel"},
+                { "data": "nama_kegiatan" , name:"nama_kegiatan"},
                 { "data": "option" , name:"option"}
             ]
         });

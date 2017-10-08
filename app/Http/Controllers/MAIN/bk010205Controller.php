@@ -51,7 +51,7 @@ class bk010205Controller extends Controller
 		}else{
 			return Redirect::to('/');
 		}
-		
+
     }
 
 	public function Post(Request $request)
@@ -59,7 +59,7 @@ class bk010205Controller extends Controller
 		$columns = array(
 			0 =>'kode_kota'
 		);
-		$query='select bkt_01010102_kota.nama as kode_kota from bkv_01020201_info_kota inner join bkt_01010102_kota on bkv_01020201_info_kota.kode_kota = bkt_01010102_kota.kode';
+		$query='select bkv_01020201_info_kota.kode_kota as kode_kota, bkt_01010102_kota.nama as nama from bkv_01020201_info_kota inner join bkt_01010102_kota on bkv_01020201_info_kota.kode_kota = bkt_01010102_kota.kode';
 		$totalData = DB::select('select count(1) cnt from bkv_01020201_info_kota ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -86,7 +86,7 @@ class bk010205Controller extends Controller
 				$delete = $post->kode_kota;
 				$url_edit=url('/')."/main/persiapan/kota/info/create?kode_kota=".$show;
 				$url_delete=url('/')."/main/persiapan/kota/info/delete?kode_kota=".$delete;
-				$nestedData['kode_kota'] = $post->kode_kota;
+				$nestedData['kode_kota'] = $post->nama;
 				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='Show' ><span class='fa fa-fw fa-edit'></span></a>";
 				$data[] = $nestedData;
 			}
@@ -104,97 +104,92 @@ class bk010205Controller extends Controller
 
 	public function create(Request $request)
 	{
-		$data['username'] = '';
-		$data['test']=true;
-		$data['kode_kota']=$request->input('kode');
-		if($data['kode_kota']!=null){
-			$rowData = DB::select('select * from bkv_01020201_info_kota where kode_kota='.$data['kode_kota']);
-			$data['ca_q_kec'] = $rowData[0]->ca_q_kec;
-			$data['ca_q_kel'] = $rowData[0]->ca_q_kel;
-			$data['ca_q_dusun'] = $rowData[0]->ca_q_dusun;
-			$data['ca_q_rw'] = $rowData[0]->ca_q_rw;
-			$data['ca_q_rt'] = $rowData[0]->ca_q_rt;
-			$data['lw_l_wil_adm'] = $rowData[0]->lw_l_wil_adm;
-			$data['lw_l_pmkm'] = $rowData[0]->lw_l_pmkm;
-			$data['cp_q_pdk'] = $rowData[0]->cp_q_pdk;
-			$data['cp_q_pdk_w'] = $rowData[0]->cp_q_pdk_w;
-			$data['cp_q_kk'] = $rowData[0]->cp_q_kk;
-			$data['cp_q_kk_mbr'] = $rowData[0]->cp_q_kk_mbr;
-			$data['cp_q_kk_miskin'] = $rowData[0]->cp_q_kk_miskin;
-			$data['cp_r_pdt_kpdk'] = $rowData[0]->cp_r_pdt_kpdk;
-			$data['cp_t_pdk_thn'] = $rowData[0]->cp_t_pdk_thn;
-			$data['km_ds_hkm'] = $rowData[0]->km_ds_hkm;
-			$data['km_q_kw_kmh'] = $rowData[0]->km_q_kw_kmh;
-			$data['km_q_kec_kmh'] = $rowData[0]->km_q_kec_kmh;
-			$data['km_q_kel_kmh'] = $rowData[0]->km_q_kel_kmh;
-			$data['km_q_rt_kmh'] = $rowData[0]->km_q_rt_kmh;
-			$data['km_q_rt_non_kmh'] = $rowData[0]->km_q_rt_non_kmh;
-			$data['lk_l_kw_kmh'] = $rowData[0]->lk_l_kw_kmh;
-			$data['lk_l_rt_kmh'] = $rowData[0]->lk_l_rt_kmh;
-			$data['cpk_q_pdk'] = $rowData[0]->cpk_q_pdk;
-			$data['cpk_q_pdk_w'] = $rowData[0]->cpk_q_pdk_w;
-			$data['cpk_q_kk'] = $rowData[0]->cpk_q_kk;
-			$data['cpk_q_kk_mbr'] = $rowData[0]->cpk_q_kk_mbr;
-			$data['cpk_q_kk_miskin'] = $rowData[0]->cpk_q_kk_miskin;
-			$data['cpk_r_pdt_kpdk'] = $rowData[0]->cpk_r_pdt_kpdk;
-			$data['cpk_t_pdk_thn'] = $rowData[0]->cpk_t_pdk_thn;
-			$data['diser_tgl'] = $rowData[0]->diser_tgl;
-			$data['diser_oleh'] = $rowData[0]->diser_oleh;
-			$data['diket_tgl'] = $rowData[0]->diket_tgl;
-			$data['diket_oleh'] = $rowData[0]->diket_oleh;
-			$data['diver_tgl'] = $rowData[0]->diver_tgl;
-			$data['diver_oleh'] = $rowData[0]->diver_oleh;
-			$data['created_time'] = $rowData[0]->created_time;
-			$data['created_by'] = $rowData[0]->created_by;
-			$data['updated_time'] = $rowData[0]->updated_time;
-			$data['updated_by'] = $rowData[0]->updated_by;
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==40)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			if(!empty($data['detil'])){
+				$data['kode_kota']=$request->input('kode_kota');
+				if($data['kode_kota']!=null){
+					$rowData = DB::select('select * from bkv_01020201_info_kota where kode_kota='.$data['kode_kota']);
+					$data['ca_q_kec'] = $rowData[0]->ca_q_kec;
+					$data['ca_q_kel'] = $rowData[0]->ca_q_kel;
+					$data['ca_q_dusun'] = $rowData[0]->ca_q_dusun;
+					$data['ca_q_rw'] = $rowData[0]->ca_q_rw;
+					$data['ca_q_rt'] = $rowData[0]->ca_q_rt;
+					$data['lw_l_wil_adm'] = $rowData[0]->lw_l_wil_adm;
+					$data['lw_l_pmkm'] = $rowData[0]->lw_l_pmkm;
+					$data['cp_q_pdk'] = $rowData[0]->cp_q_pdk;
+					$data['cp_q_pdk_w'] = $rowData[0]->cp_q_pdk_w;
+					$data['cp_q_kk'] = $rowData[0]->cp_q_kk;
+					$data['cp_q_kk_mbr'] = $rowData[0]->cp_q_kk_mbr;
+					$data['cp_q_kk_miskin'] = $rowData[0]->cp_q_kk_miskin;
+					$data['cp_r_pdt_kpdk'] = $rowData[0]->cp_r_pdt_kpdk;
+					$data['cp_t_pdk_thn'] = $rowData[0]->cp_t_pdk_thn;
+					$data['km_ds_hkm'] = $rowData[0]->km_ds_hkm;
+					$data['km_q_kw_kmh'] = $rowData[0]->km_q_kw_kmh;
+					$data['km_q_kec_kmh'] = $rowData[0]->km_q_kec_kmh;
+					$data['km_q_kel_kmh'] = $rowData[0]->km_q_kel_kmh;
+					$data['km_q_rt_kmh'] = $rowData[0]->km_q_rt_kmh;
+					$data['km_q_rt_non_kmh'] = $rowData[0]->km_q_rt_non_kmh;
+					$data['lk_l_kw_kmh'] = $rowData[0]->lk_l_kw_kmh;
+					$data['lk_l_rt_kmh'] = $rowData[0]->lk_l_rt_kmh;
+					$data['cpk_q_pdk'] = $rowData[0]->cpk_q_pdk;
+					$data['cpk_q_pdk_w'] = $rowData[0]->cpk_q_pdk_w;
+					$data['cpk_q_kk'] = $rowData[0]->cpk_q_kk;
+					$data['cpk_q_kk_mbr'] = $rowData[0]->cpk_q_kk_mbr;
+					$data['cpk_q_kk_miskin'] = $rowData[0]->cpk_q_kk_miskin;
+					$data['cpk_r_pdt_kpdk'] = $rowData[0]->cpk_r_pdt_kpdk;
+					$data['cpk_t_pdk_thn'] = $rowData[0]->cpk_t_pdk_thn;
+				}else{
+					$data['ca_q_kec'] = null;
+					$data['ca_q_kel'] = null;
+					$data['ca_q_dusun'] = null;
+					$data['ca_q_rw'] = null;
+					$data['ca_q_rt'] = null;
+					$data['lw_l_wil_adm'] = null;
+					$data['lw_l_pmkm'] = null;
+					$data['cp_q_pdk'] = null;
+					$data['cp_q_pdk_w'] = null;
+					$data['cp_q_kk'] = null;
+					$data['cp_q_kk_mbr'] = null;
+					$data['cp_q_kk_miskin'] = null;
+					$data['cp_r_pdt_kpdk'] = null;
+					$data['cp_t_pdk_thn'] = null;
+					$data['km_ds_hkm'] = null;
+					$data['km_q_kw_kmh'] = null;
+					$data['km_q_kec_kmh'] = null;
+					$data['km_q_kel_kmh'] = null;
+					$data['km_q_rt_kmh'] = null;
+					$data['km_q_rt_non_kmh'] = null;
+					$data['lk_l_kw_kmh'] = null;
+					$data['lk_l_rt_kmh'] = null;
+					$data['cpk_q_pdk'] = null;
+					$data['cpk_q_pdk_w'] = null;
+					$data['cpk_q_kk'] = null;
+					$data['cpk_q_kk_mbr'] = null;
+					$data['cpk_q_kk_miskin'] = null;
+					$data['cpk_r_pdt_kpdk'] = null;
+					$data['cpk_t_pdk_thn'] = null;
+				}
+				if (Auth::check()) {
+					$user = Auth::user();
+					$data['username'] = Auth::user()->name;
+				}
+				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
+				return view('MAIN/bk010205/create',$data);
+			}
+			else {
+				return Redirect::to('/');
+			}
 		}else{
-			$data['ca_q_kec'] = null;
-			$data['ca_q_kel'] = null;
-			$data['ca_q_dusun'] = null;
-			$data['ca_q_rw'] = null;
-			$data['ca_q_rt'] = null;
-			$data['lw_l_wil_adm'] = null;
-			$data['lw_l_pmkm'] = null;
-			$data['cp_q_pdk'] = null;
-			$data['cp_q_pdk_w'] = null;
-			$data['cp_q_kk'] = null;
-			$data['cp_q_kk_mbr'] = null;
-			$data['cp_q_kk_miskin'] = null;
-			$data['cp_r_pdt_kpdk'] = null;
-			$data['cp_t_pdk_thn'] = null;
-			$data['km_ds_hkm'] = null;
-			$data['km_q_kw_kmh'] = null;
-			$data['km_q_kec_kmh'] = null;
-			$data['km_q_kel_kmh'] = null;
-			$data['km_q_rt_kmh'] = null;
-			$data['km_q_rt_non_kmh'] = null;
-			$data['lk_l_kw_kmh'] = null;
-			$data['lk_l_rt_kmh'] = null;
-			$data['cpk_q_pdk'] = null;
-			$data['cpk_q_pdk_w'] = null;
-			$data['cpk_q_kk'] = null;
-			$data['cpk_q_kk_mbr'] = null;
-			$data['cpk_q_kk_miskin'] = null;
-			$data['cpk_r_pdt_kpdk'] = null;
-			$data['cpk_t_pdk_thn'] = null;
-			$data['diser_tgl'] = null;
-			$data['diser_oleh'] = null;
-			$data['diket_tgl'] = null;
-			$data['diket_oleh'] = null;
-			$data['diver_tgl'] = null;
-			$data['diver_oleh'] = null;
-			$data['created_time'] = null;
-			$data['created_by'] = null;
-			$data['updated_time'] = null;
-			$data['updated_by'] = null;
+			return Redirect::to('/');
 		}
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
-		$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
-		return view('MAIN/bk010205/create',$data);
+
 	}
 
 	// public function post_create(Request $request)
@@ -222,10 +217,10 @@ class bk010205Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
-				'kode_modul' => 5, 
-				'kode_menu' => 40,   
-				'kode_menu_detil' => $detil, 
-				'aktifitas' => $aktifitas, 
+				'kode_modul' => 5,
+				'kode_menu' => 40,
+				'kode_menu_detil' => $detil,
+				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas
        			]);
     }

@@ -13,7 +13,7 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/persiapan/nasional/pokja/kegiatan">
+                <a href="/main/persiapan/kota/info">
                     Persiapan / Kota atau Kabupaten / Informasi Umum
                 </a>
             </li>
@@ -229,33 +229,6 @@
                 <label class="col-sm-3 control-label">Angka Pertumbuhan Penduduk Pertahun</label>
                 <div class="col-sm-6">
                     <input type="number" id="cpk-t-pdk-thn" name="cpk-t-pdk-thn" class="form-control" value="{{$cpk_t_pdk_thn}}">
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
-                <div class="col-sm-3">
-                    <input class="form-control" id="tgl-diser-input" name="tgl-diser-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
-                </div>
-                <div class="col-sm-3">
-                    <input type="text" id="diser-oleh-input" name="diser-oleh-input" class="form-control" placeholder="Diserahkan Oleh" value="{{$diser_oleh}}" value="{{$diket_tgl}}">
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diketahui & Diketahui Oleh</label>
-                <div class="col-sm-3">
-                    <input class="form-control" id="tgl-diket-input" name="tgl-diket-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}">
-                </div>
-                <div class="col-sm-3">
-                    <input type="text" id="diket-oleh-input" name="diket-oleh-input" class="form-control" placeholder="Diketahui Oleh" value="{{$diket_oleh}}">
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diverifikasi & Diverifikasi Oleh</label>
-                <div class="col-sm-3">
-                    <input class="form-control" id="tgl-diver-input" name="tgl-diver-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}">
-                </div>
-                <div class="col-sm-3">
-                    <input type="text" id="diver-oleh-input" name="diver-oleh-input" class="form-control" placeholder="Diverifikasi Oleh" value="{{$diver_oleh}}">
                 </div>
             </div>
         </div>

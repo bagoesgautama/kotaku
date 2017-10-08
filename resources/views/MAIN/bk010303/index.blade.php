@@ -26,13 +26,13 @@
                 Persiapan
             </li>
             <li class="next">
-                Kelurahan
+                Nasional
             </li>
             <li class="next">
-                Kegiatan Kelurahan
+                Pokja
             </li>
             <li class="next">
-                Kegiatan Sosialisasi
+                Pembentukan
             </li>
         </ul>
     </div>
@@ -43,29 +43,25 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <!-- <div class="panel-title pull-left">
-                    <b>bk010107 index</b>
+                    <b>bk010201 index</b>
                 </div> -->
-                @if( ! empty($detil['187']))
+                @if( ! empty($detil['61']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/kelurahan/sosialisasi/create' }}">Create</a>
-                </div>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/nasional/pokja/pembentukan/create'}}">Create</a>
+				</div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="kegiatan">
-                        <thead>
+					<table class="table table-striped" id="pokja">
+						<thead>
                             <tr>
-                                <th>Kode Kota</th>
-                                <th>Kode Kec</th>
-                                <th>Kode Kel</th>
-                                <th>Kode KMW</th>
-                                <th>Kode Korkot</th>
-                                <th>Kode Faskel</th>
+                                <th>Tahun</th>
+                                <th>Kode Prop</th>
                                 <th>Jenis Kegiatan</th>
-                                <th>Tgl Kegiatan</th>
-                                <th>Lokasi Kegiatan</th>
-                                <th>option</th>
+                                <th>Tanggal Pembentukan</th>
+                                <th>Status Pokja</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -79,32 +75,28 @@
 
 <script>
     $(document).ready(function () {
-        var table = $('#kegiatan').DataTable({
-            // dom: 'Bflrtip',
-            
-            "processing": true,
+		var table = $('#pokja').DataTable({
+	        // dom: 'Bflrtip',
+	        
+			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/kelurahan/sosialisasi",
+                     "url": "/main/persiapan/nasional/pokja/pembentukan",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_kec" , name:"kode_kec"},
-                { "data": "kode_kel" , name:"kode_kel"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
-                { "data": "kode_faskel" , name:"kode_faskel"},
+				{ "data": "tahun" , name:"tahun"},
+                { "data": "kode_prop" , name:"kode_prop"},
                 { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
-                { "data": "option" , name:"option",orderable:false}
+                { "data": "status_pokja" , name:"status_pokja"},
+				{ "data": "option" , name:"option",orderable:false}
             ]
-        });
-        $('#kegiatan_filter input').unbind();
-        $('#kegiatan_filter input').bind('keyup', function(e) {
+	    });
+        $('#pokja_filter input').unbind();
+        $('#pokja_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
             table.search(this.value).draw();
         }

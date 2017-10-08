@@ -94,7 +94,8 @@ class bk010223Controller extends Controller
 			22 =>'updated_time',
 			23 =>'updated_by'
 		);
-		$query='select * from bkt_01020215_lembaga_kel';
+		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kec, e.nama nama_kmw, f.nama nama_kel, g.nama nama_faskel, h.nama nama_kegiatan 
+			from bkt_01020215_lembaga_kel a, bkt_01010102_kota b, bkt_01010111_korkot c, bkt_01010103_kec d, bkt_01010110_kmw e, bkt_01010104_kel f, bkt_01010113_faskel g, bkt_01010118_kegiatan_kel h where b.kode=a.kode_kota and c.kode=a.kode_korkot and d.kode=a.kode_kec and e.kode=a.kode_kmw and f.kode=a.kode_kel and g.kode=a.kode_faskel and h.id=a.id_kegiatan';
 		$totalData = DB::select('select count(1) cnt from bkt_01020215_lembaga_kel ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -122,13 +123,13 @@ class bk010223Controller extends Controller
 				$url_edit=url('/')."/main/persiapan/kelurahan/lembaga/tapp/create?kode=".$show;
 				$url_delete=url('/')."/main/persiapan/kelurahan/lembaga/tapp/delete?kode=".$delete;
 				$nestedData['tahun'] = $post->tahun;
-				$nestedData['kode_kota'] = $post->kode_kota;
-				$nestedData['kode_kortot'] = $post->kode_kortot;
-				$nestedData['kode_kec'] = $post->kode_kec;
-				$nestedData['kode_kmw'] = $post->kode_kmw;
-				$nestedData['kode_kel'] = $post->kode_kec;
-				$nestedData['kode_faskel'] = $post->kode_faskel;
-				$nestedData['id_kegiatan'] = $post->id_kegiatan;
+				$nestedData['nama_kota'] = $post->nama_kota;
+				$nestedData['nama_korkot'] = $post->nama_korkot;
+				$nestedData['nama_kec'] = $post->nama_kec;
+				$nestedData['nama_kmw'] = $post->nama_kmw;
+				$nestedData['nama_kel'] = $post->nama_kec;
+				$nestedData['nama_faskel'] = $post->nama_faskel;
+				$nestedData['nama_kegiatan'] = $post->nama_kegiatan;
 				$nestedData['id_dtl_kegiatan'] = $post->id_dtl_kegiatan;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 				$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
@@ -155,10 +156,10 @@ class bk010223Controller extends Controller
 				}
 
 				$option = '';
-				if(!empty($detil['58'])){
+				if(!empty($detil['208'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['59'])){
+				if(!empty($detil['209'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				}		
 				$nestedData['option'] = $option;
@@ -217,7 +218,7 @@ class bk010223Controller extends Controller
 		$data['kode_id_dtl_kegiatan_list'] = $kode_id_dtl_kegiatan;
 
 		if($data['kode']!=null && !empty($data['detil']['208'])){
-			$rowData = DB::select('select * from bkt_01010114_kel_faskel where kode='.$data['kode']);
+			$rowData = DB::select('select * from bkt_01020215_lembaga_kel where kode='.$data['kode']);
 			$data['tahun'] = $rowData[0]->tahun;
 			$data['kode_kota'] = $rowData[0]->kode_kota;
 			$data['kode_korkot'] = $rowData[0]->kode_korkot;
@@ -282,46 +283,54 @@ class bk010223Controller extends Controller
 	{
 		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
-			DB::table('bkt_01010114_kel_faskel')->where('kode', $request->input('example-id-input'))
-			->update(['kode_kmp_slum_prog' => $request->input('example-kode_kmp_slum_prog-input'), 
-				'kode_faskel' => $request->input('example-kode_faskel-input'), 
-				'kode_kel' => $request->input('example-kode_kel-input'), 
-				'blm' => $request->input('example-select-blm'), 
-				'jenis_project' => $request->input('example-select-jenis_project'),
-				'tahun_glossary' => $request->input('example-tahun_glossary-input'),
-				'tahun_project' => $request->input('example-tahun_project-input'),
-				'awal_project' => $request->input('example-awal_project-input'),
-				'kode_ms' => $request->input('example-select-kode_ms'),
-				'kode_kec' => $request->input('example-kode_kec-input'),
-				'kode_kota' => $request->input('example-kode_kota-input'),
-				'kode_prop' => $request->input('example-kode_prop-input'),
-				'lokasi_blm' => $request->input('example-select-lokasi_blm'),
-				'Lokasi_kumuh' => $request->input('example-select-Lokasi_kumuh'),
-				'flag_kumuh' => $request->input('example-select-flag_kumuh'),
-				'flag_lokasi_ppmk' => $request->input('example-select-flag_lokasi_ppmk'),
+			DB::table('bkt_01020215_lembaga_kel')->where('kode', $request->input('example-id-input'))
+			->update(['tahun' => $request->input('example-tahun-input'), 
+				'kode_kota' => $request->input('example-kode_kota-input'), 
+				'kode_korkot' => $request->input('example-kode_korkot-input'), 
+				'kode_kec' => $request->input('example-kode_kec-input'), 
+				'kode_kmw' => $request->input('example-kode_kmw-input'),
+				'kode_kel' => $request->input('example-kode_kel-input'),
+				'kode_faskel' => $request->input('example-kode_faskel-input'),
+				'id_kegiatan' => $request->input('example-id_kegiatan-input'),
+				'id_dtl_kegiatan' => $request->input('example-id_dtl_kegiatan-input'),
+				'tgl_kegiatan' => $request->input('example-tgl_kegiatan-input'),
+				'lok_kegiatan' => $request->input('example-lok_kegiatan-input'),
+				'q_peserta_p' => $request->input('example-q_peserta_p-input'),
+				'q_peserta_w' => $request->input('example-q_peserta_w-input'),
+				'q_peserta_miskin' => $request->input('example-q_peserta_miskin-input'),
+				'diser_tgl' => $request->input('diser_tgl'),
+				'diser_oleh' => $request->input('example-diser_oleh-input'),
+				'diket_tgl' => $request->input('diket_tgl'),
+				'diket_oleh' => $request->input('example-diket_oleh-input'),
+				'diver_tgl' => $request->input('diver_tgl'),
+				'diver_oleh' => $request->input('example-diver_oleh-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
 			$this->log_aktivitas('Update', 208);
 
 		}else{
-			DB::table('bkt_01010114_kel_faskel')->insert(
-       			['kode_kmp_slum_prog' => $request->input('example-kode_kmp_slum_prog-input'), 
-				'kode_faskel' => $request->input('example-kode_faskel-input'), 
-				'kode_kel' => $request->input('example-kode_kel-input'), 
-				'blm' => $request->input('example-select-blm'), 
-				'jenis_project' => $request->input('example-select-jenis_project'),
-				'tahun_glossary' => $request->input('example-tahun_glossary-input'),
-				'tahun_project' => $request->input('example-tahun_project-input'),
-				'awal_project' => $request->input('example-awal_project-input'),
-				'kode_ms' => $request->input('example-select-kode_ms'),
-				'kode_kec' => $request->input('example-kode_kec-input'),
-				'kode_kota' => $request->input('example-kode_kota-input'),
-				'kode_prop' => $request->input('example-kode_prop-input'),
-				'lokasi_blm' => $request->input('example-select-lokasi_blm'),
-				'Lokasi_kumuh' => $request->input('example-select-Lokasi_kumuh'),
-				'flag_kumuh' => $request->input('example-select-flag_kumuh'),
-				'flag_lokasi_ppmk' => $request->input('example-select-flag_lokasi_ppmk'),
+			DB::table('bkt_01020215_lembaga_kel')->insert(
+       			['tahun' => $request->input('example-tahun-input'), 
+				'kode_kota' => $request->input('example-kode_kota-input'), 
+				'kode_korkot' => $request->input('example-kode_korkot-input'), 
+				'kode_kec' => $request->input('example-kode_kec-input'), 
+				'kode_kmw' => $request->input('example-kode_kmw-input'),
+				'kode_kel' => $request->input('example-kode_kel-input'),
+				'kode_faskel' => $request->input('example-kode_faskel-input'),
+				'id_kegiatan' => $request->input('example-id_kegiatan-input'),
+				'id_dtl_kegiatan' => $request->input('example-id_dtl_kegiatan-input'),
+				'tgl_kegiatan' => $request->input('example-tgl_kegiatan-input'),
+				'lok_kegiatan' => $request->input('example-lok_kegiatan-input'),
+				'q_peserta_p' => $request->input('example-q_peserta_p-input'),
+				'q_peserta_w' => $request->input('example-q_peserta_w-input'),
+				'q_peserta_miskin' => $request->input('example-q_peserta_miskin-input'),
+				'diser_tgl' => $request->input('diser_tgl'),
+				'diser_oleh' => $request->input('example-diser_oleh-input'),
+				'diket_tgl' => $request->input('diket_tgl'),
+				'diket_oleh' => $request->input('example-diket_oleh-input'),
+				'diver_tgl' => $request->input('diver_tgl'),
+				'diver_oleh' => $request->input('example-diver_oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
 			$this->log_aktivitas('Create', 207);
@@ -330,9 +339,9 @@ class bk010223Controller extends Controller
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_01010114_kel_faskel')->where('kode', $request->input('kode'))->delete();
+		DB::table('bkt_01020215_lembaga_kel')->where('kode', $request->input('kode'))->delete();
         $this->log_aktivitas('Delete', 209);
-        return Redirect::to('/main/kel_faskel');
+        return Redirect::to('/main/persiapan/kelurahan/lembaga/tapp');
     }
 
     public function log_aktivitas($aktifitas, $detil)

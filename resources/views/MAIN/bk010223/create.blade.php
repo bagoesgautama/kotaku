@@ -6,6 +6,8 @@
 <link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
+<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css">@stop {{-- Page Header--}}
 @section('page-header')
 <!-- Content Header (Page header) -->
@@ -39,13 +41,13 @@
                                 <label class="col-sm-3 control-label">Tahun</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{$kode}}">
-                                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Tahun" value="{{$tahun}}">
+                                    <input type="text" id="text-input" name="example-tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Kota</label>
                                 <div class="col-sm-6">
-                                    <select id="select31" class="form-control select2" name="example-kode_kota-input">
+                                    <select id="select-kota" class="form-control select2" name="example-kode_kota-input">
                                         @foreach($kode_kota_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_kota) selected="selected" @endif >{{ $list->nama }}
                                             </option>
@@ -56,7 +58,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Nama KorKot</label>            
                                 <div class="col-sm-6">
-                                    <select id="select21" class="form-control select2" name="example-kode_korkot-input">
+                                    <select id="select-korkot" class="form-control select2" name="example-kode_korkot-input">
                                         @foreach($kode_korkot_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_korkot) selected="selected" @endif >{{ $list->nama }}
                                             </option>
@@ -67,7 +69,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Kecamatan</label>
                                 <div class="col-sm-6">
-                                    <select id="select31" class="form-control select2" name="example-kode_kec-input">
+                                    <select id="select-kec" class="form-control select2" name="example-kode_kec-input">
                                         @foreach($kode_kec_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_kec) selected="selected" @endif >{{ $list->nama }}
                                             </option>
@@ -78,7 +80,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input2">KMW</label>          
                                 <div class="col-sm-6">
-                                    <select id="select22" class="form-control select2" name="example-kode_kmw-input">
+                                    <select id="select-kmw" class="form-control select2" name="example-kode_kmw-input">
                                         @foreach($kode_kmw_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_kmw) selected="selected" @endif >{{ $list->nama }}
                                             </option>
@@ -89,7 +91,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Kelurahan</label>
                                 <div class="col-sm-6">
-                                    <select id="select31" class="form-control select2" name="example-kode_kel-input">
+                                    <select id="select-kel" class="form-control select2" name="example-kode_kel-input">
                                         @foreach($kode_kel_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_kel) selected="selected" @endif >{{ $list->nama }}
                                             </option>
@@ -100,7 +102,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Faskel</label>
                                 <div class="col-sm-6">
-                                    <select id="select27" class="form-control select2" name="example-kode_faskel-input">
+                                    <select id="select-faskel" class="form-control select2" name="example-kode_faskel-input">
                                         @foreach($kode_faskel_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_faskel) selected="selected" @endif >{{ $list->nama }}
                                             </option>
@@ -111,7 +113,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <select id="select31" class="form-control select2" name="example-kode_kel-input">
+                                    <select id="select-kegiatan" class="form-control select2" name="example-id_kegiatan-input">
                                         @foreach($kode_id_kegiatan_list as $list)
                                             <option value="{{ $list->id }}" @if($list->id==$id_kegiatan) selected="selected" @endif >{{ $list->nama }}
                                             </option>
@@ -122,7 +124,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Detail Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <select id="select27" class="form-control select2" name="example-kode_faskel-input">
+                                    <select id="select-id-kegiatan" class="form-control select2" name="example-id_dtl_kegiatan-input">
                                         @foreach($kode_id_dtl_kegiatan_list as $list)
                                             <option value="{{ $list->id }}" @if($list->id==$id_dtl_kegiatan) selected="selected" @endif >{{ $list->nama }}
                                             </option>
@@ -131,44 +133,89 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="return_date">Tanggal Diserahkan</label>
+                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="return_date" name="diser_tgl" placeholder="Klik disini untuk memilih tanggal" data-provide="datepicker" value="{{ $diser_tgl}}">
+                                    <input class="form-control" id="tgl-kegiatan-input" name="example-tgl_kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Diserahkan Oleh</label>
+                                <label class="col-sm-3 control-label">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="example-text-input1" name="example-diser_oleh-input" class="form-control" placeholder="Diserahkan Oleh" value="{{ $diser_oleh }}" maxlength="">
+                                    <input type="text" id="text-input" name="example-lok_kegiatan-input" class="form-control" placeholder="Lokasi Kegiatan" value="{{$lok_kegiatan}}">
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Peserta Pria</label>
+                                <div class="col-sm-6">
+                                    <input type="text" id="text-input" name="example-q_peserta_p-input" class="form-control" placeholder="Peserta Pria" value="{{$q_peserta_p}}" maxlength="5">
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Peserta Wanita</label>
+                                <div class="col-sm-6">
+                                    <input type="text" id="text-input" name="example-q_peserta_w-input" class="form-control" placeholder="Peserta Wanita" value="{{$q_peserta_w}}" maxlength="5">
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Peserta Miskin</label>
+                                <div class="col-sm-6">
+                                    <input type="text" id="text-input" name="example-q_peserta_miskin-input" class="form-control" placeholder="Peserta Miskin" value="{{$q_peserta_miskin}}" maxlength="5">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="return_date">Tanggal Diketahui</label>
-                                <div class="col-sm-6">
-                                    <input class="form-control" id="return_date" name="diket_tgl" placeholder="Klik disini untuk memilih tanggal" data-provide="datepicker" value="{{ $diket_tgl}}">
+                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
+                                <div class="col-sm-3">
+                                    <input class="form-control" id="tgl-diser-input" name="diser_tgl" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" id="diser-oleh-input" name="example-diser_oleh-input" class="form-control" placeholder="Diserahkan Oleh" value="{{$diser_oleh}}" value="{{$diket_tgl}}">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Diketahui Oleh</label>
-                                <div class="col-sm-6">
-                                    <input type="text" id="example-text-input1" name="example-diket_oleh-input" class="form-control" placeholder="Diketahui Oleh" value="{{ $diser_oleh }}" maxlength="">
+                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diketahui & Diketahui Oleh</label>
+                                <div class="col-sm-3">
+                                    <input class="form-control" id="tgl-diket-input" name="diket_tgl" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}">
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" id="diket-oleh-input" name="example-diket_oleh-input" class="form-control" placeholder="Diketahui Oleh" value="{{$diket_oleh}}">
                                 </div>
                             </div>
-                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="return_date">Tanggal Diverivikasi</label>
-                                <div class="col-sm-6">
-                                    <input class="form-control" id="return_date" name="diver_tgl" placeholder="Klik disini untuk memilih tanggal" data-provide="datepicker" value="{{ $diver_tgl}}">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diverifikasi & Diverifikasi Oleh</label>
+                                <div class="col-sm-3">
+                                    <input class="form-control" id="tgl-diver-input" name="diver_tgl" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}">
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" id="diver-oleh-input" name="example-diver_oleh-input" class="form-control" placeholder="Diverifikasi Oleh" value="{{$diver_oleh}}">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Diverivikasi Oleh</label>
+                                <label class="col-sm-3 control-label" for="example-text-input1">Created Time</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="example-text-input1" name="example-diket_oleh-input" class="form-control" placeholder="Diverivikasi Oleh" value="{{ $diver_oleh }}" maxlength="">
+                                    <label class="form-control">{{ $created_time }}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
+                                <div class="col-sm-6">
+                                    <label class="form-control">{{ $created_by }}</label>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="example-text-input1">Updated Time</label>
+                                <div class="col-sm-6">
+                                    <label class="form-control">{{ $updated_time }}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="example-text-input1">Updated By</label>
+                                <div class="col-sm-6">
+                                    <label class="form-control">{{ $updated_by }}</label>
                                 </div>
                             </div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/main/data_wilayah/provinsi" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/persiapan/kelurahan/lembaga/tapp" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -194,30 +241,17 @@
 <script>
       $(document).ready(function () {
         $('#submit').on('click', function (e) {
-            var file_data = document.getElementById('file-input').files[0];
-            var form_data = new FormData();
-            form_data.append('kode', $('#kode').val());
-            form_data.append('file-input', file_data);
-            form_data.append('uploaded-file', $('#uploaded-file').val());
-            form_data.append('nama-input', $('#nama-input').val());
-            form_data.append('nama-pndk-input', $('#nama-pndk-input').val());
-            form_data.append('wilayah-input', $('#wilayah-input').val());
-            form_data.append('status-input', $('#status-input').val());
-            form_data.append('latitude-input', $('#latitude-input').val());
-            form_data.append('longitude-input', $('#longitude-input').val());
           e.preventDefault();
           $.ajax({
             type: 'post',
-            processData: false,
-            contentType: false,
-            "url": "/main/data_wilayah/provinsi/create",
-            data: form_data,
+            "url": "/main/persiapan/kelurahan/lembaga/tapp/create",
+            data: $('form').serialize(),
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-            alert('Form Submitted.');
-            window.location.href = "/main/data_wilayah/provinsi";
+            alert('From Submitted.');
+            window.location.href = "/main/persiapan/kelurahan/lembaga/tapp";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -225,6 +259,38 @@
             $("#submit").prop('disabled', false);
             }
           });
+        });
+        $("#select-kota").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+        $("#select-korkot").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+        $("#select-kel").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+        $("#select-kec").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+        $("#select-kmw").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+        $("#select-faskel").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+        $("#select-kegiatan").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+        $("#select-id-dtl-kegiatan").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
         });
       });
 </script>
@@ -234,5 +300,7 @@
 <script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
 @stop

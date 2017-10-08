@@ -115,7 +115,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/kmp_slum_program";
             },
@@ -126,6 +126,10 @@
             }
           });
         });
+		$("#select21").select2({
+	        theme: "bootstrap",
+	        placeholder: "single select"
+	    });
       });
 </script>
 <script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>

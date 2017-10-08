@@ -1,88 +1,355 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}}
-@section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Blank @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
-<link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
-@stop {{-- Page Header--}} @section('page-header')
+<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>MAIN Module</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-            	<a href="/main">
-            		<i class="fa fa-fw fa-home"></i>MAIN
-            	</a>
-            </li>
-            <li class="next">
-                <a href="/main/data_wilayah/provinsi">
-                    Master Data Provinsi
+                <a href="/main">
+                    <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
             </li>
             <li class="next">
-	            Create
+                <a href="/main/persiapan/kelurahan/info">
+                    Persiapan / Kelurahan / Informasi Umum
+                </a>
+            </li>
+            <li class="next">
+                Create
             </li>
         </ul>
     </div>
 </section>
-@stop {{-- Page content --}} @section('content')
+@stop
+{{-- Page content --}} @section('content')
 <div class="panel-body border">
-    <form id="form" class="form-horizontal form-bordered" enctype="multipart/form-data">
+    <form enctype="multipart/form-data" class="form-horizontal form-bordered">
         <div class="row">
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Nama</label>
+                <label class="col-sm-3 control-label">Kode Prop</label>
                 <div class="col-sm-6">
-                    <input type="hidden" id="kode" name="kode" value="{{$kode}}">
-                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{$nama}}">
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Nama Pendek</label>
-                <div class="col-sm-6">
-                    <input type="text" id="nama-pndk-input" name="nama-pndk-input" class="form-control" placeholder="Nama Pendek" value="{{$nama_pendek}}">
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Wilayah</label>
-                <div class="col-sm-6">
-                    <input type="text" id="wilayah-input" name="wilayah-input" class="form-control" placeholder="Wilayah" value="{{$wilayah}}">
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">File</label>
-                <div class="col-sm-6">
-
-                    <input id="file-input" type="file" class="file" data-show-preview="false" name="file-input">
-                    <br>
-                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file" value="{{$file}}" {!! $file==null ? 'style="display:none"':'' !!}>{{$file}}</button>
-
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Status</label>
-                <div class="col-sm-6">
-                    <select id="status-input" name="status-input" class="form-control" size="1">
-                        <option value="0" {!! $status==0 ? 'selected':'' !!}>Tidak Aktif</option>
-                        <option value="1" {!! $status==1 ? 'selected':'' !!}>Aktif</option>
-                        <option value="2" {!! $status==2 ? 'selected':'' !!}>Dihapus</option>
+                    <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
+                    <select id="kode-prop-input" name="kode-prop-input" class="form-control" size="1">
+                        @foreach ($kode_prop_list as $kpl)
+                            <option value="{{$kpl->kode}}" {!! $kode_prop==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Latitude</label>
+                <label class="col-sm-3 control-label">Kode Kota</label>
                 <div class="col-sm-6">
-                    <input type="number" id="latitude-input" name="latitude-input" class="form-control" placeholder="Latitude" value="{{$latitude}}" step="0.001">
+                    <select id="kode-kota-input" name="kode-kota-input" class="form-control" size="1">
+                        @foreach ($kode_kota_list as $kkl)
+                            <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label">Longitude</label>
+                <label class="col-sm-3 control-label">Kode kec</label>
                 <div class="col-sm-6">
-                    <input type="number" id="longitude-input" name="longitude-input" class="form-control" placeholder="Longitude" value="{{$longitude}}" step="0.001">
+                    <select id="kode-kec-input" name="kode-kec-input" class="form-control" size="1">
+                        @foreach ($kode_kec_list as $kkl)
+                            <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Kode KMW</label>
+                <div class="col-sm-6">
+                    <select id="kode-kmw-input" name="kode-kmw-input" class="form-control" size="1">
+                        @foreach ($kode_kmw_list as $kkl)
+                            <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Kode Korkot</label>
+                <div class="col-sm-6">
+                    <select id="kode-korkot-input" name="kode-korkot-input" class="form-control" size="1">
+                        @foreach ($kode_korkot_list as $kkl)
+                            <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Kode Faskel</label>
+                <div class="col-sm-6">
+                    <select id="kode-faskel-input" name="kode-faskel-input" class="form-control" size="1">
+                        @foreach ($kode_faskel_list as $kfl)
+                            <option value="{{$kfl->kode}}" {!! $kode_faskel==$kfl->kode ? 'selected':'' !!}>{{$kfl->nama}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Cakupan Wilayah</label></div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Propinsi</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cw-q-prop" name="cw-q-prop" class="form-control" value="{{$cw_q_prop}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Kota</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cw-q-kota" name="cw-q-kota" class="form-control" value="{{$cw_q_kota}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Cakupan Administrasi</label></div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Kecamatan</label>
+                <div class="col-sm-6">
+                    <input type="number" id="ca-q-kec" name="ca-q-kec" class="form-control" value="{{$ca_q_kec}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Kelurahan</label>
+                <div class="col-sm-6">
+                    <input type="number" id="ca-q-kel" name="ca-q-kel" class="form-control" value="{{$ca_q_kel}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Dusun</label>
+                <div class="col-sm-6">
+                    <input type="number" id="ca-q-dusun" name="ca-q-dusun" class="form-control" value="{{$ca_q_dusun}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah RW</label>
+                <div class="col-sm-6">
+                    <input type="number" id="ca-q-rw" name="ca-q-rw" class="form-control" value="{{$ca_q_rw}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah RT</label>
+                <div class="col-sm-6">
+                    <input type="number" id="ca-q-rt" name="ca-q-rt" class="form-control" value="{{$ca_q_rt}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Luas Wilayah</label></div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Luas Wilayah Administratif (Ha)</label>
+                <div class="col-sm-6">
+                    <input type="number" id="lw-l-wil-adm" name="lw-l-wil-adm" class="form-control" value="{{$lw_l_wil_adm}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Luas Wilayah Administratif (Ha) Kota/Kab.</label>
+                <div class="col-sm-6">
+                    <input type="number" id="lw-l-wil-adm-kota" name="lw-l-wil-adm-kota" class="form-control" value="{{$lw_l_wil_adm_kota}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Luas Wilayah Administratif (Ha) Kelurahan.</label>
+                <div class="col-sm-6">
+                    <input type="number" id="lw-l-wil-adm-kel" name="lw-l-wil-adm-kel" class="form-control" value="{{$lw_l_wil_adm_kel}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Luas Permukiman (Ha)</label>
+                <div class="col-sm-6">
+                    <input type="number" id="lw-l-pmkm" name="lw-l-pmkm" class="form-control" value="{{$lw_l_pmkm}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Luas Permukiman (Ha) Kota/Kab.</label>
+                <div class="col-sm-6">
+                    <input type="number" id="lw-l-pmkm-kota" name="lw-l-pmkm-kota" class="form-control" value="{{$lw_l_pmkm_kota}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Luas Permukiman (Ha) Kelurahan.</label>
+                <div class="col-sm-6">
+                    <input type="number" id="lw-l-pmkm-kel" name="lw-l-pmkm-kel" class="form-control" value="{{$lw_l_pmkm_kel}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Cakupan Penduduk</label></div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Penduduk</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cp-q-pdk" name="cp-q-pdk" class="form-control" value="{{$cp_q_pdk}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Penduduk Perempuan</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cp-q-pdk-w" name="cp-q-pdk-w" class="form-control" value="{{$cp_q_pdk_w}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Kepala Keluarga</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cp-q-kk" name="cp-q-kk" class="form-control" value="{{$cp_q_kk}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Kepala Rumah Tangga MBR (baseline)</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cp-q-kk-mbr" name="cp-q-kk-mbr" class="form-control" value="{{$cp_q_kk_mbr}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Kepala Keluarga Miskin (PPLS/40% termiskin ver BPS)</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cp-q-kk-miskin" name="cp-q-kk-miskin" class="form-control" value="{{$cp_q_kk_miskin}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Kepadatan Penduduk Rata-rata</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cp-r-pdt-kpdk" name="cp-r-pdt-kpdk" class="form-control" value="{{$cp_r_pdt_kpdk}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Angka Pertumbuhan Penduduk Pertahun</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cp-t-pdk-thn" name="cp-t-pdk-thn" class="form-control" value="{{$cp_t_pdk_thn}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Kawasan Kumuh (Kota/Kab)</label></div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Dasar Hukum</label>
+                <div class="col-sm-6">
+                    <input type="text" id="km-ds-hkm" name="km-ds-hkm" class="form-control" value="{{$km_ds_hkm}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Kawasan Pemukiman Kumuh</label>
+                <div class="col-sm-6">
+                    <input type="number" id="km-q-kw-kmh" name="km-q-kw-kmh" class="form-control" value="{{$km_q_kw_kmh}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Kecamatan Yang Memiliki Kawasan Kumuh</label>
+                <div class="col-sm-6">
+                    <input type="number" id="km-q-kec-kmh" name="km-q-kec-kmh" class="form-control" value="{{$km_q_kec_kmh}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Kelurahan Yang Termasuk Kawasan Kumuh</label>
+                <div class="col-sm-6">
+                    <input type="number" id="km-q-kel-kmh" name="km-q-kel-kmh" class="form-control" value="{{$km_q_kel_kmh}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah RT Kumuh</label>
+                <div class="col-sm-6">
+                    <input type="number" id="km-q-rt-kmh" name="km-q-rt-kmh" class="form-control" value="{{$km_q_rt_kmh}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah RT Non Kumuh</label>
+                <div class="col-sm-6">
+                    <input type="number" id="km-q-rt-non-kmh" name="km-q-rt-non-kmh" class="form-control" value="{{$km_q_rt_non_kmh}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Luas Kawasan Kumuh (Kota/Kab)</label></div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Luas Kawasan Kumuh (Ha)</label>
+                <div class="col-sm-6">
+                    <input type="text" id="lk-l-kw-kmh" name="lk-l-kw-kmh" class="form-control" value="{{$lk_l_kw_kmh}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Luas RT Kumuh Pada Tingkat RT Pada Tahun Berjalan (Ha)</label>
+                <div class="col-sm-6">
+                    <input type="text" id="lk-l-rt-kmh" name="lk-l-rt-kmh" class="form-control" value="{{$lk_l_rt_kmh}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Cakupan Penduduk di Kawasan Umum</label></div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Penduduk</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cpk-q-pdk" name="cpk-q-pdk" class="form-control" value="{{$cpk_q_pdk}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Penduduk Perempuan</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cpk-q-pdk-w" name="cpk-q-pdk-w" class="form-control" value="{{$cpk_q_pdk_w}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Kepala Keluarga</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cpk-q-kk" name="cpk-q-kk" class="form-control" value="{{$cpk_q_kk}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Kepala Rumah Tangga MBR (baseline)</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cpk-q-kk-mbr" name="cpk-q-kk-mbr" class="form-control" value="{{$cpk_q_kk_mbr}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Jumlah Kepala Keluarga Miskin (PPLS/40% termiskin ver BPS)</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cpk-q-kk-miskin" name="cpk-q-kk-miskin" class="form-control" value="{{$cpk_q_kk_miskin}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Kepadatan Penduduk Rata-rata</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cpk-r-pdt-kpdk" name="cpk-r-pdt-kpdk" class="form-control" value="{{$cpk_r_pdt_kpdk}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Angka Pertumbuhan Penduduk Pertahun</label>
+                <div class="col-sm-6">
+                    <input type="number" id="cpk-t-pdk-thn" name="cpk-t-pdk-thn" class="form-control" value="{{$cpk_t_pdk_thn}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
+                <div class="col-sm-3">
+                    <input class="form-control" id="tgl-diser-input" name="tgl-diser-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" id="diser-oleh-input" name="diser-oleh-input" class="form-control" placeholder="Diserahkan Oleh" value="{{$diser_oleh}}" value="{{$diket_tgl}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diketahui & Diketahui Oleh</label>
+                <div class="col-sm-3">
+                    <input class="form-control" id="tgl-diket-input" name="tgl-diket-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}">
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" id="diket-oleh-input" name="diket-oleh-input" class="form-control" placeholder="Diketahui Oleh" value="{{$diket_oleh}}">
+                </div>
+            </div>
+            <div class="form-group striped-col">
+                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diverifikasi & Diverifikasi Oleh</label>
+                <div class="col-sm-3">
+                    <input class="form-control" id="tgl-diver-input" name="tgl-diver-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}">
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" id="diver-oleh-input" name="diver-oleh-input" class="form-control" placeholder="Diverifikasi Oleh" value="{{$diver_oleh}}">
                 </div>
             </div>
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <a href="/main/data_wilayah/provinsi" type="button" class="btn btn-effect-ripple btn-danger">
+                    <a href="/main/persiapan/kelurahan/info" type="button" class="btn btn-effect-ripple btn-danger">
                         Cancel
                     </a>
                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -96,38 +363,25 @@
         </div>
     </form>
 </div>
-
-@stop {{-- local scripts --}} @section('footer_scripts')
+@stop
+{{-- local scripts --}} @section('footer_scripts')
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
 <script>
       $(document).ready(function () {
         $('#submit').on('click', function (e) {
-            var file_data = document.getElementById('file-input').files[0];
-            var form_data = new FormData();
-            form_data.append('kode', $('#kode').val());
-            form_data.append('file-input', file_data);
-            form_data.append('uploaded-file', $('#uploaded-file').val());
-            form_data.append('nama-input', $('#nama-input').val());
-            form_data.append('nama-pndk-input', $('#nama-pndk-input').val());
-            form_data.append('wilayah-input', $('#wilayah-input').val());
-            form_data.append('status-input', $('#status-input').val());
-            form_data.append('latitude-input', $('#latitude-input').val());
-            form_data.append('longitude-input', $('#longitude-input').val());
           e.preventDefault();
           $.ajax({
             type: 'post',
-            processData: false,
-            contentType: false,
-            "url": "/main/data_wilayah/provinsi/create",
-            data: form_data,
+            "url": "/main/persiapan/kelurahan/info/create",
+            data: $('form').serialize(),
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-            alert('Form Submitted.');
-            window.location.href = "/main/data_wilayah/provinsi";
+            alert('From Submitted.');
+            window.location.href = "/main/persiapan/kelurahan/info";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

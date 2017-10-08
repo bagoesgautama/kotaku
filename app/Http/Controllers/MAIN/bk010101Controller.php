@@ -18,7 +18,6 @@ class bk010101Controller extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        // parent::__construct();
     }
 
     /**
@@ -102,14 +101,15 @@ class bk010101Controller extends Controller
 			$upload = true;
 		}
 
-		if($upload == false){
+		/*if($upload == false){
 			$file = public_path('/uploads/provinsi/'.$url);
 			$string = file_get_contents($file);
 			$json_file = json_decode($string, true);
 			$json_file['properties']['PROPINSI'] = $request->input('nama-input');
 			$new_String = json_encode($json_file);
 			file_put_contents($file, $new_String);
-		}elseif($upload == true){
+		}else*/
+		if($upload == true){
 			$string = file_get_contents($file);
 			$json_file = json_decode($string, true);
 			$json_file['properties']['PROPINSI'] = $request->input('nama-input');
@@ -127,7 +127,9 @@ class bk010101Controller extends Controller
 		}else{
 			DB::table('bkt_01010101_prop')->insert(
        			['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'wilayah' => $request->input('wilayah-input'), 'url_border_area' => $url, 'latitude' => $request->input('latitude-input'), 'longitude' => $request->input('longitude-input'), 'created_by' => Auth::user()->id]);
-			$file->move(public_path('/uploads/provinsi'), $file->getClientOriginalName());
+			if($upload == true){
+				$file->move(public_path('/uploads/provinsi'), $file->getClientOriginalName());
+			}
 		}
 	}
 
