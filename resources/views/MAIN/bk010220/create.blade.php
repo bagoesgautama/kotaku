@@ -148,11 +148,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Anggota Pemerintah Desa</label>
                                 <div class="col-sm-6">
-<<<<<<< HEAD
                                     <input type="text" id="q_anggota_pem_desa-input" name="q_anggota_pem_desa-input" class="form-control" placeholder="Anggota Desa" value="{{$q_anggota_pem_desa}}" maxlength="5">
-=======
-                                    <input type="text" id="text-input" name="example-q_anggota_pem_desa-input" class="form-control" placeholder="Anggota Desa" value="{{$q_anggota_pem_desa}}" maxlength="5">
->>>>>>> 44b0e6f17db53a973e09acb0eb00c4ce5381e0d0
                                 </div>
                             </div>
                             <div class="form-group">
@@ -167,7 +163,7 @@
                                     <input type="text" id="q_anggota_non_pem-input" name="q_anggota_non_pem-input" class="form-control" placeholder="Anggota Non Pemerintah" value="{{$q_anggota_non_pem}}" maxlength="5">
                                 </div>
                             </div>
-                            
+
                             <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
                                 <div class="col-sm-3">
@@ -241,14 +237,11 @@
 </div>
 
 @stop {{-- local scripts --}} @section('footer_scripts')
-<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
         $('#submit').on('click', function (e) {
-            var file_dokumen = document.getElementById('file-dokumen-input').files[0];
+			e.preventDefault();
+			var file_dokumen = document.getElementById('file-dokumen-input').files[0];
             var file_absensi = document.getElementById('file-absensi-input').files[0];
             var file_dok_rencana_kerja = document.getElementById('file-dok_rencana_kerja-input').files[0];
             var form_data = new FormData();
@@ -281,24 +274,26 @@
             form_data.append('diket_oleh-input', $('#diket_oleh-input').val());
             form_data.append('tgl_diver-input', $('#tgl_diver-input').val());
             form_data.append('diver_oleh-input', $('#diver_oleh-input').val());
-          e.preventDefault();
-          $.ajax({
-            type: 'post',
-            "url": "/main/persiapan/kelurahan/forum/keanggotaan/create",
-            data: $('form').serialize(),
-            beforeSend: function (){
-                $("#submit").prop('disabled', true);
-            },
-            success: function () {
-            alert('From Submitted.');
-            window.location.href = "/main/persiapan/kelurahan/forum/keanggotaan";
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-            $("#submit").prop('disabled', false);
-            }
-          });
+			console.log('aaaaa')
+			/*$.ajax({
+	            type: 'post',
+				processData: false,
+	            contentType: false,
+	            "url": "/main/persiapan/kelurahan/forum/keanggotaan/create",
+	            data: form_data,
+	            beforeSend: function (){
+	                $("#submit").prop('disabled', true);
+	            },
+	            success: function () {
+	            	alert('From Submitted.');
+	            	window.location.href = "/main/persiapan/kelurahan/forum/keanggotaan";
+	            },
+	            error: function (xhr, ajaxOptions, thrownError) {
+	            	alert(xhr.status);
+	            	alert(thrownError);
+	            	$("#submit").prop('disabled', false);
+	            }
+			});*/
         });
         $("#select-kode_kota-input").select2({
             theme: "bootstrap",
@@ -326,7 +321,10 @@
         });
       });
 </script>
-
+<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>

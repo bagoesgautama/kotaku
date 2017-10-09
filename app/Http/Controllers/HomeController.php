@@ -17,7 +17,6 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        // parent::__construct();
     }
 
     /**
@@ -46,8 +45,7 @@ class HomeController extends Controller
 
 	public function hrm()
 	{
-		$user = Auth::user();
-        $akses= $user->menu()->where('kode_apps', 2)->get();
+		$akses= $user->menu()->where('kode_apps', 2)->get();
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
