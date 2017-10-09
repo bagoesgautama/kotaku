@@ -13,7 +13,7 @@
                 <i class="fa fa-fw fa-home"></i> MAIN
             </a>
         </li>
-        <li><a href="/hrm/kmp">Konsultan Manajemen Pusat (KMP)</a></li>
+        <li><a href="/main/kmp">Konsultan Manajemen Pusat (KMP)</a></li>
         <li class="active">
             Create
         </li>
@@ -45,7 +45,7 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Contact Person</label>
-                <div class="col-sm-6">    
+                <div class="col-sm-6">
                     <input type="text" id="example-text-input1" name="example-contact_person-input" class="form-control" placeholder="Contact Person" value="{{ $contact_person }}" maxlength="50">
                 </div>
             </div>
@@ -160,7 +160,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/kmp";
             },

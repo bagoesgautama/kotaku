@@ -1,5 +1,5 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Pembentukan POKJA @stop {{-- local styles --}} @section('header_styles') 
-
+@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}}
+@section('header_styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/colReorder.bootstrap.css')}}" />
@@ -9,30 +9,19 @@
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/scroller.bootstrap.css')}}">
 <link href="{{asset('vendors/hover/css/hover-min.css')}}" rel="stylesheet">
 <link href="{{asset('css/buttons_sass.css')}}" rel="stylesheet">
-
 @stop {{-- Page Header--}} @section('page-header')
-
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>MAIN Module</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-                <a href="/main">
-                    <i class="fa fa-fw fa-home"></i> MAIN
-                </a>
+            	<a href="/main">
+            		<i class="fa fa-fw fa-home"></i> MAIN
+            	</a>
             </li>
             <li class="next">
-                Persiapan
-            </li>
-            <li class="next">
-                Propinsi
-            </li>
-            <li class="next">
-                Pokja
-            </li>
-            <li class="next">
-                Pembentukan
+	            Master Data Provinsi
             </li>
         </ul>
     </div>
@@ -42,28 +31,21 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <div class="panel-title pull-left">
-                    <b>bk010203 index</b>
-                </div>
-                 @if( ! empty($detil['69']))
+				@if( ! empty($detil['4']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/propinsi/pokja/pembentukan/create'}}">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_wilayah/provinsi/create">Create</a>
                 </div>
-                @endif
+				@endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="pokja">
+                    <table class="table table-striped" id="provinsi">
                         <thead>
                             <tr>
-                                <th>Kode</th>
-                                <th>Tahun</th>
-                                <th>Propinsi</th>
-                                <th>KMW</th>
-                                <th>Faskel</th>
-                                <th>Jenis Kegiatan</th>
-                                <th>Tanggal Pembentukan</th>
-                                <th>Status Pokja</th>
+                                <th>Nama</th>
+                                <th>Nama Pendek</th>
+                                <th>Wilayah</th>
+                                <th>Status</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -74,40 +56,37 @@
     </div>
 </div>
 
-<!-- /.modal ends here -->@stop {{-- local scripts --}} @section('footer_scripts')
-
+@stop {{-- local scripts --}} @section('footer_scripts')
 <script>
     $(document).ready(function () {
-        var table = $('#pokja').DataTable({
+        var table = $('#provinsi').DataTable({
             // dom: 'Bflrtip',
-            
+
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/propinsi/pokja/pembentukan",
+                     "url": "/main/data_wilayah/provinsi",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-                { "data": "kode" , name:"kode"},
-                { "data": "tahun" , name:"tahun"},
-                { "data": "kode_prop" , name:"kode_prop"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
-                { "data": "kode_faskel" , name:"kode_faskel"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "status_pokja" , name:"status_pokja"},
-                { "data": "option" , name:"option",orderable:false}
+                { "data": "nama" , name:"nama"},
+                { "data": "nama_pendek" , name:"nama_pendek"},
+                { "data": "wilayah" , name:"wilayah"},
+                { "data": "status" , name:"status"},
+                { "data": "option" , name:"option"}
             ]
         });
-        $('#pokja_filter input').unbind();
-        $('#pokja_filter input').bind('keyup', function(e) {
-        if(e.keyCode == 13) {
-            table.search(this.value).draw();
-        }
-    })
-});
+
+        $('#provinsi_filter input').unbind();
+		$('#provinsi_filter input').bind('keyup', function(e) {
+			if(e.keyCode == 13) {
+				table.search(this.value).draw();
+			}
+		});
+
+    });
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>

@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Nama KorKot</label>            
+                                <label class="col-sm-3 control-label" for="example-text-input1">Nama KorKot</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode_korkot-input" class="form-control select2" name="select-kode_korkot-input">
                                         @foreach($kode_korkot_list as $list)
@@ -79,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input2">KMW</label>          
+                                <label class="col-sm-3 control-label" for="example-text-input2">KMW</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode_kmw-input" class="form-control select2" name="select-kode_kmw-input">
                                         @foreach($kode_kmw_list as $list)
@@ -148,7 +148,11 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Anggota Pemerintah Desa</label>
                                 <div class="col-sm-6">
+<<<<<<< HEAD
                                     <input type="text" id="q_anggota_pem_desa-input" name="q_anggota_pem_desa-input" class="form-control" placeholder="Anggota Desa" value="{{$q_anggota_pem_desa}}" maxlength="5">
+=======
+                                    <input type="text" id="text-input" name="example-q_anggota_pem_desa-input" class="form-control" placeholder="Anggota Desa" value="{{$q_anggota_pem_desa}}" maxlength="5">
+>>>>>>> 44b0e6f17db53a973e09acb0eb00c4ce5381e0d0
                                 </div>
                             </div>
                             <div class="form-group">
