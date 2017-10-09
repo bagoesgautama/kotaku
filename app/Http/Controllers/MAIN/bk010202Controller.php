@@ -37,10 +37,6 @@ class bk010202Controller extends Controller
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
-				$data['totalData'] = DB::select('select b.kode modul_id,b.nama modul,c.kode apps_id,c.nama apps
-					from bkt_02010104_modul b,bkt_02010103_apps c
-					where b.kode_apps=c.kode');
-				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
 
 				$this->log_aktivitas('View', 64);
 				return view('MAIN/bk010202/index',$data);
@@ -61,7 +57,7 @@ class bk010202Controller extends Controller
 			2 =>'tgl_kegiatan',
 			3 =>'lok_kegiatan'
 		);
-		$query='select bkt_01020203_fungsi_pokja.kode, bkt_01020203_fungsi_pokja.kode_pokja, bkt_01020203_fungsi_pokja.jenis_subkegiatan, bkt_01020203_fungsi_pokja.tgl_kegiatan, bkt_01020203_fungsi_pokja.lok_kegiatan from bkt_01020203_fungsi_pokja inner join bkt_01020202_pokja on bkt_01020203_fungsi_pokja.kode_pokja = bkt_01020202_pokja.kode where bkt_01020202_pokja.jenis_kegiatan = 2.1';
+		$query='select a.kode, a.kode_pokja, a.jenis_subkegiatan, a.tgl_kegiatan, a.lok_kegiatan from bkt_01020203_fungsi_pokja a, bkt_01020202_pokja b where a.kode_pokja = b.kode and b.jenis_kegiatan = 2.1';
 		$totalData = DB::select('select count(1) cnt from bkt_01020203_fungsi_pokja ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -70,12 +66,12 @@ class bk010202Controller extends Controller
 		$dir = $request->input('order.0.dir');
 		if(empty($request->input('search.value')))
 		{
-			$posts=DB::select($query .' order by bkt_01020203_fungsi_pokja.'.$order.' '.$dir.' limit '.$start.','.$limit);
+			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and bkt_01020203_fungsi_pokja.kode_pokja like "%'.$search.'%" or bkt_01020203_fungsi_pokja.jenis_subkegiatan like "%'.$search.'%" or bkt_01020203_fungsi_pokja.tgl_kegiatan like "%'.$search.'%" or bkt_01020203_fungsi_pokja.lok_kegiatan like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and bkt_01020203_fungsi_pokja.kode_pokja like "%'.$search.'%" or bkt_01020203_fungsi_pokja.jenis_subkegiatan like "%'.$search.'%" or bkt_01020203_fungsi_pokja.tgl_kegiatan like "%'.$search.'%" or bkt_01020203_fungsi_pokja.lok_kegiatan like "%'.$search.'%") a');
+			$posts=DB::select($query. ' or kode_pokja like "%'.$search.'%" or jenis_subkegiatan like "%'.$search.'%" or tgl_kegiatan like "%'.$search.'%" or lok_kegiatan like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' or kode_pokja like "%'.$search.'%" or jenis_subkegiatan like "%'.$search.'%" or tgl_kegiatan like "%'.$search.'%" or lok_kegiatan like "%'.$search.'%") a');
 		}
 
 		$data = array();
@@ -150,8 +146,10 @@ class bk010202Controller extends Controller
 				$data['jenis_subkegiatan'] = $rowData[0]->jenis_subkegiatan;
 				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
 				$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
-				$data['q_anggota_p'] = $rowData[0]->q_anggota_p;
-				$data['q_anggota_w'] = $rowData[0]->q_anggota_w;
+				$data['q_peserta_p'] = $rowData[0]->q_anggota_p;
+				$data['q_peserta_w'] = $rowData[0]->q_anggota_w;
+				$data['uri_img_document'] = $rowData[0]->uri_img_document;
+				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
 				$data['diser_tgl'] = $rowData[0]->diser_tgl;
 				$data['diser_oleh'] = $rowData[0]->diser_oleh;
 				$data['diket_tgl'] = $rowData[0]->diket_tgl;
@@ -163,14 +161,17 @@ class bk010202Controller extends Controller
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
 				$data['kode_pokja_list'] = DB::select('select * from bkt_01020202_pokja where jenis_kegiatan = 2.1');
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010202/create',$data);
 			}else if($data['kode']==null  && !empty($data['detil']['65'])){
 				$data['kode_pokja'] = null;
 				$data['jenis_subkegiatan'] = null;
 				$data['tgl_kegiatan'] = null;
 				$data['lok_kegiatan'] = null;
-				$data['q_anggota_p'] = null;
-				$data['q_anggota_w'] = null;
+				$data['q_peserta_p'] = null;
+				$data['q_peserta_w'] = null;
+				$data['uri_img_document'] = null;
+				$data['uri_img_absensi'] = null;
 				$data['diser_tgl'] = null;
 				$data['diser_oleh'] = null;
 				$data['diket_tgl'] = null;
@@ -182,6 +183,7 @@ class bk010202Controller extends Controller
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
 				$data['kode_pokja_list'] = DB::select('select * from bkt_01020202_pokja where jenis_kegiatan = 2.1');
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010202/create',$data);
 			}else{
 				return Redirect::to('/');
@@ -193,6 +195,34 @@ class bk010202Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		$file_dokumen = $request->file('file-dokumen-input');
+		$url_dokumen = null;
+		$upload_dokumen = false;
+		if($request->input('uploaded-file-dokumen') != null && $file_dokumen == null){
+			$url_dokumen = $request->input('uploaded-file-dokumen');
+			$upload_dokumen = false;
+		}elseif($request->input('uploaded-file-dokumen') != null && $file_dokumen != null){
+			$url_dokumen = $file_dokumen->getClientOriginalName();
+			$upload_dokumen = true;
+		}elseif($request->input('uploaded-file-dokumen') == null && $file_dokumen != null){
+			$url_dokumen = $file_dokumen->getClientOriginalName();
+			$upload_dokumen = true;
+		}
+
+		$file_absensi = $request->file('file-absensi-input');
+		$url_absensi = null;
+		$upload_absensi = false;
+		if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
+			$url_absensi = $request->input('uploaded-file-absensi');
+			$upload_absensi = false;
+		}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
+			$url_absensi = $file_absensi->getClientOriginalName();
+			$upload_absensi = true;
+		}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
+			$url_absensi = $file_absensi->getClientOriginalName();
+			$upload_absensi = true;
+		}
+
 		if ($request->input('kode')!=null){
 			date_default_timezone_set('Asia/Jakarta');
 			DB::table('bkt_01020203_fungsi_pokja')->where('kode', $request->input('kode'))
@@ -201,8 +231,10 @@ class bk010202Controller extends Controller
 				'jenis_subkegiatan' => $request->input('sub-kegiatan-input'), 
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
-				'q_anggota_p' => $request->input('q-laki-input'),
-				'q_anggota_w' => $request->input('q-perempuan-input'),
+				'q_peserta_p' => $request->input('q-laki-input'),
+				'q_peserta_w' => $request->input('q-perempuan-input'),
+				'uri_img_document' => $url_dokumen,
+				'uri_img_absensi' => $url_absensi,
 				'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
 				'diser_oleh' => $request->input('diser-oleh-input'),
 				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
@@ -213,6 +245,14 @@ class bk010202Controller extends Controller
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
 
+			if($upload_dokumen == true){
+				$file_dokumen->move(public_path('/uploads/persiapan/nasional/pokja/monitoring'), $file_dokumen->getClientOriginalName());
+			}
+
+			if($upload_absensi == true){
+				$file_absensi->move(public_path('/uploads/persiapan/nasional/pokja/monitoring'), $file_absensi->getClientOriginalName());
+			}
+
 			$this->log_aktivitas('Update', 66);
 
 		}else{
@@ -221,8 +261,10 @@ class bk010202Controller extends Controller
 				'jenis_subkegiatan' => $request->input('sub-kegiatan-input'), 
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
-				'q_anggota_p' => $request->input('q-laki-input'),
-				'q_anggota_w' => $request->input('q-perempuan-input'),
+				'q_peserta_p' => $request->input('q-laki-input'),
+				'q_peserta_w' => $request->input('q-perempuan-input'),
+				'uri_img_document' => $url_dokumen,
+				'uri_img_absensi' => $url_absensi,
 				'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
 				'diser_oleh' => $request->input('diser-oleh-input'),
 				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
@@ -231,6 +273,14 @@ class bk010202Controller extends Controller
 				'diver_oleh' => $request->input('diver-oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
+
+			if($upload_dokumen == true){
+				$file_dokumen->move(public_path('/uploads/persiapan/nasional/pokja/monitoring'), $file_dokumen->getClientOriginalName());
+			}
+
+			if($upload_absensi == true){
+				$file_absensi->move(public_path('/uploads/persiapan/nasional/pokja/monitoring'), $file_absensi->getClientOriginalName());
+			}
 
 			$this->log_aktivitas('Create', 65);
 		}

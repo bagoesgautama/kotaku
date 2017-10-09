@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pembentukan POKJA @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -56,8 +56,11 @@
                     <table class="table table-striped" id="pokja">
                         <thead>
                             <tr>
+                                <th>Kode</th>
                                 <th>Tahun</th>
-                                <th>Kode Prop</th>
+                                <th>Propinsi</th>
+                                <th>KMW</th>
+                                <th>Faskel</th>
                                 <th>Jenis Kegiatan</th>
                                 <th>Tanggal Pembentukan</th>
                                 <th>Status Pokja</th>
@@ -87,8 +90,11 @@
                    },
 
             "columns": [
+                { "data": "kode" , name:"kode"},
                 { "data": "tahun" , name:"tahun"},
                 { "data": "kode_prop" , name:"kode_prop"},
+                { "data": "kode_kmw" , name:"kode_kmw"},
+                { "data": "kode_faskel" , name:"kode_faskel"},
                 { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "status_pokja" , name:"status_pokja"},

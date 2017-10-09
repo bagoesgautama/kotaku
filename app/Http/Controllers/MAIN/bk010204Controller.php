@@ -36,11 +36,6 @@ class bk010204Controller extends Controller
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
-			    $data['username'] = $user->name;
-				$data['totalData'] = DB::select('select b.kode modul_id,b.nama modul,c.kode apps_id,c.nama apps
-					from bkt_02010104_modul b,bkt_02010103_apps c
-					where b.kode_apps=c.kode');
-				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
 
 				$this->log_aktivitas('View', 72);
 				return view('MAIN/bk010204/index',$data);
@@ -62,7 +57,7 @@ class bk010204Controller extends Controller
 			2 =>'tgl_kegiatan',
 			3 =>'lok_kegiatan'
 		);
-		$query='select bkt_01020203_fungsi_pokja.kode, bkt_01020203_fungsi_pokja.kode_pokja, bkt_01020203_fungsi_pokja.jenis_subkegiatan, bkt_01020203_fungsi_pokja.tgl_kegiatan, bkt_01020203_fungsi_pokja.lok_kegiatan from bkt_01020203_fungsi_pokja inner join bkt_01020202_pokja on bkt_01020203_fungsi_pokja.kode_pokja = bkt_01020202_pokja.kode where bkt_01020202_pokja.jenis_kegiatan = 2.2';
+		$query='select a.kode, a.kode_pokja, a.jenis_subkegiatan, a.tgl_kegiatan, a.lok_kegiatan from bkt_01020203_fungsi_pokja a, bkt_01020202_pokja b where a.kode_pokja = b.kode and b.jenis_kegiatan = 2.2';
 		$totalData = DB::select('select count(1) cnt from bkt_01020203_fungsi_pokja ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
