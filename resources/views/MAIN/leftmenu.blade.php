@@ -413,8 +413,8 @@
 							</li>
 							@endif
 							@if( ! empty($menu['74']))
-							<li {!! (Request::is( 'main/persiapan/kelurahan/lembaga/organisasai_pengelola')||Request::is( 'main/persiapan/kelurahan/lembaga/organisasai_pengelola/create') ? 'class="active"': "") !!}>
-								<a href="/main/persiapan/kelurahan/lembaga/organisasai_pengelola">
+							<li {!! (Request::is( 'main/persiapan/kelurahan/lembaga/organisasi_pengelola')||Request::is( 'main/persiapan/kelurahan/lembaga/organisasi_pengelola/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/lembaga/organisasi_pengelola">
 									<span class="mm-text">Organisasi Pengelola O & P</span>
 								</a>
 							</li>

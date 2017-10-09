@@ -31,7 +31,10 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-				@if( ! empty($detil['207']))
+				<div class="panel-title pull-left">
+                    <b>bk010223 index</b>
+                </div>
+                @if( ! empty($detil['207']))
                 <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/lembaga/tapp/create">Create</a>
                 </div>

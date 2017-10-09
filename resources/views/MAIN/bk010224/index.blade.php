@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}}
+@extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - Pembentukan/Penguatan TIPP @stop {{-- local styles --}}
 @section('header_styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -12,16 +12,16 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Persiapan Kelurahan - Pembentukan/Penguatan TIPP</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-            	<a href="/main">
-            		<i class="fa fa-fw fa-home"></i> MAIN
-            	</a>
+                <a href="/main">
+                    <i class="fa fa-fw fa-home"></i> PERSIAPAN KELURAHAN
+                </a>
             </li>
             <li class="next">
-	            Master Data Provinsi
+                Pembentukan/Penguatan TIPP
             </li>
         </ul>
     </div>
@@ -31,21 +31,28 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-				@if( ! empty($detil['4']))
-                <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_wilayah/provinsi/create">Create</a>
+                <div class="panel-title pull-left">
+                    <b>bk010224 index</b>
                 </div>
-				@endif
+                @if( ! empty($detil['211']))
+                <div class="tools pull-right">
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/lembaga/tipp/create">Create</a>
+                </div>
+                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="provinsi">
+                    <table class="table table-striped" id="users">
                         <thead>
                             <tr>
-                                <th>Nama</th>
-                                <th>Nama Pendek</th>
-                                <th>Wilayah</th>
-                                <th>Status</th>
+                                <th>Tahun</th>
+                                <th>Kota</th>
+                                <th>Korkot</th>
+                                <th>Kecamatan</th>
+                                <th>KMW</th>
+                                <th>Kelurahan</th>
+                                <th>Faskel</th>
+                                <th>Kegiatan</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -59,32 +66,36 @@
 @stop {{-- local scripts --}} @section('footer_scripts')
 <script>
     $(document).ready(function () {
-        var table = $('#provinsi').DataTable({
+        var table = $('#users').DataTable({
             // dom: 'Bflrtip',
 
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/data_wilayah/provinsi",
+                     "url": "/main/persiapan/kelurahan/lembaga/tipp",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-                { "data": "nama" , name:"nama"},
-                { "data": "nama_pendek" , name:"nama_pendek"},
-                { "data": "wilayah" , name:"wilayah"},
-                { "data": "status" , name:"status"},
+                { "data": "tahun" , name:"tahun"},
+                { "data": "nama_kota" , name:"nama_kota"},
+                { "data": "nama_korkot" , name:"nama_korkot"},
+                { "data": "nama_kec" , name:"nama_kec"},
+                { "data": "nama_kmw" , name:"nama_kmw"},
+                { "data": "nama_kel" , name:"nama_kel"},
+                { "data": "nama_faskel" , name:"nama_faskel"},
+                { "data": "nama_kegiatan" , name:"nama_kegiatan"},
                 { "data": "option" , name:"option"}
             ]
         });
 
         $('#provinsi_filter input').unbind();
-		$('#provinsi_filter input').bind('keyup', function(e) {
-			if(e.keyCode == 13) {
-				table.search(this.value).draw();
-			}
-		});
+        $('#provinsi_filter input').bind('keyup', function(e) {
+            if(e.keyCode == 13) {
+                table.search(this.value).draw();
+            }
+        });
 
     });
 </script>

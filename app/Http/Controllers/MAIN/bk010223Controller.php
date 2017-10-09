@@ -243,7 +243,7 @@ class bk010223Controller extends Controller
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
 			$data['updated_by'] = $rowData[0]->updated_by;
-			return view('MAIN/bk010114/create',$data);
+			return view('MAIN/bk010223/create',$data);
 		}else if($data['kode']==null && !empty($data['detil']['207'])){
 			$data['tahun'] = null;
 			$data['kode_kota'] = null;
@@ -349,8 +349,8 @@ class bk010223Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
-				'kode_modul' => 2, 
-				'kode_menu' => 31,   
+				'kode_modul' => 5, 
+				'kode_menu' => 72,   
 				'kode_menu_detil' => $detil, 
 				'aktifitas' => $aktifitas, 
 				'deskripsi' => $aktifitas

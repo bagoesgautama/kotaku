@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}}
+@extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - TAPP @stop {{-- local styles --}}
 @section('header_styles')
 <link href="{{asset('vendors/bootstrap-multiselect/css/bootstrap-multiselect.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
@@ -40,7 +40,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Tahun</label>
                                 <div class="col-sm-6">
-                                    <input type="hidden" id="kode" name="kode" value="{{$kode}}">
+                                    <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
                                     <input type="text" id="text-input" name="example-tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}">
                                 </div>
                             </div>

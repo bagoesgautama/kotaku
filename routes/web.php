@@ -332,11 +332,11 @@ Route::get('/main/persiapan/kelurahan/lembaga/tipp/create', 'MAIN\bk010224Contro
 Route::post('/main/persiapan/kelurahan/lembaga/tipp/create', 'MAIN\bk010224Controller@post_create');
 Route::get('/main/persiapan/kelurahan/lembaga/tipp/delete', 'MAIN\bk010224Controller@delete');
 
-Route::get('/main/persiapan/kelurahan/lembaga/organisasai_pengelola', 'MAIN\bk010225Controller@index');
-Route::post('/main/persiapan/kelurahan/lembaga/organisasai_pengelola', 'MAIN\bk010225Controller@post');
-Route::get('/main/persiapan/kelurahan/lembaga/organisasai_pengelola/create', 'MAIN\bk010225Controller@create');
-Route::post('/main/persiapan/kelurahan/lembaga/organisasai_pengelola/create', 'MAIN\bk010225Controller@post_create');
-Route::get('/main/persiapan/kelurahan/lembaga/organisasai_pengelola/delete', 'MAIN\bk010225Controller@delete');
+Route::get('/main/persiapan/kelurahan/lembaga/organisasi_pengelola', 'MAIN\bk010225Controller@index');
+Route::post('/main/persiapan/kelurahan/lembaga/organisasi_pengelola', 'MAIN\bk010225Controller@post');
+Route::get('/main/persiapan/kelurahan/lembaga/organisasi_pengelola/create', 'MAIN\bk010225Controller@create');
+Route::post('/main/persiapan/kelurahan/lembaga/organisasi_pengelola/create', 'MAIN\bk010225Controller@post_create');
+Route::get('/main/persiapan/kelurahan/lembaga/organisasi_pengelola/delete', 'MAIN\bk010225Controller@delete');
 
 Route::get('/main/persiapan/kelurahan/lembaga/ksm/ppmk', 'MAIN\bk010226Controller@index');
 Route::post('/main/persiapan/kelurahan/lembaga/ksm/ppmk', 'MAIN\bk010226Controller@post');
