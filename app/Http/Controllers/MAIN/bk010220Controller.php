@@ -84,16 +84,20 @@ class bk010220Controller extends Controller
 			12 =>'q_anggota_pem_desa',
 			13 =>'q_anggota_pem_bpd',
 			14 =>'q_anggota_non_pem',
-			15 =>'diser_tgl',
-			16 =>'diser_oleh',
-			17 =>'diket_tgl',
-			18 =>'diket_oleh',
-			19 =>'diver_tgl',
-			20 =>'diver_oleh',
-			22 =>'created_time',
-			23 =>'created_by',
-			24 =>'updated_time',
-			25 =>'updated_by'
+			15 =>'uri_dok_rencana_kerja',
+			16 =>'nilai_dana_ops',
+			17 =>'uri_img_document',
+			18 =>'uri_img_absensi',
+			19 =>'diser_tgl',
+			20 =>'diser_oleh',
+			21 =>'diket_tgl',
+			22 =>'diket_oleh',
+			23 =>'diver_tgl',
+			24 =>'diver_oleh',
+			25 =>'created_time',
+			26 =>'created_by',
+			27 =>'updated_time',
+			28 =>'updated_by'
 		);
 		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kec, e.nama nama_kmw, f.nama nama_kel, g.nama nama_faskel
 			from bkt_01020212_forum_kel a, bkt_01010102_kota b, bkt_01010111_korkot c, bkt_01010103_kec d, bkt_01010110_kmw e, bkt_01010104_kel f, bkt_01010113_faskel g, bkt_01010118_kegiatan_kel h where b.kode=a.kode_kota and c.kode=a.kode_korkot and d.kode=a.kode_kec and e.kode=a.kode_kmw and f.kode=a.kode_kel and g.kode=a.kode_faskel';
@@ -138,6 +142,10 @@ class bk010220Controller extends Controller
 				$nestedData['q_anggota_pem_desa'] = $post->q_anggota_pem_desa;
 				$nestedData['q_anggota_pem_bpd'] = $post->q_anggota_pem_bpd;
 				$nestedData['q_anggota_non_pem'] = $post->q_anggota_non_pem;
+				$nestedData['uri_dok_rencana_kerja'] = $post->uri_dok_rencana_kerja;
+				$nestedData['nilai_dana_ops'] = $post->nilai_dana_ops;
+				$nestedData['uri_img_document'] = $post->uri_img_document;
+				$nestedData['uri_img_absensi'] = $post->uri_img_absensi;
 				$nestedData['diser_tgl'] = $post->diser_tgl;
 				$nestedData['diser_oleh'] = $post->diser_oleh;
 				$nestedData['diket_tgl'] = $post->diket_tgl;
@@ -230,6 +238,10 @@ class bk010220Controller extends Controller
 			$data['q_anggota_pem_desa'] = $rowData[0]->q_anggota_pem_desa;
 			$data['q_anggota_pem_bpd'] = $rowData[0]->q_anggota_pem_bpd;
 			$data['q_anggota_non_pem'] = $rowData[0]->q_anggota_non_pem;
+			$data['uri_dok_rencana_kerja'] = $rowData[0]->uri_dok_rencana_kerja;
+			$data['nilai_dana_ops'] = $rowData[0]->nilai_dana_ops;
+			$data['uri_img_document'] = $rowData[0]->uri_img_document;
+			$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
 			$data['diser_tgl'] = $rowData[0]->diser_tgl;
 			$data['diser_oleh'] = $rowData[0]->diser_oleh;
 			$data['diket_tgl'] = $rowData[0]->diser_tgl;
@@ -240,7 +252,7 @@ class bk010220Controller extends Controller
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
 			$data['updated_by'] = $rowData[0]->updated_by;
-			return view('MAIN/bk010220/create',$data);
+			view('MAIN/bk010220/create',$data);
 		}else if($data['kode']==null && !empty($data['detil']['199'])){
 			$data['tahun'] = null;
 			$data['kode_kota'] = null;
@@ -257,6 +269,10 @@ class bk010220Controller extends Controller
 			$data['q_anggota_pem_desa'] = null;
 			$data['q_anggota_pem_bpd'] = null;
 			$data['q_anggota_non_pem'] = null;
+			$data['uri_dok_rencana_kerja'] = null;
+			$data['nilai_dana_ops'] = null;
+			$data['uri_img_document'] = null;
+			$data['uri_img_absensi'] = null;
 			$data['diser_tgl'] = null;
 			$data['diser_oleh'] = null;
 			$data['diket_tgl'] = null;
@@ -268,7 +284,7 @@ class bk010220Controller extends Controller
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
 		
-		return view('MAIN/bk010220/create',$data);
+			return view('MAIN/bk010220/create',$data);
 			}else {
 				return Redirect::to('/');
 			}
@@ -279,60 +295,137 @@ class bk010220Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		$file_dok_rencana_kerja = $request->file('file-dok_rencana-kerja-input');
+		$uri_dok_rencana_kerja = null;
+		$upload_dok_rencana_kerja = false;
+		if($request->input('uploaded-file-dok_rencana_kerja') != null && $file_dok_rencana_kerja == null){
+			$uri_dok_rencana_kerja = $request->input('uploaded-file-dok_rencana_kerja');
+			$upload_dok_rencana_kerja = false;
+		}elseif($request->input('uploaded-file-dok_rencana_kerja') != null && $file_dok_rencana_kerja != null){
+			$uri_dok_rencana_kerja = $file_dok_rencana_kerja->getClientOriginalName();
+			$upload_dok_rencana_kerja = true;
+		}elseif($request->input('uploaded-file-dok_rencana_kerja') == null && $file_dok_rencana_kerja != null){
+			$uri_dok_rencana_kerja = $file_dok_rencana_kerja->getClientOriginalName();
+			$upload_dok_rencana_kerja = true;
+		}
+
+		$file_dokumen = $request->file('file-dokumen-input');
+		$uri_dokumen = null;
+		$upload_dokumen = false;
+		if($request->input('uploaded-file-dokumen') != null && $file_dokumen == null){
+			$uri_dokumen = $request->input('uploaded-file-dokumen');
+			$upload_dokumen = false;
+		}elseif($request->input('uploaded-file-dokumen') != null && $file_dokumen != null){
+			$uri_dokumen = $file_dokumen->getClientOriginalName();
+			$upload_dokumen = true;
+		}elseif($request->input('uploaded-file-dokumen') == null && $file_dokumen != null){
+			$uri_dokumen = $file_dokumen->getClientOriginalName();
+			$upload_dokumen = true;
+		}
+
+		$file_absensi = $request->file('file-absensi-input');
+		$url_absensi = null;
+		$upload_absensi = false;
+		if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
+			$uri_absensi = $request->input('uploaded-file-absensi');
+			$upload_absensi = false;
+		}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
+			$uri_absensi = $file_absensi->getClientOriginalName();
+			$upload_absensi = true;
+		}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
+			$uri_absensi = $file_absensi->getClientOriginalName();
+			$upload_absensi = true;
+		}
+
 		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_01020212_forum_kel')->where('kode', $request->input('example-id-input'))
-			->update(['tahun' => $request->input('example-tahun-input'), 
-				'kode_kota' => $request->input('example-kode_kota-input'), 
-				'kode_korkot' => $request->input('example-kode_korkot-input'), 
-				'kode_kec' => $request->input('example-kode_kec-input'), 
-				'kode_kmw' => $request->input('example-kode_kmw-input'),
-				'kode_kel' => $request->input('example-kode_kel-input'),
-				'kode_faskel' => $request->input('example-kode_faskel-input'),
-				'jenis_kegiatan' => $request->input('example-select-jenis_kegiatan'),
-				'tgl_kegiatan' => $request->input('example-tgl_kegiatan-input'),
-				'lok_kegiatan' => $request->input('example-lok_kegiatan-input'),
-				'q_anggota_p' => $request->input('example-q_anggota_p-input'),
-				'q_anggota_w' => $request->input('example-q_anggota_w-input'),
-				'q_anggota_pem_desa' => $request->input('example-q_anggota_pem_desa-input'),
-				'q_anggota_pem_bpd' => $request->input('example-q_anggota_pem_bpd-input'),
-				'q_anggota_non_pem' => $request->input('example-q_anggota_non_pem-input'),
-				'diser_tgl' => $request->input('diser_tgl'),
-				'diser_oleh' => $request->input('example-diser_oleh-input'),
-				'diket_tgl' => $request->input('diket_tgl'),
-				'diket_oleh' => $request->input('example-diket_oleh-input'),
-				'diver_tgl' => $request->input('diver_tgl'),
-				'diver_oleh' => $request->input('example-diver_oleh-input'),
+			->update(['tahun' => $request->input('tahun-input'), 
+				'kode_kota' => $request->input('select-kode_kota-input'), 
+				'kode_korkot' => $request->input('select-kode_korkot-input'), 
+				'kode_kec' => $request->input('select-kode_kec-input'), 
+				'kode_kmw' => $request->input('select-kode_kmw-input'),
+				'kode_kel' => $request->input('select-kode_kel-input'),
+				'kode_faskel' => $request->input('select-kode_faskel-input'),
+				'jenis_kegiatan' => $request->input('select-select-jenis_kegiatan'),
+				'tgl_kegiatan' => $request->input('tgl_kegiatan-input'),
+				'lok_kegiatan' => $request->input('lok_kegiatan-input'),
+				'q_anggota_p' => $request->input('q_anggota_p-input'),
+				'q_anggota_w' => $request->input('q_anggota_w-input'),
+				'q_anggota_pem_desa' => $request->input('q_anggota_pem_desa-input'),
+				'q_anggota_pem_bpd' => $request->input('q_anggota_pem_bpd-input'),
+				'q_anggota_non_pem' => $request->input('q_anggota_non_pem-input'),
+				'uri_dok_rencana_kerja' => $uri_dok_rencana_kerja,
+				'nilai_dana_ops' => $request->input('nilai_dana_ops-input'),
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $$uri_absensi,
+				'diser_tgl' => $request->input('diser_tgl-input'),
+				'diser_oleh' => $request->input('diser_oleh-input'),
+				'diket_tgl' => $request->input('diket_tgl-input'),
+				'diket_oleh' => $request->input('diket_oleh-input'),
+				'diver_tgl' => $request->input('diver_tgl-input'),
+				'diver_oleh' => $request->input('diver_oleh-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
+
+			if($upload_dokumen == true){
+				$file_dokumen->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan'), $file_dokumen->getClientOriginalName());
+			}
+
+			if($upload_absensi == true){
+				$file_absensi->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan'), $file_absensi->getClientOriginalName());
+			}
+
+			if($upload_dok_rencana_kerja == true){
+				$file_dok_rencana_kerja->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan'), $file_dok_rencana_kerja->getClientOriginalName());
+			}
+
 			$this->log_aktivitas('Update', 200);
 
 		}else{
 			DB::table('bkt_01020212_forum_kel')->insert(
-       			['tahun' => $request->input('example-tahun-input'), 
-				'kode_kota' => $request->input('example-kode_kota-input'), 
-				'kode_korkot' => $request->input('example-kode_korkot-input'), 
-				'kode_kec' => $request->input('example-kode_kec-input'), 
-				'kode_kmw' => $request->input('example-kode_kmw-input'),
-				'kode_kel' => $request->input('example-kode_kel-input'),
-				'kode_faskel' => $request->input('example-kode_faskel-input'),
-				'jenis_kegiatan' => $request->input('example-select-jenis_kegiatan'),
-				'tgl_kegiatan' => $request->input('example-tgl_kegiatan-input'),
-				'lok_kegiatan' => $request->input('example-lok_kegiatan-input'),
-				'q_anggota_p' => $request->input('example-q_anggota_p-input'),
-				'q_anggota_w' => $request->input('example-q_anggota_w-input'),
-				'q_anggota_pem_desa' => $request->input('example-q_anggota_pem_desa-input'),
-				'q_anggota_pem_bpd' => $request->input('example-q_anggota_pem_bpd-input'),
-				'q_anggota_non_pem' => $request->input('example-q_anggota_non_pem-input'),
-				'diser_tgl' => $request->input('diser_tgl'),
-				'diser_oleh' => $request->input('example-diser_oleh-input'),
-				'diket_tgl' => $request->input('diket_tgl'),
-				'diket_oleh' => $request->input('example-diket_oleh-input'),
-				'diver_tgl' => $request->input('diver_tgl'),
-				'diver_oleh' => $request->input('example-diver_oleh-input'),
+       			['tahun' => $request->input('tahun-input'), 
+				'kode_kota' => $request->input('select-kode_kota-input'), 
+				'kode_korkot' => $request->input('select-kode_korkot-input'), 
+				'kode_kec' => $request->input('select-kode_kec-input'), 
+				'kode_kmw' => $request->input('select-kode_kmw-input'),
+				'kode_kel' => $request->input('select-kode_kel-input'),
+				'kode_faskel' => $request->input('select-kode_faskel-input'),
+				'jenis_kegiatan' => $request->input('select-select-jenis_kegiatan'),
+				'tgl_kegiatan' => $request->input('tgl_kegiatan-input'),
+				'lok_kegiatan' => $request->input('lok_kegiatan-input'),
+				'q_anggota_p' => $request->input('q_anggota_p-input'),
+				'q_anggota_w' => $request->input('q_anggota_w-input'),
+				'q_anggota_pem_desa' => $request->input('q_anggota_pem_desa-input'),
+				'q_anggota_pem_bpd' => $request->input('q_anggota_pem_bpd-input'),
+				'q_anggota_non_pem' => $request->input('q_anggota_non_pem-input'),
+				'uri_dok_rencana_kerja' => $uri_dok_rencana_kerja,
+				'nilai_dana_ops' => $request->input('nilai_dana_ops-input'),
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $$uri_absensi,
+				'diser_tgl' => $request->input('diser_tgl-input'),
+				'diser_oleh' => $request->input('diser_oleh-input'),
+				'diket_tgl' => $request->input('diket_tgl-input'),
+				'diket_oleh' => $request->input('diket_oleh-input'),
+				'diver_tgl' => $request->input('diver_tgl-input'),
+				'diver_oleh' => $request->input('diver_oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
+
+			if($upload_dokumen == true){
+				$file_dokumen->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan'), $file_dokumen->getClientOriginalName());
+			}
+
+			if($upload_absensi == true){
+				$file_absensi->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan'), $file_absensi->getClientOriginalName());
+			}
+
+			if($upload_dok_rencana_kerja == true){
+				$file_dok_rencana_kerja->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan'), $file_dok_rencana_kerja->getClientOriginalName());
+			}
+
+
 			$this->log_aktivitas('Create', 199);
 		}
 	}
