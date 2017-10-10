@@ -482,7 +482,7 @@
 	@endif
 
 	@if( ! empty($menu['12']))
-	<li {!! (Request::is( 'main/perencanaan/penanganan/pengamanan_dampak')||Request::is( 'main/perencanaan/penanganan/pengamanan_dampak/create')||Request::is( 'main/perencanaan/penanganan/rencana_investasi')||Request::is( 'main/perencanaan/penanganan/rencana_investasi/create')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn/create')||Request::is( 'main/perencanaan/penanganan/lokasi_profile')||Request::is( 'main/perencanaan/penanganan/lokasi_profile/create')||Request::is( 'main/perencanaan/penanganan/konsultasi_perencanaan')||Request::is( 'main/perencanaan/penanganan/konsultasi_perencanaan/create')||Request::is( 'main/perencanaan/penanganan/lokakarya_perencanaan')||Request::is( 'main/perencanaan/penanganan/lokakarya_perencanaan/create')||Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk')||Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk/create')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi/create')? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+	<li {!! (Request::is( 'main/perencanaan/kelurahan/kegiatan')||Request::is( 'main/perencanaan/kelurahan/kegiatan/create')||Request::is( 'main/perencanaan/kelurahan/investasi_5thn')||Request::is( 'main/perencanaan/kelurahan/investasi_5thn/create')||Request::is( 'main/perencanaan/kelurahan/penyusunan_rplp')||Request::is( 'main/perencanaan/kelurahan/penyusunan_rplp/create')||Request::is( 'main/perencanaan/kelurahan/penanganan_kumuh')||Request::is( 'main/perencanaan/kelurahan/penanganan_kumuh/create')||Request::is( 'main/perencanaan/kontrak_paket')||Request::is( 'main/perencanaan/kontrak_paket/create')||Request::is( 'main/perencanaan/pengadaan_lelang')||Request::is( 'main/perencanaan/pengadaan_lelang/create')||Request::is( 'main/perencanaan/infra/amdal')||Request::is( 'main/perencanaan/infra/amdal/create')||Request::is( 'main/perencanaan/infra/penyiapan_paket')||Request::is( 'main/perencanaan/infra/penyiapan_paket/create')||Request::is( 'main/perencanaan/rencana_kegiatan')||Request::is( 'main/perencanaan/rencana_kegiatan/create')||Request::is( 'main/perencanaan/kawasan/investasi')||Request::is( 'main/perencanaan/kawasan/investasi/create')||Request::is( 'main/perencanaan/kawasan/perencanaan')||Request::is( 'main/perencanaan/kawasan/perencanaan/create')||Request::is( 'main/perencanaan/penanganan/pengamanan_dampak')||Request::is( 'main/perencanaan/penanganan/pengamanan_dampak/create')||Request::is( 'main/perencanaan/penanganan/rencana_investasi')||Request::is( 'main/perencanaan/penanganan/rencana_investasi/create')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn/create')||Request::is( 'main/perencanaan/penanganan/lokasi_profile')||Request::is( 'main/perencanaan/penanganan/lokasi_profile/create')||Request::is( 'main/perencanaan/penanganan/konsultasi_perencanaan')||Request::is( 'main/perencanaan/penanganan/konsultasi_perencanaan/create')||Request::is( 'main/perencanaan/penanganan/lokakarya_perencanaan')||Request::is( 'main/perencanaan/penanganan/lokakarya_perencanaan/create')||Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk')||Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk/create')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi/create')? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
             <span class="mm-text">Perencanaan</span>
             <span class="fa arrow"></span>
@@ -568,6 +568,123 @@
 					<li {!! (Request::is( 'main/perencanaan/penanganan/pengamanan_dampak')||Request::is( 'main/perencanaan/penanganan/pengamanan_dampak/create')? 'class="active"': "") !!}>
 						<a href="/main/perencanaan/penanganan/pengamanan_dampak">
 							<span class="mm-text">Pengamanan Dampak Sosial & Lingkungan</span>
+						</a>
+					</li>
+					@endif
+				</ul>
+			</li>
+			@endif
+			@if( ! empty($menu['93']))
+			<li {!! (Request::is( 'main/perencanaan/kawasan/investasi')||Request::is( 'main/perencanaan/kawasan/investasi/create')||Request::is( 'main/perencanaan/kawasan/perencanaan')||Request::is( 'main/perencanaan/kawasan/perencanaan/create')? 'class="active"': "") !!}>
+				<a href="javascript:void(0)">
+					<span class="mm-text">Kawasan Prioritas</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="sub-menu form-submenu">
+					@if( ! empty($menu['97']))
+					<li {!! (Request::is( 'main/perencanaan/kawasan/perencanaan')||Request::is( 'main/perencanaan/kawasan/perencanaan/create')? 'class="active"': "") !!}>
+						<a href="/main/perencanaan/kawasan/perencanaan">
+							<span class="mm-text">Perencanaan Kawasan Prioritas</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['98']))
+					<li {!! (Request::is( 'main/perencanaan/kawasan/investasi')||Request::is( 'main/perencanaan/kawasan/investasi/create')? 'class="active"': "") !!}>
+						<a href="/main/perencanaan/kawasan/investasi">
+							<span class="mm-text">Rencana Investasi 5 Tahun</span>
+						</a>
+					</li>
+					@endif
+				</ul>
+			</li>
+			@endif
+			@if( ! empty($menu['94']))
+			<li {!! (Request::is( 'main/perencanaan/rencana_kegiatan')||Request::is( 'main/perencanaan/rencana_kegiatan/create')? 'class="active"': "") !!}>
+				<a href="/main/perencanaan/rencana_kegiatan">
+					<span class="mm-text">Rencana Kegiatan Skala Kota</span>
+				</a>
+			</li>
+			@endif
+			@if( ! empty($menu['95']))
+			<li {!! (Request::is( 'main/perencanaan/kontrak_paket')||Request::is( 'main/perencanaan/kontrak_paket/create')||Request::is( 'main/perencanaan/pengadaan_lelang')||Request::is( 'main/perencanaan/pengadaan_lelang/create')||Request::is( 'main/perencanaan/infra/amdal')||Request::is( 'main/perencanaan/infra/amdal/create')||Request::is( 'main/perencanaan/infra/penyiapan_paket')||Request::is( 'main/perencanaan/infra/penyiapan_paket/create')? 'class="active"': "") !!}>
+				<a href="javascript:void(0)">
+					<span class="mm-text">Penyiapan DED, Pengadaan Skala Kota</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="sub-menu form-submenu">
+					@if( ! empty($menu['99']))
+					<li {!! (Request::is( 'main/perencanaan/infra/amdal')||Request::is( 'main/perencanaan/infra/amdal/create')||Request::is( 'main/perencanaan/infra/penyiapan_paket')||Request::is( 'main/perencanaan/infra/penyiapan_paket/create')? 'class="active"': "") !!}>
+						<a href="javascript:void(0)">
+							<span class="mm-text">Kegiatan Infrastruktur - Lingkungan</span>
+							<span class="fa arrow"></span>
+						</a>
+						<ul class="form-sub-submenu">
+							@if( ! empty($menu['106']))
+							<li {!! (Request::is( 'main/perencanaan/infra/penyiapan_paket')||Request::is( 'main/perencanaan/infra/penyiapan_paket/create')? 'class="active"': "") !!}>
+								<a href="/main/perencanaan/infra/penyiapan_paket">
+									<span class="mm-text">Penyaiapan Paket(DED,RAB,RKS)</span>
+								</a>
+							</li>
+							@endif
+							@if( ! empty($menu['107']))
+							<li {!! (Request::is( 'main/perencanaan/infra/amdal')||Request::is( 'main/perencanaan/infra/amdal/create')? 'class="active"': "") !!}>
+								<a href="/main/perencanaan/infra/amdal">
+									<span class="mm-text">Pengamanan Dampak Sosial & Lingkungan</span>
+								</a>
+							</li>
+							@endif
+						</ul>
+					</li>
+					@endif
+					@if( ! empty($menu['100']))
+					<li {!! (Request::is( 'main/perencanaan/pengadaan_lelang')||Request::is( 'main/perencanaan/pengadaan_lelang/create')? 'class="active"': "") !!}>
+						<a href="/main/perencanaan/pengadaan_lelang">
+							<span class="mm-text">Pengadaan/Proses Lelang</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['102']))
+					<li {!! (Request::is( 'main/perencanaan/kontrak_paket')||Request::is( 'main/perencanaan/kontrak_paket/create')? 'class="active"': "") !!}>
+						<a href="/main/perencanaan/kontrak_paket">
+							<span class="mm-text">Kontrak Paket Pekerjaan Kontraktor</span>
+						</a>
+					</li>
+					@endif
+				</ul>
+			</li>
+			@endif
+			@if( ! empty($menu['96']))
+			<li {!! (Request::is( 'main/perencanaan/kelurahan/kegiatan')||Request::is( 'main/perencanaan/kelurahan/kegiatan/create')||Request::is( 'main/perencanaan/kelurahan/investasi_5thn')||Request::is( 'main/perencanaan/kelurahan/investasi_5thn/create')||Request::is( 'main/perencanaan/kelurahan/penyusunan_rplp')||Request::is( 'main/perencanaan/kelurahan/penyusunan_rplp/create')||Request::is( 'main/perencanaan/kelurahan/penanganan_kumuh')||Request::is( 'main/perencanaan/kelurahan/penanganan_kumuh/create')? 'class="active"': "") !!}>
+				<a href="javascript:void(0)">
+					<span class="mm-text">Rencana Kelurahan</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="sub-menu form-submenu">
+					@if( ! empty($menu['108']))
+					<li {!! (Request::is( 'main/perencanaan/kelurahan/penanganan_kumuh')||Request::is( 'main/perencanaan/kelurahan/penanganan_kumuh/create')? 'class="active"': "") !!}>
+						<a href="/main/perencanaan/kelurahan/penanganan_kumuh">
+							<span class="mm-text">Rencana Penanganan Kumuh Kelurahan</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['104']))
+					<li {!! (Request::is( 'main/perencanaan/kelurahan/penyusunan_rplp')||Request::is( 'main/perencanaan/kelurahan/penyusunan_rplp/create')? 'class="active"': "") !!}>
+						<a href="/main/perencanaan/kelurahan/penyusunan_rplp">
+							<span class="mm-text">Penyusunan RPLP</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['105']))
+					<li {!! (Request::is( 'main/perencanaan/kelurahan/investasi_5thn')||Request::is( 'main/perencanaan/kelurahan/investasi_5thn/create')? 'class="active"': "") !!}>
+						<a href="/main/perencanaan/kelurahan/investasi_5thn">
+							<span class="mm-text">Rencana Investasi 5 Tahun</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['103']))
+					<li {!! (Request::is( 'main/perencanaan/kelurahan/kegiatan')||Request::is( 'main/perencanaan/kelurahan/kegiatan/create')? 'class="active"': "") !!}>
+						<a href="/main/perencanaan/kelurahan/kegiatan">
+							<span class="mm-text">Rencana Kegiatan Skala Kelurahan</span>
 						</a>
 					</li>
 					@endif
