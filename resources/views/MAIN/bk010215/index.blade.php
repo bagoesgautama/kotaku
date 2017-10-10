@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Informasi Umum @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -39,9 +39,9 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <!-- <div class="panel-title pull-left">
-                    <b>bk010107 index</b>
-                </div> -->
+                <div class="panel-title pull-left">
+                    <b>bk010215 index</b>
+                </div>
                 @if( ! empty($detil['177']))
                 <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/kelurahan/info/create' }}">Create</a>
@@ -53,12 +53,13 @@
                     <table class="table table-striped" id="kegiatan">
                         <thead>
                             <tr>
-                                <th>Kode Prop</th>
-                                <th>Kode Kota</th>
-                                <th>Kode Kec</th>
-                                <th>Kode KMW</th>
-                                <th>Kode Korkot</th>
-                                <th>Kode Faskel</th>
+                                <th>Propinsi</th>
+                                <th>Kota</th>
+                                <th>Kecamatan</th>
+                                <th>Kelurahan</th>
+                                <th>KMW</th>
+                                <th>Korkot</th>
+                                <th>Faskel</th>
                                 <th>option</th>
                             </tr>
                         </thead>
@@ -88,6 +89,7 @@
                 { "data": "kode_prop" , name:"kode_prop"},
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_kec" , name:"kode_kec"},
+                { "data": "kode_kel" , name:"kode_kel"},
                 { "data": "kode_kmw" , name:"kode_kmw"},
                 { "data": "kode_korkot" , name:"kode_korkot"},
                 { "data": "kode_faskel" , name:"kode_faskel"},

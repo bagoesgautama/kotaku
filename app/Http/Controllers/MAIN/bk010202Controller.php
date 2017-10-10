@@ -70,8 +70,8 @@ class bk010202Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' or kode_pokja like "%'.$search.'%" or jenis_subkegiatan like "%'.$search.'%" or tgl_kegiatan like "%'.$search.'%" or lok_kegiatan like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' or kode_pokja like "%'.$search.'%" or jenis_subkegiatan like "%'.$search.'%" or tgl_kegiatan like "%'.$search.'%" or lok_kegiatan like "%'.$search.'%") a');
+			$posts=DB::select($query. ' or a.kode_pokja like "%'.$search.'%" or a.jenis_subkegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' or a.kode_pokja like "%'.$search.'%" or a.jenis_subkegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%") a');
 		}
 
 		$data = array();

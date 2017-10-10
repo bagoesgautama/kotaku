@@ -44,7 +44,7 @@
                                 <label class="col-sm-3 control-label">Kode Pokja</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                    <select id="select21" name="kode-pokja-input" class="form-control" size="1">
+                                    <select id="select-kode-pokja-input" name="kode-pokja-input" class="form-control select2" size="1">
                                         @foreach ($kode_pokja_list as $kpl)
                                             <option value="{{$kpl->kode}}" {!! $kode_pokja==$kpl->kode ? 'selected':'' !!}>{{$kpl->kode}}</option>
                                         @endforeach
@@ -181,7 +181,7 @@
             form_data.append('file-absensi-input', file_absensi);
             form_data.append('uploaded-file-dokumen', $('#uploaded-file-dokumen').val());
             form_data.append('uploaded-file-absensi', $('#uploaded-file-absensi').val());
-            form_data.append('kode-pokja-input', $('#select21').val());
+            form_data.append('kode-pokja-input', $('#select-kode-pokja-input').val());
             form_data.append('sub-kegiatan-input', $('#sub-kegiatan-input').val());
             form_data.append('lok-kegiatan-input', $('#lok-kegiatan-input').val());
             form_data.append('tgl-kegiatan-input', $('#tgl-kegiatan-input').val());
@@ -213,6 +213,10 @@
             $("#submit").prop('disabled', false);
             }
           });
+        });
+         $("#select-kode-pokja-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
         });
       });
 </script>
