@@ -236,19 +236,19 @@ class bk010110Controller extends Controller
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_01010110_kmw')->where('kode', $request->input('example-id-input'))
 			->update(
-				['kode_kmp_slum_prog' => $request->input('example-kode_kmp_slum_prog-input'),
-				'nama' => $request->input('example-nama-input'), 
-				'alamat' => $request->input('example-alamat-input'), 
-				'kodepos' => $request->input('example-kodepos-input'), 
-				'contact_person' => $request->input('example-contact_person-input'), 
-				'no_phone' => $request->input('example-no_phone-input'),
-				'no_fax' => $request->input('example-no_fax-input'),  
-				'no_hp1' => $request->input('example-no_hp1-input'), 
-				'no_hp2' => $request->input('example-no_hp2-input'), 
-				'email1' => $request->input('example-email1'), 
-				'email2' => $request->input('example-email2'), 
-				'pms_nama' => $request->input('example-pms_nama-input'), 
-				'pms_alamat' => $request->input('example-pms_alamat-input'),
+				['kode_kmp_slum_prog' => $request->input('select-kode_kmp_slum_prog-input'),
+				'nama' => $request->input('nama-input'), 
+				'alamat' => $request->input('alamat-input'), 
+				'kodepos' => $request->input('kodepos-input'), 
+				'contact_person' => $request->input('contact_person-input'), 
+				'no_phone' => $request->input('no_phone-input'),
+				'no_fax' => $request->input('no_fax-input'),  
+				'no_hp1' => $request->input('no_hp1-input'), 
+				'no_hp2' => $request->input('no_hp2-input'), 
+				'email1' => $request->input('email1-input'), 
+				'email2' => $request->input('email2-input'), 
+				'pms_nama' => $request->input('pms_nama-input'), 
+				'pms_alamat' => $request->input('pms_alamat-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
@@ -256,19 +256,19 @@ class bk010110Controller extends Controller
 
 		}else{
 			DB::table('bkt_01010110_kmw')->insert(
-       			['kode_kmp_slum_prog' => $request->input('example-kode_kmp_slum_prog-input'),
-       			'nama' => $request->input('example-nama-input'), 
-				'alamat' => $request->input('example-alamat-input'), 
-				'kodepos' => $request->input('example-kodepos-input'), 
-				'contact_person' => $request->input('example-contact_person-input'), 
-				'no_phone' => $request->input('example-no_phone-input'),
-				'no_fax' => $request->input('example-no_fax-input'), 
-				'no_hp1' => $request->input('example-no_hp1-input'), 
-				'no_hp2' => $request->input('example-no_hp2-input'), 
-				'email1' => $request->input('example-email1'), 
-				'email2' => $request->input('example-email2'), 
-				'pms_nama' => $request->input('example-pms_nama-input'), 
-				'pms_alamat' => $request->input('example-pms_alamat-input'), 
+       			['kode_kmp_slum_prog' => $request->input('select-kode_kmp_slum_prog-input'),
+				'nama' => $request->input('nama-input'), 
+				'alamat' => $request->input('alamat-input'), 
+				'kodepos' => $request->input('kodepos-input'), 
+				'contact_person' => $request->input('contact_person-input'), 
+				'no_phone' => $request->input('no_phone-input'),
+				'no_fax' => $request->input('no_fax-input'),  
+				'no_hp1' => $request->input('no_hp1-input'), 
+				'no_hp2' => $request->input('no_hp2-input'), 
+				'email1' => $request->input('email1-input'), 
+				'email2' => $request->input('email2-input'), 
+				'pms_nama' => $request->input('pms_nama-input'), 
+				'pms_alamat' => $request->input('pms_alamat-input'),
        			'created_by' => Auth::user()->id
        			]);
 			$this->log_aktivitas('Create', 41);

@@ -1,20 +1,30 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Mapping Kota ke KorKot Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Mapping Kota ke KorKot @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Mapping Kota ke KorKot Form</h1>
-    <ol class="breadcrumb">
-        <li>
-            <a href="/main">
-                <i class="fa fa-fw fa-home"></i> MAIN
-            </a>
-        </li>
-        <li><a href="/main/kmp_slum_program">Mapping Kota ke KorKot</a></li>
-        <li class="active">
-            Create
-        </li>
-    </ol>
+    <h1>Mapping Kota ke KorKot</h1>
+    <div class="bs-example">
+        <ul class="breadcrumb">
+            <li class="next">
+                <a href="/main">
+                    <i class="fa fa-fw fa-home"></i> MAIN
+                </a>
+            </li>
+            <li class="next">
+                Master Data
+            </li>
+            <li class="next">
+                Data Cakupan Program
+            </li>
+            <li class="next">
+                Mapping Kota ke KorKot
+            </li>
+            <li class="next">
+                Create
+            </li>
+        </ul>
+    </div>
 </section>
 @stop
 {{-- Page content --}} @section('content')

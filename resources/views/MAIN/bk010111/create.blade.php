@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Koordinator Kota (KorKot) Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Koordinator Kota (KorKot)@stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('css/app.css')}}" rel="stylesheet">
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet"/>
@@ -6,18 +6,28 @@
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Koordinator Kota (KorKot) Form</h1>
-    <ol class="breadcrumb">
-        <li>
-            <a href="/main">
-                <i class="fa fa-fw fa-home"></i> HRM
-            </a>
-        </li>
-        <li><a href="/main/korkot"> KorKot</a></li>
-        <li class="active">
-            Create
-        </li>
-    </ol>
+    <h1>Koordinator Kota (KorKot)</h1>
+    <div class="bs-example">
+        <ul class="breadcrumb">
+            <li class="next">
+                <a href="/main">
+                    <i class="fa fa-fw fa-home"></i> MAIN
+                </a>
+            </li>
+            <li class="next">
+                Master Data
+            </li>
+            <li class="next">
+                Data Cakupan Program
+            </li>
+            <li class="next">
+                Korkot
+            </li>
+            <li class="next">
+                Create
+            </li>
+        </ul>
+    </div>
 </section>
 @stop
 {{-- Page content --}} @section('content')

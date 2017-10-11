@@ -277,63 +277,65 @@ class bk010107Controller extends Controller
 	{
 		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
-			$date = strtotime($request->input('tgl_akhir'));
+			$date = strtotime($request->input('tgl_akhir-input'));
         	$date_convert = date('Y-m-d', $date);
 			DB::table('bkt_01010107_slum_program')->where('kode', $request->input('example-id-input'))
 			->update(
-				['nourut' => $request->input('example-no_urut-input'),
-				'nama' => $request->input('example-nama-input'),
-				'keterangan' => $request->input('example-keterangan-input'),
-				'kode_kota' => $request->input('example-select-kota'),
-				'alamat' => $request->input('example-alamat-input'),
-				'kodepos' => $request->input('example-kodepos-input'),
-				'contact_person' => $request->input('example-contact_person-input'),
-				'no_phone' => $request->input('example-no_phone-input'),
-				'no_fax' => $request->input('example-no_fax-input'),
-				'no_hp1' => $request->input('example-no_hp1-input'),
-				'no_hp2' => $request->input('example-no_hp2-input'),
-				'email1' => $request->input('example-email1'),
-				'email2' => $request->input('example-email2'),
-				'pms_nama' => $request->input('example-pms_nama-input'),
-				'pms_alamat' => $request->input('example-pms_alamat-input'),
+				['nourut' => $request->input('no_urut-input'),
+				'nama' => $request->input('nama-input'),
+				'keterangan' => $request->input('keterangan-input'),
+				'kode_kota' => $request->input('select-kode_kota-input'),
+				'alamat' => $request->input('alamat-input'),
+				'kodepos' => $request->input('kodepos-input'),
+				'contact_person' => $request->input('contact_person-input'),
+				'no_phone' => $request->input('no_phone-input'),
+				'no_fax' => $request->input('no_fax-input'),
+				'no_hp1' => $request->input('no_hp1-input'),
+				'no_hp2' => $request->input('no_hp2-input'),
+				'email1' => $request->input('email1-input'),
+				'email2' => $request->input('email2-input'),
+				'pms_nama' => $request->input('pms_nama-input'),
+				'pms_alamat' => $request->input('pms_alamat-input'),
 				'tgl_akhir' => $date_convert,
-				'tahun_apbd1' => $request->input('example-tahun_apbd1-input'),
-				'tahun_apbd2' => $request->input('example-tahun_apbd2-input'),
-				'status' => $request->input('example-select-status'),
-				'project' => $request->input('example-project-input'),
-				'glosary_caption' => $request->input('example-glosary_caption-input'),
-				'jenis_siklus' => $request->input('example-select-jenis_siklus'),
+				'tahun_apbd1' => $request->input('tahun_apbd1-input'),
+				'tahun_apbd2' => $request->input('tahun_apbd2-input'),
+				'status' => $request->input('select-status-input'),
+				'project' => $request->input('project-input'),
+				'kode_departemen' => $request->input('select-kode_departemen-input'),
+				'glosary_caption' => $request->input('glosary_caption-input'),
+				'jenis_siklus' => $request->input('select-jenis_siklus-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
 			$this->log_aktivitas('Update', 30);
 		}else{
-			$date = strtotime($request->input('tgl_akhir'));
+			$date = strtotime($request->input('tgl_akhir-input'));
         	$date_convert = date('Y-m-d', $date);
 			DB::table('bkt_01010107_slum_program')->insert(
-       			['nourut' => $request->input('example-no_urut-input'),
-       				'nama' => $request->input('example-nama-input'),
-       				'keterangan' => $request->input('example-keterangan-input'),
-       				'kode_kota' => $request->input('example-select-kota'),
-       				'alamat' => $request->input('example-alamat-input'),
-       				'kodepos' => $request->input('example-kodepos-input'),
-       				'contact_person' => $request->input('example-contact_person-input'),
-       				'no_phone' => $request->input('example-no_phone-input'),
-       				'no_fax' => $request->input('example-no_fax-input'),
-       				'no_hp1' => $request->input('example-no_hp1-input'),
-       				'no_hp2' => $request->input('example-no_hp2-input'),
-       				'email1' => $request->input('example-email1'),
-       				'email2' => $request->input('example-email2'),
-       				'pms_nama' => $request->input('example-pms_nama-input'),
-       				'pms_alamat' => $request->input('example-pms_alamat-input'),
-       				'tgl_akhir' => $date_convert,
-       				'tahun_apbd1' => $request->input('example-tahun_apbd1-input'),
-       				'tahun_apbd2' => $request->input('example-tahun_apbd2-input'),
-       				'status' => $request->input('example-select-status'),
-       				'project' => $request->input('example-project-input'),
-       				'glosary_caption' => $request->input('example-glosary_caption-input'),
-       				'jenis_siklus' => $request->input('example-select-jenis_siklus'),
-       				'created_by' => Auth::user()->id
+       			['nourut' => $request->input('no_urut-input'),
+				'nama' => $request->input('nama-input'),
+				'keterangan' => $request->input('keterangan-input'),
+				'kode_kota' => $request->input('select-kode_kota-input'),
+				'alamat' => $request->input('alamat-input'),
+				'kodepos' => $request->input('kodepos-input'),
+				'contact_person' => $request->input('contact_person-input'),
+				'no_phone' => $request->input('no_phone-input'),
+				'no_fax' => $request->input('no_fax-input'),
+				'no_hp1' => $request->input('no_hp1-input'),
+				'no_hp2' => $request->input('no_hp2-input'),
+				'email1' => $request->input('email1-input'),
+				'email2' => $request->input('email2-input'),
+				'pms_nama' => $request->input('pms_nama-input'),
+				'pms_alamat' => $request->input('pms_alamat-input'),
+				'tgl_akhir' => $date_convert,
+				'tahun_apbd1' => $request->input('tahun_apbd1-input'),
+				'tahun_apbd2' => $request->input('tahun_apbd2-input'),
+				'status' => $request->input('select-status-input'),
+				'project' => $request->input('project-input'),
+				'kode_departemen' => $request->input('select-kode_departemen-input'),
+				'glosary_caption' => $request->input('glosary_caption-input'),
+				'jenis_siklus' => $request->input('select-jenis_siklus-input'),
+       			'created_by' => Auth::user()->id
        			]);
 			$this->log_aktivitas('Create', 29);
 		}

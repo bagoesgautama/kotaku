@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - Forum Kolaborasi - Keanggotaan @stop {{-- local styles --}}
+ @extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - Forum Kolaborasi - Keanggotaan @stop {{-- local styles --}}
 @section('header_styles')
 <link href="{{asset('vendors/bootstrap-multiselect/css/bootstrap-multiselect.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
@@ -42,7 +42,7 @@
                                 <label class="col-sm-3 control-label">Tahun</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="example-id-input" name="example-id-input" value="{{ $kode }}">
-                                    <input type="text" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}">
+                                    <input type="text" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}" maxlength="4">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -130,7 +130,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="lok_kegiatan-input" name="lok_kegiatan-input" class="form-control" placeholder="Lokasi Kegiatan" value="{{$lok_kegiatan}}">
+                                    <input type="text" id="lok_kegiatan-input" name="lok_kegiatan-input" class="form-control" placeholder="Lokasi Kegiatan" value="{{$lok_kegiatan}}" maxlength="50">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -163,32 +163,73 @@
                                     <input type="text" id="q_anggota_non_pem-input" name="q_anggota_non_pem-input" class="form-control" placeholder="Anggota Non Pemerintah" value="{{$q_anggota_non_pem}}" maxlength="5">
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">File Dokumen Rencana Kerja</label>
+                                <div class="col-sm-6">
+                                    <input id="file-dok_rencana_kerja-input" type="file" class="file" data-show-preview="false" name="file-dok_rencana_kerja-input">
+                                    <br>
+                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-dok_rencana_kerja" value="{{$uri_dok_rencana_kerja}}" {!! $uri_dok_rencana_kerja==null ? 'style="display:none"':'' !!}>{{$uri_dok_rencana_kerja}}</button>
+                                </div>
+                            </div>    
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Nilai Dana Operasional</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="nilai_dana_ops-input" name="nilai_dana_ops-input-input" class="form-control" placeholder="Jumlah Dana Operasional" value="{{$nilai_dana_ops}}" maxlength="27,2">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">File Document</label>
+                                <div class="col-sm-6">
+                                    <input id="file-document-input" type="file" class="file" data-show-preview="false" name="file-document-input">
+                                    <br>
+                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-document" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
+                                </div>
+                            </div>    
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">File Absensi</label>
+                                <div class="col-sm-6">
+                                    <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input">
+                                    <br>
+                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!}>{{$uri_img_absensi}}</button>
+                                </div>
+                            </div>
                             <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diser-input" name="tgl-diser-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
+                                    <input class="form-control" id="diser_tgl-input" name="diser_tgl-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="text" id="diser-oleh-input" name="diser_oleh-input" class="form-control" placeholder="Diserahkan Oleh" value="{{$diser_oleh}}" value="{{$diket_tgl}}">
+                                    <select id="diser_oleh-input" name="diser_oleh-input" class="form-control" size="1">
+                                        @foreach ($kode_user_list as $kul)
+                                            <option value="{{$kul->id}}" {!! $diser_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diketahui & Diketahui Oleh</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diket-input" name="tgl-diket-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}">
+                                    <input class="form-control" id="diket_tgl-input" name="diket_tgl-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="text" id="diket-oleh-input" name="diket_oleh-input" class="form-control" placeholder="Diketahui Oleh" value="{{$diket_oleh}}">
+                                    <select id="diket_oleh-input" name="diket_oleh-input" class="form-control" size="1">
+                                        @foreach ($kode_user_list as $kul)
+                                            <option value="{{$kul->id}}" {!! $diket_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diverifikasi & Diverifikasi Oleh</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diver-input" name="tgl-diver-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}">
+                                    <input class="form-control" id="diver_tgl-input" name="diver_tgl-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="text" id="diver-oleh-input" name="diver_oleh-input" class="form-control" placeholder="Diverifikasi Oleh" value="{{$diver_oleh}}">
+                                    <select id="diver_oleh-input" name="diver_oleh-input" class="form-control" size="1">
+                                        @foreach ($kode_user_list as $kul)
+                                            <option value="{{$kul->id}}" {!! $diver_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -241,16 +282,17 @@
       $(document).ready(function () {
         $('#submit').on('click', function (e) {
 			e.preventDefault();
-			var file_dokumen = document.getElementById('file-dokumen-input').files[0];
+            
+            var file_document = document.getElementById('file-document-input').files[0];
             var file_absensi = document.getElementById('file-absensi-input').files[0];
             var file_dok_rencana_kerja = document.getElementById('file-dok_rencana_kerja-input').files[0];
             var form_data = new FormData();
-            form_data.append('kode', $('#kode').val());
+            form_data.append('example-id-input', $('#example-id-input').val());
             form_data.append('file-dok_rencana_kerja-input', file_dok_rencana_kerja);
-            form_data.append('file-dokumen-input', file_dokumen);
+            form_data.append('file-document-input', file_document);
             form_data.append('file-absensi-input', file_absensi);
             form_data.append('uploaded-file-dok_rencana_kerja', $('#uploaded-file-dok_rencana_kerja').val());
-            form_data.append('uploaded-file-dokumen', $('#uploaded-file-dokumen').val());
+            form_data.append('uploaded-file-document', $('#uploaded-file-document').val());
             form_data.append('uploaded-file-absensi', $('#uploaded-file-absensi').val());
             form_data.append('tahun-input', $('#tahun-input').val());
             form_data.append('select-kode_kota-input', $('#select-kode_kota-input').val());
@@ -268,14 +310,14 @@
             form_data.append('q_anggota_pem_bpd-input', $('#q_anggota_pem_bpd-input').val());
             form_data.append('q_anggota_non_pem-input', $('#q_anggota_non_pem-input').val());
             form_data.append('nilai_dana_ops-input', $('#nilai_dana_ops-input').val());
-            form_data.append('tgl-diser-input', $('#diver-oleh-input').val());
+            form_data.append('diser_tgl-input', $('#diser_tgl-input').val());
             form_data.append('diser_oleh-input', $('#diser_oleh-input').val());
-            form_data.append('tgl_diket-input', $('#tgl_diket-input').val());
+            form_data.append('diket_tgl-input', $('#diket_tgl-input').val());
             form_data.append('diket_oleh-input', $('#diket_oleh-input').val());
-            form_data.append('tgl_diver-input', $('#tgl_diver-input').val());
+            form_data.append('diver_tgl-input', $('#diver_tgl-input').val());
             form_data.append('diver_oleh-input', $('#diver_oleh-input').val());
-			console.log('aaaaa')
-			/*$.ajax({
+
+			$.ajax({
 	            type: 'post',
 				processData: false,
 	            contentType: false,
@@ -293,8 +335,9 @@
 	            	alert(thrownError);
 	            	$("#submit").prop('disabled', false);
 	            }
-			});*/
+			});
         });
+
         $("#select-kode_kota-input").select2({
             theme: "bootstrap",
             placeholder: "single select"
@@ -323,14 +366,12 @@
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
 @stop
