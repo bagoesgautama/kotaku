@@ -1,23 +1,35 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Konsultan Manajemen Wilayah (KMW) Form @stop {{-- local styles --}} @section('header_styles')
-<link href="{{asset('css/app.css')}}" rel="stylesheet">
-<link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet"/>
-<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
+@extends('MAIN/default') {{-- Page title --}} @section('title') Konsultan Manajemen Wilayah (KMW) @stop {{-- local styles --}} @section('header_styles')
+<link href="{{asset('vendors/bootstrap-multiselect/css/bootstrap-multiselect.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>Konsultan Manajemen Wilayah (KMW)</h1>
-    <ol class="breadcrumb">
-        <li>
-            <a href="/main">
-                <i class="fa fa-fw fa-home"></i> MAIN
-            </a>
-        </li>
-        <li><a href="/main/kmw">KMW</a></li>
-        <li class="active">
-            Create
-        </li>
-    </ol>
+    <div class="bs-example">
+        <ul class="breadcrumb">
+            <li class="next">
+                <a href="/main">
+                    <i class="fa fa-fw fa-home"></i> MAIN
+                </a>
+            </li>
+            <li class="next">
+                Master Data
+            </li>
+            <li class="next">
+                Data Cakupan Program
+            </li>
+            <li class="next">
+                KMW
+            </li>
+            <li class="next">
+                Create
+            </li>
+        </ul>
+    </div>
 </section>
 @stop
 {{-- Page content --}} @section('content')
@@ -26,9 +38,9 @@
         <div class="row">
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-select1">Kode Mapping KMP ke Slum Program</label>
-                <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
+                <input type="hidden" id="example-id-input" name="example-id-input" value="{{ $kode }}">
                 <div class="col-sm-6">
-                    <select id="example-select1" name="example-kode_kmp_slum_prog-input" class="form-control" size="1">
+                    <select id="select-kode_kmp_slum_prog-input" name="select-kode_kmp_slum_prog-input" class="form-control" size="1">
                         @foreach($kode_kmp_slum_prog_list as $list)
                             <option value="{{ $list->kode }}" @if($list->kode==$kode_kmp_slum_prog) selected="selected" @endif >{{ $list->kode }}</option>
                         @endforeach
@@ -38,56 +50,56 @@
             <div class="form-group">
                  <label class="col-sm-3 control-label" for="example-text-input1">Nama</label>
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-nama-input" class="form-control" placeholder="Nama" value="{{ $nama }}" maxlength="50">
+                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{ $nama }}" maxlength="50">
                 </div>
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-textarea-input2">Alamat</label>
                 <div class="col-sm-6">
-                    <textarea id="example-textarea-input2" name="example-alamat-input" rows="7" class="form-control resize_vertical" placeholder="Alamat" maxlength="300">{{ $alamat }}</textarea>
+                    <textarea id="alamat-input" name="alamat-input" rows="7" class="form-control resize_vertical" placeholder="Alamat" maxlength="300">{{ $alamat }}</textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Kode POS</label>
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-kodepos-input" class="form-control" placeholder="Kode POS" value="{{ $kodepos }}" maxlength="5">
+                    <input type="number" id="kodepos-input" name="kodepos-input" class="form-control" placeholder="Kode POS" value="{{ $kodepos }}" maxlength="5">
                 </div>
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">Contact Person</label>
                 <div class="col-sm-6">    
-                    <input type="text" id="example-text-input1" name="example-contact_person-input" class="form-control" placeholder="Contact Person" value="{{ $contact_person }}" maxlength="50">
+                    <input type="text" id="contact_person-input" name="contact_person-input" class="form-control" placeholder="Contact Person" value="{{ $contact_person }}" maxlength="50">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">No Telepon</label>
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-no_phone-input" class="form-control" placeholder="Telepon" value="{{ $no_phone }}" maxlength="30">
+                    <input type="number" id="no_phone-input" name="no_phone-input" class="form-control" placeholder="Telepon" value="{{ $no_phone }}" maxlength="30">
                 </div>
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">No FAX</label>
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-no_fax-input" class="form-control" placeholder="FAX" value="{{ $no_fax }}" maxlength="30">
+                    <input type="number" id="no_fax-input" name="no_fax-input" class="form-control" placeholder="FAX" value="{{ $no_fax }}" maxlength="30">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">No Handphone 1</label>
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-no_hp1-input" class="form-control" placeholder="Handphone 1" value="{{ $no_hp1 }}" maxlength="30">
+                    <input type="number" id="no_hp1-input" name="no_hp1-input" class="form-control" placeholder="Handphone 1" value="{{ $no_hp1 }}" maxlength="30">
                 </div>
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">No Handphone 2</label>
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-no_hp2-input" class="form-control" placeholder="Handphone 2" value="{{ $no_hp2 }}" maxlength="30">
+                    <input type="number" id="no_hp2-input" name="no_hp2-input" class="form-control" placeholder="Handphone 2" value="{{ $no_hp2 }}" maxlength="30">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-email">Email 1</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 1</label>
-                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email1" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
+                    <input id="email1-input" type="email" class="form-control  form-control-lg" name="email1-input" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
 
                     @if ($errors->has('email'))
                         <span class="help-block">
@@ -100,7 +112,7 @@
                 <label class="col-sm-3 control-label" for="example-email">Email 2</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 2</label>
-                    <input id="email" type="email" class="form-control  form-control-lg" name="example-email2" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
+                    <input id="email2-input" type="email" class="form-control  form-control-lg" name="email2-input" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
 
                     @if ($errors->has('email'))
                         <span class="help-block">
@@ -112,13 +124,13 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Nama PMS</label>
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-pms_nama-input" class="form-control" placeholder="Nama PMS" value="{{ $pms_nama }}" maxlength="50">
+                    <input type="text" id="pms_nama-input" name="pms_nama-input" class="form-control" placeholder="Nama PMS" value="{{ $pms_nama }}" maxlength="50">
                 </div>
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-textarea-input2">Alamat PMS</label>
                 <div class="col-sm-6">
-                    <textarea id="example-textarea-input2" name="example-pms_alamat-input" rows="7" class="form-control resize_vertical" placeholder="Alamat PMS" maxlength="300">{{ $pms_alamat }}</textarea>
+                    <textarea id="pms_alamat-input" name="pms_alamat-input" rows="7" class="form-control resize_vertical" placeholder="Alamat PMS" maxlength="300">{{ $pms_alamat }}</textarea>
                 </div>
             </div>
             <div class="form-group">

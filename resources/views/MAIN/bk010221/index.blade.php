@@ -70,7 +70,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/kelurahan/forum/keanggotaan",
+                     "url": "/main/persiapan/kelurahan/forum/keberfungsian",
                      "dataType": "json",
                      "type": "POST"
                    },

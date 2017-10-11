@@ -73,8 +73,8 @@ class bk010221Controller extends Controller
 			1 =>'kode_kegiatan',
 			8 =>'tgl_kegiatan',
 			9 =>'lok_kegiatan',
-			10 =>'q_anggota_p',
-			11 =>'q_anggota_w',
+			10 =>'q_peserta_p',
+			11 =>'q_peserta_w',
 			12 =>'uri_img_document',
 			13 =>'uri_img_absensi',
 			15 =>'diser_tgl',
@@ -88,7 +88,7 @@ class bk010221Controller extends Controller
 			24 =>'updated_time',
 			25 =>'updated_by'
 		);
-		$query='select a.*, b.nama kode_forum from bkt_01020213_f_forum_kel a, bkt_01010102_forum_kel b where b.kode=a.kode_forum';
+		$query='select * from bkt_01020213_f_forum_kel';
 		$totalData = DB::select('select count(1) cnt from bkt_01020213_f_forum_kel ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -119,8 +119,8 @@ class bk010221Controller extends Controller
 				$nestedData['kode_kegiatan'] = $post->kode_kegiatan;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 				$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
-				$nestedData['q_anggota_p'] = $post->q_anggota_p;
-				$nestedData['q_anggota_w'] = $post->q_anggota_w;
+				$nestedData['q_peserta_p'] = $post->q_peserta_p;
+				$nestedData['q_peserta_w'] = $post->q_peserta_w;
 				$nestedData['uri_img_document'] = $post->uri_img_document;
 				$nestedData['uri_img_absensi'] = $post->uri_img_absensi;
 				$nestedData['diser_tgl'] = $post->diser_tgl;
@@ -180,8 +180,8 @@ class bk010221Controller extends Controller
 		$data['kode']=$request->input('kode');
 
 		//get dropdown list from Database
-		$kode_forum = DB::select('select kode from bkt_01020212_forum_kel');
-		$data['kode_forum_list'] = $kode_forum;
+		$list_forum = DB::select('select kode from bkt_01020212_forum_kel');
+		$data['kode_forum_list'] = $list_forum;
 
 		if($data['kode']!=null && !empty($data['detil']['204'])){
 			$rowData = DB::select('select * from bkt_01020213_f_forum_kel where kode='.$data['kode']);
@@ -189,10 +189,10 @@ class bk010221Controller extends Controller
 			$data['kode_kegiatan'] = $rowData[0]->kode_kegiatan;
 			$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
 			$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
-			$data['q_anggota_p'] = $rowData[0]->q_anggota_p;
-			$data['q_anggota_w'] = $rowData[0]->q_anggota_w;
-			$data['uri_img_document'] = $rowData[0]->url_img_document;
-			$data['uri_img_absensi'] = $rowData[0]->url_img_absensi;
+			$data['q_peserta_p'] = $rowData[0]->q_peserta_p;
+			$data['q_peserta_w'] = $rowData[0]->q_peserta_w;
+			$data['uri_img_document'] = $rowData[0]->uri_img_document;
+			$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
 			$data['diser_tgl'] = $rowData[0]->diser_tgl;
 			$data['diser_oleh'] = $rowData[0]->diser_oleh;
 			$data['diket_tgl'] = $rowData[0]->diser_tgl;
@@ -203,14 +203,15 @@ class bk010221Controller extends Controller
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
 			$data['updated_by'] = $rowData[0]->updated_by;
+			$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 			return view('MAIN/bk010221/create',$data);
 		}else if($data['kode']==null && !empty($data['detil']['203'])){
 			$data['kode_forum'] = null;
 			$data['kode_kegiatan'] = null;
 			$data['tgl_kegiatan'] = null;
 			$data['lok_kegiatan'] = null;
-			$data['q_anggota_p'] = null;
-			$data['q_anggota_w'] = null;
+			$data['q_peserta_p'] = null;
+			$data['q_peserta_w'] = null;
 			$data['uri_img_document'] = null;
 			$data['uri_img_absensi'] = null;
 			$data['diser_tgl'] = null;
@@ -223,8 +224,8 @@ class bk010221Controller extends Controller
 			$data['created_by'] = null;
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
-		
-		return view('MAIN/bk010221/create',$data);
+			$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
+			return view('MAIN/bk010221/create',$data);
 			}else {
 				return Redirect::to('/');
 			}
@@ -235,32 +236,33 @@ class bk010221Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		//var_dump($request->all());
 
-		$file_dokumen = $request->file('file-dokumen-input');
-		$url_dokumen = null;
-		$upload_dokumen = false;
-		if($request->input('uploaded-file-dokumen') != null && $file_dokumen == null){
-			$url_dokumen = $request->input('uploaded-file-dokumen');
-			$upload_dokumen = false;
-		}elseif($request->input('uploaded-file-dokumen') != null && $file_dokumen != null){
-			$url_dokumen = $file_dokumen->getClientOriginalName();
-			$upload_dokumen = true;
-		}elseif($request->input('uploaded-file-dokumen') == null && $file_dokumen != null){
-			$url_dokumen = $file_dokumen->getClientOriginalName();
-			$upload_dokumen = true;
+		$file_document = $request->file('file-document-input');
+		$uri_document = null;
+		$upload_document = false;
+		if($request->input('uploaded-file-document') != null && $file_document == null){
+			$uri_document = $request->input('uploaded-file-document');
+			$upload_document = false;
+		}elseif($request->input('uploaded-file-document') != null && $file_document != null){
+			$uri_document = $file_document->getClientOriginalName();
+			$upload_document = true;
+		}elseif($request->input('uploaded-file-document') == null && $file_document != null){
+			$uri_document = $file_document->getClientOriginalName();
+			$upload_document = true;
 		}
 
 		$file_absensi = $request->file('file-absensi-input');
-		$url_absensi = null;
+		$uri_absensi = null;
 		$upload_absensi = false;
 		if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
-			$url_absensi = $request->input('uploaded-file-absensi');
+			$uri_absensi = $request->input('uploaded-file-absensi');
 			$upload_absensi = false;
 		}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
-			$url_absensi = $file_absensi->getClientOriginalName();
+			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
 		}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
-			$url_absensi = $file_absensi->getClientOriginalName();
+			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
 		}
 
@@ -268,29 +270,29 @@ class bk010221Controller extends Controller
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_01020213_f_forum_kel')->where('kode', $request->input('example-id-input'))
 			->update(['kode_forum' => $request->input('select-kode_forum-input'), 
-				'kode_kegitan' => $request->input('select-kode_kegitan-input'), 
-				'tgl_kegiatan' => $request->input('tgl_kegiatan-input'),
+				'kode_kegiatan' => $request->input('select-kode_kegiatan-input'), 
+				'tgl_kegiatan' => $this->date_conversion($request->input('tgl_kegiatan-input')),
 				'lok_kegiatan' => $request->input('lok_kegiatan-input'),
-				'q_anggota_p' => $request->input('q_anggota_p-input'),
-				'q_anggota_w' => $request->input('q_anggota_w-input'),
-				'url_img_document' => $request->input('img_document-input'),
-				'url_img_absensi' => $request->input('img_absensi-input'),
-				'diser_tgl' => $request->input('diser_tgl-input'),
+				'q_peserta_p' => $request->input('q_peserta_p-input'),
+				'q_peserta_w' => $request->input('q_peserta_w-input'),
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $uri_absensi,
+				'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
 				'diser_oleh' => $request->input('diser_oleh-input'),
-				'diket_tgl' => $request->input('diket_tgl-input'),
+				'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
 				'diket_oleh' => $request->input('diket_oleh-input'),
-				'diver_tgl' => $request->input('diver_tgl-input'),
+				'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
 				'diver_oleh' => $request->input('diver_oleh-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
 
-			if($upload_dokumen == true){
-				$file_dokumen->move(public_path('/uploads/persiapan/nasional/forumkolaborasi/keberfungsian'), $file_dokumen->getClientOriginalName());
+			if($upload_document == true){
+				$file_document->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/keberfungsian'), $file_document->getClientOriginalName());
 			}
 
 			if($upload_absensi == true){
-				$file_absensi->move(public_path('/uploads/persiapan/nasional/forumkolaborasi/keberfungsian'), $file_absensi->getClientOriginalName());
+				$file_absensi->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/keberfungsian'), $file_absensi->getClientOriginalName());
 			}
 
 			$this->log_aktivitas('Update', 204);
@@ -298,28 +300,30 @@ class bk010221Controller extends Controller
 		}else{
 			DB::table('bkt_01020213_f_forum_kel')->insert(
        			['kode_forum' => $request->input('select-kode_forum-input'), 
-				'kode_kegitan' => $request->input('select-kode_kegitan-input'), 
-				'tgl_kegiatan' => $request->input('tgl_kegiatan-input'),
+				'kode_kegiatan' => $request->input('select-kode_kegiatan-input'), 
+				'tgl_kegiatan' => $this->date_conversion($request->input('tgl_kegiatan-input')),
 				'lok_kegiatan' => $request->input('lok_kegiatan-input'),
-				'q_anggota_p' => $request->input('q_anggota_p-input'),
-				'q_anggota_w' => $request->input('q_anggota_w-input'),
-				'url_img_document' => $request->input('img_document-input'),
-				'url_img_absensi' => $request->input('img_absensi-input'),
-				'diser_tgl' => $request->input('diser_tgl-input'),
+				'q_peserta_p' => $request->input('q_peserta_p-input'),
+				'q_peserta_w' => $request->input('q_peserta_w-input'),
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $uri_absensi,
+				'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
 				'diser_oleh' => $request->input('diser_oleh-input'),
-				'diket_tgl' => $request->input('diket_tgl-input'),
+				'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
 				'diket_oleh' => $request->input('diket_oleh-input'),
-				'diver_tgl' => $request->input('diver_tgl-input'),
+				'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
 				'diver_oleh' => $request->input('diver_oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
-			if($upload_dokumen == true){
-				$file_dokumen->move(public_path('/uploads/persiapan/kelurahan/pokja/pembentukan'), $file_dokumen->getClientOriginalName());
+
+			if($upload_document == true){
+				$file_document->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/keberfungsian'), $file_document->getClientOriginalName());
 			}
 
 			if($upload_absensi == true){
-				$file_absensi->move(public_path('/uploads/persiapan/kelurahan/pokja/pembentukan'), $file_absensi->getClientOriginalName());
+				$file_absensi->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/keberfungsian'), $file_absensi->getClientOriginalName());
 			}
+
 			$this->log_aktivitas('Create', 203);
 		}
 	}
@@ -330,6 +334,12 @@ class bk010221Controller extends Controller
         $this->log_aktivitas('Delete', 205);
         return Redirect::to('/main/persiapan/kelurahan/forum/keberfungsian');
     }
+
+    public function date_conversion($date)
+	{
+        $date_convert = date('Y-m-d', strtotime($date));
+        return $date_convert;
+	}
 
     public function log_aktivitas($aktifitas, $detil)
     {

@@ -15,17 +15,27 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>Tim Fasilitator Kelurahan (FasKel)</h1>
-    <ol class="breadcrumb">
-        <li>
-            <a href="/main">
-                <i class="fa fa-fw fa-home"></i> MAIN
-            </a>
-        </li>
-        <li><a href="/main/faskel">FasKel</a></li>
-        <li class="active">
-            Table
-        </li>
-    </ol>
+    <div class="bs-example">
+        <ul class="breadcrumb">
+            <li class="next">
+                <a href="/main">
+                    <i class="fa fa-fw fa-home"></i> MAIN
+                </a>
+            </li>
+            <li class="next">
+                Master Data
+            </li>
+            <li class="next">
+                Data Cakupan Program
+            </li>
+            <li class="next">
+                FasKel
+            </li>
+            <li class="next">
+                Create
+            </li>
+        </ul>
+    </div>
 </section>
 @stop {{-- Page content --}} @section('content')
 <div class="row">
