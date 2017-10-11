@@ -78,8 +78,8 @@ class bk010203Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' or a.kode like "%'.$search.'%" or a.tahun like "%'.$search.'%" or a.status_pokja like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.status_pokja like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' or a.kode like "%'.$search.'%" or a.tahun like "%'.$search.'%" or a.status_pokja like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.status_pokja like "%'.$search.'%") a');
+			$posts=DB::select($query. ' or a.kode like "%'.$search.'%" or a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.status_pokja like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' or a.kode like "%'.$search.'%" or a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.status_pokja like "%'.$search.'%") a');
 		}
 
 		$data = array();

@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Informasi Umum @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -39,9 +39,9 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <!-- <div class="panel-title pull-left">
-                    <b>bk010107 index</b>
-                </div> -->
+                <div class="panel-title pull-left">
+                    <b>bk010205 index</b>
+                </div>
                 <!-- <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/kota/info/create' }}">Create</a>
                 </div> -->
@@ -51,7 +51,7 @@
                     <table class="table table-striped" id="kegiatan">
                         <thead>
                             <tr>
-                                <th>Kode Kota</th>
+                                <th>Kota</th>
                                 <th>option</th>
                             </tr>
                         </thead>

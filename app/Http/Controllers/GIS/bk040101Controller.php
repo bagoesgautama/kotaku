@@ -48,6 +48,8 @@ class bk040101Controller extends Controller
 		}
 		$rowData = DB::select('select * from bkt_01010101_prop where status=1 and kode='.$id);
 		$data['propinsi']=$rowData[0]->nama;
+		$data['longitude']=$rowData[0]->longitude;
+		$data['latitude']=$rowData[0]->latitude;
 		$rowData = DB::select('select * from bkt_01010102_kota where status=1 and url_border_area is not null and kode_prop='.$id);
 		$data['prop']=$rowData;
 		return view('GIS/bk040101/kota',$data);
@@ -61,10 +63,12 @@ class bk040101Controller extends Controller
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		$rowData = DB::select('select b.nama prop,a.* from bkt_01010102_kota a,bkt_01010101_prop b where a.kode_prop=b.kode and a.status=1 and a.kode='.$id);
+		$rowData = DB::select('select b.nama prop,b.longitude,b.latitude,a.kode_prop,a.nama from bkt_01010102_kota a,bkt_01010101_prop b where a.kode_prop=b.kode and a.status=1 and a.kode='.$id);
 		$data['propinsi']=$rowData[0]->prop;
 		$data['kode_propinsi']=$rowData[0]->kode_prop;
 		$data['kota']=$rowData[0]->nama;
+		$data['longitude']=$rowData[0]->longitude;
+		$data['latitude']=$rowData[0]->latitude;
 		$rowData = DB::select('select * from bkt_01010103_kec where status=1 and url_border_area is not null and kode_kota='.$id);
 		$data['prop']=$rowData;
 		return view('GIS/bk040101/kecamatan',$data);

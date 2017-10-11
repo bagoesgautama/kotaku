@@ -40,8 +40,8 @@
 $(document).ready(function() {
 
 	var mapProp = {
-		center: new google.maps.LatLng(-2.600029, 118.015776),
-		zoom: 5,
+		center: new google.maps.LatLng({!! json_encode($latitude) !!}, {!! json_encode($longitude) !!}),
+		zoom: 7,
 		//scrollwheel: false,
 		//disableDoubleClickZoom: true,
 		zoomControl: true,
@@ -59,27 +59,12 @@ $(document).ready(function() {
 	var map = new google.maps.Map(document.getElementById("gmap-top"), mapProp);
 	var prop = {!! json_encode($prop) !!};
 	var attr={}
-	console.log(prop)
 	for(var i=0;i<prop.length;i++){
 		map.data.loadGeoJson('/uploads/kecamatan/'+prop[i].url_border_area);
 		attr[prop[i].nama]=prop[i]
-		attr[prop[i].nama].contentString = '<div id="content">'+
-	      '<div id="siteNotice">'+
-	      '</div>'+
-	      '<h1 id="firstHeading" class="firstHeading">'+prop[i].nama+'</h1>'+
-	      '<div id="bodyContent">'+
-	      '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-	      'sandstone rock formation in the southern part of the '+
-	      'Heritage Site.</p>'+
-	      '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-	      'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-	      '(last visited June 22, 2009).</p>'+
-	      '</div>'+
-	      '</div>';
 	}
 
 	map.data.setStyle(function(feature) {
-		console.log(feature)
 		if(attr[feature.f.KECAMATAN].kode%2==0){
 			return ({
 			    fillColor: 'red',

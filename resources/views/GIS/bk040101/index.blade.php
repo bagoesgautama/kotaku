@@ -19,6 +19,7 @@
                             </h4>
             </div>
             <div class="panel-body">
+				<table id='info'></table>
                 <div id="gmap-top" class="gmap"></div>
             </div>
         </div>
@@ -50,27 +51,9 @@ $(document).ready(function() {
 	var map = new google.maps.Map(document.getElementById("gmap-top"), mapProp);
 	var prop = {!! json_encode($prop) !!};
 	var attr={}
-	console.log(prop)
 	for(var i=0;i<prop.length;i++){
 		map.data.loadGeoJson('/uploads/provinsi/'+prop[i].url_border_area);
 		attr[prop[i].nama]=prop[i]
-		attr[prop[i].nama].contentString = '<div id="content">'+
-	      '<div id="siteNotice">'+
-	      '</div>'+
-	      '<h1 id="firstHeading" class="firstHeading">'+prop[i].nama+'</h1>'+
-	      '<div id="bodyContent">'+
-	      '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-	      'sandstone rock formation in the southern part of the '+
-	      'Heritage Site.</p>'+
-	      '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-	      'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-	      '(last visited June 22, 2009).</p>'+
-	      '</div>'+
-	      '</div>';
-	  	attr[prop[i].nama].infowindow = new google.maps.InfoWindow({
-  			content: attr[prop[i].nama].contentString,
-			position:{lat: 4.9133446, lng: 117.7325848}
-  		});
 	}
 
 	map.data.setStyle(function(feature) {
@@ -87,10 +70,18 @@ $(document).ready(function() {
 		}
 	})
 	map.data.addListener('mouseover', function(event) {
-	  	for(var key in attr)
-			attr[key].infowindow.close();
-		attr[event.feature.f.PROPINSI].infowindow.open(map);
-		//infowindow.open(map);
+		var data_detil=attr[event.feature.f.PROPINSI]
+    	var row = '';
+		for(var key in data_detil){
+			row += '<tr>';
+			row+='<td>' + key + '</td>';
+			row+='<td>' + data_detil[key]+' </td>';
+			row +='<tr>'
+		}
+	    $('#info').html(row);
+	});
+	map.data.addListener('click', function(event) {
+		window.location.href = '/gis/map-kota?id='+attr[event.feature.f.PROPINSI].kode;
 	});
 	//alert(JSON.stringify(prop));
 });
