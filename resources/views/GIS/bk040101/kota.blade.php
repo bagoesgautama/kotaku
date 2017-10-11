@@ -5,7 +5,7 @@
     <h1>GIS</h1>
     <ol class="breadcrumb">
         <li >
-			<a href="/hrm">
+			<a href="/gis">
             Map</a>
         </li>
 		<li class="active">
@@ -36,8 +36,8 @@
 $(document).ready(function() {
 
 	var mapProp = {
-		center: new google.maps.LatLng(-2.600029, 118.015776),
-		zoom: 5,
+		center: new google.maps.LatLng({!! json_encode($latitude) !!}, {!! json_encode($longitude) !!}),
+		zoom: 7,
 		//scrollwheel: false,
 		//disableDoubleClickZoom: true,
 		zoomControl: true,
@@ -58,23 +58,10 @@ $(document).ready(function() {
 	for(var i=0;i<prop.length;i++){
 		map.data.loadGeoJson('/uploads/kota/'+prop[i].url_border_area);
 		attr[prop[i].nama]=prop[i]
-		attr[prop[i].nama].contentString = '<div id="content">'+
-	      '<div id="siteNotice">'+
-	      '</div>'+
-	      '<h1 id="firstHeading" class="firstHeading">'+prop[i].nama+'</h1>'+
-	      '<div id="bodyContent">'+
-	      '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-	      'sandstone rock formation in the southern part of the '+
-	      'Heritage Site.</p>'+
-	      '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-	      'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-	      '(last visited June 22, 2009).</p>'+
-	      '</div>'+
-	      '</div>';
 	}
 
 	map.data.setStyle(function(feature) {
-		if(attr[feature.f.kota].kode%2==0){
+		if(attr[feature.f.KOTA].kode%2==0){
 			return ({
 			    fillColor: 'red',
 			    strokeWeight: 1
@@ -87,7 +74,7 @@ $(document).ready(function() {
 		}
 	})
 	map.data.addListener('mouseover', function(event) {
-	  	var data_detil=attr[event.feature.f.kota]
+	  	var data_detil=attr[event.feature.f.KOTA]
     	var row = '';
 		for(var key in data_detil){
 			row += '<tr>';
@@ -97,7 +84,9 @@ $(document).ready(function() {
 		}
 	    $('#info').html(row);
 	});
-	//alert(JSON.stringify(prop));
+	map.data.addListener('click', function(event) {
+		window.location.href = '/gis/map-kecamatan?id='+attr[event.feature.f.KOTA].kode;
+	});
 });
 </script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyCZ3sUKS6BLuxnrGVQl2xRR2FFaljwPb2o&libraries=places"></script>
