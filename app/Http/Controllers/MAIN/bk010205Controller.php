@@ -56,7 +56,7 @@ class bk010205Controller extends Controller
 			0 =>'kode_kota'
 		);
 		$query='select bkv_01020201_info_kota.kode_kota as kode_kota, bkt_01010102_kota.nama as nama from bkv_01020201_info_kota inner join bkt_01010102_kota on bkv_01020201_info_kota.kode_kota = bkt_01010102_kota.kode';
-		$totalData = DB::select('select count(1) cnt from bkv_01020201_info_kota ');
+		$totalData = DB::select('select count(1) cnt from bkv_01020201_info_kota inner join bkt_01010102_kota on bkv_01020201_info_kota.kode_kota = bkt_01010102_kota.kode');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');

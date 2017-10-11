@@ -185,7 +185,7 @@
                             </div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/main/perencanaan/penanganan/pembangunan_visi" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/perencanaan/penanganan/pelaksanaan_rpk" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
