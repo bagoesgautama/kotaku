@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') BKM/LKM @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -42,9 +42,9 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <!-- <div class="panel-title pull-left">
-                    <b>bk010107 index</b>
-                </div> -->
+                <div class="panel-title pull-left">
+                    <b>bk010209 index</b>
+                </div>
                 @if( ! empty($detil['154']))
                 <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/kota/forum/bkm/create' }}">Create</a>
@@ -57,9 +57,10 @@
                         <thead>
                             <tr>
                                 <th>Tahun</th>
-                                <th>Kode Kota</th>
-                                <th>Kode Korkot</th>
-                                <th>Kode Kec</th>
+                                <th>Kota</th>
+                                <th>Kecamatan</th>
+                                <th>KMW</th>
+                                <th>Korkot</th>
                                 <th>Jenis Kegiatan</th>
                                 <th>Tanggal Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
@@ -91,8 +92,9 @@
             "columns": [
                 { "data": "tahun" , name:"tahun"},
                 { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
                 { "data": "kode_kec" , name:"kode_kec"},
+                { "data": "kode_kmw" , name:"kode_kmw"},
+                { "data": "kode_korkot" , name:"kode_korkot"},
                 { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},

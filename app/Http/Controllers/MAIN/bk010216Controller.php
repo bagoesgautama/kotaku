@@ -74,7 +74,9 @@ class bk010216Controller extends Controller
 				$data['q_peserta_p'] = $rowData[0]->q_peserta_p;
 				$data['q_peserta_w'] = $rowData[0]->q_peserta_w;
 				$data['q_peserta_mbr'] = $rowData[0]->q_peserta_mbr;
-				$data['bahan_sosialisasi'] = $rowData[0]->bahan_sosialisasi;
+				$data['id_bhn_sosialisasi'] = $rowData[0]->id_bhn_sosialisasi;
+				$data['uri_img_document'] = $rowData[0]->uri_img_document;
+				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
 				$data['diser_tgl'] = $rowData[0]->diser_tgl;
 				$data['diser_oleh'] = $rowData[0]->diser_oleh;
 				$data['diket_tgl'] = $rowData[0]->diket_tgl;
@@ -91,6 +93,8 @@ class bk010216Controller extends Controller
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
 				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
 				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
+				$data['kode_bhn_sos_list'] = DB::select('select * from bkt_01010125_bhn_sosialisasi where status=1');
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010216/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['187'])){
 				$data['kode_kota'] = null;
@@ -105,7 +109,9 @@ class bk010216Controller extends Controller
 				$data['q_peserta_p'] = null;
 				$data['q_peserta_w'] = null;
 				$data['q_peserta_mbr'] = null;
-				$data['bahan_sosialisasi'] = null;
+				$data['id_bhn_sosialisasi'] = null;
+				$data['uri_img_document'] = null;
+				$data['uri_img_absensi'] = null;
 				$data['diser_tgl'] = null;
 				$data['diser_oleh'] = null;
 				$data['diket_tgl'] = null;
@@ -122,6 +128,8 @@ class bk010216Controller extends Controller
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
 				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
 				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
+				$data['kode_bhn_sos_list'] = DB::select('select * from bkt_01010125_bhn_sosialisasi where status=1');
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010216/create',$data);
 			}else {
 				return Redirect::to('/');
@@ -133,6 +141,34 @@ class bk010216Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		$file_dokumen = $request->file('file-dokumen-input');
+		$url_dokumen = null;
+		$upload_dokumen = false;
+		if($request->input('uploaded-file-dokumen') != null && $file_dokumen == null){
+			$url_dokumen = $request->input('uploaded-file-dokumen');
+			$upload_dokumen = false;
+		}elseif($request->input('uploaded-file-dokumen') != null && $file_dokumen != null){
+			$url_dokumen = $file_dokumen->getClientOriginalName();
+			$upload_dokumen = true;
+		}elseif($request->input('uploaded-file-dokumen') == null && $file_dokumen != null){
+			$url_dokumen = $file_dokumen->getClientOriginalName();
+			$upload_dokumen = true;
+		}
+
+		$file_absensi = $request->file('file-absensi-input');
+		$url_absensi = null;
+		$upload_absensi = false;
+		if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
+			$url_absensi = $request->input('uploaded-file-absensi');
+			$upload_absensi = false;
+		}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
+			$url_absensi = $file_absensi->getClientOriginalName();
+			$upload_absensi = true;
+		}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
+			$url_absensi = $file_absensi->getClientOriginalName();
+			$upload_absensi = true;
+		}
+
 		if ($request->input('kode')!=null){
 			date_default_timezone_set('Asia/Jakarta');
 			DB::table('bkt_01020210_sos_rel_kel')->where('kode', $request->input('kode'))
@@ -149,7 +185,9 @@ class bk010216Controller extends Controller
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
 				'q_peserta_mbr' => $request->input('q-mbr-input'),
-				'bahan_sosialisasi' => $request->input('bhn-sosialisasi-input'),
+				'id_bhn_sosialisasi' => $request->input('bhn-sosialisasi-input'),
+				'uri_img_document' => $url_dokumen,
+				'uri_img_absensi' => $url_absensi,
 				'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
 				'diser_oleh' => $request->input('diser-oleh-input'),
 				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
@@ -159,6 +197,14 @@ class bk010216Controller extends Controller
 				'updated_by' => Auth::user()->id, 
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
+
+			if($upload_dokumen == true){
+				$file_dokumen->move(public_path('/uploads/persiapan/kelurahan/sosialisasi'), $file_dokumen->getClientOriginalName());
+			}
+
+			if($upload_absensi == true){
+				$file_absensi->move(public_path('/uploads/persiapan/kelurahan/sosialisasi'), $file_absensi->getClientOriginalName());
+			}
 
 			$this->log_aktivitas('Update', 188);
 
@@ -176,7 +222,9 @@ class bk010216Controller extends Controller
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
 				'q_peserta_mbr' => $request->input('q-mbr-input'),
-				'bahan_sosialisasi' => $request->input('bhn-sosialisasi-input'),
+				'id_bhn_sosialisasi' => $request->input('bhn-sosialisasi-input'),
+				'uri_img_document' => $url_dokumen,
+				'uri_img_absensi' => $url_absensi,
 				'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
 				'diser_oleh' => $request->input('diser-oleh-input'),
 				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
@@ -185,6 +233,14 @@ class bk010216Controller extends Controller
 				'diver_oleh' => $request->input('diver-oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
+
+			if($upload_dokumen == true){
+				$file_dokumen->move(public_path('/uploads/persiapan/kelurahan/sosialisasi'), $file_dokumen->getClientOriginalName());
+			}
+
+			if($upload_absensi == true){
+				$file_absensi->move(public_path('/uploads/persiapan/kelurahan/sosialisasi'), $file_absensi->getClientOriginalName());
+			}
 
 			$this->log_aktivitas('Create', 187);
 		}

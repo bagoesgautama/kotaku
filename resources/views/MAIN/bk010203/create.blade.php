@@ -60,7 +60,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">KMW</label>
                                 <div class="col-sm-6">
-                                    <select id="select21" name="kode-kmw-input" class="form-control" size="1">
+                                    <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1">
                                         @foreach ($kode_kmw_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
@@ -70,7 +70,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Faskel</label>
                                 <div class="col-sm-6">
-                                    <select id="select22" name="kode-faskel-input" class="form-control" size="1">
+                                    <select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1">
                                         @foreach ($kode_faskel_list as $kfl)
                                             <option value="{{$kfl->kode}}" {!! $kode_faskel==$kfl->kode ? 'selected':'' !!}>{{$kfl->nama}}</option>
                                         @endforeach
@@ -276,8 +276,8 @@
             form_data.append('uploaded-file-rnckerja', $('#uploaded-file-rnckerja').val());
             form_data.append('tahun-input', $('#tahun-input').val());
             form_data.append('kode-prop-input', $('#kode-prop-input').val());
-            form_data.append('kode-kmw-input', $('#select21').val());
-            form_data.append('kode-faskel-input', $('#select22').val());
+            form_data.append('kode-kmw-input', $('#select-kode-kmw-input').val());
+            form_data.append('kode-faskel-input', $('#select-kode-faskel-input').val());
             form_data.append('jns-kegiatan-input', $('#jns-kegiatan-input').val());
             form_data.append('tgl-kegiatan-input', $('#tgl-kegiatan-input').val());
             form_data.append('status-pokja-input', $('#status-pokja-input').val());
@@ -318,6 +318,14 @@
             $("#submit").prop('disabled', false);
             }
           });
+        });
+        $("#select-kode-kmw-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+        $("#select-kode-faskel-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
         });
       });
 </script>
