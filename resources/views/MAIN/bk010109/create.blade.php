@@ -9,17 +9,27 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>Mapping KMP ke Slum Program</h1>
-    <ol class="breadcrumb">
-        <li>
-            <a href="/main">
-                <i class="fa fa-fw fa-home"></i> MAIN
-            </a>
-        </li>
-        <li><a href="/main/kmp_slum_program">Mapping KMP ke Slum Program</a></li>
-        <li class="active">
-            Create
-        </li>
-    </ol>
+    <div class="bs-example">
+        <ul class="breadcrumb">
+            <li class="next">
+                <a href="/main">
+                    <i class="fa fa-fw fa-home"></i> MAIN
+                </a>
+            </li>
+            <li class="next">
+                Master Data
+            </li>
+            <li class="next">
+                Data Cakupan Program
+            </li>
+            <li class="next">
+                Mapping KMP ke Slum Program
+            </li>
+            <li class="next">
+                Create
+            </li>
+        </ul>
+    </div>
 </section>
 @stop
 {{-- Page content --}} @section('content')
@@ -33,9 +43,9 @@
     					<form enctype="multipart/form-data" class="form-horizontal form-bordered">
 				            <div class="form-group striped-col">
 				                <label class="col-sm-3 control-label" for="example-text-input1">Nama KMP</label>
-                                <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
+                                <input type="hidden" id="example-id-input" name="example-id-input" value="{{ $kode }}">
 								<div class="col-sm-6">
-	                                <select id="select21" class="form-control select2" name="example-kode_kmp-input">
+	                                <select id="select-kode_kmp-input" class="form-control select2" name="select-kode_kmp-input">
 	                                    @foreach($kode_kmp_list as $list)
 	                                        <option value="{{ $list->kode }}" @if($list->kode==$kode_kmp) selected="selected" @endif >{{ $list->nama }}
 	                                        </option>
@@ -46,7 +56,7 @@
 							<div class="form-group">
 				                <label class="col-sm-3 control-label" for="example-text-input1">Nama Slum Program</label>
                                 <div class="col-sm-6">
-                                    <select id="select22" class="form-control select2" name="example-kode_slum_prog-input" >
+                                    <select id="select-kode_slum_prog-input" class="form-control select2" name="select-kode_slum_prog-input" >
                                         @foreach($kode_slum_prog_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_slum_prog) selected="selected" @endif >{{ $list->nama }}
                                             </option>

@@ -195,8 +195,8 @@ class bk010109Controller extends Controller
 		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_01010109_kmp_slum_prog')->where('kode', $request->input('example-id-input'))
-			->update(['kode_kmp' => $request->input('example-kode_kmp-input'), 
-				'kode_slum_prog' => $request->input('example-kode_slum_prog-input'),
+			->update(['kode_kmp' => $request->input('select-kode_kmp-input'), 
+				'kode_slum_prog' => $request->input('select-kode_slum_prog-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
@@ -204,8 +204,8 @@ class bk010109Controller extends Controller
 
 		}else{
 			DB::table('bkt_01010109_kmp_slum_prog')->insert(
-				['kode_kmp' => $request->input('example-kode_kmp-input'), 
-				'kode_slum_prog' => $request->input('example-kode_slum_prog-input'), 
+				['kode_kmp' => $request->input('select-kode_kmp-input'), 
+				'kode_slum_prog' => $request->input('select-kode_slum_prog-input'), 
        			'created_by' => Auth::user()->id
        			]);
 			$this->log_aktivitas('Create', 37);

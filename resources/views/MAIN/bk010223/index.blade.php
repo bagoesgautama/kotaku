@@ -36,7 +36,7 @@
                 </div>
                 @if( ! empty($detil['207']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/lembaga/tapp/create">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/lembaga/create">Create</a>
                 </div>
 				@endif
             </div>
@@ -72,7 +72,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/kelurahan/lembaga/tapp",
+                     "url": "/main/persiapan/kelurahan/lembaga",
                      "dataType": "json",
                      "type": "POST"
                    },

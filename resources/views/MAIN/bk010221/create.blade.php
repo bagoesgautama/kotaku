@@ -1,6 +1,5 @@
 @extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - Forum Kolaborasi - Keberfungsian Forum @stop {{-- local styles --}}
 @section('header_styles')
-<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-multiselect/css/bootstrap-multiselect.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
@@ -40,6 +39,7 @@
                     <div class="col-md-12">
                         <form enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group">
+                                <input type="hidden" id="example-id-input" name="example-id-input" value="{{ $kode }}">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Kode Forum</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode_forum-input" class="form-control select2" name="select-kode_forum-input">
@@ -53,7 +53,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Kode Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <select id="select-kode_kegiatan" name="select-kode_kegiatan" class="form-control" size="1">
+                                    <select id="select-kode_kegiatan-input" name="select-kode_kegiatan-input" class="form-control" size="1">
                                         <option value="2.6.1.2.3" 
                                             @if($kode_kegiatan=='2.6.1.2.3') 
                                                 selected="selected" 
@@ -78,27 +78,27 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="lok_kegiatan-input" name="lok_kegiatan-input" class="form-control" placeholder="Lokasi Kegiatan" value="{{$lok_kegiatan}}">
+                                    <input type="text" id="lok_kegiatan-input" name="lok_kegiatan-input" class="form-control" placeholder="Lokasi Kegiatan" value="{{$lok_kegiatan}}" maxlength="50">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Anggota Pria</label>
+                                <label class="col-sm-3 control-label">Peserta Pria</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_anggota_p-input" name="q_anggota_p-input" class="form-control" placeholder="Anggota Pria" value="{{$q_anggota_p}}" maxlength="5">
+                                    <input type="text" id="q_peserta_p-input" name="q_peserta_p-input" class="form-control" placeholder="Anggota Pria" value="{{$q_peserta_p}}" maxlength="5">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Peserta Wanita</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_anggota_w-input" name="q_anggota_w-input" class="form-control" placeholder="Anggota Wanita" value="{{$q_anggota_w}}" maxlength="5">
+                                    <input type="text" id="q_peserta_w-input" name="q_peserta_w-input" class="form-control" placeholder="Anggota Wanita" value="{{$q_peserta_w}}" maxlength="5">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">File Dokumen</label>
+                                <label class="col-sm-3 control-label">File Document</label>
                                 <div class="col-sm-6">
-                                    <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
+                                    <input id="file-document-input" type="file" class="file" data-show-preview="false" name="file-document-input">
                                     <br>
-                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-dokumen" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
+                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-document" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
                                 </div>
                             </div>    
                             <div class="form-group striped-col">
@@ -110,30 +110,42 @@
                                 </div>
                             </div>
                             <div class="form-group ">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
+                               <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diser-input" name="tgl-diser-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
+                                    <input class="form-control" id="diser_tgl-input" name="diser_tgl-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="text" id="diser-oleh-input" name="diser-oleh-input" class="form-control" placeholder="Diserahkan Oleh" value="{{$diser_oleh}}" value="{{$diket_tgl}}">
+                                    <select id="diser_oleh-input" name="diser_oleh-input" class="form-control" size="1">
+                                        @foreach ($kode_user_list as $kul)
+                                            <option value="{{$kul->id}}" {!! $diser_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diketahui & Diketahui Oleh</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diket-input" name="tgl-diket-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}">
+                                    <input class="form-control" id="diket_tgl-input" name="diket_tgl-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="text" id="diket-oleh-input" name="diket-oleh-input" class="form-control" placeholder="Diketahui Oleh" value="{{$diket_oleh}}">
+                                    <select id="diket_oleh-input" name="diket_oleh-input" class="form-control" size="1">
+                                        @foreach ($kode_user_list as $kul)
+                                            <option value="{{$kul->id}}" {!! $diket_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diverifikasi & Diverifikasi Oleh</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diver-input" name="tgl-diver-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}">
+                                    <input class="form-control" id="diver_tgl-input" name="diver_tgl-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="text" id="diver-oleh-input" name="diver-oleh-input" class="form-control" placeholder="Diverifikasi Oleh" value="{{$diver_oleh}}">
+                                    <select id="diver_oleh-input" name="diver_oleh-input" class="form-control" size="1">
+                                        @foreach ($kode_user_list as $kul)
+                                            <option value="{{$kul->id}}" {!! $diver_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -162,7 +174,7 @@
                             </div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/main/persiapan/kelurahan/forum/keanggotaan" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/persiapan/kelurahan/forum/keberfungsian" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -182,63 +194,68 @@
 </div>
 
 @stop {{-- local scripts --}} @section('footer_scripts')
-<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
         $('#submit').on('click', function (e) {
-            var file_data = document.getElementById('file-input').files[0];
+            e.preventDefault();
+            
+            var file_document = document.getElementById('file-document-input').files[0];
+            var file_absensi = document.getElementById('file-absensi-input').files[0];
             var form_data = new FormData();
-            form_data.append('kode', $('#kode').val());
-            form_data.append('file-dokumen-input', file_dokumen);
+            form_data.append('example-id-input', $('#example-id-input').val());
+            form_data.append('file-document-input', file_document);
             form_data.append('file-absensi-input', file_absensi);
-            form_data.append('uploaded-file-dokumen', $('#uploaded-file-dokumen').val());
+            form_data.append('uploaded-file-document', $('#uploaded-file-document').val());
             form_data.append('uploaded-file-absensi', $('#uploaded-file-absensi').val());
             form_data.append('select-kode_forum-input', $('#select-kode_forum-input').val());
             form_data.append('select-kode_kegiatan-input', $('#select-kode_kegiatan-input').val());
             form_data.append('tgl_kegiatan-input', $('#tgl_kegiatan-input').val());
             form_data.append('lok_kegiatan-input', $('#lok_kegiatan-input').val());
-            form_data.append('q_anggota_p-input', $('#q_anggota_p-input').val());
-            form_data.append('q_anggota_w-input', $('#q_anggota_w-input').val());
-            form_data.append('tgl-diser-input', $('#diver-oleh-input').val());
+            form_data.append('q_peserta_p-input', $('#q_peserta_p-input').val());
+            form_data.append('q_peserta_w-input', $('#q_peserta_w-input').val());
+            form_data.append('diser_tgl-input', $('#diser_tgl-input').val());
             form_data.append('diser_oleh-input', $('#diser_oleh-input').val());
-            form_data.append('tgl_diket-input', $('#tgl_diket-input').val());
+            form_data.append('diket_tgl-input', $('#diket_tgl-input').val());
             form_data.append('diket_oleh-input', $('#diket_oleh-input').val());
-            form_data.append('tgl_diver-input', $('#tgl_diver-input').val());
+            form_data.append('diver_tgl-input', $('#diver_tgl-input').val());
             form_data.append('diver_oleh-input', $('#diver_oleh-input').val());
-          e.preventDefault();
-          $.ajax({
-            type: 'post',
-            "url": "/main/persiapan/kelurahan/forum/keberfungsian/create",
-            data: $('form').serialize(),
-            beforeSend: function (){
-                $("#submit").prop('disabled', true);
-            },
-            success: function () {
-            alert('From Submitted.');
-            window.location.href = "/main/persiapan/kelurahan/forum/keberfungsian";
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-            $("#submit").prop('disabled', false);
-            }
-          });
+
+            $.ajax({
+                type: 'post',
+                processData: false,
+                contentType: false,
+                "url": "/main/persiapan/kelurahan/forum/keberfungsian/create",
+                data: form_data,
+                beforeSend: function (){
+                    $("#submit").prop('disabled', true);
+                },
+                success: function () {
+                    alert('From Submitted.');
+                    window.location.href = "/main/persiapan/kelurahan/forum/keberfungsian";
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                    $("#submit").prop('disabled', false);
+                }
+            });
         });
+
         $("#select-kode_kota-input").select2({
             theme: "bootstrap",
             placeholder: "single select"
         });
       });
 </script>
-
+<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
 @stop

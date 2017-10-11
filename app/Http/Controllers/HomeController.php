@@ -45,6 +45,7 @@ class HomeController extends Controller
 
 	public function hrm()
 	{
+		$user = Auth::user();
 		$akses= $user->menu()->where('kode_apps', 2)->get();
 		if(count($akses) > 0){
 			foreach ($akses as $item) {

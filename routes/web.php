@@ -323,59 +323,11 @@ Route::get('/main/persiapan/kelurahan/pemilu_bkm/create', 'MAIN\bk010222Controll
 Route::post('/main/persiapan/kelurahan/pemilu_bkm/create', 'MAIN\bk010222Controller@post_create');
 Route::get('/main/persiapan/kelurahan/pemilu_bkm/delete', 'MAIN\bk010222Controller@delete');
 
-Route::get('/main/persiapan/kelurahan/lembaga/tapp', 'MAIN\bk010223Controller@index');
-Route::post('/main/persiapan/kelurahan/lembaga/tapp', 'MAIN\bk010223Controller@post');
-Route::get('/main/persiapan/kelurahan/lembaga/tapp/create', 'MAIN\bk010223Controller@create');
-Route::post('/main/persiapan/kelurahan/lembaga/tapp/create', 'MAIN\bk010223Controller@post_create');
-Route::get('/main/persiapan/kelurahan/lembaga/tapp/delete', 'MAIN\bk010223Controller@delete');
-
-Route::get('/main/persiapan/kelurahan/lembaga/tipp', 'MAIN\bk010224Controller@index');
-Route::post('/main/persiapan/kelurahan/lembaga/tipp', 'MAIN\bk010224Controller@post');
-Route::get('/main/persiapan/kelurahan/lembaga/tipp/create', 'MAIN\bk010224Controller@create');
-Route::post('/main/persiapan/kelurahan/lembaga/tipp/create', 'MAIN\bk010224Controller@post_create');
-Route::get('/main/persiapan/kelurahan/lembaga/tipp/delete', 'MAIN\bk010224Controller@delete');
-
-Route::get('/main/persiapan/kelurahan/lembaga/organisasi_pengelola', 'MAIN\bk010225Controller@index');
-Route::post('/main/persiapan/kelurahan/lembaga/organisasi_pengelola', 'MAIN\bk010225Controller@post');
-Route::get('/main/persiapan/kelurahan/lembaga/organisasi_pengelola/create', 'MAIN\bk010225Controller@create');
-Route::post('/main/persiapan/kelurahan/lembaga/organisasi_pengelola/create', 'MAIN\bk010225Controller@post_create');
-Route::get('/main/persiapan/kelurahan/lembaga/organisasi_pengelola/delete', 'MAIN\bk010225Controller@delete');
-
-Route::get('/main/persiapan/kelurahan/lembaga/ksm/ppmk', 'MAIN\bk010226Controller@index');
-Route::post('/main/persiapan/kelurahan/lembaga/ksm/ppmk', 'MAIN\bk010226Controller@post');
-Route::get('/main/persiapan/kelurahan/lembaga/ksm/ppmk/create', 'MAIN\bk010226Controller@create');
-Route::post('/main/persiapan/kelurahan/lembaga/ksm/ppmk/create', 'MAIN\bk010226Controller@post_create');
-Route::get('/main/persiapan/kelurahan/lembaga/ksm/ppmk/delete', 'MAIN\bk010226Controller@delete');
-
-Route::get('/main/persiapan/kelurahan/lembaga/ksm/syariah', 'MAIN\bk010227Controller@index');
-Route::post('/main/persiapan/kelurahan/lembaga/ksm/syariah', 'MAIN\bk010227Controller@post');
-Route::get('/main/persiapan/kelurahan/lembaga/ksm/syariah/create', 'MAIN\bk010227Controller@create');
-Route::post('/main/persiapan/kelurahan/lembaga/ksm/syariah/create', 'MAIN\bk010227Controller@post_create');
-Route::get('/main/persiapan/kelurahan/lembaga/ksm/syariah/delete', 'MAIN\bk010227Controller@delete');
-
-Route::get('/main/persiapan/kelurahan/lembaga/ksm/fasil_bdc', 'MAIN\bk010228Controller@index');
-Route::post('/main/persiapan/kelurahan/lembaga/ksm/fasil_bdc', 'MAIN\bk010228Controller@post');
-Route::get('/main/persiapan/kelurahan/lembaga/ksm/fasil_bdc/create', 'MAIN\bk010228Controller@create');
-Route::post('/main/persiapan/kelurahan/lembaga/ksm/fasil_bdc/create', 'MAIN\bk010228Controller@post_create');
-Route::get('/main/persiapan/kelurahan/lembaga/ksm/fasil_bdc/delete', 'MAIN\bk010228Controller@delete');
-
-Route::get('/main/persiapan/kelurahan/lembaga/ksm/tabungan', 'MAIN\bk010229Controller@index');
-Route::post('/main/persiapan/kelurahan/lembaga/ksm/tabungan', 'MAIN\bk010229Controller@post');
-Route::get('/main/persiapan/kelurahan/lembaga/ksm/tabungan/create', 'MAIN\bk010229Controller@create');
-Route::post('/main/persiapan/kelurahan/lembaga/ksm/tabungan/create', 'MAIN\bk010229Controller@post_create');
-Route::get('/main/persiapan/kelurahan/lembaga/ksm/tabungan/delete', 'MAIN\bk010229Controller@delete');
-
-Route::get('/main/persiapan/kelurahan/lembaga/bdc', 'MAIN\bk010230Controller@index');
-Route::post('/main/persiapan/kelurahan/lembaga/bdc', 'MAIN\bk010230Controller@post');
-Route::get('/main/persiapan/kelurahan/lembaga/bdc/create', 'MAIN\bk010230Controller@create');
-Route::post('/main/persiapan/kelurahan/lembaga/bdc/create', 'MAIN\bk010230Controller@post_create');
-Route::get('/main/persiapan/kelurahan/lembaga/bdc/delete', 'MAIN\bk010230Controller@delete');
-
-Route::get('/main/persiapan/kelurahan/lembaga/federasi_upk', 'MAIN\bk010231Controller@index');
-Route::post('/main/persiapan/kelurahan/lembaga/federasi_upk', 'MAIN\bk010231Controller@post');
-Route::get('/main/persiapan/kelurahan/lembaga/federasi_upk/create', 'MAIN\bk010231Controller@create');
-Route::post('/main/persiapan/kelurahan/lembaga/federasi_upk/create', 'MAIN\bk010231Controller@post_create');
-Route::get('/main/persiapan/kelurahan/lembaga/federasi_upk/delete', 'MAIN\bk010231Controller@delete');
+Route::get('/main/persiapan/kelurahan/lembaga', 'MAIN\bk010223Controller@index');
+Route::post('/main/persiapan/kelurahan/lembaga', 'MAIN\bk010223Controller@post');
+Route::get('/main/persiapan/kelurahan/lembaga/create', 'MAIN\bk010223Controller@create');
+Route::post('/main/persiapan/kelurahan/lembaga/create', 'MAIN\bk010223Controller@post_create');
+Route::get('/main/persiapan/kelurahan/lembaga/delete', 'MAIN\bk010223Controller@delete');
 
 
 //perencanaan
