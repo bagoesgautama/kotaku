@@ -186,6 +186,24 @@
                                 
                             </div>
                             <div class="form-group striped-col">
+                                
+                            </div>
+                            <div class="form-group">
+                                
+                            </div>
+                            <div class="form-group striped-col">
+                                
+                            </div>
+                            <div class="form-group">
+                                
+                            </div>
+                            <div class="form-group striped-col">
+                                
+                            </div>
+                            <div class="form-group">
+                                
+                            </div>
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">File Document</label>
                                 <div class="col-sm-6">
                                     <input id="file-document-input" type="file" class="file" data-show-preview="false" name="file-document-input">

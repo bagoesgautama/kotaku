@@ -405,7 +405,7 @@
 	</li>
 	@endif
 
-	@if( ! empty($menu['12']))
+	@if( ! empty($menu['13']))
 	<li {!! (Request::is( 'main/perencanaan/kelurahan/kegiatan')||Request::is( 'main/perencanaan/kelurahan/kegiatan/create')||Request::is( 'main/perencanaan/kelurahan/investasi_5thn')||Request::is( 'main/perencanaan/kelurahan/investasi_5thn/create')||Request::is( 'main/perencanaan/kelurahan/penyusunan_rplp')||Request::is( 'main/perencanaan/kelurahan/penyusunan_rplp/create')||Request::is( 'main/perencanaan/kelurahan/penanganan_kumuh')||Request::is( 'main/perencanaan/kelurahan/penanganan_kumuh/create')||Request::is( 'main/perencanaan/kontrak_paket')||Request::is( 'main/perencanaan/kontrak_paket/create')||Request::is( 'main/perencanaan/pengadaan_lelang')||Request::is( 'main/perencanaan/pengadaan_lelang/create')||Request::is( 'main/perencanaan/infra/amdal')||Request::is( 'main/perencanaan/infra/amdal/create')||Request::is( 'main/perencanaan/infra/penyiapan_paket')||Request::is( 'main/perencanaan/infra/penyiapan_paket/create')||Request::is( 'main/perencanaan/rencana_kegiatan')||Request::is( 'main/perencanaan/rencana_kegiatan/create')||Request::is( 'main/perencanaan/kawasan/investasi')||Request::is( 'main/perencanaan/kawasan/investasi/create')||Request::is( 'main/perencanaan/kawasan/perencanaan')||Request::is( 'main/perencanaan/kawasan/perencanaan/create')||Request::is( 'main/perencanaan/penanganan/pengamanan_dampak')||Request::is( 'main/perencanaan/penanganan/pengamanan_dampak/create')||Request::is( 'main/perencanaan/penanganan/rencana_investasi')||Request::is( 'main/perencanaan/penanganan/rencana_investasi/create')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn/create')||Request::is( 'main/perencanaan/penanganan/lokasi_profile')||Request::is( 'main/perencanaan/penanganan/lokasi_profile/create')||Request::is( 'main/perencanaan/penanganan/konsultasi_perencanaan')||Request::is( 'main/perencanaan/penanganan/konsultasi_perencanaan/create')||Request::is( 'main/perencanaan/penanganan/lokakarya_perencanaan')||Request::is( 'main/perencanaan/penanganan/lokakarya_perencanaan/create')||Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk')||Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk/create')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi/create')? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
             <span class="mm-text">Perencanaan</span>
@@ -609,6 +609,205 @@
 					<li {!! (Request::is( 'main/perencanaan/kelurahan/kegiatan')||Request::is( 'main/perencanaan/kelurahan/kegiatan/create')? 'class="active"': "") !!}>
 						<a href="/main/perencanaan/kelurahan/kegiatan">
 							<span class="mm-text">Rencana Kegiatan Skala Kelurahan</span>
+						</a>
+					</li>
+					@endif
+				</ul>
+			</li>
+			@endif
+		</ul>
+	</li>
+	@endif
+	@if( ! empty($menu['15']))
+	<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+        <a href="javascript:void(0)">
+            <span class="mm-text">Pelaksanaan</span>
+            <span class="fa arrow"></span>
+        </a>
+		<ul class="sub-menu">
+			@if( ! empty($menu['109']))
+			<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+				<a href="javascript:void(0)">
+					<span class="mm-text">Realisasi kegiatan skala Kota (BDI/Non BDI)</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="sub-menu form-submenu">
+					@if( ! empty($menu['113']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/data_wilayah/provinsi">
+							<span class="mm-text">Realisasi Kegiatan Skala Kota</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['114']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/data_wilayah/provinsi">
+							<span class="mm-text">Pencairan kepada Kontraktor</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['115']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/data_wilayah/provinsi">
+							<span class="mm-text">Realisasi Kontrak Paket Pekerjaan dari Kontraktor</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['116']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/data_wilayah/provinsi">
+							<span class="mm-text">Sertifikasi Infrastruktur</span>
+						</a>
+					</li>
+					@endif
+				</ul>
+			</li>
+			@endif
+			@if( ! empty($menu['110']))
+			<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+				<a href="javascript:void(0)">
+					<span class="mm-text">Realisasi kegiatan skala Kota (Non BDI Kolaborasi)</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="sub-menu form-submenu">
+					@if( ! empty($menu['117']))
+					<li {!! (Request::is( 'main/slum_program')||Request::is( 'main/slum_program/create')? 'class="active"': "") !!}>
+				        <a href="/main/slum_program">
+				            <span class="mm-text ">Realisasi Kegiatan Skala Kota</span>
+				        </a>
+				    </li>
+					@endif
+					@if( ! empty($menu['118']))
+					<li {!! (Request::is( 'main/slum_program')||Request::is( 'main/slum_program/create')? 'class="active"': "") !!}>
+				        <a href="/main/slum_program">
+				            <span class="mm-text ">Sertifikasi Infrastruktur</span>
+				        </a>
+				    </li>
+					@endif
+				</ul>
+			</li>
+			@endif
+			@if( ! empty($menu['111']))
+			<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+				<a href="javascript:void(0)">
+					<span class="mm-text">Realisasi kegiatan skala kelurahan</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="sub-menu form-submenu">
+					@if( ! empty($menu['119']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/data_wilayah/provinsi">
+							<span class="mm-text">Pagu Dan Pencairan Dana Kotaku Program</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['120']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/data_wilayah/provinsi">
+							<span class="mm-text">KSM Pelaksana Kegiatan</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['121']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/data_wilayah/provinsi">
+							<span class="mm-text">Sertifikasi Infrastruktur</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['122']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/data_wilayah/provinsi">
+							<span class="mm-text">Realisasi Kegiatan Skala Kelurahan</span>
+						</a>
+					</li>
+					@endif
+				</ul>
+			</li>
+			@endif
+			@if( ! empty($menu['112']))
+			<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+				<a href="javascript:void(0)">
+					<span class="mm-text">Realisasi kegiatan skala kelurahan (Non BDI Kolaborasi)</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="sub-menu form-submenu">
+					@if( ! empty($menu['123']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/pelaksanaan/provinsi">
+							<span class="mm-text">Realisasi Kegiatan Skala kelurahan</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['124']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/pelaksanaan/provinsi">
+							<span class="mm-text">Sertifikasi Infrastruktur</span>
+						</a>
+					</li>
+					@endif
+				</ul>
+			</li>
+			@endif
+		</ul>
+	</li>
+	@endif
+	@if( ! empty($menu['16']))
+	<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+        <a href="javascript:void(0)">
+            <span class="mm-text">Keberlanjutan</span>
+            <span class="fa arrow"></span>
+        </a>
+		<ul class="sub-menu">
+			@if( ! empty($menu['125']))
+			<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+				<a href="javascript:void(0)">
+					<span class="mm-text">Skala Kota</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="sub-menu form-submenu">
+					@if( ! empty($menu['127']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/data_wilayah/provinsi">
+							<span class="mm-text">Serahterima Aset Bangunan kepada Pemerintah Kab/Kota</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['128']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/data_wilayah/provinsi">
+							<span class="mm-text">Operasional Pemeliharaan</span>
+						</a>
+					</li>
+					@endif
+				</ul>
+			</li>
+			@endif
+			@if( ! empty($menu['126']))
+			<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+				<a href="javascript:void(0)">
+					<span class="mm-text">Skala kelurahan</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="sub-menu form-submenu">
+					@if( ! empty($menu['129']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/data_wilayah/provinsi">
+							<span class="mm-text">Status Kemandirian LKM/BKM</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['130']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/data_wilayah/provinsi">
+							<span class="mm-text">Pemeliharaan & keberlanjutan</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['131']))
+					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/data_wilayah/provinsi">
+							<span class="mm-text">Pelaksanaan Audit Independent</span>
 						</a>
 					</li>
 					@endif

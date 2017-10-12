@@ -60,6 +60,7 @@
                                 <th>Jenis Sub Kegiatan</th>
                                 <th>Tanggal Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
+                                <th>Created Time</th>
                                 <th>option</th>
                             </tr>
                         </thead>
@@ -90,6 +91,7 @@
                 { "data": "jenis_subkegiatan" , name:"jenis_subkegiatan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+                { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
             ]
         });

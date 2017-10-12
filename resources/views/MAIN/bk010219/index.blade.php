@@ -58,13 +58,14 @@
                             <tr>
                                 <th>Propinsi</th>
                                 <th>Kota</th>
+                                <th>Korkot</th>
                                 <th>Kecamatan</th>
                                 <th>Kelurahan</th>
-                                <th>Korkot</th>
                                 <th>Faskel</th>
-                                <th>Kode Pelatihan</th>
+                                <th>Pelatihan</th>
                                 <th>Tgl Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
+                                <th>Created Time</th>
                                 <th>option</th>
                             </tr>
                         </thead>
@@ -93,13 +94,14 @@
             "columns": [
                 { "data": "kode_prop" , name:"kode_prop"},
                 { "data": "kode_kota" , name:"kode_kota"},
+                { "data": "kode_korkot" , name:"kode_korkot"},
                 { "data": "kode_kec" , name:"kode_kec"},
                 { "data": "kode_kel" , name:"kode_kel"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
                 { "data": "kode_faskel" , name:"kode_faskel"},
                 { "data": "id_pelatihan" , name:"id_pelatihan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+                { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
             ]
         });

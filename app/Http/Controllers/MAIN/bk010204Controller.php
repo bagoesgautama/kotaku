@@ -56,10 +56,11 @@ class bk010204Controller extends Controller
 			0 =>'kode_pokja',
 			1 =>'jenis_subkegiatan',
 			2 =>'tgl_kegiatan',
-			3 =>'lok_kegiatan'
+			3 =>'lok_kegiatan',
+			4 =>'created_time'
 		);
-		$query='select a.kode, a.kode_pokja, a.jenis_subkegiatan, a.tgl_kegiatan, a.lok_kegiatan from bkt_01020203_fungsi_pokja a, bkt_01020202_pokja b where a.kode_pokja = b.kode and b.jenis_kegiatan = 2.2';
-		$totalData = DB::select('select count(1) cnt from bkt_01020203_fungsi_pokja ');
+		$query='select a.kode, a.kode_pokja, a.jenis_subkegiatan, a.tgl_kegiatan, a.lok_kegiatan, a.created_time from bkt_01020203_fungsi_pokja a, bkt_01020202_pokja b where a.kode_pokja = b.kode and b.jenis_kegiatan = 2.2';
+		$totalData = DB::select('select count(1) cnt from bkt_01020203_fungsi_pokja a, bkt_01020202_pokja b where a.kode_pokja = b.kode and b.jenis_kegiatan = 2.2');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -71,8 +72,8 @@ class bk010204Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' or a.kode_pokja like "%'.$search.'%" or a.jenis_subkegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' or a.kode_pokja like "%'.$search.'%" or a.jenis_subkegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%") a');
+			$posts=DB::select($query. ' and (a.kode_pokja like "%'.$search.'%" or a.jenis_subkegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.kode_pokja like "%'.$search.'%" or a.jenis_subkegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%")) a');
 		}
 
 		$data = array();
@@ -97,6 +98,7 @@ class bk010204Controller extends Controller
 				$nestedData['jenis_subkegiatan'] = $jenis_kegiatan;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 				$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
+				$nestedData['created_time'] = $post->created_time;
 				
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();

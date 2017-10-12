@@ -37,10 +37,6 @@ class bk010203Controller extends Controller
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
-				$data['totalData'] = DB::select('select b.kode modul_id,b.nama modul,c.kode apps_id,c.nama apps
-					from bkt_02010104_modul b,bkt_02010103_apps c
-					where b.kode_apps=c.kode');
-				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
 
 				$this->log_aktivitas('View', 68);
 				return view('MAIN/bk010203/index',$data);
@@ -63,10 +59,11 @@ class bk010203Controller extends Controller
 			4 =>'kode_faskel',
 			5 =>'jenis_kegiatan',
 			6 =>'tgl_kegiatan',
-			7 =>'status_pokja'
+			7 =>'status_pokja',
+			8 =>'created_time'
 		);
-		$query='select a.kode, a.tahun, b.nama as kode_prop, c.nama as kode_kmw, d.nama as kode_faskel, a.jenis_kegiatan, a.tgl_kegiatan, a.status_pokja from bkt_01020202_pokja a, bkt_01010101_prop b, bkt_01010110_kmw c, bkt_01010113_faskel d where a.kode_prop = b.kode and a.kode_kmw = c.kode and a.kode_faskel = d.kode and a.jenis_kegiatan = 2.2';
-		$totalData = DB::select('select count(1) cnt from bkt_01020202_pokja ');
+		$query='select a.kode, a.tahun, b.nama as kode_prop, c.nama as kode_kmw, d.nama as kode_faskel, a.jenis_kegiatan, a.tgl_kegiatan, a.status_pokja, a.created_time from bkt_01020202_pokja a, bkt_01010101_prop b, bkt_01010110_kmw c, bkt_01010113_faskel d where a.kode_prop = b.kode and a.kode_kmw = c.kode and a.kode_faskel = d.kode and a.jenis_kegiatan = 2.2';
+		$totalData = DB::select('select count(1) cnt from bkt_01020202_pokja a, bkt_01010101_prop b, bkt_01010110_kmw c, bkt_01010113_faskel d where a.kode_prop = b.kode and a.kode_kmw = c.kode and a.kode_faskel = d.kode and a.jenis_kegiatan = 2.2');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -78,8 +75,8 @@ class bk010203Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' or a.kode like "%'.$search.'%" or a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.status_pokja like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' or a.kode like "%'.$search.'%" or a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.status_pokja like "%'.$search.'%") a');
+			$posts=DB::select($query. ' and (a.kode like "%'.$search.'%" or a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.status_pokja like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.kode like "%'.$search.'%" or a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.status_pokja like "%'.$search.'%")) a');
 		}
 
 		$data = array();
@@ -115,6 +112,7 @@ class bk010203Controller extends Controller
 				$nestedData['jenis_kegiatan'] = $jenis_kegiatan;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 				$nestedData['status_pokja'] = $status_pokja;
+				$nestedData['created_time'] = $post->created_time;
 				
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
@@ -145,6 +143,18 @@ class bk010203Controller extends Controller
 					);
 
 		echo json_encode($json_data);
+	}
+
+	public function select(Request $request)
+	{
+		if(!empty($request->input('prov'))){
+			$kmw = DB::select('select kode, nama from bkt_01010110_kmw where kode_prop='.$request->input('prov'));
+			echo json_encode($kmw);
+		}
+		if(!empty($request->input('kmw'))){
+			$faskel = DB::select('select kode, nama from bkt_01010113_faskel where kode_kmw='.$request->input('kmw'));
+			echo json_encode($faskel);
+		}
 	}
 
 	public function create(Request $request)

@@ -269,4 +269,3 @@
 <script src="{{asset('js/custom_js/register.js')}}"></script>
 @stop
 
-

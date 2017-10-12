@@ -39,12 +39,12 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form enctype="multipart/form-data" class="form-horizontal form-bordered">
+                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Jenis Forum</label>
                                 <div class="col-sm-6">
                                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                    <select id="jns-forum-input" name="jns-forum-input" class="form-control" size="1">
+                                    <select id="jns-forum-input" name="jns-forum-input" class="form-control" size="1" required>
                                         <option value="1" {!! $jns_forum=='1' ? 'selected':'' !!}>BKM/LKM Tingkat Kota</option>
                                         <option value="2" {!! $jns_forum=='2' ? 'selected':'' !!}>Kolaborasi Tingkat Kota</option>
                                     </select>
@@ -73,7 +73,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Kode kegiatan</label>
                                 <div class="col-sm-6">
-                                    <select id="kode-keg-input" name="kode-keg-input" class="form-control" size="1">
+                                    <select id="kode-keg-input" name="kode-keg-input" class="form-control" size="1" required>
                                         <option value="0" {!! $kode_kegiatan=='0' ? 'selected':'' !!}>Rapat Internal</option>
                                         <option value="1" {!! $kode_kegiatan=='1' ? 'selected':'' !!}>Rapat Dengan Pemda</option>
                                     </select>
@@ -128,10 +128,10 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diser-input" name="tgl-diser-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
+                                    <input class="form-control" id="tgl-diser-input" name="tgl-diser-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}" required>
                                 </div>
                                 <div class="col-sm-3">
-                                    <select id="diser-oleh-input" name="diser-oleh-input" class="form-control" size="1">
+                                    <select id="diser-oleh-input" name="diser-oleh-input" class="form-control" size="1" required>
                                         @foreach ($kode_user_list as $kul)
                                             <option value="{{$kul->id}}" {!! $diser_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
                                         @endforeach
@@ -141,10 +141,10 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diketahui & Diketahui Oleh</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diket-input" name="tgl-diket-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}">
+                                    <input class="form-control" id="tgl-diket-input" name="tgl-diket-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}" required>
                                 </div>
                                 <div class="col-sm-3">
-                                    <select id="diket-oleh-input" name="diket-oleh-input" class="form-control" size="1">
+                                    <select id="diket-oleh-input" name="diket-oleh-input" class="form-control" size="1" required>
                                         @foreach ($kode_user_list as $kul)
                                             <option value="{{$kul->id}}" {!! $diket_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
                                         @endforeach
@@ -154,10 +154,10 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diverifikasi & Diverifikasi Oleh</label>
                                 <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diver-input" name="tgl-diver-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}">
+                                    <input class="form-control" id="tgl-diver-input" name="tgl-diver-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}" required>
                                 </div>
                                 <div class="col-sm-3">
-                                    <select id="diver-oleh-input" name="diver-oleh-input" class="form-control" size="1">
+                                    <select id="diver-oleh-input" name="diver-oleh-input" class="form-control" size="1" required>
                                         @foreach ($kode_user_list as $kul)
                                             <option value="{{$kul->id}}" {!! $diver_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
                                         @endforeach
@@ -197,7 +197,7 @@
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
             var file_dokumen = document.getElementById('file-dokumen-input').files[0];
             var file_absensi = document.getElementById('file-absensi-input').files[0];
             var form_data = new FormData();
@@ -215,7 +215,7 @@
             form_data.append('q-laki-input', $('#q-laki-input').val());
             form_data.append('q-perempuan-input', $('#q-perempuan-input').val());
             form_data.append('q-pemda-input', $('#q-pemda-input').val());
-            form_data.append('tgl-diser-input', $('#rencana-kerja-input').val());
+            form_data.append('tgl-diser-input', $('#tgl-diser-input').val());
             form_data.append('diser-oleh-input', $('#diser-oleh-input').val());
             form_data.append('tgl-diket-input', $('#tgl-diket-input').val());
             form_data.append('diket-oleh-input', $('#diket-oleh-input').val());
