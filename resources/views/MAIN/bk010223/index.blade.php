@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - TAPP @stop {{-- local styles --}}
+@extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - Kelembagaan @stop {{-- local styles --}}
 @section('header_styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -12,7 +12,7 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Persiapan Kelurahan - TAPP</h1>
+    <h1>Persiapan Kelurahan - Kelembagaan</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -21,7 +21,7 @@
             	</a>
             </li>
             <li class="next">
-	            TAPP
+	            Kelembagaan
             </li>
         </ul>
     </div>
@@ -34,7 +34,7 @@
 				<div class="panel-title pull-left">
                     <b>bk010223 index</b>
                 </div>
-                @if( ! empty($detil['207']))
+                @if( ! empty($detil['339']))
                 <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/lembaga/create">Create</a>
                 </div>

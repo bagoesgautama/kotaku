@@ -62,6 +62,8 @@
                                 <th>Email</th>
                                 <th>Nama PMS</th>
                                 <th>Project</th>
+                                <th>Created Time</th>
+                                <th>Created By</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -101,6 +103,8 @@
                 { "data": "email1" , name:"email1"},
                 { "data": "pms_nama" , name:"pms_nama"},
                 { "data": "project" , name:"project"},
+                { "data": "created_time" , name:"created_time"},
+                { "data": "created_by" , name:"created_by"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });

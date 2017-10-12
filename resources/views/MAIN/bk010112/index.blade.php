@@ -57,6 +57,8 @@
                                 <th>Nama Kota</th>
                                 <th>Nama MS</th>
                                 <th>Paket MS</th>
+                                <th>Create Time</th>
+                                <th>Create By</th>
                                 <th>option</th>
                             </tr>
                         </thead>
@@ -93,6 +95,8 @@
                 { "data": "nama_kota" , name:"nama_kota"},
                 { "data": "ms_kode" , name:"ms_kode"},
                 { "data": "ms_paket" , name:"ms_kode"},
+                { "data": "created_time" , name:"created_time"},
+                { "data": "created_by" , name:"created_by"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });

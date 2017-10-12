@@ -39,7 +39,7 @@
                                 <label class="col-sm-3 control-label" for="example-text-input31">Kode KMP</label>
                                 <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
                                 <div class="col-sm-6">
-                                    <select id="select31" class="form-control select2" name="example-kode_kmp_slum_prog-input">
+                                    <select id="select31" class="form-control select2" name="select-kode_kmp_slum_prog-input">
                                         @foreach($kode_kmp_slum_program_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_kmp_slum_prog) selected="selected" @endif >{{ $list->kode }}
                                             </option>
@@ -50,7 +50,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input32">Faskel</label>
                                 <div class="col-sm-6">
-                                    <select id="select32" class="form-control select2" name="example-kode_faskel-input" >
+                                    <select id="select32" class="form-control select2" name="select-kode_faskel-input" >
                                         @foreach($kode_faskel_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_faskel) selected="selected" @endif >{{ $list->nama }}
                                             </option>
@@ -61,7 +61,7 @@
 							<div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input36">Propinsi</label>
                                 <div class="col-sm-6">
-                                    <select id="select36" class="form-control select2" name="example-kode_prop-input" >
+                                    <select id="select36" class="form-control select2" name="select-kode_prop-input" >
 										<option value=undefined>Please select</option>
                                         @foreach($kode_prop_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_prop) selected="selected" @endif >{{ $list->nama }}
@@ -73,7 +73,7 @@
 							<div class="form-group ">
                                 <label class="col-sm-3 control-label" for="example-text-input35">Kota</label>
                                 <div class="col-sm-6">
-                                    <select id="select35" class="form-control select2" name="example-kode_kota-input" >
+                                    <select id="select35" class="form-control select2" name="select-kode_kota-input" >
 										<option value=undefined>Please select</option>
                                     </select>
                                 </div>
@@ -81,7 +81,7 @@
 							<div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input34">Kecamatan</label>
                                 <div class="col-sm-6">
-                                    <select id="select34" class="form-control select2" name="example-kode_kec-input" >
+                                    <select id="select34" class="form-control select2" name="select-kode_kec-input" >
 										<option value=undefined>Please select</option>
                                     </select>
                                 </div>
@@ -89,7 +89,7 @@
                             <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="example-text-input33">Kelurahan</label>
                                 <div class="col-sm-6">
-                                    <select id="select33" class="form-control select2" name="example-kode_kel-input" >
+                                    <select id="select33" class="form-control select2" name="select-kode_kel-input" >
 										<option value=undefined>Please select</option>
                                     </select>
                                 </div>
@@ -97,7 +97,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-select1">BLM</label>
                                 <div class="col-sm-6">
-                                    <select id="example-select1" name="example-select-blm" class="form-control" size="1">
+                                    <select id="select-blm-input" name="select-blm-input" class="form-control" size="1">
                                         <option value="0" @if($blm==1) selected="selected" @endif >B</option>
                                         <option value="1" @if($blm==2) selected="selected" @endif >L</option>
                                         <option value="2" @if($blm==3) selected="selected" @endif >C</option>
@@ -107,7 +107,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-select1">Jenis Project</label>
                                 <div class="col-sm-6">
-                                    <select id="example-select1" name="example-select-jenis_project" class="form-control" size="1">
+                                    <select id="select-jenis_project-input" name="select-jenis_project-input" class="form-control" size="1">
                                         <option value="1" @if($jenis_project==1) selected="selected" @endif >Project 1</option>
                                         <option value="2" @if($jenis_project==2) selected="selected" @endif >Project 2</option>
                                         <option value="3" @if($jenis_project==3) selected="selected" @endif >Project 3</option>
@@ -117,25 +117,25 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tahun Glossary</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="example-text-input1" name="example-tahun_glossary-input" class="form-control" placeholder="Tahun Glossary" value="{{ $tahun_glossary }}" maxlength="4">
+                                    <input type="text" id="etahun_glossary-input" name="tahun_glossary-input" class="form-control" placeholder="Tahun Glossary" value="{{ $tahun_glossary }}" maxlength="4">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tahun Project</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="example-text-input1" name="example-tahun_project-input" class="form-control" placeholder="Tahun Project" value="{{ $tahun_project }}" maxlength="4">
+                                    <input type="text" id="tahun_project-input" name="tahun_project-input" class="form-control" placeholder="Tahun Project" value="{{ $tahun_project }}" maxlength="4">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Awal Project</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="example-text-input1" name="example-awal_project-input" class="form-control" placeholder="Awal Project" value="{{ $awal_project }}" maxlength="4">
+                                    <input type="text" id="awal_project-input" name="awal_project-input" class="form-control" placeholder="Awal Project" value="{{ $awal_project }}" maxlength="4">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-select1">Nama MS</label>
                                 <div class="col-sm-6">
-                                    <select id="example-select1" name="example-select-kode_ms" class="form-control" size="1">
+                                    <select id="select-kode_ms-input" name="select-kode_ms-input" class="form-control" size="1">
                                         <option value="1" @if($kode_ms==1) selected="selected" @endif >MS 1</option>
                                         <option value="2" @if($kode_ms==2) selected="selected" @endif >MS 2</option>
                                         <option value="3" @if($kode_ms==3) selected="selected" @endif >MS 3</option>
@@ -145,7 +145,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-select1">Lokasi BLM</label>
                                 <div class="col-sm-6">
-                                    <select id="example-select1" name="example-select-lokasi_blm" class="form-control" size="1">
+                                    <select id="select-lokasi_blm-input" name="select-lokasi_blm-input" class="form-control" size="1">
                                         <option value="1" @if($lokasi_blm==1) selected="selected" @endif >Lokasi BLM 1</option>
                                         <option value="2" @if($lokasi_blm==2) selected="selected" @endif >Lokasi BLM 2</option>
                                         <option value="3" @if($lokasi_blm==3) selected="selected" @endif >Lokasi BLM 3</option>
@@ -155,7 +155,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-select1">Lokasi Kumuh</label>
                                 <div class="col-sm-6">
-                                    <select id="example-select1" name="example-select-Lokasi_kumuh" class="form-control" size="1">
+                                    <select id="select-Lokasi_kumuh-input" name="select-Lokasi_kumuh-input" class="form-control" size="1">
                                         <option value="1" @if($Lokasi_Kumuh==1) selected="selected" @endif >Lokasi Kumuh 1</option>
                                         <option value="2" @if($Lokasi_Kumuh==2) selected="selected" @endif >Lokasi Kumuh 2</option>
                                         <option value="3" @if($Lokasi_Kumuh==3) selected="selected" @endif >Lokasi Kumuh 3</option>
@@ -165,7 +165,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-select1">Flag Kumuh</label>
                                 <div class="col-sm-6">
-                                    <select id="example-select1" name="example-select-flag_kumuh" class="form-control" size="1">
+                                    <select id="select-flag_kumuh-input" name="select-flag_kumuh-input" class="form-control" size="1">
                                         <option value="0" @if($flag_kumuh==0) selected="selected" @endif >Peningkatan (Kumuh)</option>
                                         <option value="1" @if($flag_kumuh==1) selected="selected" @endif >Pencegahan (Tidak Kumuh)</option>
                                     </select>
@@ -174,36 +174,17 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-select1">Lokasi Lokasi PPMK</label>
                                 <div class="col-sm-6">
-                                    <select id="example-select1" name="example-select-flag_lokasi_ppmk" class="form-control" size="1">
+                                    <select id="select-flag_lokasi_ppmk-input" name="select-flag_lokasi_ppmk-input" class="form-control" size="1">
                                         <option value="0" @if($flag_lokasi_ppmk==1) selected="selected" @endif >Non PPMK</option>
                                         <option value="1" @if($flag_lokasi_ppmk==2) selected="selected" @endif >PPMK</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Created Time</label>
-                                <div class="col-sm-6">
-                                    <label class="form-control">{{ $created_time }}</label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
-                                <div class="col-sm-6">
-                                    <label class="form-control">{{ $created_by }}</label>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Updated Time</label>
-                                <div class="col-sm-6">
-                                    <label class="form-control">{{ $updated_time }}</label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Updated By</label>
-                                <div class="col-sm-6">
-                                    <label class="form-control">{{ $updated_by }}</label>
-                                </div>
-                            </div>
+                            <!-- Live Chat Widget powered by https://keyreply.com/chat/ -->
+                            <!-- Advanced options: -->
+                            <!-- data-align="left" -->
+                            <!-- data-overlay="true" -->
+                            <script data-align="right" data-overlay="false" id="keyreply-script" src="//keyreply.com/chat/widget.js" data-color="#E4392B" data-apps="JTdCJTdE"></script>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <a href="/main/kel_faskel" type="button" class="btn btn-effect-ripple btn-danger">

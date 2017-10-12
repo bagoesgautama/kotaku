@@ -1,5 +1,12 @@
 @extends('MAIN/default') {{-- Page title --}} @section('title') Mapping Kota ke KorKot @stop {{-- local styles --}} @section('header_styles')
-<link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('vendors/bootstrap-multiselect/css/bootstrap-multiselect.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
+<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -40,7 +47,7 @@
                                 <label class="col-sm-3 control-label" for="example-text-input1">Nama KorKot</label>
                                 <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
                                 <div class="col-sm-6">
-                                    <select id="select21" class="form-control select2" name="example-kode_korkot-input">
+                                    <select id="select-kode_korkot-input" class="form-control select2" name="select-kode_korkot-input">
                                         @foreach($kode_korkot_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_korkot) selected="selected" @endif >{{ $list->nama }}
                                             </option>
@@ -49,9 +56,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="example-text-input2">Nama Kota</label>
+                                <label class="col-sm-3 control-label" for="example-text-input1">Kota</label>
                                 <div class="col-sm-6">
-                                    <select id="select22" class="form-control select2" name="example-kode_kota-input" >
+                                    <select id="select-kode_kota-input" class="form-control select2" name="select-kode_kota-input">
                                         @foreach($kode_kota_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_kota) selected="selected" @endif >{{ $list->nama }}
                                             </option>
@@ -62,7 +69,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Nama MS</label>
                                 <div class="col-sm-6">
-                                    <select id="example-select1" name="example-select-ms_kode" class="form-control" size="1">
+                                    <select id="select-ms_kode-input" name="select-ms_kode-input" class="form-control" size="1">
                                         <option value="1" @if($ms_kode==1) selected="selected" @endif >MS 1</option>
                                         <option value="2" @if($ms_kode==2) selected="selected" @endif >MS 2</option>
                                         <option value="3" @if($ms_kode==3) selected="selected" @endif >MS 3</option>
@@ -72,40 +79,16 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Paket MS</label>
                                 <div class="col-sm-6">
-                                    <select id="example-select1" name="example-select-ms_paket" class="form-control" size="1">
+                                    <select id="select-ms_paket-input" name="select-ms_paket-input" class="form-control" size="1">
                                         <option value="1" @if($ms_paket==1) selected="selected" @endif >Paket MS 1</option>
                                         <option value="2" @if($ms_paket==2) selected="selected" @endif >Paket MS 2</option>
                                         <option value="3" @if($ms_paket==3) selected="selected" @endif >Paket MS 3</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
-                                <div class="col-sm-6">
-                                    <label class="form-control">{{ $created_time }}</label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
-                                <div class="col-sm-6">
-                                    <label class="form-control">{{ $created_by }}</label>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Updated Time</label>
-                                <div class="col-sm-6">
-                                    <label class="form-control">{{ $updated_time }}</label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Updated By</label>
-                                <div class="col-sm-6">
-                                    <label class="form-control">{{ $updated_by }}</label>
-                                </div>
-                            </div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/hrm/role" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/kota_korkot" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -150,6 +133,26 @@
             }
           });
         });
+
+        $("#select-kode_korkot-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+
+        $("#select-kode_kota-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
       });
 </script>
+<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
 @stop

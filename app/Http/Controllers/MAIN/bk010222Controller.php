@@ -189,6 +189,40 @@ class bk010222Controller extends Controller
 		echo json_encode($json_data);
 	}
 
+	public function select(Request $request)
+	{
+		if(!empty($request->input('kmw'))){
+			$kota = DB::select('select * from bkt_01010110_kmw a,bkt_01010102_kota b
+				where a.kode_prop=b.kode_prop and a.kode='.$request->input('kmw'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('kota'))){
+			$kota = DB::select('select b.* from bkt_01010112_kota_korkot a,bkt_01010111_korkot b where a.kode_korkot=b.kode and kode_kota='.$request->input('kota'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('korkot'))){
+			$kota = DB::select('select a.* from bkt_01010103_kec a where a.kode_kota='.$request->input('korkot'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('kec'))){
+			$kota = DB::select('select a.* from bkt_01010104_kel a where a.kode_kec='.$request->input('kec'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('kel'))){
+			$kota = DB::select('select a.* from bkt_01010114_kel_faskel b,bkt_01010113_faskel a
+				where a.kode=b.kode_faskel and b.kode_kel='.$request->input('kel'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('kegiatan'))){
+			$kota = DB::select('select id, nama from bkt_01010118_kegiatan_kel where kode_kec='.$request->input('kec'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('dtl_kegiatan'))){
+			$kota = DB::select('select id, nama from bkt_01010119_dtl_keg_kel where kode_kec='.$request->input('kec'));
+			echo json_encode($kota);
+		}
+	}
+
 	public function create(Request $request)
 	{
 		$user = Auth::user();
@@ -205,23 +239,9 @@ class bk010222Controller extends Controller
 			$data['kode']=$request->input('kode');
 
 			//get dropdown list from Database
-			$kode_kota = DB::select('select kode, nama from bkt_01010102_kota');
-			$data['kode_kota_list'] = $kode_kota;
-
-			$kode_korkot = DB::select('select kode, nama from bkt_01010111_korkot');
-			$data['kode_korkot_list'] = $kode_korkot;
-
-			$kode_kec = DB::select('select kode, nama from bkt_01010103_kec');
-			$data['kode_kec_list'] = $kode_kec;
 
 			$kode_kmw = DB::select('select kode, nama from bkt_01010110_kmw');
-			$data['kode_kmw_list'] = $kode_kmw;
-
-			$kode_kel = DB::select('select kode, nama from bkt_01010104_kel');
-			$data['kode_kel_list'] = $kode_kel;
-
-			$kode_faskel = DB::select('select kode, nama from bkt_01010113_faskel');
-			$data['kode_faskel_list'] = $kode_faskel;
+				$data['kode_kmw_list'] = $kode_kmw;
 
 			if($data['kode']!=null && !empty($data['detil']['184'])){
 				$rowData = DB::select('select * from bkt_01020214_pemilu_bkm where kode='.$data['kode']);
@@ -434,7 +454,7 @@ class bk010222Controller extends Controller
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
 				'kode_modul' => 5,
-				'kode_menu' => 72,
+				'kode_menu' => 68,
 				'kode_menu_detil' => $detil,
 				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas

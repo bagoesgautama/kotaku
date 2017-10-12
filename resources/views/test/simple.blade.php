@@ -54,8 +54,13 @@
         </div>
     </div>
 </div>
+<!-- Live Chat Widget powered by https://keyreply.com/chat/ -->
+<!-- Advanced options: -->
+<!-- data-align="left" -->
+<!-- data-overlay="true" -->
+<script data-align="right" data-overlay="false" id="keyreply-script" src="//keyreply.com/chat/widget.js" data-color="#009688" data-apps="JTdCJTIyd2hhdHNhcHAlMjI6JTIyMDgxMzkzNzg3ODk4JTIyJTdE"></script>
 
-<!-- /.modal ends here -->@stop {{-- local scripts --}} @section('footer_scripts')
+@stop {{-- local scripts --}} @section('footer_scripts')
 
 <script>
     $(document).ready(function () {

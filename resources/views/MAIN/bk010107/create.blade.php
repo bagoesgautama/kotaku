@@ -58,11 +58,13 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="example-select1">Kota</label>
+                <label class="col-sm-3 control-label" for="example-text-input31">Kota</label>
                 <div class="col-sm-6">
-                    <select id="select-kode_kota-input" name="select-kode_kota-input" class="form-control" size="1">
+                    <select id="select-kode_kota-input" class="form-control select2" name="select-kode_kota-input">
+                        <option value=undefined>Please select</option>
                         @foreach($kode_kota_list as $list)
-                            <option value="{{ $list->kode }}" @if($list->kode==$kode_kota) selected="selected" @endif >{{ $list->nama }}</option>
+                            <option value="{{ $list->kode }}" @if($list->kode==$kode_kota) selected="selected" @endif >{{ $list->nama }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -138,31 +140,25 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Nama PMS</label>
                 <div class="col-sm-6">
-                    <input type="text" id="pms_nama-input" name="pms_nama-input" class="form-control" placeholder="Nama PMS" value="{{ $pms_nama }}" maxlength="50">
+                    <select id="select-kode_pms-input" class="form-control select2" name="select-kode_pms-input">
+                        <option value=undefined>Please select</option>
+                        @foreach($kode_pms_list as $list)
+                            <option value="{{ $list->kode }}" @if($list->kode==$kode_pms) selected="selected" @endif >{{ $list->nama }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-textarea-input2">Alamat PMS</label>
-                <div class="col-sm-6">
-                    <textarea id="pms_alamat-input" name="pms_alamat-input" rows="7" class="form-control resize_vertical" placeholder="Alamat PMS" maxlength="100">{{ $pms_alamat }}</textarea>
-                </div>
-            </div>
-            <div class="form-group">
                 <label class="col-sm-3 control-label" for="return_date">Tanggal Akhir</label>
                 <div class="col-sm-6">
                     <input class="form-control" id="tgl_akhir-input" name="tgl_akhir-input" placeholder="Klik disini untuk memilih tanggal" data-provide="datepicker" value="{{ $tgl_akhir}}">
                 </div>
             </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Tahun APBD 1</label>
-                <div class="col-sm-6">
-                    <input type="number" id="tahun_apbd1-input" name="tahun_apbd1-input" class="form-control" placeholder="APBD 1" value="{{ $tahun_apbd1 }}" maxlength="4">
-                </div>
-            </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="example-text-input1">Tahun APBD 2</label>
+                <label class="col-sm-3 control-label" for="example-text-input1">Tahun</label>
                 <div class="col-sm-6">
-                    <input type="number" id="tahun_apbd2-input" name="tahun_apbd2-input" class="form-control" placeholder="APBD 2" value="{{ $tahun_apbd2 }}" maxlength="4">
+                    <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="APBD 1" value="{{ $tahun }}" maxlength="4">
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -174,7 +170,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group ">
                 <label class="col-sm-3 control-label" for="example-text-input1">Project</label>
                 <div class="col-sm-6">
                     <input type="text" id="project-input" name="project-input" class="form-control" placeholder="Project" value="{{ $project }}" maxlength="4">
@@ -204,30 +200,6 @@
                         <option value="1" @if($jenis_siklus==1) selected="selected" @endif >1</option>
                         <option value="2" @if($jenis_siklus==2) selected="selected" @endif >2</option>
                     </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label" for="example-text-input1">Created Time</label>
-                <div class="col-sm-6">
-                    <label class="form-control">{{ $created_time }}</label>
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
-                <div class="col-sm-6">
-                    <label class="form-control">{{ $created_by }}</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label" for="example-text-input1">Updated Time</label>
-                <div class="col-sm-6">
-                    <label class="form-control">{{ $updated_time }}</label>
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Updated By</label>
-                <div class="col-sm-6">
-                    <label class="form-control">{{ $updated_by }}</label>
                 </div>
             </div>
             <div class="form-group form-actions">
@@ -273,7 +245,12 @@
           });
         });
 
-        $("#example-select-kota").select2({
+        $("#select-kode_kota-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+
+        $("#select-kode_pms-input").select2({
             theme: "bootstrap",
             placeholder: "single select"
         });

@@ -307,6 +307,7 @@ Route::post('/main/persiapan/kelurahan/forum/keanggotaan', 'MAIN\bk010220Control
 Route::get('/main/persiapan/kelurahan/forum/keanggotaan/create', 'MAIN\bk010220Controller@create');
 Route::post('/main/persiapan/kelurahan/forum/keanggotaan/create', 'MAIN\bk010220Controller@post_create');
 Route::get('/main/persiapan/kelurahan/forum/keanggotaan/delete', 'MAIN\bk010220Controller@delete');
+Route::get('/main/persiapan/kelurahan/forum/keanggotaan/select', 'MAIN\bk010220Controller@select');
 
 Route::get('/main/persiapan/kelurahan/forum/keberfungsian', 'MAIN\bk010221Controller@index');
 Route::post('/main/persiapan/kelurahan/forum/keberfungsian', 'MAIN\bk010221Controller@post');
@@ -319,12 +320,14 @@ Route::post('/main/persiapan/kelurahan/pemilu_bkm', 'MAIN\bk010222Controller@pos
 Route::get('/main/persiapan/kelurahan/pemilu_bkm/create', 'MAIN\bk010222Controller@create');
 Route::post('/main/persiapan/kelurahan/pemilu_bkm/create', 'MAIN\bk010222Controller@post_create');
 Route::get('/main/persiapan/kelurahan/pemilu_bkm/delete', 'MAIN\bk010222Controller@delete');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/select', 'MAIN\bk010222Controller@select');
 
 Route::get('/main/persiapan/kelurahan/lembaga', 'MAIN\bk010223Controller@index');
 Route::post('/main/persiapan/kelurahan/lembaga', 'MAIN\bk010223Controller@post');
 Route::get('/main/persiapan/kelurahan/lembaga/create', 'MAIN\bk010223Controller@create');
 Route::post('/main/persiapan/kelurahan/lembaga/create', 'MAIN\bk010223Controller@post_create');
 Route::get('/main/persiapan/kelurahan/lembaga/delete', 'MAIN\bk010223Controller@delete');
+Route::get('/main/persiapan/kelurahan/lembaga/select', 'MAIN\bk010223Controller@select');
 
 
 //perencanaan
