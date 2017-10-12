@@ -267,16 +267,17 @@ class bk010219Controller extends Controller
 				$columns = array(
 					0 =>'kode_prop',
 					1 =>'kode_kota',
-					2 =>'kode_kec',
-					3 =>'kode_kel',
-					4 =>'kode_korkot',
+					2 =>'kode_korkot',
+					3 =>'kode_kec',
+					4 =>'kode_kel',
 					5 =>'kode_faskel',
 					6 =>'id_pelatihan',
 					7 =>'tgl_kegiatan',
-					8 =>'lok_kegiatan'
+					8 =>'lok_kegiatan',
+					9 =>'created_time'
 				);
-				$query='select a.kode as kode, b.nama as kode_prop, c.nama as kode_kota, d.nama as kode_kec, e.nama as kode_kel, f.nama as kode_korkot, g.nama as kode_faskel, a.id_pelatihan as id_pelatihan, a.tgl_kegiatan, a.lok_kegiatan from bkt_01020211_pelmas_kel a, bkt_01010101_prop b, bkt_01010102_kota c, bkt_01010103_kec d, bkt_01010104_kel e, bkt_01010111_korkot f, bkt_01010113_faskel g, bkt_01010117_pelatihan_kel h where a.kode_prop = b.kode and a.kode_kota = c.kode and a.kode_kec = d.kode and a.kode_kel = e.kode and a.kode_korkot = f.kode and a.kode_faskel = g.kode and a.id_pelatihan = h.id';
-				$totalData = DB::select('select count(1) cnt from bkt_01020211_pelmas_kel');
+				$query='select a.kode as kode, b.nama as kode_prop, c.nama as kode_kota, d.nama as kode_kec, e.nama as kode_kel, f.nama as kode_korkot, g.nama as kode_faskel, h.nama as id_pelatihan, a.tgl_kegiatan, a.lok_kegiatan, a.created_time from bkt_01020211_pelmas_kel a, bkt_01010101_prop b, bkt_01010102_kota c, bkt_01010103_kec d, bkt_01010104_kel e, bkt_01010111_korkot f, bkt_01010113_faskel g, bkt_01010117_pelatihan_kel h where a.kode_prop = b.kode and a.kode_kota = c.kode and a.kode_kec = d.kode and a.kode_kel = e.kode and a.kode_korkot = f.kode and a.kode_faskel = g.kode and a.id_pelatihan = h.id';
+				$totalData = DB::select('select count(1) cnt from bkt_01020211_pelmas_kel a, bkt_01010101_prop b, bkt_01010102_kota c, bkt_01010103_kec d, bkt_01010104_kel e, bkt_01010111_korkot f, bkt_01010113_faskel g, bkt_01010117_pelatihan_kel h where a.kode_prop = b.kode and a.kode_kota = c.kode and a.kode_kec = d.kode and a.kode_kel = e.kode and a.kode_korkot = f.kode and a.kode_faskel = g.kode and a.id_pelatihan = h.id');
 				$totalFiltered = $totalData[0]->cnt;
 				$limit = $request->input('length');
 				$start = $request->input('start');
@@ -288,8 +289,8 @@ class bk010219Controller extends Controller
 				}
 				else {
 					$search = $request->input('search.value');
-					$posts=DB::select($query. ' and b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or f.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or h.kode_pelatihan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-					$totalFiltered=DB::select('select count(1) from ('.$query. ' and b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or f.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or h.kode_pelatihan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%") a');
+					$posts=DB::select($query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or f.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or h.kode_pelatihan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+					$totalFiltered=DB::select('select count(1) from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or f.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or h.kode_pelatihan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%")) a');
 				}
 
 				$data = array();
@@ -312,6 +313,7 @@ class bk010219Controller extends Controller
 						$nestedData['id_pelatihan'] = $post->id_pelatihan;
 						$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 						$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
+						$nestedData['created_time'] = $post->created_time;
 						$nestedData['option'] = "";
 						if(!empty($data2['detil']['248']))
 							$nestedData['option'] =$nestedData['option']."&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";

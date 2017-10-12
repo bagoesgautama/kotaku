@@ -299,7 +299,7 @@
             form_data.append('upnp-praktisi-input', $('#upnp-praktisi-input').val());
             form_data.append('dana-ops-input', $('#dana-ops-input').val());
             form_data.append('ket-rencana-kerja-input', $('#ket-rencana-kerja-input').val());
-            form_data.append('tgl-diser-input', $('#rencana-kerja-input').val());
+            form_data.append('tgl-diser-input', $('#tgl-diser-input').val());
             form_data.append('diser-oleh-input', $('#diser-oleh-input').val());
             form_data.append('tgl-diket-input', $('#tgl-diket-input').val());
             form_data.append('diket-oleh-input', $('#diket-oleh-input').val());

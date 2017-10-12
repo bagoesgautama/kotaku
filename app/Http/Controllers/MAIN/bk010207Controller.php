@@ -60,10 +60,11 @@ class bk010207Controller extends Controller
 			0 =>'kode_pokja_kota',
 			1 =>'jenis_subkegiatan',
 			2 =>'tgl_kegiatan',
-			3 =>'lok_kegiatan'
+			3 =>'lok_kegiatan',
+			4 =>'created_time'
 		);
-		$query='select bkt_01020205_f_pokja_kota.kode, bkt_01020205_f_pokja_kota.kode_pokja_kota, bkt_01020205_f_pokja_kota.jenis_subkegiatan, bkt_01020205_f_pokja_kota.tgl_kegiatan, bkt_01020205_f_pokja_kota.lok_kegiatan from bkt_01020205_f_pokja_kota inner join bkt_01020204_pokja_kota on bkt_01020205_f_pokja_kota.kode_pokja_kota = bkt_01020204_pokja_kota.kode';
-		$totalData = DB::select('select count(1) cnt from bkt_01020205_f_pokja_kota ');
+		$query='select bkt_01020205_f_pokja_kota.kode, bkt_01020205_f_pokja_kota.kode_pokja_kota, bkt_01020205_f_pokja_kota.jenis_subkegiatan, bkt_01020205_f_pokja_kota.tgl_kegiatan, bkt_01020205_f_pokja_kota.lok_kegiatan, bkt_01020205_f_pokja_kota.created_time from bkt_01020205_f_pokja_kota inner join bkt_01020204_pokja_kota on bkt_01020205_f_pokja_kota.kode_pokja_kota = bkt_01020204_pokja_kota.kode';
+		$totalData = DB::select('select count(1) cnt from bkt_01020205_f_pokja_kota inner join bkt_01020204_pokja_kota on bkt_01020205_f_pokja_kota.kode_pokja_kota = bkt_01020204_pokja_kota.kode');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -75,8 +76,8 @@ class bk010207Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and bkt_01020205_f_pokja_kota.kode_pokja_kota like "%'.$search.'%" or bkt_01020205_f_pokja_kota.jenis_subkegiatan like "%'.$search.'%" or bkt_01020205_f_pokja_kota.tgl_kegiatan like "%'.$search.'%" or bkt_01020205_f_pokja_kota.lok_kegiatan like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and bkt_01020205_f_pokja_kota.kode_pokja_kota like "%'.$search.'%" or bkt_01020205_f_pokja_kota.jenis_subkegiatan like "%'.$search.'%" or bkt_01020205_f_pokja_kota.tgl_kegiatan like "%'.$search.'%" or bkt_01020205_f_pokja_kota.lok_kegiatan like "%'.$search.'%") a');
+			$posts=DB::select($query. ' and (bkt_01020205_f_pokja_kota.kode_pokja_kota like "%'.$search.'%" or bkt_01020205_f_pokja_kota.jenis_subkegiatan like "%'.$search.'%" or bkt_01020205_f_pokja_kota.tgl_kegiatan like "%'.$search.'%" or bkt_01020205_f_pokja_kota.lok_kegiatan like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (bkt_01020205_f_pokja_kota.kode_pokja_kota like "%'.$search.'%" or bkt_01020205_f_pokja_kota.jenis_subkegiatan like "%'.$search.'%" or bkt_01020205_f_pokja_kota.tgl_kegiatan like "%'.$search.'%" or bkt_01020205_f_pokja_kota.lok_kegiatan like "%'.$search.'%")) a');
 		}
 
 		$data = array();
@@ -101,6 +102,7 @@ class bk010207Controller extends Controller
 				$nestedData['jenis_subkegiatan'] = $jenis_kegiatan;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 				$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
+				$nestedData['created_time'] = $post->created_time;
 				
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();

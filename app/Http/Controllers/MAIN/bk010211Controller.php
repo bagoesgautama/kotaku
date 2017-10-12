@@ -37,10 +37,6 @@ class bk010211Controller extends Controller
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
-				$data['totalData'] = DB::select('select b.kode modul_id,b.nama modul,c.kode apps_id,c.nama apps
-					from bkt_02010104_modul b,bkt_02010103_apps c
-					where b.kode_apps=c.kode');
-				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
 
 				$this->log_aktivitas('View', 116);
 				return view('MAIN/bk010211/index',$data);
@@ -61,10 +57,11 @@ class bk010211Controller extends Controller
 			2 =>'kode_kolab',
 			3 =>'kode_kegiatan',
 			4 =>'tgl_kegiatan',
-			5 =>'lok_kegiatan'
+			5 =>'lok_kegiatan',
+			6 =>'created_time'
 		);
-		$query='select a.kode, a.jns_forum, a.kode_bkm, a.kode_kolab, a.kode_kegiatan, a.tgl_kegiatan, a.lok_kegiatan from bkt_01020209_f_forum_kota a, bkt_01020207_bkm_kota b, bkt_01020208_kolab_kota c where a.kode_bkm = b.kode and a.kode_kolab = c.kode and b.tk_forum = 1 and c.tk_forum = 1';
-		$totalData = DB::select('select count(1) cnt from bkt_01020209_f_forum_kota ');
+		$query='select a.kode, a.jns_forum, a.kode_bkm, a.kode_kolab, a.kode_kegiatan, a.tgl_kegiatan, a.lok_kegiatan, a.created_time from bkt_01020209_f_forum_kota a, bkt_01020207_bkm_kota b, bkt_01020208_kolab_kota c where a.kode_bkm = b.kode and a.kode_kolab = c.kode and b.tk_forum = 1 and c.tk_forum = 1';
+		$totalData = DB::select('select count(1) cnt from bkt_01020209_f_forum_kota a, bkt_01020207_bkm_kota b, bkt_01020208_kolab_kota c where a.kode_bkm = b.kode and a.kode_kolab = c.kode and b.tk_forum = 1 and c.tk_forum = 1');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -72,12 +69,12 @@ class bk010211Controller extends Controller
 		$dir = $request->input('order.0.dir');
 		if(empty($request->input('search.value')))
 		{
-			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$posts=DB::select($query .' order by a.'.$order.' '.$dir.' limit '.$start.','.$limit);
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' or jns_forum like "%'.$search.'%" or kode_bkm like "%'.$search.'%" or kode_kolab like "%'.$search.'%" or kode_kegiatan like "%'.$search.'%" or tgl_kegiatan like "%'.$search.'%" or lok_kegiatan like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' where jns_forum like "%'.$search.'%" or kode_bkm like "%'.$search.'%" or kode_kolab like "%'.$search.'%" or kode_kegiatan like "%'.$search.'%" or tgl_kegiatan like "%'.$search.'%" or lok_kegiatan like "%'.$search.'%") a');
+			$posts=DB::select($query. ' and (a.jns_forum like "%'.$search.'%" or a.kode_bkm like "%'.$search.'%" or a.kode_kolab like "%'.$search.'%" or a.kode_kegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.jns_forum like "%'.$search.'%" or a.kode_bkm like "%'.$search.'%" or a.kode_kolab like "%'.$search.'%" or a.kode_kegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%")) a');
 		}
 
 		$data = array();
@@ -111,6 +108,7 @@ class bk010211Controller extends Controller
 				$nestedData['kode_kegiatan'] = $kode_kegiatan;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 				$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
+				$nestedData['created_time'] = $post->created_time;
 				
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
