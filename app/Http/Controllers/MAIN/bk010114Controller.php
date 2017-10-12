@@ -53,19 +53,6 @@ class bk010114Controller extends Controller
 		}
     }
 
-	public function show()
-	{
-		//$users = DB::select('select * from users ');
-		//echo json_encode($users);
-		$data['username'] = '';
-		$data['test']=true;
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
-		return view('/main/kel_faskel',$data);
-	}
-
 	public function Post(Request $request)
 	{
 		$columns = array(
@@ -77,18 +64,18 @@ class bk010114Controller extends Controller
 			5 =>'tahun_glossary',
 			6 =>'tahun_project',
 			7 =>'awal_project',
-			8 =>'kode_ms',
-			9 =>'kode_kec',
-			10 =>'kode_kota',
-			11 =>'kode_prop',
-			12 =>'lokasi_blm',
-			13 =>'Lokasi_kumuh',
-			14 =>'flag_kumuh',
-			15 =>'flag_lokasi_ppmk',
-			16 =>'created_time',
-			17 =>'created_by',
-			18 =>'updated_time',
-			19 =>'updated_by'
+			//8 =>'kode_ms',
+			8 =>'kode_kec',
+			9 =>'kode_kota',
+			10 =>'kode_prop',
+			11 =>'lokasi_blm',
+			12 =>'Lokasi_kumuh',
+			13 =>'flag_kumuh',
+			14 =>'flag_lokasi_ppmk',
+			15 =>'created_time',
+			16 =>'created_by',
+			17 =>'updated_time',
+			18 =>'updated_by'
 		);
 		$query='select a.*, b.nama nama_faskel, c.nama nama_kel, d.nama nama_kec from bkt_01010114_kel_faskel a, bkt_01010113_faskel b, bkt_01010104_kel c, bkt_01010103_kec d where a.kode_faskel=b.kode and a.kode_kel=c.kode and a.kode_kec=d.kode';
 		$totalData = DB::select('select count(1) cnt from bkt_01010114_kel_faskel ');
@@ -125,7 +112,7 @@ class bk010114Controller extends Controller
 				$nestedData['tahun_glossary'] = $post->tahun_glossary;
 				$nestedData['tahun_project'] = $post->tahun_project;
 				$nestedData['awal_project'] = $post->awal_project;
-				$nestedData['kode_ms'] = $post->kode_ms;
+				//$nestedData['kode_ms'] = $post->kode_ms;
 				$nestedData['nama_kec'] = $post->nama_kec;
 				$nestedData['kode_kota'] = $post->kode_kota;
 				$nestedData['kode_prop'] = $post->kode_prop;
@@ -206,14 +193,9 @@ class bk010114Controller extends Controller
 			$kode_faskel = DB::select('select kode, nama from bkt_01010113_faskel');
 			$data['kode_faskel_list'] = $kode_faskel;
 
-			/*$kode_kel = DB::select('select kode, nama from bkt_01010104_kel');
-			$data['kode_kel_list'] = $kode_kel;
-
-			$kode_kec = DB::select('select kode, nama from bkt_01010103_kec');
-			$data['kode_kec_list'] = $kode_kec;
-
-			$kode_kota = DB::select('select kode, nama from bkt_01010102_kota');
-			$data['kode_kota_list'] = $kode_kota;*/
+			$data['kode_kel_list'] = [];
+			$data['kode_kec_list'] = [];
+			$data['kode_kota_list'] = [];
 
 			$kode_prop = DB::select('select kode, nama from bkt_01010101_prop');
 			$data['kode_prop_list'] = $kode_prop;
@@ -228,7 +210,7 @@ class bk010114Controller extends Controller
 				$data['tahun_glossary'] = $rowData[0]->tahun_glossary;
 				$data['tahun_project'] = $rowData[0]->tahun_project;
 				$data['awal_project'] = $rowData[0]->awal_project;
-				$data['kode_ms'] = $rowData[0]->kode_ms;
+				//$data['kode_ms'] = $rowData[0]->kode_ms;
 				$data['kode_kec'] = $rowData[0]->kode_kec;
 				$data['kode_kota'] = $rowData[0]->kode_kota;
 				$data['kode_prop'] = $rowData[0]->kode_prop;
@@ -240,6 +222,12 @@ class bk010114Controller extends Controller
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
+				if(!empty($rowData[0]->kode_prop))
+					$data['kode_kota_list']=DB::select('select kode, nama from bkt_01010102_kota where kode_prop='.$rowData[0]->kode_prop);
+				if(!empty($rowData[0]->kode_kota))
+					$data['kode_kec_list'] =DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$rowData[0]->kode_kota);
+				if(!empty($rowData[0]->kode_kec))
+					$data['kode_kel_list'] = DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$rowData[0]->kode_kec);
 				return view('MAIN/bk010114/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['57'])){
 				$data['kode_kmp_slum_prog'] = null;
@@ -250,7 +238,7 @@ class bk010114Controller extends Controller
 				$data['tahun_glossary'] = null;
 				$data['tahun_project'] = null;
 				$data['awal_project'] = null;
-				$data['kode_ms'] = null;
+				//$data['kode_ms'] = null;
 				$data['kode_kec'] = null;
 				$data['kode_kota'] = null;
 				$data['kode_prop'] = null;
@@ -285,7 +273,7 @@ class bk010114Controller extends Controller
 				'tahun_glossary' => $request->input('example-tahun_glossary-input'),
 				'tahun_project' => $request->input('example-tahun_project-input'),
 				'awal_project' => $request->input('example-awal_project-input'),
-				'kode_ms' => $request->input('example-select-kode_ms'),
+				//'kode_ms' => $request->input('example-select-kode_ms'),
 				'kode_kec' => $request->input('example-kode_kec-input'),
 				'kode_kota' => $request->input('example-kode_kota-input'),
 				'kode_prop' => $request->input('example-kode_prop-input'),
@@ -308,7 +296,7 @@ class bk010114Controller extends Controller
 				'tahun_glossary' => $request->input('example-tahun_glossary-input'),
 				'tahun_project' => $request->input('example-tahun_project-input'),
 				'awal_project' => $request->input('example-awal_project-input'),
-				'kode_ms' => $request->input('example-select-kode_ms'),
+				//'kode_ms' => $request->input('example-select-kode_ms'),
 				'kode_kec' => $request->input('example-kode_kec-input'),
 				'kode_kota' => $request->input('example-kode_kota-input'),
 				'kode_prop' => $request->input('example-kode_prop-input'),
@@ -332,13 +320,13 @@ class bk010114Controller extends Controller
     public function log_aktivitas($aktifitas, $detil)
     {
     	DB::table('bkt_02030201_log_aktivitas')->insert([
-				'kode_user' => Auth::user()->id,
-				'kode_apps' => 1,
-				'kode_modul' => 2,
-				'kode_menu' => 31,
-				'kode_menu_detil' => $detil,
-				'aktifitas' => $aktifitas,
-				'deskripsi' => $aktifitas
-       			]);
+			'kode_user' => Auth::user()->id,
+			'kode_apps' => 1,
+			'kode_modul' => 2,
+			'kode_menu' => 31,
+			'kode_menu_detil' => $detil,
+			'aktifitas' => $aktifitas,
+			'deskripsi' => $aktifitas
+		]);
     }
 }

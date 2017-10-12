@@ -75,6 +75,10 @@
                                 <div class="col-sm-6">
                                     <select id="select35" class="form-control select2" name="example-kode_kota-input" >
 										<option value=undefined>Please select</option>
+										@foreach($kode_kota_list as $list)
+                                            <option value="{{ $list->kode }}" @if($list->kode==$kode_kota) selected="selected" @endif >{{ $list->nama }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -83,6 +87,10 @@
                                 <div class="col-sm-6">
                                     <select id="select34" class="form-control select2" name="example-kode_kec-input" >
 										<option value=undefined>Please select</option>
+										@foreach($kode_kec_list as $list)
+                                            <option value="{{ $list->kode }}" @if($list->kode==$kode_kec) selected="selected" @endif >{{ $list->nama }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -91,6 +99,10 @@
                                 <div class="col-sm-6">
                                     <select id="select33" class="form-control select2" name="example-kode_kel-input" >
 										<option value=undefined>Please select</option>
+										@foreach($kode_kel_list as $list)
+                                            <option value="{{ $list->kode }}" @if($list->kode==$kode_kel) selected="selected" @endif >{{ $list->nama }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -132,16 +144,7 @@
                                     <input type="text" id="example-text-input1" name="example-awal_project-input" class="form-control" placeholder="Awal Project" value="{{ $awal_project }}" maxlength="4">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="example-select1">Nama MS</label>
-                                <div class="col-sm-6">
-                                    <select id="example-select1" name="example-select-kode_ms" class="form-control" size="1">
-                                        <option value="1" @if($kode_ms==1) selected="selected" @endif >MS 1</option>
-                                        <option value="2" @if($kode_ms==2) selected="selected" @endif >MS 2</option>
-                                        <option value="3" @if($kode_ms==3) selected="selected" @endif >MS 3</option>
-                                    </select>
-                                </div>
-                            </div>
+
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-select1">Lokasi BLM</label>
                                 <div class="col-sm-6">
@@ -260,7 +263,7 @@
 		var kode_kota = {!! json_encode($kode_kota) !!};
 		var kode_kec = {!! json_encode($kode_kec) !!};
 		var kode_kel = {!! json_encode($kode_kel) !!};
-		if(kode_prop!=null){
+		/*if(kode_prop!=null){
 			kota.empty();
 			kota.append("<option value=undefined>Please select</option>");
 			$.ajax({
@@ -306,7 +309,7 @@
 					}
 				}
 			});
-		}
+		}*/
 
 		prov.change(function(){
 			prov_id=prov.val();
