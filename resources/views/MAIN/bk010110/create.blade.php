@@ -37,8 +37,8 @@
     <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator">
         <div class="row">
             <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-select1">Kode Mapping KMP ke Slum Program</label>
                 <input type="hidden" id="example-id-input" name="example-id-input" value="{{ $kode }}">
+                <label class="col-sm-3 control-label" for="example-select1">Kode Mapping KMP ke Slum Program</label>
                 <div class="col-sm-6">
                     <select id="select-kode_kmp_slum_prog-input" name="select-kode_kmp_slum_prog-input" class="form-control" size="1">
                         @foreach($kode_kmp_slum_prog_list as $list)
@@ -133,33 +133,9 @@
                     <textarea id="pms_alamat-input" name="pms_alamat-input" rows="7" class="form-control resize_vertical" placeholder="Alamat PMS" maxlength="300">{{ $pms_alamat }}</textarea>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label" for="example-text-input1">Created Time</label>
-                <div class="col-sm-6">
-                    <label class="form-control">{{ $created_time }}</label>
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
-                <div class="col-sm-6">
-                    <label class="form-control">{{ $created_by }}</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label" for="example-text-input1">Updated Time</label>
-                <div class="col-sm-6">
-                    <label class="form-control">{{ $updated_time }}</label>
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Updated By</label>
-                <div class="col-sm-6">
-                    <label class="form-control">{{ $updated_by }}</label>
-                </div>
-            </div>
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <a href="/hrm/role" type="button" class="btn btn-effect-ripple btn-danger">
+                    <a href="/main/kmw" type="button" class="btn btn-effect-ripple btn-danger">
                         Cancel
                     </a>
                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">

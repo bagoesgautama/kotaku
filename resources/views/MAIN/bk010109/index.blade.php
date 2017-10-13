@@ -48,6 +48,8 @@
                             <tr>
                                 <th>Mama KMP</th>
                                 <th>Nama Slum Program</th>
+                                <th>Created Time</th>
+                                <th>Created By</th>
 								<th>Option</th>
                             </tr>
                         </thead>
@@ -82,6 +84,8 @@
             "columns": [
 				{ "data": "nama_kmp" , name:"nama_kmp"},
                 { "data": "nama_slum_prog" , name:"nama_slum_prog"},
+                { "data": "created_time" , name:"created_time"},
+                { "data": "created_by" , name:"created_by"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });

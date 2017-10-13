@@ -99,7 +99,7 @@ class bk010213Controller extends Controller
 				$data['kode_kmw'] = null;
 				$data['kode_korkot'] = null;
 				$data['kode_kec'] = null;
-				$data['jenis_kegiatan'] = null;
+				$data['jenis_kegiatan'] = '2.4.6';
 				$data['tgl_kegiatan'] = null;
 				$data['lok_kegiatan'] = null;
 				$data['q_anggota_p'] = null;
@@ -248,16 +248,17 @@ class bk010213Controller extends Controller
 			if(!empty($data2['detil'])){
 				$columns = array(
 					0 =>'tahun',
-					1 =>'kode_kota',
-					2 =>'kode_kec',
-					3 =>'kode_kmw',
-					4 =>'kode_korkot',
+					1 =>'kode_kmw',
+					2 =>'kode_kota',
+					3 =>'kode_korkot',
+					4 =>'kode_kec',
 					5 =>'jenis_kegiatan',
 					6 =>'tgl_kegiatan',
-					7 =>'lok_kegiatan'
+					7 =>'lok_kegiatan',
+					8 =>'created_time'
 				);
-				$query='select a.kode, a.tahun, b.nama as kode_kota, c.nama as kode_kec, d.nama as kode_kmw, e.nama as kode_korkot, a.jenis_kegiatan, a.tgl_kegiatan, a.lok_kegiatan from bkt_01020208_kolab_kota a, bkt_01010102_kota b, bkt_01010103_kec c, bkt_01010110_kmw d, bkt_01010111_korkot e where a.kode_kota = b.kode and a.kode_kec = c.kode and a.kode_kmw = d.kode and a.kode_korkot = e.kode and a.tk_forum = 2';
-				$totalData = DB::select('select count(1) cnt from bkt_01020208_kolab_kota ');
+				$query='select a.kode, a.tahun, b.nama as kode_kota, c.nama as kode_kec, d.nama as kode_kmw, e.nama as kode_korkot, a.jenis_kegiatan, a.tgl_kegiatan, a.lok_kegiatan, a.created_time from bkt_01020208_kolab_kota a, bkt_01010102_kota b, bkt_01010103_kec c, bkt_01010110_kmw d, bkt_01010111_korkot e where a.kode_kota = b.kode and a.kode_kec = c.kode and a.kode_kmw = d.kode and a.kode_korkot = e.kode and a.tk_forum = 2';
+				$totalData = DB::select('select count(1) cnt from bkt_01020208_kolab_kota a, bkt_01010102_kota b, bkt_01010103_kec c, bkt_01010110_kmw d, bkt_01010111_korkot e where a.kode_kota = b.kode and a.kode_kec = c.kode and a.kode_kmw = d.kode and a.kode_korkot = e.kode and a.tk_forum = 2');
 				$totalFiltered = $totalData[0]->cnt;
 				$limit = $request->input('length');
 				$start = $request->input('start');
@@ -269,8 +270,8 @@ class bk010213Controller extends Controller
 				}
 				else {
 					$search = $request->input('search.value');
-					$posts=DB::select($query. ' or a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or a.jenis_kegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-					$totalFiltered=DB::select('select count(1) from ('.$query. ' or a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or a.jenis_kegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%") a');
+					$posts=DB::select($query. ' and (a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or a.jenis_kegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+					$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or a.jenis_kegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%")) a');
 				}
 
 				$data = array();
@@ -299,6 +300,7 @@ class bk010213Controller extends Controller
 						$nestedData['jenis_kegiatan'] = $jenis_kegiatan;
 						$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 						$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
+						$nestedData['created_time'] = $post->created_time;
 						$nestedData['option'] = "";
 						
 						if(!empty($data2['detil']['170']))

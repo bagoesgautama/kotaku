@@ -32,7 +32,7 @@ class bk010223Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==72)
+				if($item->kode_menu==69)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
@@ -42,7 +42,7 @@ class bk010223Controller extends Controller
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
 				
-				$this->log_aktivitas('View', 206);
+				$this->log_aktivitas('View', 181);
 				return view('MAIN/bk010223/index',$data);
 			}
 			else {
@@ -154,7 +154,7 @@ class bk010223Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==72)
+						if($item->kode_menu==69)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
@@ -181,6 +181,40 @@ class bk010223Controller extends Controller
 		echo json_encode($json_data);
 	}
 
+	public function select(Request $request)
+	{
+		if(!empty($request->input('kmw'))){
+			$kota = DB::select('select * from bkt_01010110_kmw a,bkt_01010102_kota b
+				where a.kode_prop=b.kode_prop and a.kode='.$request->input('kmw'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('kota'))){
+			$kota = DB::select('select b.* from bkt_01010112_kota_korkot a,bkt_01010111_korkot b where a.kode_korkot=b.kode and kode_kota='.$request->input('kota'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('korkot'))){
+			$kota = DB::select('select a.* from bkt_01010103_kec a where a.kode_kota='.$request->input('korkot'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('kec'))){
+			$kota = DB::select('select a.* from bkt_01010104_kel a where a.kode_kec='.$request->input('kec'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('kel'))){
+			$kota = DB::select('select a.* from bkt_01010114_kel_faskel b,bkt_01010113_faskel a
+				where a.kode=b.kode_faskel and b.kode_kel='.$request->input('kel'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('kegiatan'))){
+			$kota = DB::select('select id, nama from bkt_01010118_kegiatan_kel where kode_kec='.$request->input('kec'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('dtl_kegiatan'))){
+			$kota = DB::select('select id, nama from bkt_01010119_dtl_keg_kel where kode_kec='.$request->input('kec'));
+			echo json_encode($kota);
+		}
+	}
+
 	public function create(Request $request)
 	{
 		$user = Auth::user();
@@ -188,7 +222,7 @@ class bk010223Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==72)
+				if($item->kode_menu==69)
 					$data['detil'][$item->kode_menu_detil]='a';
 		}
 
@@ -197,31 +231,17 @@ class bk010223Controller extends Controller
 		$data['kode']=$request->input('kode');
 
 		//get dropdown list from Database
-		$kode_kota = DB::select('select kode, nama from bkt_01010102_kota');
-		$data['kode_kota_list'] = $kode_kota;
-
-		$kode_korkot = DB::select('select kode, nama from bkt_01010111_korkot');
-		$data['kode_korkot_list'] = $kode_korkot;
-
-		$kode_kec = DB::select('select kode, nama from bkt_01010103_kec');
-		$data['kode_kec_list'] = $kode_kec;
 
 		$kode_kmw = DB::select('select kode, nama from bkt_01010110_kmw');
-		$data['kode_kmw_list'] = $kode_kmw;
-
-		$kode_kel = DB::select('select kode, nama from bkt_01010104_kel');
-		$data['kode_kel_list'] = $kode_kel;
-
-		$kode_faskel = DB::select('select kode, nama from bkt_01010113_faskel');
-		$data['kode_faskel_list'] = $kode_faskel;
+			$data['kode_kmw_list'] = $kode_kmw;
 
 		$kode_id_kegiatan = DB::select('select id, nama from bkt_01010118_kegiatan_kel');
-		$data['kode_id_kegiatan_list'] = $kode_id_kegiatan;
+			$data['kode_id_kegiatan_list'] = $kode_id_kegiatan;
 
 		$kode_id_dtl_kegiatan = DB::select('select id, nama from bkt_01010119_dtl_keg_kel');
-		$data['kode_id_dtl_kegiatan_list'] = $kode_id_dtl_kegiatan;
+			$data['kode_id_dtl_kegiatan_list'] = $kode_id_dtl_kegiatan;
 
-		if($data['kode']!=null && !empty($data['detil']['208'])){
+		if($data['kode']!=null && !empty($data['detil']['340'])){
 			$rowData = DB::select('select * from bkt_01020215_lembaga_kel where kode='.$data['kode']);
 			$data['tahun'] = $rowData[0]->tahun;
 			$data['kode_kota'] = $rowData[0]->kode_kota;
@@ -251,7 +271,7 @@ class bk010223Controller extends Controller
 			$data['updated_by'] = $rowData[0]->updated_by;
 			$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 			return view('MAIN/bk010223/create',$data);
-		}else if($data['kode']==null && !empty($data['detil']['207'])){
+		}else if($data['kode']==null && !empty($data['detil']['339'])){
 			$data['tahun'] = null;
 			$data['kode_kota'] = null;
 			$data['kode_korkot'] = null;
@@ -357,7 +377,7 @@ class bk010223Controller extends Controller
 				$file_absensi->move(public_path('/uploads/persiapan/kelurahan/lembaga'), $file_absensi->getClientOriginalName());
 			}
 
-			$this->log_aktivitas('Update', 208);
+			$this->log_aktivitas('Update', 340);
 
 		}else{
 			DB::table('bkt_01020215_lembaga_kel')->insert(
@@ -394,14 +414,14 @@ class bk010223Controller extends Controller
 				$file_absensi->move(public_path('/uploads/persiapan/kelurahan/lembaga'), $file_absensi->getClientOriginalName());
 			}
 
-			$this->log_aktivitas('Create', 207);
+			$this->log_aktivitas('Create', 339);
 		}
 	}
 
 	public function delete(Request $request)
 	{
 		DB::table('bkt_01020215_lembaga_kel')->where('kode', $request->input('kode'))->delete();
-        $this->log_aktivitas('Delete', 209);
+        $this->log_aktivitas('Delete', 341);
         return Redirect::to('/main/persiapan/kelurahan/lembaga');
     }
 
@@ -417,7 +437,7 @@ class bk010223Controller extends Controller
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
 				'kode_modul' => 5, 
-				'kode_menu' => 72,   
+				'kode_menu' => 69,   
 				'kode_menu_detil' => $detil, 
 				'aktifitas' => $aktifitas, 
 				'deskripsi' => $aktifitas

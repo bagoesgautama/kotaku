@@ -59,6 +59,8 @@
                                 <th>Nama KMW</th>
                                 <th>Nama Korkot</th>
                                 <th>Nama</th>
+                                <th>Created Time</th>
+                                <th>Created By</th>
 								<th>Option</th>
                             </tr>
                         </thead>
@@ -94,6 +96,8 @@
 				{ "data": "nama_kmw" , name:"nama_kmw"},
                 { "data": "nama_korkot" , name:"nama_korkot"},
                 { "data": "nama" , name:"nama"},
+                { "data": "created_time" , name:"created_time"},
+                { "data": "created_by" , name:"created_by"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });

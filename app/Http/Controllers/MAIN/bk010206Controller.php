@@ -55,15 +55,16 @@ class bk010206Controller extends Controller
 		$columns = array(
 			0 =>'kode',
 			1 =>'tahun',
-			2 =>'kode_kota',
-			3 =>'kode_kmw',
+			2 =>'kode_kmw',
+			3 =>'kode_kota',
 			4 =>'kode_korkot',
 			5 =>'kode_faskel',
 			6 =>'jenis_kegiatan',
 			7 =>'tgl_kegiatan',
-			8 =>'status_pokja'
+			8 =>'status_pokja',
+			9 =>'created_time'
 		);
-		$query='select a.kode, a.tahun, b.nama as kode_kmw, c.nama as kode_kota, d.nama as kode_korkot, e.nama as kode_faskel, a.jenis_kegiatan, a.tgl_kegiatan, a.status_pokja from bkt_01020204_pokja_kota a, bkt_01010110_kmw b, bkt_01010102_kota c, bkt_01010111_korkot d, bkt_01010113_faskel e where a.kode_kmw = b.kode and a.kode_kota = c.kode and a.kode_korkot = d.kode and a.kode_faskel = e.kode and c.status = 1';
+		$query='select a.kode, a.tahun, b.nama as kode_kmw, c.nama as kode_kota, d.nama as kode_korkot, e.nama as kode_faskel, a.jenis_kegiatan, a.tgl_kegiatan, a.status_pokja, a.created_time from bkt_01020204_pokja_kota a, bkt_01010110_kmw b, bkt_01010102_kota c, bkt_01010111_korkot d, bkt_01010113_faskel e where a.kode_kmw = b.kode and a.kode_kota = c.kode and a.kode_korkot = d.kode and a.kode_faskel = e.kode and c.status = 1';
 		$totalData = DB::select('select count(1) cnt from bkt_01020204_pokja_kota a, bkt_01010110_kmw b, bkt_01010102_kota c, bkt_01010111_korkot d, bkt_01010113_faskel e where a.kode_kmw = b.kode and a.kode_kota = c.kode and a.kode_korkot = d.kode and a.kode_faskel = e.kode and c.status = 1');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -114,6 +115,7 @@ class bk010206Controller extends Controller
 				$nestedData['jenis_kegiatan'] = $jenis_kegiatan;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 				$nestedData['status_pokja'] = $status_pokja;
+				$nestedData['created_time'] = $post->created_time;
 				
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();

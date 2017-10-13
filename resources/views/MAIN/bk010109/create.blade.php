@@ -64,30 +64,6 @@
                                     </select>
                                 </div>
 				            </div>
-				            <div class="form-group striped-col">
-				                <label class="col-sm-3 control-label" for="example-text-input1">Created Time</label>
-				                <div class="col-sm-6">
-				                    <label class="form-control">{{ $created_time }}</label>
-				                </div>
-				            </div>
-				            <div class="form-group">
-				                <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
-				                <div class="col-sm-6">
-				                    <label class="form-control">{{ $created_by }}</label>
-				                </div>
-				            </div>
-				            <div class="form-group striped-col">
-				                <label class="col-sm-3 control-label" for="example-text-input1">Updated Time</label>
-				                <div class="col-sm-6">
-				                    <label class="form-control">{{ $updated_time }}</label>
-				                </div>
-				            </div>
-				            <div class="form-group">
-				                <label class="col-sm-3 control-label" for="example-text-input1">Updated By</label>
-				                <div class="col-sm-6">
-				                    <label class="form-control">{{ $updated_by }}</label>
-				                </div>
-				            </div>
 				            <div class="form-group form-actions">
 				                <div class="col-sm-9 col-sm-offset-3">
 				                    <a href="/main/kmp_slum_program" type="button" class="btn btn-effect-ripple btn-danger">

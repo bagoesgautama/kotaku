@@ -197,9 +197,9 @@ class bk010113Controller extends Controller
 		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_01010113_faskel')->where('kode', $request->input('example-id-input'))
-			->update(['kode_kmw' => $request->input('example-kode_kmw-input'), 
-				'kode_korkot' => $request->input('example-kode_korkot-input'), 
-				'nama' => $request->input('example-nama-input'),
+			->update(['kode_kmw' => $request->input('select-kode_kmw-input'), 
+				'kode_korkot' => $request->input('select-kode_korkot-input'), 
+				'nama' => $request->input('nama-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
@@ -207,9 +207,9 @@ class bk010113Controller extends Controller
 
 		}else{
 			DB::table('bkt_01010113_faskel')->insert(
-       			['kode_kmw' => $request->input('example-kode_kmw-input'), 
-				'kode_korkot' => $request->input('example-kode_korkot-input'), 
-				'nama' => $request->input('example-nama-input'), 
+       			['kode_kmw' => $request->input('select-kode_kmw-input'), 
+				'kode_korkot' => $request->input('select-kode_korkot-input'), 
+				'nama' => $request->input('nama-input'),
        			'created_by' => Auth::user()->id
 				]);
 			$this->log_aktivitas('Create', 53);

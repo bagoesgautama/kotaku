@@ -1,5 +1,12 @@
 @extends('MAIN/default') {{-- Page title --}} @section('title') Tim Fasilitator Kelurahan (FasKel) @stop {{-- local styles --}} @section('header_styles')
-<link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('vendors/bootstrap-multiselect/css/bootstrap-multiselect.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
+<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -35,7 +42,7 @@
                 <label class="col-sm-3 control-label" for="example-text-input1">Nama KMW</label>
                 <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
                 <div class="col-sm-6">
-                    <select id="example-select1" name="example-kode_kmw-input" class="form-control" size="1">
+                    <select id="select-kode_kmw-input" name="select-kode_kmw-input" class="form-control" size="1">
                         @foreach($kode_kmw_list as $list)
                             <option value="{{ $list->kode }}" @if($list->kode==$kode_kmw) selected="selected" @endif >{{ $list->nama }}</option>
                         @endforeach
@@ -44,9 +51,8 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Nama KorKot</label>
-                <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
                 <div class="col-sm-6">
-                    <select id="example-select1" name="example-kode_korkot-input" class="form-control" size="1">
+                    <select id="select-kode_korkot-input" name="select-kode_korkot-input" class="form-control" size="1">
                         @foreach($kode_korkot_list as $list)
                             <option value="{{ $list->kode }}" @if($list->kode==$kode_korkot) selected="selected" @endif >{{ $list->nama }}</option>
                         @endforeach
@@ -56,12 +62,12 @@
             <div class="form-group striped-col">
                  <label class="col-sm-3 control-label" for="example-text-input1">Nama</label>
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-nama-input" class="form-control" placeholder="Nama" value="{{ $nama }}">
+                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{ $nama }}" maxlength="50">
                 </div>
             </div>
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <a href="/hrm/role" type="button" class="btn btn-effect-ripple btn-danger">
+                    <a href="/main/faskel" type="button" class="btn btn-effect-ripple btn-danger">
                         Cancel
                     </a>
                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -102,6 +108,26 @@
             }
           });
         });
+
+        $("#select-kode_kmw-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+
+        $("#select-kode_korkot-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
       });
 </script>
+<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
 @stop

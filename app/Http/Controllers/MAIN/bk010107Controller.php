@@ -83,20 +83,18 @@ class bk010107Controller extends Controller
 			10 => 'no_hp2',
 			11 => 'email1',
 			12 => 'email2',
-			13 => 'pms_nama',
-			14 => 'pms_alamat',
-			15 => 'tgl_akhir',
-			16 => 'tahun_apbd1',
-			17 => 'tahun_apbd2',
-			18 => 'status',
-			19 => 'project',
-			20 => 'kode_departemen',
-			21 => 'glosary_caption',
-			22 => 'jenis_siklus',
-			23 => 'created_time',
-			24 => 'created_by',
-			25 => 'updated_time',
-			26 => 'updated_by'
+			13 => 'kode_pms',
+			14 => 'tgl_akhir',
+			15 => 'tahun_',
+			16 => 'status',
+			17 => 'project',
+			18 => 'kode_departemen',
+			19 => 'glosary_caption',
+			20 => 'jenis_siklus',
+			21 => 'created_time',
+			22 => 'created_by',
+			23 => 'updated_time',
+			24 => 'updated_by'
 		);
 
 		$query='select a.*, b.nama nama_kota from bkt_01010107_slum_program a, bkt_01010102_kota b where a.kode_kota=b.kode and a.status!=2';
@@ -139,11 +137,9 @@ class bk010107Controller extends Controller
 				$nestedData['no_hp2'] = $post->no_hp2;
 				$nestedData['email1'] = $post->email1;
 				$nestedData['email2'] = $post->email2;
-				$nestedData['pms_nama'] = $post->pms_nama;
-				$nestedData['pms_alamat'] = $post->pms_alamat;
+				$nestedData['kode_pms'] = $post->kode_pms;
 				$nestedData['tgl_akhir'] = $post->tgl_akhir;
-				$nestedData['tahun_apbd1'] = $post->tahun_apbd1;
-				$nestedData['tahun_apbd2'] = $post->tahun_apbd2;
+				$nestedData['tahun_'] = $post->tahun;
 				$nestedData['status'] = $post->status;
 				$nestedData['project'] = $post->project;
 				$nestedData['kode_departemen'] = $post->kode_departemen;
@@ -203,6 +199,9 @@ class bk010107Controller extends Controller
 		//get dropdown list from Database
 		$kode_kota = DB::select('select kode, nama from bkt_01010102_kota where status=1');
 		$data['kode_kota_list'] = $kode_kota;
+
+		$kode_pms = DB::select('select kode, nama from bkt_01010115_pms where status=1');
+		$data['kode_pms_list'] = $kode_pms;
 		
 		if($data['kode']!=null && !empty($data['detil']['30'])){
 			$rowData = DB::select('select * from bkt_01010107_slum_program where kode='.$data['kode']);
@@ -219,11 +218,9 @@ class bk010107Controller extends Controller
 			$data['no_hp2'] = $rowData[0]->no_hp2;
 			$data['email1'] = $rowData[0]->email1;
 			$data['email2'] = $rowData[0]->email2;
-			$data['pms_nama'] = $rowData[0]->pms_nama;
-			$data['pms_alamat'] = $rowData[0]->pms_alamat;
+			$data['kode_pms'] = $rowData[0]->kode_pms;
 			$data['tgl_akhir'] = $rowData[0]->tgl_akhir;
-			$data['tahun_apbd1'] = $rowData[0]->tahun_apbd1;
-			$data['tahun_apbd2'] = $rowData[0]->tahun_apbd2;
+			$data['tahun'] = $rowData[0]->tahun_apbd1;
 			$data['status'] = $rowData[0]->status;
 			$data['project'] = $rowData[0]->project;
 			$data['kode_departemen'] = $rowData[0]->kode_departemen;
@@ -248,11 +245,9 @@ class bk010107Controller extends Controller
 			$data['no_hp2'] = null;
 			$data['email1'] = null;
 			$data['email2'] = null;
-			$data['pms_nama'] = null;
-			$data['pms_alamat'] = null;
+			$data['kode_pms'] = null;
 			$data['tgl_akhir'] = null;
-			$data['tahun_apbd1'] = null;
-			$data['tahun_apbd2'] = null;
+			$data['tahun'] = null;
 			$data['status'] = null;
 			$data['project'] = null;
 			$data['kode_departemen'] = null;
@@ -294,11 +289,9 @@ class bk010107Controller extends Controller
 				'no_hp2' => $request->input('no_hp2-input'),
 				'email1' => $request->input('email1-input'),
 				'email2' => $request->input('email2-input'),
-				'pms_nama' => $request->input('pms_nama-input'),
-				'pms_alamat' => $request->input('pms_alamat-input'),
+				'kode_pms' => $request->input('select-kode_pms-input'),
 				'tgl_akhir' => $date_convert,
-				'tahun_apbd1' => $request->input('tahun_apbd1-input'),
-				'tahun_apbd2' => $request->input('tahun_apbd2-input'),
+				'tahun' => $request->input('tahun-input'),
 				'status' => $request->input('select-status-input'),
 				'project' => $request->input('project-input'),
 				'kode_departemen' => $request->input('select-kode_departemen-input'),
@@ -325,11 +318,9 @@ class bk010107Controller extends Controller
 				'no_hp2' => $request->input('no_hp2-input'),
 				'email1' => $request->input('email1-input'),
 				'email2' => $request->input('email2-input'),
-				'pms_nama' => $request->input('pms_nama-input'),
-				'pms_alamat' => $request->input('pms_alamat-input'),
+				'kode_pms' => $request->input('select-kode_pms-input'),
 				'tgl_akhir' => $date_convert,
-				'tahun_apbd1' => $request->input('tahun_apbd1-input'),
-				'tahun_apbd2' => $request->input('tahun_apbd2-input'),
+				'tahun' => $request->input('tahun-input'),
 				'status' => $request->input('select-status-input'),
 				'project' => $request->input('project-input'),
 				'kode_departemen' => $request->input('select-kode_departemen-input'),

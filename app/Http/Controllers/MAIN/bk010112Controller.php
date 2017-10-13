@@ -201,10 +201,10 @@ class bk010112Controller extends Controller
 		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_01010112_kota_korkot')->where('kode', $request->input('example-id-input'))
-			->update(['kode_korkot' => $request->input('example-kode_korkot-input'), 
-				'kode_kota' => $request->input('example-kode_kota-input'), 
-				'ms_kode' => $request->input('example-select-ms_kode'),
-				'ms_paket' => $request->input('example-select-ms_paket'),
+			->update(['kode_korkot' => $request->input('select-kode_korkot-input'), 
+				'kode_kota' => $request->input('select-kode_kota-input'), 
+				'ms_kode' => $request->input('select-ms_kode-input'),
+				'ms_paket' => $request->input('select-ms_paket-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
@@ -212,10 +212,10 @@ class bk010112Controller extends Controller
 
 		}else{
 			DB::table('bkt_01010112_kota_korkot')->insert(
-       			['kode_korkot' => $request->input('example-kode_korkot-input'), 
-				'kode_kota' => $request->input('example-kode_kota-input'), 
-				'ms_kode' => $request->input('example-select-ms_kode'),
-				'ms_paket' => $request->input('example-select-ms_paket'), 
+       			['kode_korkot' => $request->input('select-kode_korkot-input'), 
+				'kode_kota' => $request->input('select-kode_kota-input'), 
+				'ms_kode' => $request->input('select-ms_kode-input'),
+				'ms_paket' => $request->input('select-ms_paket-input'),
        			'created_by' => Auth::user()->id
 				]);
 			$this->log_aktivitas('Create', 49);

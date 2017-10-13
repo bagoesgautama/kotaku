@@ -288,7 +288,7 @@ class bk010114Controller extends Controller
 
 		}else{
 			DB::table('bkt_01010114_kel_faskel')->insert(
-       			['kode_kmp_slum_prog' => $request->input('example-kode_kmp_slum_prog-input'),
+				['kode_kmp_slum_prog' => $request->input('example-kode_kmp_slum_prog-input'),
 				'kode_faskel' => $request->input('example-kode_faskel-input'),
 				'kode_kel' => $request->input('example-kode_kel-input'),
 				'blm' => $request->input('example-select-blm'),

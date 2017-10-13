@@ -61,6 +61,8 @@
                                 <th>Kecamatan</th>
                                 <th>Lokasi BLM</th>
                                 <th>Lokasi Kumuh</th>
+                                <th>Created Time</th>
+                                <th>Created By</th>
 								<th>Option</th>
                             </tr>
                         </thead>
@@ -101,6 +103,8 @@
                 { "data": "nama_kec" , name:"nama_kec"},
                 { "data": "lokasi_blm" , name:"lokasi_blm"},
                 { "data": "Lokasi_Kumuh" , name:"Lokasi_Kumuh"},
+                { "data": "created_time" , name:"created_time"},
+                { "data": "created_by" , name:"created_by"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
