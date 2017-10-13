@@ -1,6 +1,6 @@
 <ul class="navigation slimmenu" id="navigation">
 	@if( ! empty($menu['11']))
-	<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')||Request::is( 'main/data_wilayah/kota')||Request::is( 'main/data_wilayah/kota/create')||Request::is( 'main/data_wilayah/kecamatan')||Request::is( 'main/data_wilayah/kecamatan/create')||Request::is( 'main/data_wilayah/kelurahan')||Request::is( 'main/data_wilayah/kelurahan/create')||Request::is( 'main/kel_faskel')||Request::is( 'main/kel_faskel/create')||Request::is( 'main/faskel')||Request::is( 'main/faskel/create')||Request::is( 'main/kota_korkot')||Request::is( 'main/kota_korkot/create')||Request::is( 'main/korkot')||Request::is( 'main/korkot/create')||Request::is( 'main/kmw')||Request::is( 'main/kmw/create')||Request::is( 'main/kmp_slum_program')||Request::is( 'main/kmp_slum_program/create')||Request::is( 'main/slum_program')||Request::is( 'main/slum_program/create')||Request::is( 'main/kmp')||Request::is( 'main/kmp/create')? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+	<li {!! (Request::is( 'main/data_master/*')||Request::is( 'main/data_wilayah/*')||Request::is( 'main/kel_faskel')||Request::is( 'main/kel_faskel/create')||Request::is( 'main/faskel')||Request::is( 'main/faskel/create')||Request::is( 'main/kota_korkot')||Request::is( 'main/kota_korkot/create')||Request::is( 'main/korkot')||Request::is( 'main/korkot/create')||Request::is( 'main/kmw')||Request::is( 'main/kmw/create')||Request::is( 'main/kmp_slum_program')||Request::is( 'main/kmp_slum_program/create')||Request::is( 'main/slum_program')||Request::is( 'main/slum_program/create')||Request::is( 'main/kmp')||Request::is( 'main/kmp/create')? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
             <span class="mm-text">Master Data</span>
             <span class="fa arrow"></span>
@@ -110,11 +110,119 @@
 				</ul>
 			</li>
 			@endif
+			@if( ! empty($menu['132']))
+			<li {!! (Request::is( 'main/data_master*')? 'class="active"': "") !!}>
+				<a href="javascript:void(0)">
+					<span class="mm-text">Data Master</span>
+					<span class="fa arrow"></span>
+				</a>
+				<ul class="sub-menu form-submenu">
+					@if( ! empty($menu['133']))
+					<li {!! (Request::is( 'main/data_master/pms')||Request::is( 'main/data_master/pms/create')? 'class="active"': "") !!}>
+						<a href="/main/data_master/pms">
+							<span class="mm-text">PMS</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['134']))
+					<li {!! (Request::is( 'main/data_master/keg_pelatihan')||Request::is( 'main/data_master/keg_pelatihan/create')? 'class="active"': "") !!}>
+						<a href="/main/data_master/keg_pelatihan">
+							<span class="mm-text">Kegiatan Pelatihan</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['135']))
+					<li {!! (Request::is( 'main/data_master/keg_kelurahan')||Request::is( 'main/data_master/keg_kelurahan/create')? 'class="active"': "") !!}>
+						<a href="/main/data_master/keg_kelurahan">
+							<span class="mm-text">Kegiatan Kelurahan</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['136']))
+					<li {!! (Request::is( 'main/data_master/det_keg_kelurahan')||Request::is( 'main/data_master/det_keg_kelurahan/create')? 'class="active"': "") !!}>
+						<a href="/main/data_master/det_keg_kelurahan">
+							<span class="mm-text">Detail kegiatan Kelurahan</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['137']))
+					<li {!! (Request::is( 'main/data_master/sub_komp_keg')||Request::is( 'main/data_master/sub_komp_keg/create')? 'class="active"': "") !!}>
+						<a href="/main/data_master/sub_komp_keg">
+							<span class="mm-text">Sub Komponen Kegiatan</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['138']))
+					<li {!! (Request::is( 'main/data_master/det_komp_keg')||Request::is( 'main/data_master/det_komp_keg/create')? 'class="active"': "") !!}>
+						<a href="/main/data_master/det_komp_keg">
+							<span class="mm-text">Detil Komponen Kegiatan</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['139']))
+					<li {!! (Request::is( 'main/data_master/aspek_kumuh')||Request::is( 'main/data_master/aspek_kumuh/create')? 'class="active"': "") !!}>
+						<a href="/main/data_master/aspek_kumuh">
+							<span class="mm-text">Aspek Kumuh</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['140']))
+					<li {!! (Request::is( 'main/data_master/kontraktor')||Request::is( 'main/data_master/pms/kontraktor')? 'class="active"': "") !!}>
+						<a href="/main/data_master/kontraktor">
+							<span class="mm-text">Kontraktor</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['141']))
+					<li {!! (Request::is( 'main/data_master/keg_rplp')||Request::is( 'main/data_master/keg_rplp/create')? 'class="active"': "") !!}>
+						<a href="/main/data_master/keg_rplp">
+							<span class="mm-text">Kegiatan RPLP</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['142']))
+					<li {!! (Request::is( 'main/data_master/bkm')||Request::is( 'main/data_master/bkm/create')? 'class="active"': "") !!}>
+						<a href="/main/data_master/bkm">
+							<span class="mm-text">Badan Keswadayaan Mandiri (BKM)</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['143']))
+					<li {!! (Request::is( 'main/data_master/ksm')||Request::is( 'main/data_master/ksm/create')? 'class="active"': "") !!}>
+						<a href="/main/data_master/ksm">
+							<span class="mm-text">Kelompok Swadaya Masyarakat (KSM)</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['144']))
+					<li {!! (Request::is( 'main/data_master/kpp')||Request::is( 'main/data_master/kpp/create')? 'class="active"': "") !!}>
+						<a href="/main/data_master/kpp">
+							<span class="mm-text">KPP</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['145']))
+					<li {!! (Request::is( 'main/data_master/unsur')||Request::is( 'main/data_master/unsur/create')? 'class="active"': "") !!}>
+						<a href="/main/data_master/unsur">
+							<span class="mm-text">Unsur</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['146']))
+					<li {!! (Request::is( 'main/data_master/pemanfaatan')||Request::is( 'main/data_master/pemanfaatan/create')? 'class="active"': "") !!}>
+						<a href="/main/data_master/pemanfaatan">
+							<span class="mm-text">Pemanfaat</span>
+						</a>
+					</li>
+					@endif
+				</ul>
+			</li>
+			@endif
 		</ul>
 	</li>
 	@endif
 	@if( ! empty($menu['12']))
-	<li {!! (Request::is( 'main/persiapan/kelurahan/pelatihan')||Request::is( 'main/persiapan/kelurahan/pelatihan/create')||Request::is( 'main/persiapan/kelurahan/agen_sosialisasi')||Request::is( 'main/persiapan/kelurahan/agen_sosialisasi/create')||Request::is( 'main/persiapan/kelurahan/relawan')||Request::is( 'main/persiapan/kelurahan/relawan/create')||Request::is( 'main/persiapan/kelurahan/sosialisasi')||Request::is( 'main/persiapan/kelurahan/sosialisasi/create')||Request::is( 'main/persiapan/kelurahan/info')||Request::is( 'main/persiapan/kelurahan/info/create')||Request::is( 'main/persiapan/kecamatan/keberfungsian')||Request::is( 'main/persiapan/kecamatan/keberfungsian/create')||Request::is( 'main/persiapan/kecamatan/kolaborasi')||Request::is( 'main/persiapan/kecamatan/kolaborasi/create')||Request::is( 'main/persiapan/kecamatan/bkm')||Request::is( 'main/persiapan/kecamatan/bkm/create')||Request::is( 'main/persiapan/kota/forum/bkm')||Request::is( 'main/persiapan/kota/forum/bkm/create')||Request::is( 'main/persiapan/kota/forum/kolaborasi')||Request::is( 'main/persiapan/kota/forum/kolaborasi/create')||Request::is( 'main/persiapan/kota/forum/f_forum')||Request::is( 'main/persiapan/kota/forum/f_forum/create')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi/create')||Request::is( 'main/persiapan/kota/info')||Request::is( 'main/persiapan/kota/info/create')||Request::is( 'main/persiapan/kota/pokja/pembentukan')||Request::is( 'main/persiapan/kota/pokja/pembentukan/create')||Request::is( 'main/persiapan/kota/pokja/kegiatan')||Request::is( 'main/persiapan/kota/pokja/kegiatan/create')||Request::is( 'main/persiapan/propinsi/pokja/pembentukan')||Request::is( 'main/persiapan/propinsi/pokja/pembentukan/create')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan/create')||Request::is( 'main/persiapan/nasional/pokja/pembentukan')||Request::is( 'main/persiapan/nasional/pokja/pembentukan/create')||Request::is( 'main/persiapan/nasional/pokja/kegiatan')||Request::is( 'main/persiapan/nasional/pokja/kegiatan/create') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+	<li {!! (Request::is( 'main/persiapan/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
             <span class="mm-text">Persiapan</span>
             <span class="fa arrow"></span>
@@ -406,7 +514,7 @@
 	@endif
 
 	@if( ! empty($menu['13']))
-	<li {!! (Request::is( 'main/perencanaan/kelurahan/kegiatan')||Request::is( 'main/perencanaan/kelurahan/kegiatan/create')||Request::is( 'main/perencanaan/kelurahan/investasi_5thn')||Request::is( 'main/perencanaan/kelurahan/investasi_5thn/create')||Request::is( 'main/perencanaan/kelurahan/penyusunan_rplp')||Request::is( 'main/perencanaan/kelurahan/penyusunan_rplp/create')||Request::is( 'main/perencanaan/kelurahan/penanganan_kumuh')||Request::is( 'main/perencanaan/kelurahan/penanganan_kumuh/create')||Request::is( 'main/perencanaan/kontrak_paket')||Request::is( 'main/perencanaan/kontrak_paket/create')||Request::is( 'main/perencanaan/pengadaan_lelang')||Request::is( 'main/perencanaan/pengadaan_lelang/create')||Request::is( 'main/perencanaan/infra/amdal')||Request::is( 'main/perencanaan/infra/amdal/create')||Request::is( 'main/perencanaan/infra/penyiapan_paket')||Request::is( 'main/perencanaan/infra/penyiapan_paket/create')||Request::is( 'main/perencanaan/rencana_kegiatan')||Request::is( 'main/perencanaan/rencana_kegiatan/create')||Request::is( 'main/perencanaan/kawasan/investasi')||Request::is( 'main/perencanaan/kawasan/investasi/create')||Request::is( 'main/perencanaan/kawasan/perencanaan')||Request::is( 'main/perencanaan/kawasan/perencanaan/create')||Request::is( 'main/perencanaan/penanganan/pengamanan_dampak')||Request::is( 'main/perencanaan/penanganan/pengamanan_dampak/create')||Request::is( 'main/perencanaan/penanganan/rencana_investasi')||Request::is( 'main/perencanaan/penanganan/rencana_investasi/create')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn')||Request::is( 'main/perencanaan/penanganan/profile_rencana_5thn/create')||Request::is( 'main/perencanaan/penanganan/lokasi_profile')||Request::is( 'main/perencanaan/penanganan/lokasi_profile/create')||Request::is( 'main/perencanaan/penanganan/konsultasi_perencanaan')||Request::is( 'main/perencanaan/penanganan/konsultasi_perencanaan/create')||Request::is( 'main/perencanaan/penanganan/lokakarya_perencanaan')||Request::is( 'main/perencanaan/penanganan/lokakarya_perencanaan/create')||Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk')||Request::is( 'main/perencanaan/penanganan/pelaksanaan_rpk/create')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi')||Request::is( 'main/perencanaan/penanganan/pembangunan_visi/create')? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+	<li {!! (Request::is( 'main/perencanaan/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
             <span class="mm-text">Perencanaan</span>
             <span class="fa arrow"></span>
@@ -619,7 +727,7 @@
 	</li>
 	@endif
 	@if( ! empty($menu['15']))
-	<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+	<li {!! (Request::is( 'main/pelaksanaan/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
             <span class="mm-text">Pelaksanaan</span>
             <span class="fa arrow"></span>
@@ -753,7 +861,7 @@
 	</li>
 	@endif
 	@if( ! empty($menu['16']))
-	<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+	<li {!! (Request::is( 'main/keberlanjutan/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
             <span class="mm-text">Keberlanjutan</span>
             <span class="fa arrow"></span>
