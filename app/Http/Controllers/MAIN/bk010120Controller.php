@@ -51,9 +51,10 @@ class bk010120Controller extends Controller
 	{
 		$columns = array(
 			0 =>'id',
-			1 =>'kode_kegiatan',
-			2 =>'nama',
-			3 =>'status'
+			1 =>'subkomponen',
+			2 =>'kode_dtl_subkomponen',
+			3 =>'detil',
+			4 =>'status'
 		);
 		$query='select a.id,a.kode_dtl_subkomponen,b.nama subkomponen,a.nama detil,case when a.status=1 then "aktif" else "tidak aktif" end status from bkt_01010121_dtl_subkomponen a,bkt_01010120_subkomponen b where a.id_subkomponen=b.id and a.status !=2';
 		$totalData = DB::select('select count(1) cnt from bkt_01010121_dtl_subkomponen a,bkt_01010120_subkomponen b where a.id_subkomponen=b.id and a.status !=2');
@@ -82,7 +83,7 @@ class bk010120Controller extends Controller
 				$url_delete=url('/')."/main/data_master/det_komp_keg/delete?id=".$edit;
 				$nestedData['id'] = $post->id;
 				$nestedData['kode_dtl_subkomponen'] = $post->kode_dtl_subkomponen;
-				$nestedData['kegiatan'] = $post->kegiatan;
+				$nestedData['subkomponen'] = $post->subkomponen;
 				$nestedData['detil'] = $post->detil;
 				$nestedData['status'] = $post->status;
 				$user = Auth::user();
@@ -128,13 +129,14 @@ class bk010120Controller extends Controller
 			}
 			$data['username'] = $user->name;
 			$data['id']=$request->input('id');
-			$data['kegiatan'] = DB::select('select id,nama from bkt_01010118_kegiatan_kel');
+			$data['kegiatan'] = DB::select('select id,nama from bkt_01010120_subkomponen');
 			if($data['id']!=null && !empty($data['detil']['439'])){
 				$rowData = DB::select('select * from bkt_01010121_dtl_subkomponen where id='.$data['id']);
-				$data['kode_dtl_kegiatan'] = $rowData[0]->kode_dtl_kegiatan;
-				$data['id_kegiatan'] = $rowData[0]->id_kegiatan;
+				$data['kode_dtl_subkomponen'] = $rowData[0]->kode_dtl_subkomponen;
+				$data['id_subkomponen'] = $rowData[0]->id_subkomponen;
 				$data['nama'] = $rowData[0]->nama;
 				$data['keterangan'] = $rowData[0]->keterangan;
+				$data['satuan'] = $rowData[0]->satuan;
 				$data['status'] = $rowData[0]->status;
 				$data['created_time'] = $rowData[0]->created_time;
 				$data['created_by'] = $rowData[0]->created_by;
@@ -142,10 +144,11 @@ class bk010120Controller extends Controller
 				$data['updated_by'] = $rowData[0]->updated_by;
 				return view('MAIN/bk010120/create',$data);
 			}else if($data['id']==null && !empty($data['detil']['438'])){
-				$data['kode_dtl_kegiatan'] = null;
-				$data['id_kegiatan'] = null;
+				$data['kode_dtl_subkomponen'] = null;
+				$data['id_subkomponen'] = null;
 				$data['nama'] = null;
 				$data['keterangan'] = null;
+				$data['satuan'] = null;
 				$data['status'] = null;
 				$data['created_time'] = null;
 				$data['created_by'] = null;
@@ -166,9 +169,10 @@ class bk010120Controller extends Controller
 		if ($request->input('id')!=null){
 			DB::table('bkt_01010121_dtl_subkomponen')->where('id', $request->input('id'))
 			->update(['nama' => $request->input('nama-input'),
-				'kode_dtl_kegiatan' => $request->input('kode_dtl_kegiatan-input'),
-				'id_kegiatan' => $request->input('id_kegiatan-input'),
+				'kode_dtl_subkomponen' => $request->input('kode_dtl_subkomponen-input'),
+				'id_subkomponen' => $request->input('id_subkomponen-input'),
 				'keterangan' => $request->input('keterangan-input'),
+				'satuan' => $request->input('satuan-input'),
 				'status' => $request->input('status-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
@@ -178,9 +182,10 @@ class bk010120Controller extends Controller
 		}else{
 			DB::table('bkt_01010121_dtl_subkomponen')->insert(
        			['nama' => $request->input('nama-input'),
-				'kode_dtl_kegiatan' => $request->input('kode_dtl_kegiatan-input'),
-				'id_kegiatan' => $request->input('id_kegiatan-input'),
+				'kode_dtl_subkomponen' => $request->input('kode_dtl_subkomponen-input'),
+				'id_subkomponen' => $request->input('id_subkomponen-input'),
 				'keterangan' => $request->input('keterangan-input'),
+				'satuan' => $request->input('satuan-input'),
 				'status' => $request->input('status-input'),
 				'created_by' => Auth::user()->id
        			]);

@@ -1,11 +1,11 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Sub Komponen Kegiatan Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Kelompok Swadaya Masyarakat (KSM) Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Sub Komponen Kegiatan</h1>
+    <h1>Kelompok Swadaya Masyarakat (KSM)</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -14,8 +14,8 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/main/data_master/sub_komp_keg">
-	                Master Data / Data Master / Sub Komponen Kegiatan
+				<a href="/main/data_master/keg_rplp">
+	                Master Data / Data Master / Kelompok Swadaya Masyarakat (KSM)
 				</a>
             </li>
             <li class="next">
@@ -36,22 +36,22 @@
                     <div class="col-md-12">
                         <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator" >
 							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Kode Subkomponen</label>
+				                <label class="col-sm-3 control-label">Kode Kegiatan</label>
 				                <div class="col-sm-6">
 				                    <input type="hidden" id="id" name="id" value="{{$id}}">
-				                    <input type="text" id="kode_subkomponen-input" name="kode_subkomponen-input" class="form-control" placeholder="Kode subkomponen" value="{{$kode_subkomponen}}">
+				                    <input type="text" id="kode_kegiatan-input" name="kode_kegiatan-input" class="form-control" placeholder="Kode " value="{{$kode_kegiatan}}">
 				                </div>
 				            </div>
 							<div class="form-group ">
 				                <label class="col-sm-3 control-label">Nama</label>
 				                <div class="col-sm-6">
-				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{$nama}}">
+				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="nama" value="{{$nama}}">
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Keterangan</label>
 				                <div class="col-sm-6">
-				                    <textarea id="keterangan-input" name="keterangan-input" class="form-control" placeholder="keterangan" >{{$keterangan}}</textarea>
+				                    <textarea id="keterangan-input" name="keterangan-input" class="form-control" placeholder="" >{{$keterangan}}</textarea>
 				                </div>
 				            </div>
 							<div class="form-group ">
@@ -89,7 +89,7 @@
                             </div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/main/data_master/sub_komp_keg" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/data_master/keg_rplp" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -118,7 +118,7 @@
           e.preventDefault();
           $.ajax({
             type: 'post',
-            "url": "/main/data_master/sub_komp_keg/create",
+            "url": "/main/data_master/keg_rplp/create",
             data: $('form').serialize(),
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
@@ -126,7 +126,7 @@
             success: function () {
 
             alert('From Submitted.');
-            window.location.href = "/main/data_master/sub_komp_keg";
+            window.location.href = "/main/data_master/keg_rplp";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

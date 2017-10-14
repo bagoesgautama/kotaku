@@ -41,7 +41,7 @@ class bk010225Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
-				
+
 				$this->log_aktivitas('View', 214);
 				return view('MAIN/bk010225/index',$data);
 			}
@@ -94,7 +94,7 @@ class bk010225Controller extends Controller
 			22 =>'updated_time',
 			23 =>'updated_by'
 		);
-		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kec, e.nama nama_kmw, f.nama nama_kel, g.nama nama_faskel, h.nama nama_kegiatan 
+		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kec, e.nama nama_kmw, f.nama nama_kel, g.nama nama_faskel, h.nama nama_kegiatan
 			from bkt_01020215_lembaga_kel a, bkt_01010102_kota b, bkt_01010111_korkot c, bkt_01010103_kec d, bkt_01010110_kmw e, bkt_01010104_kel f, bkt_01010113_faskel g, bkt_01010118_kegiatan_kel h where b.kode=a.kode_kota and c.kode=a.kode_korkot and d.kode=a.kode_kec and e.kode=a.kode_kmw and f.kode=a.kode_kel and g.kode=a.kode_faskel and h.id=a.id_kegiatan';
 		$totalData = DB::select('select count(1) cnt from bkt_01020215_lembaga_kel ');
 		$totalFiltered = $totalData[0]->cnt;
@@ -161,7 +161,7 @@ class bk010225Controller extends Controller
 				}
 				if(!empty($detil['217'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}		
+				}
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
@@ -269,7 +269,7 @@ class bk010225Controller extends Controller
 			$data['created_by'] = null;
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
-		
+
 		return view('MAIN/bk010225/create',$data);
 			}else {
 				return Redirect::to('/');
@@ -284,10 +284,10 @@ class bk010225Controller extends Controller
 		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_01020215_lembaga_kel')->where('kode', $request->input('example-id-input'))
-			->update(['tahun' => $request->input('example-tahun-input'), 
-				'kode_kota' => $request->input('example-kode_kota-input'), 
-				'kode_korkot' => $request->input('example-kode_korkot-input'), 
-				'kode_kec' => $request->input('example-kode_kec-input'), 
+			->update(['tahun' => $request->input('example-tahun-input'),
+				'kode_kota' => $request->input('example-kode_kota-input'),
+				'kode_korkot' => $request->input('example-kode_korkot-input'),
+				'kode_kec' => $request->input('example-kode_kec-input'),
 				'kode_kmw' => $request->input('example-kode_kmw-input'),
 				'kode_kel' => $request->input('example-kode_kel-input'),
 				'kode_faskel' => $request->input('example-kode_faskel-input'),
@@ -311,10 +311,10 @@ class bk010225Controller extends Controller
 
 		}else{
 			DB::table('bkt_01020215_lembaga_kel')->insert(
-       			['tahun' => $request->input('example-tahun-input'), 
-				'kode_kota' => $request->input('example-kode_kota-input'), 
-				'kode_korkot' => $request->input('example-kode_korkot-input'), 
-				'kode_kec' => $request->input('example-kode_kec-input'), 
+       			['tahun' => $request->input('example-tahun-input'),
+				'kode_kota' => $request->input('example-kode_kota-input'),
+				'kode_korkot' => $request->input('example-kode_korkot-input'),
+				'kode_kec' => $request->input('example-kode_kec-input'),
 				'kode_kmw' => $request->input('example-kode_kmw-input'),
 				'kode_kel' => $request->input('example-kode_kel-input'),
 				'kode_faskel' => $request->input('example-kode_faskel-input'),
@@ -349,10 +349,10 @@ class bk010225Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
-				'kode_modul' => 5, 
-				'kode_menu' => 74,   
-				'kode_menu_detil' => $detil, 
-				'aktifitas' => $aktifitas, 
+				'kode_modul' => 5,
+				'kode_menu' => 74,
+				'kode_menu_detil' => $detil,
+				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas
        			]);
     }

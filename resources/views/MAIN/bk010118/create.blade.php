@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Mapping FasKel ke Kelurahan Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Detil Kegiatan Kelurahan Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
@@ -46,6 +46,7 @@
 				                <label class="col-sm-3 control-label">Kegiatan</label>
 				                <div class="col-sm-6">
 									<select id="select-keg" class="form-control select2" name="id_kegiatan-input">
+										<option value=undefined>Please select</option>
                                         @foreach($kegiatan as $list)
                                             <option value="{{ $list->id }}" @if($list->id==$id_kegiatan) selected="selected" @endif >{{ $list->nama }}
                                             </option>

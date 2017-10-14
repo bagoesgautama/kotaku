@@ -1,11 +1,11 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Mapping FasKel ke Kelurahan Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Sub Komponen Kegiatan Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Detil Kegiatan Kelurahan</h1>
+    <h1>Detil Sub Komponen Kegiatan</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -14,8 +14,8 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/main/data_master/det_keg_kelurahan">
-	                Master Data / Data Master / Detil Kegiatan Kelurahan
+				<a href="/main/data_master/det_komp_keg">
+	                Master Data / Data Master / Detil Sub Komponen Kegiatan
 				</a>
             </li>
             <li class="next">
@@ -36,18 +36,19 @@
                     <div class="col-md-12">
                         <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator" >
 							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Kode Detil Kegiatan</label>
+				                <label class="col-sm-3 control-label">Kode Detil Subkomponen</label>
 				                <div class="col-sm-6">
 				                    <input type="hidden" id="id" name="id" value="{{$id}}">
-				                    <input type="text" id="kode_dtl_kegiatan-input" name="kode_dtl_kegiatan-input" class="form-control" placeholder="Kode Kegiatan" value="{{$kode_dtl_kegiatan}}">
+				                    <input type="text" id="kode_dtl_subkomponen-input" name="kode_dtl_subkomponen-input" class="form-control" placeholder="" value="{{$kode_dtl_subkomponen}}">
 				                </div>
 				            </div>
 							<div class="form-group">
-				                <label class="col-sm-3 control-label">Kegiatan</label>
+				                <label class="col-sm-3 control-label">Subkomponen</label>
 				                <div class="col-sm-6">
-									<select id="select-keg" class="form-control select2" name="id_kegiatan-input">
+									<select id="select-keg" class="form-control select2" name="id_subkomponen-input">
+										<option value=undefined>Please select</option>
                                         @foreach($kegiatan as $list)
-                                            <option value="{{ $list->id }}" @if($list->id==$id_kegiatan) selected="selected" @endif >{{ $list->nama }}
+                                            <option value="{{ $list->id }}" @if($list->id==$id_subkomponen) selected="selected" @endif >{{ $list->nama }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -60,6 +61,12 @@
 				                </div>
 				            </div>
 							<div class="form-group ">
+				                <label class="col-sm-3 control-label">Satuan</label>
+				                <div class="col-sm-6">
+				                    <input type="text" id="satuan-input" name="satuan-input" class="form-control" placeholder="" value="{{$satuan}}">
+				                </div>
+				            </div>
+							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Keterangan</label>
 				                <div class="col-sm-6">
 				                    <textarea id="keterangan-input" name="keterangan-input" class="form-control" placeholder="keterangan" >{{$keterangan}}</textarea>
@@ -100,7 +107,7 @@
                             </div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/main/data_master/det_keg_kelurahan" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/data_master/det_komp_keg" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -129,7 +136,7 @@
           e.preventDefault();
           $.ajax({
             type: 'post',
-            "url": "/main/data_master/det_keg_kelurahan/create",
+            "url": "/main/data_master/det_komp_keg/create",
             data: $('form').serialize(),
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
@@ -137,7 +144,7 @@
             success: function () {
 
             alert('From Submitted.');
-            window.location.href = "/main/data_master/det_keg_kelurahan";
+            window.location.href = "/main/data_master/det_komp_keg";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

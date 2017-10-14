@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Mapping FasKel ke Kelurahan @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Sub Komponen Kegiatan @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Detil Kegiatan Kelurahan</h1>
+    <h1>Detil Sub Komponen Kegiatan</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                Master Data / Data Master / Detil Kegiatan Kelurahan
+                Master Data / Data Master / Detil Sub Komponen Kegiatan
             </li>
         </ul>
     </div>
@@ -34,11 +34,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010118 Index</b>
+                    <b>bk010120 Index</b>
                 </div>
-                @if( ! empty($detil['430']))
+                @if( ! empty($detil['438']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_master/det_keg_kelurahan/create">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_master/det_komp_keg/create">Create</a>
 				</div>
                 @endif
             </div>
@@ -48,9 +48,9 @@
 						<thead>
                             <tr>
                                 <th>id</th>
-								<th>Kode Detil Kegiatan</th>
-                                <th>Kegiatan</th>
-								<th>Detil</th>
+								<th>subkomponen</th>
+								<th>Kode Detil Subkomponen</th>
+								<th>Nama</th>
 								<th>Status</th>
 								<th>Option</th>
                             </tr>
@@ -71,7 +71,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/data_master/det_keg_kelurahan",
+                     "url": "/main/data_master/det_komp_keg",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -84,8 +84,8 @@
               },
             "columns": [
 				{ "data": "id" , name:"id"},
-				{ "data": "kode_dtl_kegiatan" , name:"kode_dtl_kegiatan"},
-				{ "data": "kegiatan" , name:"kegiatan"},
+				{ "data": "subkomponen" , name:"subkomponen"},
+				{ "data": "kode_dtl_subkomponen" , name:"kode_dtl_subkomponen"},
 				{ "data": "detil" , name:"detil"},
 				{ "data": "status" , name:"status"},
                 { "data": "option" , name:"option",orderable:false}

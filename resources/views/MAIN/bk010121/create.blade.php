@@ -1,11 +1,11 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Sub Komponen Kegiatan Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Aspek Kumuh Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Sub Komponen Kegiatan</h1>
+    <h1>Aspek Kumuh</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -14,8 +14,8 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/main/data_master/sub_komp_keg">
-	                Master Data / Data Master / Sub Komponen Kegiatan
+				<a href="/main/data_master/aspek_kumuh">
+	                Master Data / Data Master / Aspek Kumuh
 				</a>
             </li>
             <li class="next">
@@ -36,22 +36,22 @@
                     <div class="col-md-12">
                         <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator" >
 							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Kode Subkomponen</label>
+				                <label class="col-sm-3 control-label">Kode Aspek</label>
 				                <div class="col-sm-6">
 				                    <input type="hidden" id="id" name="id" value="{{$id}}">
-				                    <input type="text" id="kode_subkomponen-input" name="kode_subkomponen-input" class="form-control" placeholder="Kode subkomponen" value="{{$kode_subkomponen}}">
+				                    <input type="text" id="kode_aspek-input" name="kode_aspek-input" class="form-control" placeholder="Kode aspek" value="{{$kode_aspek}}">
 				                </div>
 				            </div>
 							<div class="form-group ">
-				                <label class="col-sm-3 control-label">Nama</label>
+				                <label class="col-sm-3 control-label">Aspek</label>
 				                <div class="col-sm-6">
-				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{$nama}}">
+				                    <input type="text" id="aspek-input" name="aspek-input" class="form-control" placeholder="aspek" value="{{$aspek}}">
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Keterangan</label>
+				                <label class="col-sm-3 control-label">Jenis Sarana Prasarana</label>
 				                <div class="col-sm-6">
-				                    <textarea id="keterangan-input" name="keterangan-input" class="form-control" placeholder="keterangan" >{{$keterangan}}</textarea>
+				                    <textarea id="jenis_sarana_prasarana-input" name="jenis_sarana_prasarana-input" class="form-control" placeholder="" >{{$jenis_sarana_prasarana}}</textarea>
 				                </div>
 				            </div>
 							<div class="form-group ">
@@ -89,7 +89,7 @@
                             </div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/main/data_master/sub_komp_keg" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/data_master/aspek_kumuh" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -118,7 +118,7 @@
           e.preventDefault();
           $.ajax({
             type: 'post',
-            "url": "/main/data_master/sub_komp_keg/create",
+            "url": "/main/data_master/aspek_kumuh/create",
             data: $('form').serialize(),
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
@@ -126,7 +126,7 @@
             success: function () {
 
             alert('From Submitted.');
-            window.location.href = "/main/data_master/sub_komp_keg";
+            window.location.href = "/main/data_master/aspek_kumuh";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

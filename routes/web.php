@@ -189,42 +189,36 @@ Route::post('/main/data_master/pms/create', 'MAIN\bk010115Controller@post_create
 Route::get('/main/data_master/pms/delete', 'MAIN\bk010115Controller@delete');
 
 Route::get('/main/data_master/keg_pelatihan', 'MAIN\bk010116Controller@index');
-Route::get('/main/data_master/keg_pelatihan/select', 'MAIN\bk010116Controller@select');
 Route::post('/main/data_master/keg_pelatihan', 'MAIN\bk010116Controller@post');
 Route::get('/main/data_master/keg_pelatihan/create', 'MAIN\bk010116Controller@create');
 Route::post('/main/data_master/keg_pelatihan/create', 'MAIN\bk010116Controller@post_create');
 Route::get('/main/data_master/keg_pelatihan/delete', 'MAIN\bk010116Controller@delete');
 
 Route::get('/main/data_master/keg_kelurahan', 'MAIN\bk010117Controller@index');
-Route::get('/main/data_master/keg_kelurahan/select', 'MAIN\bk010117Controller@select');
 Route::post('/main/data_master/keg_kelurahan', 'MAIN\bk010117Controller@post');
 Route::get('/main/data_master/keg_kelurahan/create', 'MAIN\bk010117Controller@create');
 Route::post('/main/data_master/keg_kelurahan/create', 'MAIN\bk010117Controller@post_create');
 Route::get('/main/data_master/keg_kelurahan/delete', 'MAIN\bk010117Controller@delete');
 
 Route::get('/main/data_master/det_keg_kelurahan', 'MAIN\bk010118Controller@index');
-Route::get('/main/data_master/det_keg_kelurahan/select', 'MAIN\bk010118Controller@select');
 Route::post('/main/data_master/det_keg_kelurahan', 'MAIN\bk010118Controller@post');
 Route::get('/main/data_master/det_keg_kelurahan/create', 'MAIN\bk010118Controller@create');
 Route::post('/main/data_master/det_keg_kelurahan/create', 'MAIN\bk010118Controller@post_create');
 Route::get('/main/data_master/det_keg_kelurahan/delete', 'MAIN\bk010118Controller@delete');
 
 Route::get('/main/data_master/sub_komp_keg', 'MAIN\bk010119Controller@index');
-Route::get('/main/data_master/sub_komp_keg/select', 'MAIN\bk010119Controller@select');
 Route::post('/main/data_master/sub_komp_keg', 'MAIN\bk010119Controller@post');
 Route::get('/main/data_master/sub_komp_keg/create', 'MAIN\bk010119Controller@create');
 Route::post('/main/data_master/sub_komp_keg/create', 'MAIN\bk010119Controller@post_create');
 Route::get('/main/data_master/sub_komp_keg/delete', 'MAIN\bk010119Controller@delete');
 
 Route::get('/main/data_master/det_komp_keg', 'MAIN\bk010120Controller@index');
-Route::get('/main/data_master/det_komp_keg/select', 'MAIN\bk010120Controller@select');
 Route::post('/main/data_master/det_komp_keg', 'MAIN\bk010120Controller@post');
 Route::get('/main/data_master/det_komp_keg/create', 'MAIN\bk010120Controller@create');
 Route::post('/main/data_master/det_komp_keg/create', 'MAIN\bk010120Controller@post_create');
 Route::get('/main/data_master/det_komp_keg/delete', 'MAIN\bk010120Controller@delete');
 
 Route::get('/main/data_master/aspek_kumuh', 'MAIN\bk010121Controller@index');
-Route::get('/main/data_master/aspek_kumuh/select', 'MAIN\bk010121Controller@select');
 Route::post('/main/data_master/aspek_kumuh', 'MAIN\bk010121Controller@post');
 Route::get('/main/data_master/aspek_kumuh/create', 'MAIN\bk010121Controller@create');
 Route::post('/main/data_master/aspek_kumuh/create', 'MAIN\bk010121Controller@post_create');

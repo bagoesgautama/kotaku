@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Kegiatan Pelatihan @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Kegiatan RPLP Form @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Kegiatan Pelatihan</h1>
+    <h1>Kegiatan RPLP</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                Master Data / Data Master / Kegiatan Pelatihan
+                Master Data / Data Master / Kegiatan RPLP
             </li>
         </ul>
     </div>
@@ -34,11 +34,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010116 Index</b>
+                    <b>bk010123 Index</b>
                 </div>
-                @if( ! empty($detil['422']))
+                @if( ! empty($detil['450']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_master/keg_pelatihan/create">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_master/keg_rplp/create">Create</a>
 				</div>
                 @endif
             </div>
@@ -48,7 +48,7 @@
 						<thead>
                             <tr>
                                 <th>id</th>
-								<th>Kode Pelatihan</th>
+								<th>Kode Kegiatan</th>
                                 <th>Nama</th>
 								<th>Status</th>
 								<th>Option</th>
@@ -70,7 +70,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/data_master/keg_pelatihan",
+                     "url": "/main/data_master/keg_rplp",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -83,7 +83,7 @@
               },
             "columns": [
 				{ "data": "id" , name:"id"},
-				{ "data": "kode_pelatihan" , name:"kode_pelatihan"},
+				{ "data": "kode_kegiatan" , name:"kode_kegiatan"},
 				{ "data": "nama" , name:"nama"},
 				{ "data": "status" , name:"status"},
                 { "data": "option" , name:"option",orderable:false}
