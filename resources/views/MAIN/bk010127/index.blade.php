@@ -34,7 +34,7 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010123 Index</b>
+                    <b>bk010127 Index</b>
                 </div>
                 @if( ! empty($detil['466']))
                 <div class="tools pull-right">
