@@ -1,6 +1,7 @@
 @extends('MAIN/default') {{-- Page title --}} @section('title') PMS Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
+<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
+@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>PMS</h1>
@@ -35,7 +36,7 @@
 				                <label class="col-sm-3 control-label">Nama</label>
 				                <div class="col-sm-6">
 				                    <input type="hidden" id="kode" name="kode" value="{{$kode}}">
-				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{$nama}}">
+				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{$nama}}" required>
 				                </div>
 				            </div>
 							<div class="form-group">
