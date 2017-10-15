@@ -1,7 +1,5 @@
 @extends('MAIN/default') {{-- Page title --}} @section('title') Kegiatan RPLP Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -111,7 +109,6 @@
 {{-- local scripts --}} @section('footer_scripts')
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
         $('#submit').on('click', function (e) {
@@ -135,10 +132,6 @@
             }
           });
         });
-		$("#select-keg").select2({
-			  theme: "bootstrap",
-			  placeholder: "single select"
-	  	});
       });
 </script>
 @stop

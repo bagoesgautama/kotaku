@@ -1,7 +1,6 @@
 @extends('MAIN/default') {{-- Page title --}} @section('title') Kelompok Swadaya Masyarakat (KSM) Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -14,7 +13,7 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/main/data_master/keg_rplp">
+				<a href="/main/data_master/ksm">
 	                Master Data / Data Master / Kelompok Swadaya Masyarakat (KSM)
 				</a>
             </li>
@@ -26,8 +25,6 @@
 </section>
 @stop
 {{-- Page content --}} @section('content')
-<script>
-</script>
 <div class="row">
     <div class="col-md-12">
         <div class="panel ">
@@ -36,25 +33,43 @@
                     <div class="col-md-12">
                         <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator" >
 							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Kode Kegiatan</label>
+				                <label class="col-sm-3 control-label">Kode KSM</label>
 				                <div class="col-sm-6">
 				                    <input type="hidden" id="id" name="id" value="{{$id}}">
-				                    <input type="text" id="kode_kegiatan-input" name="kode_kegiatan-input" class="form-control" placeholder="Kode " value="{{$kode_kegiatan}}">
+				                    <input type="text" id="kode_ksm-input" name="kode_ksm-input" class="form-control" placeholder="Kode " value="{{$kode_ksm}}" required>
 				                </div>
 				            </div>
 							<div class="form-group ">
 				                <label class="col-sm-3 control-label">Nama</label>
 				                <div class="col-sm-6">
-				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="nama" value="{{$nama}}">
+				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="nama" value="{{$nama}}" required>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Keterangan</label>
+				                <label class="col-sm-3 control-label">Alamat</label>
 				                <div class="col-sm-6">
-				                    <textarea id="keterangan-input" name="keterangan-input" class="form-control" placeholder="" >{{$keterangan}}</textarea>
+				                    <textarea id="alamat-input" name="alamat-input" class="form-control" placeholder="" required>{{$alamat}}</textarea>
 				                </div>
 				            </div>
 							<div class="form-group ">
+                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pembentukan</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" id="tgl_pembentukan-input" name="tgl_pembentukan-input" placeholder="Tanggal Pembentukan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_pembentukan}}" required>
+                                </div>
+                            </div>
+							<div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="q_peserta_p-input" name="q_peserta_p-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="q_peserta_w-input" name="q_peserta_w-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required>
+                                </div>
+                            </div>
+							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Status</label>
 				                <div class="col-sm-6">
 				                    <select id="status-input" name="status-input" class="form-control" size="1">
@@ -89,7 +104,7 @@
                             </div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/main/data_master/keg_rplp" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/data_master/ksm" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -109,16 +124,13 @@
 </div>
 @stop
 {{-- local scripts --}} @section('footer_scripts')
-<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
         $('#submit').on('click', function (e) {
           e.preventDefault();
           $.ajax({
             type: 'post',
-            "url": "/main/data_master/keg_rplp/create",
+            "url": "/main/data_master/ksm/create",
             data: $('form').serialize(),
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
@@ -126,7 +138,7 @@
             success: function () {
 
             alert('From Submitted.');
-            window.location.href = "/main/data_master/keg_rplp";
+            window.location.href = "/main/data_master/ksm";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -135,10 +147,10 @@
             }
           });
         });
-		$("#select-keg").select2({
-			  theme: "bootstrap",
-			  placeholder: "single select"
-	  	});
       });
 </script>
+<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
 @stop

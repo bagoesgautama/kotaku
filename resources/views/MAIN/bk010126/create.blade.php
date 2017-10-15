@@ -1,9 +1,11 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Kontraktor Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') KPP Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
+<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
+@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Kontraktor</h1>
+    <h1>KPP</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -12,8 +14,8 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/main/data_master/kontraktor">
-	                Master Data / Data Master / Kontraktor
+				<a href="/main/data_master/kpp">
+	                Master Data / Data Master / KPP
 				</a>
             </li>
             <li class="next">
@@ -24,47 +26,51 @@
 </section>
 @stop
 {{-- Page content --}} @section('content')
-<script>
-</script>
 <div class="row">
     <div class="col-md-12">
         <div class="panel ">
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator" >
+                        <form enctype="multipart/form-data" class="form-horizontal form-bordered" >
 							<div class="form-group striped-col">
+				                <label class="col-sm-3 control-label">Kode kpp</label>
+				                <div class="col-sm-6">
+				                    <input type="hidden" id="id" name="id" value="{{$id}}">
+				                    <input type="text" id="kode_kpp-input" name="kode_kpp-input" class="form-control" placeholder="Kode " value="{{$kode_kpp}}" required>
+				                </div>
+				            </div>
+							<div class="form-group ">
 				                <label class="col-sm-3 control-label">Nama</label>
 				                <div class="col-sm-6">
-				                    <input type="hidden" id="kode" name="kode" value="{{$kode}}">
-				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="nama" value="{{$nama}}">
+				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="nama" value="{{$nama}}" required>
 				                </div>
 				            </div>
-							<div class="form-group ">
+							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Alamat</label>
 				                <div class="col-sm-6">
-				                    <textarea id="alamat-input" name="alamat-input" class="form-control" placeholder="" >{{$alamat}}</textarea>
-				                </div>
-				            </div>
-							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">No tlp</label>
-				                <div class="col-sm-6">
-				                    <input type="text" id="no_phone-input" name="no_phone-input" class="form-control" placeholder="" value="{{$no_phone}}">
+				                    <textarea id="alamat-input" name="alamat-input" class="form-control" placeholder="" required>{{$alamat}}</textarea>
 				                </div>
 				            </div>
 							<div class="form-group ">
-				                <label class="col-sm-3 control-label">No hp</label>
-				                <div class="col-sm-6">
-				                    <input type="text" id="no_hp-input" name="no_hp-input" class="form-control" placeholder="" value="{{$no_hp}}">
-				                </div>
-				            </div>
+                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pembentukan</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" id="tgl_pembentukan-input" name="tgl_pembentukan-input" placeholder="Tanggal Pembentukan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_pembentukan}}" required>
+                                </div>
+                            </div>
 							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">No fax</label>
-				                <div class="col-sm-6">
-				                    <input type="text" id="no_fax-input" name="no_fax-input" class="form-control" placeholder="" value="{{$no_fax}}">
-				                </div>
-				            </div>
-							<div class="form-group ">
+                                <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="q_peserta_p-input" name="q_peserta_p-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="q_peserta_w-input" name="q_peserta_w-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required>
+                                </div>
+                            </div>
+							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Status</label>
 				                <div class="col-sm-6">
 				                    <select id="status-input" name="status-input" class="form-control" size="1">
@@ -99,7 +105,7 @@
                             </div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/main/data_master/kontraktor" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/data_master/kpp" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -119,15 +125,13 @@
 </div>
 @stop
 {{-- local scripts --}} @section('footer_scripts')
-<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
         $('#submit').on('click', function (e) {
           e.preventDefault();
           $.ajax({
             type: 'post',
-            "url": "/main/data_master/kontraktor/create",
+            "url": "/main/data_master/kpp/create",
             data: $('form').serialize(),
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
@@ -135,7 +139,7 @@
             success: function () {
 
             alert('From Submitted.');
-            window.location.href = "/main/data_master/kontraktor";
+            window.location.href = "/main/data_master/kpp";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -146,4 +150,8 @@
         });
       });
 </script>
+<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
 @stop

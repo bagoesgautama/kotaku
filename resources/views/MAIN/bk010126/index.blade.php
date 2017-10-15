@@ -1,4 +1,5 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Kelompok Swadaya Masyarakat (KSM) Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') KPP Form @stop {{-- local styles --}} @section('header_styles')
+
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/colReorder.bootstrap.css')}}" />
@@ -8,11 +9,12 @@
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/scroller.bootstrap.css')}}">
 <link href="{{asset('vendors/hover/css/hover-min.css')}}" rel="stylesheet">
 <link href="{{asset('css/buttons_sass.css')}}" rel="stylesheet">
+
 @stop {{-- Page Header--}} @section('page-header')
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Kelompok Swadaya Masyarakat (KSM)</h1>
+    <h1>KPP</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -21,7 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                Master Data / Data Master / Kelompok Swadaya Masyarakat (KSM)
+                Master Data / Data Master / KPP
             </li>
         </ul>
     </div>
@@ -34,9 +36,9 @@
                 <div class="panel-title pull-left">
                     <b>bk010125 Index</b>
                 </div>
-                @if( ! empty($detil['458']))
+                @if( ! empty($detil['462']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_master/ksm/create">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_master/kpp/create">Create</a>
 				</div>
                 @endif
             </div>
@@ -46,7 +48,7 @@
 						<thead>
                             <tr>
                                 <th>id</th>
-								<th>Kode KSM</th>
+								<th>Kode kpp</th>
                                 <th>Nama</th>
 								<th>Alamat</th>
 								<th>Tgl Pembentukan</th>
@@ -65,13 +67,15 @@
 <script>
     $(document).ready(function () {
 		var table = $('#users').DataTable({
+	        // dom: 'Bflrtip',
+
 			"processing": true,
             "serverSide": true,
             "ajax":{
-	             "url": "/main/data_master/ksm",
-	             "dataType": "json",
-	             "type": "POST"
-	           },
+                     "url": "/main/data_master/kpp",
+                     "dataType": "json",
+                     "type": "POST"
+                   },
             success: function(data) {
                  alert('success')
               },
@@ -81,7 +85,7 @@
               },
             "columns": [
 				{ "data": "id" , name:"id"},
-				{ "data": "kode_ksm" , name:"kode_ksm"},
+				{ "data": "kode_kpp" , name:"kode_kpp"},
 				{ "data": "nama" , name:"nama"},
 				{ "data": "alamat" , name:"alamat"},
 				{ "data": "tgl_pembentukan" , name:"tgl_pembentukan"},
@@ -90,14 +94,13 @@
             ],
 			"order": [[ 0, "desc" ]]
 	    });
-
         $('#users_filter input').unbind();
         $('#users_filter input').bind('keyup', function(e) {
-	        if(e.keyCode == 13) {
-	            table.search(this.value).draw();
-	        }
-	    })
-	});
+        if(e.keyCode == 13) {
+            table.search(this.value).draw();
+        }
+    })
+});
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>
