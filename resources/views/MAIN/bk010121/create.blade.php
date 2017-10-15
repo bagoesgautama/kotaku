@@ -32,24 +32,24 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator" >
+                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Kode Aspek</label>
 				                <div class="col-sm-6">
 				                    <input type="hidden" id="id" name="id" value="{{$id}}">
-				                    <input type="text" id="kode_aspek-input" name="kode_aspek-input" class="form-control" placeholder="Kode aspek" value="{{$kode_aspek}}">
+				                    <input type="text" id="kode_aspek-input" name="kode_aspek-input" class="form-control" placeholder="Kode aspek" value="{{$kode_aspek}}" required>
 				                </div>
 				            </div>
 							<div class="form-group ">
 				                <label class="col-sm-3 control-label">Aspek</label>
 				                <div class="col-sm-6">
-				                    <input type="text" id="aspek-input" name="aspek-input" class="form-control" placeholder="aspek" value="{{$aspek}}">
+				                    <input type="text" id="aspek-input" name="aspek-input" class="form-control" placeholder="aspek" value="{{$aspek}}" required>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Jenis Sarana Prasarana</label>
 				                <div class="col-sm-6">
-				                    <textarea id="jenis_sarana_prasarana-input" name="jenis_sarana_prasarana-input" class="form-control" placeholder="" >{{$jenis_sarana_prasarana}}</textarea>
+				                    <textarea id="jenis_sarana_prasarana-input" name="jenis_sarana_prasarana-input" class="form-control" required>{{$jenis_sarana_prasarana}}</textarea>
 				                </div>
 				            </div>
 							<div class="form-group ">
@@ -111,7 +111,7 @@
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
           e.preventDefault();
           $.ajax({
             type: 'post',

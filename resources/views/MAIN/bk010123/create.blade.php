@@ -32,18 +32,18 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator" >
+                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Kode Kegiatan</label>
 				                <div class="col-sm-6">
 				                    <input type="hidden" id="id" name="id" value="{{$id}}">
-				                    <input type="text" id="kode_kegiatan-input" name="kode_kegiatan-input" class="form-control" placeholder="Kode " value="{{$kode_kegiatan}}">
+				                    <input type="text" id="kode_kegiatan-input" name="kode_kegiatan-input" class="form-control" placeholder="Kode " value="{{$kode_kegiatan}}" required>
 				                </div>
 				            </div>
 							<div class="form-group ">
 				                <label class="col-sm-3 control-label">Nama</label>
 				                <div class="col-sm-6">
-				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="nama" value="{{$nama}}">
+				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="nama" value="{{$nama}}" required>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
@@ -111,7 +111,7 @@
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
           e.preventDefault();
           $.ajax({
             type: 'post',

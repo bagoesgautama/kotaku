@@ -32,18 +32,18 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator" >
+                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Nama</label>
 				                <div class="col-sm-6">
 				                    <input type="hidden" id="kode" name="kode" value="{{$kode}}">
-				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="nama" value="{{$nama}}">
+				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="nama" value="{{$nama}}" required>
 				                </div>
 				            </div>
 							<div class="form-group ">
 				                <label class="col-sm-3 control-label">Alamat</label>
 				                <div class="col-sm-6">
-				                    <textarea id="alamat-input" name="alamat-input" class="form-control" placeholder="" >{{$alamat}}</textarea>
+				                    <textarea id="alamat-input" name="alamat-input" class="form-control" placeholder=""  required>{{$alamat}}</textarea>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
@@ -123,7 +123,7 @@
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
           e.preventDefault();
           $.ajax({
             type: 'post',

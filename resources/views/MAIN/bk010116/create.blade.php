@@ -32,36 +32,36 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator" >
+                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Kode Pelatihan</label>
 				                <div class="col-sm-6">
 				                    <input type="hidden" id="id" name="id" value="{{$id}}">
-				                    <input type="text" id="kode_pelatihan-input" name="kode_pelatihan-input" class="form-control" placeholder="Kode Pelatihan" value="{{$kode_pelatihan}}">
+				                    <input type="text" id="kode_pelatihan-input" name="kode_pelatihan-input" class="form-control" placeholder="Kode Pelatihan" value="{{$kode_pelatihan}}" required>
 				                </div>
 				            </div>
 							<div class="form-group">
 				                <label class="col-sm-3 control-label">Nama</label>
 				                <div class="col-sm-6">
-				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{$nama}}">
+				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{$nama}}" required>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Peningkatan Input</label>
 				                <div class="col-sm-6">
-				                    <input type="number" maxlength="1" id="flag_peningkatan-input" name="flag_peningkatan-input" placeholder="0/1" class="form-control" value="{{$flag_peningkatan}}">
+				                    <input type="number" maxlength="1" id="flag_peningkatan-input" name="flag_peningkatan-input" placeholder="0/1" class="form-control" value="{{$flag_peningkatan}}" required>
 				                </div>
 				            </div>
 							<div class="form-group">
 				                <label class="col-sm-3 control-label">Peningkatan PPMK Baru</label>
 				                <div class="col-sm-6">
-				                    <input type="number" maxlength="1" id="flag_peningkatan_ppmk_baru-input" name="flag_peningkatan_ppmk_baru-input" placeholder="0/1" class="form-control" value="{{$flag_peningkatan_ppmk_baru}}">
+				                    <input type="number" maxlength="1" id="flag_peningkatan_ppmk_baru-input" name="flag_peningkatan_ppmk_baru-input" placeholder="0/1" class="form-control" value="{{$flag_peningkatan_ppmk_baru}}" required>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Pencegahan</label>
 				                <div class="col-sm-6">
-				                    <input type="number" maxlength="1" id="flag_pencegahan-input" name="flag_pencegahan-input" placeholder="0/1" class="form-control" value="{{$flag_pencegahan}}">
+				                    <input type="number" maxlength="1" id="flag_pencegahan-input" name="flag_pencegahan-input" placeholder="0/1" class="form-control" value="{{$flag_pencegahan}}" required>
 				                </div>
 				            </div>
 							<div class="form-group">
@@ -123,7 +123,7 @@
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
           e.preventDefault();
           $.ajax({
             type: 'post',

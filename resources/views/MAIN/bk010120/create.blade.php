@@ -34,18 +34,18 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator" >
+                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Kode Detil Subkomponen</label>
 				                <div class="col-sm-6">
 				                    <input type="hidden" id="id" name="id" value="{{$id}}">
-				                    <input type="text" id="kode_dtl_subkomponen-input" name="kode_dtl_subkomponen-input" class="form-control" placeholder="" value="{{$kode_dtl_subkomponen}}">
+				                    <input type="text" id="kode_dtl_subkomponen-input" name="kode_dtl_subkomponen-input" class="form-control" placeholder="" value="{{$kode_dtl_subkomponen}}" required>
 				                </div>
 				            </div>
 							<div class="form-group">
 				                <label class="col-sm-3 control-label">Subkomponen</label>
 				                <div class="col-sm-6">
-									<select id="select-keg" class="form-control select2" name="id_subkomponen-input">
+									<select id="select-keg" class="form-control select2" name="id_subkomponen-input" required>
 										<option value=undefined>Please select</option>
                                         @foreach($kegiatan as $list)
                                             <option value="{{ $list->id }}" @if($list->id==$id_subkomponen) selected="selected" @endif >{{ $list->nama }}
@@ -57,13 +57,13 @@
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Nama</label>
 				                <div class="col-sm-6">
-				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{$nama}}">
+				                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{$nama}}" required>
 				                </div>
 				            </div>
 							<div class="form-group ">
 				                <label class="col-sm-3 control-label">Satuan</label>
 				                <div class="col-sm-6">
-				                    <input type="text" id="satuan-input" name="satuan-input" class="form-control" placeholder="" value="{{$satuan}}">
+				                    <input type="text" id="satuan-input" name="satuan-input" class="form-control" placeholder="" value="{{$satuan}}" required>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
@@ -132,7 +132,7 @@
 <script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
           e.preventDefault();
           $.ajax({
             type: 'post',
