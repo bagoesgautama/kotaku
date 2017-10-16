@@ -197,7 +197,7 @@ class bk010114Controller extends Controller
 			$data['kode_kec_list'] = [];
 			$data['kode_kota_list'] = [];
 
-			$kode_prop = DB::select('select kode, nama from bkt_01010101_prop');
+			$kode_prop = DB::select('select kode, nama from bkt_01010101_prop where status=1');
 			$data['kode_prop_list'] = $kode_prop;
 
 			if($data['kode']!=null && !empty($data['detil']['58'])){
@@ -223,11 +223,11 @@ class bk010114Controller extends Controller
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
 				if(!empty($rowData[0]->kode_prop))
-					$data['kode_kota_list']=DB::select('select kode, nama from bkt_01010102_kota where kode_prop='.$rowData[0]->kode_prop);
+					$data['kode_kota_list']=DB::select('select kode, nama from bkt_01010102_kota where status=1 and kode_prop='.$rowData[0]->kode_prop);
 				if(!empty($rowData[0]->kode_kota))
-					$data['kode_kec_list'] =DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$rowData[0]->kode_kota);
+					$data['kode_kec_list'] =DB::select('select kode, nama from bkt_01010103_kec where status=1 and kode_kota='.$rowData[0]->kode_kota);
 				if(!empty($rowData[0]->kode_kec))
-					$data['kode_kel_list'] = DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$rowData[0]->kode_kec);
+					$data['kode_kel_list'] = DB::select('select kode, nama from bkt_01010104_kel where status=1 and kode_kec='.$rowData[0]->kode_kec);
 				return view('MAIN/bk010114/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['57'])){
 				$data['kode_kmp_slum_prog'] = null;

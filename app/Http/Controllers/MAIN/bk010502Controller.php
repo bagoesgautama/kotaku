@@ -18,7 +18,6 @@ class bk010502Controller extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        // parent::__construct();
     }
 
     /**
@@ -32,14 +31,14 @@ class bk010502Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==47)
+				if($item->kode_menu==128)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
 
-				$this->log_aktivitas('View', 60);
-				return view('MAIN/bk010201/index',$data);
+				$this->log_aktivitas('View', 400);
+				return view('MAIN/bk010502/index',$data);
 			}
 			else {
 				return Redirect::to('/');
@@ -54,15 +53,13 @@ class bk010502Controller extends Controller
 		$columns = array(
 			0 =>'kode',
 			1 =>'tahun',
-			2 =>'kode_prop',
-			3 =>'kode_kmw',
-			4 =>'kode_faskel',
-			5 =>'jenis_kegiatan',
-			6 =>'tgl_kegiatan',
-			7 =>'status_pokja'
+			2 =>'jenis_kegiatan',
+			3 =>'tgl_kegiatan',
+			4 =>'status_pokja',
+			5 =>'created_time'
 		);
-		$query='select a.kode, a.tahun, b.nama as kode_prop, c.nama as kode_kmw, d.nama as kode_faskel, a.jenis_kegiatan, a.tgl_kegiatan, a.status_pokja from bkt_01020202_pokja a, bkt_01010101_prop b, bkt_01010110_kmw c, bkt_01010113_faskel d where a.kode_prop = b.kode and a.kode_kmw = c.kode and a.kode_faskel = d.kode and a.jenis_kegiatan = 2.1';
-		$totalData = DB::select('select count(1) cnt from bkt_01020202_pokja ');
+		$query='select * from bkt_01020202_pokja a where jenis_kegiatan = 2.1';
+		$totalData = DB::select('select count(1) cnt from bkt_01020202_pokja where jenis_kegiatan = 2.1');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -70,12 +67,12 @@ class bk010502Controller extends Controller
 		$dir = $request->input('order.0.dir');
 		if(empty($request->input('search.value')))
 		{
-			$posts=DB::select($query .' order by a.'.$order.' '.$dir.' limit '.$start.','.$limit);
+			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' or a.kode like "%'.$search.'%" or a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.status_pokja like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' or a.kode like "%'.$search.'%" or a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.status_pokja like "%'.$search.'%") a');
+			$posts=DB::select($query. ' and (kode like "%'.$search.'%" or tahun like "%'.$search.'%" or tgl_kegiatan like "%'.$search.'%" or status_pokja like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (kode like "%'.$search.'%" or tahun like "%'.$search.'%" or tgl_kegiatan like "%'.$search.'%" or status_pokja like "%'.$search.'%")) a');
 		}
 
 		$data = array();
@@ -105,27 +102,25 @@ class bk010502Controller extends Controller
 				$url_delete=url('/')."/main/persiapan/nasional/pokja/pembentukan/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['tahun'] = $post->tahun;
-				$nestedData['kode_prop'] = $post->kode_prop;
-				$nestedData['kode_kmw'] = $post->kode_kmw;
-				$nestedData['kode_faskel'] = $post->kode_faskel;
 				$nestedData['jenis_kegiatan'] = $jenis_kegiatan;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 				$nestedData['status_pokja'] = $status_pokja;
+				$nestedData['created_time'] = $post->created_time;
 
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==47)
+						if($item->kode_menu==128)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
 
 				$option = '';
-				if(!empty($detil['62'])){
+				if(!empty($detil['402'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['63'])){
+				if(!empty($detil['403'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				}
 				$nestedData['option'] = $option;
@@ -143,6 +138,18 @@ class bk010502Controller extends Controller
 		echo json_encode($json_data);
 	}
 
+	public function select(Request $request)
+	{
+		if(!empty($request->input('prov'))){
+			$kmw = DB::select('select kode, nama from bkt_01010110_kmw where kode_prop='.$request->input('prov'));
+			echo json_encode($kmw);
+		}
+		if(!empty($request->input('kmw'))){
+			$faskel = DB::select('select kode, nama from bkt_01010113_faskel where kode_kmw='.$request->input('kmw'));
+			echo json_encode($faskel);
+		}
+	}
+
 	public function create(Request $request)
 	{
 		$user = Auth::user();
@@ -150,17 +157,17 @@ class bk010502Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==47)
+				if($item->kode_menu==128)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			if($data['kode']!=null  && !empty($data['detil']['62'])){
+			if($data['kode']!=null  && !empty($data['detil']['402'])){
 				$rowData = DB::select('select * from bkt_01020202_pokja where kode='.$data['kode']);
 				$data['tahun'] = $rowData[0]->tahun;
-				$data['kode_prop'] = $rowData[0]->kode_prop;
-				$data['kode_kmw'] = $rowData[0]->kode_kmw;
-				$data['kode_faskel'] = $rowData[0]->kode_faskel;
+				// $data['kode_prop'] = $rowData[0]->kode_prop;
+				// $data['kode_kmw'] = $rowData[0]->kode_kmw;
+				// $data['kode_faskel'] = $rowData[0]->kode_faskel;
 				$data['jenis_kegiatan'] = $rowData[0]->jenis_kegiatan;
 				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
 				$data['status_pokja'] = $rowData[0]->status_pokja;
@@ -192,12 +199,12 @@ class bk010502Controller extends Controller
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
 				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
-				return view('MAIN/bk010201/create',$data);
-			}else if ($data['kode']==null  && !empty($data['detil']['61'])){
+				return view('MAIN/bk010502/create',$data);
+			}else if ($data['kode']==null  && !empty($data['detil']['401'])){
 				$data['tahun'] = null;
-				$data['kode_prop'] = null;
-				$data['kode_kmw'] = null;
-				$data['kode_faskel'] = null;
+				// $data['kode_prop'] = null;
+				// $data['kode_kmw'] = null;
+				// $data['kode_faskel'] = null;
 				$data['jenis_kegiatan'] = '2.1';
 				$data['tgl_kegiatan'] = null;
 				$data['status_pokja'] = null;
@@ -229,7 +236,7 @@ class bk010502Controller extends Controller
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
 				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
-				return view('MAIN/bk010201/create',$data);
+				return view('MAIN/bk010502/create',$data);
 			}else{
 				return Redirect::to('/');
 			}
@@ -287,9 +294,9 @@ class bk010502Controller extends Controller
 			DB::table('bkt_01020202_pokja')->where('kode', $request->input('kode'))
 			->update([
 				'tahun' => $request->input('tahun-input'),
-				'kode_prop' => $request->input('kode-prop-input'),
-				'kode_kmw' => $request->input('kode-kmw-input'),
-				'kode_faskel' => $request->input('kode-faskel-input'),
+				// 'kode_prop' => ($request->input('kode-prop-input')=='undefined' ? null:$request->input('kode-prop-input')),
+				// 'kode_kmw' => ($request->input('kode-kmw-input')=='undefined' ? null:$request->input('kode-kmw-input')),
+				// 'kode_faskel' => ($request->input('kode-faskel-input')=='undefined' ? null:$request->input('kode-faskel-input')),
 				'jenis_kegiatan' => $request->input('jns-kegiatan-input'),
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'status_pokja' => $request->input('status-pokja-input'),
@@ -329,14 +336,14 @@ class bk010502Controller extends Controller
 				$file_rnckerja->move(public_path('/uploads/persiapan/nasional/pokja/pembentukan'), $file_rnckerja->getClientOriginalName());
 			}
 
-			$this->log_aktivitas('Update', 62);
+			$this->log_aktivitas('Update', 402);
 
 		}else{
 			DB::table('bkt_01020202_pokja')->insert([
 				'tahun' => $request->input('tahun-input'),
-				'kode_prop' => $request->input('kode-prop-input'),
-				'kode_kmw' => $request->input('kode-kmw-input'),
-				'kode_faskel' => $request->input('kode-faskel-input'),
+				// 'kode_prop' => ($request->input('kode-prop-input')=='undefined' ? null:$request->input('kode-prop-input')),
+				// 'kode_kmw' => ($request->input('kode-kmw-input')=='undefined' ? null:$request->input('kode-kmw-input')),
+				// 'kode_faskel' => ($request->input('kode-faskel-input')=='undefined' ? null:$request->input('kode-faskel-input')),
 				'jenis_kegiatan' => $request->input('jns-kegiatan-input'),
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'status_pokja' => $request->input('status-pokja-input'),
@@ -375,7 +382,7 @@ class bk010502Controller extends Controller
 				$file_rnckerja->move(public_path('/uploads/persiapan/nasional/pokja/pembentukan'), $file_rnckerja->getClientOriginalName());
 			}
 
-			$this->log_aktivitas('Create', 61);
+			$this->log_aktivitas('Create', 401);
 		}
 	}
 
@@ -388,7 +395,7 @@ class bk010502Controller extends Controller
 	public function delete(Request $request)
 	{
 		DB::table('bkt_01020202_pokja')->where('kode', $request->input('kode'))->delete();
-		$this->log_aktivitas('Delete', 63);
+		$this->log_aktivitas('Delete', 403);
         return Redirect::to('/main/persiapan/nasional/pokja/pembentukan');
     }
 
@@ -398,7 +405,7 @@ class bk010502Controller extends Controller
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
 				'kode_modul' => 5,
-				'kode_menu' => 47,
+				'kode_menu' => 128,
 				'kode_menu_detil' => $detil,
 				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas

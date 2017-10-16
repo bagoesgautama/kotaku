@@ -280,7 +280,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/persiapan/nasional/pokja/pembentukan";
             },
@@ -300,7 +300,7 @@
             placeholder: "single select"
         });
 
-        
+
       });
 </script>
 @stop

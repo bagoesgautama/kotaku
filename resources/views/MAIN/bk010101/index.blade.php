@@ -42,6 +42,7 @@
                     <table class="table table-striped" id="provinsi">
                         <thead>
                             <tr>
+								<th>Kode</th>
                                 <th>Nama</th>
                                 <th>Nama Pendek</th>
                                 <th>Wilayah</th>
@@ -71,12 +72,14 @@
                    },
 
             "columns": [
+				{ "data": "kode" , name:"kode"},
                 { "data": "nama" , name:"nama"},
                 { "data": "nama_pendek" , name:"nama_pendek"},
                 { "data": "wilayah" , name:"wilayah"},
                 { "data": "status" , name:"status"},
                 { "data": "option" , name:"option"}
-            ]
+            ],
+			"order": [[ 0, "desc" ]]
         });
 
         $('#provinsi_filter input').unbind();

@@ -1,4 +1,5 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Pembangunan Visi @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pembentukan POKJA
+@stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -23,16 +24,16 @@
                 </a>
             </li>
             <li class="next">
-                Perencanaan
+                Persiapan
             </li>
             <li class="next">
-                Penanganan Pemukiman Kota
+                Nasional
             </li>
             <li class="next">
-                Perencanaan Penanganan Permukiman
+                Pokja
             </li>
             <li class="next">
-                Pembangunan Visi
+                Pembentukan
             </li>
         </ul>
     </div>
@@ -43,11 +44,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010301 index</b>
+                    <b>bk010201 index</b>
                 </div>
-                @if( ! empty($detil['254']))
+                @if( ! empty($detil['401']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/penanganan/pembangunan_visi/create'}}">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/nasional/pokja/pembentukan/create'}}">Create</a>
 				</div>
                 @endif
             </div>
@@ -56,14 +57,12 @@
 					<table class="table table-striped" id="pokja">
 						<thead>
                             <tr>
+                                <th>Kode</th>
                                 <th>Tahun</th>
-                                <th>Kota</th>
-                                <th>Kecamatan</th>
-                                <th>KMW</th>
-                                <th>Korkot</th>
                                 <th>Jenis Kegiatan</th>
-                                <th>Tgl Kegiatan</th>
-                                <th>Lokasi Kegiatan</th>
+                                <th>Tanggal Pembentukan</th>
+                                <th>Status Pokja</th>
+                                <th>Created Time</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -80,24 +79,22 @@
     $(document).ready(function () {
 		var table = $('#pokja').DataTable({
 	        // dom: 'Bflrtip',
-	        
+
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/perencanaan/penanganan/pembangunan_visi",
+                     "url": "/main/persiapan/nasional/pokja/pembentukan",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
+                { "data": "kode" , name:"kode"},
 				{ "data": "tahun" , name:"tahun"},
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_kec" , name:"kode_kec"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
                 { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+                { "data": "status_pokja" , name:"status_pokja"},
+                { "data": "created_time" , name:"created_time"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });
