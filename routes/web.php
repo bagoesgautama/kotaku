@@ -495,6 +495,7 @@ Route::post('/main/perencanaan/kawasan/perencanaan', 'MAIN\bk010309Controller@po
 Route::get('/main/perencanaan/kawasan/perencanaan/create', 'MAIN\bk010309Controller@create');
 Route::post('/main/perencanaan/kawasan/perencanaan/create', 'MAIN\bk010309Controller@post_create');
 Route::get('/main/perencanaan/kawasan/perencanaan/delete', 'MAIN\bk010309Controller@delete');
+Route::get('/main/perencanaan/kawasan/perencanaan/select', 'MAIN\bk010309Controller@select');
 
 Route::get('/main/perencanaan/kawasan/investasi', 'MAIN\bk010310Controller@index');
 Route::post('/main/perencanaan/kawasan/investasi', 'MAIN\bk010310Controller@post');

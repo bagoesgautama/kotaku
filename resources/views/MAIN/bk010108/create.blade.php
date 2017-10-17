@@ -109,12 +109,6 @@
                     <input type="text" id="pms_nama-input" name="pms_nama-input" class="form-control" placeholder="Nama PMS" value="{{ $pms_nama }}" maxlength="50">
                 </div>
             </div>
-            <div class="form-group  striped-col">
-                <label class="col-sm-3 control-label" for="example-textarea-input2">Alamat PMS</label>
-                <div class="col-sm-6">
-                    <textarea id="pms_alamat-input" name="pms_alamat-input" rows="7" class="form-control resize_vertical" placeholder="Alamat PMS" maxlength="300">{{ $pms_alamat }}</textarea>
-                </div>
-            </div>
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
                     <a href="/main/kmp" type="button" class="btn btn-effect-ripple btn-danger">

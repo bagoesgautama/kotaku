@@ -31,7 +31,7 @@ class bk010309Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==93)
+				if($item->kode_menu==97)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
@@ -41,7 +41,7 @@ class bk010309Controller extends Controller
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
 
-				$this->log_aktivitas('View', 190);
+				$this->log_aktivitas('View', 289);
 				return view('MAIN/bk010309/index',$data);
 			}
 			else {
@@ -61,7 +61,7 @@ class bk010309Controller extends Controller
 			3 => 'kode_korkot',
 			4 => 'kode_kec',
 			5 => 'kode_kawasan',
-			6 => 'topologi_pmkm',
+			6 => 'tipologi_pmkm',
 			7 => 'karakter_kaw',
 			8 => 'pola_penanganan',
 			9 => 'status_lahan',
@@ -76,42 +76,43 @@ class bk010309Controller extends Controller
 			18 => 'pk_l_kaw_kmh',
 			19 => 'pk_q_kel_kmh_thn_cur',
 			20 => 'pk_q_rt_kmh_thn_cur',
-			21 => 'tk_berat_l_wil',
-			22 => 'tk_berat_q_rt',
-			23 => 'tk_sedang_l_wil',
-			24 => 'tk_sedang_q_rt',
-			25 => 'tk_ringan_l_wil',
-			26 => 'tk_ringan_q_rt',
-			27 => 'ak_val_abs_hunian',
-			28 => 'ak_prcn_gap_hunian',
-			29 => 'ak_val_abs_jalan',
-			30 => 'ak_prcn_gap_jalan',
-			31 => 'ak_val_abs_air_minum',
-			32 => 'ak_prcn_gap_air_minum',
-			33 => 'ak_val_abs_drainase',
-			34 => 'ak_prcn_gap_drainase',
-			35 => 'ak_val_abs_air_limbah',
-			36 => 'ak_prcn_gap_air_limbah',
-			37 => 'ak_val_abs_sampah',
-			38 => 'ak_prcn_gap_sampah',
-			39 => 'ak_val_abs_kebakaran',
-			40 => 'ak_prcn_gap_kebakaran',
-			41 => 'ak_val_abs_rtp',
-			42 => 'ak_prcn_gap_rtp',
-			43 => 'ak_prcn_gap_ekonomi',
-			44 => 'ak_prcn_gap_sosial',
-			45 => 'uri_img_document',
-			46 => 'uri_img_absensi',
-			47 => 'diser_tgl',
-			48 => 'diser_oleh',
-			49 => 'diket_tgl',
-			50 => 'diket_oleh',
-			51 => 'diver_tgl',
-			52 => 'diver_oleh',
-			53 => 'created_time',
-			54 => 'created_by',
-			55 => 'updated_time',
-			56 => 'updated_by'
+			21 => 'pk_l_rt_kmh_thn_cur',
+			22 => 'tk_berat_l_wil',
+			23 => 'tk_berat_q_rt',
+			24 => 'tk_sedang_l_wil',
+			25 => 'tk_sedang_q_rt',
+			26 => 'tk_ringan_l_wil',
+			27 => 'tk_ringan_q_rt',
+			28 => 'ak_val_abs_hunian',
+			29 => 'ak_prcn_gap_hunian',
+			30 => 'ak_val_abs_jalan',
+			31 => 'ak_prcn_gap_jalan',
+			32 => 'ak_val_abs_air_minum',
+			33 => 'ak_prcn_gap_air_minum',
+			34 => 'ak_val_abs_drainase',
+			35 => 'ak_prcn_gap_drainase',
+			36 => 'ak_val_abs_air_limbah',
+			37 => 'ak_prcn_gap_air_limbah',
+			38 => 'ak_val_abs_sampah',
+			39 => 'ak_prcn_gap_sampah',
+			40 => 'ak_val_abs_kebakaran',
+			41 => 'ak_prcn_gap_kebakaran',
+			42 => 'ak_val_abs_rtp',
+			43 => 'ak_prcn_gap_rtp',
+			44 => 'ak_prcn_gap_ekonomi',
+			45 => 'ak_prcn_gap_sosial',
+			46 => 'uri_img_document',
+			47 => 'uri_img_absensi',
+			48 => 'diser_tgl',
+			49 => 'diser_oleh',
+			50 => 'diket_tgl',
+			51 => 'diket_oleh',
+			52 => 'diver_tgl',
+			53 => 'diver_oleh',
+			54 => 'created_time',
+			55 => 'created_by',
+			56 => 'updated_time',
+			57 => 'updated_by'
 		);
 		$query='select a.*, b.nama nama_prop, c.nama nama_kota, d.nama nama_korkot, e.nama nama_kec from bkt_01030206_plan_kaw_prior a, bkt_01010101_prop b, bkt_01010102_kota c, bkt_01010111_korkot d, bkt_01010103_kec e where (a.kode_prop=b.kode and a.kode_kota=c.kode and a.kode_korkot=d.kode and a.kode_kec=e.kode) ';
 		$totalData = DB::select('select count(1) cnt from bkt_01030206_plan_kaw_prior ');
@@ -147,7 +148,7 @@ class bk010309Controller extends Controller
 				$nestedData['nama_korkot'] = $post->nama_korkot;
 				$nestedData['nama_kec'] = $post->nama_kec;
 				$nestedData['kode_kawasan'] = $post->kode_kawasan;
-				$nestedData['topologi_pmkm'] = $post->topologi_pmkm;
+				$nestedData['tipologi_pmkm'] = $post->topologi_pmkm;
 				$nestedData['karakter_kaw'] = $post->karakter_kaw;
 				$nestedData['pola_penanganan'] = $post->pola_penanganan;
 				$nestedData['status_lahan'] = $post->status_lahan;
@@ -162,6 +163,7 @@ class bk010309Controller extends Controller
 				$nestedData['pk_l_kaw_kmh'] = $post->pk_l_kaw_kmh;
 				$nestedData['pk_q_kel_kmh_thn_cur'] = $post->pk_q_kel_kmh_thn_cur;
 				$nestedData['pk_q_rt_kmh_thn_cur'] = $post->pk_q_rt_kmh_thn_cur;
+				$nestedData['pk_l_rt_kmh_thn_cur'] = $post->pk_l_rt_kmh_thn_cur;
 				$nestedData['tk_berat_l_wil'] = $post->tk_berat_q_wil;
 				$nestedData['tk_berat_q_rt'] = $post->tk_berat_q_rt;
 				$nestedData['tk_sedang_l_wil'] = $post->tk_sedang_l_wil;
@@ -203,7 +205,7 @@ class bk010309Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==63)
+						if($item->kode_menu==97)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
@@ -230,6 +232,22 @@ class bk010309Controller extends Controller
 		echo json_encode($json_data);
 	}
 
+	public function select(Request $request)
+	{
+		if(!empty($request->input('prop'))){
+			$kota = DB::select('select kode, nama from bkt_01010102_kota where kode_prop='.$request->input('prop'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('kota'))){
+			$kota = DB::select('select b.* from bkt_01010112_kota_korkot a,bkt_01010111_korkot b where a.kode_korkot=b.kode and kode_kota='.$request->input('kota'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('korkot'))){
+			$kota = DB::select('select a.* from bkt_01010103_kec a where a.kode_kota='.$request->input('korkot'));
+			echo json_encode($kota);
+		}
+	}
+
 	public function create(Request $request)
 	{
 		$user = Auth::user();
@@ -237,12 +255,19 @@ class bk010309Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==93)
+				if($item->kode_menu==97)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			if($data['kode']!=null  && !empty($data['detil']['192'])){
+
+			$kode_prop = DB::select('select kode, nama from bkt_01010101_prop');
+			$data['kode_prop_list'] = $kode_prop;
+
+			$id_kawasan = DB::select('select id, nama from bkt_01010123_kawasan');
+			$data['id_kawasan_list'] = $id_kawasan;
+
+			if($data['kode']!=null  && !empty($data['detil']['291'])){
 				$rowData = DB::select('select * from bkt_01030206_plan_kaw_prior where kode='.$data['kode']);
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_prop'] = $rowData[0]->kode_prop;
@@ -250,7 +275,7 @@ class bk010309Controller extends Controller
 				$data['kode_korkot'] = $rowData[0]->kode_korkot;
 				$data['kode_kec'] = $rowData[0]->kode_kec;
 				$data['kode_kawasan'] = $rowData[0]->kode_kawasan;
-				$data['topologi_pmkm'] = $rowData[0]->topologi_pmkm;
+				$data['tipologi_pmkm'] = $rowData[0]->tipologi_pmkm;
 				$data['karakter_kaw'] = $rowData[0]->karakter_kaw;
 				$data['pola_penanganan'] = $rowData[0]->pola_penanganan;
 				$data['status_lahan'] = $rowData[0]->status_lahan;
@@ -265,6 +290,7 @@ class bk010309Controller extends Controller
 				$data['pk_l_kaw_kmh'] = $rowData[0]->pk_l_kaw_kmh;
 				$data['pk_q_kel_kmh_thn_cur'] = $rowData[0]->pk_q_kel_kmh_thn_cur;
 				$data['pk_q_rt_kmh_thn_cur'] = $rowData[0]->pk_q_rt_kmh_thn_cur;
+				$data['pk_l_rt_kmh_thn_cur'] = $rowData[0]->pk_l_rt_kmh_thn_cur;
 				$data['tk_berat_l_wil'] = $rowData[0]->tk_berat_l_wil;
 				$data['tk_berat_q_rt'] = $rowData[0]->tk_berat_q_rt;
 				$data['tk_sedang_l_wil'] = $rowData[0]->tk_sedang_l_wil;
@@ -301,15 +327,16 @@ class bk010309Controller extends Controller
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010309/create',$data);
-			}else if ($data['kode']==null  && !empty($data['detil']['191'])){
+			}else if ($data['kode']==null  && !empty($data['detil']['290'])){
 				$data['tahun'] = null;
 				$data['kode_prop'] = null;
 				$data['kode_kota'] = null;
 				$data['kode_korkot'] = null;
 				$data['kode_kec'] = null;
 				$data['kode_kawasan'] = null;
-				$data['topologi_pmkm'] = null;
+				$data['tipologi_pmkm'] = null;
 				$data['karakter_kaw'] = null;
 				$data['pola_penanganan'] = null;
 				$data['status_lahan'] = null;
@@ -324,6 +351,7 @@ class bk010309Controller extends Controller
 				$data['pk_l_kaw_kmh'] = null;
 				$data['pk_q_kel_kmh_thn_cur'] = null;
 				$data['pk_q_rt_kmh_thn_cur'] = null;
+				$data['pk_l_rt_kmh_thn_cur'] = null;
 				$data['tk_berat_l_wil'] = null;
 				$data['tk_berat_q_rt'] = null;
 				$data['tk_sedang_l_wil'] = null;
@@ -339,7 +367,7 @@ class bk010309Controller extends Controller
 				$data['ak_val_abs_drainase'] = null;
 				$data['ak_prcn_gap_drainase'] = null;
 				$data['ak_val_abs_air_limbah'] = null;
-				$data['ak_prcn_gap_air_limbah'] = nullh;
+				$data['ak_prcn_gap_air_limbah'] = null;
 				$data['ak_val_abs_sampah'] = null;
 				$data['ak_prcn_gap_sampah'] = null;
 				$data['ak_val_abs_kebakaran'] = null;
@@ -360,6 +388,7 @@ class bk010309Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010309/create',$data);
 			}else{
 				return Redirect::to('/');
@@ -380,7 +409,7 @@ class bk010309Controller extends Controller
 				'kode_korkot' => $request->input('select-kode_korkot-input'),
 				'kode_kec' => $request->input('select-kode_kec-input'),
 				'kode_kawasan' => $request->input('select-kode_kawasan-input'),
-				'topologi_pmkm' => $request->input('topologi_pmkm-input'),
+				'tipologi_pmkm' => $request->input('tipologi_pmkm-input'),
 				'karakter_kaw' => $request->input('karakter_kaw-input'),
 				'pola_penanganan' => $request->input('pola_penanganan-input'),
 				'status_lahan' => $request->input('status_lahan-input'),
@@ -395,6 +424,7 @@ class bk010309Controller extends Controller
 				'pk_l_kaw_kmh' => $request->input('pk_l_kaw_kmh-input'),
 				'pk_q_kel_kmh_thn_cur' => $request->input('pk_q_kel_kmh_thn_cur-input'),
 				'pk_q_rt_kmh_thn_cur' => $request->input('pk_q_rt_kmh_thn_cur-input'),
+				'pk_l_rt_kmh_thn_cur' => $request->input('pk_l_rt_kmh_thn_cur-input'),
 				'tk_berat_l_wil' => $request->input('tk_berat_l_wil-input'),
 				'tk_berat_q_rt' => $request->input('tk_berat_q_rt-input'),
 				'tk_sedang_l_wil' => $request->input('tk_sedang_l_wil-input'),
@@ -431,7 +461,7 @@ class bk010309Controller extends Controller
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
 
-			$this->log_aktivitas('Update', 192);
+			$this->log_aktivitas('Update', 291);
 
 		}else{
 			DB::table('bkt_01030206_plan_kaw_prior')->insert([
@@ -441,7 +471,7 @@ class bk010309Controller extends Controller
 				'kode_korkot' => $request->input('select-kode_korkot-input'),
 				'kode_kec' => $request->input('select-kode_kec-input'),
 				'kode_kawasan' => $request->input('select-kode_kawasan-input'),
-				'topologi_pmkm' => $request->input('topologi_pmkm-input'),
+				'tipologi_pmkm' => $request->input('tipologi_pmkm-input'),
 				'karakter_kaw' => $request->input('karakter_kaw-input'),
 				'pola_penanganan' => $request->input('pola_penanganan-input'),
 				'status_lahan' => $request->input('status_lahan-input'),
@@ -456,6 +486,7 @@ class bk010309Controller extends Controller
 				'pk_l_kaw_kmh' => $request->input('pk_l_kaw_kmh-input'),
 				'pk_q_kel_kmh_thn_cur' => $request->input('pk_q_kel_kmh_thn_cur-input'),
 				'pk_q_rt_kmh_thn_cur' => $request->input('pk_q_rt_kmh_thn_cur-input'),
+				'pk_l_rt_kmh_thn_cur' => $request->input('pk_l_rt_kmh_thn_cur-input'),
 				'tk_berat_l_wil' => $request->input('tk_berat_l_wil-input'),
 				'tk_berat_q_rt' => $request->input('tk_berat_q_rt-input'),
 				'tk_sedang_l_wil' => $request->input('tk_sedang_l_wil-input'),
@@ -491,7 +522,7 @@ class bk010309Controller extends Controller
 				'created_by' => Auth::user()->id
        			]);
 
-			$this->log_aktivitas('Create', 191);
+			$this->log_aktivitas('Create', 290);
 		}
 	}
 
@@ -504,7 +535,7 @@ class bk010309Controller extends Controller
 	public function delete(Request $request)
 	{
 		DB::table('bkt_01030206_plan_kaw_prior')->where('kode', $request->input('kode'))->delete();
-		$this->log_aktivitas('Delete', 193);
+		$this->log_aktivitas('Delete', 292);
         return Redirect::to('/main/perencanaan/kawasan/perencanaan');
     }
 
@@ -514,7 +545,7 @@ class bk010309Controller extends Controller
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
 				'kode_modul' => 6,
-				'kode_menu' => 93,
+				'kode_menu' => 97,
 				'kode_menu_detil' => $detil,
 				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas

@@ -85,7 +85,7 @@ class bk010108Controller extends Controller
 			13 =>'updated_time',
 			14 =>'updated_by'
 		);
-		$query='select * from bkt_01010108_kmp ';
+		$query='select a.*, b.nama pms_nama from bkt_01010108_kmp a, bkt_01010115_pms b where a.kode_pms=b.kode ';
 		$totalData = DB::select('select count(1) cnt from bkt_01010108_kmp ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -122,7 +122,6 @@ class bk010108Controller extends Controller
 				$nestedData['email1'] = $post->email1;
 				$nestedData['email2'] = $post->email2;
 				$nestedData['pms_nama'] = $post->pms_nama;
-				$nestedData['pms_alamat'] = $post->pms_alamat;
 				$nestedData['created_time'] = $post->created_time;
 				$nestedData['created_by'] = $post->created_by;
 				$nestedData['updated_time'] = $post->updated_time;
@@ -185,7 +184,6 @@ class bk010108Controller extends Controller
 			$data['email1'] = $rowData[0]->email1;
 			$data['email2'] = $rowData[0]->email2;
 			$data['pms_nama'] = $rowData[0]->pms_nama;
-			$data['pms_alamat'] = $rowData[0]->pms_alamat;
 			$data['created_time'] = $rowData[0]->created_time;
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
@@ -202,7 +200,6 @@ class bk010108Controller extends Controller
 			$data['email1'] = null;
 			$data['email2'] = null;
 			$data['pms_nama'] = null;
-			$data['pms_alamat'] = null;
 			$data['created_time'] = null;
 			$data['created_by'] = null;
 			$data['updated_time'] = null;
@@ -232,8 +229,7 @@ class bk010108Controller extends Controller
 				'no_hp2' => $request->input('no_hp2-input'), 
 				'email1' => $request->input('email1-input'), 
 				'email2' => $request->input('email2-input'), 
-				'pms_nama' => $request->input('pms_nama-input'), 
-				'pms_alamat' => $request->input('pms_alamat-input'),
+				'pms_nama' => $request->input('pms_nama-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
@@ -249,8 +245,7 @@ class bk010108Controller extends Controller
 				'no_hp2' => $request->input('no_hp2-input'), 
 				'email1' => $request->input('email1-input'), 
 				'email2' => $request->input('email2-input'), 
-				'pms_nama' => $request->input('pms_nama-input'), 
-				'pms_alamat' => $request->input('pms_alamat-input'),
+				'pms_nama' => $request->input('pms_nama-input'),
        			'created_by' => Auth::user()->id
        			]);
 			$this->log_aktivitas('Create', 33);
