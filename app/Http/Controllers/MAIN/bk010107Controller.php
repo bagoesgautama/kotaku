@@ -87,17 +87,17 @@ class bk010107Controller extends Controller
 			14 => 'tgl_akhir',
 			15 => 'tahun_',
 			16 => 'status',
-			17 => 'project',
-			18 => 'kode_departemen',
-			19 => 'glosary_caption',
-			20 => 'jenis_siklus',
-			21 => 'created_time',
-			22 => 'created_by',
-			23 => 'updated_time',
-			24 => 'updated_by'
+			17 => 'kode_departemen',
+			18 => 'glosary_caption',
+			19 => 'created_time',
+			20 => 'created_by',
+			21 => 'updated_time',
+			22 => 'updated_by'
 		);
 
-		$query='select a.*, b.nama nama_kota from bkt_01010107_slum_program a, bkt_01010102_kota b where a.kode_kota=b.kode and a.status!=2';
+		$query='select a.*, b.nama nama_kota, c.nama pms_nama 
+				from bkt_01010107_slum_program a, bkt_01010102_kota b, bkt_01010115_pms c 
+				where a.kode_kota=b.kode and a.kode_pms=c.kode and a.status!=2';
 		$totalData = DB::select('select count(1) cnt from bkt_01010107_slum_program ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -137,14 +137,12 @@ class bk010107Controller extends Controller
 				$nestedData['no_hp2'] = $post->no_hp2;
 				$nestedData['email1'] = $post->email1;
 				$nestedData['email2'] = $post->email2;
-				$nestedData['kode_pms'] = $post->kode_pms;
+				$nestedData['pms_nama'] = $post->pms_nama;
 				$nestedData['tgl_akhir'] = $post->tgl_akhir;
 				$nestedData['tahun_'] = $post->tahun;
 				$nestedData['status'] = $post->status;
-				$nestedData['project'] = $post->project;
 				$nestedData['kode_departemen'] = $post->kode_departemen;
 				$nestedData['glosary_caption'] = $post->glosary_caption;
-				$nestedData['jenis_siklus'] = $post->jenis_siklus;
 				$nestedData['created_time'] = $post->created_time;
 				$nestedData['created_by'] = $post->created_by;
 				$nestedData['updated_time'] = $post->updated_time;
@@ -220,12 +218,10 @@ class bk010107Controller extends Controller
 			$data['email2'] = $rowData[0]->email2;
 			$data['kode_pms'] = $rowData[0]->kode_pms;
 			$data['tgl_akhir'] = $rowData[0]->tgl_akhir;
-			$data['tahun'] = $rowData[0]->tahun_apbd1;
+			$data['tahun'] = $rowData[0]->tahun;
 			$data['status'] = $rowData[0]->status;
-			$data['project'] = $rowData[0]->project;
 			$data['kode_departemen'] = $rowData[0]->kode_departemen;
 			$data['glosary_caption'] = $rowData[0]->glosary_caption;
-			$data['jenis_siklus'] = $rowData[0]->jenis_siklus;
 			$data['created_time'] = $rowData[0]->created_time;
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
@@ -249,10 +245,8 @@ class bk010107Controller extends Controller
 			$data['tgl_akhir'] = null;
 			$data['tahun'] = null;
 			$data['status'] = null;
-			$data['project'] = null;
 			$data['kode_departemen'] = null;
 			$data['glosary_caption'] = null;
-			$data['jenis_siklus'] = null;
 			$data['created_time'] = null;
 			$data['created_by'] = null;
 			$data['updated_time'] = null;
@@ -293,10 +287,8 @@ class bk010107Controller extends Controller
 				'tgl_akhir' => $date_convert,
 				'tahun' => $request->input('tahun-input'),
 				'status' => $request->input('select-status-input'),
-				'project' => $request->input('project-input'),
 				'kode_departemen' => $request->input('select-kode_departemen-input'),
 				'glosary_caption' => $request->input('glosary_caption-input'),
-				'jenis_siklus' => $request->input('select-jenis_siklus-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
@@ -322,10 +314,8 @@ class bk010107Controller extends Controller
 				'tgl_akhir' => $date_convert,
 				'tahun' => $request->input('tahun-input'),
 				'status' => $request->input('select-status-input'),
-				'project' => $request->input('project-input'),
 				'kode_departemen' => $request->input('select-kode_departemen-input'),
 				'glosary_caption' => $request->input('glosary_caption-input'),
-				'jenis_siklus' => $request->input('select-jenis_siklus-input'),
        			'created_by' => Auth::user()->id
        			]);
 			$this->log_aktivitas('Create', 29);

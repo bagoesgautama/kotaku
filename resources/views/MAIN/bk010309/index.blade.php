@@ -39,7 +39,7 @@
                 <div class="panel-title pull-left">
                     <b>bk010309 index</b>
                 </div>
-                @if( ! empty($detil['191']))
+                @if( ! empty($detil['290']))
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/kawasan/perencanaan/create'}}">Create</a>
 				</div>
@@ -95,7 +95,7 @@
                 { "data": "nama_kota" , name:"nama_kota"},
                 { "data": "nama_korkot" , name:"nama_korkot"},
                 { "data": "nama_kec" , name:"nama_kec"},
-                { "data": "kode_kawasan" , name:"kode_kawasan"},
+                { "data": "id_kawasan" , name:"id_kawasan"},
                 { "data": "topologi_pmkm" , name:"topologi_pmkm"},
                 { "data": "karakter_kaw" , name:"karakter_kaw"},
                 { "data": "pola_penanganan" , name:"pola_penanganan"},
