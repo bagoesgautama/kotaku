@@ -40,9 +40,10 @@
                     <table class="table table-striped" id="kota">
                         <thead>
                             <tr>
+								<th>Kode</th>
+								<th>Provinsi</th>
                                 <th>Nama</th>
                                 <th>Nama Pendek</th>
-                                <th>Kode Prop</th>
                                 <th>Status</th>
                                 <th>Option</th>
                             </tr>
@@ -69,12 +70,14 @@
                    },
 
             "columns": [
+				{ "data": "kode" , name:"kode"},
+				{ "data": "prop" , name:"prop"},
                 { "data": "nama" , name:"nama"},
                 { "data": "nama_pendek" , name:"nama_pendek"},
-                { "data": "kode_prop" , name:"kode_prop"},
                 { "data": "status" , name:"status"},
                 { "data": "option" , name:"option"}
-            ]
+            ],
+			"order": [[ 0, "desc" ]]
         });
 
         $('#kota_filter input').unbind();

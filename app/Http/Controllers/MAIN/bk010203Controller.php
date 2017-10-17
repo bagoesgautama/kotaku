@@ -203,8 +203,10 @@ class bk010203Controller extends Controller
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
 				$data['kode_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
-				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
-				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
+				if(!empty($rowData[0]->kode_prop))
+					$data['kode_kmw_list']=DB::select('select kode, nama from bkt_01010110_kmw where kode_prop='.$rowData[0]->kode_prop);
+				if(!empty($rowData[0]->kode_kmw))
+					$data['kode_faskel_list']=DB::select('select kode, nama from bkt_01010113_faskel where kode_kmw='.$rowData[0]->kode_kmw);
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010203/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['69'])){

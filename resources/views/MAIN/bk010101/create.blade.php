@@ -27,16 +27,16 @@
 </section>
 @stop {{-- Page content --}} @section('content')
 <div class="panel-body border">
-    <form id="form" class="form-horizontal form-bordered" enctype="multipart/form-data">
+    <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
         <div class="row">
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label">Nama</label>
                 <div class="col-sm-6">
                     <input type="hidden" id="kode" name="kode" value="{{$kode}}">
-                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{$nama}}">
+                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{$nama}}" required>
                 </div>
             </div>
-            <div class="form-group striped-col">
+            <div class="form-group ">
                 <label class="col-sm-3 control-label">Nama Pendek</label>
                 <div class="col-sm-6">
                     <input type="text" id="nama-pndk-input" name="nama-pndk-input" class="form-control" placeholder="Nama Pendek" value="{{$nama_pendek}}">
@@ -48,7 +48,7 @@
                     <input type="text" id="wilayah-input" name="wilayah-input" class="form-control" placeholder="Wilayah" value="{{$wilayah}}">
                 </div>
             </div>
-            <div class="form-group striped-col">
+            <div class="form-group ">
                 <label class="col-sm-3 control-label">File</label>
                 <div class="col-sm-6">
 
@@ -64,11 +64,10 @@
                     <select id="status-input" name="status-input" class="form-control" size="1">
                         <option value="0" {!! $status==0 ? 'selected':'' !!}>Tidak Aktif</option>
                         <option value="1" {!! $status==1 ? 'selected':'' !!}>Aktif</option>
-                        <option value="2" {!! $status==2 ? 'selected':'' !!}>Dihapus</option>
                     </select>
                 </div>
             </div>
-            <div class="form-group striped-col">
+            <div class="form-group ">
                 <label class="col-sm-3 control-label">Latitude</label>
                 <div class="col-sm-6">
                     <input type="number" id="latitude-input" name="latitude-input" class="form-control" placeholder="Latitude" value="{{$latitude}}" step="0.001">
@@ -78,6 +77,19 @@
                 <label class="col-sm-3 control-label">Longitude</label>
                 <div class="col-sm-6">
                     <input type="number" id="longitude-input" name="longitude-input" class="form-control" placeholder="Longitude" value="{{$longitude}}" step="0.001">
+                </div>
+            </div>
+			<div class="form-group ">
+                <label class="col-sm-3 control-label">Luas Wilayah</label>
+                <div class="col-sm-6">
+                    <input type="number" id="luas-input" name="luas-input" class="form-control" value="{{$luas}}" step="0.001">
+                </div>
+            </div>
+			<div class="form-group striped-col">
+                <label class="col-sm-3 control-label">Kode BPS</label>
+                <div class="col-sm-6">
+                    <input type="hidden" id="kode" name="kode" value="{{$kode}}">
+                    <input type="text" id="kode_bps-input" name="kode_bps-input" class="form-control" value="{{$kode_bps}}" >
                 </div>
             </div>
             <div class="form-group form-actions">
@@ -103,7 +115,7 @@
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
             var file_data = document.getElementById('file-input').files[0];
             var form_data = new FormData();
             form_data.append('kode', $('#kode').val());
@@ -115,6 +127,8 @@
             form_data.append('status-input', $('#status-input').val());
             form_data.append('latitude-input', $('#latitude-input').val());
             form_data.append('longitude-input', $('#longitude-input').val());
+			form_data.append('kode_bps-input', $('#kode_bps-input').val());
+			form_data.append('luas-input', $('#luas-input').val());
           e.preventDefault();
           $.ajax({
             type: 'post',
@@ -127,7 +141,7 @@
             },
             success: function () {
             alert('Form Submitted.');
-            window.location.href = "/main/data_wilayah/provinsi";
+            //window.location.href = "/main/data_wilayah/provinsi";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

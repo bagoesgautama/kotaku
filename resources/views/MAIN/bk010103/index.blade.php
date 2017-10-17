@@ -40,9 +40,10 @@
                     <table class="table table-striped" id="kecamatan">
                         <thead>
                             <tr>
-                                <th>Nama</th>
-                                <th>Nama Pendek</th>
-                                <th>Kode Kota</th>
+								<th>Kode</th>
+								<th>Provinsi</th>
+								<th>Kota</th>
+								<th>Nama</th>
                                 <th>Status</th>
                                 <th>Option</th>
                             </tr>
@@ -67,12 +68,14 @@
                      "type": "POST"
                    },
             "columns": [
+				{ "data": "kode" , name:"kode"},
+				{ "data": "prop" , name:"prop"},
+				{ "data": "kota" , name:"kota"},
                 { "data": "nama" , name:"nama"},
-                { "data": "nama_pendek" , name:"nama_pendek"},
-                { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "status" , name:"status"},
                 { "data": "option" , name:"option"}
-            ]
+            ],
+			"order": [[ 0, "desc" ]]
         });
         $('#kecamatan_filter input').unbind();
 		$('#kecamatan_filter input').bind('keyup', function(e) {

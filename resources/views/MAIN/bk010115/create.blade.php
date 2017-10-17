@@ -42,7 +42,7 @@
 							<div class="form-group">
 				                <label class="col-sm-3 control-label">Alamat</label>
 				                <div class="col-sm-6">
-				                    <input type="text" id="alamat-input" name="alamat-input" class="form-control" placeholder="alamat" value="{{$alamat}}">
+				                    <input type="text" id="alamat-input" name="alamat-input" class="form-control" placeholder="alamat" value="{{$alamat}}" required>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
@@ -102,6 +102,7 @@
 {{-- local scripts --}} @section('footer_scripts')
 <script>
   $(document).ready(function () {
+
 	$('#form').on('submit', function (e) {
 	  e.preventDefault();
 	  $.ajax({

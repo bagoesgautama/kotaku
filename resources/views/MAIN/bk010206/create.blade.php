@@ -44,7 +44,7 @@
                                 <label class="col-sm-3 control-label" for="kode">Tahun</label>
                                 <div class="col-sm-6">
                                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                    <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}" required>
+                                    <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}" maxlength="4" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -63,6 +63,9 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @foreach ($kode_kota_list as $kkl)
+                                            <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -71,6 +74,9 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @foreach ($kode_korkot_list as $kkl)
+                                            <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -79,6 +85,9 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @foreach ($kode_faskel_list as $kfl)
+                                            <option value="{{$kfl->kode}}" {!! $kode_faskel==$kfl->kode ? 'selected':'' !!}>{{$kfl->nama}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -342,6 +351,13 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
+        function enforce_maxlength(event) {
+            var t = event.target;
+            if (t.hasAttribute('maxlength')) {
+                t.value = t.value.slice(0, t.getAttribute('maxlength'));
+            }
+        }
+        document.body.addEventListener('input', enforce_maxlength);
         
         var kmw = $('#select-kode-kmw-input');
         var kota = $('#select-kode-kota-input');
@@ -352,39 +368,6 @@
         var kode_kota = {!! json_encode($kode_kota) !!};
         var kode_korkot = {!! json_encode($kode_korkot) !!};
         var kode_faskel = {!! json_encode($kode_faskel) !!};
-        if(kode_kmw!=null){
-            // kota.empty();
-            // kota.append("<option value>Please select</option>");
-            // $.ajax({
-            //     type: 'get',
-            //     "url": "/main/persiapan/kota/pokja/pembentukan/select?kmw="+kode_kmw,
-            //     success: function (data) {
-            //         data=JSON.parse(data)
-            //         for (var i=0;i<data.length;i++){
-            //             if(data[i].kode==kode_kota)
-            //                 kota.append("<option value="+data[i].kode+" selected='selected'>"+data[i].nama+"</option>");
-            //             else
-            //                 kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-            //         }
-            //     }
-            // });
-
-            // korkot.empty();
-            // korkot.append("<option value>Please select</option>");
-            // $.ajax({
-            //     type: 'get',
-            //     "url": "/main/persiapan/kota/pokja/pembentukan/select?korkot_faskel="+kode_korkot+"&kmw_faskel="+kode_kmw,
-            //     success: function (data) {
-            //         data=JSON.parse(data)
-            //         for (var i=0;i<data.length;i++){
-            //             if(data[i].kode==kode_korkot)
-            //                 korkot.append("<option value="+data[i].kode+" selected='selected'>"+data[i].nama+"</option>");
-            //             else
-            //                 korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-            //         }
-            //     }
-            // });
-        }
 
         kmw.change(function(){
             kmw_id=kmw.val();

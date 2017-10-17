@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Profile Kumuh & Rencana Penanganan 5 Tahun @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -23,16 +23,13 @@
                 </a>
             </li>
             <li class="next">
-                Persiapan
+                Perencanaan
             </li>
             <li class="next">
-                Nasional
+               RP2KP-KP/SIAP
             </li>
             <li class="next">
-                Pokja
-            </li>
-            <li class="next">
-                Pembentukan
+                Profile Kumuh & Rencana Penanganan 5 Tahun
             </li>
         </ul>
     </div>
@@ -42,25 +39,26 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <!-- <div class="panel-title pull-left">
-                    <b>bk010201 index</b>
-                </div> -->
-                @if( ! empty($detil['61']))
+                <div class="panel-title pull-left">
+                    <b>bk010306 index</b>
+                </div>
+                @if( ! empty($detil['274']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/nasional/pokja/pembentukan/create'}}">Create</a>
-				</div>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/penanganan/profile_rencana_5thn/create'}}">Create</a>
+                </div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="pokja">
-						<thead>
+                    <table class="table table-striped" id="pokja">
+                        <thead>
                             <tr>
                                 <th>Tahun</th>
-                                <th>Kode Prop</th>
-                                <th>Jenis Kegiatan</th>
-                                <th>Tanggal Pembentukan</th>
-                                <th>Status Pokja</th>
+                                <th>Propinsi</th>
+                                <th>KMW</th>
+                                <th>Kota</th>
+                                <th>Korkot</th>
+                                <th>Created Time</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -75,26 +73,27 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#pokja').DataTable({
-	        // dom: 'Bflrtip',
-	        
-			"processing": true,
+        var table = $('#pokja').DataTable({
+            // dom: 'Bflrtip',
+            
+            "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/nasional/pokja/pembentukan",
+                     "url": "/main/perencanaan/penanganan/profile_rencana_5thn",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-				{ "data": "tahun" , name:"tahun"},
+                { "data": "tahun" , name:"tahun"},
                 { "data": "kode_prop" , name:"kode_prop"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "status_pokja" , name:"status_pokja"},
-				{ "data": "option" , name:"option",orderable:false}
+                { "data": "kode_kmw" , name:"kode_kmw"},
+                { "data": "kode_kota" , name:"kode_kota"},
+                { "data": "kode_korkot" , name:"kode_korkot"},
+                { "data": "created_time" , name:"created_time"},
+                { "data": "option" , name:"option",orderable:false}
             ]
-	    });
+        });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
