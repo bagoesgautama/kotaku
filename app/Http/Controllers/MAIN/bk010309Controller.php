@@ -114,7 +114,14 @@ class bk010309Controller extends Controller
 			56 => 'updated_time',
 			57 => 'updated_by'
 		);
-		$query='select a.*, b.nama nama_prop, c.nama nama_kota, d.nama nama_korkot, e.nama nama_kec from bkt_01030206_plan_kaw_prior a, bkt_01010101_prop b, bkt_01010102_kota c, bkt_01010111_korkot d, bkt_01010103_kec e where (a.kode_prop=b.kode and a.kode_kota=c.kode and a.kode_korkot=d.kode and a.kode_kec=e.kode) ';
+		$query='select a.*, b.nama nama_prop, c.nama nama_kota, d.nama nama_korkot, e.nama nama_kec
+			 from bkt_01030206_plan_kaw_prior a, 
+			 	bkt_01010101_prop b, 
+			 	bkt_01010102_kota c, 
+			 	bkt_01010111_korkot d, 
+			 	bkt_01010103_kec e 
+			 where (a.kode_prop=b.kode and a.kode_kota=c.kode and a.kode_korkot=d.kode and a.kode_kec=e.kode) ';
+			 
 		$totalData = DB::select('select count(1) cnt from bkt_01030206_plan_kaw_prior ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');

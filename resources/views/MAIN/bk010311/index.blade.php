@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Perencanaan - Investasi 5 Tahun @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -23,16 +23,10 @@
                 </a>
             </li>
             <li class="next">
-                Persiapan
+                Perencanaan
             </li>
             <li class="next">
-                Nasional
-            </li>
-            <li class="next">
-                Pokja
-            </li>
-            <li class="next">
-                Pembentukan
+                Investasi 5 Tahun
             </li>
         </ul>
     </div>
@@ -42,25 +36,30 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <!-- <div class="panel-title pull-left">
-                    <b>bk010201 index</b>
-                </div> -->
-                @if( ! empty($detil['61']))
+                <div class="panel-title pull-left">
+                    <b>bk010310 index</b>
+                </div>
+                @if( ! empty($detil['294']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/nasional/pokja/pembentukan/create'}}">Create</a>
-				</div>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/kawasan/investasi/create'}}">Create</a>
+                </div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="pokja">
-						<thead>
+                    <table class="table table-striped" id="users">
+                        <thead>
                             <tr>
                                 <th>Tahun</th>
-                                <th>Kode Prop</th>
+                                <th>Kota</th>
+                                <th>Korkot</th>
+                                <th>Kecamatan Prioritas</th>
+                                <th>KMW</th>
+                                <th>Faskel</th>
                                 <th>Jenis Kegiatan</th>
-                                <th>Tanggal Pembentukan</th>
-                                <th>Status Pokja</th>
+                                <th>Lokasi Kegiatan</th>
+                                <th>Created Time</th>
+                                <th>Created By</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -75,28 +74,34 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#pokja').DataTable({
-	        // dom: 'Bflrtip',
-	        
-			"processing": true,
+        var table = $('#users').DataTable({
+            // dom: 'Bflrtip',
+            
+            "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/nasional/pokja/pembentukan",
+                     "url": "/main/perencanaan/kawasan/investasi",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-				{ "data": "tahun" , name:"tahun"},
-                { "data": "kode_prop" , name:"kode_prop"},
+                { "data": "tahun" , name:"tahun"},
+                { "data": "nama_kota" , name:"nama_kota"},
+                { "data": "nama_korkot" , name:"nama_korkot"},
+                { "data": "kode_kaw_prior" , name:"kode_kaw_prior"},
+                { "data": "nama_kmw" , name:"nama_kmw"},
+                { "data": "nama_faskel" , name:"nama_faskel"},
                 { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "status_pokja" , name:"status_pokja"},
-				{ "data": "option" , name:"option",orderable:false}
+                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+                { "data": "karakter_kaw" , name:"karakter_kaw"},
+                { "data": "created_time" , name:"created_time"},
+                { "data": "created_by" , name:"created_by"},
+                { "data": "option" , name:"option",orderable:false}
             ]
-	    });
-        $('#pokja_filter input').unbind();
-        $('#pokja_filter input').bind('keyup', function(e) {
+        });
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
             table.search(this.value).draw();
         }
