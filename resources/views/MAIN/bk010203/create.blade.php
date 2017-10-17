@@ -63,6 +63,9 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @foreach ($kode_kmw_list as $kkl)
+                                            <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -71,6 +74,9 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @foreach ($kode_faskel_list as $kfl)
+                                            <option value="{{$kfl->kode}}" {!! $kode_faskel==$kfl->kode ? 'selected':'' !!}>{{$kfl->nama}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -328,6 +334,14 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
+        function enforce_maxlength(event) {
+            var t = event.target;
+            if (t.hasAttribute('maxlength')) {
+                t.value = t.value.slice(0, t.getAttribute('maxlength'));
+            }
+        }
+        document.body.addEventListener('input', enforce_maxlength);
+        
         var prov = $('#select-kode-prop-input');
         var kmw = $('#select-kode-kmw-input');
         var faskel = $('#select-kode-faskel-input');
@@ -335,39 +349,6 @@
         var kode_prop = {!! json_encode($kode_prop) !!};
         var kode_kmw = {!! json_encode($kode_kmw) !!};
         var kode_faskel = {!! json_encode($kode_faskel) !!};
-        if(kode_prop!=null){
-            // kmw.empty();
-            // kmw.append("<option value>Please select</option>");
-            // $.ajax({
-            //     type: 'get',
-            //     "url": "/main/persiapan/propinsi/pokja/pembentukan/select?prov="+kode_prop,
-            //     success: function (data) {
-            //         data=JSON.parse(data)
-            //         for (var i=0;i<data.length;i++){
-            //             if(data[i].kode==kode_prop)
-            //                 kmw.append("<option value="+data[i].kode+" selected='selected'>"+data[i].nama+"</option>");
-            //             else
-            //                 kmw.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-            //         }
-            //     }
-            // });
-
-            // faskel.empty();
-            // faskel.append("<option value>Please select</option>");
-            // $.ajax({
-            //     type: 'get',
-            //     "url": "/main/persiapan/propinsi/pokja/pembentukan/select?kmw="+kode_kmw,
-            //     success: function (data) {
-            //         data=JSON.parse(data)
-            //         for (var i=0;i<data.length;i++){
-            //             if(data[i].kode_kmw==kode_kmw)
-            //                 faskel.append("<option value="+data[i].kode+" selected='selected'>"+data[i].nama+"</option>");
-            //             else
-            //                 faskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-            //         }
-            //     }
-            // });
-        }
 
         prov.change(function(){
             prov_id=prov.val();

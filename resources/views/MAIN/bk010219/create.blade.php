@@ -44,7 +44,8 @@
                                 <label class="col-sm-3 control-label">Propinsi</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                    <select id="kode-prop-input" name="kode-prop-input" class="form-control" size="1" required>
+                                    <select id="select-kode-prop-input" name="kode-prop-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
                                         @foreach ($kode_prop_list as $kpl)
                                             <option value="{{$kpl->kode}}" {!! $kode_prop==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
                                         @endforeach
@@ -55,6 +56,7 @@
                                 <label class="col-sm-3 control-label">Kota</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
                                         @foreach ($kode_kota_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
@@ -65,6 +67,7 @@
                                 <label class="col-sm-3 control-label">Korkot</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
                                         @foreach ($kode_korkot_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
@@ -75,6 +78,7 @@
                                 <label class="col-sm-3 control-label">Kecamatan</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
                                         @foreach ($kode_kec_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
@@ -85,6 +89,7 @@
                                 <label class="col-sm-3 control-label">Kelurahan</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kel-input" name="kode-kel-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
                                         @foreach ($kode_kel_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kel==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
@@ -95,6 +100,7 @@
                                 <label class="col-sm-3 control-label">Faskel</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
                                         @foreach ($kode_faskel_list as $kfl)
                                             <option value="{{$kfl->kode}}" {!! $kode_faskel==$kfl->kode ? 'selected':'' !!}>{{$kfl->nama}}</option>
                                         @endforeach
@@ -256,7 +262,7 @@
             form_data.append('file-absensi-input', file_absensi);
             form_data.append('uploaded-file-dokumen', $('#uploaded-file-dokumen').val());
             form_data.append('uploaded-file-absensi', $('#uploaded-file-absensi').val());
-            form_data.append('kode-prop-input', $('#kode-prop-input').val());
+            form_data.append('kode-prop-input', $('#select-kode-prop-input').val());
             form_data.append('kode-kota-input', $('#select-kode-kota-input').val());
             form_data.append('kode-kec-input', $('#select-kode-kec-input').val());
             form_data.append('kode-kel-input', $('#select-kode-kel-input').val());
@@ -298,29 +304,147 @@
             }
           });
         });
+        $("#select-kode-prop-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
         $("#select-kode-kota-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
-        });
-        $("#select-kode-korkot-input").select2({
-            theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
         $("#select-kode-kec-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
         $("#select-kode-kel-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
+        });
+        $("#select-kode-korkot-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
         });
         $("#select-kode-faskel-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
         $("#select-id-pelatihan-input").select2({
             theme: "bootstrap",
             placeholder: "single select"
+        });
+
+        function enforce_maxlength(event) {
+            var t = event.target;
+            if (t.hasAttribute('maxlength')) {
+                t.value = t.value.slice(0, t.getAttribute('maxlength'));
+            }
+        }
+        document.body.addEventListener('input', enforce_maxlength);
+
+        var prop = $('#select-kode-prop-input');
+        var kota = $('#select-kode-kota-input');
+        var korkot = $('#select-kode-korkot-input');
+        var kec = $('#select-kode-kec-input');
+        var kel = $('#select-kode-kel-input');
+        var faskel = $('#select-kode-faskel-input');
+        var prop_id,kota_id,korkot_id,kec_id,kel_id,faskel_id;
+        var kode_prop = {!! json_encode($kode_prop) !!};
+        var kode_kota = {!! json_encode($kode_kota) !!};
+        var kode_korkot = {!! json_encode($kode_korkot) !!};
+        var kode_kec = {!! json_encode($kode_kec) !!};
+        var kode_kel = {!! json_encode($kode_kel) !!};
+        var kode_faskel = {!! json_encode($kode_faskel) !!};
+
+        prop.change(function(){
+            prop_id=prop.val();
+            if(prop_id!=null){
+                kota.empty();
+                kota.append("<option value>Please select</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/pelatihan/select?prop="+prop_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        kota.change(function(){
+            kota_id=kota.val();
+            if(kota_id!=null){
+                korkot.empty();
+                korkot.append("<option value>Please select</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/pelatihan/select?kota_korkot="+kota_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+
+               
+            }
+        });
+
+        kota.change(function(){
+            kota_id=kota.val();
+            if(kota_id!=null){
+                kec.empty();
+                kec.append("<option value>Please select</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/pelatihan/select?kota_kec="+kota_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            kec.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        kec.change(function(){
+            kec_id=kec.val();
+            if(kec_id!=null){
+                kel.empty();
+                kel.append("<option value>Please select</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/pelatihan/select?kec_kel="+kec_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            kel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        kel.change(function(){
+            kel_id=kel.val();
+            if(kel_id!=null){
+                faskel.empty();
+                faskel.append("<option value>Please select</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/pelatihan/select?kel_faskel="+kel_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            faskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
         });
       });
 </script>

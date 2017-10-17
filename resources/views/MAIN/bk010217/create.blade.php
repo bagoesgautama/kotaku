@@ -45,6 +45,7 @@
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                     <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
                                         @foreach ($kode_kmw_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
@@ -55,6 +56,7 @@
                                 <label class="col-sm-3 control-label">Kota</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
                                         @foreach ($kode_kota_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
@@ -65,6 +67,7 @@
                                 <label class="col-sm-3 control-label">Korkot</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
                                         @foreach ($kode_korkot_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
@@ -75,6 +78,7 @@
                                 <label class="col-sm-3 control-label">Kecamatan</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
                                         @foreach ($kode_kec_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
@@ -85,6 +89,7 @@
                                 <label class="col-sm-3 control-label">Kelurahan</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kel-input" name="kode-kel-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
                                         @foreach ($kode_kel_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kel==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
@@ -95,6 +100,7 @@
                                 <label class="col-sm-3 control-label">Faskel</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
                                         @foreach ($kode_faskel_list as $kfl)
                                             <option value="{{$kfl->kode}}" {!! $kode_faskel==$kfl->kode ? 'selected':'' !!}>{{$kfl->nama}}</option>
                                         @endforeach
@@ -291,27 +297,142 @@
         });
         $("#select-kode-kota-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
-        });
-        $("#select-kode-korkot-input").select2({
-            theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
         $("#select-kode-kec-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
-        });
-        $("#select-kode-kmw-input").select2({
-            theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
         $("#select-kode-kel-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
+        });
+        $("#select-kode-kmw-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+        $("#select-kode-korkot-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
         });
         $("#select-kode-faskel-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
+        });
+
+        function enforce_maxlength(event) {
+            var t = event.target;
+            if (t.hasAttribute('maxlength')) {
+                t.value = t.value.slice(0, t.getAttribute('maxlength'));
+            }
+        }
+        document.body.addEventListener('input', enforce_maxlength);
+
+        var kmw = $('#select-kode-kmw-input');
+        var kota = $('#select-kode-kota-input');
+        var korkot = $('#select-kode-korkot-input');
+        var kec = $('#select-kode-kec-input');
+        var kel = $('#select-kode-kel-input');
+        var faskel = $('#select-kode-faskel-input');
+        var kmw_id,kota_id,korkot_id,kec_id,kel_id,faskel_id;
+        var kode_kmw = {!! json_encode($kode_kmw) !!};
+        var kode_kota = {!! json_encode($kode_kota) !!};
+        var kode_korkot = {!! json_encode($kode_korkot) !!};
+        var kode_kec = {!! json_encode($kode_kec) !!};
+        var kode_kel = {!! json_encode($kode_kel) !!};
+        var kode_faskel = {!! json_encode($kode_faskel) !!};
+
+        kmw.change(function(){
+            kmw_id=kmw.val();
+            if(kmw_id!=null){
+                kota.empty();
+                kota.append("<option value>Please select</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/relawan/select?kmw="+kmw_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        kota.change(function(){
+            kota_id=kota.val();
+            kmw_id=kmw.val();
+            if(kota_id!=null){
+                korkot.empty();
+                korkot.append("<option value>Please select</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/relawan/select?kota_korkot="+kota_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+
+               
+            }
+        });
+
+        kota.change(function(){
+            kota_id=kota.val();
+            if(kota_id!=null){
+                kec.empty();
+                kec.append("<option value>Please select</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/relawan/select?kota_kec="+kota_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            kec.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        kec.change(function(){
+            kec_id=kec.val();
+            if(kec_id!=null){
+                kel.empty();
+                kel.append("<option value>Please select</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/relawan/select?kec_kel="+kec_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            kel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        kel.change(function(){
+            kel_id=kel.val();
+            if(kel_id!=null){
+                faskel.empty();
+                faskel.append("<option value>Please select</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/relawan/select?kel_faskel="+kel_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            faskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
         });
       });
 </script>
