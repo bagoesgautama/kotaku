@@ -36,6 +36,7 @@ class bk010101Controller extends Controller
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
+				$this->log_aktivitas('View', 3);
 				return view('MAIN/bk010101/index',$data);
 			}
 			else {
@@ -67,6 +68,8 @@ class bk010101Controller extends Controller
 					$data['file'] = $rowData[0]->url_border_area;
 					$data['latitude'] = $rowData[0]->latitude;
 					$data['longitude'] = $rowData[0]->longitude;
+					$data['luas'] = $rowData[0]->luas_wil;
+					$data['kode_bps'] = $rowData[0]->kode_bps;
 					return view('MAIN/bk010101/create',$data);
 				}else if($data['kode']==null && !empty($data['detil']['4'])){
 					$data['nama'] = null;
@@ -76,6 +79,8 @@ class bk010101Controller extends Controller
 					$data['file'] = null;
 					$data['latitude'] = null;
 					$data['longitude'] = null;
+					$data['luas'] = null;
+					$data['kode_bps'] = null;
 					return view('MAIN/bk010101/create',$data);
 				}else {
 					return Redirect::to('/');
@@ -100,15 +105,6 @@ class bk010101Controller extends Controller
 			$url = $file->getClientOriginalName();
 			$upload = true;
 		}
-
-		/*if($upload == false){
-			$file = public_path('/uploads/provinsi/'.$url);
-			$string = file_get_contents($file);
-			$json_file = json_decode($string, true);
-			$json_file['properties']['PROPINSI'] = $request->input('nama-input');
-			$new_String = json_encode($json_file);
-			file_put_contents($file, $new_String);
-		}else*/
 		if($upload == true){
 			$string = file_get_contents($file);
 			$json_file = json_decode($string, true);
@@ -119,17 +115,36 @@ class bk010101Controller extends Controller
 		if ($request->input('kode')!=null){
 			date_default_timezone_set('Asia/Jakarta');
 			DB::table('bkt_01010101_prop')->where('kode', $request->input('kode'))
-			->update(['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'wilayah' => $request->input('wilayah-input'), 'url_border_area' => $url, 'status' => $request->input('status-input'), 'latitude' => $request->input('latitude-input'), 'longitude' => $request->input('longitude-input'), 'updated_by' => Auth::user()->id, 'updated_time' => date('Y-m-d H:i:s')]);
-
+			->update(['nama' => $request->input('nama-input'),
+					'nama_pendek' => $request->input('nama-pndk-input'),
+					'wilayah' => $request->input('wilayah-input'),
+					'url_border_area' => $url,
+					'status' => $request->input('status-input'),
+					'latitude' => $request->input('latitude-input'),
+					'longitude' => $request->input('longitude-input'),
+					'luas_wil' => $request->input('luas-input'),
+					'kode_bps' => $request->input('kode_bps-input'),
+					'updated_by' => Auth::user()->id,
+					'updated_time' => date('Y-m-d H:i:s')]);
 			if($upload == true){
 				$file->move(public_path('/uploads/provinsi'), $file->getClientOriginalName());
 			}
+			$this->log_aktivitas('Update', 5);
 		}else{
 			DB::table('bkt_01010101_prop')->insert(
-       			['nama' => $request->input('nama-input'), 'nama_pendek' => $request->input('nama-pndk-input'), 'wilayah' => $request->input('wilayah-input'), 'url_border_area' => $url, 'latitude' => $request->input('latitude-input'), 'longitude' => $request->input('longitude-input'), 'created_by' => Auth::user()->id]);
+       			['nama' => $request->input('nama-input'),
+				'nama_pendek' => $request->input('nama-pndk-input'),
+				'wilayah' => $request->input('wilayah-input'),
+				'url_border_area' => $url,
+				'latitude' => $request->input('latitude-input'),
+				'longitude' => $request->input('longitude-input'),
+				'luas_wil' => $request->input('luas-input'),
+				'kode_bps' => $request->input('kode_bps-input'),
+				'created_by' => Auth::user()->id]);
 			if($upload == true){
 				$file->move(public_path('/uploads/provinsi'), $file->getClientOriginalName());
 			}
+			$this->log_aktivitas('Create', 4);
 		}
 	}
 
@@ -144,10 +159,11 @@ class bk010101Controller extends Controller
 			}
 			if(!empty($data2['detil'])){
 				$columns = array(
-					0 =>'nama',
-					1 =>'nama_pendek',
-					2 =>'wilayah',
-					3 =>'status'
+					0 =>'kode',
+					1 =>'nama',
+					2 =>'nama_pendek',
+					3 =>'wilayah',
+					4 =>'status'
 				);
 				$query='select * from bkt_01010101_prop where status = 0 or status = 1 ';
 				$totalData = DB::select('select count(1) cnt from bkt_01010101_prop where status = 0 or status = 1');
@@ -163,7 +179,8 @@ class bk010101Controller extends Controller
 				else {
 					$search = $request->input('search.value');
 					$posts=DB::select($query. 'and nama like "%'.$search.'%" or nama_pendek like "%'.$search.'%" or wilayah like "%'.$search.'%" or status like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-					$totalFiltered=DB::select('select count(1) from ('.$query. 'and nama like "%'.$search.'%" or nama_pendek like "%'.$search.'%" or wilayah like "%'.$search.'%" or status like "%'.$search.'%") a');
+					$totalFiltered=DB::select('select count(1) cnt from ('.$query. 'and nama like "%'.$search.'%" or nama_pendek like "%'.$search.'%" or wilayah like "%'.$search.'%" or status like "%'.$search.'%") a');
+					$totalFiltered=$totalFiltered[0]->cnt;
 				}
 
 				$data = array();
@@ -186,6 +203,7 @@ class bk010101Controller extends Controller
 
 						$url_edit="/main/data_wilayah/provinsi/create?kode=".$show;
 						$url_delete="/main/data_wilayah/provinsi/delete?kode=".$delete;
+						$nestedData['kode'] = $post->kode;
 						$nestedData['nama'] = $post->nama;
 						$nestedData['nama_pendek'] = $post->nama_pendek;
 						$nestedData['wilayah'] = $post->wilayah;
@@ -214,6 +232,20 @@ class bk010101Controller extends Controller
 	public function delete(Request $request)
 	{
 		DB::table('bkt_01010101_prop')->where('kode', $request->input('kode'))->update(['status' => 2]);
+		$this->log_aktivitas('Delete', 6);
         return Redirect::to('/main/data_wilayah/provinsi');
+    }
+
+	public function log_aktivitas($aktifitas, $detil)
+    {
+    	DB::table('bkt_02030201_log_aktivitas')->insert([
+			'kode_user' => Auth::user()->id,
+			'kode_apps' => 1,
+			'kode_modul' => 2,
+			'kode_menu' => 20,
+			'kode_menu_detil' => $detil,
+			'aktifitas' => $aktifitas,
+			'deskripsi' => $aktifitas
+		]);
     }
 }
