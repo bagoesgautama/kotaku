@@ -505,18 +505,21 @@ Route::post('/main/perencanaan/kawasan/investasi', 'MAIN\bk010310Controller@post
 Route::get('/main/perencanaan/kawasan/investasi/create', 'MAIN\bk010310Controller@create');
 Route::post('/main/perencanaan/kawasan/investasi/create', 'MAIN\bk010310Controller@post_create');
 Route::get('/main/perencanaan/kawasan/investasi/delete', 'MAIN\bk010310Controller@delete');
+Route::get('/main/perencanaan/kawasan/investasi/select', 'MAIN\bk010310Controller@select');
 
 Route::get('/main/perencanaan/rencana_kegiatan', 'MAIN\bk010311Controller@index');
 Route::post('/main/perencanaan/rencana_kegiatan', 'MAIN\bk010311Controller@post');
 Route::get('/main/perencanaan/rencana_kegiatan/create', 'MAIN\bk010311Controller@create');
 Route::post('/main/perencanaan/rencana_kegiatan/create', 'MAIN\bk010311Controller@post_create');
 Route::get('/main/perencanaan/rencana_kegiatan/delete', 'MAIN\bk010311Controller@delete');
+Route::get('/main/perencanaan/rencana_kegiatan/select', 'MAIN\bk010311Controller@select');
 
 Route::get('/main/perencanaan/infra/penyiapan_paket', 'MAIN\bk010312Controller@index');
 Route::post('/main/perencanaan/infra/penyiapan_paket', 'MAIN\bk010312Controller@post');
 Route::get('/main/perencanaan/infra/penyiapan_paket/create', 'MAIN\bk010312Controller@create');
 Route::post('/main/perencanaan/infra/penyiapan_paket/create', 'MAIN\bk010312Controller@post_create');
 Route::get('/main/perencanaan/infra/penyiapan_paket/delete', 'MAIN\bk010312Controller@delete');
+Route::get('/main/perencanaan/infra/penyiapan_paket/select', 'MAIN\bk010312Controller@select');
 
 Route::get('/main/perencanaan/infra/amdal', 'MAIN\bk010313Controller@index');
 Route::post('/main/perencanaan/infra/amdal', 'MAIN\bk010313Controller@post');
