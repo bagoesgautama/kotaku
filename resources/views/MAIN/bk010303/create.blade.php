@@ -22,7 +22,7 @@
             </li>
             <li class="next">
                 <a href="/main/perencanaan/penanganan/lokakarya_perencanaan">
-                    Perencanaan / Penanganan / Lokakarya Perencanaan
+                    Perencanaan / Penanganan Pemukiman Kota / Lokakarya Perencanaan
                 </a>
             </li>
             <li class="next">

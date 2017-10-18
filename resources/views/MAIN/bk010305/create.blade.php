@@ -24,7 +24,7 @@
             </li>
             <li class="next">
                 <a href="/main/perencanaan/penanganan/lokasi_profile">
-                    Perencanaan / Penanganan / Lokasi & Profile Permukiman, Produk Perencanaan, Profile Kumuh
+                    Perencanaan / Penanganan Pemukiman Kota / Lokasi & Profile Permukiman, Produk Perencanaan, Profile Kumuh
                 </a>
             </li>
             <li class="next">

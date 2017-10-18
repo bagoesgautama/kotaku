@@ -22,7 +22,7 @@
             </li>
             <li class="next">
                 <a href="/main/perencanaan/penanganan/pelaksanaan_rpk">
-                    Perencanaan / Penanganan / Pelaksanaan RPK
+                    Perencanaan / Penanganan Pemukiman Kota / Perencanaan Penanganan Permukiman / Pelaksanaan RPK
                 </a>
             </li>
             <li class="next">

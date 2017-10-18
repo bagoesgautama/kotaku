@@ -24,7 +24,7 @@
             </li>
             <li class="next">
                 <a href="/main/perencanaan/penanganan/profile_rencana_5thn">
-                    Perencanaan / Penanganan / RP2KP-KP/SIAP / Profile Kumuh & Rencana Penanganan 5 Tahun
+                    Perencanaan / Penanganan / Penanganan Pemukiman Kota / RP2KP-KP/SIAP / Profile Kumuh & Rencana Penanganan 5 Tahun
                 </a>
             </li>
             <li class="next">
