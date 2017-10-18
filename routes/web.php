@@ -104,35 +104,38 @@ Route::post('/hrm/role_akses', 'HRM\bk020109Controller@post');
 Route::get('/main', 'HomeController@main');
 
 //master data
-//gis Provinsi
+//wilayah
 Route::get('/main/data_wilayah/provinsi', 'MAIN\bk010101Controller@index');
 Route::post('/main/data_wilayah/provinsi', 'MAIN\bk010101Controller@post');
 Route::get('/main/data_wilayah/provinsi/create', 'MAIN\bk010101Controller@create');
 Route::post('/main/data_wilayah/provinsi/create', 'MAIN\bk010101Controller@post_create');
 Route::get('/main/data_wilayah/provinsi/delete', 'MAIN\bk010101Controller@delete');
 
-//gis kota
 Route::get('/main/data_wilayah/kota', 'MAIN\bk010102Controller@index');
 Route::post('/main/data_wilayah/kota', 'MAIN\bk010102Controller@post');
 Route::get('/main/data_wilayah/kota/create', 'MAIN\bk010102Controller@create');
 Route::post('/main/data_wilayah/kota/create', 'MAIN\bk010102Controller@post_create');
 Route::get('/main/data_wilayah/kota/delete', 'MAIN\bk010102Controller@delete');
 
-//gis kecamatan
 Route::get('/main/data_wilayah/kecamatan', 'MAIN\bk010103Controller@index');
 Route::post('/main/data_wilayah/kecamatan', 'MAIN\bk010103Controller@post');
 Route::get('/main/data_wilayah/kecamatan/create', 'MAIN\bk010103Controller@create');
 Route::post('/main/data_wilayah/kecamatan/create', 'MAIN\bk010103Controller@post_create');
 Route::get('/main/data_wilayah/kecamatan/delete', 'MAIN\bk010103Controller@delete');
 
-//gis kelurahan
 Route::get('/main/data_wilayah/kelurahan', 'MAIN\bk010104Controller@index');
 Route::post('/main/data_wilayah/kelurahan', 'MAIN\bk010104Controller@post');
 Route::get('/main/data_wilayah/kelurahan/create', 'MAIN\bk010104Controller@create');
 Route::post('/main/data_wilayah/kelurahan/create', 'MAIN\bk010104Controller@post_create');
 Route::get('/main/data_wilayah/kelurahan/delete', 'MAIN\bk010104Controller@delete');
 
-//master menu
+Route::get('/main/data_wilayah/rt', 'MAIN\bk010105Controller@index');
+Route::post('/main/data_wilayah/rt', 'MAIN\bk010105Controller@post');
+Route::get('/main/data_wilayah/rt/create', 'MAIN\bk010105Controller@create');
+Route::post('/main/data_wilayah/rt/create', 'MAIN\bk010105Controller@post_create');
+Route::get('/main/data_wilayah/rt/delete', 'MAIN\bk010105Controller@delete');
+
+//master cakupan program
 Route::get('/main/slum_program', 'MAIN\bk010107Controller@index');
 Route::post('/main/slum_program', 'MAIN\bk010107Controller@post');
 Route::get('/main/slum_program/create', 'MAIN\bk010107Controller@create');
@@ -503,18 +506,21 @@ Route::post('/main/perencanaan/kawasan/investasi', 'MAIN\bk010310Controller@post
 Route::get('/main/perencanaan/kawasan/investasi/create', 'MAIN\bk010310Controller@create');
 Route::post('/main/perencanaan/kawasan/investasi/create', 'MAIN\bk010310Controller@post_create');
 Route::get('/main/perencanaan/kawasan/investasi/delete', 'MAIN\bk010310Controller@delete');
+Route::get('/main/perencanaan/kawasan/investasi/select', 'MAIN\bk010310Controller@select');
 
 Route::get('/main/perencanaan/rencana_kegiatan', 'MAIN\bk010311Controller@index');
 Route::post('/main/perencanaan/rencana_kegiatan', 'MAIN\bk010311Controller@post');
 Route::get('/main/perencanaan/rencana_kegiatan/create', 'MAIN\bk010311Controller@create');
 Route::post('/main/perencanaan/rencana_kegiatan/create', 'MAIN\bk010311Controller@post_create');
 Route::get('/main/perencanaan/rencana_kegiatan/delete', 'MAIN\bk010311Controller@delete');
+Route::get('/main/perencanaan/rencana_kegiatan/select', 'MAIN\bk010311Controller@select');
 
 Route::get('/main/perencanaan/infra/penyiapan_paket', 'MAIN\bk010312Controller@index');
 Route::post('/main/perencanaan/infra/penyiapan_paket', 'MAIN\bk010312Controller@post');
 Route::get('/main/perencanaan/infra/penyiapan_paket/create', 'MAIN\bk010312Controller@create');
 Route::post('/main/perencanaan/infra/penyiapan_paket/create', 'MAIN\bk010312Controller@post_create');
 Route::get('/main/perencanaan/infra/penyiapan_paket/delete', 'MAIN\bk010312Controller@delete');
+Route::get('/main/perencanaan/infra/penyiapan_paket/select', 'MAIN\bk010312Controller@select');
 
 Route::get('/main/perencanaan/infra/amdal', 'MAIN\bk010313Controller@index');
 Route::post('/main/perencanaan/infra/amdal', 'MAIN\bk010313Controller@post');

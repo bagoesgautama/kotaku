@@ -21,7 +21,7 @@
             	</a>
             </li>
             <li class="next">
-	            Master Data Kelurahan
+	            Master Data RT
             </li>
         </ul>
     </div>
@@ -31,9 +31,14 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_wilayah/kelurahan/create">Create</a>
+				<div class="panel-title pull-left">
+                    <b>bk010105 Index</b>
                 </div>
+				@if( ! empty($detil['474']))
+                <div class="tools pull-right">
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_wilayah/rt/create">Create</a>
+                </div>
+				@endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -44,6 +49,8 @@
 								<th>Provinsi</th>
 								<th>Kota</th>
 								<th>Kecamatan</th>
+								<th>Kelurahan</th>
+								<th>Kode RT</th>
                                 <th>Nama</th>
                                 <th>Status</th>
                                 <th>Option</th>
@@ -65,16 +72,18 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/data_wilayah/kelurahan",
+                     "url": "/main/data_wilayah/rt",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-				{ "data": "kode" , name:"kode"},
+				{ "data": "id" , name:"id"},
 				{ "data": "prop" , name:"prop"},
 				{ "data": "kota" , name:"kota"},
 				{ "data": "kec" , name:"kec"},
+				{ "data": "kel" , name:"kel"},
+				{ "data": "kode_rt" , name:"kode_rt"},
                 { "data": "nama" , name:"nama"},
                 { "data": "status" , name:"status"},
                 { "data": "option" , name:"option"}
