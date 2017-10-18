@@ -675,5 +675,19 @@ Route::get('/gis', 'GIS\bk040101Controller@index');
 Route::get('/gis/map-kota', 'GIS\bk040101Controller@kota');
 Route::get('/gis/map-kecamatan', 'GIS\bk040101Controller@kecamatan');
 
+/**
+ *
+ *
+ *module QS route here
+ */
+Route::get('/qs', 'HomeController@qs');
+
+//master data
+Route::get('/qs/master/agenda', 'QS\bk050101Controller@index');
+Route::post('/qs/master/agenda', 'QS\bk050101Controller@post');
+Route::get('/qs/master/agenda/create', 'QS\bk050101Controller@create');
+Route::post('/qs/master/agenda/create', 'QS\bk050101Controller@post_create');
+Route::get('/qs/master/agenda/delete', 'QS\bk050101Controller@delete');
+
 
 Auth::routes();

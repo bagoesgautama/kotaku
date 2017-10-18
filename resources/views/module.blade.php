@@ -54,6 +54,21 @@
 		            </div>
 				</div>
 				@endif
+				@if( ! empty($apps['5']))
+				<div class="col-md-4 ">
+				    <div class="panel-body">
+						<a href='qs'>
+							<div class="panel panel-widget">
+					            <div class="panel-body bg-primary text-center careers-item">
+					                <div>
+					                   	<i class="fa-5x fa fa-bolt hover-rotate text-white">QS</i>
+					                </div>
+					            </div>
+					        </div>
+						</a>
+		            </div>
+				</div>
+				@endif
 			</div>
 			<div class="row">
 				@if( ! empty($apps['3']))
@@ -79,23 +94,6 @@
 					            <div class="panel-body bg-primary text-center careers-item">
 					                <div>
 					                   	<i class="fa-5x fa fa-map-marker hover-rotate text-white">GIS</i>
-					                </div>
-					            </div>
-					        </div>
-						</a>
-		            </div>
-				</div>
-				@endif
-			</div>
-			<div class="row">
-				@if( ! empty($apps['5']))
-				<div class="col-md-4 ">
-				    <div class="panel-body">
-						<a href='qs'>
-							<div class="panel panel-widget">
-					            <div class="panel-body bg-primary text-center careers-item">
-					                <div>
-					                   	<i class="fa-5x fa fa-bolt hover-rotate text-white">QS</i>
 					                </div>
 					            </div>
 					        </div>

@@ -41,7 +41,7 @@ class bk010111Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
-				
+
 				$this->log_aktivitas('View', 44);
 				return view('MAIN/bk010111/index',$data);
 			}
@@ -101,7 +101,8 @@ class bk010111Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. ' and (a.nama like "%'.$search.'%" or a.email1 like "%'.$search.'%" or a.no_hp1 like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.nama like "%'.$search.'%" or a.email1 like "%'.$search.'%" or a.no_hp1 like "%'.$search.'%")) a');
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (a.nama like "%'.$search.'%" or a.email1 like "%'.$search.'%" or a.no_hp1 like "%'.$search.'%")) a');
+			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
 		$data = array();
@@ -131,7 +132,7 @@ class bk010111Controller extends Controller
 				$nestedData['created_by'] = $post->created_by;
 				$nestedData['updated_time'] = $post->updated_time;
 				$nestedData['updated_by'] = $post->updated_by;
-				
+
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){
@@ -147,7 +148,7 @@ class bk010111Controller extends Controller
 				}
 				if(!empty($detil['47'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}		
+				}
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
@@ -177,7 +178,7 @@ class bk010111Controller extends Controller
 		$data['username'] = '';
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
-		
+
 		//get dropdown list from Database
 		$kode_kmw_list = DB::select('select kode from bkt_01010110_kmw');
 		$data['kode_kmw_list'] = $kode_kmw_list;
@@ -237,17 +238,17 @@ class bk010111Controller extends Controller
 			DB::table('bkt_01010111_korkot')->where('kode', $request->input('example-id-input'))
 			->update(
 				['kode_kmw' => $request->input('kode_kmw-input'),
-				'nama' => $request->input('nama-input'), 
-				'alamat' => $request->input('alamat-input'), 
-				'kodepos' => $request->input('kodepos-input'), 
-				'contact_person' => $request->input('contact_person-input'), 
+				'nama' => $request->input('nama-input'),
+				'alamat' => $request->input('alamat-input'),
+				'kodepos' => $request->input('kodepos-input'),
+				'contact_person' => $request->input('contact_person-input'),
 				'no_phone' => $request->input('no_phone-input'),
-				'no_fax' => $request->input('no_fax-input'),  
-				'no_hp1' => $request->input('no_hp1-input'), 
-				'no_hp2' => $request->input('no_hp2-input'), 
-				'email1' => $request->input('email1-input'), 
-				'email2' => $request->input('email2-input'), 
-				'pms_nama' => $request->input('pms_nama-input'), 
+				'no_fax' => $request->input('no_fax-input'),
+				'no_hp1' => $request->input('no_hp1-input'),
+				'no_hp2' => $request->input('no_hp2-input'),
+				'email1' => $request->input('email1-input'),
+				'email2' => $request->input('email2-input'),
+				'pms_nama' => $request->input('pms_nama-input'),
 				'pms_alamat' => $request->input('pms_alamat-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
@@ -257,17 +258,17 @@ class bk010111Controller extends Controller
 		}else{
 			DB::table('bkt_01010111_korkot')->insert(
        			['kode_kmw' => $request->input('kode_kmw-input'),
-				'nama' => $request->input('nama-input'), 
-				'alamat' => $request->input('alamat-input'), 
-				'kodepos' => $request->input('kodepos-input'), 
-				'contact_person' => $request->input('contact_person-input'), 
+				'nama' => $request->input('nama-input'),
+				'alamat' => $request->input('alamat-input'),
+				'kodepos' => $request->input('kodepos-input'),
+				'contact_person' => $request->input('contact_person-input'),
 				'no_phone' => $request->input('no_phone-input'),
-				'no_fax' => $request->input('no_fax-input'),  
-				'no_hp1' => $request->input('no_hp1-input'), 
-				'no_hp2' => $request->input('no_hp2-input'), 
-				'email1' => $request->input('email1-input'), 
-				'email2' => $request->input('email2-input'), 
-				'pms_nama' => $request->input('pms_nama-input'), 
+				'no_fax' => $request->input('no_fax-input'),
+				'no_hp1' => $request->input('no_hp1-input'),
+				'no_hp2' => $request->input('no_hp2-input'),
+				'email1' => $request->input('email1-input'),
+				'email2' => $request->input('email2-input'),
+				'pms_nama' => $request->input('pms_nama-input'),
 				'pms_alamat' => $request->input('pms_alamat-input'),
        			'created_by' => Auth::user()->id
        			]);
@@ -287,10 +288,10 @@ class bk010111Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
-				'kode_modul' => 2, 
-				'kode_menu' => 28,   
-				'kode_menu_detil' => $detil, 
-				'aktifitas' => $aktifitas, 
+				'kode_modul' => 2,
+				'kode_menu' => 28,
+				'kode_menu_detil' => $detil,
+				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas
        			]);
     }

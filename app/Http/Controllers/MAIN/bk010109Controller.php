@@ -41,7 +41,7 @@ class bk010109Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
-				
+
 				$this->log_aktivitas('View', 36);
 				return view('MAIN/bk010109/index',$data);
 			}
@@ -92,7 +92,8 @@ class bk010109Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
+			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
 		$data = array();
@@ -126,7 +127,7 @@ class bk010109Controller extends Controller
 				}
 				if(!empty($detil['39'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}		
+				}
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
@@ -195,7 +196,7 @@ class bk010109Controller extends Controller
 		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_01010109_kmp_slum_prog')->where('kode', $request->input('example-id-input'))
-			->update(['kode_kmp' => $request->input('select-kode_kmp-input'), 
+			->update(['kode_kmp' => $request->input('select-kode_kmp-input'),
 				'kode_slum_prog' => $request->input('select-kode_slum_prog-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
@@ -204,8 +205,8 @@ class bk010109Controller extends Controller
 
 		}else{
 			DB::table('bkt_01010109_kmp_slum_prog')->insert(
-				['kode_kmp' => $request->input('select-kode_kmp-input'), 
-				'kode_slum_prog' => $request->input('select-kode_slum_prog-input'), 
+				['kode_kmp' => $request->input('select-kode_kmp-input'),
+				'kode_slum_prog' => $request->input('select-kode_slum_prog-input'),
        			'created_by' => Auth::user()->id
        			]);
 			$this->log_aktivitas('Create', 37);
@@ -224,10 +225,10 @@ class bk010109Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
-				'kode_modul' => 2, 
-				'kode_menu' => 26,   
-				'kode_menu_detil' => $detil, 
-				'aktifitas' => $aktifitas, 
+				'kode_modul' => 2,
+				'kode_menu' => 26,
+				'kode_menu_detil' => $detil,
+				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas
        			]);
     }
