@@ -7,7 +7,7 @@
         </a>
 		<ul class="sub-menu">
 			@if( ! empty($menu['18']))
-			<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')||Request::is( 'main/data_wilayah/kota')||Request::is( 'main/data_wilayah/kota/create')||Request::is( 'main/data_wilayah/kecamatan')||Request::is( 'main/data_wilayah/kecamatan/create')||Request::is( 'main/data_wilayah/kelurahan')||Request::is( 'main/data_wilayah/kelurahan/create')? 'class="active"': "") !!}>
+			<li {!! (Request::is( 'main/data_wilayah/*')? 'class="active"': "") !!}>
 				<a href="javascript:void(0)">
 					<span class="mm-text">Data Wilayah</span>
 					<span class="fa arrow"></span>
@@ -38,6 +38,13 @@
 					<li {!! (Request::is( 'main/data_wilayah/kelurahan')||Request::is( 'main/data_wilayah/kelurahan/create')? 'class="active"': "") !!}>
 						<a href="/main/data_wilayah/kelurahan">
 							<span class="mm-text">Kelurahan</span>
+						</a>
+					</li>
+					@endif
+					@if( ! empty($menu['147']))
+					<li {!! (Request::is( 'main/data_wilayah/rt')||Request::is( 'main/data_wilayah/rt/create')? 'class="active"': "") !!}>
+						<a href="/main/data_wilayah/rt">
+							<span class="mm-text">RT</span>
 						</a>
 					</li>
 					@endif

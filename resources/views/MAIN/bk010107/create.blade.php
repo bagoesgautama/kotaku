@@ -83,7 +83,7 @@
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">Contact Person</label>
-                <div class="col-sm-6">    
+                <div class="col-sm-6">
                     <input type="text" id="contact_person-input" name="contact_person-input" class="form-control" placeholder="Contact Person" value="{{ $contact_person }}" maxlength="50">
                 </div>
             </div>
@@ -95,7 +95,7 @@
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">No FAX</label>
-                <div class="col-sm-6">   
+                <div class="col-sm-6">
                     <input type="number" id="no_fax-input" name="no_fax-input" class="form-control" placeholder="Fax" value="{{ $no_fax }}" maxlength="30">
                 </div>
             </div>
@@ -170,12 +170,6 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group ">
-                <label class="col-sm-3 control-label" for="example-text-input1">Project</label>
-                <div class="col-sm-6">
-                    <input type="text" id="project-input" name="project-input" class="form-control" placeholder="Project" value="{{ $project }}" maxlength="4">
-                </div>
-            </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">Departemen</label>
                 <div class="col-sm-6">
@@ -190,16 +184,6 @@
                 <label class="col-sm-3 control-label" for="example-text-input1">Glosary Caption</label>
                 <div class="col-sm-6">
                     <input type="text" id="glosary_caption-input" name="glosary_caption-input" class="form-control" placeholder="Glosary Caption" value="{{ $glosary_caption }}" maxlength="50">
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-text-input1">Jenis Siklus</label>
-                <div class="col-sm-6">
-                    <select id="select-jenis_siklus-input" name="select-jenis_siklus-input" class="form-control" size="1">
-                        <option value="0" @if($jenis_siklus==0) selected="selected" @endif >0</option>
-                        <option value="1" @if($jenis_siklus==1) selected="selected" @endif >1</option>
-                        <option value="2" @if($jenis_siklus==2) selected="selected" @endif >2</option>
-                    </select>
                 </div>
             </div>
             <div class="form-group form-actions">
@@ -233,7 +217,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/slum_program";
             },
@@ -268,4 +252,3 @@
 <script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/register.js')}}"></script>
 @stop
-

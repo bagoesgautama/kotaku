@@ -104,35 +104,38 @@ Route::post('/hrm/role_akses', 'HRM\bk020109Controller@post');
 Route::get('/main', 'HomeController@main');
 
 //master data
-//gis Provinsi
+//wilayah
 Route::get('/main/data_wilayah/provinsi', 'MAIN\bk010101Controller@index');
 Route::post('/main/data_wilayah/provinsi', 'MAIN\bk010101Controller@post');
 Route::get('/main/data_wilayah/provinsi/create', 'MAIN\bk010101Controller@create');
 Route::post('/main/data_wilayah/provinsi/create', 'MAIN\bk010101Controller@post_create');
 Route::get('/main/data_wilayah/provinsi/delete', 'MAIN\bk010101Controller@delete');
 
-//gis kota
 Route::get('/main/data_wilayah/kota', 'MAIN\bk010102Controller@index');
 Route::post('/main/data_wilayah/kota', 'MAIN\bk010102Controller@post');
 Route::get('/main/data_wilayah/kota/create', 'MAIN\bk010102Controller@create');
 Route::post('/main/data_wilayah/kota/create', 'MAIN\bk010102Controller@post_create');
 Route::get('/main/data_wilayah/kota/delete', 'MAIN\bk010102Controller@delete');
 
-//gis kecamatan
 Route::get('/main/data_wilayah/kecamatan', 'MAIN\bk010103Controller@index');
 Route::post('/main/data_wilayah/kecamatan', 'MAIN\bk010103Controller@post');
 Route::get('/main/data_wilayah/kecamatan/create', 'MAIN\bk010103Controller@create');
 Route::post('/main/data_wilayah/kecamatan/create', 'MAIN\bk010103Controller@post_create');
 Route::get('/main/data_wilayah/kecamatan/delete', 'MAIN\bk010103Controller@delete');
 
-//gis kelurahan
 Route::get('/main/data_wilayah/kelurahan', 'MAIN\bk010104Controller@index');
 Route::post('/main/data_wilayah/kelurahan', 'MAIN\bk010104Controller@post');
 Route::get('/main/data_wilayah/kelurahan/create', 'MAIN\bk010104Controller@create');
 Route::post('/main/data_wilayah/kelurahan/create', 'MAIN\bk010104Controller@post_create');
 Route::get('/main/data_wilayah/kelurahan/delete', 'MAIN\bk010104Controller@delete');
 
-//master menu
+Route::get('/main/data_wilayah/rt', 'MAIN\bk010105Controller@index');
+Route::post('/main/data_wilayah/rt', 'MAIN\bk010105Controller@post');
+Route::get('/main/data_wilayah/rt/create', 'MAIN\bk010105Controller@create');
+Route::post('/main/data_wilayah/rt/create', 'MAIN\bk010105Controller@post_create');
+Route::get('/main/data_wilayah/rt/delete', 'MAIN\bk010105Controller@delete');
+
+//master cakupan program
 Route::get('/main/slum_program', 'MAIN\bk010107Controller@index');
 Route::post('/main/slum_program', 'MAIN\bk010107Controller@post');
 Route::get('/main/slum_program/create', 'MAIN\bk010107Controller@create');
