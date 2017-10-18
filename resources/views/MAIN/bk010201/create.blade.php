@@ -299,8 +299,18 @@
             theme: "bootstrap",
             placeholder: "single select"
         });
+<<<<<<< HEAD
+        function enforce_maxlength(event) {
+            var t = event.target;
+            if (t.hasAttribute('maxlength')) {
+                t.value = t.value.slice(0, t.getAttribute('maxlength'));
+            }
+        }
+        document.body.addEventListener('input', enforce_maxlength);
+=======
 
 
+>>>>>>> a4255447f5eb50dd4d41faf89a99da00cfe0b2bf
       });
 </script>
 @stop

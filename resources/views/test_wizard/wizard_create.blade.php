@@ -47,13 +47,12 @@
             </div>
             <div class="panel-body">
 				<form enctype="multipart/form-data" class="form-horizontal form-bordered">
-                <div class="tab-content">
-					<div id="tab1" class="tab-pane fade active in">
-						<div class="panel " >
-							<div class="panel-body border">
+	                <div class="tab-content">
+						<div id="tab1" class="tab-pane fade active in">
+							<div class="panel " >
+								<div class="panel-body border">
 									<div class="row">
-										<div class="form-group striped-col">
-											<label class="col-sm-3 control-label">Static</label>
+										<div class="form-group">
 											<div class="col-sm-9">
 												<p class="form-control-static">
 													Static text
@@ -226,52 +225,50 @@
 											</div>
 										</div>
 									</div>
-
+								</div>
 							</div>
 						</div>
-					</div>
-					<div id="tab2" class="tab-pane fade ">
-						<div class="panel ">
-							<div class="panel-body border">
-									<div class="row">
-										<div class="form-group striped-col">
-											<label class="col-sm-3 control-label">Static</label>
-											<div class="col-sm-9">
-													tab 2
+						<div id="tab2" class="tab-pane fade ">
+							<div class="panel ">
+								<div class="panel-body border">
+										<div class="row">
+											<div class="form-group striped-col">
+												<label class="col-sm-3 control-label">Static</label>
+												<div class="col-sm-9">
+														tab 2
+												</div>
 											</div>
 										</div>
-									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="example-text-input1">Text</label>
+								<div class="col-sm-6">
+									<input type="text" id="example-text-input1" name="example-text-input2" class="form-control" placeholder="Text">
+									<span class="help-block">
+										This is a help text
+									</span>
+								</div>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-sm-3 control-label" for="example-text-input1">Text</label>
-							<div class="col-sm-6">
-								<input type="text" id="example-text-input1" name="example-text-input2" class="form-control" placeholder="Text">
-								<span class="help-block">
-									This is a help text
-								</span>
+						<div class="form-group form-actions">
+							<div class="col-sm-9 col-sm-offset-3">
+								<a href="{{url('wizard')}}" type="button" class="btn btn-effect-ripple btn-danger">
+									Cancel
+								</a>
+								<button type="submit" id="dodol" class="btn btn-effect-ripple btn-primary">
+									Submit
+								</button>
+								<button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
+									Reset
+								</button>
 							</div>
 						</div>
 					</div>
-					<div class="form-group form-actions">
-						<div class="col-sm-9 col-sm-offset-3">
-							<a href="{{url('wizard')}}" type="button" class="btn btn-effect-ripple btn-danger">
-								Cancel
-							</a>
-							<button type="submit" id="dodol" class="btn btn-effect-ripple btn-primary">
-								Submit
-							</button>
-							<button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
-								Reset
-							</button>
-						</div>
-					</div>
-				</div>
 				</form>
 			</div>
 		</div>
 	</div>
-</div>
 @stop {{-- local scripts --}} @section('footer_scripts')
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>

@@ -2,11 +2,6 @@
 <link href="{{asset('vendors/bootstrap-multiselect/css/bootstrap-multiselect.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
-<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -36,19 +31,19 @@
 @stop
 {{-- Page content --}} @section('content')
 <div class="panel-body border">
-    <form enctype="multipart/form-data" class="signup_validator form-horizontal form-bordered">
+    <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
         <div class="row">
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">No Urut</label>
                 <div class="col-sm-6">
                 <input type="hidden" id="example-id-input" name="example-id-input" value="{{ $kode }}">
-                    <input type="number" id="no_urut-input" name="no_urut-input" class="form-control" placeholder="No Urut" value="{{ $nourut }}" maxlength="4">
+                    <input type="number" id="no_urut-input" name="no_urut-input" class="form-control" placeholder="No Urut" value="{{ $nourut }}" maxlength="4" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Nama</label>
                 <div class="col-sm-6">
-                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{ $nama }}" maxlength="50">
+                    <input type="text" id="nama-input" name="nama-input" class="form-control" placeholder="Nama" value="{{ $nama }}" maxlength="50" required>
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -61,7 +56,7 @@
                 <label class="col-sm-3 control-label" for="example-text-input31">Kota</label>
                 <div class="col-sm-6">
                     <select id="select-kode_kota-input" class="form-control select2" name="select-kode_kota-input">
-                        <option value=undefined>Please select</option>
+                        <option value>Please select</option>
                         @foreach($kode_kota_list as $list)
                             <option value="{{ $list->kode }}" @if($list->kode==$kode_kota) selected="selected" @endif >{{ $list->nama }}
                             </option>
@@ -115,7 +110,7 @@
                 <label class="col-sm-3 control-label" for="example-email">Email 1</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 1</label>
-                    <input id="email1-input" type="email" class="form-control  form-control-lg" name="email1-input" value="{{ $email1}}" placeholder="E-mail" required maxlength="255">
+                    <input id="email1-input" type="email" class="form-control  form-control-lg" name="email1-input" value="{{ $email1}}" placeholder="E-mail"  maxlength="255">
 
                     @if ($errors->has('email1'))
                         <span class="help-block">
@@ -128,7 +123,7 @@
                 <label class="col-sm-3 control-label" for="example-email">Email 2</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 2</label>
-                    <input id="email2-input" type="email" class="form-control  form-control-lg" name="email2-input" value="{{ $email2 }}" placeholder="E-mail" required maxlength="255">
+                    <input id="email2-input" type="email" class="form-control  form-control-lg" name="email2-input" value="{{ $email2 }}" placeholder="E-mail" maxlength="255">
 
                     @if ($errors->has('email2'))
                         <span class="help-block">
@@ -141,7 +136,7 @@
                 <label class="col-sm-3 control-label" for="example-text-input1">Nama PMS</label>
                 <div class="col-sm-6">
                     <select id="select-kode_pms-input" class="form-control select2" name="select-kode_pms-input">
-                        <option value=undefined>Please select</option>
+                        <option value>Please select</option>
                         @foreach($kode_pms_list as $list)
                             <option value="{{ $list->kode }}" @if($list->kode==$kode_pms) selected="selected" @endif >{{ $list->nama }}
                             </option>
@@ -173,14 +168,11 @@
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">Departemen</label>
                 <div class="col-sm-6">
-                    <select id="select-kode_departemen-input" name="select-kode_departemen-input" class="form-control" size="1">
-                        <option value="0" @if($kode_departemen==0) selected="selected" @endif >Departemen 1</option>
-                        <option value="1" @if($kode_departemen==1) selected="selected" @endif >Departemen 2</option>
-                        <option value="2" @if($kode_departemen==2) selected="selected" @endif >Departemen 3</option>
-                    </select>
+					<input type="number" id="kode_departemen-input" name="kode_departemen-input" class="form-control"  value="{{ $kode_departemen }}" maxlength="3" >
+
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">Glosary Caption</label>
                 <div class="col-sm-6">
                     <input type="text" id="glosary_caption-input" name="glosary_caption-input" class="form-control" placeholder="Glosary Caption" value="{{ $glosary_caption }}" maxlength="50">
@@ -207,7 +199,7 @@
 {{-- local scripts --}} @section('footer_scripts')
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
         e.preventDefault();
         $.ajax({
             type: 'post',
@@ -223,7 +215,6 @@
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
-            alert(thrownError);
             $("#submit").prop('disabled', false);
             }
           });
@@ -242,13 +233,6 @@
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
-<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/register.js')}}"></script>
 @stop
