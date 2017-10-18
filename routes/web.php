@@ -485,6 +485,7 @@ Route::post('/main/perencanaan/penanganan/rencana_investasi/create', 'MAIN\bk010
 Route::get('/main/perencanaan/penanganan/rencana_investasi/delete', 'MAIN\bk010307Controller@delete');
 
 Route::get('/main/perencanaan/penanganan/pengamanan_dampak', 'MAIN\bk010308Controller@index');
+Route::get('/main/perencanaan/penanganan/pengamanan_dampak/select', 'MAIN\bk010308Controller@select');
 Route::post('/main/perencanaan/penanganan/pengamanan_dampak', 'MAIN\bk010308Controller@post');
 Route::get('/main/perencanaan/penanganan/pengamanan_dampak/create', 'MAIN\bk010308Controller@create');
 Route::post('/main/perencanaan/penanganan/pengamanan_dampak/create', 'MAIN\bk010308Controller@post_create');
