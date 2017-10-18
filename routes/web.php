@@ -516,6 +516,7 @@ Route::post('/main/perencanaan/infra/penyiapan_paket', 'MAIN\bk010312Controller@
 Route::get('/main/perencanaan/infra/penyiapan_paket/create', 'MAIN\bk010312Controller@create');
 Route::post('/main/perencanaan/infra/penyiapan_paket/create', 'MAIN\bk010312Controller@post_create');
 Route::get('/main/perencanaan/infra/penyiapan_paket/delete', 'MAIN\bk010312Controller@delete');
+Route::get('/main/perencanaan/infra/penyiapan_paket/select', 'MAIN\bk010312Controller@select');
 
 Route::get('/main/perencanaan/infra/amdal', 'MAIN\bk010313Controller@index');
 Route::post('/main/perencanaan/infra/amdal', 'MAIN\bk010313Controller@post');

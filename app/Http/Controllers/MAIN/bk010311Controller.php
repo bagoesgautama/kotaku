@@ -107,13 +107,15 @@ class bk010311Controller extends Controller
 			49 => 'updated_time',
 			50 => 'updated_by'
 		);
-		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kmw, e.nama nama_faskel 
+		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kec, e.nama nama_kmw, f.nama nama_kel, g.nama nama_faskel 
 			from bkt_01030208_usulan_keg_kt a, 
 				bkt_01010102_kota b, 
 				bkt_01010111_korkot c, 
-				bkt_01010110_kmw d, 
-				bkt_01010113_faskel e 
-			where b.kode=a.kode_kota and c.kode=a.kode_korkot and d.kode=a.kode_kmw and e.kode=a.kode_faskel ';
+				bkt_01010110_kec d, 
+				bkt_01010110_kmw e,
+				bkt_01010104_kel f,
+				bkt_01010113_faskel g 
+			where b.kode=a.kode_kota and c.kode=a.kode_korkot and d.kode=a.kode_kec and e.kode=a.kode_kmw and f.kode=kode_kel and g.kode=kode_faskel ';
 			
 		$totalData = DB::select('select count(1) cnt from bkt_01030208_usulan_keg_kt ');
 		$totalFiltered = $totalData[0]->cnt;

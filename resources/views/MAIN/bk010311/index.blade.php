@@ -53,8 +53,9 @@
                                 <th>Tahun</th>
                                 <th>Kota</th>
                                 <th>Korkot</th>
-                                <th>Kecamatan Prioritas</th>
+                                <th>Kecamatan</th>
                                 <th>KMW</th>
+                                <th>Kelurahan</th>
                                 <th>Faskel</th>
                                 <th>Jenis Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
