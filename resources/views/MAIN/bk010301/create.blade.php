@@ -22,7 +22,7 @@
             </li>
             <li class="next">
                 <a href="/main/perencanaan/penanganan/pembangunan_visi">
-                    Perencanaan / Penanganan / Pembangunan Visi
+                    Perencanaan / Penanganan Pemukiman Kota / Perencanaan Penanganan Permukiman / Pembangunan Visi
                 </a>
             </li>
             <li class="next">

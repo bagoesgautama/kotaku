@@ -26,6 +26,9 @@
                 Perencanaan
             </li>
             <li class="next">
+                Penanganan Pemukiman Kota
+            </li>
+            <li class="next">
                RP2KP-KP/SIAP
             </li>
             <li class="next">
@@ -53,6 +56,7 @@
                     <table class="table table-striped" id="pokja">
                         <thead>
                             <tr>
+                                <th>Kode</th>
                                 <th>Tahun</th>
                                 <th>Skala Kegiatan</th>
                                 <th>SubKomponen Kegiatan</th>
@@ -60,9 +64,8 @@
                                 <th>KMW</th>
                                 <th>Kota</th>
                                 <th>Korkot</th>
-                                <th>Kecamatan</th>
-                                <th>Kelurahan</th>
-                                <th>Faskel</th>
+                                <th>Jenis Kegiatan</th>
+                                <th>Lokasi Kegiatan</th>
                                 <th>Created Time</th>
                                 <th>Option</th>
                             </tr>
@@ -90,6 +93,7 @@
                    },
 
             "columns": [
+                { "data": "kode" , name:"kode"},
                 { "data": "tahun" , name:"tahun"},
                 { "data": "skala_kegiatan" , name:"skala_kegiatan"},
                 { "data": "id_subkomponen" , name:"id_subkomponen"},
@@ -97,9 +101,8 @@
                 { "data": "kode_kmw" , name:"kode_kmw"},
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_korkot" , name:"kode_korkot"},
-                { "data": "kode_kec" , name:"kode_kec"},
-                { "data": "kode_kel" , name:"kode_kel"},
-                { "data": "kode_faskel" , name:"kode_faskel"},
+                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
+                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
             ]

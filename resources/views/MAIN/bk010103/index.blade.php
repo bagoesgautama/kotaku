@@ -31,9 +31,14 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
+				<div class="panel-title pull-left">
+                    <b>bk010103 Index</b>
+                </div>
+				@if( ! empty($detil['21']))
                 <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_wilayah/kecamatan/create">Create</a>
                 </div>
+				@endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
