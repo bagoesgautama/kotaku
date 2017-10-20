@@ -1,4 +1,4 @@
-@extends('QS/default') {{-- Page title --}} @section('title') Kegiatan Kelurahan Form @stop {{-- local styles --}} @section('header_styles')
+@extends('QS/default') {{-- Page title --}} @section('title') Kegiatan Kota Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
@@ -7,7 +7,7 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Kegiatan Kelurahan</h1>
+    <h1>Kegiatan Kota</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -16,8 +16,8 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/qs/master/kegiatan_kelurahan">
-	                Master Data / Kegiatan Kelurahan
+				<a href="/qs/master/kegiatan_kota">
+	                Master Data / Kegiatan Kota
 				</a>
             </li>
             <li class="next">
@@ -40,6 +40,7 @@
 				                <label class="col-sm-3 control-label">Agenda</label>
 				                <div class="col-sm-6">
 									<select id="id_agenda-input" name="id_agenda-input" class="form-control" size="1" required>
+										<option value>Please Select</option>
 										@foreach ($agenda_list as $kpl)
 				                            <option value="{{$kpl->id}}" {!! $id_agenda==$kpl->id ? 'selected':'' !!}>{{$kpl->nama}}</option>
 				                        @endforeach
@@ -50,7 +51,6 @@
 				                <label class="col-sm-3 control-label">Parent</label>
 				                <div class="col-sm-6">
 									<select id="id_parent-input" name="id_parent-input" class="form-control" size="1">
-										<option value>Please Select</option>
 										@foreach ($parent_list as $kpl)
 				                            <option value="{{$kpl->id}}" {!! $id_agenda==$kpl->id ? 'selected':'' !!}>{{$kpl->nama_kegiatan}}</option>
 				                        @endforeach
@@ -60,7 +60,7 @@
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Kode Kegiatan</label>
 				                <div class="col-sm-6">
-									<input type="text" id="kode_keg_kel-input" name="kode_keg_kel-input" class="form-control"  value="{{$kode_keg_kel}}" required>
+									<input type="text" id="kode_keg_kota-input" name="kode_keg_kota-input" class="form-control"  value="{{$kode_keg_kota}}" required>
 				                </div>
 				            </div>
 							<div class="form-group">
@@ -94,42 +94,42 @@
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Lokasi Peningkatan</label>
+				                <label class="col-sm-3 control-label">Wilayah I</label>
 				                <div class="col-sm-6">
-				                    <select id="flag_lok_peningkatan-input" name="flag_lok_peningkatan-input" class="form-control" size="1">
+				                    <select id="flag_wil1-input" name="flag_wil1-input" class="form-control" size="1">
 										<option value >Please Select</option>
-				                        <option value="0" {!! $flag_lok_peningkatan===0 ? 'selected':'' !!}>Tidak</option>
-				                        <option value="1" {!! $flag_lok_peningkatan===1 ? 'selected':'' !!}>Ya</option>
+				                        <option value="0" {!! $flag_wil1===0 ? 'selected':'' !!}>Tidak</option>
+				                        <option value="1" {!! $flag_wil1===1 ? 'selected':'' !!}>Ya</option>
 				                    </select>
 				                </div>
 				            </div>
 							<div class="form-group">
-				                <label class="col-sm-3 control-label">Lokasi Pencegahan</label>
+				                <label class="col-sm-3 control-label">Wilayah I BDC</label>
 				                <div class="col-sm-6">
-				                    <select id="flag_lok_pencegahan-input" name="flag_lok_pencegahan-input" class="form-control" size="1">
+				                    <select id="flag_wil1_bdc-input" name="flag_wil1_bdc-input" class="form-control" size="1">
 										<option value >Please Select</option>
-				                        <option value="0" {!! $flag_lok_pencegahan===0 ? 'selected':'' !!}>Tidak</option>
-				                        <option value="1" {!! $flag_lok_pencegahan===1 ? 'selected':'' !!}>Ya</option>
+				                        <option value="0" {!! $flag_wil1_bdc===0 ? 'selected':'' !!}>Tidak</option>
+				                        <option value="1" {!! $flag_wil1_bdc===1 ? 'selected':'' !!}>Ya</option>
 				                    </select>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Lokasi PPMK Baru</label>
+				                <label class="col-sm-3 control-label">Wilayah II</label>
 				                <div class="col-sm-6">
-				                    <select id="flag_lok_ppmk_baru-input" name="flag_lok_ppmk_baru-input" class="form-control" size="1">
+				                    <select id="flag_wil2-input" name="flag_wil2-input" class="form-control" size="1">
 										<option value>Please Select</option>
-				                        <option value="0" {!! $flag_lok_ppmk_baru===0 ? 'selected':'' !!}>Tidak</option>
-				                        <option value="1" {!! $flag_lok_ppmk_baru===1 ? 'selected':'' !!}>Ya</option>
+				                        <option value="0" {!! $flag_wil2===0 ? 'selected':'' !!}>Tidak</option>
+				                        <option value="1" {!! $flag_wil2===1 ? 'selected':'' !!}>Ya</option>
 				                    </select>
 				                </div>
 				            </div>
 							<div class="form-group">
-				                <label class="col-sm-3 control-label">Lokasi BDI PLBK</label>
+				                <label class="col-sm-3 control-label">Lelang Tahun Berjalan</label>
 				                <div class="col-sm-6">
-				                    <select id="flag_lok_bdi_plbk-input" name="flag_lok_bdi_plbk-input" class="form-control" size="1">
+				                    <select id="flag_lelang_thn_skrg-input" name="flag_lelang_thn_skrg-input" class="form-control" size="1">
 										<option value>Please Select</option>
-				                        <option value="0" {!! $flag_lok_bdi_plbk===0 ? 'selected':'' !!}>Tidak</option>
-				                        <option value="1" {!! $flag_lok_bdi_plbk===1 ? 'selected':'' !!}>Ya</option>
+				                        <option value="0" {!! $flag_lelang_thn_skrg===0 ? 'selected':'' !!}>Tidak</option>
+				                        <option value="1" {!! $flag_lelang_thn_skrg===1 ? 'selected':'' !!}>Ya</option>
 				                    </select>
 				                </div>
 				            </div>
@@ -168,7 +168,7 @@
                             </div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/qs/master/kegiatan_kelurahan" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/qs/master/kegiatan_kota" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -194,7 +194,7 @@
 		e.preventDefault();
 		$.ajax({
 			type: 'post',
-			"url": "/qs/master/kegiatan_kelurahan/create",
+			"url": "/qs/master/kegiatan_kota/create",
 			data: $('form').serialize(),
 			beforeSend: function (){
 			    $("#submit").prop('disabled', true);
@@ -202,7 +202,7 @@
 			success: function () {
 
 			alert('From Submitted.');
-			window.location.href = "/qs/master/kegiatan_kelurahan";
+			window.location.href = "/qs/master/kegiatan_kota";
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);

@@ -1,4 +1,4 @@
-@extends('QS/default') {{-- Page title --}} @section('title') Kegiatan Kelurahan @stop {{-- local styles --}} @section('header_styles')
+@extends('QS/default') {{-- Page title --}} @section('title') Kegiatan Kota @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Kegiatan Kelurahan</h1>
+    <h1>Kegiatan Kota</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                Master Data / Kegiatan Kelurahan
+                Master Data / Kegiatan Kota
             </li>
         </ul>
     </div>
@@ -34,11 +34,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk050102 Index</b>
+                    <b>bk050103 Index</b>
                 </div>
-                @if( ! empty($detil['484']))
+                @if( ! empty($detil['488']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/qs/master/kegiatan_kelurahan/create">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/qs/master/kegiatan_kota/create">Create</a>
 				</div>
                 @endif
             </div>
@@ -50,7 +50,7 @@
 								<th>ID</th>
 								<th>Agenda</th>
 								<th>Parent</th>
-								<th>Kode Kegiatan</th>
+                                <th>Kode Kegiatan</th>
 								<th>No Urut</th>
 								<th>Nama Kegiatan</th>
 								<th>Tanggal Mulai</th>
@@ -73,7 +73,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/qs/master/kegiatan_kelurahan",
+                     "url": "/qs/master/kegiatan_kota",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -88,7 +88,7 @@
 				{ "data": "id" , name:"id"},
 				{ "data": "agenda" , name:"agenda"},
 				{ "data": "parent" , name:"parent"},
-				{ "data": "kode_keg_kel" , name:"kode_keg_kel"},
+				{ "data": "kode_keg_kota" , name:"kode_keg_kota"},
 				{ "data": "no_urut" , name:"no_urut"},
 				{ "data": "nama_kegiatan" , name:"nama_kegiatan"},
 				{ "data": "tgl_mulai" , name:"tgl_mulai"},
@@ -96,7 +96,7 @@
 				{ "data": "status" , name:"status"},
                 { "data": "option" , name:"option",orderable:false}
             ],
-			"order": [[ 8, "asc" ]]
+			"order": [[ 8, "desc" ]]
 	    });
         $('#users_filter input').unbind();
         $('#users_filter input').bind('keyup', function(e) {

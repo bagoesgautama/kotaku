@@ -5,7 +5,7 @@
             <span class="mm-text ">Master</span>
 			<span class="fa arrow"></span>
         </a>
-		<ul class="sub-menu">
+		<ul class="sub-menu form-submenu">
 			@if( ! empty($menu['150']))
 			<li {!! (Request::is( 'qs/master/agenda*')? 'class="active"': "") !!}>
 				<a href="/qs/master/agenda">
@@ -14,15 +14,15 @@
 			</li>
 			@endif
 			@if( ! empty($menu['151']))
-			<li {!! (Request::is( 'qs/master/kelurahan*')? 'class="active"': "") !!}>
-				<a href="/qs/master/kelurahan">
+			<li {!! (Request::is( 'qs/master/kegiatan_kelurahan*')? 'class="active"': "") !!}>
+				<a href="/qs/master/kegiatan_kelurahan">
 					<span class="mm-text">Kegiatan Skala Kelurahan</span>
 				</a>
 			</li>
 			@endif
 			@if( ! empty($menu['152']))
-			<li {!! (Request::is( 'qs/master/kota*')? 'class="active"': "") !!}>
-				<a href="/qs/master/kota">
+			<li {!! (Request::is( 'qs/master/kegiatan_kota*')? 'class="active"': "") !!}>
+				<a href="/qs/master/kegiatan_kota">
 					<span class="mm-text">Kegiatan Skala Kota</span>
 				</a>
 			</li>
@@ -43,7 +43,7 @@
             <span class="mm-text ">Monitoring</span>
 			<span class="fa arrow"></span>
         </a>
-		<ul class="sub-menu">
+		<ul class="sub-menu form-submenu">
 			@if( ! empty($menu['154']))
 			<li {!! (Request::is( 'qs/monitoring/kelurahan*')? 'class="active"': "") !!}>
 				<a href="/qs/monitoring/kelurahan">

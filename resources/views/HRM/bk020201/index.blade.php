@@ -1,5 +1,4 @@
-@extends('QS/default') {{-- Page title --}} @section('title') Kegiatan Kelurahan @stop {{-- local styles --}} @section('header_styles')
-
+@extends('HRM/default') {{-- Page title --}} @section('title') Activity Log @stop {{-- local styles --}} @section('header_styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/colReorder.bootstrap.css')}}" />
@@ -14,16 +13,16 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Kegiatan Kelurahan</h1>
+    <h1>Web Activity Log</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-                <a href="/qs">
-                    <i class="fa fa-fw fa-home"></i> QS
+                <a href="/hrm">
+                    <i class="fa fa-fw fa-home"></i> HRM
                 </a>
             </li>
             <li class="next">
-                Master Data / Kegiatan Kelurahan
+                Web Activity Log
             </li>
         </ul>
     </div>
@@ -34,29 +33,21 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk050102 Index</b>
+                    <b>bk020201 Index</b>
                 </div>
-                @if( ! empty($detil['484']))
-                <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/qs/master/kegiatan_kelurahan/create">Create</a>
-				</div>
-                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
 					<table class="table table-striped" id="users">
 						<thead>
                             <tr>
-								<th>ID</th>
-								<th>Agenda</th>
-								<th>Parent</th>
-								<th>Kode Kegiatan</th>
-								<th>No Urut</th>
-								<th>Nama Kegiatan</th>
-								<th>Tanggal Mulai</th>
-								<th>Tanggal Selesai</th>
-								<th>Status</th>
-								<th>Option</th>
+                                <th>ID</th>
+								<th>User</th>
+								<th>Apps</th>
+                                <th>Modul</th>
+								<th>Menu</th>
+								<th>Aktifitas</th>
+								<th>Date</th>
                             </tr>
                         </thead>
                     </table>
@@ -73,7 +64,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/qs/master/kegiatan_kelurahan",
+                     "url": "/hrm/activity_log",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -85,18 +76,15 @@
                 alert(thrownError);
               },
 			  "columns": [
-				{ "data": "id" , name:"id"},
-				{ "data": "agenda" , name:"agenda"},
-				{ "data": "parent" , name:"parent"},
-				{ "data": "kode_keg_kel" , name:"kode_keg_kel"},
-				{ "data": "no_urut" , name:"no_urut"},
-				{ "data": "nama_kegiatan" , name:"nama_kegiatan"},
-				{ "data": "tgl_mulai" , name:"tgl_mulai"},
-				{ "data": "tgl_selesai" , name:"tgl_selesai"},
-				{ "data": "status" , name:"status"},
-                { "data": "option" , name:"option",orderable:false}
+				{ "data": "kode" , name:"kode"},
+				{ "data": "user" , name:"user"},
+				{ "data": "apps" , name:"apps"},
+				{ "data": "modul" , name:"modul"},
+				{ "data": "menu" , name:"menu"},
+				{ "data": "aktifitas" , name:"aktifitas"},
+                { "data": "created_time" , name:"created_time"}
             ],
-			"order": [[ 8, "asc" ]]
+			"order": [[ 0, "desc" ]]
 	    });
         $('#users_filter input').unbind();
         $('#users_filter input').bind('keyup', function(e) {

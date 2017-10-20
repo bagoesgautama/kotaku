@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
 
-class bk050102Controller extends Controller
+class bk050201Controller extends Controller
 {
     /**
      * Create a new controller instance.
@@ -37,7 +37,7 @@ class bk050102Controller extends Controller
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
 				$this->log_aktivitas('View', 483);
-				return view('QS/bk050102/index',$data);
+				return view('QS/bk050201/index',$data);
 			}
 			else {
 				return Redirect::to('/');
@@ -138,118 +138,6 @@ class bk050102Controller extends Controller
 
 		echo json_encode($json_data);
 	}
-
-	public function create(Request $request)
-	{
-		$user = Auth::user();
-        $akses= $user->menu()->where('kode_apps', 5)->get();
-		if(count($akses) > 0){
-			foreach ($akses as $item) {
-				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==151)
-					$data['detil'][$item->kode_menu_detil]='a';
-			}
-			$data['username'] = $user->name;
-			$data['id']=$request->input('id');
-			$data['agenda_list'] = DB::select('select nama,id from bkt_05010101_agenda where status=1');
-			$data['parent_list'] = DB::select('select nama_kegiatan,id from bkt_05010102_kegiatan_kel where status=1');
-			if($data['id']!=null && !empty($data['detil']['485'])){
-				$rowData = DB::select('select * from bkt_05010102_kegiatan_kel where id='.$data['id']);
-				$data['id_agenda'] = $rowData[0]->id_agenda;
-				$data['id_parent'] = $rowData[0]->id_parent;
-				$data['kode_keg_kel'] = $rowData[0]->kode_keg_kel;
-				$data['no_urut'] = $rowData[0]->no_urut;
-				$data['nama_kegiatan'] = $rowData[0]->nama_kegiatan;
-				$data['tgl_mulai'] = $rowData[0]->tgl_mulai;
-				$data['tgl_selesai'] = $rowData[0]->tgl_selesai;
-				$data['kode_glossary'] = $rowData[0]->kode_glossary;
-				$data['flag_lok_peningkatan'] = $rowData[0]->flag_lok_peningkatan;
-				$data['flag_lok_pencegahan'] = $rowData[0]->flag_lok_pencegahan;
-				$data['flag_lok_ppmk_baru'] = $rowData[0]->flag_lok_ppmk_baru;
-				$data['flag_lok_bdi_plbk'] = $rowData[0]->flag_lok_bdi_plbk;
-				$data['status'] = $rowData[0]->status;
-				$data['created_time'] = $rowData[0]->created_time;
-				$data['created_by'] = $rowData[0]->created_by;
-				$data['updated_time'] = $rowData[0]->updated_time;
-				$data['updated_by'] = $rowData[0]->updated_by;
-				return view('QS/bk050102/create',$data);
-			}else if($data['id']==null && !empty($data['detil']['484'])){
-				$data['id_agenda'] = null;
-				$data['id_parent'] = null;
-				$data['kode_keg_kel'] = null;
-				$data['no_urut'] = null;
-				$data['nama_kegiatan'] = null;
-				$data['tgl_mulai'] = null;
-				$data['tgl_selesai'] = null;
-				$data['kode_glossary'] = null;
-				$data['flag_lok_peningkatan'] = null;
-				$data['flag_lok_pencegahan'] = null;
-				$data['flag_lok_ppmk_baru'] = null;
-				$data['flag_lok_bdi_plbk'] = null;
-				$data['status'] = null;
-				$data['created_time'] = null;
-				$data['created_by'] = null;
-				$data['updated_time'] = null;
-				$data['updated_by'] = null;
-				return view('QS/bk050102/create',$data);
-			}else {
-				return Redirect::to('/');
-			}
-		}else{
-			return Redirect::to('/');
-		}
-	}
-
-	public function post_create(Request $request)
-	{
-		date_default_timezone_set('Asia/Jakarta');
-		if ($request->input('id')!=null){
-			DB::table('bkt_05010102_kegiatan_kel')->where('id', $request->input('id'))
-			->update(['id_agenda' => $request->input('id_agenda-input'),
-				'id_parent' => $request->input('id_parent-input'),
-				'kode_keg_kel' => $request->input('kode_keg_kel-input'),
-				'no_urut' => $request->input('no_urut-input'),
-				'nama_kegiatan' => $request->input('nama_kegiatan-input'),
-				'tgl_mulai' => $request->input('tgl_mulai-input'),
-				'tgl_selesai' => $request->input('tgl_selesai-input'),
-				'kode_glossary' => $request->input('kode_glossary-input'),
-				'flag_lok_peningkatan' => $request->input('flag_lok_peningkatan-input')=="0"||$request->input('flag_lok_peningkatan-input')=="1"?(int)$request->input('flag_lok_peningkatan-input'):null,
-				'flag_lok_pencegahan' => $request->input('flag_lok_pencegahan-input')=="0"||$request->input('flag_lok_pencegahan-input')=="1"?(int)$request->input('flag_lok_pencegahan-input'):null,
-				'flag_lok_ppmk_baru' => $request->input('flag_lok_ppmk_baru-input')=="0"||$request->input('flag_lok_ppmk_baru-input')=="1"?(int)$request->input('flag_lok_ppmk_baru-input'):null,
-				'flag_lok_bdi_plbk' => $request->input('flag_lok_bdi_plbk-input')=="0"||$request->input('flag_lok_bdi_plbk-input')=="1"?(int)$request->input('flag_lok_bdi_plbk-input'):null,
-				'status' => $request->input('status-input'),
-				'updated_time' => date('Y-m-d H:i:s'),
-				'updated_by' => Auth::user()->id
-				]);
-			$this->log_aktivitas('Update', 485);
-
-		}else{
-			DB::table('bkt_05010102_kegiatan_kel')->insert(
-       			['id_agenda' => $request->input('id_agenda-input'),
-				'id_parent' => $request->input('id_parent-input'),
-				'kode_keg_kel' => $request->input('kode_keg_kel-input'),
-				'no_urut' => $request->input('no_urut-input'),
-				'nama_kegiatan' => $request->input('nama_kegiatan-input'),
-				'tgl_mulai' => $request->input('tgl_mulai-input'),
-				'tgl_selesai' => $request->input('tgl_selesai-input'),
-				'kode_glossary' => $request->input('kode_glossary-input'),
-				'flag_lok_peningkatan' => $request->input('flag_lok_peningkatan-input')=="0"||$request->input('flag_lok_peningkatan-input')=="1"?(int)$request->input('flag_lok_peningkatan-input'):null,
-				'flag_lok_pencegahan' => $request->input('flag_lok_pencegahan-input')=="0"||$request->input('flag_lok_pencegahan-input')=="1"?(int)$request->input('flag_lok_pencegahan-input'):null,
-				'flag_lok_ppmk_baru' => $request->input('flag_lok_ppmk_baru-input')=="0"||$request->input('flag_lok_ppmk_baru-input')=="1"?(int)$request->input('flag_lok_ppmk_baru-input'):null,
-				'flag_lok_bdi_plbk' => $request->input('flag_lok_bdi_plbk-input')=="0"||$request->input('flag_lok_bdi_plbk-input')=="1"?(int)$request->input('flag_lok_bdi_plbk-input'):null,
-				'status' => $request->input('status-input'),
-				'created_by' => Auth::user()->id
-       			]);
-			$this->log_aktivitas('Create', 484);
-		}
-	}
-
-	public function delete(Request $request)
-	{
-		DB::table('bkt_05010102_kegiatan_kel')->where('id', $request->input('id'))->update(['status' => 2]);
-        $this->log_aktivitas('Delete', 486);
-        return Redirect::to('/qs/master/kegiatan_kelurahan');
-    }
 
     public function log_aktivitas($aktifitas, $detil)
     {

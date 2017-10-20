@@ -56,6 +56,14 @@ Route::post('/registrasi', 'Registrasi\RegistrasiController@registrasi_create_po
  *module HRM route here
  */
 Route::get('/hrm', 'HomeController@hrm');
+
+//activity log
+Route::get('/hrm/activity_log', 'HRM\bk020201Controller@index');
+Route::post('hrm/activity_log', 'HRM\bk020201Controller@post');
+Route::get('/hrm/activity_log/create', 'HRM\bk020201Controller@create');
+Route::post('/hrm/activity_log/create', 'HRM\bk020201Controller@post_create');
+Route::get('/hrm/activity_log/delete', 'HRM\bk020201Controller@delete');
+
 //get html form data
 Route::get('/hrm/role', 'HRM\bk020102Controller@index');
 //get data for datatable
@@ -690,5 +698,22 @@ Route::get('/qs/master/agenda/create', 'QS\bk050101Controller@create');
 Route::post('/qs/master/agenda/create', 'QS\bk050101Controller@post_create');
 Route::get('/qs/master/agenda/delete', 'QS\bk050101Controller@delete');
 
+Route::get('/qs/master/kegiatan_kelurahan', 'QS\bk050102Controller@index');
+Route::post('/qs/master/kegiatan_kelurahan', 'QS\bk050102Controller@post');
+Route::get('/qs/master/kegiatan_kelurahan/create', 'QS\bk050102Controller@create');
+Route::post('/qs/master/kegiatan_kelurahan/create', 'QS\bk050102Controller@post_create');
+Route::get('/qs/master/kegiatan_kelurahan/delete', 'QS\bk050102Controller@delete');
+
+Route::get('/qs/master/kegiatan_kota', 'QS\bk050103Controller@index');
+Route::post('/qs/master/kegiatan_kota', 'QS\bk050103Controller@post');
+Route::get('/qs/master/kegiatan_kota/create', 'QS\bk050103Controller@create');
+Route::post('/qs/master/kegiatan_kota/create', 'QS\bk050103Controller@post_create');
+Route::get('/qs/master/kegiatan_kota/delete', 'QS\bk050103Controller@delete');
+
+Route::get('/qs/master/schedule', 'QS\bk050104Controller@index');
+Route::post('/qs/master/schedule', 'QS\bk050104Controller@post');
+Route::get('/qs/master/schedule/create', 'QS\bk050104Controller@create');
+Route::post('/qs/master/schedule/create', 'QS\bk050104Controller@post_create');
+Route::get('/qs/master/schedule/delete', 'QS\bk050104Controller@delete');
 
 Auth::routes();

@@ -1,4 +1,4 @@
-@extends('QS/default') {{-- Page title --}} @section('title') Kegiatan Kelurahan Form @stop {{-- local styles --}} @section('header_styles')
+@extends('QS/default') {{-- Page title --}} @section('title') Schedule Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
@@ -7,7 +7,7 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Kegiatan Kelurahan</h1>
+    <h1>schedule</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -16,8 +16,8 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/qs/master/kegiatan_kelurahan">
-	                Master Data / Kegiatan Kelurahan
+				<a href="/qs/master/schedule">
+	                Master Data / Schedule
 				</a>
             </li>
             <li class="next">
@@ -37,100 +37,43 @@
 						<form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
 							<input type="hidden" id="id" name="id" value="{{$id}}">
 							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Agenda</label>
-				                <div class="col-sm-6">
-									<select id="id_agenda-input" name="id_agenda-input" class="form-control" size="1" required>
-										@foreach ($agenda_list as $kpl)
-				                            <option value="{{$kpl->id}}" {!! $id_agenda==$kpl->id ? 'selected':'' !!}>{{$kpl->nama}}</option>
-				                        @endforeach
-									</select>
-				                </div>-
-				            </div>
-							<div class="form-group ">
 				                <label class="col-sm-3 control-label">Parent</label>
 				                <div class="col-sm-6">
 									<select id="id_parent-input" name="id_parent-input" class="form-control" size="1">
-										<option value>Please Select</option>
 										@foreach ($parent_list as $kpl)
 				                            <option value="{{$kpl->id}}" {!! $id_agenda==$kpl->id ? 'selected':'' !!}>{{$kpl->nama_kegiatan}}</option>
 				                        @endforeach
 									</select>
 				                </div>-
 				            </div>
-							<div class="form-group striped-col">
+							<div class="form-group ">
 				                <label class="col-sm-3 control-label">Kode Kegiatan</label>
 				                <div class="col-sm-6">
 									<input type="text" id="kode_keg_kel-input" name="kode_keg_kel-input" class="form-control"  value="{{$kode_keg_kel}}" required>
 				                </div>
 				            </div>
-							<div class="form-group">
+							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">No Urut</label>
 				                <div class="col-sm-6">
 				                    <input type="number" id="no_urut-input" name="no_urut-input" class="form-control" value="{{$no_urut}}"/>
 				                </div>
 				            </div>
-							<div class="form-group striped-col">
+							<div class="form-group ">
 				                <label class="col-sm-3 control-label">Nama Kegiatan</label>
 				                <div class="col-sm-6">
 				                    <input type="text" id="nama_kegiatan-input" name="nama_kegiatan-input" class="form-control" value="{{$nama_kegiatan}}" required>
 				                </div>
 				            </div>
-							<div class="form-group">
+							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Tanggal Mulai</label>
 				                <div class="col-sm-6">
 									<input class="form-control" id="tgl_mulai-input" name="tgl_mulai-input" placeholder="Tanggal Mulai" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_mulai}}" >
 				                </div>
 				            </div>
-							<div class="form-group striped-col">
+							<div class="form-group ">
 				                <label class="col-sm-3 control-label">Tanggal Selesai</label>
 				                <div class="col-sm-6">
 									<input class="form-control" id="tgl_selesai-input" name="tgl_selesai-input" placeholder="Tanggal Selesai" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_selesai}}" >
-				                </div>
-				            </div>
-							<div class="form-group">
-				                <label class="col-sm-3 control-label">Kode Glosary</label>
-				                <div class="col-sm-6">
-				                    <input type="text" id="kode_glossary-input" name="kode_glossary-input" class="form-control" value="{{$kode_glossary}}" required>
-				                </div>
-				            </div>
-							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Lokasi Peningkatan</label>
-				                <div class="col-sm-6">
-				                    <select id="flag_lok_peningkatan-input" name="flag_lok_peningkatan-input" class="form-control" size="1">
-										<option value >Please Select</option>
-				                        <option value="0" {!! $flag_lok_peningkatan===0 ? 'selected':'' !!}>Tidak</option>
-				                        <option value="1" {!! $flag_lok_peningkatan===1 ? 'selected':'' !!}>Ya</option>
-				                    </select>
-				                </div>
-				            </div>
-							<div class="form-group">
-				                <label class="col-sm-3 control-label">Lokasi Pencegahan</label>
-				                <div class="col-sm-6">
-				                    <select id="flag_lok_pencegahan-input" name="flag_lok_pencegahan-input" class="form-control" size="1">
-										<option value >Please Select</option>
-				                        <option value="0" {!! $flag_lok_pencegahan===0 ? 'selected':'' !!}>Tidak</option>
-				                        <option value="1" {!! $flag_lok_pencegahan===1 ? 'selected':'' !!}>Ya</option>
-				                    </select>
-				                </div>
-				            </div>
-							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Lokasi PPMK Baru</label>
-				                <div class="col-sm-6">
-				                    <select id="flag_lok_ppmk_baru-input" name="flag_lok_ppmk_baru-input" class="form-control" size="1">
-										<option value>Please Select</option>
-				                        <option value="0" {!! $flag_lok_ppmk_baru===0 ? 'selected':'' !!}>Tidak</option>
-				                        <option value="1" {!! $flag_lok_ppmk_baru===1 ? 'selected':'' !!}>Ya</option>
-				                    </select>
-				                </div>
-				            </div>
-							<div class="form-group">
-				                <label class="col-sm-3 control-label">Lokasi BDI PLBK</label>
-				                <div class="col-sm-6">
-				                    <select id="flag_lok_bdi_plbk-input" name="flag_lok_bdi_plbk-input" class="form-control" size="1">
-										<option value>Please Select</option>
-				                        <option value="0" {!! $flag_lok_bdi_plbk===0 ? 'selected':'' !!}>Tidak</option>
-				                        <option value="1" {!! $flag_lok_bdi_plbk===1 ? 'selected':'' !!}>Ya</option>
-				                    </select>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
@@ -168,7 +111,7 @@
                             </div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/qs/master/kegiatan_kelurahan" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/qs/master/schedule" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -194,7 +137,7 @@
 		e.preventDefault();
 		$.ajax({
 			type: 'post',
-			"url": "/qs/master/kegiatan_kelurahan/create",
+			"url": "/qs/master/schedule/create",
 			data: $('form').serialize(),
 			beforeSend: function (){
 			    $("#submit").prop('disabled', true);
@@ -202,7 +145,7 @@
 			success: function () {
 
 			alert('From Submitted.');
-			window.location.href = "/qs/master/kegiatan_kelurahan";
+			window.location.href = "/qs/master/schedule";
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);
