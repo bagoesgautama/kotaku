@@ -69,7 +69,8 @@ class bk010118Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. ' and a.nama like "%'.$search.'%"  order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and a.nama like "%'.$search.'%" ) a');
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and a.nama like "%'.$search.'%" ) a');
+			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
 		$data = array();
