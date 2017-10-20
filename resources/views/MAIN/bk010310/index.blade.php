@@ -58,6 +58,7 @@
                                 <th>Faskel</th>
                                 <th>Jenis Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
+                                <th>Karakter Kawasan</th>
                                 <th>Created Time</th>
                                 <th>Created By</th>
                                 <th>Option</th>

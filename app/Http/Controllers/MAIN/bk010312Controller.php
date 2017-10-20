@@ -42,7 +42,7 @@ class bk010312Controller extends Controller
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
 
 				$this->log_aktivitas('View', 313);
-				return view('MAIN/bk010310/index',$data);
+				return view('MAIN/bk010312/index',$data);
 			}
 			else {
 				return Redirect::to('/');
@@ -220,11 +220,8 @@ class bk010312Controller extends Controller
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
 
-			$kode_prop = DB::select('select kode, nama from bkt_01010101_prop');
-			$data['kode_prop_list'] = $kode_prop;
-
-			$id_kawasan = DB::select('select id, nama from bkt_01010123_kawasan');
-			$data['id_kawasan_list'] = $id_kawasan;
+			$kode_kmw = DB::select('select kode, nama from bkt_01010110_kmw');
+			$data['kode_kmw_list'] = $kode_kmw;
 
 			if($data['kode']!=null  && !empty($data['detil']['315'])){
 				$rowData = DB::select('select * from bkt_01030209_pkt_krj_kontraktor where kode='.$data['kode']);

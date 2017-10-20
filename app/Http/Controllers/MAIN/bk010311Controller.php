@@ -74,13 +74,13 @@ class bk010311Controller extends Controller
 			16 => 'dk_vol_kegiatan',
 			17 => 'dk_satuan',
 			18 => 'dk_lok_kegiatan',
-			19 => 'dk_tgl_verivikasi',
+			19 => 'dk_tgl_verifikasi',
 			20 => 'nb_a_pupr_bdi_kolab',
 			21 => 'nb_a_pupr_bdi_plbk',
 			22 => 'nb_a_pupr_bdi_lain',
 			23 => 'nb_a_pupr_nsup2',
-			24 => 'nb_a_pupr_pkp',
-			25 => 'nb_a_pupr_pkp_lain',
+			24 => 'nb_a_pupr_dir_pkp',
+			25 => 'nb_a_pupr_dir_pkp_lain',
 			26 => 'nb_apbn_kl_lain',
 			27 => 'nb_apbd_prop',
 			28 => 'nb_apbd_kota',
@@ -153,7 +153,7 @@ class bk010311Controller extends Controller
 				$nestedData['kode_kel'] = $post->kode_kel;
 				$nestedData['kode_faskel'] = $post->kode_faskel;
 				$nestedData['jenis_kegiatan'] = $post->jenis_kegiatan;
-				$nestedData['no_propopsal'] = $post->no_propopsal;
+				$nestedData['no_proposal'] = $post->no_proposal;
 				$nestedData['tgl_proposal'] = $post->tgl_proposal;
 				$nestedData['thn_anggaran'] = $post->thn_anggaran;
 				$nestedData['kategori_penanganan'] = $post->kategori_penanganan;
@@ -163,7 +163,7 @@ class bk010311Controller extends Controller
 				$nestedData['dk_vol_kegiatan'] = $post->dk_vol_kegiatan;
 				$nestedData['dk_satuan'] = $post->dk_satuan;
 				$nestedData['dk_lok_kegiatan'] = $post->dk_lok_kegiatan;
-				$nestedData['dk_tgl_verivikasi'] = $post->kode_kaw_prior;
+				$nestedData['dk_tgl_verifikasi'] = $post->dk_tgl_verifikasi;
 				$nestedData['nb_a_pupr_bdi_kolab'] = $post->nb_a_pupr_bdi_kolab;
 				$nestedData['nb_a_pupr_bdi_plbk'] = $post->nb_a_pupr_bdi_plbk;
 				$nestedData['nb_a_pupr_bdi_lain'] = $post->nb_a_pupr_bdi_lain;
@@ -256,11 +256,8 @@ class bk010311Controller extends Controller
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
 
-			$kode_prop = DB::select('select kode, nama from bkt_01010101_prop');
-			$data['kode_prop_list'] = $kode_prop;
-
-			$id_kawasan = DB::select('select id, nama from bkt_01010123_kawasan');
-			$data['id_kawasan_list'] = $id_kawasan;
+			$kode_kmw = DB::select('select kode, nama from bkt_01010110_kmw');
+			$data['kode_kmw_list'] = $kode_kmw;
 
 			if($data['kode']!=null  && !empty($data['detil']['299'])){
 				$rowData = DB::select('select * from bkt_01030208_usulan_keg_kt where kode='.$data['kode']);
@@ -273,7 +270,7 @@ class bk010311Controller extends Controller
 				$data['kode_kel'] = $rowData[0]->kode_kel;
 				$data['kode_faskel'] = $rowData[0]->kode_faskel;
 				$data['jenis_kegiatan'] = $rowData[0]->jenis_kegiatan;
-				$data['no_propopsal'] = $rowData[0]->no_propopsal;
+				$data['no_proposal'] = $rowData[0]->no_proposal;
 				$data['tgl_proposal'] = $rowData[0]->tgl_proposal;
 				$data['thn_anggaran'] = $rowData[0]->thn_anggaran;
 				$data['kategori_penanganan'] = $rowData[0]->kategori_penanganan;
@@ -283,13 +280,13 @@ class bk010311Controller extends Controller
 				$data['dk_vol_kegiatan'] = $rowData[0]->dk_vol_kegiatan;
 				$data['dk_satuan'] = $rowData[0]->dk_satuan;
 				$data['dk_lok_kegiatan'] = $rowData[0]->dk_lok_kegiatan;
-				$data['dk_tgl_verivikasi'] = $rowData[0]->dk_tgl_verivikasi;
+				$data['dk_tgl_verifikasi'] = $rowData[0]->dk_tgl_verifikasi;
 				$data['nb_a_pupr_bdi_kolab'] = $rowData[0]->nb_a_pupr_bdi_kolab;
 				$data['nb_a_pupr_bdi_plbk'] = $rowData[0]->nb_a_pupr_bdi_plbk;
 				$data['nb_a_pupr_bdi_lain'] = $rowData[0]->nb_a_pupr_bdi_lain;
 				$data['nb_a_pupr_nsup2'] = $rowData[0]->nb_a_pupr_nsup2;
-				$data['nb_a_pupr_pkp'] = $rowData[0]->nb_a_pupr_pkp;
-				$data['nb_a_pupr_pkp_lain'] = $rowData[0]->nb_a_pupr_pkp_lain;
+				$data['nb_a_pupr_dir_pkp'] = $rowData[0]->nb_a_pupr_dir_pkp;
+				$data['nb_a_pupr_dir_pkp_lain'] = $rowData[0]->nb_a_pupr_dir_pkp_lain;
 				$data['nb_apbn_kl_lain'] = $rowData[0]->nb_apbn_kl_lain;
 				$data['nb_apbd_prop'] = $rowData[0]->nb_apbd_prop;
 				$data['nb_apbd_kota'] = $rowData[0]->nb_apbd_kota;
@@ -327,7 +324,7 @@ class bk010311Controller extends Controller
 				$data['kode_kel'] = null;
 				$data['kode_faskel'] = null;
 				$data['jenis_kegiatan'] = null;
-				$data['no_propopsal'] = null;
+				$data['no_proposal'] = null;
 				$data['tgl_proposal'] = null;
 				$data['thn_anggaran'] = null;
 				$data['kategori_penanganan'] = null;
@@ -337,13 +334,13 @@ class bk010311Controller extends Controller
 				$data['dk_vol_kegiatan'] = null;
 				$data['dk_satuan'] = null;
 				$data['dk_lok_kegiatan'] = null;
-				$data['dk_tgl_verivikasi'] = null;
+				$data['dk_tgl_verifikasi'] = null;
 				$data['nb_a_pupr_bdi_kolab'] = null;
 				$data['nb_a_pupr_bdi_plbk'] = null;
 				$data['nb_a_pupr_bdi_lain'] = null;
 				$data['nb_a_pupr_nsup2'] = null;
-				$data['nb_a_pupr_pkp'] = null;
-				$data['nb_a_pupr_pkp_lain'] = null;
+				$data['nb_a_pupr_dir_pkp'] = null;
+				$data['nb_a_pupr_dir_pkp_lain'] = null;
 				$data['nb_apbn_kl_lain'] = null;
 				$data['nb_apbd_prop'] = null;
 				$data['nb_apbd_kota'] = null;
@@ -393,7 +390,7 @@ class bk010311Controller extends Controller
 				'kode_kel' => $request->input('select-kode_kel-input'),
 				'kode_faskel' => $request->input('select-kode_faskel-input'),
 				'jenis_kegiatan' => $request->input('jenis_kegiatan-input'),
-				'no_propopsal' => $request->input('no_propopsal-input'),
+				'no_proposal' => $request->input('no_proposal-input'),
 				'tgl_proposal' => $this->date_conversion($request->input('tgl_proposal-input')),
 				'thn_anggaran' => $request->input('thn_anggaran-input'),
 				'kategori_penanganan' => $request->input('kategori_penanganan-input'),
@@ -403,13 +400,13 @@ class bk010311Controller extends Controller
 				'dk_vol_kegiatan' => $request->input('dk_vol_kegiatan-input'),
 				'dk_satuan' => $request->input('dk_satuan-input'),
 				'dk_lok_kegiatan' => $request->input('dk_lok_kegiatan-input'),
-				'dk_tgl_verivikasi' => $this->date_conversion($request->input('dk_tgl_verivikasi-input')),
+				'dk_tgl_verifikasi' => $this->date_conversion($request->input('dk_tgl_verifikasi-input')),
 				'nb_a_pupr_bdi_kolab' => $request->input('nb_a_pupr_bdi_kolab-input'),
 				'nb_a_pupr_bdi_plbk' => $request->input('nb_a_pupr_bdi_plbk-input'),
 				'nb_a_pupr_bdi_lain' => $request->input('nb_a_pupr_bdi_lain-input'),
 				'nb_a_pupr_nsup2' => $request->input('nb_a_pupr_nsup2-input'),
-				'nb_a_pupr_pkp' => $request->input('nb_a_pupr_pkp-input'),
-				'nb_a_pupr_pkp_lain' => $request->input('nb_a_pupr_pkp_lain-input'),
+				'nb_a_pupr_dir_pkp' => $request->input('nb_a_pupr_dir_pkp-input'),
+				'nb_a_pupr_dir_pkp_lain' => $request->input('nb_a_pupr_dir_pkp_lain-input'),
 				'nb_apbn_kl_lain' => $request->input('nb_apbn_kl_lain-input'),
 				'nb_apbd_prop' => $request->input('nb_apbd_prop-input'),
 				'nb_apbd_kota' => $request->input('nb_apbd_kota-input'),
@@ -448,7 +445,7 @@ class bk010311Controller extends Controller
 				'kode_kel' => $request->input('select-kode_kel-input'),
 				'kode_faskel' => $request->input('select-kode_faskel-input'),
 				'jenis_kegiatan' => $request->input('jenis_kegiatan-input'),
-				'no_propopsal' => $request->input('no_propopsal-input'),
+				'no_proposal' => $request->input('no_proposal-input'),
 				'tgl_proposal' => $this->date_conversion($request->input('tgl_proposal-input')),
 				'thn_anggaran' => $request->input('thn_anggaran-input'),
 				'kategori_penanganan' => $request->input('kategori_penanganan-input'),
@@ -458,13 +455,13 @@ class bk010311Controller extends Controller
 				'dk_vol_kegiatan' => $request->input('dk_vol_kegiatan-input'),
 				'dk_satuan' => $request->input('dk_satuan-input'),
 				'dk_lok_kegiatan' => $request->input('dk_lok_kegiatan-input'),
-				'dk_tgl_verivikasi' => $this->date_conversion($request->input('dk_tgl_verivikasi-input')),
+				'dk_tgl_verifikasi' => $this->date_conversion($request->input('dk_tgl_verifikasi-input')),
 				'nb_a_pupr_bdi_kolab' => $request->input('nb_a_pupr_bdi_kolab-input'),
 				'nb_a_pupr_bdi_plbk' => $request->input('nb_a_pupr_bdi_plbk-input'),
 				'nb_a_pupr_bdi_lain' => $request->input('nb_a_pupr_bdi_lain-input'),
 				'nb_a_pupr_nsup2' => $request->input('nb_a_pupr_nsup2-input'),
-				'nb_a_pupr_pkp' => $request->input('nb_a_pupr_pkp-input'),
-				'nb_a_pupr_pkp_lain' => $request->input('nb_a_pupr_pkp_lain-input'),
+				'nb_a_pupr_dir_pkp' => $request->input('nb_a_pupr_dir_pkp-input'),
+				'nb_a_pupr_dir_pkp_lain' => $request->input('nb_a_pupr_dir_pkp_lain-input'),
 				'nb_apbn_kl_lain' => $request->input('nb_apbn_kl_lain-input'),
 				'nb_apbd_prop' => $request->input('nb_apbd_prop-input'),
 				'nb_apbd_kota' => $request->input('nb_apbd_kota-input'),

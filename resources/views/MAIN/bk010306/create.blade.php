@@ -11,6 +11,8 @@
 <link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 <link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
 <link href="{{asset('css/custom_css/wizard.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('vendors/pnotify/css/pnotify.buttons.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/pnotify/css/pnotify.css')}}" rel="stylesheet" type="text/css">
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -516,7 +518,7 @@
                     </div>
                     <div class="form-group form-actions">
                         <div class="col-sm-9 col-sm-offset-3">
-                            <a href="/main/perencanaan/penanganan/lokasi_profile" type="button" class="btn btn-effect-ripple btn-danger">
+                            <a href="/main/perencanaan/penanganan/profile_rencana_5thn" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -547,6 +549,9 @@
 <script src="{{asset('vendors/bootstrapwizard/js/jquery.bootstrap.wizard.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_wizards.js')}}" type="text/javascript"></script>
+
+<script type="text/javascript" src="{{asset('vendors/pnotify/js/pnotify.js')}}"></script>
+<script src="{{asset('js/custom_js/notifications.js')}}"></script>
 <script>
       $(document).ready(function () {
         $('#form').on('submit', function (e) {
@@ -589,20 +594,16 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
+        $('.ui-pnotify').remove();
         document.addEventListener('invalid', (function () {
           return function (e) {
             e.preventDefault();
             console.log(e)
-            // e.path[6].id.focus();
-            alert('Field input '+e.target.id+' belum diisi.');
-            // if( !$('#'+e.path[6].id).hasClass('active in') && $('#'+e.target.id).val()==null){
-            //     $('#'+e.path[6].id).addClass('active in');
-            // }else{
-            //     $('#'+e.path[6].id).removeClass('active in');
-            //     $('#'+e.path[6].id).addClass('active fade');
-            // }
-            // // $('#'+e.path[6].id).addClass('active in');
-            // document.getElementById(e.target.id).style.border="1px solid red";
+            new PNotify({
+                title: 'Pengisian Form Tidak Lengkap',
+                text: 'Field input '+e.target.id+' belum diisi.',
+                type: 'error'
+            });
           };
         })(), true);
 
