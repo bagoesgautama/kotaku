@@ -241,7 +241,7 @@
                                         <label class="col-sm-3 control-label" for="example-text-input1">Ada Rencana Kerja MHA (RK-MHA)</label>
                                         <div class="col-sm-6">
                                             <select id="mha_flag_rk_mha" name="mha_flag_rk_mha" class="form-control" size="1">
-                                                <option value="0" {!! $mha_flag_rk_mha==0 ? 'selected':'' !!}>False</option>
+                                                <option value="0" {!! $mha_flag_rk_mha==0 ? 'selected':'' !!}>Tidak</option>
                                                 <option value="1" {!! $mha_flag_rk_mha==1 ? 'selected':'' !!}>Ya</option>
                                             </select>
                                         </div>
