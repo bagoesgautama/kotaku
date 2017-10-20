@@ -77,7 +77,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Tahun</label>
                                         <div class="col-sm-6">
-                                            <input type="hidden" id="example-id-input" name="example-id-input" value="{{ $kode }}">
+                                            <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                             <input type="text" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}">
                                         </div>
                                     </div>
@@ -97,7 +97,10 @@
                                         <label class="col-sm-3 control-label" for="example-text-input31">Kota</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode_kota-input" class="form-control select2" name="select-kode_kota-input">
-                                                <option value=undefined>Please select</option>
+                                                <option value>Please select</option>
+                                                @foreach ($kode_kota_list as $kkl)
+                                                    <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -105,7 +108,10 @@
                                         <label class="col-sm-3 control-label" for="example-text-input1">KorKot</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode_korkot-input" class="form-control select2" name="select-kode_korkot-input">
-                                                <option value=undefined>Please select</option>
+                                                <option value>Please select</option>
+                                                @foreach ($kode_korkot_list as $kkl)
+                                                    <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -113,15 +119,21 @@
                                         <label class="col-sm-3 control-label" for="example-text-input1">Kecamatan</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode_kec-input" class="form-control select2" name="select-kode_kec-input" required>
-                                                <option value=undefined>Please select</option>
+                                                <option value>Please select</option>
+                                                @foreach ($kode_kec_list as $kkl)
+                                                    <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input31">Kawasan</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode_kawasan-input" class="form-control select2" name="select-kode_kawasan-input-input" required>
-                                                <option value=undefined>Please select</option>
+                                            <select id="select-kode_kawasan-input" class="form-control select2" name="select-kode_kawasan-input" required>
+                                                <option value>Please select</option>
+                                                @foreach ($kode_kawasan_list as $kkl)
+                                                    <option value="{{$kkl->id}}" {!! $kode_kawasan==$kkl->id ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -158,7 +170,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Kepadatan Bangunan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pdk_kpdt_pddk-input" name="pdk_kpdt_pddk-input" class="form-control" placeholder="Peserta Miskin" value="{{$pdk_kpdt_pddk}}" maxlength="12" required>
+                                            <input type="number" id="kepadatan_bangunan-input" name="kepadatan_bangunan-input" class="form-control" placeholder="Jiwa/Ha" value="{{$kepadatan_bangunan}}" maxlength="12" required>
                                         </div>
                                     </div>
                                 </div>
@@ -379,56 +391,56 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">File Document</label>
                                         <div class="col-sm-6">
-                                            <input id="file-document-input" type="file" class="file" data-show-preview="false" name="file-document-input" required>
+                                            <input id="file-document-input" type="file" class="file" data-show-preview="false" name="file-document-input">
                                             <br>
                                             <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-document" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
                                         </div>
-                                    </div>   
+                                    </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">File Absensi</label>
                                         <div class="col-sm-6">
-                                            <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input" required>
+                                            <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input">
                                             <br>
                                             <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!}>{{$uri_img_absensi}}</button>
                                         </div>
                                     </div>
-                                    <div class="form-group ">
-                                       <label class="col-sm-3 control-label" for="example-text-input1">Diserahkan Oleh</label>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Diserahkan</label>
                                         <div class="col-sm-3">
-                                            <select id="diser_oleh-input" name="diser_oleh-input" class="form-control" size="1">
+                                            <input class="form-control" id="diser_tgl-input" name="diser_tgl-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}" required>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select id="diser_oleh-input" name="diser_oleh-input" class="form-control" size="1" required>
                                                 @foreach ($kode_user_list as $kul)
                                                     <option value="{{$kul->id}}" {!! $diser_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-sm-3">
-                                            <input class="form-control" id="diser_tgl-input" name="diser_tgl-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
-                                        </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Diketahui Oleh</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Diketahui</label>
                                         <div class="col-sm-3">
-                                            <select id="diket_oleh-input" name="diket_oleh-input" class="form-control" size="1">
+                                            <input class="form-control" id="diket_tgl-input" name="tdiket_tgl-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}" required>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select id="diket_oleh-input" name="diket_oleh-input" class="form-control" size="1" required>
                                                 @foreach ($kode_user_list as $kul)
                                                     <option value="{{$kul->id}}" {!! $diket_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-sm-3">
-                                            <input class="form-control" id="diket_tgl-input" name="diket_tgl-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}">
-                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Diverifikasi Oleh</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Diverifikasi</label>
                                         <div class="col-sm-3">
-                                            <select id="diver_oleh-input" name="diver_oleh-input" class="form-control" size="1">
+                                            <input class="form-control" id="diver_tgl-input" name="diver_tgl-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}" required>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select id="diver_oleh-input" name="diver_oleh-input" class="form-control" size="1" required>
                                                 @foreach ($kode_user_list as $kul)
                                                     <option value="{{$kul->id}}" {!! $diver_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
                                                 @endforeach
                                             </select>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <input class="form-control" id="diver_tgl-input" name="diver_tgl-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}">
                                         </div>
                                     </div>
                                 </div>
@@ -595,7 +607,7 @@
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
-                            kawasan.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                            kawasan.append("<option value="+data[i].id+" >"+data[i].nama+"</option>");
                         }
                     }
                 });

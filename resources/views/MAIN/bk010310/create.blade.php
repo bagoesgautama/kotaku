@@ -81,18 +81,10 @@
                                             <input type="text" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="example-text-input31">Skala Kegiatan</label>
-                                        <div class="col-sm-6">
-                                            <select id="select-skala_kegiatan-input" class="form-control select2" name="select-skala_kegiatan-input">
-                                                <option value=1>1</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">KMW</label>          
                                         <div class="col-sm-6">
-                                            <select id="select-kode_prop-input" class="form-control select2" name="select-kode_prop-input">
+                                            <select id="select-kode_kmw-input" class="form-control select2" name="select-kode_kmw-input">
                                                 <option value=undefined>Please select</option>
                                                 @foreach($kode_kmw_list as $list)
                                                     <option value="{{ $list->kode }}" @if($list->kode==$kode_kmw) selected="selected" @endif >{{ $list->nama }}
@@ -105,7 +97,10 @@
                                         <label class="col-sm-3 control-label" for="example-text-input31">Kota</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode_kota-input" class="form-control select2" name="select-kode_kota-input">
-                                                <option value=undefined>Please select</option>
+                                                <option value>Please select</option>
+                                                @foreach ($kode_kota_list as $kkl)
+                                                    <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -113,23 +108,32 @@
                                         <label class="col-sm-3 control-label" for="example-text-input1">KorKot</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode_korkot-input" class="form-control select2" name="select-kode_korkot-input">
-                                                <option value=undefined>Please select</option>
+                                                <option value>Please select</option>
+                                                @foreach ($kode_korkot_list as $kkl)
+                                                    <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Kawasan Prioritas</label>
+                                         <label class="col-sm-3 control-label" for="example-text-input31">Faskel</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode_kawasan-input" class="form-control select2" name="select-kode_kawasan-input" required>
-                                                <option value=undefined>Please select</option>
+                                            <select id="select-kode_faskel-input" class="form-control select2" name="select-kode_faskel-input-input" required>
+                                                <option value>Please select</option>
+                                                @foreach ($kode_faskel_list as $kkl)
+                                                    <option value="{{$kkl->kode}}" {!! $kode_faskel==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input31">Faskel</label>
+                                       <label class="col-sm-3 control-label" for="example-text-input1">Kawasan Prioritas</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode_faskel-input" class="form-control select2" name="select-kode_faskel-input-input" required>
-                                                <option value=undefined>Please select</option>
+                                            <select id="select-kode_kaw_prior-input" class="form-control select2" name="select-kode_kaw_prior-input" required>
+                                                <option value>Please select</option>
+                                                @foreach ($kode_kaw_prior_list as $kkl)
+                                                    <option value="{{$kkl->kode}}" {!! $kode_kaw_prior==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -144,23 +148,29 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input31">Jenis Kegiatan</label>
                                         <div class="col-sm-6">
-                                            <select id="select-jenis_kegiatan-input" class="form-control select2" name="select-jenis_kegiatan-input-input" required>
-                                                <option value=undefined>Please select</option>
+                                            <select id="select-jenis_kegiatan-input" class="form-control select2" name="select-jenis_kegiatan-input" required>
+                                                <option value="L">Lingkungan</option>
+                                                <option value="S">Sosial</option>
+                                                <option value="E">Ekonomi</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input31">Sub Komponen</label>
                                         <div class="col-sm-6">
-                                            <select id="select-id_subkomponen-input" class="form-control select2" name="select-id_subkomponen-input-input" required>
+                                            <select id="select-id_subkomponen-input" class="form-control select2" name="select-id_subkomponen-input" required>
                                                 <option value=undefined>Please select</option>
+                                                @foreach($kode_id_subkomponen_list as $list)
+                                                    <option value="{{ $list->id }}" @if($list->id==$id_subkomponen) selected="selected" @endif >{{ $list->nama }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input31">Detail Sub Komponen</label>
                                         <div class="col-sm-6">
-                                            <select id="select-id_dtl_subkomponen-input" class="form-control select2" name="select-id_dtl_subkomponen-input-input" required>
+                                            <select id="select-id_dtl_subkomponen-input" class="form-control select2" name="select-id_dtl_subkomponen-input" required>
                                                 <option value=undefined>Please select</option>
                                             </select>
                                         </div>
@@ -229,20 +239,20 @@
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Non Pemerintah</label>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6">
                                             <input type="number" id="nb_non_gov-input" name="nb_non_gov-input" class="form-control" placeholder="Rp" value="{{$nb_non_gov}}" maxlength="30" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Masyarakat</label>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6">
                                             <input type="number" id="nb_masyarakat-input" name="nb_masyarakat-input" class="form-control" placeholder="Rp" value="{{$nb_masyarakat}}" maxlength="30" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Lainya</label>
-                                        <div class="col-sm-3">
-                                            <input type="number" id="nb_lainya-input" name="nb_lainya-input" class="form-control" placeholder="Rp" value="{{$nb_lainya}}" maxlength="30" required>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="nb_lainnya-input" name="nb_lainnya-input" class="form-control" placeholder="Rp" value="{{$nb_lainnya}}" maxlength="30" required>
                                         </div>
                                     </div>
                                 </div>
@@ -255,31 +265,31 @@
                                 <div class="row">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jiwa</label>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6">
                                             <input type="number" id="tpm_q_jiwa-input" name="tpm_q_jiwa-input" class="form-control" placeholder="Jiwa" value="{{$tpm_q_jiwa}}" maxlength="9" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Perempuan</label>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6">
                                             <input type="number" id="tpm_q_jiwa_w-input" name="tpm_q_jiwa_w-input" class="form-control" placeholder="Perempuan" value="{{$tpm_q_jiwa_w}}" maxlength="9" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Penerima Manfaat MBR</label>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6">
                                             <input type="number" id="tpm_q_mbr-input" name="tpm_q_mbr-input" class="form-control" placeholder="MBR" value="{{$tpm_q_mbr}}" maxlength="9" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">KK</label>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6">
                                             <input type="number" id="tpm_q_kk-input" name="tpm_q_kk-input" class="form-control" placeholder="KK" value="{{$tpm_q_kk}}" maxlength="9" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">KK Miskin (40% BPS)</label>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6">
                                             <input type="number" id="tpm_q_kk_miskin-input" name="tpm_q_kk_miskin-input" class="form-control" placeholder="KK Miskin" value="{{$tpm_q_kk_miskin}}" maxlength="9" required>
                                         </div>
                                     </div>
@@ -294,56 +304,56 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">File Document</label>
                                         <div class="col-sm-6">
-                                            <input id="file-document-input" type="file" class="file" data-show-preview="false" name="file-document-input" required>
+                                            <input id="file-document-input" type="file" class="file" data-show-preview="false" name="file-document-input">
                                             <br>
                                             <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-document" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
                                         </div>
-                                    </div>   
+                                    </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">File Absensi</label>
                                         <div class="col-sm-6">
-                                            <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input" required>
+                                            <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input">
                                             <br>
                                             <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!}>{{$uri_img_absensi}}</button>
                                         </div>
                                     </div>
-                                    <div class="form-group ">
-                                       <label class="col-sm-3 control-label" for="example-text-input1">Diserahkan Oleh</label>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Diserahkan</label>
                                         <div class="col-sm-3">
-                                            <select id="diser_oleh-input" name="diser_oleh-input" class="form-control" size="1">
+                                            <input class="form-control" id="diser_tgl-input" name="diser_tgl-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}" required>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select id="diser_oleh-input" name="diser_oleh-input" class="form-control" size="1" required>
                                                 @foreach ($kode_user_list as $kul)
                                                     <option value="{{$kul->id}}" {!! $diser_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-sm-3">
-                                            <input class="form-control" id="diser_tgl-input" name="diser_tgl-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
-                                        </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Diketahui Oleh</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Diketahui</label>
                                         <div class="col-sm-3">
-                                            <select id="diket_oleh-input" name="diket_oleh-input" class="form-control" size="1">
+                                            <input class="form-control" id="diket_tgl-input" name="tdiket_tgl-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}" required>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select id="diket_oleh-input" name="diket_oleh-input" class="form-control" size="1" required>
                                                 @foreach ($kode_user_list as $kul)
                                                     <option value="{{$kul->id}}" {!! $diket_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-sm-3">
-                                            <input class="form-control" id="diket_tgl-input" name="diket_tgl-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}">
-                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Diverifikasi Oleh</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Diverifikasi</label>
                                         <div class="col-sm-3">
-                                            <select id="diver_oleh-input" name="diver_oleh-input" class="form-control" size="1">
+                                            <input class="form-control" id="diver_tgl-input" name="diver_tgl-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}" required>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select id="diver_oleh-input" name="diver_oleh-input" class="form-control" size="1" required>
                                                 @foreach ($kode_user_list as $kul)
                                                     <option value="{{$kul->id}}" {!! $diver_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
                                                 @endforeach
                                             </select>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <input class="form-control" id="diver_tgl-input" name="diver_tgl-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}">
                                         </div>
                                     </div>
                                 </div>
@@ -409,7 +419,7 @@
             }
           });
         });
-        $("#select-kode_prop-input").select2({
+        $("#select-kode_kmw-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
         });
@@ -424,14 +434,26 @@
             placeholder: "Please Select"
         });
 
-        $("#select-kode_kec-input").select2({
+        $("#select-kode_kaw_prior-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
         });
 
-        $("#select-kode_kawasan-input").select2({
+        $("#select-kode_faskel-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
+        });
+
+        $("#select-id_subkomponen-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: '100%'
+        });
+
+        $("#select-id_dtl_subkomponen-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: '100%'
         });
 
         document.addEventListener('invalid', (function () {
@@ -450,21 +472,23 @@
         }
         document.body.addEventListener('input', enforce_maxlength);
 
-        var prop = $('#select-kode_prop-input');
+        var kmw = $('#select-kode_kmw-input');
         var kota = $('#select-kode_kota-input');
         var korkot = $('#select-kode_korkot-input');
-        var kecamatan = $('#select-kode_kec-input');
-        var kawasan = $('#select-kode_kawasan-input');
-        var prop_id,kota_id,korkot_id,kec_id,kaw_id;
+        var kaw_prior = $('#select-kode_kaw_prior-input');
+        var faskel = $('#select-kode_faskel-input');
+        var subkomponen = $('#select-id_subkomponen-input');
+        var dtl_subkomponen = $('#select-id_dtl_subkomponen-input');
+        var kmw_id,kota_id,korkot_id,kaw_prior_id,faskel_id;
 
-        prop.change(function(){
-            prop_id=prop.val();
-            if(prop_id!=null){
+        kmw.change(function(){
+            kmw_id=kmw.val();
+            if(kmw_id!=undefined){
                 kota.empty();
-                kota.append("<option value>Please select</option>");
+                kota.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/perencanaan/kawasan/perencanaan/select?prop="+prop_id,
+                    "url": "/main/perencanaan/kawasan/investasi/select?kmw="+kmw_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -474,15 +498,14 @@
                 });
             }
         });
-
         kota.change(function(){
             kota_id=kota.val();
-            if(kota_id!=null){
+            if(kota_id!=undefined){
                 korkot.empty();
-                korkot.append("<option value>Please select</option>");
+                korkot.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/perencanaan/kawasan/perencanaan/select?kota="+kota_id,
+                    "url": "/main/perencanaan/kawasan/investasi/select?kota="+kota_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -490,33 +513,54 @@
                         }
                     }
                 });
-                kecamatan.empty();
-                kecamatan.append("<option value=undefined>Please select</option>");
+            }
+        });
+        korkot.change(function(){
+            korkot_id=korkot.val();
+            if(korkot_id!=undefined){
+                faskel.empty();
+                faskel.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/perencanaan/kawasan/perencanaan/select?korkot="+kota_id,
+                    "url": "/main/perencanaan/kawasan/investasi/select?korkot="+korkot_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
-                            kecamatan.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                            faskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
                         }
                     }
                 });
-                kawasan.empty();
-                kawasan.append("<option value=undefined>Please select</option>");
+                kaw_prior.empty();
+                kaw_prior.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/perencanaan/kawasan/perencanaan/select?kec="+kota_id,
+                    "url": "/main/perencanaan/kawasan/investasi/select?kaw_prior="+korkot_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
-                            kawasan.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                            kaw_prior.append("<option value="+data[i].id+" >"+data[i].nama+"</option>");
                         }
                     }
                 });
             }
         });
-       
-      });
+        subkomponen.change(function(){
+            subkomponen_id=subkomponen.val();
+            if(subkomponen_id!=undefined){
+                dtl_subkomponen.empty();
+                dtl_subkomponen.append("<option value=undefined>Please select</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/perencanaan/kawasan/investasi/select?subkomponen="+subkomponen_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            dtl_subkomponen.append("<option value="+data[i].id+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+    });
 </script>
 @stop
