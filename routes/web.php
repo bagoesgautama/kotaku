@@ -64,6 +64,28 @@ Route::get('/hrm/activity_log/create', 'HRM\bk020201Controller@create');
 Route::post('/hrm/activity_log/create', 'HRM\bk020201Controller@post_create');
 Route::get('/hrm/activity_log/delete', 'HRM\bk020201Controller@delete');
 
+//management
+Route::get('/hrm/management/user/password', 'HRM\bk020307Controller@index');
+Route::post('hrm/management/user/password', 'HRM\bk020307Controller@post');
+
+Route::get('/hrm/management/kuota/kmp', 'HRM\bk020309Controller@index');
+Route::post('hrm/management/kuota/kmp', 'HRM\bk020309Controller@post');
+Route::get('/hrm/management/kuota/kmp/create', 'HRM\bk020309Controller@create');
+Route::post('/hrm/management/kuota/kmp/create', 'HRM\bk020309Controller@post_create');
+Route::get('/hrm/management/kuota/kmp/delete', 'HRM\bk020309Controller@delete');
+
+Route::get('/hrm/management/kuota/kmw', 'HRM\bk020310Controller@index');
+Route::post('hrm/management/kuota/kmw', 'HRM\bk020310Controller@post');
+Route::get('/hrm/management/kuota/kmw/create', 'HRM\bk020310Controller@create');
+Route::post('/hrm/management/kuota/kmw/create', 'HRM\bk020310Controller@post_create');
+Route::get('/hrm/management/kuota/kmw/delete', 'HRM\bk020310Controller@delete');
+
+Route::get('/hrm/management/kuota/korkot', 'HRM\bk020311Controller@index');
+Route::post('hrm/management/kuota/korkot', 'HRM\bk020311Controller@post');
+Route::get('/hrm/management/kuota/korkot/create', 'HRM\bk020311Controller@create');
+Route::post('/hrm/management/kuota/korkot/create', 'HRM\bk020311Controller@post_create');
+Route::get('/hrm/management/kuota/korkot/delete', 'HRM\bk020311Controller@delete');
+
 //get html form data
 Route::get('/hrm/role', 'HRM\bk020102Controller@index');
 //get data for datatable
