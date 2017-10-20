@@ -422,7 +422,7 @@ class bk010308Controller extends Controller
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_01030205_plan_amdal_sos')->where('kode', $request->input('kode'))->delete();
+		DB::table('bkt_01030205_plan_amdal_sos')->where('kode_parent', $request->input('kode'))->delete();
 		$this->log_aktivitas('Delete', 284);
         return Redirect::to('/main/perencanaan/penanganan/pengamanan_dampak');
     }
