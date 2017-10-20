@@ -527,18 +527,21 @@ Route::post('/main/perencanaan/infra/amdal', 'MAIN\bk010313Controller@post');
 Route::get('/main/perencanaan/infra/amdal/create', 'MAIN\bk010313Controller@create');
 Route::post('/main/perencanaan/infra/amdal/create', 'MAIN\bk010313Controller@post_create');
 Route::get('/main/perencanaan/infra/amdal/delete', 'MAIN\bk010313Controller@delete');
+Route::get('/main/perencanaan/infra/amdal/select', 'MAIN\bk010313Controller@select');
 
 Route::get('/main/perencanaan/pengadaan_lelang', 'MAIN\bk010314Controller@index');
 Route::post('/main/perencanaan/pengadaan_lelang', 'MAIN\bk010314Controller@post');
 Route::get('/main/perencanaan/pengadaan_lelang/create', 'MAIN\bk010314Controller@create');
 Route::post('/main/perencanaan/pengadaan_lelang/create', 'MAIN\bk010314Controller@post_create');
 Route::get('/main/perencanaan/pengadaan_lelang/delete', 'MAIN\bk010314Controller@delete');
+Route::get('/main/perencanaan/pengadaan_lelang/select', 'MAIN\bk010314Controller@select');
 
 Route::get('/main/perencanaan/kontrak_paket', 'MAIN\bk010315Controller@index');
 Route::post('/main/perencanaan/kontrak_paket', 'MAIN\bk010315Controller@post');
 Route::get('/main/perencanaan/kontrak_paket/create', 'MAIN\bk010315Controller@create');
 Route::post('/main/perencanaan/kontrak_paket/create', 'MAIN\bk010315Controller@post_create');
 Route::get('/main/perencanaan/kontrak_paket/delete', 'MAIN\bk010315Controller@delete');
+Route::get('/main/perencanaan/kontrak_paket/select', 'MAIN\bk010315Controller@select');
 
 Route::get('/main/perencanaan/kelurahan/penanganan_kumuh', 'MAIN\bk010316Controller@index');
 Route::get('/main/perencanaan/kelurahan/penanganan_kumuh/select', 'MAIN\bk010316Controller@select');

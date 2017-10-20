@@ -62,6 +62,16 @@
                                 <th>Status Lahan</th>
                                 <th>Status Hunian</th>
                                 <th>Kepadatan Bangunan</th>
+                                <th>Jumlah Penduduk</th>
+                                <th>Jumlah Penduduk Perempuan</th>
+                                <th>Jumlah Penduduk MBR</th>
+                                <th>Jumlah Kepala Keluarga</th>
+                                <th>Jumlah Kepala Keluarga Miskin</th>
+                                <th>Kepadatan Penduduk</th>
+                                <th>Luas Kawasan Kumuh</th>
+                                <th>Jumlah Kelurahan Kumuh Pada Tahun Berjalan</th>
+                                <th>Jumlah Rt Kumuh Pada Tahun Berjalan</th>
+                                <th>Luas Rt Kumuh Pada Tahun Berjalan</th>
                                 <th>Created Time</th>
                                 <th>Created By</th>
                                 <th>Option</th>
@@ -95,13 +105,23 @@
                 { "data": "nama_kota" , name:"nama_kota"},
                 { "data": "nama_korkot" , name:"nama_korkot"},
                 { "data": "nama_kec" , name:"nama_kec"},
-                { "data": "id_kawasan" , name:"id_kawasan"},
-                { "data": "topologi_pmkm" , name:"topologi_pmkm"},
+                { "data": "nama_kawasan" , name:"nama_kawasan"},
+                { "data": "tipologi_pmkm" , name:"tipologi_pmkm"},
                 { "data": "karakter_kaw" , name:"karakter_kaw"},
                 { "data": "pola_penanganan" , name:"pola_penanganan"},
                 { "data": "status_lahan" , name:"status_lahan"},
                 { "data": "status_hunian" , name:"status_hunian"},
                 { "data": "kepadatan_bangunan" , name:"kepadatan_bangunan"},
+                { "data": "pdk_q_jiwa" , name:"pdk_q_jiwa"},
+                { "data": "pdk_q_jiwa_w" , name:"pdk_q_jiwa_w"},
+                { "data": "pdk_q_mbr" , name:"pdk_q_mbr"},
+                { "data": "pdk_q_kk" , name:"pdk_q_kk"},
+                { "data": "pdk_q_kk_miskin" , name:"pdk_q_kk_miskin"},
+                { "data": "pdk_kpdt_pddk" , name:"pdk_kpdt_pddk"},
+                { "data": "pk_l_kaw_kmh" , name:"pk_l_kaw_kmh"},
+                { "data": "pk_q_kel_kmh_thn_cur" , name:"pk_q_kel_kmh_thn_cur"},
+                { "data": "pk_q_rt_kmh_thn_cur" , name:"pk_q_rt_kmh_thn_cur"},
+                { "data": "pk_l_rt_kmh_thn_cur" , name:"pk_l_rt_kmh_thn_cur"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "created_by" , name:"created_by"},
 				{ "data": "option" , name:"option",orderable:false}

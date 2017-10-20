@@ -205,14 +205,6 @@ class bk010223Controller extends Controller
 				where a.kode=b.kode_faskel and b.kode_kel='.$request->input('kel'));
 			echo json_encode($kota);
 		}
-		else if(!empty($request->input('kegiatan'))){
-			$kota = DB::select('select id, nama from bkt_01010118_kegiatan_kel where kode_kec='.$request->input('kec'));
-			echo json_encode($kota);
-		}
-		else if(!empty($request->input('dtl_kegiatan'))){
-			$kota = DB::select('select id, nama from bkt_01010119_dtl_keg_kel where kode_kec='.$request->input('kec'));
-			echo json_encode($kota);
-		}
 	}
 
 	public function create(Request $request)
