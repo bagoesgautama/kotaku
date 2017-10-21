@@ -3,7 +3,8 @@
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet"/>
 <link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
-<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
+<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
+@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>Koordinator Kota (KorKot)</h1>
@@ -15,14 +16,10 @@
                 </a>
             </li>
             <li class="next">
-                Master Data
-            </li>
-            <li class="next">
-                Data Cakupan Program
-            </li>
-            <li class="next">
-                Korkot
-            </li>
+                <a href="/main/korkot">
+                    Master Data / Data Cakupan Program / KorKot
+                </a>
+            </li>        
             <li class="next">
                 Create
             </li>
@@ -32,7 +29,7 @@
 @stop
 {{-- Page content --}} @section('content')
 <div class="panel-body border">
-    <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator">
+    <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator">
         <div class="row">
             <div class="form-group striped-col">
                 <input type="hidden" id="example-id-input" name="example-id-input" value="{{ $kode }}">
@@ -149,13 +146,20 @@
 </div>
 @stop
 {{-- local scripts --}} @section('footer_scripts')
-<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script>
+    function HanyaAngka(evt)
+    {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+        return true;
+    }
+</script>
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
-          e.preventDefault();
-          $.ajax({
+        $('#form').on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
             type: 'post',
             "url": "/main/korkot/create",
             data: $('form').serialize(),
@@ -163,20 +167,28 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/korkot";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
-            alert(thrownError);
             $("#submit").prop('disabled', false);
             }
           });
         });
-      });
-</script>
 
+        $("#select-kode_kota-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+
+        $("#select-kode_pms-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+    });
+</script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/moment/js/moment.min.js')}}"></script>

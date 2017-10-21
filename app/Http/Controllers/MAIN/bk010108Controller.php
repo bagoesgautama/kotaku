@@ -78,14 +78,13 @@ class bk010108Controller extends Controller
 			6 =>'no_hp2',
 			7 =>'email1',
 			8 =>'email2',
-			9 =>'pms_nama',
-			10 => 'pms_alamat',
+			9 =>'kode_pms',
 			11 =>'created_time',
 			12 =>'created_by',
 			13 =>'updated_time',
 			14 =>'updated_by'
 		);
-		$query='select a.*, b.nama pms_nama from bkt_01010108_kmp a, bkt_01010115_pms b where a.kode_pms=b.kode ';
+		$query='select a.*, b.nama nama_pms from bkt_01010108_kmp a, bkt_01010115_pms b where a.kode_pms=b.kode ';
 		$totalData = DB::select('select count(1) cnt from bkt_01010108_kmp ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -99,7 +98,8 @@ class bk010108Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. 'where nama like "%'.$search.'%" or email1 like "%'.$search.'%" or no_hp1 like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. 'where nama like "%'.$search.'%" or email1 like "%'.$search.'%" or no_hp1 like "%'.$search.'%") a');
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. 'where nama like "%'.$search.'%" or email1 like "%'.$search.'%" or no_hp1 like "%'.$search.'%") a');
+			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
 		$data = array();
@@ -121,7 +121,7 @@ class bk010108Controller extends Controller
 				$nestedData['no_hp2'] = $post->no_hp2;
 				$nestedData['email1'] = $post->email1;
 				$nestedData['email2'] = $post->email2;
-				$nestedData['pms_nama'] = $post->pms_nama;
+				$nestedData['nama_pms'] = $post->nama_pms;
 				$nestedData['created_time'] = $post->created_time;
 				$nestedData['created_by'] = $post->created_by;
 				$nestedData['updated_time'] = $post->updated_time;
@@ -172,6 +172,11 @@ class bk010108Controller extends Controller
 		$data['username'] = '';
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
+
+		//get dropdown list from Database
+		$kode_pms = DB::select('select kode, nama from bkt_01010115_pms where status=1');
+		$data['kode_pms_list'] = $kode_pms;
+
 		if($data['kode']!=null && !empty($data['detil']['34'])){
 			$rowData = DB::select('select * from bkt_01010108_kmp where kode='.$data['kode']);
 			$data['nama'] = $rowData[0]->nama;
@@ -183,7 +188,7 @@ class bk010108Controller extends Controller
 			$data['no_hp2'] = $rowData[0]->no_hp2;
 			$data['email1'] = $rowData[0]->email1;
 			$data['email2'] = $rowData[0]->email2;
-			$data['pms_nama'] = $rowData[0]->pms_nama;
+			$data['kode_pms'] = $rowData[0]->kode_pms;
 			$data['created_time'] = $rowData[0]->created_time;
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
@@ -199,7 +204,7 @@ class bk010108Controller extends Controller
 			$data['no_hp2'] = null;
 			$data['email1'] = null;
 			$data['email2'] = null;
-			$data['pms_nama'] = null;
+			$data['kode_pms'] = null;
 			$data['created_time'] = null;
 			$data['created_by'] = null;
 			$data['updated_time'] = null;
@@ -229,7 +234,7 @@ class bk010108Controller extends Controller
 				'no_hp2' => $request->input('no_hp2-input'), 
 				'email1' => $request->input('email1-input'), 
 				'email2' => $request->input('email2-input'), 
-				'pms_nama' => $request->input('pms_nama-input'),
+				'kode_pms' => $request->input('select-kode_pms-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
@@ -245,7 +250,7 @@ class bk010108Controller extends Controller
 				'no_hp2' => $request->input('no_hp2-input'), 
 				'email1' => $request->input('email1-input'), 
 				'email2' => $request->input('email2-input'), 
-				'pms_nama' => $request->input('pms_nama-input'),
+				'kode_pms' => $request->input('select-kode_pms-input'),
        			'created_by' => Auth::user()->id
        			]);
 			$this->log_aktivitas('Create', 33);

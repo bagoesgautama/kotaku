@@ -42,25 +42,41 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <!-- <div class="panel-title pull-left">
-                    <b>bk010201 index</b>
-                </div> -->
-                @if( ! empty($detil['61']))
+                <div class="panel-title pull-left">
+                    <b>bk010312 index</b>
+                </div>
+                @if( ! empty($detil['314']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/nasional/pokja/pembentukan/create'}}">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/infra/penyiapan_paket/create'}}">Create</a>
 				</div>
                 @endif
             </div>
             <div class="panel-body">
-                <div class="table-responsive">
-					<table class="table table-striped" id="pokja">
+                <div class="table-responsive"> 
+					<table class="table table-striped" id="users" width="4000px">
 						<thead>
                             <tr>
                                 <th>Tahun</th>
-                                <th>Kode Prop</th>
-                                <th>Jenis Kegiatan</th>
-                                <th>Tanggal Pembentukan</th>
-                                <th>Status Pokja</th>
+                                <th>Skala Kegiatan</th>
+                                <th>KMW</th>
+                                <th>Kota</th>
+                                <th>Korkot</th>
+                                <th>Kecamatan</th>
+                                <th>Kelurahan</th>
+                                <th>Faskel</th>
+                                <th>Komponen Kegiatan</th>
+                                <th>Kode Kegiatan</th>
+                                <th>Subkomponen</th>
+                                <th>Detail Subkomponen</th>
+                                <th>Lokasi Kegiatan</th>
+                                <th>Volume Kegiatan</th>
+                                <th>Satuan</th>
+                                <th>Tipe Penanganan</th>
+                                <th>APBN NSUP</th>
+                                <th>APBN K/L Lain</th>
+                                <th>APBD Propinsi</th>
+                                <th>APBD Kab/Kota</th>
+                                <th>Lainya</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -75,23 +91,39 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#pokja').DataTable({
+		var table = $('#users').DataTable({
 	        // dom: 'Bflrtip',
 	        
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/nasional/pokja/pembentukan",
+                     "url": "/main/perencanaan/infra/penyiapan_paket",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-				{ "data": "tahun" , name:"tahun"},
-                { "data": "kode_prop" , name:"kode_prop"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "status_pokja" , name:"status_pokja"},
+                { "data": "tahun" , name:"tahun"},
+                { "data": "skala_kegiatan" , name:"skala_kegiatan"},
+                { "data": "nama_kmw" , name:"nama_kmw"},
+                { "data": "nama_kota" , name:"nama_kota"},
+                { "data": "nama_korkot" , name:"nama_korkot"},
+                { "data": "nama_kec" , name:"nama_kec"},
+                { "data": "nama_kel" , name:"nama_kel"},
+                { "data": "nama_faskel" , name:"nama_faskel"},
+                { "data": "jenis_komponen_keg" , name:"jenis_komponen_keg"},
+                { "data": "kode_kegiatan" , name:"kode_kegiatan"},
+                { "data": "id_subkomponen" , name:"id_subkomponen"},
+                { "data": "id_dtl_subkomponen" , name:"id_dtl_subkomponen"},
+                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+                { "data": "dk_vol_kegiatan" , name:"dk_vol_kegiatan"},
+                { "data": "dk_satuan" , name:"dk_satuan"},
+                { "data": "dk_tipe_penanganan" , name:"dk_tipe_penanganan"},
+				{ "data": "nb_apbn_nsup" , name:"nb_apbn_nsup"},
+                { "data": "nb_apbn_lain" , name:"nb_apbn_kl_lain"},
+                { "data": "nb_apbd_prop" , name:"nb_apbd_prop"},
+                { "data": "nb_apbd_kota" , name:"nb_apbd_kota"},
+                { "data": "nb_lainnya" , name:"nb_lainnya"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });

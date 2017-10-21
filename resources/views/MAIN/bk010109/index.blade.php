@@ -15,17 +15,20 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>Mapping KMP ke Slum Program</h1>
-    <ol class="breadcrumb">
-        <li>
-            <a href="/main">
-                <i class="fa fa-fw fa-home"></i> MAIN
-            </a>
-        </li>
-        <li><a href="/main/kmp_slum_program">Mapping KMP ke Slum Program</a></li>
-        <li class="active">
-            Table
-        </li>
-    </ol>
+    <div class="bs-example">
+        <ul class="breadcrumb">
+            <li class="next">
+                <a href="/main">
+                    <i class="fa fa-fw fa-home"></i> MAIN
+                </a>
+            </li>
+            <li class="next">
+                <a href="/main/kmp_slum_program">
+                    Master Data / Data Cakupan Program / Mapping KMP ke Slum Program
+                </a>
+            </li>
+        </ul>
+    </div>
 </section>
 @stop {{-- Page content --}} @section('content')
 <div class="row">
@@ -43,7 +46,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users">
+					<table class="table table-striped" id="users" width="1500px">
 						<thead>
                             <tr>
                                 <th>Mama KMP</th>

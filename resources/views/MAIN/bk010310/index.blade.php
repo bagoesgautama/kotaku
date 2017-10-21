@@ -57,10 +57,27 @@
                                 <th>KMW</th>
                                 <th>Faskel</th>
                                 <th>Jenis Kegiatan</th>
+                                <th>Subkomponen</th>
+                                <th>Detail Subkomponen</th>
                                 <th>Lokasi Kegiatan</th>
-                                <th>Karakter Kawasan</th>
-                                <th>Created Time</th>
-                                <th>Created By</th>
+                                <th>Jumlah Kegiatan</th>
+                                <th>Volume Kegiatan</th>
+                                <th>Satuan</th>
+                                <th>APBN PUPR</th>
+                                <th>APBN K/L Lain</th>
+                                <th>APBD Propinsi</th>
+                                <th>APBD Kab/Kota</th>
+                                <th>Hibah</th>
+                                <th>Non Pemerintah</th>
+                                <th>Masyarakat</th>
+                                <th>Lainya</th>
+                                <th>Jiwa</th>
+                                <th>Perempuan</th>
+                                <th>MBR</th>
+                                <th>KK</th>
+                                <th>KK Miskin</th>
+                                <th>Create Time</th>
+                                <th>Create By</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -90,12 +107,29 @@
                 { "data": "tahun" , name:"tahun"},
                 { "data": "nama_kota" , name:"nama_kota"},
                 { "data": "nama_korkot" , name:"nama_korkot"},
-                { "data": "kode_kaw_prior" , name:"kode_kaw_prior"},
+                { "data": "nama_kawasan" , name:"nama_kawasan"},
                 { "data": "nama_kmw" , name:"nama_kmw"},
                 { "data": "nama_faskel" , name:"nama_faskel"},
                 { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
+                { "data": "id_subkomponen" , name:"id_subkomponen"},
+                { "data": "id_dtl_subkomponen" , name:"id_dtl_subkomponen"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
-                { "data": "karakter_kaw" , name:"karakter_kaw"},
+                { "data": "dk_q_kegiatan" , name:"dk_q_kegiatan"},
+                { "data": "dk_vol_kegiatan" , name:"dk_vol_kegiatan"},
+                { "data": "dk_satuan" , name:"dk_satuan"},
+                { "data": "nb_apbn_pupr" , name:"nb_apbn_pupr"},
+                { "data": "nb_apbn_kl_lain" , name:"nb_apbn_kl_lain"},
+                { "data": "nb_apbd_prop" , name:"nb_apbd_prop"},
+                { "data": "nb_apbd_kota" , name:"nb_apbd_kota"},
+                { "data": "nb_hibah" , name:"nb_hibah"},
+                { "data": "nb_non_gov" , name:"nb_non_gov"},
+                { "data": "nb_masyarakat" , name:"nb_masyarakat"},
+                { "data": "nb_lainnya" , name:"nb_lainnya"},
+                { "data": "tpm_q_jiwa" , name:"tpm_q_jiwa"},
+                { "data": "tpm_q_jiwa_w" , name:"tpm_q_jiwa_w"},
+                { "data": "tpm_q_mbr" , name:"tpm_q_mbr"},
+                { "data": "tpm_q_kk" , name:"tpm_q_kk"},
+                { "data": "tpm_q_kk_miskin" , name:"tpm_q_kk_miskin"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "created_by" , name:"created_by"},
                 { "data": "option" , name:"option",orderable:false}
