@@ -56,6 +56,36 @@ Route::post('/registrasi', 'Registrasi\RegistrasiController@registrasi_create_po
  *module HRM route here
  */
 Route::get('/hrm', 'HomeController@hrm');
+
+//activity log
+Route::get('/hrm/activity_log', 'HRM\bk020201Controller@index');
+Route::post('hrm/activity_log', 'HRM\bk020201Controller@post');
+Route::get('/hrm/activity_log/create', 'HRM\bk020201Controller@create');
+Route::post('/hrm/activity_log/create', 'HRM\bk020201Controller@post_create');
+Route::get('/hrm/activity_log/delete', 'HRM\bk020201Controller@delete');
+
+//management
+Route::get('/hrm/management/user/password', 'HRM\bk020307Controller@index');
+Route::post('hrm/management/user/password', 'HRM\bk020307Controller@post');
+
+Route::get('/hrm/management/kuota/kmp', 'HRM\bk020309Controller@index');
+Route::post('hrm/management/kuota/kmp', 'HRM\bk020309Controller@post');
+Route::get('/hrm/management/kuota/kmp/create', 'HRM\bk020309Controller@create');
+Route::post('/hrm/management/kuota/kmp/create', 'HRM\bk020309Controller@post_create');
+Route::get('/hrm/management/kuota/kmp/delete', 'HRM\bk020309Controller@delete');
+
+Route::get('/hrm/management/kuota/kmw', 'HRM\bk020310Controller@index');
+Route::post('hrm/management/kuota/kmw', 'HRM\bk020310Controller@post');
+Route::get('/hrm/management/kuota/kmw/create', 'HRM\bk020310Controller@create');
+Route::post('/hrm/management/kuota/kmw/create', 'HRM\bk020310Controller@post_create');
+Route::get('/hrm/management/kuota/kmw/delete', 'HRM\bk020310Controller@delete');
+
+Route::get('/hrm/management/kuota/korkot', 'HRM\bk020311Controller@index');
+Route::post('hrm/management/kuota/korkot', 'HRM\bk020311Controller@post');
+Route::get('/hrm/management/kuota/korkot/create', 'HRM\bk020311Controller@create');
+Route::post('/hrm/management/kuota/korkot/create', 'HRM\bk020311Controller@post_create');
+Route::get('/hrm/management/kuota/korkot/delete', 'HRM\bk020311Controller@delete');
+
 //get html form data
 Route::get('/hrm/role', 'HRM\bk020102Controller@index');
 //get data for datatable
@@ -565,6 +595,7 @@ Route::post('/main/perencanaan/kelurahan/investasi_5thn/create', 'MAIN\bk010318C
 Route::get('/main/perencanaan/kelurahan/investasi_5thn/delete', 'MAIN\bk010318Controller@delete');
 
 Route::get('/main/perencanaan/kelurahan/kegiatan', 'MAIN\bk010319Controller@index');
+Route::get('/main/perencanaan/kelurahan/kegiatan/select', 'MAIN\bk010319Controller@select');
 Route::post('/main/perencanaan/kelurahan/kegiatan', 'MAIN\bk010319Controller@post');
 Route::get('/main/perencanaan/kelurahan/kegiatan/create', 'MAIN\bk010319Controller@create');
 Route::post('/main/perencanaan/kelurahan/kegiatan/create', 'MAIN\bk010319Controller@post_create');
@@ -572,6 +603,7 @@ Route::get('/main/perencanaan/kelurahan/kegiatan/delete', 'MAIN\bk010319Controll
 
 //pelaksanaan
 Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan', 'MAIN\bk010401Controller@index');
+Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/select', 'MAIN\bk010401Controller@select');
 Route::post('/main/pelaksanaan/kota_bdi/realisasi_kegiatan', 'MAIN\bk010401Controller@post');
 Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/create', 'MAIN\bk010401Controller@create');
 Route::post('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/create', 'MAIN\bk010401Controller@post_create');
@@ -682,5 +714,36 @@ Route::get('/gis', 'GIS\bk040101Controller@index');
 Route::get('/gis/map-kota', 'GIS\bk040101Controller@kota');
 Route::get('/gis/map-kecamatan', 'GIS\bk040101Controller@kecamatan');
 
+/**
+ *
+ *
+ *module QS route here
+ */
+Route::get('/qs', 'HomeController@qs');
+
+//master data
+Route::get('/qs/master/agenda', 'QS\bk050101Controller@index');
+Route::post('/qs/master/agenda', 'QS\bk050101Controller@post');
+Route::get('/qs/master/agenda/create', 'QS\bk050101Controller@create');
+Route::post('/qs/master/agenda/create', 'QS\bk050101Controller@post_create');
+Route::get('/qs/master/agenda/delete', 'QS\bk050101Controller@delete');
+
+Route::get('/qs/master/kegiatan_kelurahan', 'QS\bk050102Controller@index');
+Route::post('/qs/master/kegiatan_kelurahan', 'QS\bk050102Controller@post');
+Route::get('/qs/master/kegiatan_kelurahan/create', 'QS\bk050102Controller@create');
+Route::post('/qs/master/kegiatan_kelurahan/create', 'QS\bk050102Controller@post_create');
+Route::get('/qs/master/kegiatan_kelurahan/delete', 'QS\bk050102Controller@delete');
+
+Route::get('/qs/master/kegiatan_kota', 'QS\bk050103Controller@index');
+Route::post('/qs/master/kegiatan_kota', 'QS\bk050103Controller@post');
+Route::get('/qs/master/kegiatan_kota/create', 'QS\bk050103Controller@create');
+Route::post('/qs/master/kegiatan_kota/create', 'QS\bk050103Controller@post_create');
+Route::get('/qs/master/kegiatan_kota/delete', 'QS\bk050103Controller@delete');
+
+Route::get('/qs/master/schedule', 'QS\bk050104Controller@index');
+Route::post('/qs/master/schedule', 'QS\bk050104Controller@post');
+Route::get('/qs/master/schedule/create', 'QS\bk050104Controller@create');
+Route::post('/qs/master/schedule/create', 'QS\bk050104Controller@post_create');
+Route::get('/qs/master/schedule/delete', 'QS\bk050104Controller@delete');
 
 Auth::routes();

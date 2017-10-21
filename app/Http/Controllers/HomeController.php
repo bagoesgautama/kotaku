@@ -65,6 +65,28 @@ class HomeController extends Controller
 		}
 	}
 
+	public function qs()
+	{
+		$user = Auth::user();
+		$akses= $user->menu()->where('kode_apps', 5)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				//if($item->kode_menu==10)
+					//$data['detil'][$item->kode_menu_detil]='a';
+			}
+			if(!empty($data['menu'])){
+			    $data['username'] = $user->name;
+				return view('QS/main/index',$data);
+			}
+			else {
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
+	}
+
 	public function main()
 	{
 		$user = Auth::user();

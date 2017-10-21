@@ -41,7 +41,7 @@ class bk010112Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
-				
+
 				$this->log_aktivitas('View', 48);
 				return view('MAIN/bk010112/index',$data);
 			}
@@ -92,7 +92,8 @@ class bk010112Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. 'and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. 'and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. 'and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
+			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
 		$data = array();
@@ -128,7 +129,7 @@ class bk010112Controller extends Controller
 				}
 				if(!empty($detil['51'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}		
+				}
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
@@ -158,7 +159,7 @@ class bk010112Controller extends Controller
 		$data['username'] = '';
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
-		
+
 		//get dropdown list from Database
 		$kode_korkot_list = DB::select('select kode, nama from bkt_01010111_korkot');
 		$data['kode_korkot_list'] = $kode_korkot_list;
@@ -201,8 +202,8 @@ class bk010112Controller extends Controller
 		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_01010112_kota_korkot')->where('kode', $request->input('example-id-input'))
-			->update(['kode_korkot' => $request->input('select-kode_korkot-input'), 
-				'kode_kota' => $request->input('select-kode_kota-input'), 
+			->update(['kode_korkot' => $request->input('select-kode_korkot-input'),
+				'kode_kota' => $request->input('select-kode_kota-input'),
 				'ms_kode' => $request->input('select-ms_kode-input'),
 				'ms_paket' => $request->input('select-ms_paket-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
@@ -212,8 +213,8 @@ class bk010112Controller extends Controller
 
 		}else{
 			DB::table('bkt_01010112_kota_korkot')->insert(
-       			['kode_korkot' => $request->input('select-kode_korkot-input'), 
-				'kode_kota' => $request->input('select-kode_kota-input'), 
+       			['kode_korkot' => $request->input('select-kode_korkot-input'),
+				'kode_kota' => $request->input('select-kode_kota-input'),
 				'ms_kode' => $request->input('select-ms_kode-input'),
 				'ms_paket' => $request->input('select-ms_paket-input'),
        			'created_by' => Auth::user()->id
@@ -234,10 +235,10 @@ class bk010112Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
-				'kode_modul' => 2, 
-				'kode_menu' => 29,   
-				'kode_menu_detil' => $detil, 
-				'aktifitas' => $aktifitas, 
+				'kode_modul' => 2,
+				'kode_menu' => 29,
+				'kode_menu_detil' => $detil,
+				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas
        			]);
     }

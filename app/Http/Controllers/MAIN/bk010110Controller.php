@@ -41,7 +41,7 @@ class bk010110Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
-				
+
 				$this->log_aktivitas('View', 40);
 				return view('MAIN/bk010110/index',$data);
 			}
@@ -87,6 +87,7 @@ class bk010110Controller extends Controller
 			15 =>'updated_time',
 			16 =>'updated_by'
 		);
+
 			
 		$query='select a.*, b.nama nama_prop, c.nama nama_pms 
 					from bkt_01010110_kmw a, bkt_01010101_prop b, bkt_01010115_pms c 
@@ -150,7 +151,7 @@ class bk010110Controller extends Controller
 				}
 				if(!empty($detil['43'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}		
+				}
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
@@ -180,7 +181,7 @@ class bk010110Controller extends Controller
 		$data['username'] = '';
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
-		
+
 		//get dropdown list from Database
 		$kmp_slum_prog_list = DB::select('select kode from bkt_01010109_kmp_slum_prog');
 		$data['kode_kmp_slum_prog_list'] = $kmp_slum_prog_list;
@@ -296,10 +297,10 @@ class bk010110Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
-				'kode_modul' => 2, 
-				'kode_menu' => 27,   
-				'kode_menu_detil' => $detil, 
-				'aktifitas' => $aktifitas, 
+				'kode_modul' => 2,
+				'kode_menu' => 27,
+				'kode_menu_detil' => $detil,
+				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas
        			]);
     }
