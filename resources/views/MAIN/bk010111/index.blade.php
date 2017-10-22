@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Koordinator Kota (Korkot)</h1>
+    <h1>Koordinator Kota (KorKot)</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,13 +23,9 @@
                 </a>
             </li>
             <li class="next">
-                Master Data
-            </li>
-            <li class="next">
-                Data Cakupan Program
-            </li>
-            <li class="next">
-                KorKot
+                <a href="/main/korkot">
+                    Master Data / Data Cakupan Program / KorKot
+                </a>
             </li>
         </ul>
     </div>
@@ -59,8 +55,10 @@
                                 <th>Contact Person</th>
                                 <th>No Telepon</th>
                                 <th>No FAX</th>
-                                <th>No Handphone</th>
-                                <th>Email</th>
+                                <th>No Handphone 1</th>
+                                <th>No Handphone 2</th>
+                                <th>Email 1</th>
+                                <th>Email 2</th>
                                 <th>Nama PMS</th>
                                 <th>Created Time</th>
                                 <th>Created By</th>
@@ -103,8 +101,10 @@
                 { "data": "no_phone" , name:"no_phone"},
                 { "data": "no_fax" , name:"no_fax"},
                 { "data": "no_hp1" , name:"no_hp1"},
+                { "data": "no_hp2" , name:"no_hp2"},
                 { "data": "email1" , name:"email1"},
-                { "data": "pms_nama" , name:"pms_nama"},
+                { "data": "email2" , name:"email2"},
+                { "data": "nama_pms" , name:"nama_pms"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "created_by" , name:"created_by"},
                 { "data": "option" , name:"option",orderable:false}

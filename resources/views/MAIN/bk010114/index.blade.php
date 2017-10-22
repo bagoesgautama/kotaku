@@ -50,17 +50,24 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users">
+					<table class="table table-striped" id="users" width="2000px">
 						<thead>
                             <tr>
                                 <th>Mapping KMP ke Slum Program</th>
-                                <th>Faskel</th>
+                                <th>Propinsi</th>
+                                <th>Kota</th>
+                                <th>Kecamatan</th>
                                 <th>Kelurahan</th>
+                                <th>Faskel</th>
                                 <th>BLM</th>
                                 <th>Project</th>
-                                <th>Kecamatan</th>
+                                <th>Tahun Glosary</th>
+                                <th>Tahun Project</th>
+                                <th>Awal Project</th>
                                 <th>Lokasi BLM</th>
                                 <th>Lokasi Kumuh</th>
+                                <th>Flag Kumuh</th>
+                                <th>Flag Lokasi PPMK</th>
                                 <th>Created Time</th>
                                 <th>Created By</th>
 								<th>Option</th>
@@ -96,13 +103,20 @@
               },
             "columns": [
 				{ "data": "kode_kmp_slum_prog" , name:"kode_kmp_slum_prog"},
-                { "data": "nama_faskel" , name:"nama_faskel"},
+                { "data": "nama_prop" , name:"nama_prop"},
+                { "data": "nama_kota" , name:"nama_kota"},
+                { "data": "nama_kec" , name:"nama_kec"},
                 { "data": "nama_kel" , name:"nama_kel"},
+                { "data": "nama_faskel" , name:"nama_faskel"},
                 { "data": "blm" , name:"blm"},
                 { "data": "jenis_project" , name:"jenis_project"},
-                { "data": "nama_kec" , name:"nama_kec"},
+                { "data": "tahun_glossary" , name:"tahun_glossary"},
+                { "data": "tahun_project" , name:"tahun_project"},
+                { "data": "awal_project" , name:"awal_project"},
                 { "data": "lokasi_blm" , name:"lokasi_blm"},
                 { "data": "Lokasi_Kumuh" , name:"Lokasi_Kumuh"},
+                { "data": "flag_kumuh" , name:"flag_kumuh"},
+                { "data": "flag_lokasi_ppmk" , name:"flag_lokasi_ppmk"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "created_by" , name:"created_by"},
 				{ "data": "option" , name:"option",orderable:false}

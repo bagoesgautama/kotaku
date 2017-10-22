@@ -5,9 +5,8 @@
 <link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
-<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
-<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
+<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
+@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>Mapping Kota ke KorKot</h1>
@@ -19,14 +18,10 @@
                 </a>
             </li>
             <li class="next">
-                Master Data
-            </li>
-            <li class="next">
-                Data Cakupan Program
-            </li>
-            <li class="next">
-                Mapping Kota ke KorKot
-            </li>
+                <a href="/main/kota_korkot">
+                    Master Data / Data Cakupan Program / Mapping Kota ke KorKot
+                </a>
+            </li>        
             <li class="next">
                 Create
             </li>
@@ -48,6 +43,7 @@
                                 <input type="hidden" id="example-text-input1" name="example-id-input" value="{{ $kode }}">
                                 <div class="col-sm-6">
                                     <select id="select-kode_korkot-input" class="form-control select2" name="select-kode_korkot-input">
+                                        <option>Please Select</option>
                                         @foreach($kode_korkot_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_korkot) selected="selected" @endif >{{ $list->nama }}
                                             </option>
@@ -59,6 +55,7 @@
                                 <label class="col-sm-3 control-label" for="example-text-input1">Kota</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode_kota-input" class="form-control select2" name="select-kode_kota-input">
+                                        <option>Please Select</option>
                                         @foreach($kode_kota_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_kota) selected="selected" @endif >{{ $list->nama }}
                                             </option>
@@ -70,6 +67,7 @@
                                 <label class="col-sm-3 control-label" for="example-text-input1">Nama MS</label>
                                 <div class="col-sm-6">
                                     <select id="select-ms_kode-input" name="select-ms_kode-input" class="form-control" size="1">
+                                        <option>Please Select</option>
                                         <option value="1" @if($ms_kode==1) selected="selected" @endif >MS 1</option>
                                         <option value="2" @if($ms_kode==2) selected="selected" @endif >MS 2</option>
                                         <option value="3" @if($ms_kode==3) selected="selected" @endif >MS 3</option>
@@ -80,6 +78,7 @@
                                 <label class="col-sm-3 control-label" for="example-text-input1">Paket MS</label>
                                 <div class="col-sm-6">
                                     <select id="select-ms_paket-input" name="select-ms_paket-input" class="form-control" size="1">
+                                        <option>Please Select</option>
                                         <option value="1" @if($ms_paket==1) selected="selected" @endif >Paket MS 1</option>
                                         <option value="2" @if($ms_paket==2) selected="selected" @endif >Paket MS 2</option>
                                         <option value="3" @if($ms_paket==3) selected="selected" @endif >Paket MS 3</option>
@@ -143,16 +142,25 @@
             theme: "bootstrap",
             placeholder: "single select"
         });
-      });
+
+        $("#select-ms_kode-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+
+        $("#select-ms_paket-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+    });
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/moment/js/moment.min.js')}}"></script>
+
 <script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+
 <script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
+
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/register.js')}}"></script>
 @stop
