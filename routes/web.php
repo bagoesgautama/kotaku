@@ -79,6 +79,12 @@ Route::get('/hrm/management/user/pendidikan/create', 'HRM\bk020304Controller@cre
 Route::post('/hrm/management/user/pendidikan/create', 'HRM\bk020304Controller@post_create');
 Route::get('/hrm/management/user/pendidikan/delete', 'HRM\bk020304Controller@delete');
 
+Route::get('/hrm/management/user/penghargaan', 'HRM\bk020305Controller@index');
+Route::post('hrm/management/user/penghargaan', 'HRM\bk020305Controller@post');
+Route::get('/hrm/management/user/penghargaan/create', 'HRM\bk020305Controller@create');
+Route::post('/hrm/management/user/penghargaan/create', 'HRM\bk020305Controller@post_create');
+Route::get('/hrm/management/user/penghargaan/delete', 'HRM\bk020305Controller@delete');
+
 Route::get('/hrm/management/user/password', 'HRM\bk020307Controller@index');
 Route::post('hrm/management/user/password', 'HRM\bk020307Controller@post');
 

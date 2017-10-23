@@ -2,9 +2,6 @@
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" type="text/css" href="{{asset('css/custom.css')}}">
-<link rel="stylesheet" href="{{asset('css/custom_css/skins/skin-default.css')}}" type="text/css" id="skin" />
-<link rel="stylesheet" type="text/css" href="{{asset('css/formelements.css')}}">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
@@ -147,21 +144,7 @@
   $(document).ready(function () {
 
 	$('#form').on('submit', function (e) {
-		var uri_img_sertifikat1 = document.getElementById('uri_img_sertifikat1-input').files[0];
-		var uri_img_sertifikat2 = document.getElementById('uri_img_sertifikat2-input').files[0];
-		var url_img_sertifikat3 = document.getElementById('url_img_sertifikat3-input').files[0];
-		var form_data = new FormData();
-		form_data.append('kode', $('#kode').val());
-		form_data.append('uri_img_sertifikat1-input', uri_img_sertifikat1);
-		form_data.append('uri_img_sertifikat2-input', uri_img_sertifikat2);
-		form_data.append('url_img_sertifikat3-input', url_img_sertifikat3);
-		form_data.append('uri_img_sertifikat1-file', $('#uri_img_sertifikat1-file').val());
-		form_data.append('uri_img_sertifikat2-file', $('#uri_img_sertifikat2-file').val());
-		form_data.append('url_img_sertifikat3-file', $('#url_img_sertifikat3-file').val());
-		form_data.append('nama-input', $('#nama-input').val());
-		form_data.append('deskripsi-input', $('#deskripsi-input').val());
-		form_data.append('tgl_pelatihan-input', $('#tgl_pelatihan-input').val());
-		form_data.append('instansi-input', $('#instansi-input').val());
+		var form_data = new FormData(this);
 		e.preventDefault();
 		$.ajax({
 			type: 'post',
@@ -173,9 +156,8 @@
 			    $("#submit").prop('disabled', true);
 			},
 			success: function () {
-
-			alert('From Submitted.');
-			window.location.href = "/hrm/management/user/pelatihan";
+				alert('From Submitted.');
+				window.location.href = "/hrm/management/user/pelatihan";
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);
@@ -219,5 +201,4 @@
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
-<script src="{{asset('js/custom_js/form_elements.js')}}"></script>
 @stop

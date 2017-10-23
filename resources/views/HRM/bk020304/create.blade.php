@@ -161,24 +161,7 @@
   $(document).ready(function () {
 
 	$('#form').on('submit', function (e) {
-		var uri_img_dok1 = document.getElementById('uri_img_dok1-input').files[0];
-		var uri_img_dok2 = document.getElementById('uri_img_dok2-input').files[0];
-		var uri_img_dok3 = document.getElementById('uri_img_dok3-input').files[0];
-		var form_data = new FormData();
-		form_data.append('kode', $('#kode').val());
-		form_data.append('uri_img_dok1-input', uri_img_dok1);
-		form_data.append('uri_img_dok2-input', uri_img_dok2);
-		form_data.append('uri_img_dok3-input', uri_img_dok3);
-		form_data.append('uri_img_dok1-file', $('#uri_img_dok1-file').val());
-		form_data.append('uri_img_dok2-file', $('#uri_img_dok2-file').val());
-		form_data.append('uri_img_dok3-file', $('#uri_img_dok3-file').val());
-		form_data.append('nama_lembaga-input', $('#nama_lembaga-input').val());
-		form_data.append('deskripsi-input', $('#deskripsi-input').val());
-		form_data.append('fakultas-input', $('#fakultas-input').val());
-		form_data.append('bidang_studi-input', $('#bidang_studi-input').val());
-		form_data.append('tingkat-input', $('#tingkat-input').val());
-		form_data.append('thn_masuk-input', $('#thn_masuk-input').val());
-		form_data.append('thn_lulus-input', $('#thn_lulus-input').val());
+		var form_data = new FormData(this);
 		e.preventDefault();
 		$.ajax({
 			type: 'post',
@@ -190,10 +173,8 @@
 			    $("#submit").prop('disabled', true);
 			},
 			success: function () {
-
-			alert('From Submitted.');
-			$("#submit").prop('disabled', false);
-			window.location.href = "/hrm/management/user/pendidikan";
+				alert('From Submitted.');
+				window.location.href = "/hrm/management/user/pendidikan";
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);
