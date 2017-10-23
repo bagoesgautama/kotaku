@@ -779,22 +779,22 @@
 			</li>
 			@endif
 			@if( ! empty($menu['110']))
-			<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+			<li {!! (Request::is( 'main/pelaksanaan/kota_non/*')||Request::is( 'main/pelaksanaan/kota_non/*/create')? 'class="active"': "") !!}>
 				<a href="javascript:void(0)">
 					<span class="mm-text">Realisasi kegiatan skala Kota (Non BDI Kolaborasi)</span>
 					<span class="fa arrow"></span>
 				</a>
 				<ul class="sub-menu form-submenu">
 					@if( ! empty($menu['117']))
-					<li {!! (Request::is( 'main/slum_program')||Request::is( 'main/slum_program/create')? 'class="active"': "") !!}>
-				        <a href="/main/slum_program">
+					<li {!! (Request::is( 'main/pelaksanaan/kota_non/realisasi_kegiatan')||Request::is( 'main/pelaksanaan/kota_non/realisasi_kegiatan/create')? 'class="active"': "") !!}>
+				        <a href="/main/pelaksanaan/kota_non/realisasi_kegiatan">
 				            <span class="mm-text ">Realisasi Kegiatan Skala Kota</span>
 				        </a>
 				    </li>
 					@endif
 					@if( ! empty($menu['118']))
-					<li {!! (Request::is( 'main/slum_program')||Request::is( 'main/slum_program/create')? 'class="active"': "") !!}>
-				        <a href="/main/slum_program">
+					<li {!! (Request::is( 'main/pelaksanaan/kota_non/sertifikasi_infra')||Request::is( 'main/pelaksanaan/kota_non/sertifikasi_infra/create')? 'class="active"': "") !!}>
+				        <a href="/main/pelaksanaan/kota_non/sertifikasi_infra">
 				            <span class="mm-text ">Sertifikasi Infrastruktur</span>
 				        </a>
 				    </li>

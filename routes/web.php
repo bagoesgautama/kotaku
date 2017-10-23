@@ -628,6 +628,7 @@ Route::post('/main/pelaksanaan/kota_bdi/sertifikasi_infra/create', 'MAIN\bk01040
 Route::get('/main/pelaksanaan/kota_bdi/sertifikasi_infra/delete', 'MAIN\bk010404Controller@delete');
 
 Route::get('/main/pelaksanaan/kota_non/realisasi_kegiatan', 'MAIN\bk010405Controller@index');
+Route::get('/main/pelaksanaan/kota_non/realisasi_kegiatan/select', 'MAIN\bk010405Controller@select');
 Route::post('/main/pelaksanaan/kota_non/realisasi_kegiatan', 'MAIN\bk010405Controller@post');
 Route::get('/main/pelaksanaan/kota_non/realisasi_kegiatan/create', 'MAIN\bk010405Controller@create');
 Route::post('/main/pelaksanaan/kota_non/realisasi_kegiatan/create', 'MAIN\bk010405Controller@post_create');
