@@ -50,6 +50,8 @@ Route::delete('/wizard', 'Test\wizard@delete');
 //reigistrasi
 Route::post('/registrasi', 'Registrasi\RegistrasiController@registrasi_create_post');
 
+//get message
+Route::get('/inbox', 'HomeController@inbox');
 /**
  *
  *

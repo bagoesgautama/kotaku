@@ -16,29 +16,10 @@
         <ul class="nav navbar-nav">
             <li class="dropdown messages-menu">
                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-fw ti-email black"></i>
-                    <span class="label label-success">2</span>
+                    <span id="msg_cnt" class="label label-success">3</span>
                 </a>
-                <ul class="dropdown-menu dropdown-messages table-striped">
-                    <li class="dropdown-title">New Messages</li>
-                    <li>
-                        <a href="" class="message striped-col">
-                            <div class="message-body">
-                                <strong>Tony</strong>
-                                <br> Let me know when you free
-                                <br>
-                                <small>5 days ago</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="dropdown-footer"><a href="javascript:void(0)">View All messages</a></li>
+                <ul id="msg" class="dropdown-menu dropdown-messages table-striped">
                 </ul>
-            </li>
-            <!--rightside toggle-->
-            <li>
-                <a href="javascript:void(0)" class="dropdown-toggle toggle-right">
-                    <i class="fa fa-fw ti-view-list black"></i>
-                    <span class="label label-danger">9</span>
-                </a>
             </li>
             <!-- User Account: style can be found in dropdown-->
             <li class="dropdown user user-menu">
@@ -47,9 +28,7 @@
                     <div class="riot">
                         <div>
                             {{ $username }}
-                            <span>
-                                        <i class="caret"></i>
-                                    </span>
+                            <span><i class="caret"></i></span>
                         </div>
                     </div>
                 </a>
@@ -90,3 +69,47 @@
         </ul>
     </div>
 </nav>
+<script>
+var xhr = new XMLHttpRequest();
+//setInterval(function(){
+	xhr.open('GET', "/inbox", true);
+	xhr.send();
+	xhr.onreadystatechange = processRequest;
+//}, 300000);
+
+function processRequest(e) {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        var res = JSON.parse(xhr.responseText);
+        document.getElementById("msg_cnt").innerHTML=res.length;
+		var msg=$("#msg");
+		msg.empty();
+		msg.append('<li class="dropdown-title">New Messages</li>');
+		for(var i=0;i<res.length;i++){
+			if(i%2==0){
+				msg.append(`<li>
+					<a href="" class="message striped-col">
+						<div class="message-body">
+							<strong>`+res[i].nama+`</strong>
+							<br> `+res[i].text_pesan+`
+							<br>
+							<small>`+res[i].tgl_pesan_masuk+`</small>
+						</div>
+					</a>
+				</li>`);
+			}else{
+				msg.append(`<li>
+					<a href="" class="message ">
+						<div class="message-body">
+							<strong>`+res[i].nama+`</strong>
+							<br> `+res[i].text_pesan+`
+							<br>
+							<small>`+res[i].tgl_pesan_masuk+`</small>
+						</div>
+					</a>
+				</li>`);
+			}
+		}
+		msg.append('<li class="dropdown-footer"><a href="javascript:void(0)">View All messages</a></li>');
+    }
+}
+</script>
