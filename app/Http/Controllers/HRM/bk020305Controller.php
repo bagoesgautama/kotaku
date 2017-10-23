@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
 
-class bk020303Controller extends Controller
+class bk020305Controller extends Controller
 {
     /**
      * Create a new controller instance.
@@ -31,13 +31,13 @@ class bk020303Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==169)
+				if($item->kode_menu==171)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
-				$this->log_aktivitas('View', 533);
-				return view('HRM/bk020303/index',$data);
+				$this->log_aktivitas('View', 541);
+				return view('HRM/bk020305/index',$data);
 			}
 			else {
 				return Redirect::to('/');
@@ -53,11 +53,11 @@ class bk020303Controller extends Controller
 		$columns = array(
 			0 =>'kode',
 			1 =>'nama',
-			2 =>'tgl_pelatihan',
-			3 =>'instansi'
+			2 =>'instansi',
+			3 =>'tgl_penghargaan'
 		);
-		$query='select * from bkt_02030202_pelatihan where kode_user='.$user->id;
-		$totalData = DB::select('select count(1) cnt from bkt_02030202_pelatihan where kode_user='.$user->id);
+		$query='select * from bkt_02030203_penghargaan where kode_user='.$user->id;
+		$totalData = DB::select('select count(1) cnt from bkt_02030203_penghargaan where kode_user='.$user->id);
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -80,26 +80,26 @@ class bk020303Controller extends Controller
 			foreach ($posts as $post)
 			{
 				$edit =  $post->kode;
-				$url_edit="/hrm/management/user/pelatihan/create?kode=".$edit;
-				$url_delete="/hrm/management/user/pelatihan/delete?kode=".$edit;
+				$url_edit="/hrm/management/user/penghargaan/create?kode=".$edit;
+				$url_delete="/hrm/management/user/penghargaan/delete?kode=".$edit;
 				$nestedData['kode'] = $post->kode;
-				$nestedData['tgl_pelatihan'] = $post->tgl_pelatihan;
 				$nestedData['nama'] = $post->nama;
 				$nestedData['instansi'] = $post->instansi;
+				$nestedData['tgl_penghargaan'] = $post->tgl_penghargaan;
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==169)
+						if($item->kode_menu==171)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
 
 				$option = '';
-				if(!empty($detil['535'])){
+				if(!empty($detil['543'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['536'])){
+				if(!empty($detil['544'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				}
 				$nestedData['option'] = $option;
@@ -124,38 +124,38 @@ class bk020303Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==169)
+				if($item->kode_menu==171)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			if($data['kode']!=null && !empty($data['detil']['535'])){
-				$rowData = DB::select('select * from bkt_02030202_pelatihan where kode='.$data['kode']);
+			if($data['kode']!=null && !empty($data['detil']['543'])){
+				$rowData = DB::select('select * from bkt_02030203_penghargaan where kode='.$data['kode']);
 				$data['nama'] = $rowData[0]->nama;
-				$data['deskripsi'] = $rowData[0]->deskripsi;
-				$data['tgl_pelatihan'] = $rowData[0]->tgl_pelatihan;
+				$data['tgl_penghargaan'] = $rowData[0]->tgl_penghargaan;
 				$data['instansi'] = $rowData[0]->instansi;
+				$data['deskripsi'] = $rowData[0]->deskripsi;
 				$data['uri_img_sertifikat1'] = $rowData[0]->uri_img_sertifikat1;
 				$data['uri_img_sertifikat2'] = $rowData[0]->uri_img_sertifikat2;
-				$data['url_img_sertifikat3'] = $rowData[0]->url_img_sertifikat3;
+				$data['uri_img_sertifikat3'] = $rowData[0]->uri_img_sertifikat3;
 				$data['created_time'] = $rowData[0]->created_time;
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
-				return view('HRM/bk020303/create',$data);
-			}else if($data['kode']==null && !empty($data['detil']['534'])){
+				return view('HRM/bk020305/create',$data);
+			}else if($data['kode']==null && !empty($data['detil']['544'])){
 				$data['nama'] = null;
-				$data['deskripsi'] = null;
-				$data['tgl_pelatihan'] = null;
+				$data['tgl_penghargaan'] = null;
 				$data['instansi'] = null;
+				$data['deskripsi'] = null;
 				$data['uri_img_sertifikat1'] = null;
 				$data['uri_img_sertifikat2'] = null;
-				$data['url_img_sertifikat3'] = null;
+				$data['uri_img_sertifikat3'] = null;
 				$data['created_time'] = null;
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
-				return view('HRM/bk020303/create',$data);
+				return view('HRM/bk020305/create',$data);
 			}else {
 				return Redirect::to('/');
 			}
@@ -187,11 +187,11 @@ class bk020303Controller extends Controller
 			$url2 = $user->id."_".$file2->getClientOriginalName();
 			$upload2 = true;
 		}
-		$file3 = $request->file('url_img_sertifikat3-input');
+		$file3 = $request->file('uri_img_sertifikat3-input');
 		$url3 = null;
 		$upload3 = false;
-		if($request->input('url_img_sertifikat3-file') != null && $file3 == null){
-			$url3 = $request->input('url_img_sertifikat3-file');
+		if($request->input('uri_img_sertifikat3-file') != null && $file3 == null){
+			$url3 = $request->input('uri_img_sertifikat3-file');
 			$upload3 = false;
 		}else if($file3 != null){
 			$url3 = $user->id."_".$file3->getClientOriginalName();
@@ -199,59 +199,59 @@ class bk020303Controller extends Controller
 		}
 		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('kode')!=null){
-			DB::table('bkt_02030202_pelatihan')->where('kode', $request->input('kode'))
+			DB::table('bkt_02030203_penghargaan')->where('kode', $request->input('kode'))
 			->update(['nama' => $request->input('nama-input'),
 				'deskripsi' => $request->input('deskripsi-input'),
-				'tgl_pelatihan' => $request->input('tgl_pelatihan-input'),
+				'tgl_penghargaan' => $request->input('tgl_penghargaan-input'),
 				'instansi' => $request->input('instansi-input'),
 				'uri_img_sertifikat1' => $url,
 				'uri_img_sertifikat2' => $url2,
-				'url_img_sertifikat3' => $url3,
+				'uri_img_sertifikat3' => $url3,
 				'kode_user' => $user->id,
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
 			if($upload == true){
-				$file->move(public_path('/uploads/pelatihan'), $user->id."_".$file->getClientOriginalName());
+				$file->move(public_path('/uploads/penghargaan'), $user->id."_".$file->getClientOriginalName());
 			}
 			if($upload2 == true){
-				$file2->move(public_path('/uploads/pelatihan'), $user->id."_".$file2->getClientOriginalName());
+				$file2->move(public_path('/uploads/penghargaan'), $user->id."_".$file2->getClientOriginalName());
 			}
 			if($upload3 == true){
-				$file3->move(public_path('/uploads/pelatihan'), $user->id."_".$file3->getClientOriginalName());
+				$file3->move(public_path('/uploads/penghargaan'), $user->id."_".$file3->getClientOriginalName());
 			}
-			$this->log_aktivitas('Update', 535);
+			$this->log_aktivitas('Update', 543);
 
 		}else{
-			DB::table('bkt_02030202_pelatihan')->insert(
+			DB::table('bkt_02030203_penghargaan')->insert(
        			['nama' => $request->input('nama-input'),
 				'deskripsi' => $request->input('deskripsi-input'),
-				'tgl_pelatihan' => $request->input('tgl_pelatihan-input'),
+				'tgl_penghargaan' => $request->input('tgl_penghargaan-input'),
 				'instansi' => $request->input('instansi-input'),
 				'uri_img_sertifikat1' => $url,
 				'uri_img_sertifikat2' => $url2,
-				'url_img_sertifikat3' => $url3,
+				'uri_img_sertifikat3' => $url3,
 				'kode_user' => $user->id,
 				'created_by' => Auth::user()->id
        			]);
 			if($upload == true){
-				$file->move(public_path('/uploads/pelatihan'), $user->id."_".$file->getClientOriginalName());
+				$file->move(public_path('/uploads/penghargaan'), $user->id."_".$file->getClientOriginalName());
 			}
 			if($upload2 == true){
-				$file2->move(public_path('/uploads/pelatihan'), $user->id."_".$file2->getClientOriginalName());
+				$file2->move(public_path('/uploads/penghargaan'), $user->id."_".$file2->getClientOriginalName());
 			}
 			if($upload3 == true){
-				$file3->move(public_path('/uploads/pelatihan'), $user->id."_".$file3->getClientOriginalName());
+				$file3->move(public_path('/uploads/penghargaan'), $user->id."_".$file3->getClientOriginalName());
 			}
-			$this->log_aktivitas('Create', 534);
+			$this->log_aktivitas('Create', 542);
 		}
 	}
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_02030202_pelatihan')->where('kode', $request->input('kode'))->delete();
-        $this->log_aktivitas('Delete', 536);
-        return Redirect::to('/hrm/management/user/pelatihan');
+		DB::table('bkt_02030203_penghargaan')->where('kode', $request->input('kode'))->delete();
+        $this->log_aktivitas('Delete', 544);
+        return Redirect::to('/hrm/management/user/penghargaan');
     }
 
     public function log_aktivitas($aktifitas, $detil)
@@ -260,7 +260,7 @@ class bk020303Controller extends Controller
 			'kode_user' => Auth::user()->id,
 			'kode_apps' => 2,
 			'kode_modul' => 14,
-			'kode_menu' => 169,
+			'kode_menu' => 171,
 			'kode_menu_detil' => $detil,
 			'aktifitas' => $aktifitas,
 			'deskripsi' => $aktifitas

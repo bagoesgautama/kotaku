@@ -73,6 +73,12 @@ Route::get('/hrm/management/user/pelatihan/create', 'HRM\bk020303Controller@crea
 Route::post('/hrm/management/user/pelatihan/create', 'HRM\bk020303Controller@post_create');
 Route::get('/hrm/management/user/pelatihan/delete', 'HRM\bk020303Controller@delete');
 
+Route::get('/hrm/management/user/pendidikan', 'HRM\bk020304Controller@index');
+Route::post('hrm/management/user/pendidikan', 'HRM\bk020304Controller@post');
+Route::get('/hrm/management/user/pendidikan/create', 'HRM\bk020304Controller@create');
+Route::post('/hrm/management/user/pendidikan/create', 'HRM\bk020304Controller@post_create');
+Route::get('/hrm/management/user/pendidikan/delete', 'HRM\bk020304Controller@delete');
+
 Route::get('/hrm/management/user/password', 'HRM\bk020307Controller@index');
 Route::post('hrm/management/user/password', 'HRM\bk020307Controller@post');
 

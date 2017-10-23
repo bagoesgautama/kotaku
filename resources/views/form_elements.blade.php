@@ -1,3 +1,4 @@
+
 @extends('layouts/default') {{-- Page title --}} @section('title') Form Elements @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" />
 <link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" rel="stylesheet" type="text/css" />
