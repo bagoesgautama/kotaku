@@ -67,6 +67,12 @@ Route::post('/hrm/activity_log/create', 'HRM\bk020201Controller@post_create');
 Route::get('/hrm/activity_log/delete', 'HRM\bk020201Controller@delete');
 
 //management
+Route::get('/hrm/management/user/pelatihan', 'HRM\bk020303Controller@index');
+Route::post('hrm/management/user/pelatihan', 'HRM\bk020303Controller@post');
+Route::get('/hrm/management/user/pelatihan/create', 'HRM\bk020303Controller@create');
+Route::post('/hrm/management/user/pelatihan/create', 'HRM\bk020303Controller@post_create');
+Route::get('/hrm/management/user/pelatihan/delete', 'HRM\bk020303Controller@delete');
+
 Route::get('/hrm/management/user/password', 'HRM\bk020307Controller@index');
 Route::post('hrm/management/user/password', 'HRM\bk020307Controller@post');
 
