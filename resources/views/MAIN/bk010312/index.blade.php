@@ -14,25 +14,18 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Perencanaan - Rencana Kegiatan Skala Kota</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
                 <a href="/main">
                     <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
-            </li>
+            </li>  
             <li class="next">
-                Persiapan
-            </li>
-            <li class="next">
-                Nasional
-            </li>
-            <li class="next">
-                Pokja
-            </li>
-            <li class="next">
-                Pembentukan
+                <a href="/main/perencanaan/infra/penyiapan_paket">
+                    Perencanaan / Penyiapan DED, Pengadaan Skala Kot / Penyiapan Paket (DED, RAB, RKS)
+                </a>
             </li>
         </ul>
     </div>

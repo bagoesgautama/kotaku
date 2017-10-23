@@ -566,6 +566,11 @@ Route::post('/main/perencanaan/pengadaan_lelang/create', 'MAIN\bk010314Controlle
 Route::get('/main/perencanaan/pengadaan_lelang/delete', 'MAIN\bk010314Controller@delete');
 Route::get('/main/perencanaan/pengadaan_lelang/select', 'MAIN\bk010314Controller@select');
 
+Route::post('/main/perencanaan/pengadaan_lelang/peserta', 'MAIN\bk010314Controller@post_peserta');
+Route::get('/main/perencanaan/pengadaan_lelang/peserta/create', 'MAIN\bk010314Controller@create_peserta');
+Route::post('/main/perencanaan/pengadaan_lelang/peserta/create', 'MAIN\bk010314Controller@post_create_peserta');
+Route::get('/main/perencanaan/pengadaan_lelang/peserta/delete', 'MAIN\bk010314Controller@delete_peserta');
+
 Route::get('/main/perencanaan/kontrak_paket', 'MAIN\bk010315Controller@index');
 Route::post('/main/perencanaan/kontrak_paket', 'MAIN\bk010315Controller@post');
 Route::get('/main/perencanaan/kontrak_paket/create', 'MAIN\bk010315Controller@create');

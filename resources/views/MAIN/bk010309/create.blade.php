@@ -170,7 +170,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Kepadatan Bangunan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="kepadatan_bangunan-input" name="kepadatan_bangunan-input" class="form-control" placeholder="Jiwa/Ha" value="{{$kepadatan_bangunan}}" maxlength="12" required>
+                                            <input type="text" id="kepadatan_bangunan-input" name="kepadatan_bangunan-input" class="form-control" placeholder="Jiwa/Ha" value="{{$kepadatan_bangunan}}" maxlength="12" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                 </div>
@@ -184,37 +184,37 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Jumlah Penduduk</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pdk_q_jiwa-input" name="pdk_q_jiwa-input" class="form-control" placeholder="Jiwa" value="{{$pdk_q_jiwa}}" maxlength="11" required>
+                                            <input type="text" id="pdk_q_jiwa-input" name="pdk_q_jiwa-input" class="form-control" placeholder="Jiwa" value="{{$pdk_q_jiwa}}" maxlength="11" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Jumlah Penduduk Perempuan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pdk_q_jiwa_w-input" name="pdk_q_jiwa_w-input" class="form-control" placeholder="Jiwa" value="{{$pdk_q_jiwa_w}}" maxlength="11" required>
+                                            <input type="text" id="pdk_q_jiwa_w-input" name="pdk_q_jiwa_w-input" class="form-control" placeholder="Jiwa" value="{{$pdk_q_jiwa_w}}" maxlength="11" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Jumlah Penduduk MBR</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pdk_q_mbr-input" name="pdk_q_mbr-input" class="form-control" placeholder="Jiwa" value="{{$pdk_q_mbr}}" maxlength="11" required>
+                                            <input type="text" id="pdk_q_mbr-input" name="pdk_q_mbr-input" class="form-control" placeholder="Jiwa" value="{{$pdk_q_mbr}}" maxlength="11" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Jumlah Kepala Keluarga</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pdk_q_kk-input" name="pdk_q_kk-input" class="form-control" placeholder="Kepala Keluarga" value="{{$pdk_q_kk}}" maxlength="9" required>
+                                            <input type="text" id="pdk_q_kk-input" name="pdk_q_kk-input" class="form-control" placeholder="Kepala Keluarga" value="{{$pdk_q_kk}}" maxlength="9" ronKeyPress="return HanyaAngka(event)" equired>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Jumlah Kepala Keluarga Miskin</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pdk_q_kk_miskin-input" name="pdk_q_kk_miskin-input" class="form-control" placeholder="Kepala Keluarga Miskin" value="{{$pdk_q_kk_miskin}}" maxlength="9" required>
+                                            <input type="text" id="pdk_q_kk_miskin-input" name="pdk_q_kk_miskin-input" class="form-control" placeholder="Kepala Keluarga Miskin" value="{{$pdk_q_kk_miskin}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Kepadatan Penduduk</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pdk_kpdt_pddk-input" name="pdk_kpdt_pddk-input" class="form-control" placeholder="Jiwa/Ha" value="{{$pdk_kpdt_pddk}}" maxlength="12" required>
+                                            <input type="text" id="pdk_kpdt_pddk-input" name="pdk_kpdt_pddk-input" class="form-control" placeholder="Jiwa/Ha" value="{{$pdk_kpdt_pddk}}" maxlength="12" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                 </div>
@@ -234,52 +234,52 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Jumlah Kawasan Kumuh Pada Tahun Berjalan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pk_q_kel_kmh_thn_cur-input" name="pk_q_kel_kmh_thn_cur-input" class="form-control" placeholder="Jumlah Kawasan Kumuh Pada Tahun Berjalan" value="{{$pk_q_kel_kmh_thn_cur}}" maxlength="9" required>
+                                            <input type="text" id="pk_q_kel_kmh_thn_cur-input" name="pk_q_kel_kmh_thn_cur-input" class="form-control" placeholder="Jumlah Kawasan Kumuh Pada Tahun Berjalan" value="{{$pk_q_kel_kmh_thn_cur}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Jumlah RT Kumuh Pada Tahun Berjalan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pk_q_rt_kmh_thn_cur-input" name="pk_q_rt_kmh_thn_cur-input" class="form-control" placeholder="Jumlah RT Kumuh Pada Tahun Berjalan" value="{{$pk_q_rt_kmh_thn_cur}}" maxlength="9" required>
+                                            <input type="text" id="pk_q_rt_kmh_thn_cur-input" name="pk_q_rt_kmh_thn_cur-input" class="form-control" placeholder="Jumlah RT Kumuh Pada Tahun Berjalan" value="{{$pk_q_rt_kmh_thn_cur}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Luas RT Kumuh Pada Tahun Berjalan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pk_l_rt_kmh_thn_cur-input" name="pk_l_rt_kmh_thn_cur-input" class="form-control" placeholder="Luas RT Kumuh Pada Tahun Berjalan" value="{{$pk_l_rt_kmh_thn_cur}}" maxlength="12" required>
+                                            <input type="text" id="pk_l_rt_kmh_thn_cur-input" name="pk_l_rt_kmh_thn_cur-input" class="form-control" placeholder="Luas RT Kumuh Pada Tahun Berjalan" value="{{$pk_l_rt_kmh_thn_cur}}" maxlength="12" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Jumlah RT Kumuh Pada Tahun Berjalan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pk_q_rt_kmh_thn_cur-input" name="pk_q_rt_kmh_thn_cur-input" class="form-control" placeholder="Jumlah RT Kumuh Pada Tahun Berjalan" value="{{$pk_q_rt_kmh_thn_cur}}" maxlength="9" required>
+                                            <input type="text" id="pk_q_rt_kmh_thn_cur-input" name="pk_q_rt_kmh_thn_cur-input" class="form-control" placeholder="Jumlah RT Kumuh Pada Tahun Berjalan" value="{{$pk_q_rt_kmh_thn_cur}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Berat</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="tk_berat_l_wil-input" name="tk_berat_l_wil-input" class="form-control" placeholder="Luas (Ha)" value="{{$tk_berat_l_wil}}" maxlength="9" required>
+                                            <input type="text" id="tk_berat_l_wil-input" name="tk_berat_l_wil-input" class="form-control" placeholder="Luas (Ha)" value="{{$tk_berat_l_wil}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input type="number" id="tk_berat_q_rt-input" name="tk_berat_q_rt-input" class="form-control" placeholder="Jumlah RT" value="{{$tk_berat_q_rt}}" maxlength="9" required>
+                                            <input type="text" id="tk_berat_q_rt-input" name="tk_berat_q_rt-input" class="form-control" placeholder="Jumlah RT" value="{{$tk_berat_q_rt}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Sedang</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="tk_sedang_l_wil-input" name="tk_sedang_l_wil-input" class="form-control" placeholder="Luas (Ha)" value="{{$tk_sedang_l_wil}}" maxlength="9" required>
+                                            <input type="text" id="tk_sedang_l_wil-input" name="tk_sedang_l_wil-input" class="form-control" placeholder="Luas (Ha)" value="{{$tk_sedang_l_wil}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input type="number" id="tk_sedang_q_rt-input" name="tk_sedang_q_rt-input" class="form-control" placeholder="Jumlah RT" value="{{$tk_sedang_q_rt}}" maxlength="9" required>
+                                            <input type="text" id="tk_sedang_q_rt-input" name="tk_sedang_q_rt-input" class="form-control" placeholder="Jumlah RT" value="{{$tk_sedang_q_rt}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Ringan</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="tk_ringan_l_wil-input" name="tk_ringan_l_wil-input" class="form-control" placeholder="Luas (Ha)" value="{{$tk_ringan_l_wil}}" maxlength="9" required>
+                                            <input type="text" id="tk_ringan_l_wil-input" name="tk_ringan_l_wil-input" class="form-control" placeholder="Luas (Ha)" value="{{$tk_ringan_l_wil}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input type="number" id="tk_ringan_q_rt-input" name="tk_ringan_q_rt-input" class="form-control" placeholder="Jumlah RT" value="{{$tk_ringan_q_rt}}" maxlength="9" required>
+                                            <input type="text" id="tk_ringan_q_rt-input" name="tk_ringan_q_rt-input" class="form-control" placeholder="Jumlah RT" value="{{$tk_ringan_q_rt}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                 </div>
@@ -293,79 +293,79 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Bangunan Hunian</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_val_abs_hunian-input" name="ak_val_abs_hunian-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_hunian}}" maxlength="9" required>
+                                            <input type="text" id="ak_val_abs_hunian-input" name="ak_val_abs_hunian-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_hunian}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_prcn_gap_hunian-input" name="ak_prcn_gap_hunian-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_hunian}}" maxlength="9" required>
+                                            <input type="text" id="ak_prcn_gap_hunian-input" name="ak_prcn_gap_hunian-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_hunian}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jalan Lingkungan</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_val_abs_jalan-input" name="ak_val_abs_jalan-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_jalan}}" maxlength="9" required>
+                                            <input type="text" id="ak_val_abs_jalan-input" name="ak_val_abs_jalan-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_jalan}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_prcn_gap_jalan-input" name="ak_prcn_gap_jalan-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_jalan}}" maxlength="9" required>
+                                            <input type="text" id="ak_prcn_gap_jalan-input" name="ak_prcn_gap_jalan-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_jalan}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Penyediaan Air Minum</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_val_abs_air_minum-input" name="ak_val_abs_air_minum-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_air_minum}}" maxlength="9" required>
+                                            <input type="text" id="ak_val_abs_air_minum-input" name="ak_val_abs_air_minum-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_air_minum}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_prcn_gap_air_minum-input" name="ak_prcn_gap_air_minum-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_air_minum}}" maxlength="9" required>
+                                            <input type="text" id="ak_prcn_gap_air_minum-input" name="ak_prcn_gap_air_minum-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_air_minum}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Drainase Lingkungan</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_val_abs_drainase-input" name="ak_val_abs_drainase-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_drainase}}" maxlength="9" required>
+                                            <input type="text" id="ak_val_abs_drainase-input" name="ak_val_abs_drainase-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_drainase}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_prcn_gap_drainase-input" name="ak_prcn_gap_drainase-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_drainase}}" maxlength="9" required>
+                                            <input type="text" id="ak_prcn_gap_drainase-input" name="ak_prcn_gap_drainase-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_drainase}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Pengelolaan Air Limbah</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_val_abs_air_limbah-input" name="ak_val_abs_air_limbah-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_air_limbah}}" maxlength="9" required>
+                                            <input type="text" id="ak_val_abs_air_limbah-input" name="ak_val_abs_air_limbah-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_air_limbah}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_prcn_gap_air_limbah-input" name="ak_prcn_gap_air_limbah-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_air_limbah}}" maxlength="9" required>
+                                            <input type="text" id="ak_prcn_gap_air_limbah-input" name="ak_prcn_gap_air_limbah-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_air_limbah}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Pengelolaan Persampahan</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_val_abs_sampah-input" name="ak_val_abs_sampah-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_sampah}}" maxlength="9" required>
+                                            <input type="text" id="ak_val_abs_sampah-input" name="ak_val_abs_sampah-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_sampah}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_prcn_gap_sampah-input" name="ak_prcn_gap_sampah-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_sampah}}" maxlength="9" required>
+                                            <input type="text" id="ak_prcn_gap_sampah-input" name="ak_prcn_gap_sampah-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_sampah}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Proteksi Kebakaran</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_val_abs_kebakaran-input" name="ak_val_abs_kebakaran-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_kebakaran}}" maxlength="9" required>
+                                            <input type="text" id="ak_val_abs_kebakaran-input" name="ak_val_abs_kebakaran-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_kebakaran}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_prcn_gap_kebakaran-input" name="ak_prcn_gap_kebakaran-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_kebakaran}}" maxlength="9" required>
+                                            <input type="text" id="ak_prcn_gap_kebakaran-input" name="ak_prcn_gap_kebakaran-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_kebakaran}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Ruang Terbuka Publik</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_val_abs_rtp-input" name="ak_val_abs_rtp-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_rtp}}" maxlength="9" required>
+                                            <input type="text" id="ak_val_abs_rtp-input" name="ak_val_abs_rtp-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_val_abs_rtp}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_prcn_gap_rtp-input" name="ak_prcn_gap_rtp-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_rtp}}" maxlength="9" required>
+                                            <input type="text" id="ak_prcn_gap_rtp-input" name="ak_prcn_gap_rtp-input" class="form-control" placeholder="Presentasi Gap (Nilai Negatif)" value="{{$ak_prcn_gap_rtp}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Ekonomi</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_prcn_gap_ekonomi-input" name="ak_prcn_gap_ekonomi-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_prcn_gap_ekonomi}}" maxlength="9" required>
+                                            <input type="text" id="ak_prcn_gap_ekonomi-input" name="ak_prcn_gap_ekonomi-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_prcn_gap_ekonomi}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                         <div class="col-sm-3">
                                             
@@ -374,7 +374,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Sosial</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="ak_prcn_gap_sosial-input" name="ak_prcn_gap_sosial-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_prcn_gap_sosial}}" maxlength="9" required>
+                                            <input type="text" id="ak_prcn_gap_sosial-input" name="ak_prcn_gap_sosial-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_prcn_gap_sosial}}" maxlength="9" onKeyPress="return HanyaAngka(event)" required>
                                         </div>
                                         <div class="col-sm-3">
                                             
@@ -480,6 +480,15 @@
 <script src="{{asset('vendors/bootstrapwizard/js/jquery.bootstrap.wizard.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_wizards.js')}}" type="text/javascript"></script>
+<script>
+    function HanyaAngka(evt)
+    {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+        return true;
+    }
+</script>
 <script>
       $(document).ready(function () {
         $('#form').on('submit', function (e) {
