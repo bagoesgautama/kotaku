@@ -5,9 +5,8 @@
 <link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
-<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
-<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
+<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
+@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>Tim Fasilitator Kelurahan (FasKel)</h1>
@@ -19,14 +18,10 @@
                 </a>
             </li>
             <li class="next">
-                Master Data
-            </li>
-            <li class="next">
-                Data Cakupan Program
-            </li>
-            <li class="next">
-                FasKel
-            </li>
+                <a href="/main/faskel">
+                    Master Data / Data Cakupan Program / Faskel
+                </a>
+            </li>        
             <li class="next">
                 Create
             </li>
@@ -121,13 +116,12 @@
       });
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/moment/js/moment.min.js')}}"></script>
+
 <script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+
 <script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
+
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/register.js')}}"></script>
 @stop

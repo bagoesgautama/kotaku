@@ -94,13 +94,15 @@ class bk010310Controller extends Controller
 			36 => 'updated_time',
 			37 => 'updated_by'
 		);
-		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kmw, e.nama nama_faskel 
+		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kmw, e.nama nama_faskel, g.nama nama_kawasan
 			from bkt_01030207_k_prior_inv_5th a, 
 				bkt_01010102_kota b, 
 				bkt_01010111_korkot c, 
 				bkt_01010110_kmw d, 
-				bkt_01010113_faskel e 
-			where b.kode=a.kode_kota and c.kode=a.kode_korkot and d.kode=a.kode_kmw and e.kode=a.kode_faskel ';
+				bkt_01010113_faskel e,
+				bkt_01030206_plan_kaw_prior f,
+				bkt_01010123_kawasan g
+			where b.kode=a.kode_kota and c.kode=a.kode_korkot and d.kode=a.kode_kmw and e.kode=a.kode_faskel and f.kode_kawasan=g.id ';
 			
 		$totalData = DB::select('select count(1) cnt from bkt_01030207_k_prior_inv_5th ');
 		$totalFiltered = $totalData[0]->cnt;
@@ -133,9 +135,9 @@ class bk010310Controller extends Controller
 				$nestedData['tahun'] = $post->tahun;
 				$nestedData['nama_kota'] = $post->nama_kota;
 				$nestedData['nama_korkot'] = $post->nama_korkot;
-				$nestedData['nama_kaw_prior'] = $post->kode_kaw_prior;
-				$nestedData['kode_kmw'] = $post->kode_kmw;
-				$nestedData['kode_faskel'] = $post->kode_faskel;
+				$nestedData['nama_kawasan'] = $post->nama_kawasan;
+				$nestedData['nama_kmw'] = $post->nama_kmw;
+				$nestedData['nama_faskel'] = $post->nama_faskel;
 				$nestedData['jenis_kegiatan'] = $post->jenis_kegiatan;
 				$nestedData['id_subkomponen'] = $post->id_subkomponen;
 				$nestedData['id_dtl_subkomponen'] = $post->id_dtl_subkomponen;
@@ -155,7 +157,7 @@ class bk010310Controller extends Controller
 				$nestedData['tpm_q_jiwa_w'] = $post->tpm_q_jiwa_w;
 				$nestedData['tpm_q_mbr'] = $post->tpm_q_mbr;
 				$nestedData['tpm_q_kk'] = $post->tpm_q_kk;
-				$nestedData['tpm_q_kk_miskin'] = $post->$tpm_q_kk_miskin;
+				$nestedData['tpm_q_kk_miskin'] = $post->tpm_q_kk_miskin;
 				$nestedData['uri_img_document'] = $post->uri_img_document;
 				$nestedData['uri_img_absensi'] = $post->uri_img_absensi;
 				$nestedData['diser_tgl'] = $post->diser_tgl;
@@ -291,9 +293,12 @@ class bk010310Controller extends Controller
 				if(!empty($rowData[0]->kode_kota))
 					$data['kode_korkot_list']=DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode_kota='.$rowData[0]->kode_kota);
 				if(!empty($rowData[0]->kode_korkot))
-					$data['kode_faskel_list']=DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010113_faskel b where a.kode_korkot='.$rowData[0]->kode_korkot);
+					$data['kode_faskel_list']=DB::select('select kode, nama from bkt_01010113_faskel where kode_korkot='.$rowData[0]->kode_korkot);
 				if(!empty($rowData[0]->kode_korkot))
 					$data['kode_kaw_prior_list']=DB::select('select a.nama, b.kode from bkt_01010123_kawasan a, bkt_01030206_plan_kaw_prior b where b.kode_korkot='.$rowData[0]->kode_korkot);
+				$data['kode_subkomponen_list'] = DB::select('select * from bkt_01010120_subkomponen where status=1');
+				if(!empty($rowData[0]->id_subkomponen))
+					$data['kode_id_dtl_subkomponen_list']=DB::select('select id, kode_dtl_subkomponen, nama from bkt_01010121_dtl_subkomponen where id_subkomponen='.$rowData[0]->id_subkomponen.' and status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010310/create',$data);
 			}else if ($data['kode']==null  && !empty($data['detil']['294'])){
@@ -340,6 +345,8 @@ class bk010310Controller extends Controller
 				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
 				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
 				$data['kode_kaw_prior_list'] = DB::select('select a.nama, b.kode from bkt_01010123_kawasan a, bkt_01030206_plan_kaw_prior b where b.kode_kawasan=a.id');
+				$data['kode_id_subkomponen_list'] = DB::select('select * from bkt_01010120_subkomponen where status=1');
+				$data['kode_id_dtl_subkomponen_list'] = DB::select('select * from bkt_01010121_dtl_subkomponen where status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010310/create',$data);
 			}else{

@@ -1,9 +1,12 @@
 @extends('MAIN/default') {{-- Page title --}} @section('title') Koordinator Kota (KorKot)@stop {{-- local styles --}} @section('header_styles')
-<link href="{{asset('css/app.css')}}" rel="stylesheet">
-<link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet"/>
-<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
-<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">@stop {{-- Page Header--}} @section('page-header')
+<link href="{{asset('vendors/bootstrap-multiselect/css/bootstrap-multiselect.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
+@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>Koordinator Kota (KorKot)</h1>
@@ -15,14 +18,10 @@
                 </a>
             </li>
             <li class="next">
-                Master Data
-            </li>
-            <li class="next">
-                Data Cakupan Program
-            </li>
-            <li class="next">
-                Korkot
-            </li>
+                <a href="/main/korkot">
+                    Master Data / Data Cakupan Program / KorKot
+                </a>
+            </li>        
             <li class="next">
                 Create
             </li>
@@ -32,13 +31,13 @@
 @stop
 {{-- Page content --}} @section('content')
 <div class="panel-body border">
-    <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator">
+    <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator">
         <div class="row">
             <div class="form-group striped-col">
                 <input type="hidden" id="example-id-input" name="example-id-input" value="{{ $kode }}">
                 <label class="col-sm-3 control-label" for="example-text-input1">Kode KMW</label>
                 <div class="col-sm-6">
-                    <select id="example-select1" name="example-kode_kmw-input" class="form-control" size="1">
+                    <select id="select-kode_kmw-input" name="select-kode_kmw-input" class="form-control" size="1">
                         @foreach($kode_kmw_list as $list)
                             <option value="{{ $list->kode }}" @if($list->kode==$kode_kmw) selected="selected" @endif >{{ $list->kode }}</option>
                         @endforeach
@@ -60,7 +59,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Kode POS</label>
                 <div class="col-sm-6">
-                    <input type="number" id="kodepos-input" name="kodepos-input" class="form-control" placeholder="Kode POS" value="{{ $kodepos }}" maxlength="5">
+                    <input type="text" id="kodepos-input" name="kodepos-input" class="form-control" placeholder="Kode POS" value="{{ $kodepos }}" maxlength="5" onKeyPress="return HanyaAngka(event)">
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -72,25 +71,25 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">No Telepon</label>
                 <div class="col-sm-6">
-                    <input type="number" id="no_phone-input" name="no_phone-input" class="form-control" placeholder="Telepon" value="{{ $no_phone }}" maxlength="30">
+                    <input type="text" id="no_phone-input" name="no_phone-input" class="form-control" placeholder="Telepon" value="{{ $no_phone }}" maxlength="30" onKeyPress="return HanyaAngka(event)">
                 </div>
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">No FAX</label>
                 <div class="col-sm-6">
-                    <input type="number" id="no_fax-input" name="no_fax-input" class="form-control" placeholder="FAX" value="{{ $no_fax }}" maxlength="30">
+                    <input type="text" id="no_fax-input" name="no_fax-input" class="form-control" placeholder="FAX" value="{{ $no_fax }}" maxlength="30" onKeyPress="return HanyaAngka(event)">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">No Handphone 1</label>
                 <div class="col-sm-6">
-                    <input type="text" id="example-text-input1" name="example-no_hp1-input" class="form-control" placeholder="Handphone 1" value="{{ $no_hp1 }}" maxlength="30">
+                    <input type="text" id="no_hp1-input" name="no_hp1-input" class="form-control" placeholder="Handphone 1" value="{{ $no_hp1 }}" maxlength="30" onKeyPress="return HanyaAngka(event)">
                 </div>
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">No Handphone 2</label>
                 <div class="col-sm-6">
-                    <input type="text" id="no_hp2-input" name="no_hp2-input" class="form-control" placeholder="Handphone 2" value="{{ $no_hp2 }}" maxlength="30">
+                    <input type="text" id="no_hp2-input" name="no_hp2-input" class="form-control" placeholder="Handphone 2" value="{{ $no_hp2 }}" maxlength="30" onKeyPress="return HanyaAngka(event)">
                 </div>
             </div>
             <div class="form-group">
@@ -122,13 +121,13 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Nama PMS</label>
                 <div class="col-sm-6">
-                    <input type="text" id="pms_nama-input" name="pms_nama-input" class="form-control" placeholder="Nama PMS" value="{{ $pms_nama }}" maxlength="50">
-                </div>
-            </div>
-            <div class="form-group striped-col">
-                <label class="col-sm-3 control-label" for="example-textarea-input2">Alamat PMS</label>
-                <div class="col-sm-6">
-                    <textarea id="pms_alamat-input" name="pms_alamat-input" rows="7" class="form-control resize_vertical" placeholder="Alamat PMS" maxlength="300">{{ $pms_alamat }}</textarea>
+                    <select id="select-kode_pms-input" class="form-control select2" name="select-kode_pms-input">
+                        <option>Please select</option>
+                        @foreach($kode_pms_list as $list)
+                            <option value="{{ $list->kode }}" @if($list->kode==$kode_pms) selected="selected" @endif >{{ $list->nama }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="form-group form-actions">
@@ -149,13 +148,20 @@
 </div>
 @stop
 {{-- local scripts --}} @section('footer_scripts')
-<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script>
+    function HanyaAngka(evt)
+    {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+        return true;
+    }
+</script>
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
-          e.preventDefault();
-          $.ajax({
+        $('#form').on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
             type: 'post',
             "url": "/main/korkot/create",
             data: $('form').serialize(),
@@ -163,24 +169,35 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/korkot";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
-            alert(thrownError);
             $("#submit").prop('disabled', false);
             }
           });
         });
-      });
-</script>
 
+        $("#select-kode_kmw-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+
+        $("#select-kode_pms-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+    });
+</script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/moment/js/moment.min.js')}}"></script>
-<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+
+<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
+
 <script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
+
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/register.js')}}"></script>
 @stop

@@ -77,7 +77,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Tahun</label>
                                         <div class="col-sm-6">
-                                            <input type="hidden" id="example-id-input" name="example-id-input" value="{{ $kode }}">
+                                            <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                             <input type="text" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}">
                                         </div>
                                     </div>
@@ -118,7 +118,7 @@
                                     <div class="form-group">
                                          <label class="col-sm-3 control-label" for="example-text-input31">Faskel</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode_faskel-input" class="form-control select2" name="select-kode_faskel-input-input" required>
+                                            <select id="select-kode_faskel-input" class="form-control select2" name="select-kode_faskel-input" required>
                                                 <option value>Please select</option>
                                                 @foreach ($kode_faskel_list as $kkl)
                                                     <option value="{{$kkl->kode}}" {!! $kode_faskel==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
@@ -149,9 +149,9 @@
                                         <label class="col-sm-3 control-label" for="example-text-input31">Jenis Kegiatan</label>
                                         <div class="col-sm-6">
                                             <select id="select-jenis_kegiatan-input" class="form-control select2" name="select-jenis_kegiatan-input" required>
-                                                <option value="L">Lingkungan</option>
-                                                <option value="S">Sosial</option>
-                                                <option value="E">Ekonomi</option>
+                                                <option value="L" {!! $jenis_kegiatan=='L' ? 'selected':'' !!}>Lingkungan</option>
+                                                <option value="S" {!! $jenis_kegiatan=='S' ? 'selected':'' !!}>Sosial</option>
+                                                <option value="E" {!! $jenis_kegiatan=='E' ? 'selected':'' !!}>Ekonomi</option>
                                             </select>
                                         </div>
                                     </div>
@@ -171,7 +171,10 @@
                                         <label class="col-sm-3 control-label" for="example-text-input31">Detail Sub Komponen</label>
                                         <div class="col-sm-6">
                                             <select id="select-id_dtl_subkomponen-input" class="form-control select2" name="select-id_dtl_subkomponen-input" required>
-                                                <option value=undefined>Please select</option>
+                                                <option value>Please select</option>
+                                                @foreach ($kode_id_dtl_subkomponen_list as $ksl)
+                                                    <option value="{{$ksl->id}}" {!! $id_dtl_subkomponen==$ksl->id ? 'selected':'' !!}>{{$ksl->kode_dtl_subkomponen.' '.$ksl->nama}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -479,7 +482,7 @@
         var faskel = $('#select-kode_faskel-input');
         var subkomponen = $('#select-id_subkomponen-input');
         var dtl_subkomponen = $('#select-id_dtl_subkomponen-input');
-        var kmw_id,kota_id,korkot_id,kaw_prior_id,faskel_id;
+        var kmw_id,kota_id,korkot_id,kaw_prior_id,faskel_id, subkomponen_id;
 
         kmw.change(function(){
             kmw_id=kmw.val();
@@ -538,7 +541,7 @@
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
-                            kaw_prior.append("<option value="+data[i].id+" >"+data[i].nama+"</option>");
+                            kaw_prior.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
                         }
                     }
                 });

@@ -70,25 +70,28 @@ class bk010110Controller extends Controller
 	{
 		$columns = array(
 			0 =>'kode_kmp_slum_prog',
-			1 =>'nama',
-			2 =>'alamat',
-			3 =>'kodepos',
-			4 =>'contact_person',
-			5 =>'no_phone',
-			6 =>'no_fax',
-			7 =>'n0_hp1',
-			8 =>'no_hp2',
-			9 =>'email1',
-			10 =>'email2',
-			11 =>'pms_nama',
-			12 =>'pms_alamat',
+			1 =>'kode_prop',
+			2 =>'nama',
+			3 =>'alamat',
+			4 =>'kodepos',
+			5 =>'contact_person',
+			6 =>'no_phone',
+			7 =>'no_fax',
+			8 =>'no_hp1',
+			9 =>'no_hp2',
+			10 =>'email1',
+			11 =>'email2',
+			12 =>'kode_pms',
 			13 =>'created_time',
 			14 =>'created_by',
 			15 =>'updated_time',
 			16 =>'updated_by'
 		);
 
-		$query='select * from bkt_01010110_kmw ';
+			
+		$query='select a.*, b.nama nama_prop, c.nama nama_pms 
+					from bkt_01010110_kmw a, bkt_01010101_prop b, bkt_01010115_pms c 
+					where b.kode=a.kode_prop and c.kode=a.kode_pms ';
 		$totalData = DB::select('select count(1) cnt from bkt_01010110_kmw ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -117,6 +120,7 @@ class bk010110Controller extends Controller
 				$url_edit=url('/')."/main/kmw/create?kode=".$show;
 				$url_delete=url('/')."/main/kmw/delete?kode=".$delete;
 				$nestedData['kode_kmp_slum_prog'] = $post->kode_kmp_slum_prog;
+				$nestedData['nama_prop'] = $post->nama_prop;
 				$nestedData['nama'] = $post->nama;
 				$nestedData['alamat'] = $post->alamat;
 				$nestedData['kodepos'] = $post->kodepos;
@@ -127,8 +131,7 @@ class bk010110Controller extends Controller
 				$nestedData['no_hp2'] = $post->no_hp2;
 				$nestedData['email1'] = $post->email1;
 				$nestedData['email2'] = $post->email2;
-				$nestedData['pms_nama'] = $post->pms_nama;
-				$nestedData['pms_alamat'] = $post->pms_alamat;
+				$nestedData['nama_pms'] = $post->nama_pms;
 				$nestedData['created_time'] = $post->created_time;
 				$nestedData['created_by'] = $post->created_by;
 				$nestedData['updated_time'] = $post->updated_time;
@@ -183,9 +186,16 @@ class bk010110Controller extends Controller
 		$kmp_slum_prog_list = DB::select('select kode from bkt_01010109_kmp_slum_prog');
 		$data['kode_kmp_slum_prog_list'] = $kmp_slum_prog_list;
 
+		$kode_prop_list = DB::select('select kode, nama from bkt_01010101_prop where status=1');
+		$data['kode_prop_list'] = $kode_prop_list;
+
+		$kode_pms_list = DB::select('select kode, nama from bkt_01010115_pms where status=1');
+		$data['kode_pms_list'] = $kode_pms_list;
+
 		if($data['kode']!=null && !empty($data['detil']['42'])){
 			$rowData = DB::select('select * from bkt_01010110_kmw where kode='.$data['kode']);
 			$data['kode_kmp_slum_prog'] = $rowData[0]->kode_kmp_slum_prog;
+			$data['kode_prop'] = $rowData[0]->kode_prop;
 			$data['nama'] = $rowData[0]->nama;
 			$data['alamat'] = $rowData[0]->alamat;
 			$data['kodepos'] = $rowData[0]->kodepos;
@@ -196,8 +206,7 @@ class bk010110Controller extends Controller
 			$data['no_hp2'] = $rowData[0]->no_hp2;
 			$data['email1'] = $rowData[0]->email1;
 			$data['email2'] = $rowData[0]->email2;
-			$data['pms_nama'] = $rowData[0]->pms_nama;
-			$data['pms_alamat'] = $rowData[0]->pms_alamat;
+			$data['kode_pms'] = $rowData[0]->kode_pms;
 			$data['created_time'] = $rowData[0]->created_time;
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
@@ -205,6 +214,7 @@ class bk010110Controller extends Controller
 			return view('MAIN/bk010110/create',$data);
 		}else if($data['kode']==null && !empty($data['detil']['41'])){
 			$data['kode_kmp_slum_prog'] = null;
+			$data['kode_prop'] = null;
 			$data['nama'] = null;
 			$data['alamat'] = null;
 			$data['kodepos'] = null;
@@ -215,8 +225,7 @@ class bk010110Controller extends Controller
 			$data['no_hp2'] = null;
 			$data['email1'] = null;
 			$data['email2'] = null;
-			$data['pms_nama'] = null;
-			$data['pms_alamat'] = null;
+			$data['kode_pms'] = null;
 			$data['created_time'] = null;
 			$data['created_by'] = null;
 			$data['updated_time'] = null;
@@ -238,18 +247,18 @@ class bk010110Controller extends Controller
 			DB::table('bkt_01010110_kmw')->where('kode', $request->input('example-id-input'))
 			->update(
 				['kode_kmp_slum_prog' => $request->input('select-kode_kmp_slum_prog-input'),
-				'nama' => $request->input('nama-input'),
-				'alamat' => $request->input('alamat-input'),
-				'kodepos' => $request->input('kodepos-input'),
-				'contact_person' => $request->input('contact_person-input'),
+				'kode_prop' => $request->input('select-kode_prop-input'),
+				'nama' => $request->input('nama-input'), 
+				'alamat' => $request->input('alamat-input'), 
+				'kodepos' => $request->input('kodepos-input'), 
+				'contact_person' => $request->input('contact_person-input'), 
 				'no_phone' => $request->input('no_phone-input'),
-				'no_fax' => $request->input('no_fax-input'),
-				'no_hp1' => $request->input('no_hp1-input'),
-				'no_hp2' => $request->input('no_hp2-input'),
-				'email1' => $request->input('email1-input'),
-				'email2' => $request->input('email2-input'),
-				'pms_nama' => $request->input('pms_nama-input'),
-				'pms_alamat' => $request->input('pms_alamat-input'),
+				'no_fax' => $request->input('no_fax-input'),  
+				'no_hp1' => $request->input('no_hp1-input'), 
+				'no_hp2' => $request->input('no_hp2-input'), 
+				'email1' => $request->input('email1-input'), 
+				'email2' => $request->input('email2-input'), 
+				'kode_pms' => $request->input('select-kode_pms-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
@@ -258,18 +267,18 @@ class bk010110Controller extends Controller
 		}else{
 			DB::table('bkt_01010110_kmw')->insert(
        			['kode_kmp_slum_prog' => $request->input('select-kode_kmp_slum_prog-input'),
-				'nama' => $request->input('nama-input'),
-				'alamat' => $request->input('alamat-input'),
-				'kodepos' => $request->input('kodepos-input'),
-				'contact_person' => $request->input('contact_person-input'),
+				'kode_prop' => $request->input('select-kode_prop-input'),
+				'nama' => $request->input('nama-input'), 
+				'alamat' => $request->input('alamat-input'), 
+				'kodepos' => $request->input('kodepos-input'), 
+				'contact_person' => $request->input('contact_person-input'), 
 				'no_phone' => $request->input('no_phone-input'),
-				'no_fax' => $request->input('no_fax-input'),
-				'no_hp1' => $request->input('no_hp1-input'),
-				'no_hp2' => $request->input('no_hp2-input'),
-				'email1' => $request->input('email1-input'),
-				'email2' => $request->input('email2-input'),
-				'pms_nama' => $request->input('pms_nama-input'),
-				'pms_alamat' => $request->input('pms_alamat-input'),
+				'no_fax' => $request->input('no_fax-input'),  
+				'no_hp1' => $request->input('no_hp1-input'), 
+				'no_hp2' => $request->input('no_hp2-input'), 
+				'email1' => $request->input('email1-input'), 
+				'email2' => $request->input('email2-input'), 
+				'kode_pms' => $request->input('select-kode_pms-input'),
        			'created_by' => Auth::user()->id
        			]);
 			$this->log_aktivitas('Create', 41);

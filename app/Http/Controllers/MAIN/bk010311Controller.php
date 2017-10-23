@@ -42,7 +42,7 @@ class bk010311Controller extends Controller
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
 
 				$this->log_aktivitas('View', 297);
-				return view('MAIN/bk010310/index',$data);
+				return view('MAIN/bk010311/index',$data);
 			}
 			else {
 				return Redirect::to('/');
@@ -88,7 +88,7 @@ class bk010311Controller extends Controller
 			30 => 'nb_hibah',
 			31 => 'nb_non_gov',
 			32 => 'nb_masyarakat',
-			33 => 'nb_lainya',
+			33 => 'nb_lainnya',
 			34 => 'tpm_q_jiwa',
 			35 => 'tpm_q_jiwa_w',
 			36 => 'tpm_q_mbr',
@@ -111,11 +111,11 @@ class bk010311Controller extends Controller
 			from bkt_01030208_usulan_keg_kt a, 
 				bkt_01010102_kota b, 
 				bkt_01010111_korkot c, 
-				bkt_01010110_kec d, 
+				bkt_01010103_kec d, 
 				bkt_01010110_kmw e,
 				bkt_01010104_kel f,
 				bkt_01010113_faskel g 
-			where b.kode=a.kode_kota and c.kode=a.kode_korkot and d.kode=a.kode_kec and e.kode=a.kode_kmw and f.kode=kode_kel and g.kode=kode_faskel ';
+			where b.kode=a.kode_kota and c.kode=a.kode_korkot and d.kode=a.kode_kec and e.kode=a.kode_kmw and f.kode=a.kode_kel and g.kode=a.kode_faskel ';
 			
 		$totalData = DB::select('select count(1) cnt from bkt_01030208_usulan_keg_kt ');
 		$totalFiltered = $totalData[0]->cnt;
@@ -150,8 +150,8 @@ class bk010311Controller extends Controller
 				$nestedData['nama_korkot'] = $post->nama_korkot;
 				$nestedData['nama_kec'] = $post->kode_kec;
 				$nestedData['nama_kmw'] = $post->kode_kmw;
-				$nestedData['kode_kel'] = $post->kode_kel;
-				$nestedData['kode_faskel'] = $post->kode_faskel;
+				$nestedData['nama_kel'] = $post->nama_kel;
+				$nestedData['nama_faskel'] = $post->nama_faskel;
 				$nestedData['jenis_kegiatan'] = $post->jenis_kegiatan;
 				$nestedData['no_proposal'] = $post->no_proposal;
 				$nestedData['tgl_proposal'] = $post->tgl_proposal;
@@ -177,12 +177,12 @@ class bk010311Controller extends Controller
 				$nestedData['nb_hibah'] = $post->nb_hibah;
 				$nestedData['nb_non_gov'] = $post->nb_non_gov;
 				$nestedData['nb_masyarakat'] = $post->nb_masyarakat;
-				$nestedData['nb_lainya'] = $post->nb_lainya;
+				$nestedData['nb_lainnya'] = $post->nb_lainnya;
 				$nestedData['tpm_q_jiwa'] = $post->tpm_q_jiwa;
 				$nestedData['tpm_q_jiwa_w'] = $post->tpm_q_jiwa_w;
 				$nestedData['tpm_q_mbr'] = $post->tpm_q_mbr;
 				$nestedData['tpm_q_kk'] = $post->tpm_q_kk;
-				$nestedData['tpm_q_kk_miskin'] = $post->$tpm_q_kk_miskin;
+				$nestedData['tpm_q_kk_miskin'] = $post->tpm_q_kk_miskin;
 				$nestedData['uri_img_document'] = $post->uri_img_document;
 				$nestedData['uri_img_absensi'] = $post->uri_img_absensi;
 				$nestedData['diser_tgl'] = $post->diser_tgl;
@@ -229,18 +229,31 @@ class bk010311Controller extends Controller
 
 	public function select(Request $request)
 	{
-		// if(!empty($request->input('prop'))){
-		// 	$kota = DB::select('select kode, nama from bkt_01010102_kota where kode_prop='.$request->input('prop'));
-		// 	echo json_encode($kota);
-		// }
-		// else if(!empty($request->input('kota'))){
-		// 	$kota = DB::select('select b.* from bkt_01010112_kota_korkot a,bkt_01010111_korkot b where a.kode_korkot=b.kode and kode_kota='.$request->input('kota'));
-		// 	echo json_encode($kota);
-		// }
-		// else if(!empty($request->input('korkot'))){
-		// 	$kota = DB::select('select a.* from bkt_01010103_kec a where a.kode_kota='.$request->input('korkot'));
-		// 	echo json_encode($kota);
-		// }
+		if(!empty($request->input('kmw'))){
+			$kota = DB::select('select * from bkt_01010110_kmw a,bkt_01010102_kota b
+				where a.kode_prop=b.kode_prop and a.kode='.$request->input('kmw'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('kota'))){
+			$kota = DB::select('select b.* from bkt_01010112_kota_korkot a,bkt_01010111_korkot b where a.kode_korkot=b.kode and kode_kota='.$request->input('kota'));
+			echo json_encode($kota);
+		}
+		else if(!empty($request->input('korkot'))){
+			$kec = DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$request->input('korkot'));
+			echo json_encode($kec);
+		}
+		if(!empty($request->input('kec'))){
+			$kel = DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$request->input('kec'));
+			echo json_encode($kel);
+		}
+		if(!empty($request->input('faskel'))){
+			$faskel = DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010113_faskel b where a.kode_faskel=b.kode and a.kode_kel='.$request->input('faskel'));
+			echo json_encode($faskel);
+		}
+		else if(!empty($request->input('subkomponen'))){
+			$kota = DB::select('select b.id, b.nama from bkt_01010120_subkomponen a, bkt_01010121_dtl_subkomponen b where b.id_subkomponen='.$request->input('subkomponen'));
+			echo json_encode($kota);
+		}
 	}
 
 	public function create(Request $request)
@@ -258,6 +271,9 @@ class bk010311Controller extends Controller
 
 			$kode_kmw = DB::select('select kode, nama from bkt_01010110_kmw');
 			$data['kode_kmw_list'] = $kode_kmw;
+
+			$id_subkomponen = DB::select('select id, nama from bkt_01010120_subkomponen');
+			$data['kode_id_subkomponen_list'] = $id_subkomponen;
 
 			if($data['kode']!=null  && !empty($data['detil']['299'])){
 				$rowData = DB::select('select * from bkt_01030208_usulan_keg_kt where kode='.$data['kode']);
@@ -294,7 +310,7 @@ class bk010311Controller extends Controller
 				$data['nb_hibah'] = $rowData[0]->nb_hibah;
 				$data['nb_non_gov'] = $rowData[0]->nb_non_gov;
 				$data['nb_masyarakat'] = $rowData[0]->nb_masyarakat;
-				$data['nb_lainya'] = $rowData[0]->nb_lainya;
+				$data['nb_lainnya'] = $rowData[0]->nb_lainnya;
 				$data['tpm_q_jiwa'] = $rowData[0]->tpm_q_jiwa;
 				$data['tpm_q_jiwa_w'] = $rowData[0]->tpm_q_jiwa_w;
 				$data['tpm_q_mbr'] = $rowData[0]->tpm_q_mbr;
@@ -312,6 +328,20 @@ class bk010311Controller extends Controller
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
+				if(!empty($rowData[0]->kode_kmw))
+					$data['kode_kota_list']=DB::select('select b.kode, b.nama from bkt_01010110_kmw a, bkt_01010102_kota b where a.kode_prop=b.kode_prop and a.kode='.$rowData[0]->kode_kmw);
+				if(!empty($rowData[0]->kode_kota))
+					$data['kode_korkot_list']=DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode_kota='.$rowData[0]->kode_kota);
+				if(!empty($rowData[0]->kode_kota))
+					$data['kode_kec_list']=DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$rowData[0]->kode_kota);
+				if(!empty($rowData[0]->kode_kec))
+					$data['kode_kel_list']=DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$rowData[0]->kode_kec);
+				if(!empty($rowData[0]->kode_kel))
+					$data['kode_faskel_list']=DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010113_faskel b where a.kode_faskel=b.kode and a.kode_kel='.$rowData[0]->kode_kel);
+				$data['kode_id_subkomponen_list'] = DB::select('select * from bkt_01010120_subkomponen where status=1');
+				if(!empty($rowData[0]->id_subkomponen))
+					$data['kode_id_dtl_subkomponen_list']=DB::select('select id, kode_dtl_subkomponen, nama from bkt_01010121_dtl_subkomponen where id_subkomponen='.$rowData[0]->id_subkomponen.' and status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010311/create',$data);
 			}else if ($data['kode']==null  && !empty($data['detil']['298'])){
@@ -348,7 +378,7 @@ class bk010311Controller extends Controller
 				$data['nb_hibah'] = null;
 				$data['nb_non_gov'] = null;
 				$data['nb_masyarakat'] = null;
-				$data['nb_lainya'] = null;
+				$data['nb_lainnya'] = null;
 				$data['tpm_q_jiwa'] = null;
 				$data['tpm_q_jiwa_w'] = null;
 				$data['tpm_q_mbr'] = null;
@@ -366,6 +396,14 @@ class bk010311Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
+				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
+				$data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
+				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
+				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
+				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
+				$data['kode_kel_list'] = DB::select('select * from bkt_01010104_kel where status=1');
+				$data['kode_id_subkomponen_list'] = DB::select('select * from bkt_01010120_subkomponen where status=1');
+				$data['kode_id_dtl_subkomponen_list'] = DB::select('select * from bkt_01010121_dtl_subkomponen where status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010311/create',$data);
 			}else{
@@ -378,6 +416,34 @@ class bk010311Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		$file_document = $request->file('file-document-input');
+		$uri_document = null;
+		$upload_document = false;
+		if($request->input('uploaded-file-document') != null && $file_document == null){
+			$uri_document = $request->input('uploaded-file-document');
+			$upload_document = false;
+		}elseif($request->input('uploaded-file-document') != null && $file_document != null){
+			$uri_document = $file_document->getClientOriginalName();
+			$upload_document = true;
+		}elseif($request->input('uploaded-file-document') == null && $file_document != null){
+			$uri_document = $file_document->getClientOriginalName();
+			$upload_document = true;
+		}
+
+		$file_absensi = $request->file('file-absensi-input');
+		$uri_absensi = null;
+		$upload_absensi = false;
+		if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
+			$uri_absensi = $request->input('uploaded-file-absensi');
+			$upload_absensi = false;
+		}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
+			$uri_absensi = $file_absensi->getClientOriginalName();
+			$upload_absensi = true;
+		}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
+			$uri_absensi = $file_absensi->getClientOriginalName();
+			$upload_absensi = true;
+		}
+
 		if ($request->input('kode')!=null){
 			date_default_timezone_set('Asia/Jakarta');
 			DB::table('bkt_01030208_usulan_keg_kt')->where('kode', $request->input('kode'))
@@ -389,14 +455,14 @@ class bk010311Controller extends Controller
 				'kode_kmw' => $request->input('select-kode_kmw-input'),
 				'kode_kel' => $request->input('select-kode_kel-input'),
 				'kode_faskel' => $request->input('select-kode_faskel-input'),
-				'jenis_kegiatan' => $request->input('jenis_kegiatan-input'),
+				'jenis_kegiatan' => $request->input('select-jenis_kegiatan-input'),
 				'no_proposal' => $request->input('no_proposal-input'),
 				'tgl_proposal' => $this->date_conversion($request->input('tgl_proposal-input')),
 				'thn_anggaran' => $request->input('thn_anggaran-input'),
-				'kategori_penanganan' => $request->input('kategori_penanganan-input'),
-				'jenis_komponen_keg' => $request->input('jenis_komponen_keg-input'),
-				'id_subkomponen' => $request->input('id_subkomponen-input'),
-				'id_dtl_subkomponen' => $request->input('id_dtl_subkomponen-input'),
+				'kategori_penanganan' => $request->input('select-kategori_penanganan-input'),
+				'jenis_komponen_keg' => $request->input('select-jenis_komponen_keg-input'),
+				'id_subkomponen' => $request->input('select-id_subkomponen-input'),
+				'id_dtl_subkomponen' => $request->input('select-id_dtl_subkomponen-input'),
 				'dk_vol_kegiatan' => $request->input('dk_vol_kegiatan-input'),
 				'dk_satuan' => $request->input('dk_satuan-input'),
 				'dk_lok_kegiatan' => $request->input('dk_lok_kegiatan-input'),
@@ -414,23 +480,31 @@ class bk010311Controller extends Controller
 				'nb_hibah' => $request->input('nb_hibah-input'),
 				'nb_non_gov' => $request->input('nb_non_gov-input'),
 				'nb_masyarakat' => $request->input('nb_masyarakat-input'),
-				'nb_lainya' => $request->input('nb_lainya-input'),
+				'nb_lainnya' => $request->input('nb_lainnya-input'),
 				'tpm_q_jiwa' => $request->input('tpm_q_jiwa-input'),
 				'tpm_q_jiwa_w' => $request->input('tpm_q_jiwa_w-input'),
 				'tpm_q_mbr' => $request->input('tpm_q_mbr-input'),
 				'tpm_q_kk' => $request->input('tpm_q_kk-input'),
 				'tpm_q_kk_miskin' => $request->input('tpm_q_kk_miskin-input'),
-				'uri_img_document' => $request->input('uri_img_document-input'),
-				'uri_img_absensi' => $request->input('uri_img_absensi-input'),
-				'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				'diser_oleh' => $request->input('diser-oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				'diket_oleh' => $request->input('diket-oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				'diver_oleh' => $request->input('diver-oleh-input'),
-				'updated_by' => Auth::user()->id,
-				'updated_time' => date('Y-m-d H:i:s')
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $uri_absensi,
+				'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
+				'diser_oleh' => $request->input('diser_oleh-input'),
+				'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
+				'diket_oleh' => $request->input('diket_oleh-input'),
+				'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
+				'diver_oleh' => $request->input('diver_oleh-input'),
+				'updated_time' => date('Y-m-d H:i:s'),
+				'updated_by' => Auth::user()->id
 				]);
+
+			if($upload_document == true){
+				$file_document->move(public_path('/uploads/perencanaan/kegiatan'), $file_document->getClientOriginalName());
+			}
+
+			if($upload_absensi == true){
+				$file_absensi->move(public_path('/uploads/perencanaan/kegiatan'), $file_absensi->getClientOriginalName());
+			}
 
 			$this->log_aktivitas('Update', 299);
 
@@ -444,14 +518,14 @@ class bk010311Controller extends Controller
 				'kode_kmw' => $request->input('select-kode_kmw-input'),
 				'kode_kel' => $request->input('select-kode_kel-input'),
 				'kode_faskel' => $request->input('select-kode_faskel-input'),
-				'jenis_kegiatan' => $request->input('jenis_kegiatan-input'),
+				'jenis_kegiatan' => $request->input('select-jenis_kegiatan-input'),
 				'no_proposal' => $request->input('no_proposal-input'),
 				'tgl_proposal' => $this->date_conversion($request->input('tgl_proposal-input')),
 				'thn_anggaran' => $request->input('thn_anggaran-input'),
-				'kategori_penanganan' => $request->input('kategori_penanganan-input'),
-				'jenis_komponen_keg' => $request->input('jenis_komponen_keg-input'),
-				'id_subkomponen' => $request->input('id_subkomponen-input'),
-				'id_dtl_subkomponen' => $request->input('id_dtl_subkomponen-input'),
+				'kategori_penanganan' => $request->input('select-kategori_penanganan-input'),
+				'jenis_komponen_keg' => $request->input('select-jenis_komponen_keg-input'),
+				'id_subkomponen' => $request->input('select-id_subkomponen-input'),
+				'id_dtl_subkomponen' => $request->input('select-id_dtl_subkomponen-input'),
 				'dk_vol_kegiatan' => $request->input('dk_vol_kegiatan-input'),
 				'dk_satuan' => $request->input('dk_satuan-input'),
 				'dk_lok_kegiatan' => $request->input('dk_lok_kegiatan-input'),
@@ -469,22 +543,30 @@ class bk010311Controller extends Controller
 				'nb_hibah' => $request->input('nb_hibah-input'),
 				'nb_non_gov' => $request->input('nb_non_gov-input'),
 				'nb_masyarakat' => $request->input('nb_masyarakat-input'),
-				'nb_lainya' => $request->input('nb_lainya-input'),
+				'nb_lainnya' => $request->input('nb_lainnya-input'),
 				'tpm_q_jiwa' => $request->input('tpm_q_jiwa-input'),
 				'tpm_q_jiwa_w' => $request->input('tpm_q_jiwa_w-input'),
 				'tpm_q_mbr' => $request->input('tpm_q_mbr-input'),
 				'tpm_q_kk' => $request->input('tpm_q_kk-input'),
 				'tpm_q_kk_miskin' => $request->input('tpm_q_kk_miskin-input'),
-				'uri_img_document' => $request->input('uri_img_document-input'),
-				'uri_img_absensi' => $request->input('uri_img_absensi-input'),
-				'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				'diser_oleh' => $request->input('diser-oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				'diket_oleh' => $request->input('diket-oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				'diver_oleh' => $request->input('diver-oleh-input'),
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $uri_absensi,
+				'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
+				'diser_oleh' => $request->input('diser_oleh-input'),
+				'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
+				'diket_oleh' => $request->input('diket_oleh-input'),
+				'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
+				'diver_oleh' => $request->input('diver_oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
+
+			if($upload_document == true){
+				$file_document->move(public_path('/uploads/perencanaan/kegiatan'), $file_document->getClientOriginalName());
+			}
+
+			if($upload_absensi == true){
+				$file_absensi->move(public_path('/uploads/perencanaan/kegiatan'), $file_absensi->getClientOriginalName());
+			}
 
 			$this->log_aktivitas('Create', 298);
 		}

@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-   <h1>Konsultan Manajemen Pusat (KMP)</h1>
+    <h1>Konsultan Manajemen Pusat (KMP)</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,24 +23,21 @@
                 </a>
             </li>
             <li class="next">
-                Master Data
-            </li>
-            <li class="next">
-                Data Cakupan Program
-            </li>
-            <li class="next">
-                KMP
+                <a href="/main/kmp">
+                    Master Data / Data Cakupan Program / KMP
+                </a>
             </li>
         </ul>
+    </div>
 </section>
 @stop {{-- Page content --}} @section('content')
 <div class="row">
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <div class="panel-title pull-left">
+                <!-- <div class="panel-title pull-left">
                     <b>bk010108 Index</b>
-                </div>
+                </div> -->
                 @if( ! empty($detil['33']))
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('/main/kmp/create') }}">Create</a>
@@ -49,19 +46,22 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users">
+					<table class="table table-striped" id="users" width="2000px">
 						<thead>
                             <tr>
                                 <th>Nama</th>
                                 <th>Alamat</th>
+                                <th>Kodepos</th>
                                 <th>Contact Person</th>
                                 <th>No Telepon</th>
-                                <th>No Handphone</th>
-                                <th>Email</th>
-                                <th>Nama PMS</th>
-                                <th>Create Time</th>
-                                <th>Create By</th>
-								<th>Option</th>
+                                <th>No Handphone 1</th>
+                                <th>No Handphone 2</th>
+                                <th>Email 1</th>
+                                <th>Email 2</th>
+                                <th>PMS</th>
+                                <th>Created Time</th>
+                                <th>Created By</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -95,11 +95,14 @@
             "columns": [
 				{ "data": "nama" , name:"nama"},
                 { "data": "alamat" , name:"alamat"},
+                { "data": "kodepos" , name:"kodepos"},
                 { "data": "contact_person" , name:"contact_person"},
                 { "data": "no_phone" , name:"no_phone"},
                 { "data": "no_hp1" , name:"no_hp1"},
+                { "data": "no_hp2" , name:"no_hp2"},
                 { "data": "email1" , name:"email1"},
-                { "data": "pms_nama" , name:"pms_nama"},
+                { "data": "email2" , name:"email2"},
+                { "data": "nama_pms" , name:"nama_pms"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "created_by" , name:"created_by"},
 				{ "data": "option" , name:"option",orderable:false}

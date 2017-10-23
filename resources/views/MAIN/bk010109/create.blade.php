@@ -17,14 +17,10 @@
                 </a>
             </li>
             <li class="next">
-                Master Data
-            </li>
-            <li class="next">
-                Data Cakupan Program
-            </li>
-            <li class="next">
-                Mapping KMP ke Slum Program
-            </li>
+                <a href="/main/kmp_slum_program">
+                    Master Data / Data Cakupan Program / Mapping KMP ke Slum Program
+                </a>
+            </li>        
             <li class="next">
                 Create
             </li>
@@ -46,7 +42,8 @@
                                 <input type="hidden" id="example-id-input" name="example-id-input" value="{{ $kode }}">
 								<div class="col-sm-6">
 	                                <select id="select-kode_kmp-input" class="form-control select2" name="select-kode_kmp-input">
-	                                    @foreach($kode_kmp_list as $list)
+	                                    <option>Please select</option>
+                                        @foreach($kode_kmp_list as $list)
 	                                        <option value="{{ $list->kode }}" @if($list->kode==$kode_kmp) selected="selected" @endif >{{ $list->nama }}
 	                                        </option>
 	                                    @endforeach
@@ -57,6 +54,7 @@
 				                <label class="col-sm-3 control-label" for="example-text-input1">Nama Slum Program</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode_slum_prog-input" class="form-control select2" name="select-kode_slum_prog-input" >
+                                        <option>Please select</option>
                                         @foreach($kode_slum_prog_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_slum_prog) selected="selected" @endif >{{ $list->nama }}
                                             </option>
@@ -112,11 +110,17 @@
             }
           });
         });
-		$("#select21").select2({
-	        theme: "bootstrap",
-	        placeholder: "single select"
-	    });
-      });
+
+		$("#select-kode_kmp-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+
+        $("#select-kode_slum_prog-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+    });
 </script>
 <script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>

@@ -23,16 +23,9 @@
                 </a>
             </li>
             <li class="next">
-                Master Data
-            </li>
-            <li class="next">
-                Data Cakupan Program
-            </li>
-            <li class="next">
-                FasKel
-            </li>
-            <li class="next">
-                Create
+                <a href="/main/faskel">
+                    Master Data / Data Cakupan Program / Faskel
+                </a>
             </li>
         </ul>
     </div>
@@ -42,9 +35,9 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <div class="panel-title pull-left">
+                <!-- <div class="panel-title pull-left">
                     <b>bk010113 index</b>
-                </div>
+                </div> -->
                 @if( ! empty($detil['53']))
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('/main/faskel/create') }}">Create</a>
@@ -53,7 +46,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users">
+					<table class="table table-striped" id="users" width="1500px">
 						<thead>
                             <tr>
                                 <th>Nama KMW</th>

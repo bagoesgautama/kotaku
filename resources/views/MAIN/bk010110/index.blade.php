@@ -23,13 +23,9 @@
                 </a>
             </li>
             <li class="next">
-                Master Data
-            </li>
-            <li class="next">
-                Data Cakupan Program
-            </li>
-            <li class="next">
-                Mapping KMP ke Slum Program
+                <a href="/main/kmw">
+                    Master Data / Data Cakupan Program / KMW
+                </a>
             </li>
         </ul>
     </div>
@@ -39,9 +35,9 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <div class="panel-title pull-left">
+                <!-- <div class="panel-title pull-left">
                     <b>bk010110 Index</b>
-                </div>
+                </div> -->
                 @if( ! empty($detil['41']))
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('/main/kmw/create') }}">Create</a>
@@ -50,17 +46,21 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users">
+					<table class="table table-striped" id="users" width="2000px">
 						<thead>
                             <tr>
+                                <th>Mapping KMP ke Slum Program</th>
+                                <th>Propinsi</th>
                                 <th>Nama</th>
                                 <th>Alamat</th>
                                 <th>Contact Person</th>
                                 <th>No Telepon</th>
                                 <th>No FAX</th>
-                                <th>No Handphone</th>
-                                <th>Email</th>
-                                <th>Nama PMS</th>
+                                <th>No Handphone 1</th>
+                                <th>No Handphone 2</th>
+                                <th>Email 1</th>
+                                <th>Email 2</th>
+                                <th>PMS</th>
                                 <th>Created Time</th>
                                 <th>Created By</th>
 								<th>Option</th>
@@ -95,14 +95,18 @@
                 alert(thrownError);
               },
             "columns": [
+                { "data": "kode_kmp_slum_prog" , name:"kode_kmp_slum_prog"},
+                { "data": "nama_prop" , name:"nama_prop"},
                 { "data": "nama" , name:"nama"},
                 { "data": "alamat" , name:"alamat"},
                 { "data": "contact_person" , name:"contact_person"},
                 { "data": "no_phone" , name:"no_phone"},
                 { "data": "no_fax" , name:"no_fax"},
                 { "data": "no_hp1" , name:"no_hp1"},
+                { "data": "no_hp2" , name:"no_hp2"},
                 { "data": "email1" , name:"email1"},
-                { "data": "pms_nama" , name:"pms_nama"},
+                { "data": "email2" , name:"email2"},
+                { "data": "nama_pms" , name:"nama_pms"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "created_by" , name:"created_by"},
 				{ "data": "option" , name:"option",orderable:false}

@@ -78,18 +78,33 @@ class bk010107Controller extends Controller
 			}
 			if(!empty($data2['detil'])){
 				$columns = array(
-					0 =>'kode',
+					0 =>'nourut',
 					1 =>'nama',
-					2 =>'nama_kota',
-					3 =>'contact_person',
-					4 =>'no_phone',
-					5 =>'no_fax',
-					6 => 'no_hp1',
-					7 => 'email1',
-					8 => 'status'
+					2 =>'keterangan',
+					3 =>'nama_kota',
+					4 =>'contact_person',
+					5 => 'no_phone',
+					6 => 'no_fax',
+					7 => 'no_hp1',
+					8 => 'no_hp2',
+					9 => 'email1',
+					10 => 'email2',
+					11 => 'kode_pms',
+					12 => 'tgl_akhir',
+					13 => 'tahun',
+					14 => 'status',
+					15 => 'kode_departemen',
+					16 => 'glosary_caption',
+					17 => 'created_time',
+					18 => 'created_by',
+					19 => 'updated_time',
+					20 => 'updated_by'
 				);
 
-				$query='select a.*, b.nama nama_kota from bkt_01010107_slum_program a left join bkt_01010102_kota b  on a.kode_kota=b.kode where a.status!=2';
+				$query='select a.*, b.nama nama_kota, c.nama nama_pms 	
+							from bkt_01010107_slum_program a, bkt_01010102_kota b, bkt_01010115_pms c 
+							where a.kode_kota=b.kode and a.status!=2 and a.kode_pms=c.kode';
+
 				$totalData = DB::select('select count(1) cnt from bkt_01010107_slum_program ');
 				$totalFiltered = $totalData[0]->cnt;
 				$limit = $request->input('length');
@@ -102,7 +117,7 @@ class bk010107Controller extends Controller
 				}
 				else {
 					$search = $request->input('search.value');
-					$posts=DB::select($query. ' and a.nama like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+					$posts=DB::select($query. ' and a.nama like "%'.$search.'%" or email1 like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 					$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and a.nama like "%'.$search.'%" ) a');
 					$totalFiltered=$totalFiltered[0]->cnt;
 				}
@@ -123,15 +138,28 @@ class bk010107Controller extends Controller
 						$delete = $post->kode;
 						$url_edit="/main/slum_program/create?kode=".$show;
 						$url_delete="/main/slum_program/delete?kode=".$delete;
-						$nestedData['kode'] = $post->kode;
+						$nestedData['nourut'] = $post->nourut;
 						$nestedData['nama'] = $post->nama;
+						$nestedData['keterangan'] = $post->keterangan;
 						$nestedData['nama_kota'] = $post->nama_kota;
 						$nestedData['contact_person'] = $post->contact_person;
 						$nestedData['no_phone'] = $post->no_phone;
 						$nestedData['no_fax'] = $post->no_fax;
 						$nestedData['no_hp1'] = $post->no_hp1;
+						$nestedData['no_hp2'] = $post->no_hp2;
 						$nestedData['email1'] = $post->email1;
-						$nestedData['status'] = $status;
+						$nestedData['email2'] = $post->email2;
+						$nestedData['nama_pms'] = $post->nama_pms;
+						$nestedData['tgl_akhir'] = $post->tgl_akhir;
+						$nestedData['tahun'] = $post->tahun;
+						$nestedData['status'] = $post->status;
+						$nestedData['kode_departemen'] = $post->kode_departemen;
+						$nestedData['glosary_caption'] = $post->glosary_caption;
+						$nestedData['created_time'] = $post->created_time;
+						$nestedData['created_by'] = $post->created_by;
+						$nestedData['updated_time'] = $post->updated_time;
+						$nestedData['updated_by'] = $post->updated_by;
+
 						$option = '';
 						if(!empty($data2['detil']['30'])){
 							$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
@@ -242,10 +270,10 @@ class bk010107Controller extends Controller
 	public function post_create(Request $request)
 	{
 		date_default_timezone_set('Asia/Jakarta');
-		if ($request->input('example-id-input')!=null){
+		if ($request->input('kode')!=null){
 			$date = strtotime($request->input('tgl_akhir-input'));
         	$date_convert = date('Y-m-d', $date);
-			DB::table('bkt_01010107_slum_program')->where('kode', $request->input('example-id-input'))
+			DB::table('bkt_01010107_slum_program')->where('kode', $request->input('kode'))
 			->update(
 				['nourut' => $request->input('no_urut-input'),
 				'nama' => $request->input('nama-input'),
@@ -264,8 +292,7 @@ class bk010107Controller extends Controller
 				'tgl_akhir' => $date_convert,
 				'tahun' => $request->input('tahun-input'),
 				'status' => $request->input('select-status-input'),
-				//'project' => $request->input('project-input'),
-				'kode_departemen' => $request->input('select-kode_departemen-input'),
+				'kode_departemen' => $request->input('kode_departemen-input'),
 				'glosary_caption' => $request->input('glosary_caption-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
@@ -292,8 +319,7 @@ class bk010107Controller extends Controller
 				'tgl_akhir' => $date_convert,
 				'tahun' => $request->input('tahun-input'),
 				'status' => $request->input('select-status-input'),
-				//'project' => $request->input('project-input'),
-				'kode_departemen' => $request->input('select-kode_departemen-input'),
+				'kode_departemen' => $request->input('kode_departemen-input'),
 				'glosary_caption' => $request->input('glosary_caption-input'),
 				'created_by' => Auth::user()->id
        			]);

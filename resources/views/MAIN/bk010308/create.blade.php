@@ -241,7 +241,7 @@
                                         <label class="col-sm-3 control-label" for="example-text-input1">Ada Rencana Kerja MHA (RK-MHA)</label>
                                         <div class="col-sm-6">
                                             <select id="mha_flag_rk_mha" name="mha_flag_rk_mha" class="form-control" size="1">
-                                                <option value="0" {!! $mha_flag_rk_mha==0 ? 'selected':'' !!}>False</option>
+                                                <option value="0" {!! $mha_flag_rk_mha==0 ? 'selected':'' !!}>Tidak</option>
                                                 <option value="1" {!! $mha_flag_rk_mha==1 ? 'selected':'' !!}>Ya</option>
                                             </select>
                                         </div>
@@ -356,7 +356,7 @@
                                         <div class="col-sm-6">
                                             <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
                                             <br>
-                                            <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-dokumen" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
+                                            <input type="text" class="btn btn-warning btn-modify" id="uploaded-file-dokumen" name="uploaded-file-dokumen" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!} readonly>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -364,7 +364,7 @@
                                         <div class="col-sm-6">
                                             <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input">
                                             <br>
-                                            <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!}>{{$uri_img_absensi}}</button>
+                                            <input type="text" class="btn btn-warning btn-modify" id="uploaded-file-absensi" name="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} readonly>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
