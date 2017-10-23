@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Perencanaan - Kawasan Prioritas</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,10 +23,9 @@
                 </a>
             </li>
             <li class="next">
-                Perencanaan
-            </li>
-            <li class="next">
-                Kawasan Priorias
+                <a href="/main/perencanaan/kawasan/perencanaan">
+                    Perencanaan / Kawasan Prioritas / Perencanaan Kawasan Prioritas
+                </a>
             </li>
         </ul>
     </div>
@@ -36,9 +35,9 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <div class="panel-title pull-left">
+               <!--  <div class="panel-title pull-left">
                     <b>bk010309 index</b>
-                </div>
+                </div> -->
                 @if( ! empty($detil['290']))
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/kawasan/perencanaan/create'}}">Create</a>
@@ -47,7 +46,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users">
+					<table class="table table-striped" id="users" width="5000px">
 						<thead>
                             <tr>
                                 <th>Tahun</th>

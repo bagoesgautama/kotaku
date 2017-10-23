@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Penanganan Dampak Sosial & Lingkungan @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Penanganan Dampak Sosial & Lingkungan</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,16 +23,12 @@
                 </a>
             </li>
             <li class="next">
-                Persiapan
+                <a href="/main/perencanaan/infra/amdal">
+                    Perencanaan / Penyiapan DED, Pengadaan Skala Kota / Penanganan Dampak Sosial & Lingkungan
+                </a>
             </li>
             <li class="next">
-                Nasional
-            </li>
-            <li class="next">
-                Pokja
-            </li>
-            <li class="next">
-                Pembentukan
+                Create
             </li>
         </ul>
     </div>
@@ -42,25 +38,22 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <!-- <div class="panel-title pull-left">
-                    <b>bk010201 index</b>
-                </div> -->
-                @if( ! empty($detil['61']))
+                <div class="panel-title pull-left">
+                    <b>bk010313 index</b>
+                </div>
+                @if( ! empty($detil['318']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/nasional/pokja/pembentukan/create'}}">Create</a>
-				</div>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/infra/amdal/create'}}">Create</a>
+                </div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="pokja">
-						<thead>
+                    <table class="table table-striped" id="users">
+                        <thead>
                             <tr>
-                                <th>Tahun</th>
-                                <th>Kode Prop</th>
-                                <th>Jenis Kegiatan</th>
-                                <th>Tanggal Pembentukan</th>
-                                <th>Status Pokja</th>
+                                <th>Kode Rencana Investasi Tahunan</th>
+                                <th>Created Time</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -75,26 +68,23 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#pokja').DataTable({
-	        // dom: 'Bflrtip',
-	        
-			"processing": true,
+        var table = $('#users').DataTable({
+            // dom: 'Bflrtip',
+            
+            "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/nasional/pokja/pembentukan",
+                     "url": "/main/perencanaan/infra/amdal",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-				{ "data": "tahun" , name:"tahun"},
-                { "data": "kode_prop" , name:"kode_prop"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "status_pokja" , name:"status_pokja"},
-				{ "data": "option" , name:"option",orderable:false}
+                { "data": "kode_parent" , name:"kode_parent"},
+                { "data": "created_time" , name:"created_time"},
+                { "data": "option" , name:"option",orderable:false}
             ]
-	    });
+        });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {

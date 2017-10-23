@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Perencanaan - Rencana Kegiatan Skala Kota</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,10 +23,9 @@
                 </a>
             </li>
             <li class="next">
-                Perencanaan
-            </li>
-            <li class="next">
-                Rencana Kegiatan Skala Kota
+                <a href="/main/perencanaan/rencana_kegiatan">
+                    Perencanaan / Rencana Kegiatan Skala Kota
+                </a>
             </li>
         </ul>
     </div>
