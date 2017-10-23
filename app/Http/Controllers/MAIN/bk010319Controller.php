@@ -488,7 +488,7 @@ class bk010319Controller extends Controller
 			$url_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
 		}
-
+		
 		if ($request->input('kode')!=null){
 			date_default_timezone_set('Asia/Jakarta');
 			DB::table('bkt_01030208_usulan_keg_kt')->where('kode', $request->input('kode'))

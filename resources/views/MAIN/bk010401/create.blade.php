@@ -535,7 +535,7 @@
                                         <div class="col-sm-6">
                                             <input id="url_img_prcn0" type="file" class="file" data-show-preview="false" name="url_img_prcn0">
                                             <br>
-                                            <button type="button" class="btn btn-warning btn-modify" id="uploaded-url_img_prcn0" value="{{$url_img_prcn0}}" {!! $url_img_prcn0==null ? 'style="display:none"':'' !!}>{{$url_img_prcn0}}</button>
+                                            <input type="text" class="btn btn-warning btn-modify" id="uploaded-url_img_prcn0" name="uploaded-url_img_prcn0" value="{{$url_img_prcn0}}" {!! $url_img_prcn0==null ? 'style="display:none"':'' !!} readonly>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -549,7 +549,7 @@
                                         <div class="col-sm-6">
                                             <input id="url_img_prcn50" type="file" class="file" data-show-preview="false" name="url_img_prcn50">
                                             <br>
-                                            <button type="button" class="btn btn-warning btn-modify" id="uploaded-url_img_prcn50" value="{{$url_img_prcn50}}" {!! $url_img_prcn50==null ? 'style="display:none"':'' !!}>{{$url_img_prcn50}}</button>
+                                            <input type="text" class="btn btn-warning btn-modify" id="uploaded-url_img_prcn50" name="uploaded-url_img_prcn50" value="{{$url_img_prcn50}}" {!! $url_img_prcn50==null ? 'style="display:none"':'' !!} readonly>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -563,7 +563,7 @@
                                         <div class="col-sm-6">
                                             <input id="url_img_prcn100" type="file" class="file" data-show-preview="false" name="url_img_prcn100">
                                             <br>
-                                            <button type="button" class="btn btn-warning btn-modify" id="uploaded-url_img_prcn100" value="{{$url_img_prcn100}}" {!! $url_img_prcn100==null ? 'style="display:none"':'' !!}>{{$url_img_prcn100}}</button>
+                                            <input type="text" class="btn btn-warning btn-modify" id="uploaded-url_img_prcn100" name="uploaded-url_img_prcn100" value="{{$url_img_prcn100}}" {!! $url_img_prcn100==null ? 'style="display:none"':'' !!} readonly>
                                         </div>
                                     </div>
                                 </div>
