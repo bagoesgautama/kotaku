@@ -15,7 +15,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>Mapping Kota ke KorKot</h1>
-   <div class="bs-example">
+    <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
                 <a href="/main">
@@ -23,13 +23,9 @@
                 </a>
             </li>
             <li class="next">
-                Master Data
-            </li>
-            <li class="next">
-                Data Cakupan Program
-            </li>
-            <li class="next">
-                Mapping Kota ke KorKot
+                <a href="/main/kota_korkot">
+                    Master Data / Data Cakupan Program / Mapping Kota ke KorKot
+                </a>
             </li>
         </ul>
     </div>
@@ -50,7 +46,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users">
+                    <table class="table table-striped" id="users" width="2000px">
                         <thead>
                             <tr>
                                 <th>Nama KorKot</th>
