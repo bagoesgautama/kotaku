@@ -151,6 +151,8 @@
 		var uri_img_sertifikat2 = document.getElementById('uri_img_sertifikat2-input').files[0];
 		var url_img_sertifikat3 = document.getElementById('url_img_sertifikat3-input').files[0];
 		var form_data = new FormData();
+		//console.log(this)
+		//console.log(form_data)
 		form_data.append('kode', $('#kode').val());
 		form_data.append('uri_img_sertifikat1-input', uri_img_sertifikat1);
 		form_data.append('uri_img_sertifikat2-input', uri_img_sertifikat2);
