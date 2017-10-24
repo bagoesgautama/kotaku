@@ -162,7 +162,7 @@
                                 <label for="alamat" class="sr-only">Role</label>
 								<select id="kode_role-input" name="kode_role-input" class="form-control select2" size="1">
                                     <option value>Role</option>
-			                        
+
 			                    </select>
                             </div>
                         </div>
@@ -182,7 +182,7 @@
                                 <label for="alamat" class="sr-only">Kota</label>
 								<select id="kode_kota-input" name="kode_kota-input" class="form-control select2" size="1">
                                     <option value>Kota</option>
-			                        
+
 			                    </select>
                             </div>
                         </div>
@@ -191,7 +191,7 @@
                                 <label for="alamat" class="sr-only">Kecamatan</label>
 								<select id="kode_kecamatan-input" name="kode_kecamatan-input" class="form-control select2" size="1">
                                     <option value>Kecamatan</option>
-			                        
+
 			                    </select>
                             </div>
                         </div>
@@ -200,7 +200,7 @@
                                 <label for="alamat" class="sr-only">Kelurahan</label>
 								<select id="kode_kelurahan-input" name="kode_kelurahan-input" class="form-control select2" size="1">
                                     <option value>Kelurahan</option>
-			                       
+
 			                    </select>
                             </div>
                         </div>
