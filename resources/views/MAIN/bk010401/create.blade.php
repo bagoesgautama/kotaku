@@ -490,6 +490,7 @@
                                         <label class="col-sm-3 control-label" for="example-text-input1">Sertifikasi</label>
                                         <div class="col-sm-6">
                                             <select id="hasil_sertifikasi" name="hasil_sertifikasi" class="form-control" size="1">
+                                                <option value>Please Select</option>
                                                 <option value="KB" {!! $hasil_sertifikasi=='KB' ? 'selected':'' !!}>Kualitas Baik</option>
                                                 <option value="KC" {!! $hasil_sertifikasi=='KC' ? 'selected':'' !!}>Kualitas Cukup</option>
                                                 <option value="KK" {!! $hasil_sertifikasi=='KK' ? 'selected':'' !!}>Kualitas Kurang</option>
