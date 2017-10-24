@@ -71,26 +71,6 @@ class bk010401Controller extends Controller
 			$kawasan = DB::select('select b.id, b.kode_kawasan, b.nama from bkt_01030208_usulan_keg_kt a, bkt_01010123_kawasan b where a.kode_kota=b.kode_kota and a.kode='.$request->input('kode_parent_kawasan'));
 			echo json_encode($kawasan);
 		}
-		// if(!empty($request->input('kota_korkot'))){
-		// 	$korkot = DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode_kota='.$request->input('kota_korkot'));
-		// 	echo json_encode($korkot);
-		// }
-		// if(!empty($request->input('kota_kec'))){
-		// 	$kec = DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$request->input('kota_kec'));
-		// 	echo json_encode($kec);
-		// }
-		// if(!empty($request->input('kec_kel'))){
-		// 	$kel = DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$request->input('kec_kel'));
-		// 	echo json_encode($kel);
-		// }
-		// if(!empty($request->input('kel_faskel'))){
-		// 	$faskel = DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010113_faskel b where a.kode_faskel=b.kode and a.kode_kel='.$request->input('kel_faskel'));
-		// 	echo json_encode($faskel);
-		// }
-		// if(!empty($request->input('id_subkomponen'))){
-		// 	$dtl_subkomponen = DB::select('select id, kode_dtl_subkomponen, nama from bkt_01010121_dtl_subkomponen where id_subkomponen='.$request->input('id_subkomponen').' and status=1');
-		// 	echo json_encode($dtl_subkomponen);
-		// }
 	}
 
 	public function Post(Request $request)
@@ -225,10 +205,10 @@ class bk010401Controller extends Controller
 				0 =>'nik',
 				1 =>'nama',
 				2 =>'alamat',
-				3 =>'kode_jenis_kelamin',
-				4 =>'created_time'
+				3 =>'a.kode_jenis_kelamin',
+				4 =>'b.created_time'
 			);
-			$query='select a.*
+			$query='select a.*, b.kode as kode_real_keg_pmft, b.created_time as created_time_real_keg_pmft
 				from bkt_01040206_real_keg_pmft b, 
 					bkt_01010131_pemanfaat a
 				where a.kode=b.kode_pemanfaat and b.kode_real_keg='.$request->input('kode');
@@ -242,12 +222,12 @@ class bk010401Controller extends Controller
 			$dir = $request->input('order.0.dir');
 			if(empty($request->input('search.value')))
 			{
-				$posts=DB::select($query .' order by a.'.$order.' '.$dir.' limit '.$start.','.$limit);
+				$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 			}
 			else {
 				$search = $request->input('search.value');
-				$posts=DB::select($query. ' and (a.nik like "%'.$search.'%" or a.nama like "%'.$search.'%" or a.alamat like "%'.$search.'%" or a.kode_jenis_kelamin like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-				$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.nik like "%'.$search.'%" or a.nama like "%'.$search.'%" or a.alamat like "%'.$search.'%" or a.kode_jenis_kelamin like "%'.$search.'%")) a');
+				$posts=DB::select($query. ' and (a.nik like "%'.$search.'%" or a.nama like "%'.$search.'%" or a.alamat like "%'.$search.'%" or a.kode_jenis_kelamin like "%'.$search.'%" or created_time_real_keg_pmft like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+				$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.nik like "%'.$search.'%" or a.nama like "%'.$search.'%" or a.alamat like "%'.$search.'%" or a.kode_jenis_kelamin like "%'.$search.'%" or created_time_real_keg_pmft like "%'.$search.'%")) a');
 			}
 
 			$data = array();
@@ -257,14 +237,14 @@ class bk010401Controller extends Controller
 				{
 					$show =  $post->kode;
 					$edit =  $post->kode;
-					$delete = $post->kode;
+					$delete = $post->kode_real_keg_pmft;
 
 					$url_delete=url('/')."/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/delete?kode=".$delete."&kode_real_keg=".$request->input('kode');
 					$nestedData['nik'] = $post->nik;
 					$nestedData['nama'] = $post->nama;
 					$nestedData['alamat'] = $post->alamat;
 					$nestedData['kode_jenis_kelamin'] = $post->kode_jenis_kelamin;
-					$nestedData['created_time'] = $post->created_time;
+					$nestedData['created_time'] = $post->created_time_real_keg_pmft;
 
 					$user = Auth::user();
 			        $akses= $user->menu()->where('kode_apps', 1)->get();
@@ -325,10 +305,6 @@ class bk010401Controller extends Controller
 				foreach ($posts as $post)
 				{
 					$show =  $post->kode;
-					$edit =  $post->kode;
-					$delete = $post->kode;
-
-					$url_delete=url('/')."/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/delete?kode=".$delete."&kode_real_keg=".$request->input('kode');
 					$nestedData['nik'] = $post->nik;
 					$nestedData['nama'] = $post->nama;
 					$nestedData['alamat'] = $post->alamat;
@@ -346,7 +322,7 @@ class bk010401Controller extends Controller
 
 					$option = '';
 					if(!empty($detil['508'])){
-						$option .= "<input type='checkbox' name='check[]' id='check[]'>";
+						$option .= "<input type='checkbox' name='check[]' id='check[]' value='$show'>";
 					}
 					$nestedData['option'] = $option;
 					$data[] = $nestedData;
@@ -580,6 +556,33 @@ class bk010401Controller extends Controller
 				$data['where'] = $where; 
 				return view('MAIN/bk010401/pemanfaat',$data);
 			}
+		}
+	}
+
+	public function post_pemanfaat_create(Request $request)
+	{
+		if($request->input('kode_real_keg')!=null){
+			$checked = $request->input('check');
+
+			DB::beginTransaction();
+			foreach ($checked as $value) {
+				DB::table('bkt_01040206_real_keg_pmft')->insert([
+					'kode_real_keg' => $request->input('kode_real_keg'),
+					'kode_pemanfaat' => $value
+				]);
+			}
+			DB::commit();
+
+			$total_pemanfaat_p=DB::select('select count(a.kode) as cnt from bkt_01040206_real_keg_pmft a, bkt_01010131_pemanfaat b where a.kode_pemanfaat=b.kode and b.kode_jenis_kelamin="P" and a.kode_real_keg='.$request->input('kode_real_keg'));
+			$total_pemanfaat_w=DB::select('select count(a.kode) as cnt from bkt_01040206_real_keg_pmft a, bkt_01010131_pemanfaat b where a.kode_pemanfaat=b.kode and b.kode_jenis_kelamin="W" and a.kode_real_keg='.$request->input('kode_real_keg'));
+
+			DB::table('bkt_01040201_real_keg')->where('kode', $request->input('kode_real_keg'))
+			->update([
+				'tpm_q_jiwa' => $total_pemanfaat_p[0]->cnt,
+				'tpm_q_jiwa_w' => $total_pemanfaat_w[0]->cnt,
+				'updated_by' => Auth::user()->id,
+				'updated_time' => date('Y-m-d H:i:s')
+				]);
 		}
 	}
 
@@ -819,7 +822,10 @@ class bk010401Controller extends Controller
 
     public function delete_pemanfaat(Request $request)
 	{
+		DB::beginTransaction();
 		DB::table('bkt_01040206_real_keg_pmft')->where('kode', $request->input('kode'))->delete();
+		DB::commit();
+		
 		$total_pemanfaat_p=DB::select('select count(a.kode) as cnt from bkt_01040206_real_keg_pmft a, bkt_01010131_pemanfaat b where a.kode_pemanfaat=b.kode and b.kode_jenis_kelamin="P" and a.kode_real_keg='.$request->input('kode_real_keg'));
 		$total_pemanfaat_w=DB::select('select count(a.kode) as cnt from bkt_01040206_real_keg_pmft a, bkt_01010131_pemanfaat b where a.kode_pemanfaat=b.kode and b.kode_jenis_kelamin="W" and a.kode_real_keg='.$request->input('kode_real_keg'));
 		if($request->input('kode_real_keg')!=null){
