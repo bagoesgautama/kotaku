@@ -147,7 +147,24 @@
   $(document).ready(function () {
 
 	$('#form').on('submit', function (e) {
-		var form_data = new FormData(this);
+
+		var uri_img_sertifikat1 = document.getElementById('uri_img_sertifikat1-input').files[0];
+		var uri_img_sertifikat2 = document.getElementById('uri_img_sertifikat2-input').files[0];
+		var url_img_sertifikat3 = document.getElementById('url_img_sertifikat3-input').files[0];
+		var form_data = new FormData();
+		//console.log(this)
+		//console.log(form_data)
+		form_data.append('kode', $('#kode').val());
+		form_data.append('uri_img_sertifikat1-input', uri_img_sertifikat1);
+		form_data.append('uri_img_sertifikat2-input', uri_img_sertifikat2);
+		form_data.append('url_img_sertifikat3-input', url_img_sertifikat3);
+		form_data.append('uri_img_sertifikat1-file', $('#uri_img_sertifikat1-file').val());
+		form_data.append('uri_img_sertifikat2-file', $('#uri_img_sertifikat2-file').val());
+		form_data.append('url_img_sertifikat3-file', $('#url_img_sertifikat3-file').val());
+		form_data.append('nama-input', $('#nama-input').val());
+		form_data.append('deskripsi-input', $('#deskripsi-input').val());
+		form_data.append('tgl_pelatihan-input', $('#tgl_pelatihan-input').val());
+		form_data.append('instansi-input', $('#instansi-input').val());
 		e.preventDefault();
 		$.ajax({
 			type: 'post',

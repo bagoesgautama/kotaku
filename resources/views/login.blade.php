@@ -46,7 +46,7 @@
                             <div class="form-group">
                                 <input type="submit" value="Sign In" class="btn btn-primary btn-block"/>
                             </div>
-                            <a href="forgot_password.html" id="forgot" class="forgot"> Lupa Password</a>
+                            <!--<a href="forgot_password.html" id="forgot" class="forgot"> Lupa Password</a>-->
                             <span class="pull-right sign-up"><a href="register">Daftar Baru</a></span>
                         </form>
                     </div>

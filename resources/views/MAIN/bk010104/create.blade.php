@@ -161,10 +161,6 @@
 </div>
 
 @stop {{-- local scripts --}} @section('footer_scripts')
-<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
         $('#form').on('submit', function (e) {
@@ -176,7 +172,7 @@
             form_data.append('nama-input', $('#nama-input').val());
             form_data.append('keterangan-input', $('#keterangan-input').val());
             form_data.append('kode-bps-input', $('#kode-bps-input').val());
-            form_data.append('stat-kode-bps', $('#stat-kode-bps').val());
+            form_data.append('stat-kode-bps-input', $('#stat-kode-bps').val());
             form_data.append('kode-kec-input', $('#kode-kec-input').val());
             form_data.append('status-input', $('#status-input').val());
             form_data.append('latitude-input', $('#latitude-input').val());
@@ -251,6 +247,13 @@
 		$("#kode-kec-input").select2({
             theme: "bootstrap"
         });
+		$("#file-input").fileinput({
+	        showUpload: false
+	    });
       });
 </script>
+<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 @stop
