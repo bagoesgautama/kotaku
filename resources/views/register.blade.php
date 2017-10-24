@@ -31,7 +31,7 @@
             </div> -->
             <div class="panel-body">
                 <div class="row">
-                    <form action="{{'/registrasi'}}" id="authentication" method="post" class="signup_validator">
+                    <form action="/registrasi" id="authentication" method="post" class="signup_validator">
                         {{ csrf_field() }}
                         <div class="col-md-12">
                             <div class="form-group">
@@ -69,7 +69,7 @@
                                         <strong>{{ $errors->first('first_name') }}</strong>
                                     </span>
                                 @endif
-                            </div> 
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -144,6 +144,66 @@
                                        placeholder="No. Hp" required>
                             </div>
                         </div>
+						<div class="col-md-12">
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">Level</label>
+								<select id="kode_level-input" name="kode_level-input" class="form-control" size="1">
+			                        @foreach ($level_list as $kpl)
+			                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+			                        @endforeach
+			                    </select>
+                            </div>
+                        </div>
+						<div class="col-md-12">
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">Role</label>
+								<select id="kode_role-input" name="kode_role-input" class="form-control" size="1">
+			                        @foreach ($role_list as $kpl)
+			                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+			                        @endforeach
+			                    </select>
+                            </div>
+                        </div>
+						<div class="col-md-12">
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">Provinsi</label>
+								<select id="kode_prop-input" name="kode_prop-input" class="form-control" size="1">
+			                        @foreach ($prop_list as $kpl)
+			                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+			                        @endforeach
+			                    </select>
+                            </div>
+                        </div>
+						<div class="col-md-12">
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">Kota</label>
+								<select id="kode_kota-input" name="kode_kota-input" class="form-control" size="1">
+			                        @foreach ($kota_list as $kpl)
+			                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+			                        @endforeach
+			                    </select>
+                            </div>
+                        </div>
+						<div class="col-md-12">
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">Kecamatan</label>
+								<select id="kode_kecamatan-input" name="kode_kecamatan-input" class="form-control" size="1">
+			                        @foreach ($kec_list as $kpl)
+			                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+			                        @endforeach
+			                    </select>
+                            </div>
+                        </div>
+						<div class="col-md-12">
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">Kelurahan</label>
+								<select id="kode_kelurahan-input" name="kode_kelurahan-input" class="form-control" size="1">
+			                        @foreach ($kel_list as $kpl)
+			                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+			                        @endforeach
+			                    </select>
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <p class="form-group">
                                 Jenis Registrasi
@@ -152,13 +212,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="radio-inline">
-                                    <input type="radio" id="kode-jr" name="kode-jr" class="radio-blue" value="0"> Mandiri</label>
+                                    <input type="radio" id="kode-jr" name="kode-jr" class="radio-blue" value="0" > Mandiri</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="radio-inline">
-                                    <input type="radio" id="kode-jr" name="kode-jr" class="radio-blue" value="1"> Manual</label>
+                                    <input type="radio" id="kode-jr" name="kode-jr" class="radio-blue" value="1" disabled> Manual</label>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -169,7 +229,7 @@
                         </div>
                     </form>
                 </div>
-                
+
             </div>
         </div>
     </div>

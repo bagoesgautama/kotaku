@@ -82,7 +82,8 @@
 									<input id="uri_img_dok1-input" type="file" class="file" accept="image/*" name="uri_img_dok1-input">
 				                    <br>
 									<img id="uri_img_dok1" alt="gallery" src="/uploads/pendidikan/{{$uri_img_dok1}}" {!! $uri_img_dok1==null ? 'style="display:none"':'style="width:150px"' !!} >
-				                    <button type="button" class="btn btn-effect-ripple btn-danger" id="uri_img_dok1-file" value="{{$uri_img_dok1}}" {!! $uri_img_dok1==null ? 'style="display:none"':'' !!} onclick="test('uri_img_dok1')">delete</button>
+									<input type="hidden" id="uri_img_dok1-file" name="uri_img_dok1-file" value="{{$uri_img_dok1}}">
+				                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_dok1==null ? 'style="display:none"':'' !!} onclick="test('uri_img_dok1')">delete</button>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
@@ -91,7 +92,8 @@
 				                    <input id="uri_img_dok2-input" type="file" class="file" accept="image/*" name="uri_img_dok2-input">
 				                    <br>
 									<img id="uri_img_dok2" alt="gallery" src="/uploads/pendidikan/{{$uri_img_dok2}}" {!! $uri_img_dok2==null ? 'style="display:none"':'style="width:150px"' !!} >
-				                    <button type="button" class="btn btn-effect-ripple btn-danger" id="uri_img_dok2-file" value="{{$uri_img_dok2}}" {!! $uri_img_dok2==null ? 'style="display:none"':'' !!} onclick="test('uri_img_dok2')">Delete</button>
+									<input type="hidden" id="uri_img_dok2-file" name="uri_img_dok2-file" value="{{$uri_img_dok2}}">
+				                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_dok2==null ? 'style="display:none"':'' !!} onclick="test('uri_img_dok2')">Delete</button>
 				                </div>
 				            </div>
 							<div class="form-group ">
@@ -100,7 +102,8 @@
 				                    <input id="uri_img_dok3-input" type="file" class="file" accept="image/*" name="uri_img_dok3-input">
 				                    <br>
 									<img id="uri_img_dok3" alt="gallery" src="/uploads/pendidikan/{{$uri_img_dok3}}" {!! $uri_img_dok3==null ? 'style="display:none"':'style="width:150px"' !!} >
-				                    <button type="button" class="btn btn-effect-ripple btn-danger" id="uri_img_dok3-file" value="{{$uri_img_dok3}}" {!! $uri_img_dok3==null ? 'style="display:none"':'' !!} onclick="test('uri_img_dok3')">Delete</button>
+									<input type="hidden" id="uri_img_dok3-file" name="uri_img_dok3-file" value="{{$uri_img_dok3}}">
+				                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_dok3==null ? 'style="display:none"':'' !!} onclick="test('uri_img_dok3')">Delete</button>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">

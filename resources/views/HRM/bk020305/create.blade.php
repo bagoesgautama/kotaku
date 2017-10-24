@@ -65,7 +65,8 @@
 									<input id="uri_img_sertifikat1-input" type="file" class="file" accept="image/*" name="uri_img_sertifikat1-input">
 				                    <br>
 									<img id="uri_img_sertifikat1" alt="gallery" src="/uploads/penghargaan/{{$uri_img_sertifikat1}}" {!! $uri_img_sertifikat1==null ? 'style="display:none"':'style="width:150px"' !!} >
-				                    <button type="button" class="btn btn-effect-ripple btn-danger" id="uri_img_sertifikat1-file" value="{{$uri_img_sertifikat1}}" {!! $uri_img_sertifikat1==null ? 'style="display:none"':'' !!} onclick="test('uri_img_sertifikat1')">delete</button>
+									<input type="hidden" id="uri_img_sertifikat1-file" name="uri_img_sertifikat1-file" value="{{$uri_img_sertifikat1}}">
+				                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_sertifikat1==null ? 'style="display:none"':'' !!} onclick="test('uri_img_sertifikat1')">delete</button>
 				                </div>
 				            </div>
 							<div class="form-group ">
@@ -74,7 +75,8 @@
 				                    <input id="uri_img_sertifikat2-input" type="file" class="file" accept="image/*" name="uri_img_sertifikat2-input">
 				                    <br>
 									<img id="uri_img_sertifikat2" alt="gallery" src="/uploads/penghargaan/{{$uri_img_sertifikat2}}" {!! $uri_img_sertifikat2==null ? 'style="display:none"':'style="width:150px"' !!} >
-				                    <button type="button" class="btn btn-effect-ripple btn-danger" id="uri_img_sertifikat2-file" value="{{$uri_img_sertifikat2}}" {!! $uri_img_sertifikat2==null ? 'style="display:none"':'' !!} onclick="test('uri_img_sertifikat2')">Delete</button>
+									<input type="hidden" id="uri_img_sertifikat2-file" name="uri_img_sertifikat2-file" value="{{$uri_img_sertifikat2}}">
+				                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_sertifikat2==null ? 'style="display:none"':'' !!} onclick="test('uri_img_sertifikat2')">Delete</button>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
@@ -83,7 +85,8 @@
 				                    <input id="uri_img_sertifikat3-input" type="file" class="file" accept="image/*" name="uri_img_sertifikat3-input">
 				                    <br>
 									<img id="uri_img_sertifikat3" alt="gallery" src="/uploads/penghargaan/{{$uri_img_sertifikat3}}" {!! $uri_img_sertifikat3==null ? 'style="display:none"':'style="width:150px"' !!} >
-				                    <button type="button" class="btn btn-effect-ripple btn-danger" id="uri_img_sertifikat3-file" value="{{$uri_img_sertifikat3}}" {!! $uri_img_sertifikat3==null ? 'style="display:none"':'' !!} onclick="test('uri_img_sertifikat3')">Delete</button>
+									<input type="hidden" id="uri_img_sertifikat3-file" name="uri_img_sertifikat3-file" value="{{$uri_img_sertifikat3}}">
+				                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_sertifikat3==null ? 'style="display:none"':'' !!} onclick="test('uri_img_sertifikat3')">Delete</button>
 				                </div>
 				            </div>
 							<div class="form-group ">
@@ -156,7 +159,7 @@
 			},
 			success: function () {
 				alert('From Submitted.');
-				window.location.href = "/hrm/management/user/penghargaan";
+				//window.location.href = "/hrm/management/user/penghargaan";
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);
