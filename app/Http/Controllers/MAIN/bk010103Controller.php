@@ -147,6 +147,7 @@ class bk010103Controller extends Controller
        			['nama' => $request->input('nama-input'),
 				'nama_pendek' => $request->input('nama-pndk-input'),
 				'kode_kota' => $request->input('kode-kota-input'),
+				'status' => $request->input('status-input'),
 				'url_border_area' => $url,
 				'latitude' => $request->input('latitude-input'),
 				'longitude' => $request->input('longitude-input'),
