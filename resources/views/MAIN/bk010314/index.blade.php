@@ -14,25 +14,18 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Perencanaan - Pengadaan / Proses Lelang</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
                 <a href="/main">
                     <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
-            </li>
+            </li>  
             <li class="next">
-                Persiapan
-            </li>
-            <li class="next">
-                Nasional
-            </li>
-            <li class="next">
-                Pokja
-            </li>
-            <li class="next">
-                Pembentukan
+                <a href="/main/perencanaan/pengadaan_lelang">
+                    Perencanaan / Pengadaan/Proses Lelang
+                </a>
             </li>
         </ul>
     </div>
@@ -45,22 +38,40 @@
                 <!-- <div class="panel-title pull-left">
                     <b>bk010201 index</b>
                 </div> -->
-                @if( ! empty($detil['61']))
+                @if( ! empty($detil['302']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/nasional/pokja/pembentukan/create'}}">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/pengadaan_lelang/create'}}">Create</a>
 				</div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="pokja">
+					<table class="table table-striped" id="users" width="4000px">
 						<thead>
                             <tr>
+                                <th colspan="6">Data Umum</th>
+                            </tr>    
+                            <tr>
                                 <th>Tahun</th>
-                                <th>Kode Prop</th>
-                                <th>Jenis Kegiatan</th>
-                                <th>Tanggal Pembentukan</th>
-                                <th>Status Pokja</th>
+                                <th>KMW</th>
+                                <th>Kota</th>
+                                <th>KorKot</th>
+                                <th>Kecamatan</th>
+                                <th>Kelurahan</th>
+                                <th>Faskel</th>
+                                <th>Kode Paket Kerja</th>
+                                <th>Mulai Lelang</th>
+                                <th>Selesai Lelang</th>
+                                <th>No Kontrak</th>
+                                <th>APBN NSUP</th>
+                                <th>APBN Lain</th>
+                                <th>APBD Propinsi</th>
+                                <th>APBD Kota</th>
+                                <th>Swasta</th>
+                                <th>Keterangan</th>
+                                <th>Paket</th>
+                                <th>Created Time</th>
+                                <th>Created By</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -75,23 +86,38 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#pokja').DataTable({
+		var table = $('#users').DataTable({
 	        // dom: 'Bflrtip',
 	        
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/nasional/pokja/pembentukan",
+                     "url": "/main/perencanaan/pengadaan_lelang",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
 				{ "data": "tahun" , name:"tahun"},
-                { "data": "kode_prop" , name:"kode_prop"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "status_pokja" , name:"status_pokja"},
+                { "data": "nama_kmw" , name:"nama_kmw"},
+                { "data": "nama_kota" , name:"nama_kota"},
+                { "data": "nama_korkot" , name:"nama_korkot"},
+                { "data": "nama_kec" , name:"nama_kec"},
+                { "data": "nama_kel" , name:"nama_kel"},
+                { "data": "nama_faskel" , name:"nama_faskel"},
+                { "data": "kode_pkt_krj" , name:"kode_pkt_krj"},
+                { "data": "tgl_lelang_mulai" , name:"tgl_lelang_mulai"},
+                { "data": "tgl_lelang_selesai" , name:"tgl_lelang_selesai"},
+                { "data": "nomor_kontrak" , name:"nomor_kontrak"},
+                { "data": "sd_apbn_nsup" , name:"sd_apbn_nsup"},
+                { "data": "sd_apbn_lain" , name:"sd_apbn_lain"},
+                { "data": "sd_apbd_prop" , name:"sd_apbd_prop"},
+                { "data": "sd_apbd_kota" , name:"sd_apbd_kota"},
+                { "data": "sd_swasta" , name:"sd_swasta"},
+                { "data": "keterangan" , name:"keterangan"},
+                { "data": "nama_paket" , name:"nama_paket"},
+                { "data": "created_time" , name:"created_time"},
+                { "data": "created_by" , name:"created_by"},
 				{ "data": "option" , name:"option",orderable:false}
             ]
 	    });

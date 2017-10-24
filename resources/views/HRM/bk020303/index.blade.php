@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Penanganan Dampak Sosial & Lingkungan @stop {{-- local styles --}} @section('header_styles') 
+@extends('HRM/default') {{-- Page title --}} @section('title') Sertifikasi Pelatihan @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,21 +14,16 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Penanganan Dampak Sosial & Lingkungan</h1>
+    <h1>Sertifikasi Pelatihan</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-                <a href="/main">
-                    <i class="fa fa-fw fa-home"></i> MAIN
+                <a href="/hrm">
+                    <i class="fa fa-fw fa-home"></i> HRM
                 </a>
             </li>
             <li class="next">
-                <a href="/main/perencanaan/infra/amdal">
-                    Perencanaan / Penyiapan DED, Pengadaan Skala Kota / Penanganan Dampak Sosial & Lingkungan
-                </a>
-            </li>
-            <li class="next">
-                Create
+                Managemen Personil / User / Sertifikasi Pelatihan
             </li>
         </ul>
     </div>
@@ -39,22 +34,24 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010313 index</b>
+                    <b>bk020303 Index</b>
                 </div>
-                @if( ! empty($detil['318']))
+                @if( ! empty($detil['534']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/infra/amdal/create'}}">Create</a>
-                </div>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management/user/pelatihan/create">Create</a>
+				</div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users">
-                        <thead>
+					<table class="table table-striped" id="users">
+						<thead>
                             <tr>
-                                <th>Kode Rencana Investasi Tahunan</th>
-                                <th>Created Time</th>
-                                <th>Option</th>
+								<th>ID</th>
+								<th>Nama</th>
+								<th>Tanggal Pelatihan</th>
+                                <th>Instansi</th>
+								<th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -63,30 +60,36 @@
         </div>
     </div>
 </div>
-
 <!-- /.modal ends here -->@stop {{-- local scripts --}} @section('footer_scripts')
 
 <script>
     $(document).ready(function () {
-        var table = $('#users').DataTable({
-            // dom: 'Bflrtip',
-            
-            "processing": true,
+		var table = $('#users').DataTable({
+			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/perencanaan/infra/amdal",
+                     "url": "/hrm/management/user/pelatihan",
                      "dataType": "json",
                      "type": "POST"
                    },
-
-            "columns": [
-                { "data": "kode_parent" , name:"kode_parent"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "option" , name:"option",orderable:false}
-            ]
-        });
-        $('#pokja_filter input').unbind();
-        $('#pokja_filter input').bind('keyup', function(e) {
+            success: function(data) {
+                 alert('success')
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+              },
+			  "columns": [
+				{ "data": "kode" , name:"kode"},
+				{ "data": "nama" , name:"nama"},
+				{ "data": "tgl_pelatihan" , name:"tgl_pelatihan"},
+				{ "data": "instansi" , name:"instansi"},
+				{ "data": "option" , name:"option",orderable:false}
+            ],
+			"order": [[ 0, "desc" ]]
+	    });
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
             table.search(this.value).draw();
         }

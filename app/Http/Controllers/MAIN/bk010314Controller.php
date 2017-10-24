@@ -87,10 +87,10 @@ class bk010314Controller extends Controller
 			29 => 'nama_paket'
 		);
 		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kec, e.nama nama_kmw, f.nama nama_kel, g.nama nama_faskel 
-			from bkt_01030209_pkt_krj_kontraktor a, 
+			from bkt_01030211_lelang a, 
 				bkt_01010102_kota b, 
 				bkt_01010111_korkot c, 
-				bkt_01010110_kec d, 
+				bkt_01010103_kec d, 
 				bkt_01010110_kmw e,
 				bkt_01010104_kel f,
 				bkt_01010113_faskel g 
@@ -126,10 +126,10 @@ class bk010314Controller extends Controller
 				$nestedData['tahun'] = $post->tahun;
 				$nestedData['nama_kota'] = $post->nama_kota;
 				$nestedData['nama_korkot'] = $post->nama_korkot;
-				$nestedData['nama_kec'] = $post->kode_kec;
-				$nestedData['nama_kmw'] = $post->kode_kmw;
-				$nestedData['kode_kel'] = $post->kode_kel;
-				$nestedData['kode_faskel'] = $post->kode_faskel;
+				$nestedData['nama_kec'] = $post->nama_kec;
+				$nestedData['nama_kmw'] = $post->nama_kmw;
+				$nestedData['nama_kel'] = $post->nama_kel;
+				$nestedData['nama_faskel'] = $post->nama_faskel;
 				$nestedData['kode_pkt_krj'] = $post->kode_pkt_krj;
 				$nestedData['tgl_lelang_mulai'] = $post->tgl_lelang_mulai;
 				$nestedData['tgl_lelang_selesai'] = $post->tgl_lelang_selesai;
@@ -158,7 +158,7 @@ class bk010314Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==106)
+						if($item->kode_menu==100)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
@@ -167,7 +167,7 @@ class bk010314Controller extends Controller
 				if(!empty($detil['303'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['305'])){
+				if(!empty($detil['304'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				}
 				$nestedData['option'] = $option;
@@ -216,6 +216,9 @@ class bk010314Controller extends Controller
 
 			$kode_kmw = DB::select('select kode, nama from bkt_01010110_kmw');
 			$data['kode_kmw_list'] = $kode_kmw;
+
+			$kode_pkt_krj = DB::select('select kode from bkt_01030209_pkt_krj_kontraktor');
+			$data['kode_pkt_krj_list'] = $kode_pkt_krj;
 
 			if($data['kode']!=null  && !empty($data['detil']['303'])){
 				$rowData = DB::select('select * from bkt_01030209_pkt_krj_kontraktor where kode='.$data['kode']);
@@ -376,7 +379,7 @@ class bk010314Controller extends Controller
 	{
 		DB::table('bkt_01030209_pkt_krj_kontraktor')->where('kode', $request->input('kode'))->delete();
 		$this->log_aktivitas('Delete', 304);
-        return Redirect::to('/main/perencanaan/infra/penyiapan_paket');
+        return Redirect::to('/main/perencanaan/pengadaan_lelang');
     }
 
     public function log_aktivitas($aktifitas, $detil)
@@ -390,5 +393,213 @@ class bk010314Controller extends Controller
 				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas
        			]);
+    }
+
+    public function post_peserta(Request $request)
+	{
+		$columns = array(
+			0 =>'kode_lelang',
+			1 => 'no_urut',
+			2 => 'kode_kontraktor',
+			3 => 'flag_pemenang',
+			4 => 'diser_tgl',
+			5 => 'diser_oleh',
+			6 => 'diket_tgl',
+			7 => 'diket_oleh',
+			8 => 'diver_tgl',
+			9 => 'diver_oleh',
+			10 => 'created_time',
+			11 => 'created_by',
+			12 => 'updated_time',
+			13 => 'updated_by',
+			14 => 'nama_paket'
+		);
+		$query='select * from bkt_01030212_pst_lelang ';
+			
+		$totalData = DB::select('select count(1) cnt from bkt_01030212_pst_lelang ');
+		$totalFiltered = $totalData[0]->cnt;
+		$limit = $request->input('length');
+		$start = $request->input('start');
+		$order = $columns[$request->input('order.0.column')];
+		$dir = $request->input('order.0.dir');
+		if(empty($request->input('search.value')))
+		{
+			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+		}
+		else {
+			$search = $request->input('search.value');
+			$posts=DB::select($query. ' and a.tahun like "%'.$search.'%" or b.kode_prop like "%'.$search.'%" or c.kode_kota like "%'.$search.'%" or d.kode_korkot like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' and a.tahun like "%'.$search.'%" or b.kode_prop like "%'.$search.'%" or c.kode_kota like "%'.$search.'%" or d.kode_korkot like "%'.$search.'%") a');
+		}
+
+		$data = array();
+		if(!empty($posts))
+		{
+			foreach ($posts as $post)
+			{
+				$show =  $post->kode;
+				$edit =  $post->kode;
+				$delete = $post->kode;
+
+				$url_edit=url('/')."/main/perencanaan/pengadaan_lelang/peserta/create?kode=".$edit;
+				$url_delete=url('/')."/main/perencanaan/pengadaan_lelang/peserta/delete?kode=".$delete;
+				$nestedData['kode_lelang'] = $post->kode_lelang;
+				$nestedData['no_urut'] = $post->no_urut;
+				$nestedData['kode_kontraktor'] = $post->kode_kontraktor;
+				$nestedData['flag_pemenang'] = $post->flag_pemenang;
+				$nestedData['diser_tgl'] = $post->diser_tgl;
+				$nestedData['diser_oleh'] = $post->diser_oleh;
+				$nestedData['diket_tgl'] = $post->diket_tgl;
+				$nestedData['diket_oleh'] = $post->diket_oleh;
+				$nestedData['diver_tgl'] = $post->diver_tgl;
+				$nestedData['diver_oleh'] = $post->diver_oleh;
+				$nestedData['created_time'] = $post->created_time;
+				$nestedData['created_by'] = $post->created_by;
+				$nestedData['updated_time'] = $post->updated_time;
+				$nestedData['updated_by'] = $post->updated_by;
+				$nestedData['nama_paket'] = $post->nama_paket;
+
+				$user = Auth::user();
+		        $akses= $user->menu()->where('kode_apps', 1)->get();
+				if(count($akses) > 0){
+					foreach ($akses as $item) {
+						if($item->kode_menu==100)
+							$detil[$item->kode_menu_detil]='a';
+					}
+				}
+
+				$option = '';
+				if(!empty($detil['303'])){
+					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
+				}
+				if(!empty($detil['305'])){
+					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
+				}
+				$nestedData['option'] = $option;
+				$data[] = $nestedData;
+			}
+		}
+
+		$json_data = array(
+					"draw"            => intval($request->input('draw')),
+					"recordsTotal"    => intval($totalData[0]->cnt),
+					"recordsFiltered" => intval($totalFiltered),
+					"data"            => $data
+					);
+
+		echo json_encode($json_data);
+	}
+
+	public function create_peserta(Request $request)
+	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==100)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			$data['username'] = $user->name;
+			$data['kode']=$request->input('kode');
+
+			$kode_lelang = DB::select('select kode from bkt_01030211_lelang');
+			$data['kode_lelang_list'] = $kode_lelang;
+
+			$kode_kontraktor = DB::select('select kode, nama from bkt_01010126_kontraktor');
+			$data['kode_kontraktor_list'] = $kode_kontraktor;
+
+			if($data['kode']!=null  && !empty($data['detil']['303'])){
+				$rowData = DB::select('select * from bkt_01030212_pst_lelang where kode='.$data['kode']);
+				$data['kode_lelang'] = $rowData[0]->kode_lelang;
+				$data['no_urut'] = $rowData[0]->no_urut;
+				$data['kode_kontraktor'] = $rowData[0]->kode_kontraktor;
+				$data['flag_pemenang'] = $rowData[0]->flag_pemenang;
+				$data['diser_tgl'] = $rowData[0]->diser_tgl;
+				$data['diser_oleh'] = $rowData[0]->diser_oleh;
+				$data['diket_tgl'] = $rowData[0]->diket_tgl;
+				$data['diket_oleh'] = $rowData[0]->diket_oleh;
+				$data['diver_tgl'] = $rowData[0]->diver_tgl;
+				$data['diver_oleh'] = $rowData[0]->diver_oleh;
+				$data['created_time'] = $rowData[0]->created_time;
+				$data['created_by'] = $rowData[0]->created_by;
+				$data['updated_time'] = $rowData[0]->updated_time;
+				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
+				$data['nama_paket'] = $rowData[0]->nama_paket;
+				return view('MAIN/bk010314/create_peserta',$data);
+			}else if ($data['kode']==null  && !empty($data['detil']['302'])){
+				$data['kode_lelang'] = null;
+				$data['no_urut'] = null;
+				$data['kode_kontraktor'] = null;
+				$data['flag_pemenang'] = null;
+				$data['diser_tgl'] = null;
+				$data['diser_oleh'] = null;
+				$data['diket_tgl'] = null;
+				$data['diket_oleh'] = null;
+				$data['diver_tgl'] = null;
+				$data['diver_oleh'] = null;
+				$data['created_time'] = null;
+				$data['created_by'] = null;
+				$data['updated_time'] = null;
+				$data['updated_by'] = null;
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
+				$data['nama_paket'] = null;
+				return view('MAIN/bk010314/create_peserta',$data);
+			}else{
+				return Redirect::to('/');
+			}
+		}else{
+			return Redirect::to('/');
+		}
+	}
+
+	public function post_create_peserta(Request $request)
+	{
+		if ($request->input('kode')!=null){
+			date_default_timezone_set('Asia/Jakarta');
+			DB::table('bkt_01030212_pst_lelang')->where('kode', $request->input('kode'))
+			->update(['kode_lelang' => $request->input('kode_lelang-input'),
+				'no_urut' => $request->input('no_urut-input'),
+				'kode_kontraktor' => $request->input('kode_kontraktor-input'),
+				'flag_pemenang' => $request->input('flag_pemenang-input'),
+				'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
+				'diser_oleh' => $request->input('diser-oleh-input'),
+				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
+				'diket_oleh' => $request->input('diket-oleh-input'),
+				'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
+				'diver_oleh' => $request->input('diver-oleh-input'),
+				'updated_by' => Auth::user()->id,
+				'updated_time' => date('Y-m-d H:i:s'),
+				'nama_paket' => $request->input('nama_paket-input'),
+				]);
+
+			$this->log_aktivitas('Update Peserta', 303);
+
+		}else{
+			DB::table('bkt_01030212_pst_lelang')->insert([
+				'kode_lelang' => $request->input('kode_lelang-input'),
+				'no_urut' => $request->input('no_urut-input'),
+				'kode_kontraktor' => $request->input('kode_kontraktor-input'),
+				'flag_pemenang' => $request->input('flag_pemenang-input'),
+				'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
+				'diser_oleh' => $request->input('diser-oleh-input'),
+				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
+				'diket_oleh' => $request->input('diket-oleh-input'),
+				'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
+				'diver_oleh' => $request->input('diver-oleh-input'),
+				'created_by' => Auth::user()->id,
+				'nama_paket' => $request->input('nama_paket-input')
+       			]);
+
+			$this->log_aktivitas('Create Peserta', 302);
+		}
+	}
+
+	public function delete_peserta(Request $request)
+	{
+		DB::table('bkt_01030212_pst_lelang')->where('kode', $request->input('kode'))->delete();
+		$this->log_aktivitas('Delete Peserta', 304);
+        return Redirect::to('/main/perencanaan/pengadaan_lelang/peserta/delete');
     }
 }
