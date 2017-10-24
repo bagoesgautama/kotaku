@@ -141,7 +141,7 @@
             },
             success: function () {
             alert('Form Submitted.');
-            //window.location.href = "/main/data_wilayah/provinsi";
+            window.location.href = "/main/data_wilayah/provinsi";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
