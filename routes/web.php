@@ -22,6 +22,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/login', 'Auth\LoginController@showLoginForm');
 //Route::post('/login', 'Auth\LoginController@dologin');
 Route::get('/register', 'Auth\RegisterController@index');
+Route::get('/register/select', 'Auth\RegisterController@select');
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/test', 'TestController@index');
 Route::get('/blank', 'Blank@index');
@@ -630,9 +631,13 @@ Route::get('/main/perencanaan/kelurahan/kegiatan/delete', 'MAIN\bk010319Controll
 Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan', 'MAIN\bk010401Controller@index');
 Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/select', 'MAIN\bk010401Controller@select');
 Route::post('/main/pelaksanaan/kota_bdi/realisasi_kegiatan', 'MAIN\bk010401Controller@post');
+Route::post('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat', 'MAIN\bk010401Controller@post_pemanfaat');
 Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/create', 'MAIN\bk010401Controller@create');
+Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/create', 'MAIN\bk010401Controller@pemanfaat_create');
 Route::post('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/create', 'MAIN\bk010401Controller@post_create');
+Route::post('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/create', 'MAIN\bk010401Controller@post_pemanfaat_create');
 Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/delete', 'MAIN\bk010401Controller@delete');
+Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/delete', 'MAIN\bk010401Controller@delete_pemanfaat');
 
 Route::get('/main/pelaksanaan/kota_bdi/pencairan_kontraktor', 'MAIN\bk010402Controller@index');
 Route::post('/main/pelaksanaan/kota_bdi/pencairan_kontraktor', 'MAIN\bk010402Controller@post');
