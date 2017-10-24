@@ -11,6 +11,16 @@
 <link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 <link href="{{asset('vendors/pnotify/css/pnotify.buttons.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/pnotify/css/pnotify.css')}}" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/colReorder.bootstrap.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/rowReorder.bootstrap.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/scroller.bootstrap.css')}}">
+<link href="{{asset('vendors/hover/css/hover-min.css')}}" rel="stylesheet">
+<link href="{{asset('css/buttons_sass.css')}}" rel="stylesheet">
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -343,13 +353,13 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jiwa</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="tpm_q_jiwa" name="tpm_q_jiwa" class="form-control" value="{{$tpm_q_jiwa}}" maxlength="9" placeholder="Jumlah">
+                                            <input type="number" id="tpm_q_jiwa" name="tpm_q_jiwa" class="form-control" value="{{$tpm_q_jiwa}}" maxlength="9" placeholder="Jumlah" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jiwa Perempuan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="tpm_q_jiwa_w" name="tpm_q_jiwa_w" class="form-control" value="{{$tpm_q_jiwa_w}}" maxlength="9" placeholder="Jumlah">
+                                            <input type="number" id="tpm_q_jiwa_w" name="tpm_q_jiwa_w" class="form-control" value="{{$tpm_q_jiwa_w}}" maxlength="9" placeholder="Jumlah" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -490,6 +500,7 @@
                                         <label class="col-sm-3 control-label" for="example-text-input1">Sertifikasi</label>
                                         <div class="col-sm-6">
                                             <select id="hasil_sertifikasi" name="hasil_sertifikasi" class="form-control" size="1">
+                                                <option value>Please Select</option>
                                                 <option value="KB" {!! $hasil_sertifikasi=='KB' ? 'selected':'' !!}>Kualitas Baik</option>
                                                 <option value="KC" {!! $hasil_sertifikasi=='KC' ? 'selected':'' !!}>Kualitas Cukup</option>
                                                 <option value="KK" {!! $hasil_sertifikasi=='KK' ? 'selected':'' !!}>Kualitas Kurang</option>
@@ -689,6 +700,40 @@
         </div>
     </div>
 </div>
+@if($kode!=null)
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel filterable">
+            <div class="panel-heading clearfix  ">
+                <div class="panel-title pull-left">
+                    <b>Daftar Penerima Manfaat</b>
+                </div>
+                @if( ! empty($detil['506']))
+                <div class="tools pull-right">
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/create?kode_real_keg='.$kode}}">Create</a>
+                </div>
+                @endif
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="pokja">
+                        <thead>
+                            <tr>
+                                <th>NIK</th>
+                                <th>Nama</th>
+                                <th>Alamat</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Created Time</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @stop
 {{-- local scripts --}} @section('footer_scripts')
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
@@ -703,8 +748,52 @@
 
 <script type="text/javascript" src="{{asset('vendors/pnotify/js/pnotify.js')}}"></script>
 <script src="{{asset('js/custom_js/notifications.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.bootstrap.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.buttons.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.colReorder.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.responsive.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.rowReorder.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.colVis.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.bootstrap.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.print.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.scroller.js')}}"></script>
+<script src="{{asset('js/custom_js/alert.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
+        $('.ui-pnotify').remove();
+        var kode = $('#kode').val();
+        var table = $('#pokja').DataTable({
+            // dom: 'Bflrtip',
+            
+            "processing": true,
+            "serverSide": true,
+            "ajax":{
+                     "url": "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat",
+                     "data":{kode : kode},
+                     "dataType": "json",
+                     "type": "POST"
+                   },
+
+            "columns": [
+                { "data": "nik" , name:"nik"},
+                { "data": "nama" , name:"nama"},
+                { "data": "alamat" , name:"alamat"},
+                { "data": "kode_jenis_kelamin" , name:"kode_jenis_kelamin"},
+                { "data": "created_time" , name:"created_time"},
+                { "data": "option" , name:"option",orderable:false}
+            ]
+        });
+        $('#pokja_filter input').unbind();
+        $('#pokja_filter input').bind('keyup', function(e) {
+            if(e.keyCode == 13) {
+                table.search(this.value).draw();
+            }
+        })
+
         $('#form').on('submit', function (e) {
             var form_data = new FormData(this);
           e.preventDefault();
@@ -764,7 +853,7 @@
             placeholder: "Please Select",
             width: "100%"
         });
-        $('.ui-pnotify').remove();
+        
         document.addEventListener('invalid', (function () {
           return function (e) {
             e.preventDefault();

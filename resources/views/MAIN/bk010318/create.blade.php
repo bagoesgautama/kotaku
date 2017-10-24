@@ -337,7 +337,7 @@
                                             <input type="text" class="btn btn-warning btn-modify" id="uploaded-file-absensi" name="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <!-- <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
                                         <div class="col-sm-3">
                                             <input class="form-control" id="tgl-diser-input" name="tgl-diser-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
@@ -375,7 +375,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

@@ -16,7 +16,7 @@
         <ul class="nav navbar-nav">
             <li class="dropdown messages-menu">
                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-fw ti-email black"></i>
-                    <span id="msg_cnt" class="label label-success">3</span>
+                    <span id="msg_cnt" class="label label-success">0</span>
                 </a>
                 <ul id="msg" class="dropdown-menu dropdown-messages table-striped">
                 </ul>
@@ -46,23 +46,19 @@
                     </li>
                     <li role="presentation"></li>
                     <li>
-                        <a href="{{url('edit_user')}}">
-                            <i class="fa fa-fw ti-settings"></i> Account Settings
+                        <a href="/hrm/management/user/password">
+                            <i class="fa fa-fw ti-settings"></i> Change Password
                         </a>
                     </li>
                     <li role="presentation" class="divider"></li>
                     <!-- Menu Footer-->
                     <li class="user-footer">
-                        <div class="pull-left">
-                            <a href="{{url('lockscreen')}}">
-                                <i class="fa fa-fw ti-lock"></i> Lock
-                            </a>
-                        </div>
-                        <div class="pull-right">
-                            <a href="{{url('logout')}}">
-                                <i class="fa fa-fw ti-shift-right"></i> Logout
-                            </a>
-                        </div>
+						<a href="/logout">
+							<i class="fa fa-fw ti-shift-right"></i> Logout
+						</a>
+                        <!--<div class="pull-right">
+
+                        </div>-->
                     </li>
                 </ul>
             </li>

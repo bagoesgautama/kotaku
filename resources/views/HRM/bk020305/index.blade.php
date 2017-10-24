@@ -36,9 +36,9 @@
                 <div class="panel-title pull-left">
                     <b>bk020305 Index</b>
                 </div>
-                @if( ! empty($detil['538']))
+                @if( ! empty($detil['541']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management/user/pendidikan/create">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management/user/penghargaan/create">Create</a>
 				</div>
                 @endif
             </div>
@@ -48,11 +48,9 @@
 						<thead>
                             <tr>
 								<th>ID</th>
-								<th>Nama Lembaga</th>
-								<th>Fakultas</th>
-                                <th>Bidang Studi</th>
-								<th>Tahun Masuk</th>
-								<th>Tahun Lulus</th>
+								<th>Nama </th>
+								<th>instansi</th>
+								<th>Tanggal Penghargaan</th>
 								<th>Option</th>
                             </tr>
                         </thead>
@@ -70,7 +68,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/management/user/pendidikan",
+                     "url": "/hrm/management/user/penghargaan",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -83,11 +81,9 @@
               },
 			  "columns": [
 				{ "data": "kode" , name:"kode"},
-				{ "data": "nama_lembaga" , name:"nama_lembaga"},
-				{ "data": "fakultas" , name:"fakultas"},
-				{ "data": "bidang_studi" , name:"bidang_studi"},
-				{ "data": "thn_masuk" , name:"thn_masuk"},
-				{ "data": "thn_lulus" , name:"thn_lulus"},
+				{ "data": "nama" , name:"nama"},
+				{ "data": "instansi" , name:"instansi"},
+				{ "data": "tgl_penghargaan" , name:"tgl_penghargaan"},
 				{ "data": "option" , name:"option",orderable:false}
             ],
 			"order": [[ 0, "desc" ]]

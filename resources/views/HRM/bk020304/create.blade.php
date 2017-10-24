@@ -82,7 +82,8 @@
 									<input id="uri_img_dok1-input" type="file" class="file" accept="image/*" name="uri_img_dok1-input">
 				                    <br>
 									<img id="uri_img_dok1" alt="gallery" src="/uploads/pendidikan/{{$uri_img_dok1}}" {!! $uri_img_dok1==null ? 'style="display:none"':'style="width:150px"' !!} >
-				                    <button type="button" class="btn btn-effect-ripple btn-danger" id="uri_img_dok1-file" value="{{$uri_img_dok1}}" {!! $uri_img_dok1==null ? 'style="display:none"':'' !!} onclick="test('uri_img_dok1')">delete</button>
+									<input type="hidden" id="uri_img_dok1-file" name="uri_img_dok1-file" value="{{$uri_img_dok1}}">
+				                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_dok1==null ? 'style="display:none"':'' !!} onclick="test('uri_img_dok1')">delete</button>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
@@ -91,7 +92,8 @@
 				                    <input id="uri_img_dok2-input" type="file" class="file" accept="image/*" name="uri_img_dok2-input">
 				                    <br>
 									<img id="uri_img_dok2" alt="gallery" src="/uploads/pendidikan/{{$uri_img_dok2}}" {!! $uri_img_dok2==null ? 'style="display:none"':'style="width:150px"' !!} >
-				                    <button type="button" class="btn btn-effect-ripple btn-danger" id="uri_img_dok2-file" value="{{$uri_img_dok2}}" {!! $uri_img_dok2==null ? 'style="display:none"':'' !!} onclick="test('uri_img_dok2')">Delete</button>
+									<input type="hidden" id="uri_img_dok2-file" name="uri_img_dok2-file" value="{{$uri_img_dok2}}">
+				                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_dok2==null ? 'style="display:none"':'' !!} onclick="test('uri_img_dok2')">Delete</button>
 				                </div>
 				            </div>
 							<div class="form-group ">
@@ -100,7 +102,8 @@
 				                    <input id="uri_img_dok3-input" type="file" class="file" accept="image/*" name="uri_img_dok3-input">
 				                    <br>
 									<img id="uri_img_dok3" alt="gallery" src="/uploads/pendidikan/{{$uri_img_dok3}}" {!! $uri_img_dok3==null ? 'style="display:none"':'style="width:150px"' !!} >
-				                    <button type="button" class="btn btn-effect-ripple btn-danger" id="uri_img_dok3-file" value="{{$uri_img_dok3}}" {!! $uri_img_dok3==null ? 'style="display:none"':'' !!} onclick="test('uri_img_dok3')">Delete</button>
+									<input type="hidden" id="uri_img_dok3-file" name="uri_img_dok3-file" value="{{$uri_img_dok3}}">
+				                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_dok3==null ? 'style="display:none"':'' !!} onclick="test('uri_img_dok3')">Delete</button>
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
@@ -161,24 +164,7 @@
   $(document).ready(function () {
 
 	$('#form').on('submit', function (e) {
-		var uri_img_dok1 = document.getElementById('uri_img_dok1-input').files[0];
-		var uri_img_dok2 = document.getElementById('uri_img_dok2-input').files[0];
-		var uri_img_dok3 = document.getElementById('uri_img_dok3-input').files[0];
-		var form_data = new FormData();
-		form_data.append('kode', $('#kode').val());
-		form_data.append('uri_img_dok1-input', uri_img_dok1);
-		form_data.append('uri_img_dok2-input', uri_img_dok2);
-		form_data.append('uri_img_dok3-input', uri_img_dok3);
-		form_data.append('uri_img_dok1-file', $('#uri_img_dok1-file').val());
-		form_data.append('uri_img_dok2-file', $('#uri_img_dok2-file').val());
-		form_data.append('uri_img_dok3-file', $('#uri_img_dok3-file').val());
-		form_data.append('nama_lembaga-input', $('#nama_lembaga-input').val());
-		form_data.append('deskripsi-input', $('#deskripsi-input').val());
-		form_data.append('fakultas-input', $('#fakultas-input').val());
-		form_data.append('bidang_studi-input', $('#bidang_studi-input').val());
-		form_data.append('tingkat-input', $('#tingkat-input').val());
-		form_data.append('thn_masuk-input', $('#thn_masuk-input').val());
-		form_data.append('thn_lulus-input', $('#thn_lulus-input').val());
+		var form_data = new FormData(this);
 		e.preventDefault();
 		$.ajax({
 			type: 'post',
@@ -190,10 +176,8 @@
 			    $("#submit").prop('disabled', true);
 			},
 			success: function () {
-
-			alert('From Submitted.');
-			$("#submit").prop('disabled', false);
-			window.location.href = "/hrm/management/user/pendidikan";
+				alert('From Submitted.');
+				window.location.href = "/hrm/management/user/pendidikan";
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);

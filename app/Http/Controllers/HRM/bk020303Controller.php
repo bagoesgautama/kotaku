@@ -170,8 +170,8 @@ class bk020303Controller extends Controller
 		$file = $request->file('uri_img_sertifikat1-input');
 		$url = null;
 		$upload = false;
-		if($request->input('uri_img_sertifikat1-file') != null && $file == null){
-			$url = $request->input('uri_img_sertifikat1-file');
+		if($request->input('uri_img_sertifikat1') != null && $file == null){
+			$url = $request->input('uri_img_sertifikat1');
 			$upload = false;
 		}else if($file != null){
 			$url = $user->id."_".$file->getClientOriginalName();
@@ -180,8 +180,8 @@ class bk020303Controller extends Controller
 		$file2 = $request->file('uri_img_sertifikat2-input');
 		$url2 = null;
 		$upload2 = false;
-		if($request->input('uri_img_sertifikat2-file') != null && $file2 == null){
-			$url2 = $request->input('uri_img_sertifikat2-file');
+		if($request->input('uri_img_sertifikat2') != null && $file2 == null){
+			$url2 = $request->input('uri_img_sertifikat2');
 			$upload2 = false;
 		}else if($file2 != null){
 			$url2 = $user->id."_".$file2->getClientOriginalName();
@@ -190,8 +190,8 @@ class bk020303Controller extends Controller
 		$file3 = $request->file('url_img_sertifikat3-input');
 		$url3 = null;
 		$upload3 = false;
-		if($request->input('url_img_sertifikat3-file') != null && $file3 == null){
-			$url3 = $request->input('url_img_sertifikat3-file');
+		if($request->input('url_img_sertifikat3') != null && $file3 == null){
+			$url3 = $request->input('url_img_sertifikat3');
 			$upload3 = false;
 		}else if($file3 != null){
 			$url3 = $user->id."_".$file3->getClientOriginalName();

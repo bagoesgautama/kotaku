@@ -217,6 +217,154 @@ class bk010401Controller extends Controller
 		echo json_encode($json_data);
 	}
 
+	public function Post_pemanfaat(Request $request)
+	{
+		if($request->input('kode')!=null)
+		{
+			$columns = array(
+				0 =>'nik',
+				1 =>'nama',
+				2 =>'alamat',
+				3 =>'kode_jenis_kelamin',
+				4 =>'created_time'
+			);
+			$query='select a.*
+				from bkt_01040206_real_keg_pmft b, 
+					bkt_01010131_pemanfaat a
+				where a.kode=b.kode_pemanfaat and b.kode_real_keg='.$request->input('kode');
+			$totalData = DB::select('select count(1) cnt from bkt_01040206_real_keg_pmft b, 
+					bkt_01010131_pemanfaat a
+				where a.kode=b.kode_pemanfaat and b.kode_real_keg='.$request->input('kode'));
+			$totalFiltered = $totalData[0]->cnt;
+			$limit = $request->input('length');
+			$start = $request->input('start');
+			$order = $columns[$request->input('order.0.column')];
+			$dir = $request->input('order.0.dir');
+			if(empty($request->input('search.value')))
+			{
+				$posts=DB::select($query .' order by a.'.$order.' '.$dir.' limit '.$start.','.$limit);
+			}
+			else {
+				$search = $request->input('search.value');
+				$posts=DB::select($query. ' and (a.nik like "%'.$search.'%" or a.nama like "%'.$search.'%" or a.alamat like "%'.$search.'%" or a.kode_jenis_kelamin like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+				$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.nik like "%'.$search.'%" or a.nama like "%'.$search.'%" or a.alamat like "%'.$search.'%" or a.kode_jenis_kelamin like "%'.$search.'%")) a');
+			}
+
+			$data = array();
+			if(!empty($posts))
+			{
+				foreach ($posts as $post)
+				{
+					$show =  $post->kode;
+					$edit =  $post->kode;
+					$delete = $post->kode;
+
+					$url_delete=url('/')."/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/delete?kode=".$delete."&kode_real_keg=".$request->input('kode');
+					$nestedData['nik'] = $post->nik;
+					$nestedData['nama'] = $post->nama;
+					$nestedData['alamat'] = $post->alamat;
+					$nestedData['kode_jenis_kelamin'] = $post->kode_jenis_kelamin;
+					$nestedData['created_time'] = $post->created_time;
+
+					$user = Auth::user();
+			        $akses= $user->menu()->where('kode_apps', 1)->get();
+					if(count($akses) > 0){
+						foreach ($akses as $item) {
+							if($item->kode_menu==109)
+								$detil[$item->kode_menu_detil]='a';
+						}
+					}
+
+					$option = '';
+					if(!empty($detil['508'])){
+						$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
+					}
+					$nestedData['option'] = $option;
+					$data[] = $nestedData;
+				}
+			}
+
+			$json_data = array(
+						"draw"            => intval($request->input('draw')),
+						"recordsTotal"    => intval($totalData[0]->cnt),
+						"recordsFiltered" => intval($totalFiltered),
+						"data"            => $data
+						);
+
+			echo json_encode($json_data);
+		}
+		elseif($request->input('kode_real_keg')!=null)
+		{
+			$columns = array(
+				0 =>'nik',
+				1 =>'nama',
+				2 =>'alamat',
+				3 =>'kode_jenis_kelamin',
+				4 =>'created_time'
+			);
+			$query='select * from bkt_01010131_pemanfaat where '.$request->input('where');
+			$totalData = DB::select('select count(1) cnt from bkt_01010131_pemanfaat where '.$request->input('where'));
+			$totalFiltered = $totalData[0]->cnt;
+			$limit = $request->input('length');
+			$start = $request->input('start');
+			$order = $columns[$request->input('order.0.column')];
+			$dir = $request->input('order.0.dir');
+			if(empty($request->input('search.value')))
+			{
+				$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			}
+			else {
+				$search = $request->input('search.value');
+				$posts=DB::select($query. ' and (nik like "%'.$search.'%" or nama like "%'.$search.'%" or alamat like "%'.$search.'%" or kode_jenis_kelamin like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+				$totalFiltered=DB::select('select count(1) from ('.$query. ' and (nik like "%'.$search.'%" or nama like "%'.$search.'%" or alamat like "%'.$search.'%" or kode_jenis_kelamin like "%'.$search.'%")) a');
+			}
+
+			$data = array();
+			if(!empty($posts))
+			{
+				foreach ($posts as $post)
+				{
+					$show =  $post->kode;
+					$edit =  $post->kode;
+					$delete = $post->kode;
+
+					$url_delete=url('/')."/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/delete?kode=".$delete."&kode_real_keg=".$request->input('kode');
+					$nestedData['nik'] = $post->nik;
+					$nestedData['nama'] = $post->nama;
+					$nestedData['alamat'] = $post->alamat;
+					$nestedData['kode_jenis_kelamin'] = $post->kode_jenis_kelamin;
+					$nestedData['created_time'] = $post->created_time;
+
+					$user = Auth::user();
+			        $akses= $user->menu()->where('kode_apps', 1)->get();
+					if(count($akses) > 0){
+						foreach ($akses as $item) {
+							if($item->kode_menu==109)
+								$detil[$item->kode_menu_detil]='a';
+						}
+					}
+
+					$option = '';
+					if(!empty($detil['508'])){
+						$option .= "<input type='checkbox' name='check[]' id='check[]'>";
+					}
+					$nestedData['option'] = $option;
+					$data[] = $nestedData;
+				}
+			}
+
+			$json_data = array(
+						"draw"            => intval($request->input('draw')),
+						"recordsTotal"    => intval($totalData[0]->cnt),
+						"recordsFiltered" => intval($totalFiltered),
+						"data"            => $data
+						);
+
+			echo json_encode($json_data);
+		}
+		
+	}
+
 	public function create(Request $request)
 	{
 		$user = Auth::user();
@@ -405,6 +553,36 @@ class bk010401Controller extends Controller
 		}
 	}
 
+	public function pemanfaat_create(Request $request)
+	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==109)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			$data['username'] = $user->name;
+			$data['kode_real_keg']=$request->input('kode_real_keg');
+			if($data['kode_real_keg']!=null  && !empty($data['detil']['507'])){
+				$rowData=DB::select('select kode_pemanfaat from bkt_01040206_real_keg_pmft where kode_real_keg='.$request->input('kode_real_keg'));
+				$where='';
+				$count=0;
+				foreach ($rowData as $value) {
+					$count++;
+					if($count==1){
+						$where.=' kode !='.$value->kode_pemanfaat;
+					}else{
+						$where.=' and kode !='.$value->kode_pemanfaat;
+					}
+				}
+				$data['where'] = $where; 
+				return view('MAIN/bk010401/pemanfaat',$data);
+			}
+		}
+	}
+
 	public function post_create(Request $request)
 	{
 		$file_prcn0 = $request->file('url_img_prcn0');
@@ -514,12 +692,12 @@ class bk010401Controller extends Controller
 				'progres_fisik' => $request->input('progres_fisik'),
 				'flag_sudah_sertias' => $request->input('flag_sudah_sertias'),
 				'tgl_sertias' => $request->input('tgl_sertias'),
-				'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				'diser_oleh' => $request->input('diser-oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				'diket_oleh' => $request->input('diket-oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				'diver_oleh' => $request->input('diver-oleh-input'),
+				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
+				// 'diser_oleh' => $request->input('diser-oleh-input'),
+				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
+				// 'diket_oleh' => $request->input('diket-oleh-input'),
+				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
+				// 'diver_oleh' => $request->input('diver-oleh-input'),
 				'updated_by' => Auth::user()->id,
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
@@ -601,12 +779,12 @@ class bk010401Controller extends Controller
 				'progres_fisik' => $request->input('progres_fisik'),
 				'flag_sudah_sertias' => $request->input('flag_sudah_sertias'),
 				'tgl_sertias' => $request->input('tgl_sertias'),
-				'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				'diser_oleh' => $request->input('diser-oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				'diket_oleh' => $request->input('diket-oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				'diver_oleh' => $request->input('diver-oleh-input'),
+				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
+				// 'diser_oleh' => $request->input('diser-oleh-input'),
+				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
+				// 'diket_oleh' => $request->input('diket-oleh-input'),
+				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
+				// 'diver_oleh' => $request->input('diver-oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
 
@@ -637,6 +815,24 @@ class bk010401Controller extends Controller
 		DB::table('bkt_01040201_real_keg')->where('kode', $request->input('kode'))->delete();
 		$this->log_aktivitas('Delete', 508);
         return Redirect::to('/main/pelaksanaan/kota_bdi/realisasi_kegiatan');
+    }
+
+    public function delete_pemanfaat(Request $request)
+	{
+		DB::table('bkt_01040206_real_keg_pmft')->where('kode', $request->input('kode'))->delete();
+		$total_pemanfaat_p=DB::select('select count(a.kode) as cnt from bkt_01040206_real_keg_pmft a, bkt_01010131_pemanfaat b where a.kode_pemanfaat=b.kode and b.kode_jenis_kelamin="P" and a.kode_real_keg='.$request->input('kode_real_keg'));
+		$total_pemanfaat_w=DB::select('select count(a.kode) as cnt from bkt_01040206_real_keg_pmft a, bkt_01010131_pemanfaat b where a.kode_pemanfaat=b.kode and b.kode_jenis_kelamin="W" and a.kode_real_keg='.$request->input('kode_real_keg'));
+		if($request->input('kode_real_keg')!=null){
+			date_default_timezone_set('Asia/Jakarta');
+			DB::table('bkt_01040201_real_keg')->where('kode', $request->input('kode_real_keg'))
+			->update([
+				'tpm_q_jiwa' => $total_pemanfaat_p[0]->cnt,
+				'tpm_q_jiwa_w' => $total_pemanfaat_w[0]->cnt,
+				'updated_by' => Auth::user()->id,
+				'updated_time' => date('Y-m-d H:i:s')
+				]);
+		}
+        return Redirect::to('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/create?kode='.$request->input('kode_real_keg'));
     }
 
     public function log_aktivitas($aktifitas, $detil)

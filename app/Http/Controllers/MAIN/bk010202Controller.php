@@ -148,8 +148,8 @@ class bk010202Controller extends Controller
 				$data['jenis_subkegiatan'] = $rowData[0]->jenis_subkegiatan;
 				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
 				$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
-				$data['q_peserta_p'] = $rowData[0]->q_anggota_p;
-				$data['q_peserta_w'] = $rowData[0]->q_anggota_w;
+				$data['q_peserta_p'] = $rowData[0]->q_peserta_p;
+				$data['q_peserta_w'] = $rowData[0]->q_peserta_w;
 				$data['uri_img_document'] = $rowData[0]->uri_img_document;
 				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
 				$data['diser_tgl'] = $rowData[0]->diser_tgl;
@@ -237,12 +237,12 @@ class bk010202Controller extends Controller
 				'q_peserta_w' => $request->input('q-perempuan-input'),
 				'uri_img_document' => $url_dokumen,
 				'uri_img_absensi' => $url_absensi,
-				'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				'diser_oleh' => $request->input('diser-oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				'diket_oleh' => $request->input('diket-oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				'diver_oleh' => $request->input('diver-oleh-input'),
+				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
+				// 'diser_oleh' => $request->input('diser-oleh-input'),
+				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
+				// 'diket_oleh' => $request->input('diket-oleh-input'),
+				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
+				// 'diver_oleh' => $request->input('diver-oleh-input'),
 				'updated_by' => Auth::user()->id, 
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
@@ -267,12 +267,12 @@ class bk010202Controller extends Controller
 				'q_peserta_w' => $request->input('q-perempuan-input'),
 				'uri_img_document' => $url_dokumen,
 				'uri_img_absensi' => $url_absensi,
-				'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				'diser_oleh' => $request->input('diser-oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				'diket_oleh' => $request->input('diket-oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				'diver_oleh' => $request->input('diver-oleh-input'),
+				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
+				// 'diser_oleh' => $request->input('diser-oleh-input'),
+				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
+				// 'diket_oleh' => $request->input('diket-oleh-input'),
+				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
+				// 'diver_oleh' => $request->input('diver-oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
 

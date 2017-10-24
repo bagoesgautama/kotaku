@@ -180,8 +180,8 @@ class bk020304Controller extends Controller
 		$file = $request->file('uri_img_dok1-input');
 		$url = null;
 		$upload = false;
-		if($request->input('uri_img_dok1-file') != null && $file == null){
-			$url = $request->input('uri_img_dok1-file');
+		if($request->input('uri_img_dok1') != null && $file == null){
+			$url = $request->input('uri_img_dok1');
 			$upload = false;
 		}else if($file != null){
 			$url = $user->id."_".$file->getClientOriginalName();
@@ -190,8 +190,8 @@ class bk020304Controller extends Controller
 		$file2 = $request->file('uri_img_dok2-input');
 		$url2 = null;
 		$upload2 = false;
-		if($request->input('uri_img_dok2-file') != null && $file2 == null){
-			$url2 = $request->input('uri_img_dok2-file');
+		if($request->input('uri_img_dok2') != null && $file2 == null){
+			$url2 = $request->input('uri_img_dok2');
 			$upload2 = false;
 		}else if($file2 != null){
 			$url2 = $user->id."_".$file2->getClientOriginalName();
@@ -200,8 +200,8 @@ class bk020304Controller extends Controller
 		$file3 = $request->file('uri_img_dok3-input');
 		$url3 = null;
 		$upload3 = false;
-		if($request->input('uri_img_dok3-file') != null && $file3 == null){
-			$url3 = $request->input('uri_img_dok3-file');
+		if($request->input('uri_img_dok3') != null && $file3 == null){
+			$url3 = $request->input('uri_img_dok3');
 			$upload3 = false;
 		}else if($file3 != null){
 			$url3 = $user->id."_".$file3->getClientOriginalName();

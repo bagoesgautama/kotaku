@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 
@@ -90,6 +91,32 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         // return view('auth.register');
-        return view('register');
+        $data['level_list']=DB::select('select * from bkt_02010101_role_level');
+        // $data['role_list']=DB::select('select * from bkt_02010102_role');
+        $data['prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
+        // $data['kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
+        // $data['kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
+        // $data['kel_list'] = DB::select('select * from bkt_01010104_kel where status=1');
+        return view('register', $data);
+    }
+
+    public function select(Request $request)
+    {
+        if($request->input('level')){
+            $role = DB::select('select kode, nama from bkt_02010102_role where kode_level='.$request->input('level'));
+            echo json_encode($role);
+        }
+        if($request->input('prop')){
+            $kota = DB::select('select kode, nama from bkt_01010102_kota where kode_prop='.$request->input('prop'));
+            echo json_encode($kota);
+        }
+        if($request->input('kota')){
+            $kec = DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$request->input('kota'));
+            echo json_encode($kec);
+        }
+        if($request->input('kec')){
+            $kel = DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$request->input('kec'));
+            echo json_encode($kel);
+        }
     }
 }

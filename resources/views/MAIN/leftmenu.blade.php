@@ -748,7 +748,7 @@
 				</a>
 				<ul class="sub-menu form-submenu">
 					@if( ! empty($menu['113']))
-					<li {!! (Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/create')? 'class="active"': "") !!}>
+					<li {!! (Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/create')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/create')? 'class="active"': "") !!}>
 						<a href="/main/pelaksanaan/kota_bdi/realisasi_kegiatan">
 							<span class="mm-text">Realisasi Kegiatan Skala Kota</span>
 						</a>
@@ -762,15 +762,15 @@
 					</li>
 					@endif
 					@if( ! empty($menu['115']))
-					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
-						<a href="/main/data_wilayah/provinsi">
+					<li {!! (Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/create')? 'class="active"': "") !!}>
+						<a href="/main/pelaksanaan/kota_bdi/realisasi_kontrak">
 							<span class="mm-text">Realisasi Kontrak Paket Pekerjaan dari Kontraktor</span>
 						</a>
 					</li>
 					@endif
 					@if( ! empty($menu['116']))
-					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
-						<a href="/main/data_wilayah/provinsi">
+					<li {!! (Request::is( 'main/pelaksanaan/kota_bdi/sertifikasi_infra')||Request::is( 'main/pelaksanaan/kota_bdi/sertifikasi_infra/create')? 'class="active"': "") !!}>
+						<a href="/main/pelaksanaan/kota_bdi/sertifikasi_infra">
 							<span class="mm-text">Sertifikasi Infrastruktur</span>
 						</a>
 					</li>
