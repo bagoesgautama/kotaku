@@ -89,6 +89,44 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label for="alamat" class="sr-only">Provinsi</label>
+                                <select id="kode_prop-input" name="kode_prop-input" class="form-control select2" size="1">
+                                    <option value>Provinsi</option>
+                                    @foreach ($prop_list as $kpl)
+                                        <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">Kota</label>
+                                <select id="kode_kota-input" name="kode_kota-input" class="form-control select2" size="1">
+                                    <option value>Kota</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">Kecamatan</label>
+                                <select id="kode_kecamatan-input" name="kode_kecamatan-input" class="form-control select2" size="1">
+                                    <option value>Kecamatan</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">Kelurahan</label>
+                                <select id="kode_kelurahan-input" name="kode_kelurahan-input" class="form-control select2" size="1">
+                                    <option value>Kelurahan</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label for="kodepos" class="sr-only">Kodepos</label>
                                 <input type="text" class="form-control  form-control-lg" id="kodepos" name="kodepos"
                                        placeholder="kodepos" required>
@@ -120,6 +158,17 @@
                             <p class="form-group">
                                 Tanggal Lahir
                             </p>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">Tempat Lahir</label>
+                                <select id="kode_tempat_lahir-input" name="kode_tempat_lahir-input" class="form-control select2" size="1">
+                                    <option value>Kota</option>
+                                    @foreach ($kota_list as $kpl)
+                                        <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
@@ -166,42 +215,36 @@
 			                    </select>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <p class="form-group">
+                                Wilayah Kerja
+                            </p>
+                        </div>
 						<div class="col-md-12">
                             <div class="form-group">
                                 <label for="alamat" class="sr-only">Provinsi</label>
-								<select id="kode_prop-input" name="kode_prop-input" class="form-control select2" size="1">
-                                    <option value>Provinsi</option>
-			                        @foreach ($prop_list as $kpl)
-			                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
-			                        @endforeach
-			                    </select>
+                                <select id="wk_kd_prop-input" name="wk_kd_prop-input" class="form-control select2" size="1">
+                                    <option value>WK Provinsi</option>
+                                    @foreach ($wk_kd_prop_list as $kpl)
+                                        <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-						<div class="col-md-12">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="alamat" class="sr-only">Kota</label>
-								<select id="kode_kota-input" name="kode_kota-input" class="form-control select2" size="1">
-                                    <option value>Kota</option>
-
-			                    </select>
+                                <select id="wk_kd_kota-input" name="wk_kd_kota-input" class="form-control select2" size="1">
+                                    <option value>WK Kota</option>
+                                </select>
                             </div>
                         </div>
-						<div class="col-md-12">
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Kecamatan</label>
-								<select id="kode_kecamatan-input" name="kode_kecamatan-input" class="form-control select2" size="1">
-                                    <option value>Kecamatan</option>
-
-			                    </select>
-                            </div>
-                        </div>
-						<div class="col-md-12">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="alamat" class="sr-only">Kelurahan</label>
-								<select id="kode_kelurahan-input" name="kode_kelurahan-input" class="form-control select2" size="1">
-                                    <option value>Kelurahan</option>
-
-			                    </select>
+                                <select id="wk_kd_kel-input" name="wk_kd_kel-input" class="form-control select2" size="1">
+                                    <option value>WK Kelurahan</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -212,7 +255,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="radio-inline">
-                                    <input type="radio" id="kode-jr" name="kode-jr" class="radio-blue" value="0" > Mandiri</label>
+                                    <input type="radio" id="kode-jr" name="kode-jr" class="radio-blue" value="0" checked> Mandiri</label>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -272,13 +315,32 @@
             theme: "bootstrap",
             placeholder: "Kelurahan"
         });
+        $('#kode_tempat_lahir-input').select2({
+            theme: "bootstrap",
+            placeholder: "Tempat Lahir"
+        });
+        $('#wk_kd_prop-input').select2({
+            theme: "bootstrap",
+            placeholder: "WK Provinsi"
+        });
+        $('#wk_kd_kota-input').select2({
+            theme: "bootstrap",
+            placeholder: "WK Kota"
+        });
+        $('#wk_kd_kel-input').select2({
+            theme: "bootstrap",
+            placeholder: "WK Kelurahan"
+        });
         var level = $('#kode_level-input');
         var role = $('#kode_role-input');
         var prop = $('#kode_prop-input');
         var kota = $('#kode_kota-input');
         var kec = $('#kode_kecamatan-input');
         var kel = $('#kode_kelurahan-input');
-        var level_id,role_id,prop_id,kota_id,kec_id,kel_id;
+        var wkprop = $('#wk_kd_prop-input');
+        var wkkota = $('#wk_kd_kota-input');
+        var wkkel = $('#wk_kd_kel-input');
+        var level_id,role_id,prop_id,kota_id,kec_id,kel_id,wkprop_id,wkkota_id;
 
         level.change(function(){
             level_id=level.val();
@@ -346,6 +408,42 @@
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
                             kel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        wkprop.change(function(){
+            wkprop_id=wkprop.val();
+            if(wkprop_id!=null){
+                wkkota.empty();
+                wkkota.append("<option value>Kota</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/register/select?wk_kd_prop="+wkprop_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkkota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        wkkota.change(function(){
+            wkkota_id=wkkota.val();
+            if(wkkota_id!=null){
+                wkkel.empty();
+                wkkel.append("<option value>Kota</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/register/select?wk_kd_kota="+wkkota_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkkel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
                         }
                     }
                 });

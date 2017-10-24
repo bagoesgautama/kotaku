@@ -226,8 +226,8 @@ class bk010401Controller extends Controller
 			}
 			else {
 				$search = $request->input('search.value');
-				$posts=DB::select($query. ' and (a.nik like "%'.$search.'%" or a.nama like "%'.$search.'%" or a.alamat like "%'.$search.'%" or a.kode_jenis_kelamin like "%'.$search.'%" or created_time_real_keg_pmft like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-				$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.nik like "%'.$search.'%" or a.nama like "%'.$search.'%" or a.alamat like "%'.$search.'%" or a.kode_jenis_kelamin like "%'.$search.'%" or created_time_real_keg_pmft like "%'.$search.'%")) a');
+				$posts=DB::select($query. ' and (a.nik like "%'.$search.'%" or a.nama like "%'.$search.'%" or a.alamat like "%'.$search.'%" or a.kode_jenis_kelamin like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+				$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.nik like "%'.$search.'%" or a.nama like "%'.$search.'%" or a.alamat like "%'.$search.'%" or a.kode_jenis_kelamin like "%'.$search.'%")) a');
 			}
 
 			$data = array();
@@ -282,8 +282,15 @@ class bk010401Controller extends Controller
 				3 =>'kode_jenis_kelamin',
 				4 =>'created_time'
 			);
-			$query='select * from bkt_01010131_pemanfaat where '.$request->input('where');
-			$totalData = DB::select('select count(1) cnt from bkt_01010131_pemanfaat where '.$request->input('where'));
+
+			if($request->input('where')!=null){
+				$query='select * from bkt_01010131_pemanfaat where '.$request->input('where');
+				$totalData = DB::select('select count(1) cnt from bkt_01010131_pemanfaat where '.$request->input('where'));
+			}else{
+				$query='select * from bkt_01010131_pemanfaat';
+				$totalData = DB::select('select count(1) cnt from bkt_01010131_pemanfaat');
+			}
+			
 			$totalFiltered = $totalData[0]->cnt;
 			$limit = $request->input('length');
 			$start = $request->input('start');
@@ -825,7 +832,7 @@ class bk010401Controller extends Controller
 		DB::beginTransaction();
 		DB::table('bkt_01040206_real_keg_pmft')->where('kode', $request->input('kode'))->delete();
 		DB::commit();
-		
+
 		$total_pemanfaat_p=DB::select('select count(a.kode) as cnt from bkt_01040206_real_keg_pmft a, bkt_01010131_pemanfaat b where a.kode_pemanfaat=b.kode and b.kode_jenis_kelamin="P" and a.kode_real_keg='.$request->input('kode_real_keg'));
 		$total_pemanfaat_w=DB::select('select count(a.kode) as cnt from bkt_01040206_real_keg_pmft a, bkt_01010131_pemanfaat b where a.kode_pemanfaat=b.kode and b.kode_jenis_kelamin="W" and a.kode_real_keg='.$request->input('kode_real_keg'));
 		if($request->input('kode_real_keg')!=null){
