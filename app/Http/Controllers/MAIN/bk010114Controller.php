@@ -56,25 +56,18 @@ class bk010114Controller extends Controller
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'kode_kmp_slum_prog',
-			1 =>'kode_prop',
-			2 =>'kode_kota',
-			3 =>'kode_kec',
-			4 =>'kode_kel',
-			5 =>'kode_faskel',
-			6 =>'blm',
-			7 =>'jenis_project',
-			8 =>'tahun_glossary',
-			9 =>'tahun_project',
-			10 =>'awal_project',
-			11 =>'lokasi_blm',
-			12 =>'Lokasi_kumuh',
-			13 =>'flag_kumuh',
-			14 =>'flag_lokasi_ppmk',
-			15 =>'created_time',
-			16 =>'created_by',
-			17 =>'updated_time',
-			18 =>'updated_by'
+			0 =>'kode',
+			1 =>'kode_kmp_slum_prog',
+			2 =>'kode_prop',
+			3 =>'kode_kota',
+			4 =>'kode_kec',
+			5 =>'kode_kel',
+			6 =>'kode_faskel',
+			7 =>'blm',
+			8 =>'jenis_project',
+			9 =>'tahun_glossary',
+			10 =>'tahun_project',
+			11 =>'awal_project'
 		);
 		$query='select a.*, b.nama nama_prop, c.nama nama_kota, d.nama nama_kec, e.nama nama_kel, f.nama nama_faskel
 					from bkt_01010114_kel_faskel a
@@ -83,7 +76,7 @@ class bk010114Controller extends Controller
 					left join bkt_01010103_kec d on d.kode=a.kode_kec
 					left join bkt_01010104_kel e on e.kode=a.kode_kel
 					left join bkt_01010113_faskel f on f.kode=a.kode_faskel ';
-		$totalData = DB::select('select count(1) cnt 
+		$totalData = DB::select('select count(1) cnt
 									from bkt_01010114_kel_faskel a
 									left join bkt_01010101_prop b on b.kode=a.kode_prop
 									left join bkt_01010102_kota c on c.kode=a.kode_kota
@@ -116,6 +109,7 @@ class bk010114Controller extends Controller
 				$delete = $post->kode;
 				$url_edit=url('/')."/main/kel_faskel/create?kode=".$show;
 				$url_delete=url('/')."/main/kel_faskel/delete?kode=".$delete;
+				$nestedData['kode'] = $post->kode;
 				$nestedData['kode_kmp_slum_prog'] = $post->kode_kmp_slum_prog;
 				$nestedData['nama_prop'] = $post->nama_prop;
 				$nestedData['nama_kota'] = $post->nama_kota;
@@ -127,14 +121,6 @@ class bk010114Controller extends Controller
 				$nestedData['tahun_glossary'] = $post->tahun_glossary;
 				$nestedData['tahun_project'] = $post->tahun_project;
 				$nestedData['awal_project'] = $post->awal_project;
-				$nestedData['lokasi_blm'] = $post->lokasi_blm;
-				$nestedData['Lokasi_Kumuh'] = $post->Lokasi_Kumuh;
-				$nestedData['flag_kumuh'] = $post->flag_kumuh;
-				$nestedData['flag_lokasi_ppmk'] = $post->flag_lokasi_ppmk;
-				$nestedData['created_time'] = $post->created_time;
-				$nestedData['created_by'] = $post->created_by;
-				$nestedData['updated_time'] = $post->updated_time;
-				$nestedData['updated_by'] = $post->updated_by;
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){

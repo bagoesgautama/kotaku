@@ -20,7 +20,7 @@
                 <a href="/main">
                     <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
-            </li>  
+            </li>
             <li class="next">
                 <a href="/main/persiapan/kelurahan/lembaga">
                     Persiapan Kelurahan / Kelembagaan

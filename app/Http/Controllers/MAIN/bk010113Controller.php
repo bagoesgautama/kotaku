@@ -69,13 +69,10 @@ class bk010113Controller extends Controller
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'kode_kmw',
-			1 =>'kode_korkot',
-			2 =>'nama',
-			3 =>'created_time',
-			4 =>'created_by',
-			5 =>'updated_time',
-			6 =>'updated_by'
+			0 =>'kode',
+			1 =>'kode_kmw',
+			2 =>'kode_korkot',
+			3 =>'nama'
 		);
 		$query='select a.*, b.nama nama_kmw, c.nama nama_korkot 
 					from bkt_01010113_faskel a
@@ -111,13 +108,10 @@ class bk010113Controller extends Controller
 				$delete = $post->kode;
 				$url_edit=url('/')."/main/faskel/create?kode=".$show;
 				$url_delete=url('/')."/main/faskel/delete?kode=".$delete;
+				$nestedData['kode'] = $post->kode;
 				$nestedData['nama_kmw'] = $post->nama_kmw;
 				$nestedData['nama_korkot'] = $post->nama_korkot;
 				$nestedData['nama'] = $post->nama;
-				$nestedData['created_time'] = $post->created_time;
-				$nestedData['created_by'] = $post->created_by;
-				$nestedData['updated_time'] = $post->updated_time;
-				$nestedData['updated_by'] = $post->updated_by;
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){

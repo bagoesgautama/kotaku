@@ -30,12 +30,12 @@
                 <a href="/main">
                     <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
-            </li>  
+            </li>
             <li class="next">
                 <a href="/main/perencanaan/pengadaan_lelang">
                     Perencanaan / Pengadaan/Proses Lelang
                 </a>
-            </li>        
+            </li>
             <li class="next">
                 Create
             </li>
@@ -68,7 +68,7 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">KMW</label>          
+                                <label class="col-sm-3 control-label" for="example-text-input1">KMW</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode_kmw-input" class="form-control select2" name="select-kode_kmw-input" required>
                                         <option value=undefined>Please select</option>
@@ -194,7 +194,7 @@
                                     <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!}>{{$uri_img_absensi}}</button>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <!--<div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
                                 <div class="col-sm-3">
                                     <input class="form-control" id="diser_tgl-input" name="diser_tgl-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
@@ -245,7 +245,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <a href="/main/perencanaan/pengadaan_lelang" type="button" class="btn btn-effect-ripple btn-danger">
@@ -282,7 +282,7 @@
             <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table table-striped" id="peserta">
-                        <thead>  
+                        <thead>
                             <tr>
                                 <th>Kode Lelang</th>
                                 <th>No Urut</th>
@@ -314,6 +314,12 @@
 <script src="{{asset('js/custom_js/form_wizards.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
+	  	$("#file-dokumen-input").fileinput({
+  	  		showUpload: false
+  	  	});
+  	  	$("#file-absensi-input").fileinput({
+  	  		showUpload: false
+  	  	});
         $('#form').on('submit', function (e) {
           e.preventDefault();
           var form_data = new FormData(this);
@@ -327,7 +333,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/perencanaan/pengadaan_lelang";
             },
@@ -342,7 +348,7 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
-        
+
         $("#select-skala_kegiatan-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
@@ -488,7 +494,7 @@
     $(document).ready(function () {
         var table = $('#peserta').DataTable({
             // dom: 'Bflrtip',
-            
+
             "processing": true,
             "serverSide": true,
             "ajax":{

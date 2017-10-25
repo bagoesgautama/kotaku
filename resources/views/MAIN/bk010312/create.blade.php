@@ -18,12 +18,12 @@
                 <a href="/main">
                     <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
-            </li>  
+            </li>
             <li class="next">
                 <a href="/main/perencanaan/infra/penyiapan_paket">
                     Perencanaan / Penyiapan DED, Pengadaan Skala Kota / Penyiapan Paket (DED, RAB, RKS)
                 </a>
-            </li>        
+            </li>
             <li class="next">
                 Create
             </li>
@@ -84,7 +84,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">KMW</label>          
+                                        <label class="col-sm-3 control-label" for="example-text-input1">KMW</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode_kmw-input" class="form-control select2" name="select-kode_kmw-input" required>
                                                 <option value="">Please Select</option>
@@ -364,6 +364,12 @@
     return false;
     }
       $(document).ready(function () {
+	  	$("#file-dokumen-input").fileinput({
+  	  		showUpload: false
+  	  	});
+  	  	$("#file-absensi-input").fileinput({
+  	  		showUpload: false
+  	  	});
         $('#form').on('submit', function (e) {
           e.preventDefault();
           var form_data = new FormData(this);
@@ -377,7 +383,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/perencanaan/infra/penyiapan_paket";
             },
@@ -398,7 +404,7 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
-        
+
         $("#select-skala_kegiatan-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"

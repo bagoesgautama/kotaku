@@ -8,7 +8,6 @@
 <link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
 <link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
-<link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css">@stop {{-- Page Header--}}
 @section('page-header')
 <!-- Content Header (Page header) -->
@@ -75,11 +74,11 @@
                                     <select id="select-flag_pemenang-input" class="form-control select2" name="select-flag_pemenang-input">
                                         <option>Please select</option>
                                         <option value="0" {!! $flag_pemenang==0 ? 'selected':'' !!}>False</option>
-                                        <option value="1" {!! $flag_pemenang==1 ? 'selected':'' !!}>True</option> 
+                                        <option value="1" {!! $flag_pemenang==1 ? 'selected':'' !!}>True</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
                                 <div class="col-sm-3">
                                     <input class="form-control" id="diser_tgl-input" name="diser_tgl-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
@@ -130,7 +129,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <a href="/main/perencanaan/pengadaan_lelang/peserta" type="button" class="btn btn-effect-ripple btn-danger">
@@ -183,7 +182,6 @@
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>

@@ -20,12 +20,12 @@
                 <a href="/main">
                     <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
-            </li>  
+            </li>
             <li class="next">
                 <a href="/main/persiapan/kelurahan/forum/keberfungsian">
                     Persiapan Kelurahan / Forum Kolaborasi / Keberfungsian Forum
                 </a>
-            </li>        
+            </li>
             <li class="next">
                 Create
             </li>
@@ -58,15 +58,15 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode_kegiatan-input" name="select-kode_kegiatan-input" class="form-control" size="1">
                                         <option value="">Please Select</option>
-                                        <option value="2.6.1.2.3" 
-                                            @if($kode_kegiatan=='2.6.1.2.3') 
-                                                selected="selected" 
+                                        <option value="2.6.1.2.3"
+                                            @if($kode_kegiatan=='2.6.1.2.3')
+                                                selected="selected"
                                             @endif >
                                                 Pertemuan Rutin
                                         </option>
-                                        <option value="2.6.1.2.4" 
-                                            @if($kode_kegiatan=='2.6.1.2.4') 
-                                                selected="selected" 
+                                        <option value="2.6.1.2.4"
+                                            @if($kode_kegiatan=='2.6.1.2.4')
+                                                selected="selected"
                                             @endif >
                                                 Kegiatan Monitoring
                                         </option>
@@ -188,6 +188,12 @@
     return false;
     }
       $(document).ready(function () {
+	  	$("#file-dokumen-input").fileinput({
+	  		showUpload: false
+	  	});
+	  	$("#file-absensi-input").fileinput({
+	  		showUpload: false
+	  	});
         $('#form').on('submit', function (e) {
           e.preventDefault();
           var form_data = new FormData(this);
@@ -201,7 +207,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/persiapan/kelurahan/forum/keberfungsian";
             },

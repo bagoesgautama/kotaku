@@ -19,12 +19,12 @@
                 <a href="/main">
                     <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
-            </li>  
+            </li>
             <li class="next">
                 <a href="/main/perencanaan/kontrak_paket">
                     Perencanaan / Penyiapan DED, Pengadaan Skala Kota / Kontrak Paket Pekerjaan Kontraktor
                 </a>
-            </li>        
+            </li>
             <li class="next">
                 Create
             </li>
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="example-text-input1">KMW</label>          
+                                <label class="col-sm-3 control-label" for="example-text-input1">KMW</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode_kmw-input" class="form-control select2" name="select-kode_kmw-input" required>
                                         <option value="">Please Select</option>
@@ -126,7 +126,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Nama Kontraktor</label>
                                 <div class="col-sm-6">
-                                    <select id="select-kode_kontraktor-input" class="form-control select2" name="select-kode_kontraktor-input" required> 
+                                    <select id="select-kode_kontraktor-input" class="form-control select2" name="select-kode_kontraktor-input" required>
                                         <option value="">Please Select</option>
                                         @foreach ($kode_kontraktor_list as $ksl)
                                             <option value="{{$ksl->kode}}" {!! $kode_kontraktor==$ksl->kode ? 'selected':'' !!}>{{$ksl->nama}}</option>
@@ -148,7 +148,7 @@
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Jenis Komponen Kegiatan</label>
-                                <div class="col-sm-6">                                
+                                <div class="col-sm-6">
                                     <select id="select-jenis_komponen_keg-input" class="form-control select2" name="select-jenis_komponen_keg-input" required>
                                         <option value="">Please Select</option>
                                         <option value="L" {!! $jenis_komponen_keg=='L' ? 'selected':'' !!}>Lingkungan</option>
@@ -341,6 +341,12 @@
     return false;
     }
       $(document).ready(function () {
+		$("#file-dokumen-input").fileinput({
+  	  		showUpload: false
+  	  	});
+  	  	$("#file-absensi-input").fileinput({
+  	  		showUpload: false
+  	  	});
         $('#form').on('submit', function (e) {
           e.preventDefault();
           var form_data = new FormData(this);
@@ -354,7 +360,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/perencanaan/kontrak_paket";
             },
@@ -375,7 +381,7 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
-        
+
         $("#select-skala_kegiatan-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"

@@ -27,7 +27,7 @@
             </li>
             <li class="next">
                 <a href="/main/perencanaan/kelurahan/penanganan_kumuh">
-                    Perencanaan / Rencana Kelurahan / Rencana Penanganan Kumuh Kelurahan 
+                    Perencanaan / Rencana Kelurahan / Rencana Penanganan Kumuh Kelurahan
                 </a>
             </li>
             <li class="next">
@@ -210,13 +210,13 @@
                                         <div class="col-sm-6">
                                             <input type="number" id="kl-q-kel" name="kl-q-kel" class="form-control" value="{{$kl_q_kel}}" maxlength="11" placeholder="Jumlah">
                                         </div>
-                                    </div>  
+                                    </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jumlah Penduduk (Jiwa)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="kl-q-pddk" name="kl-q-pddk" class="form-control" value="{{$kl_q_pddk}}" maxlength="11" placeholder="Jumlah">
                                         </div>
-                                    </div>  
+                                    </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jumlah Penduduk Perempuan (Jiwa)</label>
                                         <div class="col-sm-6">
@@ -228,25 +228,25 @@
                                         <div class="col-sm-6">
                                             <input type="number" id="kl-q-pddk-mbr" name="kl-q-pddk-mbr" class="form-control" value="{{$kl_q_pddk_mbr}}" maxlength="11" placeholder="Jumlah">
                                         </div>
-                                    </div>  
+                                    </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jumlah Kepala Keluarga Miskin (40% termiskin, data BPJS)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="kl-q-kk-miskin" name="kl-q-kk-miskin" class="form-control" value="{{$kl_q_kk_miskin}}" maxlength="9" placeholder="Jumlah">
                                         </div>
-                                    </div>  
+                                    </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Kepadatan Penduduk (Jiwa/Ha)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="kl-kpdt-pddk" name="kl-kpdt-pddk" class="form-control" value="{{$kl_kpdt_pddk}}" maxlength="9" placeholder="Jumlah">
                                         </div>
-                                    </div>  
+                                    </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Kepadatan Bangunan rata-rata (Unit Bangunan/Ha)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="kl-kpdt-bangunan" name="kl-kpdt-bangunan" class="form-control" value="{{$kl_kpdt_bangunan}}" maxlength="9" placeholder="Jumlah">
                                         </div>
-                                    </div>     
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -260,19 +260,19 @@
                                         <div class="col-sm-6">
                                             <input type="number" id="pkk-l-kmh" name="pkk-l-kmh" class="form-control" value="{{$pkk_l_kmh}}" maxlength="9" placeholder="Luas">
                                         </div>
-                                    </div>   
+                                    </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jumlah RT Kumuh Pada Tahun Berjalan</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="pkk-q-rt-kmh-thn-curr" name="pkk-q-rt-kmh-thn-curr" class="form-control" value="{{$pkk_q_rt_kmh_thn_curr}}" maxlength="5" placeholder="Jumlah">
                                         </div>
-                                    </div>     
+                                    </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Luas RT Kumuh Pada Tahun Berjalan (Ha)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="pkk-l-rt-kmh-thn-curr" name="pkk-l-rt-kmh-thn-curr" class="form-control" value="{{$pkk_l_rt_kmh_thn_curr}}" maxlength="9" placeholder="Luas">
                                         </div>
-                                    </div>       
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -514,6 +514,12 @@
 <script src="{{asset('js/custom_js/notifications.js')}}"></script>
 <script>
       $(document).ready(function () {
+		$("#file-dokumen-input").fileinput({
+  	  		showUpload: false
+  	  	});
+  	  	$("#file-absensi-input").fileinput({
+  	  		showUpload: false
+  	  	});
         $('#form').on('submit', function (e) {
           e.preventDefault();
           var form_data = new FormData(this);
@@ -527,7 +533,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/perencanaan/kelurahan/penanganan_kumuh";
             },
@@ -649,7 +655,7 @@
                     }
                 });
 
-               
+
             }
         });
 
@@ -706,7 +712,7 @@
                 });
             }
         });
-       
+
       });
 </script>
 @stop

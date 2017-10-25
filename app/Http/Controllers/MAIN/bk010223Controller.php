@@ -41,7 +41,7 @@ class bk010223Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
-				
+
 				$this->log_aktivitas('View', 181);
 				return view('MAIN/bk010223/index',$data);
 			}
@@ -181,7 +181,7 @@ class bk010223Controller extends Controller
 				}
 				if(!empty($detil['341'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}		
+				}
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
@@ -199,6 +199,7 @@ class bk010223Controller extends Controller
 
 	public function select(Request $request)
 	{
+		echo $request->input('kegiatan');
 		if(!empty($request->input('kmw'))){
 			$kota = DB::select('select * from bkt_01010110_kmw a,bkt_01010102_kota b
 				where a.kode_prop=b.kode_prop and a.kode='.$request->input('kmw'));
@@ -223,7 +224,8 @@ class bk010223Controller extends Controller
 		}
 		else if(!empty($request->input('kegiatan'))){
 			$kota = DB::select('select id, nama from  bkt_01010119_dtl_keg_kel where id_kegiatan='.$request->input('kegiatan'));
-			echo json_encode($kota);
+			echo $request->input('kegiatan');
+			//echo json_encode($kota);
 		}
 	}
 
@@ -338,7 +340,7 @@ class bk010223Controller extends Controller
 	public function post_create(Request $request)
 	{
 		//var_dump($request->all());
-		
+
 		$file_document = $request->file('file-document-input');
 		$uri_document = null;
 		$upload_document = false;
@@ -370,10 +372,10 @@ class bk010223Controller extends Controller
 		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('kode')!=null){
 			DB::table('bkt_01020215_lembaga_kel')->where('kode', $request->input('kode'))
-			->update(['tahun' => $request->input('tahun-input'), 
-				'kode_kota' => $request->input('select-kode_kota-input'), 
-				'kode_korkot' => $request->input('select-kode_korkot-input'), 
-				'kode_kec' => $request->input('select-kode_kec-input'), 
+			->update(['tahun' => $request->input('tahun-input'),
+				'kode_kota' => $request->input('select-kode_kota-input'),
+				'kode_korkot' => $request->input('select-kode_korkot-input'),
+				'kode_kec' => $request->input('select-kode_kec-input'),
 				'kode_kmw' => $request->input('select-kode_kmw-input'),
 				'kode_kel' => $request->input('select-kode_kel-input'),
 				'kode_faskel' => $request->input('select-kode_faskel-input'),
@@ -408,10 +410,10 @@ class bk010223Controller extends Controller
 
 		}else{
 			DB::table('bkt_01020215_lembaga_kel')->insert(
-       			['tahun' => $request->input('tahun-input'), 
-				'kode_kota' => $request->input('select-kode_kota-input'), 
-				'kode_korkot' => $request->input('select-kode_korkot-input'), 
-				'kode_kec' => $request->input('select-kode_kec-input'), 
+       			['tahun' => $request->input('tahun-input'),
+				'kode_kota' => $request->input('select-kode_kota-input'),
+				'kode_korkot' => $request->input('select-kode_korkot-input'),
+				'kode_kec' => $request->input('select-kode_kec-input'),
 				'kode_kmw' => $request->input('select-kode_kmw-input'),
 				'kode_kel' => $request->input('select-kode_kel-input'),
 				'kode_faskel' => $request->input('select-kode_faskel-input'),
@@ -463,10 +465,10 @@ class bk010223Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
-				'kode_modul' => 5, 
-				'kode_menu' => 69,   
-				'kode_menu_detil' => $detil, 
-				'aktifitas' => $aktifitas, 
+				'kode_modul' => 5,
+				'kode_menu' => 69,
+				'kode_menu_detil' => $detil,
+				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas
        			]);
     }

@@ -20,12 +20,12 @@
                 <a href="/main">
                     <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
-            </li>  
+            </li>
             <li class="next">
                 <a href="/main/persiapan/kelurahan/forum/keanggotaan">
                     Persiapan Kelurahan / Forum Kolaborasi / Keanggotaan
                 </a>
-            </li>        
+            </li>
             <li class="next">
                 Create
             </li>
@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">KMW</label>          
+                                <label class="col-sm-3 control-label" for="example-text-input1">KMW</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode_kmw-input" class="form-control select2" name="select-kode_kmw-input" required>
                                         <option value="">Please Select</option>
@@ -173,7 +173,7 @@
                                     <input type="hidden" id="uploaded-file-dok_rencana_kerja" name="uploaded-file-dok_rencana_kerja" value="{{$uri_dok_rencana_kerja}}">
                                     <button type="button" class="btn btn-effect-ripple btn-danger" id="uploaded-file-dok_rencana_kerja" value="{{$uri_dok_rencana_kerja}}" {!! $uri_dok_rencana_kerja==null ? 'style="display:none"':'' !!} onclick="test('uri_dok_rencana_kerja')">delete</button>
                                 </div>
-                            </div>    
+                            </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Nilai Dana Operasional</label>
                                 <div class="col-sm-6">
@@ -270,7 +270,18 @@
     elem2.removeAttr('value');
     return false;
     }
+
+
       $(document).ready(function () {
+	  	$("#file-dokumen-input").fileinput({
+  			showUpload: false
+  		});
+  		$("#file-absensi-input").fileinput({
+  			showUpload: false
+  		});
+  		$("#file-dok_rencana_kerja-input").fileinput({
+  			showUpload: false
+  		});
         $('#form').on('submit', function (e) {
           e.preventDefault();
           var form_data = new FormData(this);
@@ -284,7 +295,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/persiapan/kelurahan/forum/keanggotaan";
             },

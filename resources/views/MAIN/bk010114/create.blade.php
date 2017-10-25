@@ -18,13 +18,9 @@
                 </a>
             </li>
             <li class="next">
-                Master Data
-            </li>
-            <li class="next">
-                Data Cakupan Program
-            </li>
-            <li class="next">
-                Mapping FasKel ke Kelurahan
+				<a href="/main/kel_faskel">
+	                Master Data / Data Cakupan Program / Mapping FasKel ke Kelurahan
+				</a>
             </li>
             <li class="next">
                 Create
@@ -40,7 +36,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator" >
+                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered ">
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Kode KMP</label>
                                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
@@ -57,7 +53,7 @@
 							<div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input36">Propinsi</label>
                                 <div class="col-sm-6">
-                                    <select id="select-kode_prop-input" class="form-control select2" name="select-kode_prop-input" >
+                                    <select id="select-kode_prop-input" class="form-control select2" name="select-kode_prop-input" required>
 										<option>Please Select</option>
                                         @foreach($kode_prop_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_prop) selected="selected" @endif >{{ $list->nama }}
@@ -69,7 +65,7 @@
 							<div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input35">Kota</label>
                                 <div class="col-sm-6">
-                                    <select id="select-kode_kota-input" class="form-control select2" name="select-kode_kota-input" >
+                                    <select id="select-kode_kota-input" class="form-control select2" name="select-kode_kota-input" required>
 										<option>Please select</option>
 										@foreach($kode_kota_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_kota) selected="selected" @endif >{{ $list->nama }}
@@ -81,7 +77,7 @@
 							<div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input34">Kecamatan</label>
                                 <div class="col-sm-6">
-                                    <select id="select-kode_kec-input" class="form-control select2" name="select-kode_kec-input" >
+                                    <select id="select-kode_kec-input" class="form-control select2" name="select-kode_kec-input" required>
 										<option>Please select</option>
 										@foreach($kode_kec_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_kec) selected="selected" @endif >{{ $list->nama }}
@@ -93,7 +89,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input33">Kelurahan</label>
                                 <div class="col-sm-6">
-                                    <select id="select-kode_kel-input" class="form-control select2" name="select-kode_kel-input" >
+                                    <select id="select-kode_kel-input" class="form-control select2" name="select-kode_kel-input" required>
 										<option>Please select</option>
 										@foreach($kode_kel_list as $list)
                                             <option value="{{ $list->kode }}" @if($list->kode==$kode_kel) selected="selected" @endif >{{ $list->nama }}
@@ -220,7 +216,7 @@
 {{-- local scripts --}} @section('footer_scripts')
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
           e.preventDefault();
           $.ajax({
             type: 'post',
@@ -248,7 +244,7 @@
 		var kel = $('#select-kode_kel-input');
         var faskel = $('#select-kode_faskel-input')
 		var prov_id,kota_id,kec_id,kel_id,faskel_id;
-		
+
 		prov.change(function(){
 			prov_id=prov.val();
 			if(prov_id!=undefined){

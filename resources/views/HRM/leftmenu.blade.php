@@ -13,13 +13,13 @@
 			<span class="fa arrow"></span>
         </a>
 		<ul class="sub-menu form-submenu">
-			@if( ! empty($menu['7']))
+			<!--@if( ! empty($menu['7']))
 			<li {!! (Request::is( 'hrm/admin/role_level*')? 'class="active"': "") !!}>
 		        <a href="/hrm/admin/role_level">
 		            <span class="mm-text ">Role Level</span>
 		        </a>
 			</li>
-			@endif
+			@endif-->
 			@if( ! empty($menu['9']))
 		    <li {!! (Request::is( 'hrm/admin/role*')? 'class="active"': "") !!}>
 		        <a href="/hrm/admin/role">
@@ -108,8 +108,8 @@
 					</li>
 					@endif
 					@if( ! empty($menu['174']))
-					<li {!! (Request::is( 'hrm/management/user/black_list*')? 'class="active"': "") !!}>
-						<a href="/hrm/management/user/black_list">
+					<li {!! (Request::is( 'hrm/management/user/blacklist*')? 'class="active"': "") !!}>
+						<a href="/hrm/management/user/blacklist">
 				            <span class="mm-text ">Black List Personil</span>
 				        </a>
 					</li>

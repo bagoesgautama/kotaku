@@ -493,6 +493,12 @@
 <script src="{{asset('js/custom_js/notifications.js')}}"></script>
 <script>
       $(document).ready(function () {
+		$("#file-dokumen-input").fileinput({
+  	  		showUpload: false
+  	  	});
+  	  	$("#file-absensi-input").fileinput({
+  	  		showUpload: false
+  	  	});
         $('#form').on('submit', function (e) {
           e.preventDefault();
           var form_data = new FormData(this);
@@ -506,7 +512,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/perencanaan/penanganan/lokasi_profile";
             },
@@ -590,7 +596,7 @@
                 });
             }
         });
-       
+
       });
 </script>
 @stop

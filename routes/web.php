@@ -68,6 +68,11 @@ Route::post('/hrm/activity_log/create', 'HRM\bk020201Controller@post_create');
 Route::get('/hrm/activity_log/delete', 'HRM\bk020201Controller@delete');
 
 //management
+Route::get('/hrm/management/pesan', 'HRM\bk020301Controller@index');
+Route::post('/hrm/management/pesan', 'HRM\bk020301Controller@post');
+Route::get('/hrm/management/pesan/baca', 'HRM\bk020301Controller@baca');
+Route::get('/hrm/management/pesan/delete', 'HRM\bk020301Controller@delete');
+
 Route::get('/hrm/management/user/pelatihan', 'HRM\bk020303Controller@index');
 Route::post('hrm/management/user/pelatihan', 'HRM\bk020303Controller@post');
 Route::get('/hrm/management/user/pelatihan/create', 'HRM\bk020303Controller@create');
@@ -89,6 +94,11 @@ Route::get('/hrm/management/user/penghargaan/delete', 'HRM\bk020305Controller@de
 Route::get('/hrm/management/user/password', 'HRM\bk020307Controller@index');
 Route::post('hrm/management/user/password', 'HRM\bk020307Controller@post');
 
+Route::get('/hrm/management/user/blacklist', 'HRM\bk020308Controller@index');
+Route::post('/hrm/management/user/blacklist', 'HRM\bk020308Controller@post');
+Route::get('/hrm/management/user/blacklist/create', 'HRM\bk020308Controller@create');
+Route::post('/hrm/management/user/blacklist/create', 'HRM\bk020308Controller@post_create');
+
 Route::get('/hrm/management/kuota/kmp', 'HRM\bk020309Controller@index');
 Route::post('hrm/management/kuota/kmp', 'HRM\bk020309Controller@post');
 Route::get('/hrm/management/kuota/kmp/create', 'HRM\bk020309Controller@create');
@@ -108,44 +118,32 @@ Route::post('/hrm/management/kuota/korkot/create', 'HRM\bk020311Controller@post_
 Route::get('/hrm/management/kuota/korkot/delete', 'HRM\bk020311Controller@delete');
 
 //get html form data
-Route::get('/hrm/role', 'HRM\bk020102Controller@index');
+Route::get('/hrm/admin/role', 'HRM\bk020102Controller@index');
 //get data for datatable
-Route::post('hrm/role', 'HRM\bk020102Controller@post');
+Route::post('hrm/admin/role', 'HRM\bk020102Controller@post');
 //get html for form CRUD
-Route::get('/hrm/role/create', 'HRM\bk020102Controller@create');
+Route::get('/hrm/admin/role/create', 'HRM\bk020102Controller@create');
 //insert or update data
-Route::post('/hrm/role/create', 'HRM\bk020102Controller@post_create');
+Route::post('/hrm/admin/role/create', 'HRM\bk020102Controller@post_create');
 //delete data
-Route::get('/hrm/role/delete', 'HRM\bk020102Controller@delete');
+Route::get('/hrm/admin/role/delete', 'HRM\bk020102Controller@delete');
 
 //role_level form CRUD
 //get html form data
-Route::get('/hrm/role_level', 'HRM\bk020101Controller@index');
+Route::get('/hrm/admin/role_level', 'HRM\bk020101Controller@index');
 //get data for datatable
-Route::post('hrm/role_level', 'HRM\bk020101Controller@post');
+Route::post('hrm/admin/role_level', 'HRM\bk020101Controller@post');
 //get html for form CRUD
-Route::get('/hrm/role_level/create', 'HRM\bk020101Controller@create');
+Route::get('/hrm/admin/role_level/create', 'HRM\bk020101Controller@create');
 //insert or update data
-Route::post('/hrm/role_level/create', 'HRM\bk020101Controller@post_create');
+Route::post('/hrm/admin/role_level/create', 'HRM\bk020101Controller@post_create');
 //delete data
-Route::get('/hrm/role_level/delete', 'HRM\bk020101Controller@delete');
-
-//modul form CRUD
-//get html form data
-Route::get('/hrm/modul', 'HRM\bk020104Controller@index');
-//get data for datatable
-Route::post('hrm/modul', 'HRM\bk020104Controller@post');
-//get html for form CRUD
-Route::get('/hrm/modul/create', 'HRM\bk020104Controller@create');
-//insert or update data
-Route::post('/hrm/modul/create', 'HRM\bk020104Controller@post_create');
-//delete data
-Route::get('/hrm/modul/delete', 'HRM\bk020104Controller@delete');
+Route::get('/hrm/admin/role_level/delete', 'HRM\bk020101Controller@delete');
 
 //role akses form CRUD
-Route::get('/hrm/role_akses', 'HRM\bk020109Controller@index');
-Route::get('/hrm/role_akses/show', 'HRM\bk020109Controller@show');
-Route::post('/hrm/role_akses', 'HRM\bk020109Controller@post');
+Route::get('/hrm/admin/role_akses', 'HRM\bk020109Controller@index');
+Route::get('/hrm/admin/role_akses/show', 'HRM\bk020109Controller@show');
+Route::post('/hrm/admin/role_akses', 'HRM\bk020109Controller@post');
 
 /**
  *

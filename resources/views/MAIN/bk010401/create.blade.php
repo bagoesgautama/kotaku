@@ -764,11 +764,20 @@
 <script src="{{asset('js/custom_js/alert.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
+	  	$("#url_img_prcn0").fileinput({
+  	  		showUpload: false
+  	  	});
+  	  	$("#url_img_prcn50").fileinput({
+  	  		showUpload: false
+  	  	});
+		$("#url_img_prcn100").fileinput({
+  	  		showUpload: false
+  	  	});
         $('.ui-pnotify').remove();
         var kode = $('#kode').val();
         var table = $('#pokja').DataTable({
             // dom: 'Bflrtip',
-            
+
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -808,7 +817,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/pelaksanaan/kota_bdi/realisasi_kegiatan";
             },
@@ -854,7 +863,7 @@
             placeholder: "Please Select",
             width: "100%"
         });
-        
+
         document.addEventListener('invalid', (function () {
           return function (e) {
             e.preventDefault();

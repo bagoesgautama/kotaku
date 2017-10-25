@@ -21,7 +21,7 @@
                 <a href="/main/korkot">
                     Master Data / Data Cakupan Program / KorKot
                 </a>
-            </li>        
+            </li>
             <li class="next">
                 Create
             </li>
@@ -64,7 +64,7 @@
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">Contact Person</label>
-                <div class="col-sm-6">    
+                <div class="col-sm-6">
                     <input type="text" id="contact_person-input" name="contact_person-input" class="form-control" placeholder="Contact Person" value="{{ $contact_person }}" maxlength="50">
                 </div>
             </div>
@@ -96,26 +96,14 @@
                 <label class="col-sm-3 control-label" for="example-email">Email 1</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 1</label>
-                    <input id="email1-input" type="email" class="form-control  form-control-lg" name="email1-input" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
-
-                    @if ($errors->has('email'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                    @endif
+                    <input id="email1-input" type="email" class="form-control  form-control-lg" name="email1-input" value="{{ $email1 }}" placeholder="E-mail"  maxlength="255">
                 </div>
             </div>
             <div class="form-group  striped-col">
                 <label class="col-sm-3 control-label" for="example-email">Email 2</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 2</label>
-                    <input id="email2-input" type="email" class="form-control  form-control-lg" name="email2-input" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
-
-                    @if ($errors->has('email'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                    @endif
+                    <input id="email2-input" type="email" class="form-control  form-control-lg" name="email2-input" value="{{ $email2 }}" placeholder="E-mail"  maxlength="255">
                 </div>
             </div>
             <div class="form-group">
@@ -162,6 +150,7 @@
         $('#form').on('submit', function (e) {
         e.preventDefault();
         $.ajax({
+			processData: false,
             type: 'post',
             "url": "/main/korkot/create",
             data: $('form').serialize(),
@@ -170,8 +159,8 @@
             },
             success: function () {
 
-            alert('From Submitted.');
-            window.location.href = "/main/korkot";
+            	alert('From Submitted.');
+            	window.location.href = "/main/korkot";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -193,11 +182,6 @@
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/moment/js/moment.min.js')}}"></script>
-
 <script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
-
-<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
-
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/register.js')}}"></script>
 @stop

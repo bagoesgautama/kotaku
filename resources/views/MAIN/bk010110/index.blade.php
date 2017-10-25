@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Konsultan Manajemen Wilayah (KMW) @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Konsultan Manajemen Wilayah (KMW) @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -46,10 +46,11 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users" width="2000px">
+					<table class="table table-striped" id="users" >
 						<thead>
                             <tr>
-                                <th>Mapping KMP ke Slum Program</th>
+								<th>Kode</th>
+                                <th>KMP Slum Program</th>
                                 <th>Propinsi</th>
                                 <th>Nama</th>
                                 <th>Alamat</th>
@@ -57,12 +58,7 @@
                                 <th>No Telepon</th>
                                 <th>No FAX</th>
                                 <th>No Handphone 1</th>
-                                <th>No Handphone 2</th>
                                 <th>Email 1</th>
-                                <th>Email 2</th>
-                                <th>PMS</th>
-                                <th>Created Time</th>
-                                <th>Created By</th>
 								<th>Option</th>
                             </tr>
                         </thead>
@@ -79,7 +75,7 @@
     $(document).ready(function () {
 		var table = $('#users').DataTable({
 	        // dom: 'Bflrtip',
-	        
+
 			"processing": true,
             "serverSide": true,
             "ajax":{
@@ -95,7 +91,8 @@
                 alert(thrownError);
               },
             "columns": [
-                { "data": "kode_kmp_slum_prog" , name:"kode_kmp_slum_prog"},
+				{ "data": "kode" , name:"kode"},
+                { "data": "slum_program" , name:"slum_program"},
                 { "data": "nama_prop" , name:"nama_prop"},
                 { "data": "nama" , name:"nama"},
                 { "data": "alamat" , name:"alamat"},
@@ -103,14 +100,10 @@
                 { "data": "no_phone" , name:"no_phone"},
                 { "data": "no_fax" , name:"no_fax"},
                 { "data": "no_hp1" , name:"no_hp1"},
-                { "data": "no_hp2" , name:"no_hp2"},
                 { "data": "email1" , name:"email1"},
-                { "data": "email2" , name:"email2"},
-                { "data": "nama_pms" , name:"nama_pms"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
 				{ "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+			"order": [[ 0, "desc" ]]
 	    });
         $('#users_filter input').unbind();
         $('#users_filter input').bind('keyup', function(e) {

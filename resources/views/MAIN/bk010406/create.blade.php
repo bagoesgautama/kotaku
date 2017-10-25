@@ -89,7 +89,7 @@
                         <a href="#tab10" data-toggle="tab">
                                         Progress Pemanfaatan Dana dan Fisik
                                     </a>
-                    </li><!-- 
+                    </li><!--
                     <li>
                         <a href="#tab11" data-toggle="tab">
                                         Tambahan Data
@@ -167,7 +167,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                     <div id="tab2" class="tab-pane fade ">
                         <div class="panel " >
                             <div class="panel-body border">
@@ -622,6 +622,15 @@
 <script src="{{asset('js/custom_js/notifications.js')}}"></script>
 <script>
       $(document).ready(function () {
+	  	$("#url_img_prcn0").fileinput({
+  	  		showUpload: false
+  	  	});
+  	  	$("#url_img_prcn50").fileinput({
+  	  		showUpload: false
+  	  	});
+    		$("#url_img_prcn100").fileinput({
+      	  		showUpload: false
+  	  	});
         $('#form').on('submit', function (e) {
             var form_data = new FormData(this);
           e.preventDefault();
@@ -635,7 +644,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/pelaksanaan/kota_non/sertifikasi_infra";
             },
@@ -738,7 +747,7 @@
                     }
                 });
 
-               
+
             }
         });
 

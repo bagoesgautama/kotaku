@@ -19,12 +19,12 @@
                 <a href="/main">
                     <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
-            </li>  
+            </li>
             <li class="next">
                 <a href="/main/persiapan/kelurahan/pemilu_bkm">
                     Persiapan Kelurahan / Pemilihan Ulang BKM/LKM
                 </a>
-            </li>        
+            </li>
             <li class="next">
                 Create
             </li>
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">KMW</label>          
+                                <label class="col-sm-3 control-label" for="example-text-input1">KMW</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode_kmw-input" class="form-control select2" name="select-kode_kmw-input" required>
                                         <option value="">Please Select</option>
@@ -181,7 +181,7 @@
                                 <div class="col-sm-6">
                                     <input type="text" id="q_terpilih_mbr-input" name="q_terpilih_mbr-input" class="form-control" placeholder="Terpilih MBR" value="{{$q_terpilih_mbr}}" maxlength="5">
                                 </div>
-                            </div>   
+                            </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">File Document</label>
                                 <div class="col-sm-6">
@@ -273,6 +273,12 @@
     return false;
     }
       $(document).ready(function () {
+	  	$("#file-dokumen-input").fileinput({
+	  		showUpload: false
+	  	});
+	  	$("#file-absensi-input").fileinput({
+	  		showUpload: false
+	  	});
         $('#form').on('submit', function (e) {
           e.preventDefault();
           var form_data = new FormData(this);
@@ -286,7 +292,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/persiapan/kelurahan/pemilu_bkm";
             },

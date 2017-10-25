@@ -5,7 +5,6 @@
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
-<link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 
@@ -19,12 +18,12 @@
                 <a href="/main">
                     <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
-            </li>  
+            </li>
             <li class="next">
                 <a href="/main/pelaksanaan/kelurahan/pagu_pencairan">
                     Pelaksanaan / Realisasi Kegiatan Skala Kelurahan / Pagu dan Pencairan Dana Kotaku Program
                 </a>
-            </li>        
+            </li>
             <li class="next">
                 Create
             </li>
@@ -47,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">KMW</label>          
+                                <label class="col-sm-3 control-label" for="example-text-input1">KMW</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode_kmw-input" class="form-control select2" name="select-kode_kmw-input" required>
                                         <option value="">Please Select</option>
@@ -120,7 +119,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Termin</label>
-                                <div class="col-sm-6">                                
+                                <div class="col-sm-6">
                                     <select id="select-termin-input" class="form-control select2" name="select-termin-input" required>
                                         <option value="">Please Select</option>
                                         <option value="1" {!! $termin=='1' ? 'selected':'' !!}>Termin 1</option>
@@ -131,7 +130,7 @@
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Jenis Program</label>
-                                <div class="col-sm-6">                                
+                                <div class="col-sm-6">
                                     <select id="select-jns_program-input" class="form-control select2" name="select-jns_program-input" required>
                                         <option value="">Please Select</option>
                                         <option value="1" {!! $jns_program=='1' ? 'selected':'' !!}>Kolaborasi</option>
@@ -141,7 +140,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Jenis Kegiatan</label>
-                                <div class="col-sm-6">                                
+                                <div class="col-sm-6">
                                     <select id="select-jenis_kegiatan-input" class="form-control select2" name="select-jenis_kegiatan-input" required>
                                         <option value="">Please Select</option>
                                         <option value="L" {!! $jenis_kegiatan=='L' ? 'selected':'' !!}>Lingkungan</option>
@@ -308,14 +307,6 @@
 </div>
 @stop {{-- local scripts --}} @section('footer_scripts')
 <script>
-    function test(id){
-    console.log(id)
-    var elem = document.getElementById(id);
-    elem.parentNode.removeChild(elem);
-    var elem2 = $('#'+id+'-file');
-    elem2.removeAttr('value');
-    return false;
-    }
       $(document).ready(function () {
         $('#form').on('submit', function (e) {
           e.preventDefault();
@@ -330,7 +321,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/pelaksanaan/kelurahan/pagu_pencairan";
             },
@@ -351,7 +342,7 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
-        
+
         $("#select-skala_kegiatan-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
@@ -511,5 +502,4 @@
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 @stop

@@ -14,23 +14,11 @@
 	<a href="javascript:void(0)" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button"> <i class="fa-1x fa-fw ti-user text-white">QS</i></a>
 	<div class="navbar-right">
         <ul class="nav navbar-nav">
-            <li class="dropdown messages-menu">
+			<li class="dropdown messages-menu">
                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-fw ti-email black"></i>
-                    <span class="label label-success">2</span>
+                    <span id="msg_cnt" class="label label-success">0</span>
                 </a>
-                <ul class="dropdown-menu dropdown-messages table-striped">
-                    <li class="dropdown-title">New Messages</li>
-                    <li>
-                        <a href="" class="message striped-col">
-                            <div class="message-body">
-                                <strong>Tony</strong>
-                                <br> Let me know when you free
-                                <br>
-                                <small>5 days ago</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="dropdown-footer"><a href="javascript:void(0)">View All messages</a></li>
+                <ul id="msg" class="dropdown-menu dropdown-messages table-striped">
                 </ul>
             </li>
             <!--rightside toggle-->
@@ -90,3 +78,47 @@
         </ul>
     </div>
 </nav>
+<script>
+var xhr = new XMLHttpRequest();
+//setInterval(function(){
+	xhr.open('GET', "/inbox", true);
+	xhr.send();
+	xhr.onreadystatechange = processRequest;
+//}, 300000);
+
+function processRequest(e) {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        var res = JSON.parse(xhr.responseText);
+        document.getElementById("msg_cnt").innerHTML=res.length;
+		var msg=$("#msg");
+		msg.empty();
+		msg.append('<li class="dropdown-title">New Messages</li>');
+		for(var i=0;i<res.length;i++){
+			if(i%2==0){
+				msg.append(`<li>
+					<a href="" class="message striped-col">
+						<div class="message-body">
+							<strong>`+res[i].nama+`</strong>
+							<br> `+res[i].text_pesan+`
+							<br>
+							<small>`+res[i].tgl_pesan_masuk+`</small>
+						</div>
+					</a>
+				</li>`);
+			}else{
+				msg.append(`<li>
+					<a href="" class="message ">
+						<div class="message-body">
+							<strong>`+res[i].nama+`</strong>
+							<br> `+res[i].text_pesan+`
+							<br>
+							<small>`+res[i].tgl_pesan_masuk+`</small>
+						</div>
+					</a>
+				</li>`);
+			}
+		}
+		msg.append('<li class="dropdown-footer"><a href="/hrm/management/pesan">View All messages</a></li>');
+    }
+}
+</script>

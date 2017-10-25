@@ -8,7 +8,6 @@
 <link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 <link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
 <link href="{{asset('css/custom_css/wizard.css')}}" rel="stylesheet" type="text/css"/>
 
@@ -26,7 +25,7 @@
             </li>
             <li class="next">
                 <a href="/main/perencanaan/kelurahan/penyusunan_rplp">
-                    Perencanaan / Rencana Kelurahan / Penyusunan RPLP 
+                    Perencanaan / Rencana Kelurahan / Penyusunan RPLP
                 </a>
             </li>
             <li class="next">
@@ -174,7 +173,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <!--<div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
                                 <div class="col-sm-3">
                                     <input class="form-control" id="tgl-diser-input" name="tgl-diser-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
@@ -187,7 +186,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <!-- <div class="form-group striped-col">
+                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diketahui & Diketahui Oleh</label>
                                 <div class="col-sm-3">
                                     <input class="form-control" id="tgl-diket-input" name="tgl-diket-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}" required>
@@ -243,7 +242,6 @@
 <script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrapwizard/js/jquery.bootstrap.wizard.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_wizards.js')}}" type="text/javascript"></script>
@@ -263,7 +261,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/perencanaan/kelurahan/penyusunan_rplp";
             },
@@ -354,7 +352,7 @@
                     }
                 });
 
-               
+
             }
         });
 
@@ -411,7 +409,7 @@
                 });
             }
         });
-       
+
       });
 </script>
 @stop

@@ -23,7 +23,7 @@
                 <a href="/main/perencanaan/kawasan/perencanaan">
                     Perencanaan / Kawasan Prioritas / Perencanaan Kawasan Prioritas
                 </a>
-            </li>        
+            </li>
             <li class="next">
                 Create
             </li>
@@ -79,7 +79,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Prop</label>          
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Prop</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode_prop-input" class="form-control select2" name="select-kode_prop-input">
                                                 <option value=""></option>
@@ -365,7 +365,7 @@
                                             <input type="number" id="ak_prcn_gap_ekonomi-input" name="ak_prcn_gap_ekonomi-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_prcn_gap_ekonomi}}" maxlength="9" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            
+
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -374,7 +374,7 @@
                                             <input type="number" id="ak_prcn_gap_sosial-input" name="ak_prcn_gap_sosial-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_prcn_gap_sosial}}" maxlength="9" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -479,6 +479,12 @@
     return false;
     }
       $(document).ready(function () {
+		$("#file-dokumen-input").fileinput({
+  	  		showUpload: false
+  	  	});
+  	  	$("#file-absensi-input").fileinput({
+  	  		showUpload: false
+  	  	});
         $('#form').on('submit', function (e) {
           e.preventDefault();
           var form_data = new FormData(this);
@@ -494,7 +500,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/perencanaan/kawasan/perencanaan";
             },
@@ -531,7 +537,7 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
-        
+
         $("#select-kode_kota-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
@@ -633,7 +639,7 @@
                     }
                 });
             }
-        });   
+        });
     });
 </script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>

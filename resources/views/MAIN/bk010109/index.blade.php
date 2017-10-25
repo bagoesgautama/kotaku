@@ -46,13 +46,12 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users" width="1500px">
+					<table class="table table-striped" id="users" >
 						<thead>
                             <tr>
+								<th>Kode</th>
                                 <th>Mama KMP</th>
                                 <th>Nama Slum Program</th>
-                                <th>Created Time</th>
-                                <th>Created By</th>
 								<th>Option</th>
                             </tr>
                         </thead>
@@ -85,12 +84,12 @@
                 alert(thrownError);
               },
             "columns": [
+				{ "data": "kode" , name:"kode"},
 				{ "data": "nama_kmp" , name:"nama_kmp"},
                 { "data": "nama_slum_prog" , name:"nama_slum_prog"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
 				{ "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+			"order": [[ 0, "desc" ]]
 	    });
         $('#users_filter input').unbind();
         $('#users_filter input').bind('keyup', function(e) {

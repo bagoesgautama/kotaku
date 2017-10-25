@@ -8,7 +8,6 @@
 <link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 <link href="{{asset('vendors/pnotify/css/pnotify.buttons.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/pnotify/css/pnotify.css')}}" rel="stylesheet" type="text/css">
 
@@ -204,7 +203,6 @@
 <script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 
 <script type="text/javascript" src="{{asset('vendors/pnotify/js/pnotify.js')}}"></script>
 <script src="{{asset('js/custom_js/notifications.js')}}"></script>
@@ -225,7 +223,7 @@
 <script>
       $(document).ready(function () {
         $('.ui-pnotify').remove();
-        
+
         $('#form').on('submit', function (e) {
             var form_data = new FormData(this);
           e.preventDefault();
@@ -239,7 +237,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/pelaksanaan/kota_bdi/pencairan_kontraktor";
             },
@@ -255,7 +253,7 @@
             placeholder: "Please Select",
             width: "100%"
         });
-        
+
         document.addEventListener('invalid', (function () {
           return function (e) {
             e.preventDefault();

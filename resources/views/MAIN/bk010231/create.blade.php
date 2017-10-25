@@ -103,6 +103,9 @@
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
+	  	$("#file-input").fileinput({
+  	  		showUpload: false
+  	  	});
         $('#submit').on('click', function (e) {
             var file_data = document.getElementById('file-input').files[0];
             var form_data = new FormData();

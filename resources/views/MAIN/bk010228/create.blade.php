@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Nama KorKot</label>            
+                                <label class="col-sm-3 control-label" for="example-text-input1">Nama KorKot</label>
                                 <div class="col-sm-6">
                                     <select id="select-korkot" class="form-control select2" name="example-kode_korkot-input">
                                         @foreach($kode_korkot_list as $list)
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input2">KMW</label>          
+                                <label class="col-sm-3 control-label" for="example-text-input2">KMW</label>
                                 <div class="col-sm-6">
                                     <select id="select-kmw" class="form-control select2" name="example-kode_kmw-input">
                                         @foreach($kode_kmw_list as $list)
@@ -162,7 +162,7 @@
                                     <input type="text" id="text-input" name="example-q_peserta_miskin-input" class="form-control" placeholder="Peserta Miskin" value="{{$q_peserta_miskin}}" maxlength="5">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
                                 <div class="col-sm-3">
                                     <input class="form-control" id="tgl-diser-input" name="diser_tgl" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
@@ -212,7 +212,7 @@
                                 <div class="col-sm-6">
                                     <label class="form-control">{{ $updated_by }}</label>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <a href="/main/persiapan/kelurahan/lembaga/ksm/fasil_bdc" type="button" class="btn btn-effect-ripple btn-danger">
@@ -237,7 +237,6 @@
 @stop {{-- local scripts --}} @section('footer_scripts')
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
         $('#submit').on('click', function (e) {
@@ -250,7 +249,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/persiapan/kelurahan/lembaga/ksm/fasil_bdc";
             },
@@ -305,4 +304,3 @@
 <script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
 @stop
-

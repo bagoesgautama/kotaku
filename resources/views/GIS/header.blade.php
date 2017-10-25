@@ -111,7 +111,7 @@ function processRequest(e) {
 				</li>`);
 			}
 		}
-		msg.append('<li class="dropdown-footer"><a href="javascript:void(0)">View All messages</a></li>');
+		msg.append('<li class="dropdown-footer"><a href="/hrm/management/pesan">View All messages</a></li>');
     }
 }
 </script>
