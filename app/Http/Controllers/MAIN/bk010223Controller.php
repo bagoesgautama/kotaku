@@ -176,10 +176,10 @@ class bk010223Controller extends Controller
 				}
 
 				$option = '';
-				if(!empty($detil['208'])){
+				if(!empty($detil['340'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['209'])){
+				if(!empty($detil['341'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				}
 				$nestedData['option'] = $option;
@@ -287,6 +287,7 @@ class bk010223Controller extends Controller
 					$data['kode_kel_list']=DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$rowData[0]->kode_kec);
 				if(!empty($rowData[0]->kode_kel))
 					$data['kode_faskel_list']=DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010113_faskel b where a.kode_faskel=b.kode and a.kode_kel='.$rowData[0]->kode_kel);
+				$data['kode_id_kegiatan_list'] = DB::select('select * from bkt_01010118_kegiatan_kel where status=1');
 				if(!empty($rowData[0]->id_kegiatan))
 					$data['kode_id_dtl_kegiatan_list']=DB::select('select id, nama from bkt_01010119_dtl_keg_kel where id_kegiatan='.$rowData[0]->id_kegiatan.' and status=1');
 			$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
@@ -369,8 +370,8 @@ class bk010223Controller extends Controller
 		}
 
 		date_default_timezone_set('Asia/Jakarta');
-		if ($request->input('example-id-input')!=null){
-			DB::table('bkt_01020215_lembaga_kel')->where('kode', $request->input('example-id-input'))
+		if ($request->input('kode')!=null){
+			DB::table('bkt_01020215_lembaga_kel')->where('kode', $request->input('kode'))
 			->update(['tahun' => $request->input('tahun-input'),
 				'kode_kota' => $request->input('select-kode_kota-input'),
 				'kode_korkot' => $request->input('select-kode_korkot-input'),

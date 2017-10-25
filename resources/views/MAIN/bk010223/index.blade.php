@@ -20,7 +20,7 @@
                 <a href="/main">
                     <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
-            </li>  
+            </li>
             <li class="next">
                 <a href="/main/persiapan/kelurahan/lembaga">
                     Persiapan Kelurahan / Kelembagaan
@@ -45,7 +45,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users">
+                    <table class="table table-striped" id="users" width="3000px">
                         <thead>
                             <tr>
                                 <th>Tahun</th>
@@ -56,6 +56,12 @@
                                 <th>Kelurahan</th>
                                 <th>Faskel</th>
                                 <th>Kegiatan</th>
+                                <th>Detail Kegiatan</th>
+                                <th>Tanggal Kegiatan</th>
+                                <th>Lokasi Kegiatan</th>
+                                <th>Peserta Pria</th>
+                                <th>Peserta Wanita</th>
+                                <th>Peserta Miskin</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -89,6 +95,12 @@
                 { "data": "nama_kel" , name:"nama_kel"},
                 { "data": "nama_faskel" , name:"nama_faskel"},
                 { "data": "nama_kegiatan" , name:"nama_kegiatan"},
+                { "data": "id_dtl_kegiatan" , name:"id_dtl_kegiatan"},
+                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
+                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+                { "data": "q_peserta_p" , name:"q_peserta_p"},
+                { "data": "q_peserta_w" , name:"q_peserta_w"},
+                { "data": "q_peserta_miskin" , name:"q_peserta_miskin"},
                 { "data": "option" , name:"option"}
             ]
         });
