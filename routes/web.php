@@ -639,6 +639,13 @@ Route::post('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/create', 'M
 Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/delete', 'MAIN\bk010401Controller@delete');
 Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/delete', 'MAIN\bk010401Controller@delete_pemanfaat');
 
+Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias', 'MAIN\bk010413Controller@index');
+Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/select', 'MAIN\bk010413Controller@select');
+Route::post('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias', 'MAIN\bk010413Controller@post');
+Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/create', 'MAIN\bk010413Controller@create');
+Route::post('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/create', 'MAIN\bk010413Controller@post_create');
+Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/delete', 'MAIN\bk010413Controller@delete');
+
 Route::get('/main/pelaksanaan/kota_bdi/pencairan_kontraktor', 'MAIN\bk010402Controller@index');
 Route::post('/main/pelaksanaan/kota_bdi/pencairan_kontraktor', 'MAIN\bk010402Controller@post');
 Route::get('/main/pelaksanaan/kota_bdi/pencairan_kontraktor/create', 'MAIN\bk010402Controller@create');

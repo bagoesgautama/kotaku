@@ -53,6 +53,7 @@
                     <table class="table table-striped" id="pokja">
                         <thead>
                             <tr>
+                                <th>Kode</th>
                                 <th>Kode Kontrak Paket Pekerjaan Kontraktor</th>
                                 <th>Sumber Dana</th>
                                 <th>KMW</th>
@@ -91,6 +92,7 @@
                    },
 
             "columns": [
+                { "data": "kode" , name:"kode"},
                 { "data": "kode_parent" , name:"kode_parent"},
                 { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
                 { "data": "kode_kmw" , name:"kode_kmw"},
@@ -104,7 +106,8 @@
                 { "data": "satuan" , name:"satuan"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order":[[0,'desc']]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

@@ -31,6 +31,9 @@
             <li class="next">
                 Realisasi Kegiatan Skala Kota
             </li>
+            <li class="next">
+                Realisasi Kegiatan
+            </li>
         </ul>
     </div>
 </section>
