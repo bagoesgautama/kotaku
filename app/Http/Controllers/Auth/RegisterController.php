@@ -94,7 +94,8 @@ class RegisterController extends Controller
         $data['level_list']=DB::select('select * from bkt_02010101_role_level');
         // $data['role_list']=DB::select('select * from bkt_02010102_role');
         $data['prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
-        // $data['kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
+        $data['kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
+        $data['wk_kd_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1 and flag_cakupan_prog=1');
         // $data['kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
         // $data['kel_list'] = DB::select('select * from bkt_01010104_kel where status=1');
         return view('register', $data);
@@ -116,6 +117,14 @@ class RegisterController extends Controller
         }
         if($request->input('kec')){
             $kel = DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$request->input('kec'));
+            echo json_encode($kel);
+        }
+        if($request->input('wk_kd_prop')){
+            $kota = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010102_kota b where b.kode_prop=a.kode and a.flag_cakupan_prog=1 and b.flag_cakupan_prog=1 and b.kode_prop='.$request->input('wk_kd_prop'));
+            echo json_encode($kota);
+        }
+        if($request->input('wk_kd_kota')){
+            $kel = DB::select('select c.kode, c.nama from bkt_01010102_kota a, bkt_01010103_kec b, bkt_01010104_kel c where b.kode_kota=a.kode and c.kode_kec=b.kode and a.flag_cakupan_prog=1 and b.flag_cakupan_prog=1 and c.flag_cakupan_prog=1 and a.kode='.$request->input('wk_kd_kota'));
             echo json_encode($kel);
         }
     }
