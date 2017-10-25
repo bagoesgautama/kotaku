@@ -49,7 +49,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form enctype="multipart/form-data" class="form-horizontal form-bordered">
+                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Tahun</label>
                                 <div class="col-sm-6">

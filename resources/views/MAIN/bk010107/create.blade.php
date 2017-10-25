@@ -23,7 +23,7 @@
                 <a href="/main/slum_program">
                     Master Data / Data Cakupan Program / Slum Program
                 </a>
-            </li>        
+            </li>
             <li class="next">
                 Create
             </li>
@@ -209,7 +209,7 @@
 </script>
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
           e.preventDefault();
           $.ajax({
             type: 'post',
@@ -219,7 +219,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/slum_program";
             },

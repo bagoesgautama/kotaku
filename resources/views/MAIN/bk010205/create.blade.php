@@ -263,7 +263,7 @@
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
-   //      $('#submit').on('click', function (e) {
+   //      $('#form').on('submit', function (e) {
    //        e.preventDefault();
    //        $.ajax({
    //          type: 'post',

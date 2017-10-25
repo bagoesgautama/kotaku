@@ -106,7 +106,7 @@
 	  	$("#file-input").fileinput({
   	  		showUpload: false
   	  	});
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
             var file_data = document.getElementById('file-input').files[0];
             var form_data = new FormData();
             form_data.append('kode', $('#kode').val());

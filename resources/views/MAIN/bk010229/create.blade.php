@@ -36,7 +36,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form enctype="multipart/form-data" class="form-horizontal form-bordered">
+                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Tahun</label>
                                 <div class="col-sm-6">
@@ -239,7 +239,7 @@
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
         e.preventDefault();
         $.ajax({
             type: 'post',
