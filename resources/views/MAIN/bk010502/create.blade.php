@@ -233,7 +233,16 @@
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
-        $('#form').on('submit', function (e) {
+	  	$("#file-dokumen-input").fileinput({
+	  		showUpload: false
+	  	});
+	  	$("#file-absensi-input").fileinput({
+	  		showUpload: false
+	  	});
+		$("#rencana-kerja-input").fileinput({
+	  		showUpload: false
+	  	});
+	  	$('#form').on('submit', function (e) {
             var file_dokumen = document.getElementById('file-dokumen-input').files[0];
             var file_absensi = document.getElementById('file-absensi-input').files[0];
             var file_rnckerja = document.getElementById('rencana-kerja-input').files[0];
@@ -280,7 +289,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/persiapan/nasional/pokja/pembentukan";
             },
@@ -300,7 +309,7 @@
             placeholder: "single select"
         });
 
-        
+
       });
 </script>
 @stop

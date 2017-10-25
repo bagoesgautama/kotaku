@@ -8,7 +8,6 @@
 <link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 <link href="{{asset('vendors/pnotify/css/pnotify.buttons.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/pnotify/css/pnotify.css')}}" rel="stylesheet" type="text/css">
 
@@ -55,7 +54,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                    <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered" onkeypress="return event.keyCode != 13;">
                     <input type="hidden" id="kode_real_keg" name="kode_real_keg" value="{{ $kode_real_keg }}">
                     <input type="hidden" id="where" name="where" value="{{ $where }}">
                     <table class="table table-striped" id="pokja3">
@@ -72,7 +71,7 @@
                     </table>
                     <div class="form-group form-actions">
                         <div class="col-sm-9 col-sm-offset-3">
-                            <a href="/main/pelaksanaan/kota_bdi/realisasi_kegiatan" type="button" class="btn btn-effect-ripple btn-danger">
+                            <a href="/main/pelaksanaan/kota_bdi/realisasi_kegiatan/create?kode={{$kode_real_keg}}" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -99,7 +98,6 @@
 <script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 
 <script type="text/javascript" src="{{asset('vendors/pnotify/js/pnotify.js')}}"></script>
 <script src="{{asset('js/custom_js/notifications.js')}}"></script>
@@ -124,7 +122,7 @@
         var where = $('#where').val();
         var table = $('#pokja3').DataTable({
             // dom: 'Bflrtip',
-            
+
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -153,21 +151,21 @@
         $('#form').on('submit', function (e) {
             e.preventDefault();
             var form_data = new FormData(this);
-            
+
 
           $.ajax({
             type: 'post',
             processData: false,
             contentType: false,
-            "url": "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/create",
+            "url": "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/create",
             data: form_data,
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
-            window.location.href = "/main/pelaksanaan/kota_bdi/realisasi_kegiatan";
+            window.location.href = "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/create?kode="+kode_real_keg;
             },
             error: function (xhr, ajaxOptions, thrownError) {
               alert(xhr.status);

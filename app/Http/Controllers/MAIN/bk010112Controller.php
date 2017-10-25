@@ -75,8 +75,14 @@ class bk010112Controller extends Controller
 			3 =>'ms_kode',
 			4 =>'ms_paket'
 		);
-		$query='select a.*, b.nama nama_korkot, c.nama nama_kota from bkt_01010112_kota_korkot a, bkt_01010102_kota b, bkt_01010111_korkot c where a.kode_kota=b.kode and a.kode_korkot=c.kode ';
-		$totalData = DB::select('select count(1) cnt from bkt_01010112_kota_korkot ');
+		$query='select a.*, b.nama nama_korkot, c.nama nama_kota 
+					from bkt_01010112_kota_korkot a
+					left join bkt_01010102_kota b on a.kode_kota=b.kode
+					left join bkt_01010111_korkot c on a.kode_korkot=c.kode ';
+		$totalData = DB::select('select count(1) cnt from 
+									from bkt_01010112_kota_korkot a
+									left join bkt_01010102_kota b on a.kode_kota=b.kode
+									left join bkt_01010111_korkot c on a.kode_korkot=c.kode ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');

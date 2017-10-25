@@ -77,8 +77,12 @@ class bk010108Controller extends Controller
 			5 =>'kode_pms',
 			6 =>'a.kode'
 		);
-		$query='select a.*, b.nama nama_pms from bkt_01010108_kmp a left join bkt_01010115_pms b on a.kode_pms=b.kode ';
-		$totalData = DB::select('select count(1) cnt from bkt_01010108_kmp ');
+		$query='select a.*, b.nama nama_pms
+					from bkt_01010108_kmp a
+					left join bkt_01010115_pms b on a.kode_pms=b.kode ';
+		$totalData = DB::select('select count(1) cnt
+									from bkt_01010108_kmp a
+									left join bkt_01010115_pms b on a.kode_pms=b.kode ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -209,6 +213,7 @@ class bk010108Controller extends Controller
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_01010108_kmp')->where('kode', $request->input('example-id-input'))
 			->update(
+<<<<<<< HEAD
 				['nama' => $request->input('nama-input'),
 				'alamat' => $request->input('alamat-input'),
 				'kodepos' => $request->input('kodepos-input'),
@@ -218,6 +223,17 @@ class bk010108Controller extends Controller
 				'no_hp2' => $request->input('no_hp2-input'),
 				'email1' => $request->input('email1-input'),
 				'email2' => $request->input('email2-input'),
+=======
+				['nama' => $request->input('nama-input'),
+				'alamat' => $request->input('alamat-input'),
+				'kodepos' => $request->input('kodepos-input'),
+				'contact_person' => $request->input('contact_person-input'),
+				'no_phone' => $request->input('no_phone-input'),
+				'no_hp1' => $request->input('no_hp1-input'),
+				'no_hp2' => $request->input('no_hp2-input'),
+				'email1' => $request->input('email1-input'),
+				'email2' => $request->input('email2-input'),
+>>>>>>> db546b2d60d22eb2609f947675786219989ca3ad
 				'kode_pms' => $request->input('select-kode_pms-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
@@ -225,6 +241,7 @@ class bk010108Controller extends Controller
 			$this->log_aktivitas('Update', 34);
 		}else{
 			DB::table('bkt_01010108_kmp')->insert(
+<<<<<<< HEAD
        			['nama' => $request->input('nama-input'),
 				'alamat' => $request->input('alamat-input'),
 				'kodepos' => $request->input('kodepos-input'),
@@ -234,6 +251,17 @@ class bk010108Controller extends Controller
 				'no_hp2' => $request->input('no_hp2-input'),
 				'email1' => $request->input('email1-input'),
 				'email2' => $request->input('email2-input'),
+=======
+       			['nama' => $request->input('nama-input'),
+				'alamat' => $request->input('alamat-input'),
+				'kodepos' => $request->input('kodepos-input'),
+				'contact_person' => $request->input('contact_person-input'),
+				'no_phone' => $request->input('no_phone-input'),
+				'no_hp1' => $request->input('no_hp1-input'),
+				'no_hp2' => $request->input('no_hp2-input'),
+				'email1' => $request->input('email1-input'),
+				'email2' => $request->input('email2-input'),
+>>>>>>> db546b2d60d22eb2609f947675786219989ca3ad
 				'kode_pms' => $request->input('select-kode_pms-input'),
        			'created_by' => Auth::user()->id
        			]);

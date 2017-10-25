@@ -31,6 +31,9 @@
             <li class="next">
                 Realisasi Kegiatan Skala Kota
             </li>
+            <li class="next">
+                Realisasi Kegiatan
+            </li>
         </ul>
     </div>
 </section>
@@ -106,7 +109,8 @@
                 { "data": "satuan" , name:"satuan"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order": [[12,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

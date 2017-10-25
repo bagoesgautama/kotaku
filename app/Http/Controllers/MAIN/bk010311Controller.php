@@ -230,8 +230,7 @@ class bk010311Controller extends Controller
 	public function select(Request $request)
 	{
 		if(!empty($request->input('kmw'))){
-			$kota = DB::select('select * from bkt_01010110_kmw a,bkt_01010102_kota b
-				where a.kode_prop=b.kode_prop and a.kode='.$request->input('kmw'));
+			$kota = DB::select('select * from bkt_01010110_kmw a,bkt_01010102_kota b where a.kode_prop=b.kode_prop and a.kode='.$request->input('kmw'));
 			echo json_encode($kota);
 		}
 		else if(!empty($request->input('kota'))){
@@ -273,7 +272,7 @@ class bk010311Controller extends Controller
 			$data['kode_kmw_list'] = $kode_kmw;
 
 			$id_subkomponen = DB::select('select id, nama from bkt_01010120_subkomponen');
-			$data['kode_id_subkomponen_list'] = $id_subkomponen;
+			$data['id_subkomponen_list'] = $id_subkomponen;
 
 			if($data['kode']!=null  && !empty($data['detil']['299'])){
 				$rowData = DB::select('select * from bkt_01030208_usulan_keg_kt where kode='.$data['kode']);
@@ -339,9 +338,9 @@ class bk010311Controller extends Controller
 					$data['kode_kel_list']=DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$rowData[0]->kode_kec);
 				if(!empty($rowData[0]->kode_kel))
 					$data['kode_faskel_list']=DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010113_faskel b where a.kode_faskel=b.kode and a.kode_kel='.$rowData[0]->kode_kel);
-				$data['kode_id_subkomponen_list'] = DB::select('select * from bkt_01010120_subkomponen where status=1');
+				$data['id_subkomponen_list'] = DB::select('select * from bkt_01010120_subkomponen where status=1');
 				if(!empty($rowData[0]->id_subkomponen))
-					$data['kode_id_dtl_subkomponen_list']=DB::select('select id, kode_dtl_subkomponen, nama from bkt_01010121_dtl_subkomponen where id_subkomponen='.$rowData[0]->id_subkomponen.' and status=1');
+					$data['id_dtl_subkomponen_list']=DB::select('select id, kode_dtl_subkomponen, nama from bkt_01010121_dtl_subkomponen where id_subkomponen='.$rowData[0]->id_subkomponen.' and status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010311/create',$data);
 			}else if ($data['kode']==null  && !empty($data['detil']['298'])){
@@ -402,8 +401,8 @@ class bk010311Controller extends Controller
 				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
 				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
 				$data['kode_kel_list'] = DB::select('select * from bkt_01010104_kel where status=1');
-				$data['kode_id_subkomponen_list'] = DB::select('select * from bkt_01010120_subkomponen where status=1');
-				$data['kode_id_dtl_subkomponen_list'] = DB::select('select * from bkt_01010121_dtl_subkomponen where status=1');
+				$data['id_subkomponen_list'] = DB::select('select * from bkt_01010120_subkomponen where status=1');
+				$data['id_dtl_subkomponen_list'] = DB::select('select * from bkt_01010121_dtl_subkomponen where status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010311/create',$data);
 			}else{
@@ -488,11 +487,11 @@ class bk010311Controller extends Controller
 				'tpm_q_kk_miskin' => $request->input('tpm_q_kk_miskin-input'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
-				'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
+				// 'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
 				'diser_oleh' => $request->input('diser_oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
+				// 'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
 				'diket_oleh' => $request->input('diket_oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
+				// 'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
 				'diver_oleh' => $request->input('diver_oleh-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
@@ -551,11 +550,11 @@ class bk010311Controller extends Controller
 				'tpm_q_kk_miskin' => $request->input('tpm_q_kk_miskin-input'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
-				'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
+				// 'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
 				'diser_oleh' => $request->input('diser_oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
+				// 'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
 				'diket_oleh' => $request->input('diket_oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
+				// 'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
 				'diver_oleh' => $request->input('diver_oleh-input'),
 				'created_by' => Auth::user()->id
        			]);

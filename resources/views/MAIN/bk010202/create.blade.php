@@ -69,7 +69,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50" required> 
+                                    <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -218,7 +218,13 @@
             theme: "bootstrap",
             placeholder: "single select"
         });
-        function enforce_maxlength(event) {
+		$("#file-dokumen-input").fileinput({
+	        showUpload: false
+	    });
+		$("#file-absensi-input").fileinput({
+	        showUpload: false
+	    });
+		function enforce_maxlength(event) {
             var t = event.target;
             if (t.hasAttribute('maxlength')) {
                 t.value = t.value.slice(0, t.getAttribute('maxlength'));

@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Perencanaan - Penyiapan Paket (DED, RAB, RKS) @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Perencanaan - Rencana Kegiatan Skala Kota</h1>
+    <h1>Perencanaan - Penyiapan Paket (DED, RAB, RKS)</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -24,7 +24,7 @@
             </li>  
             <li class="next">
                 <a href="/main/perencanaan/infra/penyiapan_paket">
-                    Perencanaan / Penyiapan DED, Pengadaan Skala Kot / Penyiapan Paket (DED, RAB, RKS)
+                    Perencanaan / Penyiapan DED, Pengadaan Skala Kota / Penyiapan Paket (DED, RAB, RKS)
                 </a>
             </li>
         </ul>

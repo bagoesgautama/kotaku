@@ -133,7 +133,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Kota</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
+                                            <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" >
                                                 <option value>Please select</option>
                                                 @foreach ($kode_kota_list as $kkl)
                                                     <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
@@ -144,7 +144,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Korkot</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
+                                            <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" >
                                                 <option value>Please select</option>
                                                 @foreach ($kode_korkot_list as $kkl)
                                                     <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
@@ -155,7 +155,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Kawasan</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode-kawasan-input" name="kode-kawasan-input" class="form-control select2" size="1" required>
+                                            <select id="select-kode-kawasan-input" name="kode-kawasan-input" class="form-control select2" size="1" >
                                                 <option value>Please select</option>
                                                 @foreach ($kode_kawasan_list as $kkl)
                                                     <option value="{{$kkl->id}}" {!! $kode_kawasan==$kkl->id ? 'selected':'' !!}>{{$kkl->kode_kawasan." ".$kkl->nama}}</option>
@@ -166,7 +166,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">KSM</label>i
                                         <div class="col-sm-6">
-                                            <select id="select-kode-ksm-input" name="id_ksm" class="form-control select2" size="1" required>
+                                            <select id="select-kode-ksm-input" name="id_ksm" class="form-control select2" size="1" >
                                                 <option value>Please select</option>
                                                 @foreach ($kode_ksm_list as $kkl)
                                                     <option value="{{$kkl->id}}" {!! $id_ksm==$kkl->id ? 'selected':'' !!}>{{$kkl->kode_ksm." ".$kkl->nama}}</option>
@@ -178,7 +178,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                     <div id="tab2" class="tab-pane fade ">
                         <div class="panel " >
                             <div class="panel-body border">
@@ -398,7 +398,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">KPP</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode-kpp-input" name="id_kpp" class="form-control select2" size="1" required>
+                                            <select id="select-kode-kpp-input" name="id_kpp" class="form-control select2" size="1">
                                                 <option value>Please select</option>
                                                 @foreach ($kode_kpp_list as $kkl)
                                                     <option value="{{$kkl->id}}" {!! $id_kpp==$kkl->id ? 'selected':'' !!}>{{$kkl->kode_kpp." ".$kkl->nama}}</option>
@@ -682,6 +682,15 @@
 <script src="{{asset('js/custom_js/notifications.js')}}"></script>
 <script>
       $(document).ready(function () {
+	  	$("#url_img_prcn0").fileinput({
+  	  		showUpload: false
+  	  	});
+  	  	$("#url_img_prcn50").fileinput({
+  	  		showUpload: false
+  	  	});
+    		$("#url_img_prcn100").fileinput({
+      	  		showUpload: false
+  	  	});
         $('#form').on('submit', function (e) {
             var form_data = new FormData(this);
           e.preventDefault();
@@ -695,7 +704,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/pelaksanaan/kota_non/realisasi_kegiatan";
             },
@@ -798,7 +807,7 @@
                     }
                 });
 
-               
+
             }
         });
 

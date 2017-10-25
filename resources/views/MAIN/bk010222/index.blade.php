@@ -42,9 +42,16 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users">
+                    <table class="table table-striped" id="users" width="2000px">
                         <thead>
                             <tr>
+                                <th>Tahun</th>
+                                <th>Kota</th>
+                                <th>Korkot</th>
+                                <th>Kecamatan</th>
+                                <th>KMW</th>
+                                <th>Kelurahan</th>
+                                <th>Faskel</th>
                                 <th>Tanggal</th>
                                 <th>Lokasi Kegiatan</th>
                                 <th>Peserta Pria</th>
@@ -82,6 +89,13 @@
                    },
 
             "columns": [
+                { "data": "tahun" , name:"tahun"},
+                { "data": "nama_kota" , name:"nama_kota"},
+                { "data": "nama_korkot" , name:"nama_korkot"},
+                { "data": "nama_kec" , name:"nama_kec"},
+                { "data": "nama_kmw" , name:"nama_kmw"},
+                { "data": "nama_kel" , name:"nama_kel"},
+                { "data": "nama_faskel" , name:"nama_faskel"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
                 { "data": "q_peserta_p" , name:"q_peserta_p"},

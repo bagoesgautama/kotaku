@@ -299,8 +299,16 @@
             theme: "bootstrap",
             placeholder: "single select"
         });
-
-        function enforce_maxlength(event) {
+		$("#rencana-kerja-input").fileinput({
+			showUpload: false
+		});
+		$("#file-dokumen-input").fileinput({
+			showUpload: false
+		});
+		$("#file-absensi-input").fileinput({
+			showUpload: false
+		});
+		function enforce_maxlength(event) {
             var t = event.target;
             if (t.hasAttribute('maxlength')) {
                 t.value = t.value.slice(0, t.getAttribute('maxlength'));

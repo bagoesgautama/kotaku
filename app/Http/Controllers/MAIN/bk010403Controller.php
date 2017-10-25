@@ -76,18 +76,19 @@ class bk010403Controller extends Controller
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'kode_parent',
-			1 =>'jns_sumber_dana',
-			2 =>'kode_kmw',
-			3 =>'kode_kota',
-			4 =>'kode_korkot',
-			5 =>'kode_kawasan',
-			6 =>'id_kpp',
-			7 =>'tahun',
-			8 =>'tgl_realisasi',
-			9 =>'vol_realisasi',
-			10 =>'satuan',
-			11 =>'created_time'
+			0 =>'kode',
+			1 =>'kode_parent',
+			2 =>'jns_sumber_dana',
+			3 =>'kode_kmw',
+			4 =>'kode_kota',
+			5 =>'kode_korkot',
+			6 =>'kode_kawasan',
+			7 =>'id_kpp',
+			8 =>'tahun',
+			9 =>'tgl_realisasi',
+			10 =>'vol_realisasi',
+			11 =>'satuan',
+			12 =>'created_time'
 		);
 		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kmw, e.nama nama_kawasan, g.nama nama_kpp
 			from bkt_01040202_real_ktrk_krj a, 
@@ -124,8 +125,8 @@ class bk010403Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (a.kode_parent like "%'.$search.'%" or a.jns_sumber_dana like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or a.tahun like "%'.$search.'%" or a.tgl_realisasi like "%'.$search.'%" or a.vol_realisasi like "%'.$search.'%" or a.satuan like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.kode_parent like "%'.$search.'%" or a.jns_sumber_dana like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or a.tahun like "%'.$search.'%" or a.tgl_realisasi like "%'.$search.'%" or a.vol_realisasi like "%'.$search.'%" or a.satuan like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' and (a.kode like "%'.$search.'%" or a.kode_parent like "%'.$search.'%" or a.jns_sumber_dana like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or a.tahun like "%'.$search.'%" or a.tgl_realisasi like "%'.$search.'%" or a.vol_realisasi like "%'.$search.'%" or a.satuan like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.kode like "%'.$search.'%" or a.kode_parent like "%'.$search.'%" or a.jns_sumber_dana like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or a.tahun like "%'.$search.'%" or a.tgl_realisasi like "%'.$search.'%" or a.vol_realisasi like "%'.$search.'%" or a.satuan like "%'.$search.'%")) a');
 		}
 
 		$data = array();
@@ -146,6 +147,7 @@ class bk010403Controller extends Controller
 
 				$url_edit=url('/')."/main/pelaksanaan/kota_bdi/realisasi_kontrak/create?kode=".$edit;
 				$url_delete=url('/')."/main/pelaksanaan/kota_bdi/realisasi_kontrak/delete?kode=".$delete;
+				$nestedData['kode'] = $post->kode;
 				$nestedData['kode_parent'] = $post->kode_parent;
 				$nestedData['jns_sumber_dana'] = $jns_sumber_dana;
 				$nestedData['kode_kmw'] = $post->nama_kmw;

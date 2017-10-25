@@ -596,6 +596,7 @@ Route::get('/main/perencanaan/kontrak_paket/create', 'MAIN\bk010315Controller@cr
 Route::post('/main/perencanaan/kontrak_paket/create', 'MAIN\bk010315Controller@post_create');
 Route::get('/main/perencanaan/kontrak_paket/delete', 'MAIN\bk010315Controller@delete');
 Route::get('/main/perencanaan/kontrak_paket/select', 'MAIN\bk010315Controller@select');
+Route::get('/main/perencanaan/kontrak_paket/select', 'MAIN\bk010315Controller@select');
 
 Route::get('/main/perencanaan/kelurahan/penanganan_kumuh', 'MAIN\bk010316Controller@index');
 Route::get('/main/perencanaan/kelurahan/penanganan_kumuh/select', 'MAIN\bk010316Controller@select');
@@ -637,6 +638,13 @@ Route::post('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/create', 'M
 Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/delete', 'MAIN\bk010401Controller@delete');
 Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/delete', 'MAIN\bk010401Controller@delete_pemanfaat');
 
+Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias', 'MAIN\bk010413Controller@index');
+Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/select', 'MAIN\bk010413Controller@select');
+Route::post('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias', 'MAIN\bk010413Controller@post');
+Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/create', 'MAIN\bk010413Controller@create');
+Route::post('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/create', 'MAIN\bk010413Controller@post_create');
+Route::get('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/delete', 'MAIN\bk010413Controller@delete');
+
 Route::get('/main/pelaksanaan/kota_bdi/pencairan_kontraktor', 'MAIN\bk010402Controller@index');
 Route::post('/main/pelaksanaan/kota_bdi/pencairan_kontraktor', 'MAIN\bk010402Controller@post');
 Route::get('/main/pelaksanaan/kota_bdi/pencairan_kontraktor/create', 'MAIN\bk010402Controller@create');
@@ -675,6 +683,7 @@ Route::post('/main/pelaksanaan/kelurahan/pagu_pencairan', 'MAIN\bk010407Controll
 Route::get('/main/pelaksanaan/kelurahan/pagu_pencairan/create', 'MAIN\bk010407Controller@create');
 Route::post('/main/pelaksanaan/kelurahan/pagu_pencairan/create', 'MAIN\bk010407Controller@post_create');
 Route::get('/main/pelaksanaan/kelurahan/pagu_pencairan/delete', 'MAIN\bk010407Controller@delete');
+Route::get('/main/pelaksanaan/kelurahan/pagu_pencairan/select', 'MAIN\bk010407Controller@select');
 
 Route::get('/main/pelaksanaan/kelurahan/ksm', 'MAIN\bk010408Controller@index');
 Route::post('/main/pelaksanaan/kelurahan/ksm', 'MAIN\bk010408Controller@post');

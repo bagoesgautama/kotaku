@@ -34,7 +34,7 @@
             </li>
             <li class="next">
                 <a href="/main/pelaksanaan/kota_bdi/realisasi_kegiatan">
-                    Pelaksanaan / Realisasi Kegiatan Skala Kota (BDI/Non BDI) / Realisasi Kegiatan Skala Kota
+                    Pelaksanaan / Realisasi Kegiatan Skala Kota (BDI/Non BDI) / Realisasi Kegiatan Skala Kota / Realisasi Kegiatan
                 </a>
             </li>
             <li class="next">
@@ -106,11 +106,11 @@
                                         Progress Pemanfaatan Dana dan Fisik
                                     </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#tab12" data-toggle="tab">
                                         Tambahan Data
                                     </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <div class="panel-body">
@@ -127,7 +127,7 @@
                                             <select id="select-kode-parent-input" name="kode-parent-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
                                                 @foreach ($kode_parent_list as $kpl)
-                                                    <option value="{{$kpl->kode}}" {!! $kode_parent==$kpl->kode ? 'selected':'' !!}>{{$kpl->kode}}</option>
+                                                    <option value="{{$kpl->kode}}" {!! $kode_parent==$kpl->kode ? 'selected':'' !!}>{{$kpl->jenis_komponen_keg.'-'.$kpl->nama_subkomponen.'-'.$kpl->nama_dtl_subkomponen}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -199,7 +199,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">KSM</label>i
+                                        <label class="col-sm-3 control-label">KSM</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode-ksm-input" name="id_ksm" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
@@ -220,7 +220,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Realisasi</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" id="tgl_realisasi" name="tgl_realisasi" placeholder="Tanggal Proposal" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_realisasi}}" required>
+                                            <input class="form-control" id="tgl_realisasi" name="tgl_realisasi" placeholder="Tanggal Realisasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_realisasi}}" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -634,7 +634,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="tab12" class="tab-pane fade ">
+                    <!-- <div id="tab12" class="tab-pane fade ">
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
@@ -680,7 +680,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form-group form-actions">
                         <div class="col-sm-9 col-sm-offset-3">
                             <a href="/main/pelaksanaan/kota_bdi/realisasi_kegiatan" type="button" class="btn btn-effect-ripple btn-danger">
@@ -764,11 +764,20 @@
 <script src="{{asset('js/custom_js/alert.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
+	  	$("#url_img_prcn0").fileinput({
+  	  		showUpload: false
+  	  	});
+  	  	$("#url_img_prcn50").fileinput({
+  	  		showUpload: false
+  	  	});
+		$("#url_img_prcn100").fileinput({
+  	  		showUpload: false
+  	  	});
         $('.ui-pnotify').remove();
         var kode = $('#kode').val();
         var table = $('#pokja').DataTable({
             // dom: 'Bflrtip',
-            
+
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -785,7 +794,8 @@
                 { "data": "kode_jenis_kelamin" , name:"kode_jenis_kelamin"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order": [[4,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {
@@ -807,7 +817,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/pelaksanaan/kota_bdi/realisasi_kegiatan";
             },
@@ -853,7 +863,7 @@
             placeholder: "Please Select",
             width: "100%"
         });
-        
+
         document.addEventListener('invalid', (function () {
           return function (e) {
             e.preventDefault();

@@ -82,11 +82,15 @@ class bk010110Controller extends Controller
 			11 =>'email1',
 		);
 
-		$query='select a.*, b.nama nama_prop, c.nama nama_pms,d.nama slum_program
-					from bkt_01010110_kmw a left join bkt_01010101_prop b on b.kode=a.kode_prop
-					left join bkt_01010115_pms c on c.kode=a.kode_pms
-					left join (select a1.kode,b1.nama from bkt_01010109_kmp_slum_prog a1,bkt_01010107_slum_program b1 where a1.kode_slum_prog=b1.kode) d on a.kode_kmp_slum_prog=d.kode ';
-		$totalData = DB::select('select count(1) cnt from bkt_01010110_kmw ');
+
+		$query='select a.*, b.nama nama_prop, c.nama nama_pms
+					from bkt_01010110_kmw a
+					left join bkt_01010101_prop b on b.kode=a.kode_prop
+					left join bkt_01010115_pms c on c.kode=a.kode_pms ';
+		$totalData = DB::select('select count(1) cnt
+									from bkt_01010110_kmw a
+									left join bkt_01010101_prop b on b.kode=a.kode_prop
+									left join bkt_01010115_pms c on c.kode=a.kode_pms ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');

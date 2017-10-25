@@ -622,6 +622,15 @@
 <script src="{{asset('js/custom_js/notifications.js')}}"></script>
 <script>
       $(document).ready(function () {
+	  	$("#url_img_prcn0").fileinput({
+	  		showUpload: false
+	  	});
+	  	$("#url_img_prcn50").fileinput({
+	  		showUpload: false
+	  	});
+  		$("#url_img_prcn100").fileinput({
+    	  		showUpload: false
+	  	});
         $('#form').on('submit', function (e) {
             var form_data = new FormData(this);
           e.preventDefault();
@@ -635,7 +644,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/pelaksanaan/kota_bdi/realisasi_kontrak";
             },

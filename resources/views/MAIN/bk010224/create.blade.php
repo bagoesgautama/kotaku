@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Nama KorKot</label>            
+                                <label class="col-sm-3 control-label" for="example-text-input1">Nama KorKot</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode_korkot-input" class="form-control select2" name="select-kode_korkot-input">
                                         @foreach($kode_korkot_list as $list)
@@ -79,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input2">KMW</label>          
+                                <label class="col-sm-3 control-label" for="example-text-input2">KMW</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode_kmw-input" class="form-control select2" name="select-kode_kmw-input">
                                         @foreach($kode_kmw_list as $list)
@@ -170,7 +170,7 @@
                                     <br>
                                     <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-document" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
                                 </div>
-                            </div>   
+                            </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">File Absensi</label>
                                 <div class="col-sm-6">
@@ -279,9 +279,15 @@
 @stop {{-- local scripts --}} @section('footer_scripts')
 <script>
       $(document).ready(function () {
+	  	$("#file-dokumen-input").fileinput({
+	  		showUpload: false
+	  	});
+	  	$("#file-absensi-input").fileinput({
+	  		showUpload: false
+	  	});
         $('#submit').on('click', function (e) {
             e.preventDefault();
-            
+
             var file_document = document.getElementById('file-document-input').files[0];
             var file_absensi = document.getElementById('file-absensi-input').files[0];
             var form_data = new FormData();
@@ -378,4 +384,3 @@
 <script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
 @stop
-

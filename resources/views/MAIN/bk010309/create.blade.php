@@ -11,7 +11,7 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Perencanaan - Kawasan Prioritas</h1>
+    <h1>Perencanaan Kawasan Prioritas</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,7 +23,7 @@
                 <a href="/main/perencanaan/kawasan/perencanaan">
                     Perencanaan / Kawasan Prioritas / Perencanaan Kawasan Prioritas
                 </a>
-            </li>        
+            </li>
             <li class="next">
                 Create
             </li>
@@ -79,10 +79,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Prop</label>          
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Prop</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode_prop-input" class="form-control select2" name="select-kode_prop-input">
-                                                <option value="">Please select</option>
+                                                <option value=""></option>
                                                 @foreach($kode_prop_list as $list)
                                                     <option value="{{ $list->kode }}" @if($list->kode==$kode_prop) selected="selected" @endif >{{ $list->nama }}
                                                     </option>
@@ -94,7 +94,7 @@
                                         <label class="col-sm-3 control-label" for="example-text-input31">Kota</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode_kota-input" class="form-control select2" name="select-kode_kota-input">
-                                                <option value="">Please select</option>
+                                                <option value=""></option>
                                                 @foreach ($kode_kota_list as $kkl)
                                                     <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                                 @endforeach
@@ -105,7 +105,7 @@
                                         <label class="col-sm-3 control-label" for="example-text-input1">KorKot</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode_korkot-input" class="form-control select2" name="select-kode_korkot-input">
-                                                <option value="">Please select</option>
+                                                <option value=""></option>
                                                 @foreach ($kode_korkot_list as $kkl)
                                                     <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                                 @endforeach
@@ -116,7 +116,7 @@
                                         <label class="col-sm-3 control-label" for="example-text-input1">Kecamatan</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode_kec-input" class="form-control select2" name="select-kode_kec-input" required>
-                                                <option value="">Please select</option>
+                                                <option value=""></option>
                                                 @foreach ($kode_kec_list as $kkl)
                                                     <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                                 @endforeach
@@ -127,7 +127,7 @@
                                         <label class="col-sm-3 control-label" for="example-text-input31">Kawasan</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode_kawasan-input" class="form-control select2" name="select-kode_kawasan-input" required>
-                                                <option value="">Please select</option>
+                                                <option value=""></option>
                                                 @foreach ($kode_kawasan_list as $kkl)
                                                     <option value="{{$kkl->id}}" {!! $kode_kawasan==$kkl->id ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                                 @endforeach
@@ -365,7 +365,7 @@
                                             <input type="number" id="ak_prcn_gap_ekonomi-input" name="ak_prcn_gap_ekonomi-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_prcn_gap_ekonomi}}" maxlength="9" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            
+
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -374,7 +374,7 @@
                                             <input type="number" id="ak_prcn_gap_sosial-input" name="ak_prcn_gap_sosial-input" class="form-control" placeholder="Nilai Absolut" value="{{$ak_prcn_gap_sosial}}" maxlength="9" required>
                                         </div>
                                         <div class="col-sm-3">
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -391,6 +391,7 @@
                                             <input id="file-document-input" type="file" class="file" accept="image/*" name="file-document-input">
                                             <br>
                                             <img id="uri_img_document" alt="gallery" src="/uploads/perencanaan/kawasan/perencanaan/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                            <input type="hidden" id="uploaded-file-document" name="uploaded-file-document" value="{{$uri_img_document}}">
                                             <button type="button" class="btn btn-effect-ripple btn-danger" id="uploaded-file-document" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">delete</button>
                                         </div>
                                     </div>
@@ -400,6 +401,7 @@
                                             <input id="file-absensi-input" type="file" class="file" accept="image/*" name="file-absensi-input">
                                             <br>
                                             <img id="uri_img_absensi" alt="gallery" src="/uploads/perencanaan/kawasan/perencanaan/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                            <input type="hidden" id="uploaded-file-absensi" name="uploaded-file-absensi" value="{{$uri_img_absensi}}">
                                             <button type="button" class="btn btn-effect-ripple btn-danger" id="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} onclick="test('uri_img_absensi')">delete</button>
                                         </div>
                                     </div>
@@ -468,12 +470,26 @@
 @stop
 {{-- local scripts --}} @section('footer_scripts')
 <script>
+    function test(id){
+    console.log(id)
+    var elem = document.getElementById(id);
+    elem.parentNode.removeChild(elem);
+    var elem2 = $('#'+id+'-file');
+    elem2.removeAttr('value');
+    return false;
+    }
       $(document).ready(function () {
+		$("#file-dokumen-input").fileinput({
+  	  		showUpload: false
+  	  	});
+  	  	$("#file-absensi-input").fileinput({
+  	  		showUpload: false
+  	  	});
         $('#form').on('submit', function (e) {
           e.preventDefault();
           var form_data = new FormData(this);
-          console.log(form_data)
-          console.log(this)
+          // console.log(form_data)
+          // console.log(this)
           $.ajax({
             type: 'post',
             processData: false,
@@ -484,7 +500,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/perencanaan/kawasan/perencanaan";
             },
@@ -521,7 +537,7 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
-        
+
         $("#select-kode_kota-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
@@ -623,7 +639,7 @@
                     }
                 });
             }
-        });   
+        });
     });
 </script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>

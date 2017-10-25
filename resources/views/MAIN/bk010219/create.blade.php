@@ -253,6 +253,12 @@
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
+	  	$("#file-dokumen-input").fileinput({
+	        showUpload: false
+	    });
+  		$("#file-absensi-input").fileinput({
+  	        showUpload: false
+  	    });
         $('#form').on('submit', function (e) {
             var file_dokumen = document.getElementById('file-dokumen-input').files[0];
             var file_absensi = document.getElementById('file-absensi-input').files[0];
@@ -389,7 +395,7 @@
                     }
                 });
 
-               
+
             }
         });
 
