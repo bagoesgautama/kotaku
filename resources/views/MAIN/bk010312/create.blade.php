@@ -187,12 +187,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="example-text-input31">Detail Sub Komponen</label>
+                                         <label class="col-sm-3 control-label" for="example-text-input31">Detail Sub Komponen</label>
                                         <div class="col-sm-6">
                                             <select id="select-id_dtl_subkomponen-input" class="form-control select2" name="select-id_dtl_subkomponen-input">
-                                                <option value="">Please Select</option>
-                                                @foreach ($kode_id_dtl_subkomponen_list as $ksl)
-                                                    <option value="{{$ksl->id}}" {!! $id_dtl_subkomponen==$ksl->id ? 'selected':'' !!}>{{$ksl->id_dtl_subkomponen.' '.$ksl->nama}}</option>
+                                                <option value=""></option>
+                                                @foreach ($kode_id_dtl_subkomponen_list as $kkl)
+                                                    <option value="{{$kkl->id}}" {!! $id_dtl_subkomponen==$kkl->id ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
