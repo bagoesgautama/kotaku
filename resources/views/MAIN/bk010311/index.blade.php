@@ -46,7 +46,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users">
+                    <table class="table table-striped" id="users" width="6000px">
                         <thead>
                             <tr>
                                 <th>Tahun</th>

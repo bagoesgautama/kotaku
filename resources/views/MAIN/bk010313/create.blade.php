@@ -1,16 +1,13 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Perencanaan - Penyiapan DED, Pengadaan Skala Kota - Penanganan Dampak Sosial & Lingkungan Form {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Perencanaan - Penyiapan DED, Pengadaan Skala Kota - Penanganan Dampak Sosial & Lingkungan {{-- local styles --}} @section('header_styles')
+
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
-<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
-<link href="{{asset('vendors/bootstrap-multiselect/css/bootstrap-multiselect.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
 <link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
-<link href="{{asset('vendors/pnotify/css/pnotify.buttons.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/pnotify/css/pnotify.css')}}" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
+
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">

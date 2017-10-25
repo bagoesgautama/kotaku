@@ -444,6 +444,7 @@ class bk010309Controller extends Controller
 			$upload_document = true;
 		}
 
+
 		$file_absensi = $request->file('file-absensi-input');
 		$uri_absensi = null;
 		$upload_absensi = false;
