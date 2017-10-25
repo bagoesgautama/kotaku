@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Penanganan Dampak Sosial & Lingkungan @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Serah Terima Aset @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -23,13 +23,16 @@
                 </a>
             </li>
             <li class="next">
-                Perencanaan
+                Pelaksanaan
             </li>
             <li class="next">
-                Penanganan Pemukiman Kota
+                Realisasi Kegiatan Skala Kota (BDI/Non BDI)
             </li>
             <li class="next">
-                Penanganan Dampak Sosial & Lingkungan
+                Realisasi Kegiatan Skala Kota
+            </li>
+            <li class="next">
+                Serah Terima Aset
             </li>
         </ul>
     </div>
@@ -39,12 +42,12 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-                <div class="panel-title pull-left">
-                    <b>bk010308 index</b>
-                </div>
-                @if( ! empty($detil['282']))
+                <!-- <div class="panel-title pull-left">
+                    <b>bk010401 index</b>
+                </div> -->
+                @if( ! empty($detil['506']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/penanganan/pengamanan_dampak/create'}}">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/create'}}">Create</a>
                 </div>
                 @endif
             </div>
@@ -53,7 +56,20 @@
                     <table class="table table-striped" id="pokja">
                         <thead>
                             <tr>
-                                <th>Data Rencana Investasi Tahunan</th>
+                                <th>Data Usulan Kegiatan</th>
+                                <th>Sumber Dana</th>
+                                <th>Serah Terima Aset</th>
+                                <th>Tgl Serah Terima Aset</th>
+                                <th>KMW</th>
+                                <th>Kota</th>
+                                <th>Korkot</th>
+                                <th>Kawasan</th>
+                                <th>KSM</th>
+                                <th>KPP</th>
+                                <th>Tahun</th>
+                                <th>Tgl Realisasi</th>
+                                <th>Vol Realisasi</th>
+                                <th>Satuan</th>
                                 <th>Created Time</th>
                                 <th>Option</th>
                             </tr>
@@ -75,16 +91,30 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/perencanaan/penanganan/pengamanan_dampak",
+                     "url": "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
                 { "data": "kode_parent" , name:"kode_parent"},
+                { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
+                { "data": "flag_sudah_sertias" , name:"flag_sudah_sertias"},
+                { "data": "tgl_sertias" , name:"tgl_sertias"},
+                { "data": "kode_kmw" , name:"kode_kmw"},
+                { "data": "kode_kota" , name:"kode_kota"},
+                { "data": "kode_korkot" , name:"kode_korkot"},
+                { "data": "kode_kawasan" , name:"kode_kawasan"},
+                { "data": "id_ksm" , name:"id_ksm"},
+                { "data": "id_kpp" , name:"id_kpp"},
+                { "data": "tahun" , name:"tahun"},
+                { "data": "tgl_realisasi" , name:"tgl_realisasi"},
+                { "data": "vol_realisasi" , name:"vol_realisasi"},
+                { "data": "satuan" , name:"satuan"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order": [[12,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

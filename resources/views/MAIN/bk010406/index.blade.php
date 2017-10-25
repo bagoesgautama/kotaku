@@ -54,6 +54,7 @@
                         <thead>
                             <tr>
                                 <th>Sumber Dana</th>
+                                <th>Sertifikasi</th>
                                 <th>KMW</th>
                                 <th>Kota</th>
                                 <th>Korkot</th>
@@ -91,6 +92,7 @@
 
             "columns": [
                 { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
+                { "data": "hasil_sertifikasi" , name:"hasil_sertifikasi"},
                 { "data": "kode_kmw" , name:"kode_kmw"},
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_korkot" , name:"kode_korkot"},
@@ -102,7 +104,8 @@
                 { "data": "satuan" , name:"satuan"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order":[[11,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

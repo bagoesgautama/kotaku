@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Pembangunan Visi @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pencairan Kepada Kontraktor @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -23,16 +23,13 @@
                 </a>
             </li>
             <li class="next">
-                Perencanaan
+                Pelaksanaan
             </li>
             <li class="next">
-                Penanganan Pemukiman Kota
+                Realisasi Kegiatan Skala Kota (BDI/Non BDI)
             </li>
             <li class="next">
-                Perencanaan Penanganan Permukiman
-            </li>
-            <li class="next">
-                Pembangunan Visi
+                Pencairan Kepada Kontraktor
             </li>
         </ul>
     </div>
@@ -43,27 +40,32 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010301 index</b>
+                    <b>bk010402 index</b>
                 </div>
-                @if( ! empty($detil['254']))
+                @if( ! empty($detil['351']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/penanganan/pembangunan_visi/create'}}">Create</a>
-				</div>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kota_bdi/pencairan_kontraktor/create'}}">Create</a>
+                </div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="pokja">
-						<thead>
+                    <table class="table table-striped" id="pokja">
+                        <thead>
                             <tr>
-                                <th>Tahun</th>
-                                <th>Kota</th>
-                                <th>Kecamatan</th>
+                                <th>Kode</th>
+                                <th>Skala Kegiatan</th>
+                                <th>Kontrak Paket Kerja Kontraktor</th>
                                 <th>KMW</th>
+                                <th>Kota</th>
                                 <th>Korkot</th>
-                                <th>Jenis Kegiatan</th>
-                                <th>Tgl Kegiatan</th>
-                                <th>Lokasi Kegiatan</th>
+                                <th>Kontraktor</th>
+                                <th>Uang Muka (Rp)</th>
+                                <th>Termin 1 (Rp)</th>
+                                <th>Termin 2 (Rp)</th>
+                                <th>Termin 3 (Rp)</th>
+                                <th>Progress Keuangan (%)</th>
+                                <th>Created Time</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -78,29 +80,35 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#pokja').DataTable({
-	        // dom: 'Bflrtip',
-	        
-			"processing": true,
+        var table = $('#pokja').DataTable({
+            // dom: 'Bflrtip',
+            
+            "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/perencanaan/penanganan/pembangunan_visi",
+                     "url": "/main/pelaksanaan/kota_bdi/pencairan_kontraktor",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-				{ "data": "tahun" , name:"tahun"},
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_kec" , name:"kode_kec"},
+                { "data": "kode" , name:"kode"},
+                { "data": "skala_kegiatan" , name:"skala_kegiatan"},
+                { "data": "kode_parent" , name:"kode_parent"},
                 { "data": "kode_kmw" , name:"kode_kmw"},
+                { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_korkot" , name:"kode_korkot"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
-				{ "data": "option" , name:"option",orderable:false}
-            ]
-	    });
+                { "data": "kode_kontraktor" , name:"kode_kontraktor"},
+                { "data": "rp_uang_muka" , name:"rp_uang_muka"},
+                { "data": "rp_termin1" , name:"rp_termin1"},
+                { "data": "rp_termin2" , name:"rp_termin2"},
+                { "data": "rp_termin3" , name:"rp_termin3"},
+                { "data": "rp_progress" , name:"rp_progress"},
+                { "data": "created_time" , name:"created_time"},
+                { "data": "option" , name:"option",orderable:false}
+            ],
+            "order": [[0,"desc"]]
+        });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {

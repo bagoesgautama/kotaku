@@ -34,7 +34,7 @@
             </li>
             <li class="next">
                 <a href="/main/pelaksanaan/kota_bdi/realisasi_kegiatan">
-                    Pelaksanaan / Realisasi Kegiatan Skala Kota (BDI/Non BDI) / Realisasi Kegiatan Skala Kota
+                    Pelaksanaan / Realisasi Kegiatan Skala Kota (BDI/Non BDI) / Realisasi Kegiatan Skala Kota / Realisasi Kegiatan
                 </a>
             </li>
             <li class="next">
@@ -127,7 +127,7 @@
                                             <select id="select-kode-parent-input" name="kode-parent-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
                                                 @foreach ($kode_parent_list as $kpl)
-                                                    <option value="{{$kpl->kode}}" {!! $kode_parent==$kpl->kode ? 'selected':'' !!}>{{$kpl->kode}}</option>
+                                                    <option value="{{$kpl->kode}}" {!! $kode_parent==$kpl->kode ? 'selected':'' !!}>{{$kpl->jenis_komponen_keg.'-'.$kpl->nama_subkomponen.'-'.$kpl->nama_dtl_subkomponen}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -199,7 +199,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">KSM</label>i
+                                        <label class="col-sm-3 control-label">KSM</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode-ksm-input" name="id_ksm" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
@@ -220,7 +220,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Realisasi</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" id="tgl_realisasi" name="tgl_realisasi" placeholder="Tanggal Proposal" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_realisasi}}" required>
+                                            <input class="form-control" id="tgl_realisasi" name="tgl_realisasi" placeholder="Tanggal Realisasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_realisasi}}" required>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">

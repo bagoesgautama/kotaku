@@ -90,35 +90,41 @@ class bk010401Controller extends Controller
 			11 =>'satuan',
 			12 =>'created_time'
 		);
-		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kmw, e.nama nama_kawasan, f.nama nama_ksm, g.nama nama_kpp
-			from bkt_01040201_real_keg a, 
-				bkt_01010102_kota b, 
-				bkt_01010111_korkot c, 
-				bkt_01010110_kmw d,
-				bkt_01010123_kawasan e,
-				bkt_01010128_ksm f,
-				bkt_01010129_kpp g
-			where b.kode=a.kode_kota and 
-			c.kode=a.kode_korkot and  
-			d.kode=a.kode_kmw and 
-			e.id=a.kode_kawasan and
-			f.id=a.id_ksm and
-			g.id=a.id_kpp and
-			a.jns_sumber_dana=1';
-		$totalData = DB::select('select count(1) cnt from bkt_01040201_real_keg a, 
-				bkt_01010102_kota b, 
-				bkt_01010111_korkot c, 
-				bkt_01010110_kmw d,
-				bkt_01010123_kawasan e,
-				bkt_01010128_ksm f,
-				bkt_01010129_kpp g
-			where b.kode=a.kode_kota and 
-			c.kode=a.kode_korkot and  
-			d.kode=a.kode_kmw and 
-			e.id=a.kode_kawasan and
-			f.id=a.id_ksm and
-			g.id=a.id_kpp and
-			a.jns_sumber_dana=1');
+		$query='
+			select 
+				a.*, b.nama nama_kota,
+				c.nama nama_korkot,
+				d.nama nama_kmw,
+				e.nama nama_kawasan,
+				f.nama nama_ksm,
+				g.nama nama_kpp,
+				h.jenis_komponen_keg,
+				i.nama nama_subkomponen,
+				j.nama nama_dtl_subkomponen
+			from bkt_01040201_real_keg a
+				left join bkt_01010102_kota b on b.kode=a.kode_kota
+				left join bkt_01010111_korkot c on c.kode=a.kode_korkot
+				left join bkt_01010110_kmw d on d.kode=a.kode_kmw
+				left join bkt_01010123_kawasan e on e.id=a.kode_kawasan
+				left join bkt_01010128_ksm f on f.id=a.id_ksm
+				left join bkt_01010129_kpp g on g.id=a.id_kpp 
+				left join bkt_01030208_usulan_keg_kt h on h.kode=a.kode_parent 
+				left join bkt_01010120_subkomponen i on i.id=h.id_subkomponen
+				left join bkt_01010121_dtl_subkomponen j on j.id=h.id_dtl_subkomponen 
+			where
+				a.jns_sumber_dana=1';
+		$totalData = DB::select('select count(1) cnt from bkt_01040201_real_keg a
+				left join bkt_01010102_kota b on b.kode=a.kode_kota
+				left join bkt_01010111_korkot c on c.kode=a.kode_korkot
+				left join bkt_01010110_kmw d on d.kode=a.kode_kmw
+				left join bkt_01010123_kawasan e on e.id=a.kode_kawasan
+				left join bkt_01010128_ksm f on f.id=a.id_ksm
+				left join bkt_01010129_kpp g on g.id=a.id_kpp 
+				left join bkt_01030208_usulan_keg_kt h on h.kode=a.kode_parent 
+				left join bkt_01010120_subkomponen i on i.id=h.id_subkomponen
+				left join bkt_01010121_dtl_subkomponen j on j.id=h.id_dtl_subkomponen 
+			where
+				a.jns_sumber_dana=1');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -130,8 +136,8 @@ class bk010401Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (a.kode_parent like "%'.$search.'%" or a.jns_sumber_dana like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or f.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or a.tahun like "%'.$search.'%" or a.tgl_realisasi like "%'.$search.'%" or a.vol_realisasi like "%'.$search.'%" or a.satuan like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.kode_parent like "%'.$search.'%" or a.jns_sumber_dana like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or f.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or a.tahun like "%'.$search.'%" or a.tgl_realisasi like "%'.$search.'%" or a.vol_realisasi like "%'.$search.'%" or a.satuan like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' and (h.jenis_komponen_keg like "%'.$search.'%" or i.nama like "%'.$search.'%" or j.nama like "%'.$search.'%" or a.jns_sumber_dana like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or f.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or a.tahun like "%'.$search.'%" or a.tgl_realisasi like "%'.$search.'%" or a.vol_realisasi like "%'.$search.'%" or a.satuan like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (h.jenis_komponen_keg like "%'.$search.'%" or i.nama like "%'.$search.'%" or j.nama like "%'.$search.'%" or a.jns_sumber_dana like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or f.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or a.tahun like "%'.$search.'%" or a.tgl_realisasi like "%'.$search.'%" or a.vol_realisasi like "%'.$search.'%" or a.satuan like "%'.$search.'%")) a');
 		}
 
 		$data = array();
@@ -152,7 +158,7 @@ class bk010401Controller extends Controller
 
 				$url_edit=url('/')."/main/pelaksanaan/kota_bdi/realisasi_kegiatan/create?kode=".$edit;
 				$url_delete=url('/')."/main/pelaksanaan/kota_bdi/realisasi_kegiatan/delete?kode=".$delete;
-				$nestedData['kode_parent'] = $post->kode_parent;
+				$nestedData['kode_parent'] = $post->jenis_komponen_keg.'-'.$post->nama_subkomponen.'-'.$post->nama_dtl_subkomponen;
 				$nestedData['jns_sumber_dana'] = $jns_sumber_dana;
 				$nestedData['kode_kmw'] = $post->nama_kmw;
 				$nestedData['kode_kota'] = $post->nama_kota;
@@ -433,7 +439,16 @@ class bk010401Controller extends Controller
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
-				$data['kode_parent_list'] = DB::select('select * from bkt_01030208_usulan_keg_kt where kode='.$rowData[0]->kode_parent);
+				$data['kode_parent_list'] = DB::select('
+					select 
+						a.*, 
+						b.nama nama_subkomponen,
+						c.nama nama_dtl_subkomponen
+					from bkt_01030208_usulan_keg_kt a
+						left join bkt_01010120_subkomponen b on b.id=a.id_subkomponen
+						left join bkt_01010121_dtl_subkomponen c on c.id=a.id_dtl_subkomponen 
+					where
+						a.kode='.$rowData[0]->kode_parent);
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
 				if(!empty($rowData[0]->kode_parent))
 					$data['kode_kmw_list']=DB::select('select b.kode, b.nama from bkt_01030208_usulan_keg_kt a, bkt_01010110_kmw b where a.kode_kmw=b.kode and a.kode='.$rowData[0]->kode_parent);
@@ -519,7 +534,16 @@ class bk010401Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
-				$data['kode_parent_list'] = DB::select('select * from bkt_01030208_usulan_keg_kt');
+				$data['kode_parent_list'] = DB::select('
+					select 
+						a.*, 
+						b.nama nama_subkomponen,
+						c.nama nama_dtl_subkomponen
+					from bkt_01030208_usulan_keg_kt a
+						left join bkt_01010120_subkomponen b on b.id=a.id_subkomponen
+						left join bkt_01010121_dtl_subkomponen c on c.id=a.id_dtl_subkomponen 
+					where
+						a.skala_kegiatan=1');
 				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
 				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
@@ -822,6 +846,10 @@ class bk010401Controller extends Controller
 
 	public function delete(Request $request)
 	{
+		DB::beginTransaction();
+		DB::table('bkt_01040206_real_keg_pmft')->where('kode_real_keg', $request->input('kode'))->delete();
+		DB::commit();
+
 		DB::table('bkt_01040201_real_keg')->where('kode', $request->input('kode'))->delete();
 		$this->log_aktivitas('Delete', 508);
         return Redirect::to('/main/pelaksanaan/kota_bdi/realisasi_kegiatan');
