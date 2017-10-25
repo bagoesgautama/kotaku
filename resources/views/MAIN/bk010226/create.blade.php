@@ -189,7 +189,7 @@
                                     <input type="text" id="diver-oleh-input" name="example-diver_oleh-input" class="form-control" placeholder="Diverifikasi Oleh" value="{{$diver_oleh}}">
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <!--<div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Created Time</label>
                                 <div class="col-sm-6">
                                     <label class="form-control">{{ $created_time }}</label>
@@ -212,7 +212,7 @@
                                 <div class="col-sm-6">
                                     <label class="form-control">{{ $updated_by }}</label>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <a href="/main/persiapan/kelurahan/lembaga/ksm/ppmk" type="button" class="btn btn-effect-ripple btn-danger">

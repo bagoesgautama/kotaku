@@ -81,7 +81,7 @@
 				                    </select>
 				                </div>
 				            </div>
-							<div class="form-group">
+							<!--<div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Created By</label>
                                 <div class="col-sm-6">
                                     <label class="form-control">{{ $created_by }}</label>
@@ -104,7 +104,7 @@
                                 <div class="col-sm-6">
                                     <label class="form-control">{{ $updated_time }}</label>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <a href="/main/data_master/det_komp_keg" type="button" class="btn btn-effect-ripple btn-danger">

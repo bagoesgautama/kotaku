@@ -90,11 +90,11 @@
                                         Progress Pemanfaatan Dana dan Fisik
                                     </a>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="#tab11" data-toggle="tab">
                                         Tambahan Data
                                     </a>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
             <div class="panel-body">
@@ -540,7 +540,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="tab11" class="tab-pane fade ">
+                    <!--<div id="tab11" class="tab-pane fade ">
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
@@ -586,7 +586,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="form-group form-actions">
                         <div class="col-sm-9 col-sm-offset-3">
                             <a href="/main/pelaksanaan/kota_bdi/realisasi_kontrak" type="button" class="btn btn-effect-ripple btn-danger">

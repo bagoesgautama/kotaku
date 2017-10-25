@@ -162,7 +162,7 @@
                                     <input type="text" id="text-input" name="example-q_peserta_miskin-input" class="form-control" placeholder="Peserta Miskin" value="{{$q_peserta_miskin}}" maxlength="5">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
                                 <div class="col-sm-3">
                                     <input class="form-control" id="tgl-diser-input" name="diser_tgl" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
@@ -212,7 +212,7 @@
                                 <div class="col-sm-6">
                                     <label class="form-control">{{ $updated_by }}</label>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <a href="/main/persiapan/kelurahan/lembaga/organisasi_pengelola" type="button" class="btn btn-effect-ripple btn-danger">
