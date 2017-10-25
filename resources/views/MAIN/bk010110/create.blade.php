@@ -21,7 +21,7 @@
                 <a href="/main/kmw">
                     Master Data / Data Cakupan Program / KMW
                 </a>
-            </li>        
+            </li>
             <li class="next">
                 Create
             </li>
@@ -31,16 +31,16 @@
 @stop
 {{-- Page content --}} @section('content')
 <div class="panel-body border">
-    <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator">
+    <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
         <div class="row">
             <div class="form-group striped-col">
                 <input type="hidden" id="example-id-input" name="example-id-input" value="{{ $kode }}">
-                <label class="col-sm-3 control-label" for="example-select1">Kode Mapping KMP ke Slum Program</label>
+                <label class="col-sm-3 control-label" for="example-select1">KMP Slum Program</label>
                 <div class="col-sm-6">
                     <select id="select-kode_kmp_slum_prog-input" name="select-kode_kmp_slum_prog-input" class="form-control" size="1">
                         <option>Please select</option>
                         @foreach($kode_kmp_slum_prog_list as $list)
-                            <option value="{{ $list->kode }}" @if($list->kode==$kode_kmp_slum_prog) selected="selected" @endif >{{ $list->kode }}</option>
+                            <option value="{{ $list->kode }}" @if($list->kode==$kode_kmp_slum_prog) selected="selected" @endif >{{ $list->nama }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -77,7 +77,7 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Contact Person</label>
-                <div class="col-sm-6">    
+                <div class="col-sm-6">
                     <input type="text" id="contact_person-input" name="contact_person-input" class="form-control" placeholder="Contact Person" value="{{ $contact_person }}" maxlength="50" >
                 </div>
             </div>
@@ -109,26 +109,14 @@
                 <label class="col-sm-3 control-label" for="example-email">Email 1</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 1</label>
-                    <input id="email1-input" type="email" class="form-control  form-control-lg" name="email1-input" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
-
-                    @if ($errors->has('email'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                    @endif
+                    <input id="email1-input" type="email" class="form-control  form-control-lg" name="email1-input" value="{{ $email1 }}" placeholder="E-mail" maxlength="255">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-email">Email 2</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 2</label>
-                    <input id="email2-input" type="email" class="form-control  form-control-lg" name="email2-input" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
-
-                    @if ($errors->has('email'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                    @endif
+                    <input id="email2-input" type="email" class="form-control  form-control-lg" name="email2-input" value="{{ $email2 }}" placeholder="E-mail" maxlength="255">
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -172,7 +160,7 @@
 </script>
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
           e.preventDefault();
           $.ajax({
             type: 'post',
@@ -182,7 +170,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/kmw";
             },

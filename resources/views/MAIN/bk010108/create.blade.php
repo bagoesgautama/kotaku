@@ -1,10 +1,6 @@
 @extends('MAIN/default') {{-- Page title --}} @section('title') Konsultan Manajemen Pusat (KMP) @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
-
-<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
-
-<link href="{{asset('css/custom_css/wizard.css')}}" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
@@ -21,7 +17,7 @@
                 <a href="/main/kmp">
                     Master Data / Data Cakupan Program / KMP
                 </a>
-            </li>        
+            </li>
             <li class="next">
                 Create
             </li>
@@ -31,7 +27,7 @@
 @stop
 {{-- Page content --}} @section('content')
 <div class="panel-body border">
-    <form enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator">
+    <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
         <div class="row">
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">Nama</label>
@@ -80,33 +76,22 @@
                 <label class="col-sm-3 control-label" for="example-email">Email 1</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 1</label>
-                    <input id="email1-input" type="email" class="form-control  form-control-lg" name="email1-input" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
-
-                    @if ($errors->has('email'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                    @endif
+                    <input id="email1-input" type="email" class="form-control  form-control-lg" name="email1-input" value="{{ old('email') }}" placeholder="E-mail"  maxlength="255">
                 </div>
             </div>
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-email">Email 2</label>
                 <div class="col-sm-6">
                     <label for="email" class="sr-only"> E-mail 2</label>
-                    <input id="email2-input" type="email" class="form-control  form-control-lg" name="email2-input" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
+                    <input id="email2-input" type="email" class="form-control  form-control-lg" name="email2-input" value="{{ old('email') }}" placeholder="E-mail"  maxlength="255">
 
-                    @if ($errors->has('email'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                    @endif
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Nama PMS</label>
                 <div class="col-sm-6">
                     <select id="select-kode_pms-input" class="form-control select2" name="select-kode_pms-input">
-                        <option>Please select</option>
+                        <option value>Please select</option>
                         @foreach($kode_pms_list as $list)
                             <option value="{{ $list->kode }}" @if($list->kode==$kode_pms) selected="selected" @endif >{{ $list->nama }}
                             </option>
@@ -144,7 +129,7 @@
 </script>
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
         e.preventDefault();
         $.ajax({
             type: 'post',
@@ -172,14 +157,6 @@
         });
     });
 </script>
-
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/moment/js/moment.min.js')}}"></script>
-
-<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
-
-<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
-
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/register.js')}}"></script>
 @stop

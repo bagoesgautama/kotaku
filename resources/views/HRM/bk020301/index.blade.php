@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Mapping Kota ke KorKot @stop {{-- local styles --}} @section('header_styles')
+@extends('HRM/default') {{-- Page title --}} @section('title') Pesan @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,18 +14,16 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Mapping Kota ke KorKot</h1>
+    <h1>Pesan</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-                <a href="/main">
-                    <i class="fa fa-fw fa-home"></i> MAIN
+                <a href="/hrm">
+                    <i class="fa fa-fw fa-home"></i> HRM
                 </a>
             </li>
             <li class="next">
-                <a href="/main/kota_korkot">
-                    Master Data / Data Cakupan Program / Mapping Kota ke KorKot
-                </a>
+                Managemen Personil / Pesan
             </li>
         </ul>
     </div>
@@ -36,25 +34,19 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010112 Index</b>
+                    <b>bk020301 Index</b>
                 </div>
-                @if( ! empty($detil['49']))
-                <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/kota_korkot/create">Create</a>
-                </div>
-                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users" >
-                        <thead>
+					<table class="table table-striped" id="users">
+						<thead>
                             <tr>
-								<th>Kode</th>
-                                <th>Nama KorKot</th>
-                                <th>Nama Kota</th>
-                                <th>Nama MS</th>
-                                <th>Paket MS</th>
-                                <th>Option</th>
+								<th>ID</th>
+								<th>Pengirim</th>
+								<th>Pesan</th>
+                                <th>Tanggal</th>
+								<th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -63,18 +55,15 @@
         </div>
     </div>
 </div>
-
 <!-- /.modal ends here -->@stop {{-- local scripts --}} @section('footer_scripts')
 
 <script>
     $(document).ready(function () {
 		var table = $('#users').DataTable({
-	        // dom: 'Bflrtip',
-
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/kota_korkot",
+                     "url": "/hrm/management/pesan",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -85,12 +74,11 @@
                 alert(xhr.status);
                 alert(thrownError);
               },
-            "columns": [
+			  "columns": [
 				{ "data": "kode" , name:"kode"},
-				{ "data": "nama_korkot" , name:"nama_korkot"},
-                { "data": "nama_kota" , name:"nama_kota"},
-                { "data": "ms_kode" , name:"ms_kode"},
-                { "data": "ms_paket" , name:"ms_kode"},
+				{ "data": "pengirim" , name:"pengirim"},
+				{ "data": "text_pesan" , name:"text_pesan"},
+				{ "data": "tgl_pesan_masuk" , name:"tgl_pesan_masuk"},
 				{ "data": "option" , name:"option",orderable:false}
             ],
 			"order": [[ 0, "desc" ]]

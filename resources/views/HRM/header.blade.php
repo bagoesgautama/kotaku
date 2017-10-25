@@ -66,46 +66,46 @@
     </div>
 </nav>
 <script>
-var xhr = new XMLHttpRequest();
-//setInterval(function(){
-	xhr.open('GET', "/inbox", true);
-	xhr.send();
-	xhr.onreadystatechange = processRequest;
-//}, 300000);
+	var xhr = new XMLHttpRequest();
+    //setInterval(function(){
+    	xhr.open('GET', "/inbox", true);
+    	xhr.send();
+    	xhr.onreadystatechange = processRequest;
+    //}, 300000);
 
-function processRequest(e) {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-        var res = JSON.parse(xhr.responseText);
-        document.getElementById("msg_cnt").innerHTML=res.length;
-		var msg=$("#msg");
-		msg.empty();
-		msg.append('<li class="dropdown-title">New Messages</li>');
-		for(var i=0;i<res.length;i++){
-			if(i%2==0){
-				msg.append(`<li>
-					<a href="" class="message striped-col">
-						<div class="message-body">
-							<strong>`+res[i].nama+`</strong>
-							<br> `+res[i].text_pesan+`
-							<br>
-							<small>`+res[i].tgl_pesan_masuk+`</small>
-						</div>
-					</a>
-				</li>`);
-			}else{
-				msg.append(`<li>
-					<a href="" class="message ">
-						<div class="message-body">
-							<strong>`+res[i].nama+`</strong>
-							<br> `+res[i].text_pesan+`
-							<br>
-							<small>`+res[i].tgl_pesan_masuk+`</small>
-						</div>
-					</a>
-				</li>`);
-			}
-		}
-		msg.append('<li class="dropdown-footer"><a href="javascript:void(0)">View All messages</a></li>');
-    }
-}
+    function processRequest(e) {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+            var res = JSON.parse(xhr.responseText);
+            document.getElementById("msg_cnt").innerHTML=res.length;
+			var msg=$('#msg');
+    		msg.empty();
+			msg.append('<li class="dropdown-title">New Messages</li>');
+    		for(var i=0;i<res.length;i++){
+    			if(i%2==0){
+    				msg.append(`<li>
+    					<a href="" class="message striped-col">
+    						<div class="message-body">
+    							<strong>`+res[i].nama+`</strong>
+    							<br> `+res[i].text_pesan+`
+    							<br>
+    							<small>`+res[i].tgl_pesan_masuk+`</small>
+    						</div>
+    					</a>
+    				</li>`);
+    			}else{
+    				msg.append(`<li>
+    					<a href="" class="message ">
+    						<div class="message-body">
+    							<strong>`+res[i].nama+`</strong>
+    							<br> `+res[i].text_pesan+`
+    							<br>
+    							<small>`+res[i].tgl_pesan_masuk+`</small>
+    						</div>
+    					</a>
+    				</li>`);
+    			}
+    		}
+    		msg.append('<li class="dropdown-footer"><a href="/hrm/management/pesan">View All messages</a></li>');
+        }
+    }
 </script>

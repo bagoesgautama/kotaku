@@ -55,7 +55,7 @@
 				                            <option value="{{$kpl->id}}" {!! $id_agenda==$kpl->id ? 'selected':'' !!}>{{$kpl->nama_kegiatan}}</option>
 				                        @endforeach
 									</select>
-				                </div>-
+				                </div>
 				            </div>
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Kode Kegiatan</label>

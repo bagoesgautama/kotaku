@@ -69,25 +69,19 @@ class bk010111Controller extends Controller
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'kode_kmw',
-			1 =>'nama',
-			2 =>'alamat',
+			0 =>'a.kode',
+			1 =>'kode_kmw',
+			2 =>'nama',
 			3 =>'kodepos',
 			4 =>'contact_person',
 			5 =>'no_phone',
 			6 =>'no_fax',
 			7 =>'n0_hp1',
-			8 =>'no_hp2',
-			9 =>'email1',
-			10 =>'email2',
-			11 =>'kode_pms',
-			12 =>'created_time',
-			13 =>'created_by',
-			14 =>'updated_time',
-			15 =>'updated_by'
+			8 =>'email1',
+			9 =>'nama_pms'
 		);
-		$query='select a.*, b.nama nama_kmw, c.nama nama_pms 
-					from bkt_01010111_korkot a, bkt_01010110_kmw b, bkt_01010115_pms c 
+		$query='select a.*, b.nama nama_kmw, c.nama nama_pms
+					from bkt_01010111_korkot a, bkt_01010110_kmw b, bkt_01010115_pms c
 					where a.kode_kmw=b.kode and a.kode_pms=c.kode ';
 		$totalData = DB::select('select count(1) cnt from bkt_01010111_korkot');
 		$totalFiltered = $totalData[0]->cnt;
@@ -116,23 +110,16 @@ class bk010111Controller extends Controller
 				$delete = $post->kode;
 				$url_edit=url('/')."/main/korkot/create?kode=".$show;
 				$url_delete=url('/')."/main/korkot/delete?kode=".$delete;
+				$nestedData['kode'] = $post->kode;
 				$nestedData['nama_kmw'] = $post->nama_kmw;
 				$nestedData['nama'] = $post->nama;
-				$nestedData['alamat'] = $post->alamat;
 				$nestedData['kodepos'] = $post->kodepos;
 				$nestedData['contact_person'] = $post->contact_person;
 				$nestedData['no_phone'] = $post->no_phone;
 				$nestedData['no_fax'] = $post->no_fax;
 				$nestedData['no_hp1'] = $post->no_hp1;
-				$nestedData['no_hp2'] = $post->no_hp2;
 				$nestedData['email1'] = $post->email1;
-				$nestedData['email2'] = $post->email2;
 				$nestedData['nama_pms'] = $post->nama_pms;
-				$nestedData['created_time'] = $post->created_time;
-				$nestedData['created_by'] = $post->created_by;
-				$nestedData['updated_time'] = $post->updated_time;
-				$nestedData['updated_by'] = $post->updated_by;
-
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){

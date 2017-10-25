@@ -227,7 +227,7 @@ class bk010105Controller extends Controller
 		if ($request->input('id')!=null){
 			date_default_timezone_set('Asia/Jakarta');
 
-			DB::table('bkt_01010116_rt')->where('id', $request->input('kode'))
+			DB::table('bkt_01010116_rt')->where('id', $request->input('id'))
 			->update(['nama' => $request->input('nama-input'),
 			'deskripsi' => $request->input('deskripsi-input'),
 			'kode_rt' => $request->input('kode_rt-input'),
@@ -267,7 +267,7 @@ class bk010105Controller extends Controller
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_01010116_rt')->where('kode', $request->input('kode'))->update(['status' => 2]);
+		DB::table('bkt_01010116_rt')->where('id', $request->input('kode'))->update(['status' => 2]);
 		$this->log_aktivitas('Delete', 476);
         return Redirect::to('/main/data_wilayah/rt');
     }

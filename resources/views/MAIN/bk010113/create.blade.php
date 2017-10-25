@@ -21,7 +21,7 @@
                 <a href="/main/faskel">
                     Master Data / Data Cakupan Program / Faskel
                 </a>
-            </li>        
+            </li>
             <li class="next">
                 Create
             </li>
@@ -31,7 +31,7 @@
 @stop
 {{-- Page content --}} @section('content')
 <div class="panel-body border">
-    <form enctype="multipart/form-data" class="form-horizontal form-bordered">
+    <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered signup_validator">
         <div class="row">
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-text-input1">Nama KMW</label>
@@ -82,7 +82,7 @@
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script>
       $(document).ready(function () {
-        $('#submit').on('click', function (e) {
+        $('#form').on('submit', function (e) {
           e.preventDefault();
           $.ajax({
             type: 'post',
@@ -92,7 +92,7 @@
                 $("#submit").prop('disabled', true);
             },
             success: function () {
-    
+
             alert('From Submitted.');
             window.location.href = "/main/faskel";
             },

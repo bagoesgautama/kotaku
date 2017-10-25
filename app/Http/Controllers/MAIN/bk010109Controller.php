@@ -69,13 +69,9 @@ class bk010109Controller extends Controller
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'kode_kmp',
-			1 =>'kode_slum_prog',
-			2 =>'status',
-			3 =>'created_time',
-			4 =>'created_by',
-			5 =>'updated_time',
-			6 =>'updated_by'
+			0 =>'kode',
+			1 =>'nama_kmp',
+			2 =>'nama_slum_prog'
 		);
 		$query='select a.*, b.nama nama_kmp, c.nama nama_slum_prog from bkt_01010109_kmp_slum_prog a, bkt_01010108_kmp b, bkt_01010107_slum_program c where a.kode_kmp=b.kode and a.kode_slum_prog=c.kode';
 
@@ -106,12 +102,9 @@ class bk010109Controller extends Controller
 				$delete = $post->kode;
 				$url_edit=url('/')."/main/kmp_slum_program/create?kode=".$show;
 				$url_delete=url('/')."/main/kmp_slum_program/delete?kode=".$delete;
+				$nestedData['kode'] = $post->kode;
 				$nestedData['nama_kmp'] = $post->nama_kmp;
 				$nestedData['nama_slum_prog'] = $post->nama_slum_prog;
-				$nestedData['created_time'] = $post->created_time;
-				$nestedData['created_by'] = $post->created_by;
-				$nestedData['updated_time'] = $post->updated_time;
-				$nestedData['updated_by'] = $post->updated_by;
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){
@@ -125,9 +118,9 @@ class bk010109Controller extends Controller
 				if(!empty($detil['38'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['39'])){
+				/*if(!empty($detil['39'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}
+				}*/
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}

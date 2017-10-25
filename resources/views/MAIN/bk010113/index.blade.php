@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Tim Fasilitator Kelurahan (FasKel) @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Tim Fasilitator Kelurahan (FasKel) @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -46,14 +46,13 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users" width="1500px">
+					<table class="table table-striped" id="users" >
 						<thead>
                             <tr>
+								<th>Kode</th>
                                 <th>Nama KMW</th>
                                 <th>Nama Korkot</th>
                                 <th>Nama</th>
-                                <th>Created Time</th>
-                                <th>Created By</th>
 								<th>Option</th>
                             </tr>
                         </thead>
@@ -70,7 +69,7 @@
     $(document).ready(function () {
 		var table = $('#users').DataTable({
 	        // dom: 'Bflrtip',
-	        
+
 			"processing": true,
             "serverSide": true,
             "ajax":{
@@ -86,13 +85,13 @@
                 alert(thrownError);
               },
             "columns": [
+				{ "data": "kode" , name:"kode"},
 				{ "data": "nama_kmw" , name:"nama_kmw"},
                 { "data": "nama_korkot" , name:"nama_korkot"},
                 { "data": "nama" , name:"nama"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
 				{ "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+			"order": [[ 0, "desc" ]]
 	    });
         $('#users_filter input').unbind();
         $('#users_filter input').bind('keyup', function(e) {

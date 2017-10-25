@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Mapping FasKel ke Kelurahan @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Mapping FasKel ke Kelurahan @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -53,7 +53,8 @@
 					<table class="table table-striped" id="users" width="2000px">
 						<thead>
                             <tr>
-                                <th>Mapping KMP ke Slum Program</th>
+								<th>Kode</th>
+                                <th>KMP Slum Program</th>
                                 <th>Propinsi</th>
                                 <th>Kota</th>
                                 <th>Kecamatan</th>
@@ -64,12 +65,6 @@
                                 <th>Tahun Glosary</th>
                                 <th>Tahun Project</th>
                                 <th>Awal Project</th>
-                                <th>Lokasi BLM</th>
-                                <th>Lokasi Kumuh</th>
-                                <th>Flag Kumuh</th>
-                                <th>Flag Lokasi PPMK</th>
-                                <th>Created Time</th>
-                                <th>Created By</th>
 								<th>Option</th>
                             </tr>
                         </thead>
@@ -86,7 +81,7 @@
     $(document).ready(function () {
 		var table = $('#users').DataTable({
 	        // dom: 'Bflrtip',
-	        
+
 			"processing": true,
             "serverSide": true,
             "ajax":{
@@ -102,6 +97,7 @@
                 alert(thrownError);
               },
             "columns": [
+				{ "data": "kode" , name:"kode"},
 				{ "data": "kode_kmp_slum_prog" , name:"kode_kmp_slum_prog"},
                 { "data": "nama_prop" , name:"nama_prop"},
                 { "data": "nama_kota" , name:"nama_kota"},
@@ -113,14 +109,9 @@
                 { "data": "tahun_glossary" , name:"tahun_glossary"},
                 { "data": "tahun_project" , name:"tahun_project"},
                 { "data": "awal_project" , name:"awal_project"},
-                { "data": "lokasi_blm" , name:"lokasi_blm"},
-                { "data": "Lokasi_Kumuh" , name:"Lokasi_Kumuh"},
-                { "data": "flag_kumuh" , name:"flag_kumuh"},
-                { "data": "flag_lokasi_ppmk" , name:"flag_lokasi_ppmk"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
 				{ "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+			"order": [[ 0, "desc" ]]
 	    });
         $('#users_filter input').unbind();
         $('#users_filter input').bind('keyup', function(e) {

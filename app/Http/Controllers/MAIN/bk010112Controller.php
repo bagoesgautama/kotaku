@@ -69,14 +69,11 @@ class bk010112Controller extends Controller
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'kode_korkot',
-			1 =>'kode_kota',
-			2 =>'ms_kode',
-			3 =>'ms_paket,',
-			4 =>'created_time',
-			5 =>'created_by',
-			6 =>'updated_time',
-			7 =>'updated_by'
+			0 =>'kode',
+			1 =>'kode_korkot',
+			2 =>'kode_kota',
+			3 =>'ms_kode',
+			4 =>'ms_paket'
 		);
 		$query='select a.*, b.nama nama_korkot, c.nama nama_kota from bkt_01010112_kota_korkot a, bkt_01010102_kota b, bkt_01010111_korkot c where a.kode_kota=b.kode and a.kode_korkot=c.kode ';
 		$totalData = DB::select('select count(1) cnt from bkt_01010112_kota_korkot ');
@@ -106,14 +103,11 @@ class bk010112Controller extends Controller
 				$delete = $post->kode;
 				$url_edit=url('/')."/main/kota_korkot/create?kode=".$show;
 				$url_delete=url('/')."/main/kota_korkot/delete?kode=".$delete;
+				$nestedData['kode'] = $post->kode;
 				$nestedData['nama_korkot'] = $post->nama_korkot;
 				$nestedData['nama_kota'] = $post->nama_kota;
 				$nestedData['ms_kode'] = $post->ms_kode;
 				$nestedData['ms_paket'] = $post->ms_paket;
-				$nestedData['created_time'] = $post->created_time;
-				$nestedData['created_by'] = $post->created_by;
-				$nestedData['updated_time'] = $post->updated_time;
-				$nestedData['updated_by'] = $post->updated_by;
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){

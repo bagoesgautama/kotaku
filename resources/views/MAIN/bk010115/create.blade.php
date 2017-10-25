@@ -102,7 +102,6 @@
 {{-- local scripts --}} @section('footer_scripts')
 <script>
   $(document).ready(function () {
-
 	$('#form').on('submit', function (e) {
 	  e.preventDefault();
 	  $.ajax({
