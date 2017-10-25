@@ -409,7 +409,6 @@
 <script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 
 <script type="text/javascript" src="{{asset('vendors/pnotify/js/pnotify.js')}}"></script>
 <script src="{{asset('js/custom_js/notifications.js')}}"></script>
@@ -626,4 +625,5 @@
         });
       });
 </script>
+<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 @stop
