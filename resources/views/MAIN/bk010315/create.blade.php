@@ -235,7 +235,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Lainya</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="nb_lainya-input" name="nb_lainya-input" class="form-control" placeholder="Rp" value="{{$nb_lainya}}" maxlength="30">
+                                    <input type="number" id="nb_lainnya-input" name="nb_lainnya-input" class="form-control" placeholder="Rp" value="{{$nb_lainnya}}" maxlength="30">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -481,7 +481,7 @@
         var faskel = $('#select-kode_faskel-input');
         var subkomponen = $('#select-id_subkomponen-input');
         var dtl_subkomponen = $('#select-id_dtl_subkomponen-input');
-        var kmw_id,kota_id,korkot_id,kel_id,kec_id,faskel_id,subkomponen_id;
+        var kmw_id,kota_id,korkot_id,kel_id,kec_id,faskel,subkomponen_id;
         kmw.change(function(){
             kmw_id=kmw.val();
             if(kmw_id!=undefined){

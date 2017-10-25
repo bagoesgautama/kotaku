@@ -77,9 +77,19 @@ class bk010114Controller extends Controller
 			18 =>'updated_by'
 		);
 		$query='select a.*, b.nama nama_prop, c.nama nama_kota, d.nama nama_kec, e.nama nama_kel, f.nama nama_faskel
-					from bkt_01010114_kel_faskel a, bkt_01010101_prop b, bkt_01010102_kota c, bkt_01010103_kec d, bkt_01010104_kel e, bkt_01010113_faskel f 
-					where b.kode=a.kode_prop and c.kode=a.kode_kota and d.kode=a.kode_kec and e.kode=a.kode_kel and f.kode=a.kode_faskel ';
-		$totalData = DB::select('select count(1) cnt from bkt_01010114_kel_faskel ');
+					from bkt_01010114_kel_faskel a
+					left join bkt_01010101_prop b on b.kode=a.kode_prop
+					left join bkt_01010102_kota c on c.kode=a.kode_kota
+					left join bkt_01010103_kec d on d.kode=a.kode_kec
+					left join bkt_01010104_kel e on e.kode=a.kode_kel
+					left join bkt_01010113_faskel f on f.kode=a.kode_faskel ';
+		$totalData = DB::select('select count(1) cnt 
+									from bkt_01010114_kel_faskel a
+									left join bkt_01010101_prop b on b.kode=a.kode_prop
+									left join bkt_01010102_kota c on c.kode=a.kode_kota
+									left join bkt_01010103_kec d on d.kode=a.kode_kec
+									left join bkt_01010104_kel e on e.kode=a.kode_kel
+									left join bkt_01010113_faskel f on f.kode=a.kode_faskel ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');

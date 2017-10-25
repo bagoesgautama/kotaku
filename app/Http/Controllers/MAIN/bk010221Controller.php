@@ -102,7 +102,8 @@ class bk010221Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
+			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
 		$data = array();
@@ -236,8 +237,6 @@ class bk010221Controller extends Controller
 
 	public function post_create(Request $request)
 	{
-		//var_dump($request->all());
-
 		$file_document = $request->file('file-document-input');
 		$uri_document = null;
 		$upload_document = false;
@@ -267,8 +266,8 @@ class bk010221Controller extends Controller
 		}
 
 		date_default_timezone_set('Asia/Jakarta');
-		if ($request->input('example-id-input')!=null){
-			DB::table('bkt_01020213_f_forum_kel')->where('kode', $request->input('example-id-input'))
+		if ($request->input('kode')!=null){
+			DB::table('bkt_01020213_f_forum_kel')->where('kode', $request->input('kode'))
 			->update(['kode_forum' => $request->input('select-kode_forum-input'), 
 				'kode_kegiatan' => $request->input('select-kode_kegiatan-input'), 
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl_kegiatan-input')),
@@ -277,11 +276,11 @@ class bk010221Controller extends Controller
 				'q_peserta_w' => $request->input('q_peserta_w-input'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
-				'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
+				// 'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
 				'diser_oleh' => $request->input('diser_oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
+				// 'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
 				'diket_oleh' => $request->input('diket_oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
+				// 'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
 				'diver_oleh' => $request->input('diver_oleh-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
@@ -307,11 +306,11 @@ class bk010221Controller extends Controller
 				'q_peserta_w' => $request->input('q_peserta_w-input'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
-				'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
+				// 'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
 				'diser_oleh' => $request->input('diser_oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
+				// 'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
 				'diket_oleh' => $request->input('diket_oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
+				// 'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
 				'diver_oleh' => $request->input('diver_oleh-input'),
 				'created_by' => Auth::user()->id
        			]);

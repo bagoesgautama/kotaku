@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Perencanaan - Kawasan Prioritas</h1>
+    <h1>Perencanaan Kawasan Prioritas</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">

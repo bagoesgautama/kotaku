@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Perencanaan - Rencana Investasi 5 Tahun</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,10 +23,9 @@
                 </a>
             </li>
             <li class="next">
-                Perencanaan
-            </li>
-            <li class="next">
-                Investasi 5 Tahun
+                <a href="/main/perencanaan/kawasan/investasi">
+                    Perencanaan / Kawasan Prioritas / Rencana Investasi 5 Tahun
+                </a>
             </li>
         </ul>
     </div>

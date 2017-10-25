@@ -678,6 +678,7 @@ Route::post('/main/pelaksanaan/kelurahan/pagu_pencairan', 'MAIN\bk010407Controll
 Route::get('/main/pelaksanaan/kelurahan/pagu_pencairan/create', 'MAIN\bk010407Controller@create');
 Route::post('/main/pelaksanaan/kelurahan/pagu_pencairan/create', 'MAIN\bk010407Controller@post_create');
 Route::get('/main/pelaksanaan/kelurahan/pagu_pencairan/delete', 'MAIN\bk010407Controller@delete');
+Route::get('/main/pelaksanaan/kelurahan/pagu_pencairan/select', 'MAIN\bk010407Controller@select');
 
 Route::get('/main/pelaksanaan/kelurahan/ksm', 'MAIN\bk010408Controller@index');
 Route::post('/main/pelaksanaan/kelurahan/ksm', 'MAIN\bk010408Controller@post');

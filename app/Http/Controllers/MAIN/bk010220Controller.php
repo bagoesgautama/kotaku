@@ -55,8 +55,6 @@ class bk010220Controller extends Controller
 
 	public function show()
 	{
-		//$users = DB::select('select * from users ');
-		//echo json_encode($users);
 		$data['username'] = '';
 		$data['test']=true;
 		if (Auth::check()) {
@@ -100,8 +98,21 @@ class bk010220Controller extends Controller
 			28 =>'updated_by'
 		);
 		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kec, e.nama nama_kmw, f.nama nama_kel, g.nama nama_faskel
-			from bkt_01020212_forum_kel a, bkt_01010102_kota b, bkt_01010111_korkot c, bkt_01010103_kec d, bkt_01010110_kmw e, bkt_01010104_kel f, bkt_01010113_faskel g where a.kode_kota=b.kode and a.kode_korkot=c.kode and a.kode_kec=d.kode and a.kode_kmw=e.kode and a.kode_kel=f.kode and a.kode_faskel=g.kode ';
-		$totalData = DB::select('select count(1) cnt from bkt_01020212_forum_kel ');
+				from bkt_01020212_forum_kel a
+				left join bkt_01010102_kota b on a.kode_kota=b.kode
+				left join bkt_01010111_korkot c on a.kode_korkot=c.kode
+				left join bkt_01010103_kec d on a.kode_kec=d.kode
+				left join bkt_01010110_kmw e on a.kode_kmw=e.kode
+				left join bkt_01010104_kel f on a.kode_kel=f.kode
+				left join bkt_01010113_faskel g on a.kode_faskel=g.kode ';
+		$totalData = DB::select('select count(1) cnt
+									from bkt_01020212_forum_kel a
+									left join bkt_01010102_kota b on a.kode_kota=b.kode
+									left join bkt_01010111_korkot c on a.kode_korkot=c.kode
+									left join bkt_01010103_kec d on a.kode_kec=d.kode
+									left join bkt_01010110_kmw e on a.kode_kmw=e.kode
+									left join bkt_01010104_kel f on a.kode_kel=f.kode
+									left join bkt_01010113_faskel g on a.kode_faskel=g.kode ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -114,7 +125,8 @@ class bk010220Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. ' and (a.tahun like "%'.$search.'%" or a.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
+			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
 		$data = array();
@@ -190,8 +202,7 @@ class bk010220Controller extends Controller
 	public function select(Request $request)
 	{
 		if(!empty($request->input('kmw'))){
-			$kota = DB::select('select * from bkt_01010110_kmw a,bkt_01010102_kota b
-				where a.kode_prop=b.kode_prop and a.kode='.$request->input('kmw'));
+			$kota = DB::select('select * from bkt_01010110_kmw a,bkt_01010102_kota b where a.kode_prop=b.kode_prop and a.kode='.$request->input('kmw'));
 			echo json_encode($kota);
 		}
 		else if(!empty($request->input('kota'))){
@@ -199,24 +210,19 @@ class bk010220Controller extends Controller
 			echo json_encode($kota);
 		}
 		else if(!empty($request->input('korkot'))){
-			$kota = DB::select('select a.* from bkt_01010103_kec a where a.kode_kota='.$request->input('korkot'));
-			echo json_encode($kota);
+			$kec = DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$request->input('korkot'));
+			echo json_encode($kec);
 		}
-		else if(!empty($request->input('kec'))){
-			$kota = DB::select('select a.* from bkt_01010104_kel a where a.kode_kec='.$request->input('kec'));
-			echo json_encode($kota);
+		if(!empty($request->input('kec'))){
+			$kel = DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$request->input('kec'));
+			echo json_encode($kel);
 		}
-		else if(!empty($request->input('kel'))){
-			$kota = DB::select('select a.* from bkt_01010114_kel_faskel b,bkt_01010113_faskel a
-				where a.kode=b.kode_faskel and b.kode_kel='.$request->input('kel'));
-			echo json_encode($kota);
+		if(!empty($request->input('faskel'))){
+			$faskel = DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010113_faskel b where a.kode_faskel=b.kode and a.kode_kel='.$request->input('faskel'));
+			echo json_encode($faskel);
 		}
-		else if(!empty($request->input('kegiatan'))){
-			$kota = DB::select('select id, nama from bkt_01010118_kegiatan_kel where kode_kec='.$request->input('kec'));
-			echo json_encode($kota);
-		}
-		else if(!empty($request->input('dtl_kegiatan'))){
-			$kota = DB::select('select id, nama from bkt_01010119_dtl_keg_kel where kode_kec='.$request->input('kec'));
+		else if(!empty($request->input('subkomponen'))){
+			$kota = DB::select('select b.id, b.nama from bkt_01010120_subkomponen a, bkt_01010121_dtl_subkomponen b where b.id_subkomponen='.$request->input('subkomponen'));
 			echo json_encode($kota);
 		}
 	}
@@ -237,7 +243,6 @@ class bk010220Controller extends Controller
 			$data['kode']=$request->input('kode');
 
 			//get dropdown list from Database
-			
 			$kode_kmw = DB::select('select kode, nama from bkt_01010110_kmw');
 			$data['kode_kmw_list'] = $kode_kmw;
 
@@ -272,6 +277,17 @@ class bk010220Controller extends Controller
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
+				if(!empty($rowData[0]->kode_kmw))
+					$data['kode_kota_list']=DB::select('select b.kode, b.nama from bkt_01010110_kmw a, bkt_01010102_kota b where a.kode_prop=b.kode_prop and a.kode='.$rowData[0]->kode_kmw);
+				if(!empty($rowData[0]->kode_kota))
+					$data['kode_korkot_list']=DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode_kota='.$rowData[0]->kode_kota);
+				if(!empty($rowData[0]->kode_kota))
+					$data['kode_kec_list']=DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$rowData[0]->kode_kota);
+				if(!empty($rowData[0]->kode_kec))
+					$data['kode_kel_list']=DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$rowData[0]->kode_kec);
+				if(!empty($rowData[0]->kode_kel))
+					$data['kode_faskel_list']=DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010113_faskel b where a.kode_faskel=b.kode and a.kode_kel='.$rowData[0]->kode_kel);
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010220/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['199'])){
@@ -304,6 +320,12 @@ class bk010220Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
+				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
+				$data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
+				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
+				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
+				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
+				$data['kode_kel_list'] = DB::select('select * from bkt_01010104_kel where status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010220/create',$data);
 			}else {
@@ -316,10 +338,10 @@ class bk010220Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+
 		$file_dok_rencana_kerja = $request->file('file-dok_rencana_kerja-input');
 		$uri_dok_rencana_kerja = null;
 		$upload_dok_rencana_kerja = false;
-
 		if($request->input('uploaded-file-dok_rencana_kerja') != null && $file_dok_rencana_kerja == null){
 			$uri_dok_rencana_kerja = $request->input('uploaded-file-dok_rencana_kerja');
 			$upload_dok_rencana_kerja = false;
@@ -360,8 +382,8 @@ class bk010220Controller extends Controller
 		}
 
 		date_default_timezone_set('Asia/Jakarta');
-		if ($request->input('example-id-input')!=null){
-			DB::table('bkt_01020212_forum_kel')->where('kode', $request->input('example-id-input'))
+		if ($request->input('kode')!=null){
+			DB::table('bkt_01020212_forum_kel')->where('kode', $request->input('kode'))
 			->update(['tahun' => $request->input('tahun-input'),
 				'kode_kota' => $request->input('select-kode_kota-input'),
 				'kode_korkot' => $request->input('select-kode_korkot-input'),
@@ -381,11 +403,11 @@ class bk010220Controller extends Controller
 				'nilai_dana_ops' => $request->input('nilai_dana_ops-input'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
-				'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
+				// 'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
 				'diser_oleh' => $request->input('diser_oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
+				// 'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
 				'diket_oleh' => $request->input('diket_oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
+				// 'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
 				'diver_oleh' => $request->input('diver_oleh-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
@@ -426,11 +448,11 @@ class bk010220Controller extends Controller
 				'nilai_dana_ops' => $request->input('nilai_dana_ops-input'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
-				'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
+				// 'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
 				'diser_oleh' => $request->input('diser_oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
+				// 'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
 				'diket_oleh' => $request->input('diket_oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
+				// 'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
 				'diver_oleh' => $request->input('diver_oleh-input'),
 				'created_by' => Auth::user()->id
        			]);

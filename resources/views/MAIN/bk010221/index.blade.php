@@ -17,11 +17,13 @@
         <ul class="breadcrumb">
             <li class="next">
                 <a href="/main">
-                    <i class="fa fa-fw fa-home"></i> PERSIAPAN KELURAHAN
+                    <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
-            </li>
+            </li>  
             <li class="next">
-                Forum Kolaborasi - Keberfungsian Forum
+                <a href="/main/persiapan/kelurahan/forum/keberfungsian">
+                    Persiapan Kelurahan / Forum Kolaborasi / Keberfungsian Forum
+                </a>
             </li>
         </ul>
     </div>

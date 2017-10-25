@@ -57,8 +57,10 @@
                                 <th>Kecamatan</th>
                                 <th>Kelurahan</th>
                                 <th>Faskel</th>
+                                <th>Kode Kontraktor</th>
+                                <th>Mulai Kontrak</th>
+                                <th>Selesai Kontrak</th>
                                 <th>Komponen Kegiatan</th>
-                                <th>Kode Kegiatan</th>
                                 <th>Subkomponen</th>
                                 <th>Detail Subkomponen</th>
                                 <th>Lokasi Kegiatan</th>
@@ -104,8 +106,10 @@
                 { "data": "nama_kec" , name:"nama_kec"},
                 { "data": "nama_kel" , name:"nama_kel"},
                 { "data": "nama_faskel" , name:"nama_faskel"},
+                { "data": "kode_kontraktor" , name:"kode_kontraktor"},
+                { "data": "tgl_mulai_ktrk" , name:"tgl_mulai_ktrk"},
+                { "data": "tgl_selesai_ktrk" , name:"tgl_selesai_ktrk"},
                 { "data": "jenis_komponen_keg" , name:"jenis_komponen_keg"},
-                { "data": "kode_kegiatan" , name:"kode_kegiatan"},
                 { "data": "id_subkomponen" , name:"id_subkomponen"},
                 { "data": "id_dtl_subkomponen" , name:"id_dtl_subkomponen"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},

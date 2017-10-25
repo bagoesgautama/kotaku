@@ -77,9 +77,15 @@ class bk010109Controller extends Controller
 			5 =>'updated_time',
 			6 =>'updated_by'
 		);
-		$query='select a.*, b.nama nama_kmp, c.nama nama_slum_prog from bkt_01010109_kmp_slum_prog a, bkt_01010108_kmp b, bkt_01010107_slum_program c where a.kode_kmp=b.kode and a.kode_slum_prog=c.kode';
+		$query='select a.*, b.nama nama_kmp, c.nama nama_slum_prog 
+					from bkt_01010109_kmp_slum_prog a
+					left join bkt_01010108_kmp b on a.kode_kmp=b.kode 
+					left join bkt_01010107_slum_program c on a.kode_slum_prog=c.kode ';
 
-		$totalData = DB::select('select count(1) cnt from bkt_01010109_kmp_slum_prog ');
+		$totalData = DB::select('select count(1) cnt 
+									from bkt_01010109_kmp_slum_prog a
+									left join bkt_01010108_kmp b on a.kode_kmp=b.kode 
+									left join bkt_01010107_slum_program c on a.kode_slum_prog=c.kode');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');

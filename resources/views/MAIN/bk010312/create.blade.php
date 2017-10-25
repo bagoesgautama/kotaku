@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Perencanaan - Penyiapan DED, Pengadaan Skala Kota - Penyiapan Paket (DED, RAB, RKS) @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Perencanaan - Penyiapan Paket (DED, RAB, RKS) @stop {{-- local styles --}} @section('header_styles')
 
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
@@ -11,7 +11,7 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Perencanaan - Penyiapan DED, Pengadaan Skala Kota - Penyiapan Paket (DED, RAB, RKS)</h1>
+    <h1>Perencanaan - Penyiapan Paket (DED, RAB, RKS)</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">

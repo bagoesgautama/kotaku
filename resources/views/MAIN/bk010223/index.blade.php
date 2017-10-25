@@ -12,16 +12,19 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
+    <section class="content-header">
     <h1>Persiapan Kelurahan - Kelembagaan</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-            	<a href="/main">
-            		<i class="fa fa-fw fa-home"></i> PERSIAPAN KELURAHAN
-            	</a>
-            </li>
+                <a href="/main">
+                    <i class="fa fa-fw fa-home"></i> MAIN
+                </a>
+            </li>  
             <li class="next">
-	            Kelembagaan
+                <a href="/main/persiapan/kelurahan/lembaga">
+                    Persiapan Kelurahan / Kelembagaan
+                </a>
             </li>
         </ul>
     </div>

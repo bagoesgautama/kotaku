@@ -17,11 +17,13 @@
         <ul class="breadcrumb">
             <li class="next">
                 <a href="/main">
-                    <i class="fa fa-fw fa-home"></i> PERSIAPAN KELURAHAN
+                    <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
-            </li>
+            </li>  
             <li class="next">
-                Forum Kolaborasi - Keanggotaan
+                <a href="/main/persiapan/kelurahan/forum/keanggotaan">
+                    Persiapan Kelurahan / Forum Kolaborasi / Keanggotaan
+                </a>
             </li>
         </ul>
     </div>
@@ -42,7 +44,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users">
+                    <table class="table table-striped" id="users" width="4000px">
                         <thead>
                             <tr>
                                 <th>Tahun</th>
@@ -52,6 +54,15 @@
                                 <th>KMW</th>
                                 <th>Kelurahan</th>
                                 <th>Faskel</th>
+                                <th>Jenis Kegiatan</th>
+                                <th>Tanggal Kegiatan</th>
+                                <th>Lokasi</th>
+                                <th>Anggota Pria</th>
+                                <th>Anggota Wanita</th>
+                                <th>Anggota Pemerintah Desa</th>
+                                <th>Anggota Pemerintah BPD</th>
+                                <th>Anggota Non Pemerintah</th>
+                                <th>Dana Operasional</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -84,6 +95,15 @@
                 { "data": "nama_kmw" , name:"nama_kmw"},
                 { "data": "nama_kel" , name:"nama_kel"},
                 { "data": "nama_faskel" , name:"nama_faskel"},
+                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
+                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
+                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+                { "data": "q_anggota_p" , name:"q_anggota_p"},
+                { "data": "q_anggota_w" , name:"q_anggota_w"},
+                { "data": "q_anggota_pem_desa" , name:"q_anggota_pem_desa"},
+                { "data": "q_anggota_pem_bpd" , name:"q_anggota_pem_bpd"},
+                { "data": "q_anggota_non_pem" , name:"q_anggota_non_pem"},
+                { "data": "nilai_dana_ops" , name:"nilai_dana_ops"},
                 { "data": "option" , name:"option"}
             ]
         });

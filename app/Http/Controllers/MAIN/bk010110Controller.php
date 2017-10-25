@@ -90,9 +90,13 @@ class bk010110Controller extends Controller
 
 			
 		$query='select a.*, b.nama nama_prop, c.nama nama_pms 
-					from bkt_01010110_kmw a, bkt_01010101_prop b, bkt_01010115_pms c 
-					where b.kode=a.kode_prop and c.kode=a.kode_pms ';
-		$totalData = DB::select('select count(1) cnt from bkt_01010110_kmw ');
+					from bkt_01010110_kmw a 
+					left join bkt_01010101_prop b on b.kode=a.kode_prop
+					left join bkt_01010115_pms c on c.kode=a.kode_pms ';
+		$totalData = DB::select('select count(1) cnt 
+									from bkt_01010110_kmw a 
+									left join bkt_01010101_prop b on b.kode=a.kode_prop
+									left join bkt_01010115_pms c on c.kode=a.kode_pms ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');

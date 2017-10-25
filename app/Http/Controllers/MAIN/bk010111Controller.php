@@ -87,9 +87,13 @@ class bk010111Controller extends Controller
 			15 =>'updated_by'
 		);
 		$query='select a.*, b.nama nama_kmw, c.nama nama_pms 
-					from bkt_01010111_korkot a, bkt_01010110_kmw b, bkt_01010115_pms c 
-					where a.kode_kmw=b.kode and a.kode_pms=c.kode ';
-		$totalData = DB::select('select count(1) cnt from bkt_01010111_korkot');
+					from bkt_01010111_korkot a
+					left join bkt_01010110_kmw b on a.kode_kmw=b.kode
+					left join bkt_01010115_pms c on a.kode_pms=c.kode ';
+		$totalData = DB::select('select count(1) cnt
+									from bkt_01010111_korkot a
+									left join bkt_01010110_kmw b on a.kode_kmw=b.kode
+									left join bkt_01010115_pms c on a.kode_pms=c.kode ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');

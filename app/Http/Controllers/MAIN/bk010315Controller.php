@@ -77,7 +77,7 @@ class bk010315Controller extends Controller
 			19 => 'nb_apbn_lain',
 			20 => 'nb_apbd_prop',
 			21 => 'nb_apbd_kota',
-			22 => 'nb_lainya',
+			22 => 'nb_lainnya',
 			23 => 'uri_img_document',
 			24 => 'uri_img_absensi',
 			25 => 'diser_tgl',
@@ -134,8 +134,8 @@ class bk010315Controller extends Controller
 				$nestedData['nama_korkot'] = $post->nama_korkot;
 				$nestedData['nama_kec'] = $post->kode_kec;
 				$nestedData['nama_kmw'] = $post->kode_kmw;
-				$nestedData['kode_kel'] = $post->kode_kel;
-				$nestedData['kode_faskel'] = $post->kode_faskel;
+				$nestedData['nama_kel'] = $post->nama_kel;
+				$nestedData['nama_faskel'] = $post->nama_faskel;
 				$nestedData['kode_kontraktor'] = $post->kode_kontraktor;
 				$nestedData['tgl_mulai_ktrk'] = $post->tgl_mulai_ktrk;
 				$nestedData['tgl_selesai_ktrk'] = $post->tgl_selesai_ktrk;
@@ -150,7 +150,7 @@ class bk010315Controller extends Controller
 				$nestedData['nb_apbn_lain'] = $post->nb_apbn_lain;
 				$nestedData['nb_apbd_prop'] = $post->nb_apbd_prop;
 				$nestedData['nb_apbd_kota'] = $post->nb_apbd_kota;
-				$nestedData['nb_lainya'] = $post->nb_lainya;
+				$nestedData['nb_lainnya'] = $post->nb_lainnya;
 				$nestedData['uri_img_document'] = $post->uri_img_document;
 				$nestedData['uri_img_absensi'] = $post->uri_img_absensi;
 				$nestedData['diser_tgl'] = $post->diser_tgl;
@@ -263,7 +263,7 @@ class bk010315Controller extends Controller
 				$data['nb_apbn_lain'] = $rowData[0]->nb_apbn_lain;
 				$data['nb_apbd_prop'] = $rowData[0]->nb_apbd_prop;
 				$data['nb_apbd_kota'] = $rowData[0]->nb_apbd_kota;	
-				$data['nb_lainya'] = $rowData[0]->nb_lainya;
+				$data['nb_lainnya'] = $rowData[0]->nb_lainnya;
 				$data['uri_img_document'] = $rowData[0]->uri_img_document;
 				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
 				$data['diser_tgl'] = $rowData[0]->diser_tgl;
@@ -316,7 +316,7 @@ class bk010315Controller extends Controller
 				$data['nb_apbn_lain'] = null;
 				$data['nb_apbd_prop'] = null;
 				$data['nb_apbd_kota'] = null;
-				$data['nb_lainya'] = null;
+				$data['nb_lainnya'] = null;
 				$data['uri_img_document'] = null;
 				$data['uri_img_absensi'] = null;
 				$data['diser_tgl'] = null;
@@ -403,7 +403,7 @@ class bk010315Controller extends Controller
 				'nb_apbn_lain' => $request->input('nb_apbn_lain-input'),
 				'nb_apbd_prop' => $request->input('nb_apbd_prop-input'),
 				'nb_apbd_kota' => $request->input('nb_apbd_kota-input'),
-				'nb_lainya' => $request->input('nb_lainya-input'),
+				'nb_lainnya' => $request->input('nb_lainnya-input'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
 				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
@@ -442,7 +442,7 @@ class bk010315Controller extends Controller
 				'nb_apbn_lain' => $request->input('nb_apbn_lain-input'),
 				'nb_apbd_prop' => $request->input('nb_apbd_prop-input'),
 				'nb_apbd_kota' => $request->input('nb_apbd_kota-input'),
-				'nb_lainya' => $request->input('nb_lainya-input'),
+				'nb_lainnya' => $request->input('nb_lainnya-input'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
 				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),

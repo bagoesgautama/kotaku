@@ -102,10 +102,14 @@ class bk010107Controller extends Controller
 				);
 
 				$query='select a.*, b.nama nama_kota, c.nama nama_pms 	
-							from bkt_01010107_slum_program a, bkt_01010102_kota b, bkt_01010115_pms c 
-							where a.kode_kota=b.kode and a.status!=2 and a.kode_pms=c.kode';
+							from bkt_01010107_slum_program a
+							left join bkt_01010102_kota b on a.kode_kota=b.kode and a.status!=2 
+							left join bkt_01010115_pms c on a.kode_pms=c.kode ';
 
-				$totalData = DB::select('select count(1) cnt from bkt_01010107_slum_program ');
+				$totalData = DB::select('select count(1) cnt 
+											from bkt_01010107_slum_program a
+											left join bkt_01010102_kota b on a.kode_kota=b.kode and a.status!=2 
+											left join bkt_01010115_pms c on a.kode_pms=c.kode ');
 				$totalFiltered = $totalData[0]->cnt;
 				$limit = $request->input('length');
 				$start = $request->input('start');
