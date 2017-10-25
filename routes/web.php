@@ -598,6 +598,7 @@ Route::get('/main/perencanaan/kontrak_paket/create', 'MAIN\bk010315Controller@cr
 Route::post('/main/perencanaan/kontrak_paket/create', 'MAIN\bk010315Controller@post_create');
 Route::get('/main/perencanaan/kontrak_paket/delete', 'MAIN\bk010315Controller@delete');
 Route::get('/main/perencanaan/kontrak_paket/select', 'MAIN\bk010315Controller@select');
+Route::get('/main/perencanaan/kontrak_paket/select', 'MAIN\bk010315Controller@select');
 
 Route::get('/main/perencanaan/kelurahan/penanganan_kumuh', 'MAIN\bk010316Controller@index');
 Route::get('/main/perencanaan/kelurahan/penanganan_kumuh/select', 'MAIN\bk010316Controller@select');

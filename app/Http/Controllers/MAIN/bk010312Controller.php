@@ -194,8 +194,7 @@ class bk010312Controller extends Controller
 	public function select(Request $request)
 	{
 		if(!empty($request->input('kmw'))){
-			$kota = DB::select('select * from bkt_01010110_kmw a,bkt_01010102_kota b
-				where a.kode_prop=b.kode_prop and a.kode='.$request->input('kmw'));
+			$kota = DB::select('select * from bkt_01010110_kmw a,bkt_01010102_kota b where a.kode_prop=b.kode_prop and a.kode='.$request->input('kmw'));
 			echo json_encode($kota);
 		}
 		else if(!empty($request->input('kota'))){
@@ -395,11 +394,11 @@ class bk010312Controller extends Controller
 				'nb_lainnya' => $request->input('nb_lainnya-input'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
-				'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
+				// 'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
 				'diser_oleh' => $request->input('diser_oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
+				// 'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
 				'diket_oleh' => $request->input('diket_oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
+				// 'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
 				'diver_oleh' => $request->input('diver_oleh-input'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
@@ -440,11 +439,11 @@ class bk010312Controller extends Controller
 				'nb_lainnya' => $request->input('nb_lainnya-input'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
-				'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
+				// 'diser_tgl' => $this->date_conversion($request->input('diser_tgl-input')),
 				'diser_oleh' => $request->input('diser_oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
+				// 'diket_tgl' => $this->date_conversion($request->input('diket_tgl-input')),
 				'diket_oleh' => $request->input('diket_oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
+				// 'diver_tgl' => $this->date_conversion($request->input('diver-tgl-input')),
 				'diver_oleh' => $request->input('diver_oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
