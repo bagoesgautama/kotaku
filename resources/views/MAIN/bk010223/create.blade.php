@@ -38,7 +38,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form enctype="multipart/form-data" class="form-horizontal form-bordered">
+                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Tahun</label>
                                 <div class="col-sm-6">
@@ -117,9 +117,8 @@
                                 <div class="col-sm-6">
                                     <select id="select-id_kegiatan-input" class="form-control select2" name="select-id_kegiatan-input">
                                         <option value="">Please Select</option>
-                                        @foreach($kode_id_kegiatan_list as $list)
-                                            <option value="{{ $list->id }}" @if($list->id==$id_kegiatan) selected="selected" @endif >{{ $list->nama }}
-                                            </option>
+                                        @foreach ($kode_id_kegiatan_list as $kkl)
+                                            <option value="{{$kkl->id}}" {!! $id_kegiatan==$kkl->id ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -129,9 +128,8 @@
                                 <div class="col-sm-6">
                                     <select id="select-id_dtl_kegiatan-input" class="form-control select2" name="select-id_dtl_kegiatan-input">
                                         <option value="">Please Select</option>
-                                        @foreach($kode_id_dtl_kegiatan_list as $list)
-                                            <option value="{{ $list->id }}" @if($list->id==$id_dtl_kegiatan) selected="selected" @endif >{{ $list->nama }}
-                                            </option>
+                                        @foreach ($kode_id_dtl_kegiatan_list as $kkl)
+                                            <option value="{{$kkl->id}}" {!! $id_dtl_kegiatan==$kkl->id ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -389,7 +387,7 @@
                 kota.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/pemilu_bkm/select?kmw="+kmw_id,
+                    "url": "/main/persiapan/kelurahan/lembaga/select?kmw="+kmw_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -406,7 +404,7 @@
                 korkot.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/pemilu_bkm/select?kota="+kota_id,
+                    "url": "/main/persiapan/kelurahan/lembaga/select?kota="+kota_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -418,7 +416,7 @@
                 kecamatan.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/pemilu_bkm/select?korkot="+kota_id,
+                    "url": "/main/persiapan/kelurahan/lembaga/select?korkot="+kota_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -436,7 +434,7 @@
                 kelurahan.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/pemilu_bkm/select?kec="+kec_id,
+                    "url": "/main/persiapan/kelurahan/lembaga/select?kec="+kec_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -453,7 +451,7 @@
                 faskel.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/pemilu_bkm/select?faskel="+kel_id,
+                    "url": "/main/persiapan/kelurahan/lembaga/select?kel="+kel_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -470,7 +468,7 @@
                 dtl_kegiatan.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/pemilu_bkm/select?kegiatan="+kegiatan_id,
+                    "url": "/main/persiapan/kelurahan/lembaga/select?kegiatan="+kegiatan_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
