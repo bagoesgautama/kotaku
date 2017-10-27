@@ -317,67 +317,80 @@
 
         $("#select-kode_kmp_slum_prog-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "single select",
+            width:"100%"
         });
 
         $("#select-kode_prop-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "single select",
+            width:"100%"
         });
 
         $("#select-kode_kota-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "single select",
+            width:"100%"
         });
 
         $("#select-kode_kec-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "single select",
+            width:"100%"
         });
 
         $("#select-kode_kel-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "single select",
+            width:"100%"
         });
 
         $("#select-kode_faskel-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "single select",
+            width:"100%"
         });
 
         $("#select-kode_kota-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "single select",
+            width:"100%"
         });
 
         $("#select-blm-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "single select",
+            width:"100%"
         });
 
         $("#select-jenis_project-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "single select",
+            width:"100%"
         });
 
         $("#select-lokasi_blm-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "single select",
+            width:"100%"
         });
 
         $("#select-Lokasi_kumuh-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "single select",
+            width:"100%"
         });
 
         $("#select-flag_kumuh-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "single select",
+            width:"100%"
         });
 
         $("#select-flag_lokasi_ppmk-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "single select",
+            width:"100%"
         });
     });
 </script>

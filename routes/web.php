@@ -719,12 +719,21 @@ Route::post('/main/pelaksanaan/kelurahan/realisasi_kegiatan', 'MAIN\bk010410Cont
 Route::get('/main/pelaksanaan/kelurahan/realisasi_kegiatan/create', 'MAIN\bk010410Controller@create');
 Route::post('/main/pelaksanaan/kelurahan/realisasi_kegiatan/create', 'MAIN\bk010410Controller@post_create');
 Route::get('/main/pelaksanaan/kelurahan/realisasi_kegiatan/delete', 'MAIN\bk010410Controller@delete');
+Route::get('/main/pelaksanaan/kelurahan/realisasi_kegiatan/select', 'MAIN\bk010410Controller@select');
+Route::post('/main/pelaksanaan/kelurahan/realisasi_kegiatan/pemanfaat', 'MAIN\bk010410Controller@post_pemanfaat');
+Route::get('/main/pelaksanaan/kelurahan/realisasi_kegiatan/pemanfaat/create', 'MAIN\bk010410Controller@pemanfaat_create');
+Route::post('/main/pelaksanaan/kelurahan/realisasi_kegiatan/pemanfaat/create', 'MAIN\bk010410Controller@post_pemanfaat_create');
+Route::get('/main/pelaksanaan/kelurahan/realisasi_kegiatan/pemanfaat/delete', 'MAIN\bk010410Controller@delete_pemanfaat');
 
 Route::get('/main/pelaksanaan/kelurahan_non/realisasi_kegiatan', 'MAIN\bk010411Controller@index');
 Route::post('/main/pelaksanaan/kelurahan_non/realisasi_kegiatan', 'MAIN\bk010411Controller@post');
 Route::get('/main/pelaksanaan/kelurahan_non/realisasi_kegiatan/create', 'MAIN\bk010411Controller@create');
 Route::post('/main/pelaksanaan/kelurahan_non/realisasi_kegiatan/create', 'MAIN\bk010411Controller@post_create');
 Route::get('/main/pelaksanaan/kelurahan_non/realisasi_kegiatan/delete', 'MAIN\bk010411Controller@delete');
+Route::post('/main/pelaksanaan/kelurahan_non/realisasi_kegiatan/pemanfaat', 'MAIN\bk010411Controller@post_pemanfaat');
+Route::get('/main/pelaksanaan/kelurahan_non/realisasi_kegiatan/pemanfaat/create', 'MAIN\bk010411Controller@pemanfaat_create');
+Route::post('/main/pelaksanaan/kelurahan_non/realisasi_kegiatan/pemanfaat/create', 'MAIN\bk010411Controller@post_pemanfaat_create');
+Route::get('/main/pelaksanaan/kelurahan_non/realisasi_kegiatan/pemanfaat/delete', 'MAIN\bk010411Controller@delete_pemanfaat');
 
 Route::get('/main/pelaksanaan/kelurahan_non/sertifikasi_infra', 'MAIN\bk010412Controller@index');
 Route::post('/main/pelaksanaan/kelurahan_non/sertifikasi_infra', 'MAIN\bk010412Controller@post');

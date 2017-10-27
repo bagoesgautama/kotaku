@@ -837,36 +837,36 @@
 			</li>
 			@endif
 			@if( ! empty($menu['111']))
-			<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+			<li {!! (Request::is( 'main/pelaksanaan/kelurahan/*')||Request::is( 'main/pelaksanaan/kelurahan/*/create')? 'class="active"': "") !!}>
 				<a href="javascript:void(0)">
 					<span class="mm-text">Realisasi kegiatan skala kelurahan</span>
 					<span class="fa arrow"></span>
 				</a>
 				<ul class="sub-menu form-submenu">
 					@if( ! empty($menu['119']))
-					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
-						<a href="/main/data_wilayah/provinsi">
+					<li {!! (Request::is( 'main/pelaksanaan/kelurahan/pagu_pencairan')||Request::is( 'main/pelaksanaan/kelurahan/pagu_pencairan/create')? 'class="active"': "") !!}>
+						<a href="/main/pelaksanaan/kelurahan/pagu_pencairan">
 							<span class="mm-text">Pagu Dan Pencairan Dana Kotaku Program</span>
 						</a>
 					</li>
 					@endif
 					@if( ! empty($menu['120']))
-					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
-						<a href="/main/data_wilayah/provinsi">
+					<li {!! (Request::is( 'main/pelaksanaan/kelurahan/ksm')||Request::is( 'main/pelaksanaan/kelurahan/ksm/create')? 'class="active"': "") !!}>
+						<a href="/main/pelaksanaan/kelurahan/ksm">
 							<span class="mm-text">KSM Pelaksana Kegiatan</span>
 						</a>
 					</li>
 					@endif
 					@if( ! empty($menu['121']))
-					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
-						<a href="/main/data_wilayah/provinsi">
+					<li {!! (Request::is( 'main/pelaksanaan/kelurahan/sertifikasi_infra')||Request::is( 'main/pelaksanaan/kelurahan/sertifikasi_infra/create')? 'class="active"': "") !!}>
+						<a href="/main/pelaksanaan/kelurahan/sertifikasi_infra">
 							<span class="mm-text">Sertifikasi Infrastruktur</span>
 						</a>
 					</li>
 					@endif
 					@if( ! empty($menu['122']))
-					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
-						<a href="/main/data_wilayah/provinsi">
+					<li {!! (Request::is( 'main/pelaksanaan/kelurahan/realisasi_kegiatan')||Request::is( 'main/pelaksanaan/kelurahan/realisasi_kegiatan/create')? 'class="active"': "") !!}>
+						<a href="/main/pelaksanaan/kelurahan/realisasi_kegiatan">
 							<span class="mm-text">Realisasi Kegiatan Skala Kelurahan</span>
 						</a>
 					</li>
@@ -875,22 +875,22 @@
 			</li>
 			@endif
 			@if( ! empty($menu['112']))
-			<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+			<li {!! (Request::is( 'main/pelaksanaan/kelurahan_non/*')||Request::is( 'main/pelaksanaan/kelurahan_non/*/create')? 'class="active"': "") !!}>
 				<a href="javascript:void(0)">
 					<span class="mm-text">Realisasi kegiatan skala kelurahan (Non BDI Kolaborasi)</span>
 					<span class="fa arrow"></span>
 				</a>
 				<ul class="sub-menu form-submenu">
 					@if( ! empty($menu['123']))
-					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
-						<a href="/main/pelaksanaan/provinsi">
+					<li {!! (Request::is( 'main/pelaksanaan/kelurahan_non/realisasi_kegiatan')||Request::is( 'main/pelaksanaan/kelurahan_non/realisasi_kegiatan/create')? 'class="active"': "") !!}>
+						<a href="/main/pelaksanaan/kelurahan_non/realisasi_kegiatan">
 							<span class="mm-text">Realisasi Kegiatan Skala kelurahan</span>
 						</a>
 					</li>
 					@endif
 					@if( ! empty($menu['124']))
-					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
-						<a href="/main/pelaksanaan/provinsi">
+					<li {!! (Request::is( 'main/pelaksanaan/kelurahan_non/sertifikasi_infra')||Request::is( 'main/pelaksanaan/kelurahan_non/sertifikasi_infra/create')? 'class="active"': "") !!}>
+						<a href="/main/pelaksanaan/kelurahan_non/sertifikasi_infra">
 							<span class="mm-text">Sertifikasi Infrastruktur</span>
 						</a>
 					</li>

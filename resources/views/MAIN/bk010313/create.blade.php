@@ -39,7 +39,7 @@
                 <ul class="nav nav-tabs ">
                     <li class="active">
                         <a href="#tab1" data-toggle="tab">
-                                        Data Rencana Investasi Tahunan
+                                        Paket Kerja Kontraktor
                                     </a>
                     </li>
                     <li>
@@ -77,7 +77,7 @@
                                             <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                             <select id="select-kode-plan-inves-input" name="kode-plan-inves-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
-                                                @foreach ($kode_plan_inves_list as $kpil)
+                                                @foreach ($paket_kerja_kontraktor_list as $kpil)
                                                     <option value="{{$kpil->kode}}" {!! $kode_parent==$kpil->kode ? 'selected':'' !!}>{{$kpil->kode}}</option>
                                                 @endforeach
                                             </select>
