@@ -53,19 +53,15 @@
                     <table class="table table-striped" id="pokja">
                         <thead>
                             <tr>
-                                <th>Kode Realisasi Kontrak Paket Pekerjaan Kontraktor</th>
-                                <th>Kode Kontrak Paket Pekerjaan Kontraktor</th>
+                                <th>Data Realisasi Kegiatan</th>
                                 <th>Sumber Dana</th>
-                                <th>KMW</th>
+                                <th>Sertifikasi</th>
                                 <th>Kota</th>
-                                <th>Korkot</th>
                                 <th>Kawasan</th>
-                                <th>KPP</th>
                                 <th>Tahun</th>
                                 <th>Tgl Realisasi</th>
                                 <th>Vol Realisasi</th>
                                 <th>Satuan</th>
-                                <th>Sertifikasi</th>
                                 <th>Created Time</th>
                                 <th>Option</th>
                             </tr>
@@ -93,22 +89,19 @@
                    },
 
             "columns": [
-                { "data": "kode" , name:"kode"},
                 { "data": "kode_parent" , name:"kode_parent"},
                 { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
+                { "data": "hasil_sertifikasi" , name:"hasil_sertifikasi"},
                 { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
                 { "data": "kode_kawasan" , name:"kode_kawasan"},
-                { "data": "id_kpp" , name:"id_kpp"},
                 { "data": "tahun" , name:"tahun"},
                 { "data": "tgl_realisasi" , name:"tgl_realisasi"},
                 { "data": "vol_realisasi" , name:"vol_realisasi"},
                 { "data": "satuan" , name:"satuan"},
-                { "data": "hasil_sertifikasi" , name:"hasil_sertifikasi"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order":[[9,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

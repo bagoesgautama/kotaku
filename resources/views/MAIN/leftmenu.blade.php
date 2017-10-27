@@ -779,10 +779,27 @@
 					</li>
 					@endif
 					@if( ! empty($menu['115']))
-					<li {!! (Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/create')? 'class="active"': "") !!}>
-						<a href="/main/pelaksanaan/kota_bdi/realisasi_kontrak">
+					<li {!! (Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/create')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/pemanfaat')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/pemanfaat/create')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/sertias')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/sertias/create')? 'class="active"': "") !!}>
+						<a href="javascript:void(0)">
 							<span class="mm-text">Realisasi Kontrak Paket Pekerjaan dari Kontraktor</span>
+							<span class="fa arrow"></span>
 						</a>
+						<ul class="form-sub-submenu">
+							@if( ! empty($menu['115']))
+							<li {!! (Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/create')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/pemanfaat')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/pemanfaat/create')? 'class="active"': "") !!}>
+								<a href="/main/pelaksanaan/kota_bdi/realisasi_kontrak">
+									<span class="mm-text">Realisasi Kontrak</span>
+								</a>
+							</li>
+							@endif
+							@if( ! empty($menu['115']))
+							<li  {!! (Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/sertias')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/sertias/create')? 'class="active"': "") !!}>
+								<a href="/main/pelaksanaan/kota_bdi/realisasi_kontrak/sertias">
+									<span class="mm-text">Serah Terima Aset</span>
+								</a>
+							</li>
+							@endif
+						</ul>
 					</li>
 					@endif
 					@if( ! empty($menu['116']))
@@ -803,7 +820,7 @@
 				</a>
 				<ul class="sub-menu form-submenu">
 					@if( ! empty($menu['117']))
-					<li {!! (Request::is( 'main/pelaksanaan/kota_non/realisasi_kegiatan')||Request::is( 'main/pelaksanaan/kota_non/realisasi_kegiatan/create')? 'class="active"': "") !!}>
+					<li {!! (Request::is( 'main/pelaksanaan/kota_non/realisasi_kegiatan')||Request::is( 'main/pelaksanaan/kota_non/realisasi_kegiatan/create')||Request::is( 'main/pelaksanaan/kota_non/realisasi_kegiatan/pemanfaat')||Request::is( 'main/pelaksanaan/kota_non/realisasi_kegiatan/pemanfaat/create')? 'class="active"': "") !!}>
 				        <a href="/main/pelaksanaan/kota_non/realisasi_kegiatan">
 				            <span class="mm-text ">Realisasi Kegiatan Skala Kota</span>
 				        </a>

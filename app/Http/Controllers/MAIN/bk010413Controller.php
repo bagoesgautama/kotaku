@@ -51,33 +51,31 @@ class bk010413Controller extends Controller
 
     public function select(Request $request)
 	{
-		if(!empty($request->input('kode_parent_tahun'))){
-			$tahun = DB::select('select tahun from bkt_01040201_real_keg where kode='.$request->input('kode_parent_tahun'));
-			echo json_encode($tahun);
-		}
-		if(!empty($request->input('kode_parent_tglreal'))){
-			$tahun = DB::select('select tgl_realisasi from bkt_01040201_real_keg where kode='.$request->input('kode_parent_tglreal'));
-			echo json_encode($tahun);
-		}
-		if(!empty($request->input('kode_parent_kmw'))){
-			$kmw = DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010110_kmw b where a.kode_kmw=b.kode and a.kode='.$request->input('kode_parent_kmw'));
-			echo json_encode($kmw);
-		}
-		if(!empty($request->input('kode_parent_kota'))){
-			$kota = DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010102_kota b where a.kode_kota=b.kode and a.kode='.$request->input('kode_parent_kota'));
-			echo json_encode($kota);
-		}
-		if(!empty($request->input('kode_parent_korkot'))){
-			$korkot = DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode='.$request->input('kode_parent_korkot'));
-			echo json_encode($korkot);
-		}
-		if(!empty($request->input('kode_parent_kawasan'))){
-			$kawasan = DB::select('select b.id, b.kode_kawasan, b.nama from bkt_01040201_real_keg a, bkt_01010123_kawasan b where a.kode_kawasan=b.id and a.kode='.$request->input('kode_parent_kawasan'));
-			echo json_encode($kawasan);
-		}
-		if(!empty($request->input('kode_parent_ksm'))){
-			$korkot = DB::select('select b.id, b.kode_ksm,b.nama from bkt_01040201_real_keg a, bkt_01010128_ksm b where a.id_ksm=b.id and a.kode='.$request->input('kode_parent_ksm'));
-			echo json_encode($korkot);
+		if(!empty($request->input('kode_parent'))){
+			$data = DB::select('select 
+				a.*, b.nama nama_kota,
+				c.nama nama_korkot,
+				d.nama nama_kmw,
+				e.kode_kawasan kode_kawasan,
+				e.nama nama_kawasan,
+				f.kode_ksm kode_ksm,
+				f.nama nama_ksm,
+				g.nama nama_kpp,
+				h.jenis_komponen_keg,
+				i.nama nama_subkomponen,
+				j.nama nama_dtl_subkomponen
+			from bkt_01040201_real_keg a
+				left join bkt_01010102_kota b on b.kode=a.kode_kota
+				left join bkt_01010111_korkot c on c.kode=a.kode_korkot
+				left join bkt_01010110_kmw d on d.kode=a.kode_kmw
+				left join bkt_01010123_kawasan e on e.id=a.kode_kawasan
+				left join bkt_01010128_ksm f on f.id=a.id_ksm
+				left join bkt_01010129_kpp g on g.id=a.id_kpp 
+				left join bkt_01030208_usulan_keg_kt h on h.kode=a.kode_parent 
+				left join bkt_01010120_subkomponen i on i.id=h.id_subkomponen
+				left join bkt_01010121_dtl_subkomponen j on j.id=h.id_dtl_subkomponen 
+			where a.kode='.$request->input('kode_parent'));
+			echo json_encode($data);
 		}
 	}
 
@@ -206,7 +204,7 @@ class bk010413Controller extends Controller
 				if(!empty($detil['507'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['508'])){
+				if(!empty($detil['507'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				}
 				$nestedData['option'] = $option;
@@ -237,17 +235,38 @@ class bk010413Controller extends Controller
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
 			if($data['kode']!=null  && !empty($data['detil']['507'])){
-				$rowData = DB::select('select * from bkt_01040201_real_keg where kode='.$data['kode']);
+				$rowData = DB::select('
+				select 
+					a.*, b.nama nama_kota,
+					c.nama nama_korkot,
+					d.nama nama_kmw,
+					e.nama nama_kawasan,
+					f.nama nama_ksm,
+					g.nama nama_kpp,
+					h.jenis_komponen_keg,
+					i.nama nama_subkomponen,
+					j.nama nama_dtl_subkomponen
+				from bkt_01040201_real_keg a
+					left join bkt_01010102_kota b on b.kode=a.kode_kota
+					left join bkt_01010111_korkot c on c.kode=a.kode_korkot
+					left join bkt_01010110_kmw d on d.kode=a.kode_kmw
+					left join bkt_01010123_kawasan e on e.id=a.kode_kawasan
+					left join bkt_01010128_ksm f on f.id=a.id_ksm
+					left join bkt_01010129_kpp g on g.id=a.id_kpp 
+					left join bkt_01030208_usulan_keg_kt h on h.kode=a.kode_parent 
+					left join bkt_01010120_subkomponen i on i.id=h.id_subkomponen
+					left join bkt_01010121_dtl_subkomponen j on j.id=h.id_dtl_subkomponen 
+				where a.kode='.$data['kode']);
 				$data['jns_sumber_dana'] = $rowData[0]->jns_sumber_dana;
 				$data['kode_parent'] = $rowData[0]->kode_parent;
-				$data['kode_kota'] = $rowData[0]->kode_kota;
-				$data['kode_korkot'] = $rowData[0]->kode_korkot;
-				$data['kode_kec'] = $rowData[0]->kode_kec;
-				$data['kode_kmw'] = $rowData[0]->kode_kmw;
-				$data['kode_kel'] = $rowData[0]->kode_kel;
-				$data['kode_faskel'] = $rowData[0]->kode_faskel;
-				$data['kode_kawasan'] = $rowData[0]->kode_kawasan;
-				$data['id_ksm'] = $rowData[0]->id_ksm;
+				$data['kode_kota'] = $rowData[0]->nama_kota;
+				$data['kode_korkot'] = $rowData[0]->nama_korkot;
+				// $data['kode_kec'] = $rowData[0]->nama_kec;
+				$data['kode_kmw'] = $rowData[0]->nama_kmw;
+				// $data['kode_kel'] = $rowData[0]->kode_kel;
+				// $data['kode_faskel'] = $rowData[0]->kode_faskel;
+				$data['kode_kawasan'] = $rowData[0]->nama_kawasan;
+				$data['id_ksm'] = $rowData[0]->nama_ksm;
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['tgl_realisasi'] = $rowData[0]->tgl_realisasi;
 				$data['vol_realisasi'] = $rowData[0]->vol_realisasi;
@@ -277,20 +296,20 @@ class bk010413Controller extends Controller
 						left join bkt_01010121_dtl_subkomponen d on d.id=b.id_dtl_subkomponen 
 					where
 						a.kode='.$request->input('kode'));
-				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
-				if(!empty($request->input('kode')))
-					$data['kode_kmw_list']=DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010110_kmw b where a.kode_kmw=b.kode and a.kode='.$request->input('kode'));
-				if(!empty($request->input('kode')))
-					$data['kode_kota_list']=DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010102_kota b where a.kode_kota=b.kode and a.kode='.$data['kode']);
-				if(!empty($request->input('kode')))
-					$data['kode_korkot_list']=DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode='.$request->input('kode'));
-				if(!empty($request->input('kode')))
-					$data['kode_kawasan_list']=DB::select('select b.id, b.kode_kawasan, b.nama from bkt_01040201_real_keg a, bkt_01010123_kawasan b where a.kode_kota=b.kode_kota and a.kode='.$request->input('kode'));
-				$data['kode_ksm_list'] = DB::select('select * from bkt_01010128_ksm where id='.$rowData[0]->id_ksm);
-				$data['kode_kpp_list'] = DB::select('select * from bkt_01010129_kpp where id='.$rowData[0]->id_kpp);
+				// $data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
+				// if(!empty($request->input('kode')))
+				// 	$data['kode_kmw_list']=DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010110_kmw b where a.kode_kmw=b.kode and a.kode='.$request->input('kode'));
+				// if(!empty($request->input('kode')))
+				// 	$data['kode_kota_list']=DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010102_kota b where a.kode_kota=b.kode and a.kode='.$data['kode']);
+				// if(!empty($request->input('kode')))
+				// 	$data['kode_korkot_list']=DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode='.$request->input('kode'));
+				// if(!empty($request->input('kode')))
+				// 	$data['kode_kawasan_list']=DB::select('select b.id, b.kode_kawasan, b.nama from bkt_01040201_real_keg a, bkt_01010123_kawasan b where a.kode_kota=b.kode_kota and a.kode='.$request->input('kode'));
+				// $data['kode_ksm_list'] = DB::select('select * from bkt_01010128_ksm where id='.$rowData[0]->id_ksm);
+				// $data['kode_kpp_list'] = DB::select('select * from bkt_01010129_kpp where id='.$rowData[0]->id_kpp);
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010413/create',$data);
-			}else if ($data['kode']==null  && !empty($data['detil']['506'])){
+			}else if ($data['kode']==null  && !empty($data['detil']['507'])){
 				$data['jns_sumber_dana'] = 1;
 				$data['kode_parent'] = null;
 				$data['kode_kota'] = null;
@@ -333,12 +352,6 @@ class bk010413Controller extends Controller
 						a.jns_sumber_dana=1 and
 						a.flag_sudah_sertias is null or 
 						a.flag_sudah_sertias=0');
-				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
-				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
-				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
-				$data['kode_kawasan_list'] = DB::select('select * from bkt_01010123_kawasan');
-				$data['kode_ksm_list'] = DB::select('select * from bkt_01010128_ksm where status=1');
-				$data['kode_kpp_list'] = DB::select('select * from bkt_01010129_kpp where status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user'); 
 				return view('MAIN/bk010413/create',$data);
 			}else{
@@ -391,7 +404,7 @@ class bk010413Controller extends Controller
 			'updated_time' => date('Y-m-d H:i:s')
 			]);
 
-		$this->log_aktivitas('Delete', 508);
+		$this->log_aktivitas('Delete', 507);
         return Redirect::to('/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias');
     }
 

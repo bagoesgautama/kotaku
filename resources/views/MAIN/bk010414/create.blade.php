@@ -32,8 +32,8 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias">
-                    Pelaksanaan / Realisasi Kegiatan Skala Kota (BDI/Non BDI) / Realisasi Kegiatan Skala Kota / Serah Terima Aset
+                <a href="/main/pelaksanaan/kota_bdi/realisasi_kontrak/sertias">
+                    Pelaksanaan / Realisasi Kegiatan Skala Kota (BDI/Non BDI) / Realisasi Kontrak Paket Pekerjaan dari Kontraktor / Serah Terima Aset
                 </a>
             </li>
             <li class="next">
@@ -51,7 +51,7 @@
                 <ul class="nav nav-tabs ">
                     <li class="active">
                         <a href="#tab1" data-toggle="tab">
-                                        Data Realisasi Kegiatan
+                                        Data Realisasi Kontrak
                                     </a>
                     </li>
                     <li>
@@ -79,7 +79,7 @@
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Data Realisasi Kegiatan</label>
+                                        <label class="col-sm-3 control-label">Data Realisasi Kontrak</label>
                                         <div class="col-sm-6">
                                             <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                             <select id="select-kode-parent-input" name="kode-parent-input" class="form-control select2" size="1" required>
@@ -134,12 +134,6 @@
                                         <label class="col-sm-3 control-label">Kawasan</label>
                                         <div class="col-sm-6">
                                             <input type="text" id="select-kode-kawasan-input" name="kode-kawasan-input" class="form-control select2" size="1" readonly value="{{$kode_kawasan}}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">KSM</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" id="select-kode-ksm-input" name="id_ksm" class="form-control select2" size="1" readonly value="{{$id_ksm}}">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -224,7 +218,7 @@
                     </div> -->
                     <div class="form-group form-actions">
                         <div class="col-sm-9 col-sm-offset-3">
-                            <a href="/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias" type="button" class="btn btn-effect-ripple btn-danger">
+                            <a href="/main/pelaksanaan/kota_bdi/realisasi_kontrak/sertias" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -279,7 +273,7 @@
             type: 'post',
             processData: false,
             contentType: false,
-            "url": "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/create",
+            "url": "/main/pelaksanaan/kota_bdi/realisasi_kontrak/sertias/create",
             data: form_data,
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
@@ -287,7 +281,7 @@
             success: function () {
 
             alert('From Submitted.');
-            window.location.href = "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias";
+            window.location.href = "/main/pelaksanaan/kota_bdi/realisasi_kontrak/sertias";
             },
             error: function (xhr, ajaxOptions, thrownError) {
               alert(xhr.status);
@@ -328,7 +322,6 @@
         var kota = $('#select-kode-kota-input');
         var korkot = $('#select-kode-korkot-input');
         var kawasan = $('#select-kode-kawasan-input');
-        var ksm = $('#select-kode-ksm-input');
         var tgl_realisasi = $('#tgl_realisasi');
         var parent_id,kmw_id,kota_id,korkot_id;
 
@@ -338,7 +331,7 @@
                 tahun.empty();
                 $.ajax({
                     type: 'get',
-                    "url": "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/select?kode_parent="+parent_id,
+                    "url": "/main/pelaksanaan/kota_bdi/realisasi_kontrak/sertias/select?kode_parent="+parent_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -347,7 +340,6 @@
                             kota.val(data[0].nama_kota);
                             korkot.val(data[0].nama_korkot);
                             kawasan.val(data[0].kode_kawasan+' '+data[0].nama_kawasan);
-                            ksm.val(data[0].kode_ksm+' '+data[0].nama_ksm);
                             tgl_realisasi.val(data[0].tgl_realisasi);
                         }
                     }

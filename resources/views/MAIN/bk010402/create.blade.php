@@ -51,11 +51,21 @@
                 <ul class="nav nav-tabs ">
                     <li class="active">
                         <a href="#tab1" data-toggle="tab">
-                                        Data Usulan Kegiatan
+                                        Data Kontrak Paket Kerja Kontraktor
                                     </a>
                     </li>
                     <li>
                         <a href="#tab2" data-toggle="tab">
+                                        Data Umum
+                                    </a>
+                    </li>
+                    <li>
+                        <a href="#tab3" data-toggle="tab">
+                                        Data Kontrak
+                                    </a>
+                    </li>
+                    <li>
+                        <a href="#tab4" data-toggle="tab">
                                         Data Pencairan Kepada Kontraktor
                                     </a>
                     </li>
@@ -80,7 +90,7 @@
                                             <select id="select-kode-parent-input" name="kode-parent-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
                                                 @foreach ($kode_parent_list as $kpl)
-                                                    <option value="{{$kpl->kode}}" {!! $kode==$kpl->kode ? 'selected':'' !!}>{{$kpl->jenis_komponen_keg.'-'.$kpl->nama_subkomponen.'-'.$kpl->nama_dtl_subkomponen}}</option>
+                                                    <option value="{{$kpl->kode}}" {!! $kode_parent==$kpl->kode ? 'selected':'' !!}>{{$kpl->jenis_komponen_keg.'-'.$kpl->nama_subkomponen.'-'.$kpl->nama_dtl_subkomponen}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -94,33 +104,133 @@
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Skala Kegiatan Infrastruktur</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="skala_kegiatan" name="skala_kegiatan" value="{{$skala_kegiatan}}" class="form-control" size="1" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label" for="kode">Tahun</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="tahun-input" name="tahun-input" readonly maxlength="4" class="form-control" value="{{$tahun}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">KMW</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" readonly value="{{$kode_kmw}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Kota</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" readonly value="{{$kode_kota}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Korkot</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" readonly value="{{$kode_korkot}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Kecamatan</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1" readonly value="{{$kode_kec}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Kelurahan</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="select-kode-kel-input" name="kode-kel-input" class="form-control select2" size="1" readonly value="{{$kode_kel}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Faskel</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1" readonly value="{{$kode_faskel}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab3" class="tab-pane fade ">
+                        <div class="panel " >
+                            <div class="panel-body border">
+                                <div class="row">
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Nama Kontraktor</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="select-kode-kontraktor-input" name="kode-kontraktor-input" class="form-control select2" size="1" readonly value="{{$kode_kontraktor}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Mulai Kontrak</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" id="tgl_mulai_kontrak" name="tgl_mulai_kontrak" readonly value="{{$tgl_mulai_ktrk}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Akhir Kontrak</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" id="tgl_selesai_kontrak" name="tgl_selesai_kontrak" readonly value="{{$tgl_selesai_ktrk}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Komponen Kegiatan</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="select-kode-komponen-input" name="kode-komponen-input" class="form-control select2" size="1" readonly value="{{$jenis_komponen_keg}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Sub Komponen Kegiatan</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="select-kode-subkomponen-input" name="kode-subkomponen-input" class="form-control select2" size="1" readonly value="{{$id_subkomponen}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Sub Detail Komponen Kegiatan</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="select-kode-subdtlkomponen-input" name="kode-subdtlkomponen-input" class="form-control select2" size="1" readonly value="{{$id_dtl_subkomponen}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab4" class="tab-pane fade ">
+                        <div class="panel " >
+                            <div class="panel-body border">
+                                <div class="row">
+                                    <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="kode">Uang Muka (Rp)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="rp_uang_muka" name="rp_uang_muka" placeholder="Nilai" value="{{$rp_uang_muka}}" required maxlength="27" class="form-control">
+                                            <input type="number" id="rp_uang_muka" name="rp_uang_muka" placeholder="Nilai" value="{{$rp_uang_muka}}" maxlength="27" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="kode">Termin 1 (Rp)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="rp_termin1" name="rp_termin1" placeholder="Nilai" value="{{$rp_termin1}}" required maxlength="27" class="form-control">
+                                            <input type="number" id="rp_termin1" name="rp_termin1" placeholder="Nilai" value="{{$rp_termin1}}" maxlength="27" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="kode">Termin 2 (Rp)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="rp_termin2" name="rp_termin2" placeholder="Nilai" value="{{$rp_termin2}}" required maxlength="27" class="form-control">
+                                            <input type="number" id="rp_termin2" name="rp_termin2" placeholder="Nilai" value="{{$rp_termin2}}" maxlength="27" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="kode">Termin 3 (Rp)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="tahun-input" name="tahun-input" placeholder="Nilai" value="{{$tahun}}" required maxlength="27" class="form-control">
+                                            <input type="number" id="rp_termin3" name="rp_termin3" placeholder="Nilai" value="{{$rp_termin3}}" maxlength="27" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="kode">Progress Keuangan (%)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="rp_termin3" name="rp_termin3" placeholder="Nilai" value="{{$rp_termin3}}" required maxlength="6" class="form-control">
+                                            <input type="number" id="rp_progress" name="rp_progress" placeholder="Nilai" value="{{$rp_progress}}" maxlength="6" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -276,11 +386,18 @@
 
         var parent = $('#select-kode-parent-input');
         var tahun = $('#tahun-input');
+        var skala_kegiatan = $('#skala_kegiatan');
         var kmw = $('#select-kode-kmw-input');
         var kota = $('#select-kode-kota-input');
         var korkot = $('#select-kode-korkot-input');
-        var tgl_realisasi = $('#tgl_realisasi');
-        var parent_id,kmw_id,kota_id,korkot_id;
+        var kontraktor = $('#select-kode-kontraktor-input');
+        var tgl_mulai_kontrak = $('#tgl_mulai_kontrak');
+        var tgl_selesai_kontrak = $('#tgl_selesai_kontrak');
+        var komponen = $('#select-kode-komponen-input');
+        var subkomponen = $('#select-kode-subkomponen-input');
+        var subdtlkomponen = $('#select-kode-subdtlkomponen-input');
+
+        var parent_id;
 
         parent.change(function(){
             parent_id=parent.val();
@@ -288,47 +405,22 @@
                 tahun.empty();
                 $.ajax({
                     type: 'get',
-                    "url": "/main/pelaksanaan/kota_bdi/pencairan_kontraktor/select?kode_parent_tahun="+parent_id,
+                    "url": "/main/pelaksanaan/kota_bdi/pencairan_kontraktor/select?kode_parent="+parent_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
                             tahun.val(data[0].tahun);
-                        }
-                    }
-                });
+                            skala_kegiatan.val(data[0].skala_kegiatan);
+                            kmw.val(data[0].nama_kmw);
+                            kota.val(data[0].nama_kota);
+                            korkot.val(data[0].nama_korkot);
+                            kontraktor.val(data[0].nama_kontraktor);
+                            tgl_mulai_kontrak.val(data[0].tgl_mulai_ktrk);
+                            tgl_selesai_kontrak.val(data[0].tgl_selesai_ktrk);
+                            komponen.val(data[0].jenis_komponen_keg);
+                            subkomponen.val(data[0].nama_subkomponen);
+                            subdtlkomponen.val(data[0].nama_dtl_subkomponen);
 
-                kmw.empty();
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/select?kode_parent_kmw="+parent_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kmw.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-
-                kota.empty();
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/select?kode_parent_kota="+parent_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-
-                korkot.empty();
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/select?kode_parent_korkot="+parent_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
                         }
                     }
                 });

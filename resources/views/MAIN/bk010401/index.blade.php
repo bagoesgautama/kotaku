@@ -58,12 +58,8 @@
                             <tr>
                                 <th>Data Usulan Kegiatan</th>
                                 <th>Sumber Dana</th>
-                                <th>KMW</th>
                                 <th>Kota</th>
-                                <th>Korkot</th>
                                 <th>Kawasan</th>
-                                <th>KSM</th>
-                                <th>KPP</th>
                                 <th>Tahun</th>
                                 <th>Tgl Realisasi</th>
                                 <th>Vol Realisasi</th>
@@ -97,12 +93,8 @@
             "columns": [
                 { "data": "kode_parent" , name:"kode_parent"},
                 { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
                 { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
                 { "data": "kode_kawasan" , name:"kode_kawasan"},
-                { "data": "id_ksm" , name:"id_ksm"},
-                { "data": "id_kpp" , name:"id_kpp"},
                 { "data": "tahun" , name:"tahun"},
                 { "data": "tgl_realisasi" , name:"tgl_realisasi"},
                 { "data": "vol_realisasi" , name:"vol_realisasi"},
@@ -110,7 +102,7 @@
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
             ],
-            "order": [[12,"desc"]]
+            "order": [[8,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

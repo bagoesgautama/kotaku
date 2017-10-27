@@ -29,7 +29,7 @@
                 Realisasi Kegiatan Skala Kota (BDI/Non BDI)
             </li>
             <li class="next">
-                Realisasi Kegiatan Skala Kota
+                Realisasi Kontrak Paket Pekerjaan dari Kontraktor
             </li>
             <li class="next">
                 Serah Terima Aset
@@ -45,9 +45,9 @@
                 <!-- <div class="panel-title pull-left">
                     <b>bk010401 index</b>
                 </div> -->
-                @if( ! empty($detil['507']))
+                @if( ! empty($detil['356']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/create'}}">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kota_bdi/realisasi_kontrak/sertias/create'}}">Create</a>
                 </div>
                 @endif
             </div>
@@ -56,7 +56,7 @@
                     <table class="table table-striped" id="pokja">
                         <thead>
                             <tr>
-                                <th>Data Realisasi Kegiatan</th>
+                                <th>Data Realisasi Kontrak</th>
                                 <th>Sumber Dana</th>
                                 <th>Serah Terima Aset</th>
                                 <th>Tgl Serah Terima Aset</th>
@@ -64,7 +64,6 @@
                                 <th>Kota</th>
                                 <th>Korkot</th>
                                 <th>Kawasan</th>
-                                <th>KSM</th>
                                 <th>KPP</th>
                                 <th>Tahun</th>
                                 <th>Tgl Realisasi</th>
@@ -91,7 +90,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias",
+                     "url": "/main/pelaksanaan/kota_bdi/realisasi_kontrak/sertias",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -105,7 +104,6 @@
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_korkot" , name:"kode_korkot"},
                 { "data": "kode_kawasan" , name:"kode_kawasan"},
-                { "data": "id_ksm" , name:"id_ksm"},
                 { "data": "id_kpp" , name:"id_kpp"},
                 { "data": "tahun" , name:"tahun"},
                 { "data": "tgl_realisasi" , name:"tgl_realisasi"},
@@ -114,7 +112,7 @@
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
             ],
-            "order": [[14,"desc"]]
+            "order": [[13,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {
