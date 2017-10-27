@@ -398,6 +398,7 @@ class bk010405Controller extends Controller
 				$data['tgl_realisasi'] = $rowData[0]->tgl_realisasi;
 				$data['vol_realisasi'] = $rowData[0]->vol_realisasi;
 				$data['satuan'] = $rowData[0]->satuan;
+				$data['skala_kegiatan'] = $rowData[0]->skala_kegiatan;
 				$data['jenis_komponen_keg'] = $rowData[0]->jenis_komponen_keg;
 				$data['id_subkomponen'] = $rowData[0]->id_subkomponen;
 				$data['id_dtl_subkomponen'] = $rowData[0]->id_dtl_subkomponen;
@@ -496,6 +497,7 @@ class bk010405Controller extends Controller
 				$data['tgl_realisasi'] = null;
 				$data['vol_realisasi'] = null;
 				$data['satuan'] = null;
+				$data['skala_kegiatan'] = null;
 				$data['jenis_komponen_keg'] = null;
 				$data['id_subkomponen'] = null;
 				$data['id_dtl_subkomponen'] = null;
@@ -695,6 +697,7 @@ class bk010405Controller extends Controller
 				'tgl_realisasi' => $request->input('tgl_realisasi'),
 				'vol_realisasi' => $request->input('vol_realisasi'),
 				'satuan' => $request->input('satuan'),
+				'skala_kegiatan' => $request->input('skala_kegiatan'),
 				'jenis_komponen_keg' => $request->input('jenis_komponen_keg'),
 				'id_subkomponen' => $request->input('kode-subkomponen-input'),
 				'id_dtl_subkomponen' => $request->input('kode-subdtlkomponen-input'),
@@ -785,6 +788,7 @@ class bk010405Controller extends Controller
 				'tgl_realisasi' => $request->input('tgl_realisasi'),
 				'vol_realisasi' => $request->input('vol_realisasi'),
 				'satuan' => $request->input('satuan'),
+				'skala_kegiatan' => $request->input('skala_kegiatan'),
 				'jenis_komponen_keg' => $request->input('jenis_komponen_keg'),
 				'id_subkomponen' => $request->input('kode-subkomponen-input'),
 				'id_dtl_subkomponen' => $request->input('kode-subdtlkomponen-input'),

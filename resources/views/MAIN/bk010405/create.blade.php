@@ -194,6 +194,14 @@
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Skala Kegiatan</label>
+                                        <div class="col-sm-6">
+                                            <select id="skala_kegiatan" name="skala_kegiatan" class="form-control" size="1" required>
+                                                <option value="1" {!! $skala_kegiatan=='1' ? 'selected':'' !!}>Kota/Kabupaten</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Komponen Kegiatan</label>
                                         <div class="col-sm-6">
                                             <select id="jenis_komponen_keg" name="jenis_komponen_keg" class="form-control" size="1" required>

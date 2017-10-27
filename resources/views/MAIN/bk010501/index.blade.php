@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Pembangunan Visi @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Serah Terima Aset @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -23,16 +23,13 @@
                 </a>
             </li>
             <li class="next">
-                Perencanaan
+                Keberlanjutan
             </li>
             <li class="next">
-                Penanganan Pemukiman Kota
+                Skala Kota
             </li>
             <li class="next">
-                Perencanaan Penanganan Permukiman
-            </li>
-            <li class="next">
-                Pembangunan Visi
+                Serah Terima Aset Bangunan kepada Pemerintah Kab/Kota
             </li>
         </ul>
     </div>
@@ -43,27 +40,32 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010301 index</b>
+                    <b>bk010501 index</b>
                 </div>
-                @if( ! empty($detil['254']))
+                @if( ! empty($detil['397']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/penanganan/pembangunan_visi/create'}}">Create</a>
-				</div>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/keberlanjutan/kota/serah_terima/create'}}">Create</a>
+                </div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="pokja">
-						<thead>
+                    <table class="table table-striped" id="pokja">
+                        <thead>
                             <tr>
-                                <th>Tahun</th>
+                                <th>Data Realisasi Kegiatan</th>
+                                <th>Skala Kegiatan</th>
+                                <th>Sumber Dana</th>
+                                <th>Serah Terima Aset</th>
+                                <th>Tgl Serah Terima Aset</th>
                                 <th>Kota</th>
-                                <th>Kecamatan</th>
-                                <th>KMW</th>
-                                <th>Korkot</th>
-                                <th>Jenis Kegiatan</th>
-                                <th>Tgl Kegiatan</th>
-                                <th>Lokasi Kegiatan</th>
+                                <th>Kawasan</th>
+                                <th>Kelurahan</th>
+                                <th>Tahun</th>
+                                <th>Tgl Realisasi</th>
+                                <th>Vol Realisasi</th>
+                                <th>Satuan</th>
+                                <th>Created Time</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -78,29 +80,35 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#pokja').DataTable({
-	        // dom: 'Bflrtip',
-	        
-			"processing": true,
+        var table = $('#pokja').DataTable({
+            // dom: 'Bflrtip',
+            
+            "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/perencanaan/penanganan/pembangunan_visi",
+                     "url": "/main/keberlanjutan/kota/serah_terima",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-				{ "data": "tahun" , name:"tahun"},
+                { "data": "kode_parent" , name:"kode_parent"},
+                { "data": "skala_kegiatan" , name:"skala_kegiatan"},
+                { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
+                { "data": "flag_sudah_sertias" , name:"flag_sudah_sertias"},
+                { "data": "tgl_sertias" , name:"tgl_sertias"},
                 { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_kec" , name:"kode_kec"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
-				{ "data": "option" , name:"option",orderable:false}
-            ]
-	    });
+                { "data": "kode_kawasan" , name:"kode_kawasan"},
+                { "data": "kode_kel" , name:"kode_kel"},
+                { "data": "tahun" , name:"tahun"},
+                { "data": "tgl_realisasi" , name:"tgl_realisasi"},
+                { "data": "vol_realisasi" , name:"vol_realisasi"},
+                { "data": "satuan" , name:"satuan"},
+                { "data": "created_time" , name:"created_time"},
+                { "data": "option" , name:"option",orderable:false}
+            ],
+            "order": [[12,"desc"]]
+        });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {

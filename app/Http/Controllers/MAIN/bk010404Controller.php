@@ -356,21 +356,41 @@ class bk010404Controller extends Controller
 
 	public function post_create(Request $request)
 	{
-		date_default_timezone_set('Asia/Jakarta');
-		DB::table('bkt_01040201_real_keg')->where('kode', $request->input('kode-parent-input'))
-		->update([
-			'hasil_sertifikasi' => $request->input('hasil_sertifikasi'),
-			// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-			// 'diser_oleh' => $request->input('diser-oleh-input'),
-			// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-			// 'diket_oleh' => $request->input('diket-oleh-input'),
-			// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-			// 'diver_oleh' => $request->input('diver-oleh-input'),
-			'updated_by' => Auth::user()->id,
-			'updated_time' => date('Y-m-d H:i:s')
-			]);
+		if ($request->input('kode')!=null){
+			date_default_timezone_set('Asia/Jakarta');
+			DB::table('bkt_01040201_real_keg')->where('kode', $request->input('kode'))
+			->update([
+				'hasil_sertifikasi' => $request->input('hasil_sertifikasi'),
+				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
+				// 'diser_oleh' => $request->input('diser-oleh-input'),
+				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
+				// 'diket_oleh' => $request->input('diket-oleh-input'),
+				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
+				// 'diver_oleh' => $request->input('diver-oleh-input'),
+				'updated_by' => Auth::user()->id,
+				'updated_time' => date('Y-m-d H:i:s')
+				]);
 
-		$this->log_aktivitas('Update', 360);
+			$this->log_aktivitas('Update', 360);
+
+		}else{
+			date_default_timezone_set('Asia/Jakarta');
+			DB::table('bkt_01040201_real_keg')->where('kode', $request->input('kode-parent-input'))
+			->update([
+				'hasil_sertifikasi' => $request->input('hasil_sertifikasi'),
+				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
+				// 'diser_oleh' => $request->input('diser-oleh-input'),
+				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
+				// 'diket_oleh' => $request->input('diket-oleh-input'),
+				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
+				// 'diver_oleh' => $request->input('diver-oleh-input'),
+				'updated_by' => Auth::user()->id,
+				'updated_time' => date('Y-m-d H:i:s')
+				]);
+
+			$this->log_aktivitas('Create', 359);
+		}
+		
 	}
 
 	public function date_conversion($date)
