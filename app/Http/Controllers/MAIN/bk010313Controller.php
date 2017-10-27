@@ -319,7 +319,7 @@ class bk010313Controller extends Controller
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
-				$data['kode_plan_inves_list'] = DB::select('select * from bkt_01030204_plan_inves_thn where skala_kegiatan=1');
+				$data['paket_kerja_kontraktor_list'] = DB::select('select * from bkt_01030209_pkt_krj_kontraktor where skala_kegiatan=2');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010313/create',$data);
 			}else if ($data['kode']==null  && !empty($data['detil']['318'])){
@@ -376,7 +376,7 @@ class bk010313Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
-				$data['kode_plan_inves_list'] = DB::select('select * from bkt_01030204_plan_inves_thn where skala_kegiatan=1');
+				$data['paket_kerja_kontraktor_list'] = DB::select('select * from bkt_01030209_pkt_krj_kontraktor where skala_kegiatan=2');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010313/create',$data);
 			}else{
