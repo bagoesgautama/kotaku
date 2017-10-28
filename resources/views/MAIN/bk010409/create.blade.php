@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Realisasi Kontrak Paket Pekerjaan dari Kontraktor Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan - Realisasi Kegiatan Skala Keluarahan - Sertifikasi Infrastruktur @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
@@ -13,7 +13,7 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Pelaksanaan - Realisasi Kegiatan Skala Keluarahan - Sertifikasi Infrastruktur</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,7 +23,7 @@
             </li>
             <li class="next">
                 <a href="/main/pelaksanaan/kelurahan/sertifikasi_infra">
-                    Pelaksanaan / Realisasi Kegiatan Skala Keluarahan / Realisasi Kontrak Paket Pekerjaan dari Kontraktor
+                    Pelaksanaan / Realisasi Kegiatan Skala Keluarahan / Sertifikasi Infrastruktur
                 </a>
             </li>
             <li class="next">

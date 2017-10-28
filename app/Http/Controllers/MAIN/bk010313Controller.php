@@ -55,70 +55,67 @@ class bk010313Controller extends Controller
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 => 'lpt_l_hibah_gov',
-			1 => 'lpt_l_hibah_masy',
-			2 => 'lpt_l_hibah_lain',
-			3 => 'lpt_l_ijin_pakai_gov',
-			4 => 'lpt_l_ijin_pakai_masy',
-			5 => 'lpt_l_ijin_pakai_lain',
-			6 => 'lpt_l_dilalui_gov',
-			7 => 'lpt_l_dilalui_masy',
-			8 => 'lpt_l_dilalui_lain',
-			9 => 'lpt_rp_nilai_gov',
-			10 => 'lpt_rp_nilai_masy',
-			11 => 'lpt_rp_nilai_lain',
-			12 => 'lpt_q_pt_kk_hibah',
-			13 => 'lpt_q_pt_kk_ijin_pakai',
-			14 => 'lpt_q_pt_kk_ijin_dilalui',
-			15 => 'kl_lt_pre',
-			16 => 'kl_lt_pos',
-			17 => 'kl_q_peserta',
-			18 => 'kl_q_peserta_w',
-			19 => 'pk_lt_pre',
-			20 => 'pk_lt_pos',
-			21 => 'pk_q_peserta',
-			22 => 'pk_q_peserta_w',
-			23 => 'mha_q_jiwa',
-			24 => 'mha_q_jiwa_w',
-			25 => 'mha_q_wtp',
-			26 => 'mha_q_wtp_w',
-			27 => 'mha_q_wpm',
-			28 => 'mha_q_wpm_w',
-			29 => 'mha_flag_rk_mha',
-			30 => 'dl_flag_ukl_upl',
-			31 => 'dl_flag_sop',
-			32 => 'cb_flag_di_kaw_cb',
-			33 => 'cb_flag_sop',
-			34 => 'rb_flag_di_kaw_rb',
-			35 => 'dl_flag_sop',
-			36 => 'pk_flag_pakai_kayu',
-			37 => 'pk_vol_kayu',
-			38 => 'lk_flag_legal_kayu',
-			39 => 'lk_vol_kayu_legal',
-			40 => 'uri_img_document',
-			41 => 'uri_img_absensi',
-			42 => 'diser_tgl',
-			43 => 'diser_oleh',
-			44 => 'diket_tgl',
-			45 => 'diket_oleh',
-			46 => 'diver_tgl',
-			47 => 'diver_oleh',
-			48 => 'created_time',
-			49 => 'created_by',
-			50 => 'updated_time',
-			51 => 'updated_by'
+			0 => 'kode_parent',
+			1 => 'lpt_l_hibah_gov',
+			2 => 'lpt_l_hibah_masy',
+			3 => 'lpt_l_hibah_lain',
+			4 => 'lpt_l_ijin_pakai_gov',
+			5 => 'lpt_l_ijin_pakai_masy',
+			6 => 'lpt_l_ijin_pakai_lain',
+			7 => 'lpt_l_dilalui_gov',
+			8 => 'lpt_l_dilalui_masy',
+			9 => 'lpt_l_dilalui_lain',
+			10 => 'lpt_rp_nilai_gov',
+			11 => 'lpt_rp_nilai_masy',
+			12 => 'lpt_rp_nilai_lain',
+			13 => 'lpt_q_pt_kk_hibah',
+			14 => 'lpt_q_pt_kk_ijin_pakai',
+			15 => 'lpt_q_pt_kk_ijin_dilalui',
+			16 => 'kl_lt_pre',
+			17 => 'kl_lt_pos',
+			18 => 'kl_q_peserta',
+			19 => 'kl_q_peserta_w',
+			20 => 'pk_lt_pre',
+			21 => 'pk_lt_pos',
+			22 => 'pk_q_peserta',
+			23 => 'pk_q_peserta_w',
+			24 => 'mha_q_jiwa',
+			25 => 'mha_q_jiwa_w',
+			26 => 'mha_q_wtp',
+			27 => 'mha_q_wtp_w',
+			28 => 'mha_q_wpm',
+			29 => 'mha_q_wpm_w',
+			30 => 'mha_flag_rk_mha',
+			31 => 'dl_flag_ukl_upl',
+			32 => 'dl_flag_sop',
+			33 => 'cb_flag_di_kaw_cb',
+			34 => 'cb_flag_sop',
+			35 => 'rb_flag_di_kaw_rb',
+			36 => 'dl_flag_sop',
+			37 => 'pk_flag_pakai_kayu',
+			38 => 'pk_vol_kayu',
+			39 => 'lk_flag_legal_kayu',
+			40 => 'lk_vol_kayu_legal',
+			41 => 'uri_img_document',
+			42 => 'uri_img_absensi',
+			43 => 'diser_tgl',
+			44 => 'diser_oleh',
+			45 => 'diket_tgl',
+			46 => 'diket_oleh',
+			47 => 'diver_tgl',
+			48 => 'diver_oleh',
+			49 => 'created_time',
+			50 => 'created_by',
+			51 => 'updated_time',
+			52 => 'updated_by'
 		);
-		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kec, e.nama nama_kmw, f.nama nama_kel, g.nama nama_faskel 
-			from bkt_01030209_pkt_krj_kontraktor a, 
-				bkt_01010102_kota b, 
-				bkt_01010111_korkot c, 
-				bkt_01010110_kec d, 
-				bkt_01010110_kmw e,
-				bkt_01010104_kel f,
-				bkt_01010113_faskel g 
-			where b.kode=a.kode_kota and c.kode=a.kode_korkot and d.kode=a.kode_kec and e.kode=a.kode_kmw and f.kode=kode_kel and g.kode=kode_faskel ';
+		$query='select a.*, b.kode 
+					from bkt_01030210_pkt_krj_amdal a 
+						left join bkt_01030209_pkt_krj_kontraktor b on a.kode_parent=b.kode ';
 			
-		$totalData = DB::select('select count(1) cnt from bkt_01030208_usulan_keg_kt ');
+		$totalData = DB::select('select count(1) cnt 
+									from bkt_01030210_pkt_krj_amdal a 
+												left join bkt_01030209_pkt_krj_kontraktor b on a.kode_parent=b.kode');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -139,12 +136,13 @@ class bk010313Controller extends Controller
 		{
 			foreach ($posts as $post)
 			{
-				$show =  $post->kode;
-				$edit =  $post->kode;
-				$delete = $post->kode;
+				$show =  $post->kode_parent;
+				$edit =  $post->kode_parent;
+				$delete = $post->kode_parent;
 
-				$url_edit=url('/')."/main/perencanaan/infra/amdal/create?kode=".$edit;
-				$url_delete=url('/')."/main/perencanaan/infra/amdal/delete?kode=".$delete;
+				$url_edit=url('/')."/main/perencanaan/infra/amdal/create?kode_parent=".$edit;
+				$url_delete=url('/')."/main/perencanaan/infra/amdal/delete?kode_parent=".$delete;
+				$nestedData['kode_parent'] = $post->kode_parent;
 				$nestedData['lpt_l_hibah_gov'] = $post->lpt_l_hibah_gov;
 				$nestedData['lpt_l_hibah_masy'] = $post->lpt_l_hibah_masy;
 				$nestedData['lpt_l_hibah_lain'] = $post->lpt_l_hibah_lain;
@@ -202,7 +200,7 @@ class bk010313Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==106)
+						if($item->kode_menu==107)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
@@ -229,22 +227,6 @@ class bk010313Controller extends Controller
 		echo json_encode($json_data);
 	}
 
-	public function select(Request $request)
-	{
-		// if(!empty($request->input('prop'))){
-		// 	$kota = DB::select('select kode, nama from bkt_01010102_kota where kode_prop='.$request->input('prop'));
-		// 	echo json_encode($kota);
-		// }
-		// else if(!empty($request->input('kota'))){
-		// 	$kota = DB::select('select b.* from bkt_01010112_kota_korkot a,bkt_01010111_korkot b where a.kode_korkot=b.kode and kode_kota='.$request->input('kota'));
-		// 	echo json_encode($kota);
-		// }
-		// else if(!empty($request->input('korkot'))){
-		// 	$kota = DB::select('select a.* from bkt_01010103_kec a where a.kode_kota='.$request->input('korkot'));
-		// 	echo json_encode($kota);
-		// }
-	}
-
 	public function create(Request $request)
 	{
 		$user = Auth::user();
@@ -256,16 +238,10 @@ class bk010313Controller extends Controller
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['username'] = $user->name;
-			$data['kode']=$request->input('kode');
+			$data['kode_parent']=$request->input('kode_parent');
 
-			$kode_prop = DB::select('select kode, nama from bkt_01010101_prop');
-			$data['kode_prop_list'] = $kode_prop;
-
-			$id_kawasan = DB::select('select id, nama from bkt_01010123_kawasan');
-			$data['id_kawasan_list'] = $id_kawasan;
-
-			if($data['kode']!=null  && !empty($data['detil']['319'])){
-				$rowData = DB::select('select * from bkt_01030209_pkt_krj_kontraktor where kode='.$data['kode']);
+			if($data['kode_parent']!=null  && !empty($data['detil']['319'])){
+				$rowData = DB::select('select * from bkt_01030210_pkt_krj_amdal where kode_parent='.$data['kode_parent']);
 				$data['kode_parent'] = $rowData[0]->kode_parent;
 				$data['lpt_l_hibah_gov'] = $rowData[0]->lpt_l_hibah_gov;
 				$data['lpt_l_hibah_masy'] = $rowData[0]->lpt_l_hibah_masy;
@@ -322,7 +298,7 @@ class bk010313Controller extends Controller
 				$data['paket_kerja_kontraktor_list'] = DB::select('select * from bkt_01030209_pkt_krj_kontraktor where skala_kegiatan=2');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010313/create',$data);
-			}else if ($data['kode']==null  && !empty($data['detil']['318'])){
+			}else if ($data['kode_parent']==null  && !empty($data['detil']['318'])){
 				$data['kode_parent'] = null;
 				$data['lpt_l_hibah_gov'] = null;
 				$data['lpt_l_hibah_masy'] = null;
@@ -389,11 +365,39 @@ class bk010313Controller extends Controller
 
 	public function post_create(Request $request)
 	{
-		if ($request->input('kode')!=null){
+		$file_document = $request->file('file-document-input');
+		$uri_document = null;
+		$upload_document = false;
+		if($request->input('uploaded-file-document') != null && $file_document == null){
+			$uri_document = $request->input('uploaded-file-document');
+			$upload_document = false;
+		}elseif($request->input('uploaded-file-document') != null && $file_document != null){
+			$uri_document = $file_document->getClientOriginalName();
+			$upload_document = true;
+		}elseif($request->input('uploaded-file-document') == null && $file_document != null){
+			$uri_document = $file_document->getClientOriginalName();
+			$upload_document = true;
+		}
+
+		$file_absensi = $request->file('file-absensi-input');
+		$uri_absensi = null;
+		$upload_absensi = false;
+		if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
+			$uri_absensi = $request->input('uploaded-file-absensi');
+			$upload_absensi = false;
+		}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
+			$uri_absensi = $file_absensi->getClientOriginalName();
+			$upload_absensi = true;
+		}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
+			$uri_absensi = $file_absensi->getClientOriginalName();
+			$upload_absensi = true;
+		}
+
+		if ($request->input('kode_parent')!=null){
 			date_default_timezone_set('Asia/Jakarta');
-			DB::table('bkt_01030209_pkt_krj_kontraktor')->where('kode', $request->input('kode'))
+			DB::table('bkt_01030210_pkt_krj_amdal')->where('kode_parent', $request->input('kode_parent'))
 			->update([
-				'kode_parent' => $request->input('kode-plan-inves-input'),
+				'kode_parent' => $request->input('select-paket_kerja_kontraktor-input'),
 				'lpt_l_hibah_gov' => $request->input('lpt_l_hibah_gov'),
 				'lpt_l_hibah_masy' => $request->input('lpt_l_hibah_masy'),
 				'lpt_l_hibah_lain' => $request->input('lpt_l_hibah_lain'),
@@ -434,23 +438,31 @@ class bk010313Controller extends Controller
 				'pk_vol_kayu' => $request->input('pk_vol_kayu'),
 				'lk_flag_legal_kayu' => intval($request->input('lk_flag_legal_kayu')),
 				'lk_vol_kayu_legal' => $request->input('lk_vol_kayu_legal'),
-				'uri_img_document' => $url_dokumen,
-				'uri_img_absensi' => $url_absensi,
-				'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $uri_absensi,
+				//'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
 				'diser_oleh' => $request->input('diser-oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
+				//'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
 				'diket_oleh' => $request->input('diket-oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
+				//'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
 				'diver_oleh' => $request->input('diver-oleh-input'),
 				'updated_by' => Auth::user()->id,
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
 
+			if($upload_document == true){
+				$file_document->move(public_path('/uploads/perencanaan/infra/amdal'), $file_document->getClientOriginalName());
+			}
+
+			if($upload_absensi == true){
+				$file_absensi->move(public_path('/uploads/perencanaan/infra/amdal'), $file_absensi->getClientOriginalName());
+			}
+
 			$this->log_aktivitas('Update', 319);
 
 		}else{
-			DB::table('bkt_01030209_pkt_krj_kontraktor')->insert([
-				'kode_parent' => $request->input('kode-plan-inves-input'),
+			DB::table('bkt_01030210_pkt_krj_amdal')->insert([
+				'kode_parent' => $request->input('select-paket_kerja_kontraktor-input'),
 				'lpt_l_hibah_gov' => $request->input('lpt_l_hibah_gov'),
 				'lpt_l_hibah_masy' => $request->input('lpt_l_hibah_masy'),
 				'lpt_l_hibah_lain' => $request->input('lpt_l_hibah_lain'),
@@ -491,16 +503,24 @@ class bk010313Controller extends Controller
 				'pk_vol_kayu' => $request->input('pk_vol_kayu'),
 				'lk_flag_legal_kayu' => intval($request->input('lk_flag_legal_kayu')),
 				'lk_vol_kayu_legal' => $request->input('lk_vol_kayu_legal'),
-				'uri_img_document' => $url_dokumen,
-				'uri_img_absensi' => $url_absensi,
-				'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $uri_absensi,
+				//'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
 				'diser_oleh' => $request->input('diser-oleh-input'),
-				'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
+				//'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
 				'diket_oleh' => $request->input('diket-oleh-input'),
-				'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
+				//'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
 				'diver_oleh' => $request->input('diver-oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
+
+			if($upload_document == true){
+				$file_document->move(public_path('/uploads/perencanaan/infra/amdal'), $file_document->getClientOriginalName());
+			}
+
+			if($upload_absensi == true){
+				$file_absensi->move(public_path('/uploads/perencanaan/infra/amdal'), $file_absensi->getClientOriginalName());
+			}
 
 			$this->log_aktivitas('Create', 318);
 		}
@@ -514,7 +534,7 @@ class bk010313Controller extends Controller
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_01030209_pkt_krj_kontraktor')->where('kode', $request->input('kode'))->delete();
+		DB::table('bkt_01030210_pkt_krj_amdal')->where('kode', $request->input('kode_parent'))->delete();
 		$this->log_aktivitas('Delete', 320);
         return Redirect::to('/main/perencanaan/infra/amdal');
     }
