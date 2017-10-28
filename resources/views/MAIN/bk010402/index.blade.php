@@ -56,9 +56,8 @@
                                 <th>Kode</th>
                                 <th>Skala Kegiatan</th>
                                 <th>Kontrak Paket Kerja Kontraktor</th>
-                                <th>KMW</th>
+                                <th>Tahun</th>
                                 <th>Kota</th>
-                                <th>Korkot</th>
                                 <th>Kontraktor</th>
                                 <th>Uang Muka (Rp)</th>
                                 <th>Termin 1 (Rp)</th>
@@ -95,9 +94,8 @@
                 { "data": "kode" , name:"kode"},
                 { "data": "skala_kegiatan" , name:"skala_kegiatan"},
                 { "data": "kode_parent" , name:"kode_parent"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
+                { "data": "tahun" , name:"tahun"},
                 { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
                 { "data": "kode_kontraktor" , name:"kode_kontraktor"},
                 { "data": "rp_uang_muka" , name:"rp_uang_muka"},
                 { "data": "rp_termin1" , name:"rp_termin1"},

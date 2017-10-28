@@ -748,27 +748,10 @@
 				</a>
 				<ul class="sub-menu form-submenu">
 					@if( ! empty($menu['113']))
-					<li {!! (Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/create')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/create')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/create')? 'class="active"': "") !!}>
-						<a href="javascript:void(0)">
+					<li {!! (Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/create')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/create')? 'class="active"': "") !!}>
+						<a href="/main/pelaksanaan/kota_bdi/realisasi_kegiatan">
 							<span class="mm-text">Realisasi Kegiatan Skala Kota</span>
-							<span class="fa arrow"></span>
 						</a>
-						<ul class="form-sub-submenu">
-							@if( ! empty($menu['113']))
-							<li {!! (Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/create')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/create')? 'class="active"': "") !!}>
-								<a href="/main/pelaksanaan/kota_bdi/realisasi_kegiatan">
-									<span class="mm-text">Realisasi Kegiatan</span>
-								</a>
-							</li>
-							@endif
-							@if( ! empty($menu['113']))
-							<li  {!! (Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias/create')? 'class="active"': "") !!}>
-								<a href="/main/pelaksanaan/kota_bdi/realisasi_kegiatan/sertias">
-									<span class="mm-text">Serah Terima Aset</span>
-								</a>
-							</li>
-							@endif
-						</ul>
 					</li>
 					@endif
 					@if( ! empty($menu['114']))
@@ -779,7 +762,7 @@
 					</li>
 					@endif
 					@if( ! empty($menu['115']))
-					<li {!! (Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/create')? 'class="active"': "") !!}>
+					<li {!! (Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/create')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/pemanfaat')||Request::is( 'main/pelaksanaan/kota_bdi/realisasi_kontrak/pemanfaat/create')? 'class="active"': "") !!}>
 						<a href="/main/pelaksanaan/kota_bdi/realisasi_kontrak">
 							<span class="mm-text">Realisasi Kontrak Paket Pekerjaan dari Kontraktor</span>
 						</a>
@@ -803,7 +786,7 @@
 				</a>
 				<ul class="sub-menu form-submenu">
 					@if( ! empty($menu['117']))
-					<li {!! (Request::is( 'main/pelaksanaan/kota_non/realisasi_kegiatan')||Request::is( 'main/pelaksanaan/kota_non/realisasi_kegiatan/create')? 'class="active"': "") !!}>
+					<li {!! (Request::is( 'main/pelaksanaan/kota_non/realisasi_kegiatan')||Request::is( 'main/pelaksanaan/kota_non/realisasi_kegiatan/create')||Request::is( 'main/pelaksanaan/kota_non/realisasi_kegiatan/pemanfaat')||Request::is( 'main/pelaksanaan/kota_non/realisasi_kegiatan/pemanfaat/create')? 'class="active"': "") !!}>
 				        <a href="/main/pelaksanaan/kota_non/realisasi_kegiatan">
 				            <span class="mm-text ">Realisasi Kegiatan Skala Kota</span>
 				        </a>
@@ -892,22 +875,22 @@
         </a>
 		<ul class="sub-menu">
 			@if( ! empty($menu['125']))
-			<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+			<li {!! (Request::is( 'main/keberlanjutan/kota/*')||Request::is( 'main/keberlanjutan/kota/*/create')? 'class="active"': "") !!}>
 				<a href="javascript:void(0)">
 					<span class="mm-text">Skala Kota</span>
 					<span class="fa arrow"></span>
 				</a>
 				<ul class="sub-menu form-submenu">
 					@if( ! empty($menu['127']))
-					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
-						<a href="/main/data_wilayah/provinsi">
+					<li {!! (Request::is( 'main/keberlanjutan/kota/serah_terima')||Request::is( 'main/keberlanjutan/kota/serah_terima/create')? 'class="active"': "") !!}>
+						<a href="/main/keberlanjutan/kota/serah_terima">
 							<span class="mm-text">Serahterima Aset Bangunan kepada Pemerintah Kab/Kota</span>
 						</a>
 					</li>
 					@endif
 					@if( ! empty($menu['128']))
-					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
-						<a href="/main/data_wilayah/provinsi">
+					<li {!! (Request::is( 'main/keberlanjutan/kota/operasional')||Request::is( 'main/keberlanjutan/kota/operasional/create')? 'class="active"': "") !!}>
+						<a href="/main/keberlanjutan/kota/operasional">
 							<span class="mm-text">Operasional Pemeliharaan</span>
 						</a>
 					</li>

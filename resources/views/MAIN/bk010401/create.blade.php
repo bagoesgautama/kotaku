@@ -85,24 +85,24 @@
                                          KKP
                                     </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <li>
                         <a href="#tab8" data-toggle="tab">
                                          Sertifikasi
                                     </a>
-                    </li>
+                    </li> -->
                     <li>
-                        <a href="#tab9" data-toggle="tab">
+                        <a href="#tab8" data-toggle="tab">
                                         Koordinat Lokasi
                                     </a>
                     </li>
                     <li>
-                        <a href="#tab10" data-toggle="tab">
+                        <a href="#tab9" data-toggle="tab">
                                          Dokumentasi Foto Kegiatan
                                     </a>
                     </li>
                     <li>
-                        <a href="#tab11" data-toggle="tab">
+                        <a href="#tab10" data-toggle="tab">
                                         Progress Pemanfaatan Dana dan Fisik
                                     </a>
                     </li>
@@ -157,7 +157,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">KMW</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" required>
+                                            <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" >
                                                 <option value>Please select</option>
                                                 @foreach ($kode_kmw_list as $kkl)
                                                     <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
@@ -168,7 +168,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Kota</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
+                                            <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" >
                                                 <option value>Please select</option>
                                                 @foreach ($kode_kota_list as $kkl)
                                                     <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
@@ -179,7 +179,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Korkot</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
+                                            <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" >
                                                 <option value>Please select</option>
                                                 @foreach ($kode_korkot_list as $kkl)
                                                     <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
@@ -190,7 +190,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Kawasan</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode-kawasan-input" name="kode-kawasan-input" class="form-control select2" size="1" required>
+                                            <select id="select-kode-kawasan-input" name="kode-kawasan-input" class="form-control select2" size="1" >
                                                 <option value>Please select</option>
                                                 @foreach ($kode_kawasan_list as $kkl)
                                                     <option value="{{$kkl->id}}" {!! $kode_kawasan==$kkl->id ? 'selected':'' !!}>{{$kkl->kode_kawasan." ".$kkl->nama}}</option>
@@ -201,7 +201,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">KSM</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode-ksm-input" name="id_ksm" class="form-control select2" size="1" required>
+                                            <select id="select-kode-ksm-input" name="id_ksm" class="form-control select2" size="1">
                                                 <option value>Please select</option>
                                                 @foreach ($kode_ksm_list as $kkl)
                                                     <option value="{{$kkl->id}}" {!! $id_ksm==$kkl->id ? 'selected':'' !!}>{{$kkl->kode_ksm." ".$kkl->nama}}</option>
@@ -226,13 +226,13 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Volume</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="vol_realisasi" name="vol_realisasi" class="form-control" value="{{$vol_realisasi}}" maxlength="9" required>
+                                            <input type="number" id="vol_realisasi" name="vol_realisasi" class="form-control" value="{{$vol_realisasi}}" maxlength="9" >
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Satuan (Meter/Unit/m<sup>2</sup>)</label>
                                         <div class="col-sm-6">
-                                            <input type="text" id="satuan" name="satuan" class="form-control" value="{{$satuan}}" maxlength="50" required>
+                                            <input type="text" id="satuan" name="satuan" class="form-control" value="{{$satuan}}" maxlength="50" >
                                         </div>
                                     </div>
                                 </div>
@@ -432,7 +432,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">KPP</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode-kpp-input" name="id_kpp" class="form-control select2" size="1" required>
+                                            <select id="select-kode-kpp-input" name="id_kpp" class="form-control select2" size="1">
                                                 <option value>Please select</option>
                                                 @foreach ($kode_kpp_list as $kkl)
                                                     <option value="{{$kkl->id}}" {!! $id_kpp==$kkl->id ? 'selected':'' !!}>{{$kkl->kode_kpp." ".$kkl->nama}}</option>
@@ -492,7 +492,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="tab8" class="tab-pane fade ">
+                    <!-- <div id="tab8" class="tab-pane fade ">
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
@@ -510,8 +510,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="tab9" class="tab-pane fade ">
+                    </div> -->
+                    <div id="tab8" class="tab-pane fade ">
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
@@ -531,7 +531,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="tab10" class="tab-pane fade ">
+                    <div id="tab9" class="tab-pane fade ">
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
@@ -581,7 +581,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="tab11" class="tab-pane fade ">
+                    <div id="tab10" class="tab-pane fade ">
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
@@ -708,7 +708,7 @@
                 <div class="panel-title pull-left">
                     <b>Daftar Penerima Manfaat</b>
                 </div>
-                @if( ! empty($detil['506']))
+                @if( ! empty($detil['507']))
                 <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/create?kode_real_keg='.$kode}}">Create</a>
                 </div>
