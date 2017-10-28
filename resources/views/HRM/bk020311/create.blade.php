@@ -15,7 +15,7 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/hrm/management/kuota/korkot">
+				<a href="/hrm/profil/kuota/korkot">
 	                Managemen Personil / Kuota Personil / Kuota Korkot
 				</a>
             </li>
@@ -89,7 +89,7 @@
                             </div>-->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/hrm/management/kuota/korkot" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/hrm/profil/kuota/korkot" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -116,7 +116,7 @@
 		e.preventDefault();
 		$.ajax({
 			type: 'post',
-			"url": "/hrm/management/kuota/korkot/create",
+			"url": "/hrm/profil/kuota/korkot/create",
 			data: $('form').serialize(),
 			beforeSend: function (){
 			    $("#submit").prop('disabled', true);
@@ -124,7 +124,7 @@
 			success: function () {
 
 			alert('From Submitted.');
-			window.location.href = "/hrm/management/kuota/korkot";
+			window.location.href = "/hrm/profil/kuota/korkot";
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);

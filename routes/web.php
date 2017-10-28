@@ -68,54 +68,63 @@ Route::post('/hrm/activity_log/create', 'HRM\bk020201Controller@post_create');
 Route::get('/hrm/activity_log/delete', 'HRM\bk020201Controller@delete');
 
 //management
-Route::get('/hrm/management/pesan', 'HRM\bk020301Controller@index');
-Route::post('/hrm/management/pesan', 'HRM\bk020301Controller@post');
-Route::get('/hrm/management/pesan/baca', 'HRM\bk020301Controller@baca');
-Route::get('/hrm/management/pesan/delete', 'HRM\bk020301Controller@delete');
+Route::get('/hrm/profil/user/profil', 'HRM\bk020312Controller@index');
+Route::post('hrm/profil/user/profil', 'HRM\bk020312Controller@post');
 
-Route::get('/hrm/management/user/pelatihan', 'HRM\bk020303Controller@index');
-Route::post('hrm/management/user/pelatihan', 'HRM\bk020303Controller@post');
-Route::get('/hrm/management/user/pelatihan/create', 'HRM\bk020303Controller@create');
-Route::post('/hrm/management/user/pelatihan/create', 'HRM\bk020303Controller@post_create');
-Route::get('/hrm/management/user/pelatihan/delete', 'HRM\bk020303Controller@delete');
+Route::get('/hrm/profil/pesan', 'HRM\bk020301Controller@index');
+Route::post('/hrm/profil/pesan', 'HRM\bk020301Controller@post');
+Route::get('/hrm/profil/pesan/baca', 'HRM\bk020301Controller@baca');
+Route::get('/hrm/profil/pesan/delete', 'HRM\bk020301Controller@delete');
 
-Route::get('/hrm/management/user/pendidikan', 'HRM\bk020304Controller@index');
-Route::post('hrm/management/user/pendidikan', 'HRM\bk020304Controller@post');
-Route::get('/hrm/management/user/pendidikan/create', 'HRM\bk020304Controller@create');
-Route::post('/hrm/management/user/pendidikan/create', 'HRM\bk020304Controller@post_create');
-Route::get('/hrm/management/user/pendidikan/delete', 'HRM\bk020304Controller@delete');
+Route::get('/hrm/management/blacklist', 'HRM\bk020308Controller@index');
+Route::post('/hrm/management/blacklist', 'HRM\bk020308Controller@post');
+Route::get('/hrm/management/blacklist/create', 'HRM\bk020308Controller@create');
+Route::post('/hrm/management/blacklist/create', 'HRM\bk020308Controller@post_create');
 
-Route::get('/hrm/management/user/penghargaan', 'HRM\bk020305Controller@index');
-Route::post('hrm/management/user/penghargaan', 'HRM\bk020305Controller@post');
-Route::get('/hrm/management/user/penghargaan/create', 'HRM\bk020305Controller@create');
-Route::post('/hrm/management/user/penghargaan/create', 'HRM\bk020305Controller@post_create');
-Route::get('/hrm/management/user/penghargaan/delete', 'HRM\bk020305Controller@delete');
+Route::get('/hrm/profil/user/pelatihan', 'HRM\bk020303Controller@index');
+Route::post('hrm/profil/user/pelatihan', 'HRM\bk020303Controller@post');
+Route::get('/hrm/profil/user/pelatihan/create', 'HRM\bk020303Controller@create');
+Route::post('/hrm/profil/user/pelatihan/create', 'HRM\bk020303Controller@post_create');
+Route::get('/hrm/profil/user/pelatihan/delete', 'HRM\bk020303Controller@delete');
 
-Route::get('/hrm/management/user/password', 'HRM\bk020307Controller@index');
-Route::post('hrm/management/user/password', 'HRM\bk020307Controller@post');
+Route::get('/hrm/profil/user/pendidikan', 'HRM\bk020304Controller@index');
+Route::post('hrm/profil/user/pendidikan', 'HRM\bk020304Controller@post');
+Route::get('/hrm/profil/user/pendidikan/create', 'HRM\bk020304Controller@create');
+Route::post('/hrm/profil/user/pendidikan/create', 'HRM\bk020304Controller@post_create');
+Route::get('/hrm/profil/user/pendidikan/delete', 'HRM\bk020304Controller@delete');
 
-Route::get('/hrm/management/user/blacklist', 'HRM\bk020308Controller@index');
-Route::post('/hrm/management/user/blacklist', 'HRM\bk020308Controller@post');
-Route::get('/hrm/management/user/blacklist/create', 'HRM\bk020308Controller@create');
-Route::post('/hrm/management/user/blacklist/create', 'HRM\bk020308Controller@post_create');
+Route::get('/hrm/profil/user/penghargaan', 'HRM\bk020305Controller@index');
+Route::post('hrm/profil/user/penghargaan', 'HRM\bk020305Controller@post');
+Route::get('/hrm/profil/user/penghargaan/create', 'HRM\bk020305Controller@create');
+Route::post('/hrm/profil/user/penghargaan/create', 'HRM\bk020305Controller@post_create');
+Route::get('/hrm/profil/user/penghargaan/delete', 'HRM\bk020305Controller@delete');
 
-Route::get('/hrm/management/kuota/kmp', 'HRM\bk020309Controller@index');
-Route::post('hrm/management/kuota/kmp', 'HRM\bk020309Controller@post');
-Route::get('/hrm/management/kuota/kmp/create', 'HRM\bk020309Controller@create');
-Route::post('/hrm/management/kuota/kmp/create', 'HRM\bk020309Controller@post_create');
-Route::get('/hrm/management/kuota/kmp/delete', 'HRM\bk020309Controller@delete');
+Route::get('/hrm/profil/user/perubahan', 'HRM\bk020306Controller@index');
+Route::post('hrm/profil/user/perubahan', 'HRM\bk020306Controller@post');
+Route::get('/hrm/profil/user/perubahan/create', 'HRM\bk020306Controller@create');
+Route::post('/hrm/profil/user/perubahan/create', 'HRM\bk020306Controller@post_create');
+Route::get('/hrm/profil/user/perubahan/delete', 'HRM\bk020306Controller@delete');
 
-Route::get('/hrm/management/kuota/kmw', 'HRM\bk020310Controller@index');
-Route::post('hrm/management/kuota/kmw', 'HRM\bk020310Controller@post');
-Route::get('/hrm/management/kuota/kmw/create', 'HRM\bk020310Controller@create');
-Route::post('/hrm/management/kuota/kmw/create', 'HRM\bk020310Controller@post_create');
-Route::get('/hrm/management/kuota/kmw/delete', 'HRM\bk020310Controller@delete');
+Route::get('/hrm/profil/user/password', 'HRM\bk020307Controller@index');
+Route::post('hrm/profil/user/password', 'HRM\bk020307Controller@post');
 
-Route::get('/hrm/management/kuota/korkot', 'HRM\bk020311Controller@index');
-Route::post('hrm/management/kuota/korkot', 'HRM\bk020311Controller@post');
-Route::get('/hrm/management/kuota/korkot/create', 'HRM\bk020311Controller@create');
-Route::post('/hrm/management/kuota/korkot/create', 'HRM\bk020311Controller@post_create');
-Route::get('/hrm/management/kuota/korkot/delete', 'HRM\bk020311Controller@delete');
+Route::get('/hrm/profil/kuota/kmp', 'HRM\bk020309Controller@index');
+Route::post('hrm/profil/kuota/kmp', 'HRM\bk020309Controller@post');
+Route::get('/hrm/profil/kuota/kmp/create', 'HRM\bk020309Controller@create');
+Route::post('/hrm/profil/kuota/kmp/create', 'HRM\bk020309Controller@post_create');
+Route::get('/hrm/profil/kuota/kmp/delete', 'HRM\bk020309Controller@delete');
+
+Route::get('/hrm/profil/kuota/kmw', 'HRM\bk020310Controller@index');
+Route::post('hrm/profil/kuota/kmw', 'HRM\bk020310Controller@post');
+Route::get('/hrm/profil/kuota/kmw/create', 'HRM\bk020310Controller@create');
+Route::post('/hrm/profil/kuota/kmw/create', 'HRM\bk020310Controller@post_create');
+Route::get('/hrm/profil/kuota/kmw/delete', 'HRM\bk020310Controller@delete');
+
+Route::get('/hrm/profil/kuota/korkot', 'HRM\bk020311Controller@index');
+Route::post('hrm/profil/kuota/korkot', 'HRM\bk020311Controller@post');
+Route::get('/hrm/profil/kuota/korkot/create', 'HRM\bk020311Controller@create');
+Route::post('/hrm/profil/kuota/korkot/create', 'HRM\bk020311Controller@post_create');
+Route::get('/hrm/profil/kuota/korkot/delete', 'HRM\bk020311Controller@delete');
 
 //get html form data
 Route::get('/hrm/admin/role', 'HRM\bk020102Controller@index');

@@ -38,7 +38,7 @@
                 </div>
                 @if( ! empty($detil['515']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management/kuota/kmp/create">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/profil/kuota/kmp/create">Create</a>
 				</div>
                 @endif
             </div>
@@ -69,7 +69,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/management/kuota/kmp",
+                     "url": "/hrm/profil/kuota/kmp",
                      "dataType": "json",
                      "type": "POST"
                    },

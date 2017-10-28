@@ -170,6 +170,10 @@ class bk010114Controller extends Controller
 			$kota = DB::select('select a.kode, a.nama from bkt_01010113_faskel a, bkt_01010112_kota_korkot b where a.kode_korkot=b.kode_korkot and b.kode_kota='.$request->input('kel'));
 			echo json_encode($kota);
 		}
+		else if(!empty($request->input('kota_baru'))){
+			$kota=DB::select('select a.kode, a.nama  from bkt_01010104_kel a,bkt_01010103_kec b where a.status=1 and a.kode_kec=b.kode and b.kode_kota='.$request->input('kota_baru'));
+			echo json_encode($kota);
+		}
 	}
 
 	public function create(Request $request)

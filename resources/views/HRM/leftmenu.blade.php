@@ -45,75 +45,93 @@
 	</li>
 	@endif
 	@if( ! empty($menu['161']))
-	<li {!! (Request::is( 'hrm/management/*')? 'class="active"': "") !!}>
+	<li {!! (Request::is( 'hrm/profil/*')||Request::is( 'hrm/management*')? 'class="active"': "") !!}>
         <a href="javascript:void(0)">
             <span class="mm-text ">Managemen Personil</span>
 			<span class="fa arrow"></span>
         </a>
 		<ul class="sub-menu form-submenu">
 			@if( ! empty($menu['162']))
-			<li {!! (Request::is( 'hrm/management/pesan*')? 'class="active"': "") !!}>
-				<a href="/hrm/management/pesan">
+			<li {!! (Request::is( 'hrm/profil/pesan*')? 'class="active"': "") !!}>
+				<a href="/hrm/profil/pesan">
 		            <span class="mm-text ">Kotak Pesan</span>
 		        </a>
 			</li>
 			@endif
-			@if( ! empty($menu['163']))
-			<li {!! (Request::is( 'hrm/management/user/*')? 'class="active"': "") !!}>
+			@if( ! empty($menu['178']))
+			<li {!! (Request::is( 'hrm/management/*')? 'class="active"': "") !!}>
 		        <a href="javascript:void(0)">
 		            <span class="mm-text ">Managemen User</span>
 					<span class="fa arrow"></span>
 		        </a>
+				<ul class="sub-menu form-submenu">
+					@if( ! empty($menu['174']))
+					<li {!! (Request::is( 'hrm/management/blacklist*')? 'class="active"': "") !!}>
+						<a href="/hrm/management/blacklist">
+							<span class="mm-text ">Black List Personil</span>
+						</a>
+					</li>
+					@endif
+				</ul>
+			</li>
+			@endif
+			@if( ! empty($menu['163']))
+			<li {!! (Request::is( 'hrm/profil/user/*')? 'class="active"': "") !!}>
+		        <a href="javascript:void(0)">
+		            <span class="mm-text ">Profil Personil</span>
+					<span class="fa arrow"></span>
+		        </a>
 				<ul class="form-sub-submenu">
+					@if( ! empty($menu['179']))
+					<li {!! (Request::is( 'hrm/profil/user/profil*')? 'class="active"': "") !!}>
+						<a href="/hrm/profil/user/profil">
+				            <span class="mm-text ">Profil</span>
+				        </a>
+					</li>
+					@endif
 					@if( ! empty($menu['168']))
-					<li {!! (Request::is( 'hrm/management/user/aktivasi*')? 'class="active"': "") !!}>
-						<a href="/hrm/management/user/aktivasi">
+					<li {!! (Request::is( 'hrm/profil/user/aktivasi*')? 'class="active"': "") !!}>
+						<a href="/hrm/profil/user/aktivasi">
 				            <span class="mm-text ">Aktivasi User</span>
 				        </a>
 					</li>
 					@endif
 					@if( ! empty($menu['169']))
-					<li {!! (Request::is( 'hrm/management/user/pelatihan*')? 'class="active"': "") !!}>
-						<a href="/hrm/management/user/pelatihan">
+					<li {!! (Request::is( 'hrm/profil/user/pelatihan*')? 'class="active"': "") !!}>
+						<a href="/hrm/profil/user/pelatihan">
 				            <span class="mm-text ">Sertifikasi Pelatihan</span>
 				        </a>
 					</li>
 					@endif
 					@if( ! empty($menu['170']))
-					<li {!! (Request::is( 'hrm/management/user/pendidikan*')? 'class="active"': "") !!}>
-						<a href="/hrm/management/user/pendidikan">
+					<li {!! (Request::is( 'hrm/profil/user/pendidikan*')? 'class="active"': "") !!}>
+						<a href="/hrm/profil/user/pendidikan">
 				            <span class="mm-text ">Backgroud Pendidikan</span>
 				        </a>
 					</li>
 					@endif
 					@if( ! empty($menu['171']))
-					<li {!! (Request::is( 'hrm/management/user/penghargaan*')? 'class="active"': "") !!}>
-						<a href="/hrm/management/user/penghargaan">
+					<li {!! (Request::is( 'hrm/profil/user/penghargaan*')? 'class="active"': "") !!}>
+						<a href="/hrm/profil/user/penghargaan">
 				            <span class="mm-text ">Piagam Penghargaan</span>
 				        </a>
 					</li>
 					@endif
 					@if( ! empty($menu['172']))
-					<li {!! (Request::is( 'hrm/management/user/status*')? 'class="active"': "") !!}>
-						<a href="/hrm/management/user/status">
+					<li {!! (Request::is( 'hrm/profil/user/perubahan*')? 'class="active"': "") !!}>
+						<a href="/hrm/profil/user/perubahan">
 				            <span class="mm-text ">update status (mutasi/promosi/demosi/pemecatan)</span>
 				        </a>
 					</li>
 					@endif
 					@if( ! empty($menu['173']))
-					<li {!! (Request::is( 'hrm/management/user/password*')? 'class="active"': "") !!}>
-						<a href="/hrm/management/user/password">
+					<li {!! (Request::is( 'hrm/profil/user/password*')? 'class="active"': "") !!}>
+						<a href="/hrm/profil/user/password">
 				            <span class="mm-text ">Ganti Password</span>
 				        </a>
 					</li>
 					@endif
-					@if( ! empty($menu['174']))
-					<li {!! (Request::is( 'hrm/management/user/blacklist*')? 'class="active"': "") !!}>
-						<a href="/hrm/management/user/blacklist">
-				            <span class="mm-text ">Black List Personil</span>
-				        </a>
-					</li>
-					@endif
+
 				</ul>
 			</li>
 			@endif

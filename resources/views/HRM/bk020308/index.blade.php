@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Sertifikasi Pelatihan @stop {{-- local styles --}} @section('header_styles')
+@extends('HRM/default') {{-- Page title --}} @section('title') Blacklist @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Sertifikasi Pelatihan</h1>
+    <h1>Blacklist</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                Managemen Personil / User / Sertifikasi Pelatihan
+                Managemen User / Blacklist
             </li>
         </ul>
     </div>
@@ -65,7 +65,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-	             "url": "/hrm/management/user/blacklist",
+	             "url": "/hrm/management/blacklist",
 	             "dataType": "json",
 	             "type": "POST"
 	           },

@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Pesan @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Badan Keswadayaan Mandiri (BKM) Form @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,16 +14,16 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Pesan</h1>
+    <h1>Badan Keswadayaan Mandiri (BKM)</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-                <a href="/hrm">
-                    <i class="fa fa-fw fa-home"></i> HRM
+                <a href="/main">
+                    <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
             </li>
             <li class="next">
-                Managemen Personil / Pesan
+                Master Data / Data Master / Badan Keswadayaan Mandiri (BKM)
             </li>
         </ul>
     </div>
@@ -34,18 +34,25 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk020301 Index</b>
+                    <b>bk010124 Index</b>
                 </div>
+                @if( ! empty($detil['454']))
+                <div class="tools pull-right">
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_master/bkm/create">Create</a>
+				</div>
+                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
 					<table class="table table-striped" id="users">
 						<thead>
                             <tr>
-								<th>ID</th>
-								<th>Pengirim</th>
-								<th>Pesan</th>
-                                <th>Tanggal</th>
+								<th>id</th>
+								<th>Kode BKM</th>
+                                <th>Nama</th>
+								<th>Jumlah Anggota</th>
+								<th>Jumlah Anggota Wanita</th>
+								<th>Status</th>
 								<th>Option</th>
                             </tr>
                         </thead>
@@ -60,10 +67,12 @@
 <script>
     $(document).ready(function () {
 		var table = $('#users').DataTable({
+	        // dom: 'Bflrtip',
+
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/profil/pesan",
+                     "url": "/main/data_master/bkm",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -74,12 +83,14 @@
                 alert(xhr.status);
                 alert(thrownError);
               },
-			  "columns": [
-				{ "data": "kode" , name:"kode"},
-				{ "data": "pengirim" , name:"pengirim"},
-				{ "data": "text_pesan" , name:"text_pesan"},
-				{ "data": "tgl_pesan_masuk" , name:"tgl_pesan_masuk"},
-				{ "data": "option" , name:"option",orderable:false}
+            "columns": [
+				{ "data": "id" , name:"id"},
+				{ "data": "kode_bkm" , name:"kode_bkm"},
+				{ "data": "nama" , name:"nama"},
+				{ "data": "jml_anggt" , name:"jml_anggt"},
+				{ "data": "jml_anggt_w" , name:"jml_anggt_w"},
+				{ "data": "status" , name:"status"},
+                { "data": "option" , name:"option",orderable:false}
             ],
 			"order": [[ 0, "desc" ]]
 	    });
