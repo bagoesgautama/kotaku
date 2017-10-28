@@ -690,6 +690,11 @@ Route::post('/main/pelaksanaan/kelurahan/ksm', 'MAIN\bk010408Controller@post');
 Route::get('/main/pelaksanaan/kelurahan/ksm/create', 'MAIN\bk010408Controller@create');
 Route::post('/main/pelaksanaan/kelurahan/ksm/create', 'MAIN\bk010408Controller@post_create');
 Route::get('/main/pelaksanaan/kelurahan/ksm/delete', 'MAIN\bk010408Controller@delete');
+Route::get('/main/pelaksanaan/kelurahan/ksm/select', 'MAIN\bk010408Controller@select');
+Route::post('/main/pelaksanaan/kelurahan/ksm/pemanfaat', 'MAIN\bk010408Controller@post_pemanfaat');
+Route::get('/main/pelaksanaan/kelurahan/ksm/pemanfaat/create', 'MAIN\bk010408Controller@pemanfaat_create');
+Route::post('/main/pelaksanaan/kelurahan/ksm/pemanfaat/create', 'MAIN\bk010408Controller@post_pemanfaat_create');
+Route::get('/main/pelaksanaan/kelurahan/ksm/pemanfaat/delete', 'MAIN\bk010408Controller@delete_pemanfaat');
 
 Route::get('/main/pelaksanaan/kelurahan/sertifikasi_infra', 'MAIN\bk010409Controller@index');
 Route::post('/main/pelaksanaan/kelurahan/sertifikasi_infra', 'MAIN\bk010409Controller@post');

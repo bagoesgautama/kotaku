@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Realisasi Kegiatan Skala Kota @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan - Realisasi Kegiatan Skala Kelurahan @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Pelaksanaan - Realisasi Kegiatan Skala Kelurahan</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,16 +23,9 @@
                 </a>
             </li>
             <li class="next">
-                Pelaksanaan
-            </li>
-            <li class="next">
-                Realisasi Kegiatan Skala Kota (BDI/Non BDI)
-            </li>
-            <li class="next">
-                Realisasi Kegiatan Skala Kota
-            </li>
-            <li class="next">
-                Realisasi Kegiatan
+                <a href="/main/pelaksanaan/kelurahan/realisasi_kegiatan">
+                    Pelaksanaan / Realisasi Kegiatan Skala Kelurahan
+                </a>
             </li>
         </ul>
     </div>
@@ -45,7 +38,7 @@
                 <div class="panel-title pull-left">
                     <b>bk010410 index</b>
                 </div>
-                @if( ! empty($detil['375']))
+                @if( ! empty($detil['383']))
                 <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kelurahan/realisasi_kegiatan/create'}}">Create</a>
                 </div>
@@ -53,7 +46,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users">
+                    <table class="table table-striped" id="users" width="2000px">
                         <thead>
                             <tr>
                                 <th>Data Usulan Kegiatan</th>
@@ -62,7 +55,6 @@
                                 <th>Kota</th>
                                 <th>Korkot</th>
                                 <th>Kawasan</th>
-                                <th>KSM</th>
                                 <th>KPP</th>
                                 <th>Tahun</th>
                                 <th>Tgl Realisasi</th>
@@ -101,7 +93,6 @@
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_korkot" , name:"kode_korkot"},
                 { "data": "kode_kawasan" , name:"kode_kawasan"},
-                { "data": "id_ksm" , name:"id_ksm"},
                 { "data": "id_kpp" , name:"id_kpp"},
                 { "data": "tahun" , name:"tahun"},
                 { "data": "tgl_realisasi" , name:"tgl_realisasi"},
@@ -110,7 +101,6 @@
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
             ],
-            "order": [[12,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

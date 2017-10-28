@@ -72,10 +72,10 @@
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Rencana Investasi Tahunan</label>
+                                        <label class="col-sm-3 control-label">Paket Kerja Kontraktor</label>
                                         <div class="col-sm-6">
-                                            <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                            <select id="select-kode-plan-inves-input" name="kode-plan-inves-input" class="form-control select2" size="1" required>
+                                            <input type="hidden" id="kode_parent" name="kode_parent" value="{{ $kode_parent }}">
+                                            <select id="select-paket_kerja_kontraktor-input" name="select-paket_kerja_kontraktor-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
                                                 @foreach ($paket_kerja_kontraktor_list as $kpil)
                                                     <option value="{{$kpil->kode}}" {!! $kode_parent==$kpil->kode ? 'selected':'' !!}>{{$kpil->kode}}</option>
@@ -348,20 +348,24 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">File Dokumen</label>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">File Document</label>
                                         <div class="col-sm-6">
-                                            <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
+                                            <input id="file-document-input" type="file" class="file" accept="image/*" name="file-document-input">
                                             <br>
-                                            <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-dokumen" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
+                                            <img id="uri_img_document" alt="gallery" src="/uploads/perencanaan/kawasan/perencanaan/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                            <input type="hidden" id="uploaded-file-document" name="uploaded-file-document" value="{{$uri_img_document}}">
+                                            <button type="button" class="btn btn-effect-ripple btn-danger" id="uploaded-file-document" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">delete</button>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">File Absensi</label>
                                         <div class="col-sm-6">
-                                            <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input">
+                                            <input id="file-absensi-input" type="file" class="file" accept="image/*" name="file-absensi-input">
                                             <br>
-                                            <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!}>{{$uri_img_absensi}}</button>
+                                            <img id="uri_img_absensi" alt="gallery" src="/uploads/perencanaan/kawasan/perencanaan/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                            <input type="hidden" id="uploaded-file-absensi" name="uploaded-file-absensi" value="{{$uri_img_absensi}}">
+                                            <button type="button" class="btn btn-effect-ripple btn-danger" id="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} onclick="test('uri_img_absensi')">delete</button>
                                         </div>
                                     </div>
                                     <!--<div class="form-group striped-col">
@@ -409,7 +413,7 @@
                     </div>
                     <div class="form-group form-actions">
                         <div class="col-sm-9 col-sm-offset-3">
-                            <a href="/main/perencanaan/penanganan/pengamanan_dampak" type="button" class="btn btn-effect-ripple btn-danger">
+                            <a href="/main/perencanaan/infra/amdal" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -428,28 +432,25 @@
 </div>
 @stop
 {{-- local scripts --}} @section('footer_scripts')
-<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
-<script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
-
-<script type="text/javascript" src="{{asset('vendors/pnotify/js/pnotify.js')}}"></script>
-<script src="{{asset('js/custom_js/notifications.js')}}"></script>
 <script>
+    function test(id){
+    console.log(id)
+    var elem = document.getElementById(id);
+    elem.parentNode.removeChild(elem);
+    var elem2 = $('#'+id+'-file');
+    elem2.removeAttr('value');
+    return false;
+    }
       $(document).ready(function () {
-		$("#file-dokumen-input").fileinput({
-  	  		showUpload: false
-  	  	});
-  	  	$("#file-absensi-input").fileinput({
-  	  		showUpload: false
-  	  	});
+        $("#file-dokumen-input").fileinput({
+            showUpload: false
+        });
+        $("#file-absensi-input").fileinput({
+            showUpload: false
+        });
         $('#form').on('submit', function (e) {
-            var form_data = new FormData(this);
           e.preventDefault();
+          var form_data = new FormData(this);
           $.ajax({
             type: 'post',
             processData: false,
@@ -471,20 +472,39 @@
             }
           });
         });
-        $("#select-kode-plan-inves-input").select2({
+
+        $("#file-document-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
+
+        $("#file-absensi-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
+
+        $("#select-paket_kerja_kontraktor-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
         });
-        $('.ui-pnotify').remove();
+
         document.addEventListener('invalid', (function () {
           return function (e) {
             e.preventDefault();
             console.log(e)
-            new PNotify({
-                title: 'Pengisian Form Tidak Lengkap',
-                text: 'Field input '+e.target.id+' belum diisi.',
-                type: 'error'
-            });
+            alert('Field input '+e.target.id+' belum diisi.');
           };
         })(), true);
 
@@ -495,8 +515,12 @@
             }
         }
         document.body.addEventListener('input', enforce_maxlength);
-
-      });
+    });
 </script>
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+
+<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 @stop
