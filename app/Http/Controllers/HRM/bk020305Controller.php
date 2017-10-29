@@ -80,8 +80,8 @@ class bk020305Controller extends Controller
 			foreach ($posts as $post)
 			{
 				$edit =  $post->kode;
-				$url_edit="/hrm/management/user/penghargaan/create?kode=".$edit;
-				$url_delete="/hrm/management/user/penghargaan/delete?kode=".$edit;
+				$url_edit="/hrm/profil/user/penghargaan/create?kode=".$edit;
+				$url_delete="/hrm/profil/user/penghargaan/delete?kode=".$edit;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['nama'] = $post->nama;
 				$nestedData['instansi'] = $post->instansi;
@@ -180,7 +180,7 @@ class bk020305Controller extends Controller
 		$file2 = $request->file('uri_img_sertifikat2-input');
 		$url2 = null;
 		$upload2 = false;
-		if($request->input('uri_img_sertifikat2') != null && $file2 == null){
+		if($request->input('uri_img_sertifikat2-file') != null && $file2 == null){
 			$url2 = $request->input('uri_img_sertifikat2-file');
 			$upload2 = false;
 		}else if($file2 != null){
@@ -190,7 +190,7 @@ class bk020305Controller extends Controller
 		$file3 = $request->file('uri_img_sertifikat3-input');
 		$url3 = null;
 		$upload3 = false;
-		if($request->input('uri_img_sertifikat3') != null && $file3 == null){
+		if($request->input('uri_img_sertifikat3-file') != null && $file3 == null){
 			$url3 = $request->input('uri_img_sertifikat3-file');
 			$upload3 = false;
 		}else if($file3 != null){
@@ -251,7 +251,7 @@ class bk020305Controller extends Controller
 	{
 		DB::table('bkt_02030203_penghargaan')->where('kode', $request->input('kode'))->delete();
         $this->log_aktivitas('Delete', 544);
-        return Redirect::to('/hrm/management/user/penghargaan');
+        return Redirect::to('/hrm/profil/user/penghargaan');
     }
 
     public function log_aktivitas($aktifitas, $detil)

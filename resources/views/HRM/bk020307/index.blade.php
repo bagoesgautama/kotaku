@@ -73,7 +73,7 @@
 		e.preventDefault();
 		$.ajax({
 			type: 'post',
-			"url": "/hrm/management/user/password",
+			"url": "/hrm/profil/user/password",
 			data: $('form').serialize(),
 			beforeSend: function (){
 			    $("#submit").prop('disabled', true);
@@ -81,12 +81,12 @@
 			success: function (e) {
 				if(e=="true"){
 					alert("Password berhasil diganti");
-					window.location.href = "/hrm/management/user/password";
+					window.location.href = "/hrm/profil/user/password";
 				}else{
 					alert(e);
 					$("#submit").prop('disabled', false);
 				}
-				//window.location.href = "/hrm/management/user/password";
+				//window.location.href = "/hrm/profil/user/password";
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);

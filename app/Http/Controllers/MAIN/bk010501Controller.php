@@ -129,9 +129,7 @@ class bk010501Controller extends Controller
 				left join bkt_01010104_kel k on k.kode=a.kode_kota
 			where 
 				a.flag_sudah_sertias=1 and
-				a.hasil_sertifikasi is not null and
-				(h.skala_kegiatan=1 or
-				a.skala_kegiatan=1)';
+				a.hasil_sertifikasi is not null';
 		$totalData = DB::select('select count(1) cnt from bkt_01040201_real_keg a
 				left join bkt_01010102_kota b on b.kode=a.kode_kota
 				left join bkt_01010111_korkot c on c.kode=a.kode_korkot
@@ -147,9 +145,7 @@ class bk010501Controller extends Controller
 				left join bkt_01010104_kel k on k.kode=a.kode_kota
 			where 
 				a.flag_sudah_sertias=1 and
-				a.hasil_sertifikasi is not null and
-				(h.skala_kegiatan=1 or
-				a.skala_kegiatan=1)');
+				a.hasil_sertifikasi is not null');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -187,7 +183,7 @@ class bk010501Controller extends Controller
 				a.skala_kegiatan like "%'.$search.'%" or 
 				h.skala_kegiatan like "%'.$search.'%" or 
 				a.tahun like "%'.$search.'%")) a');
-			$totalFiltered = $totalData[0]->cnt;
+			$totalFiltered = $totalFiltered[0]->cnt;
 		}
 
 		$data = array();
@@ -324,6 +320,7 @@ class bk010501Controller extends Controller
 				$data['kode_kawasan'] = $rowData[0]->kode_kawasan.' '.$rowData[0]->nama_kawasan;
 				$data['id_ksm'] = $rowData[0]->kode_ksm.' '.$rowData[0]->nama_ksm;
 				$data['tahun'] = $rowData[0]->tahun;
+				$data['skala_kegiatan'] = $rowData[0]->skala_kegiatan.$rowData[0]->usulan_skala;
 				$data['tgl_realisasi'] = $rowData[0]->tgl_realisasi;
 				$data['vol_realisasi'] = $rowData[0]->vol_realisasi;
 				$data['satuan'] = $rowData[0]->satuan;
@@ -366,6 +363,7 @@ class bk010501Controller extends Controller
 				$data['kode_kel'] = null;
 				$data['kode_faskel'] = null;
 				$data['kode_kawasan'] = null;
+				$data['skala_kegiatan'] = null;
 				$data['id_ksm'] = null;
 				$data['tahun'] = null;
 				$data['tgl_realisasi'] = null;
@@ -397,7 +395,6 @@ class bk010501Controller extends Controller
 						left join bkt_01010121_dtl_subkomponen d 
 							on (d.id=b.id_dtl_subkomponen or d.id=a.id_dtl_subkomponen)
 					where
-						(a.skala_kegiatan or b.skala_kegiatan=1) and
 						a.hasil_sertifikasi is not null and
 						a.flag_sudah_sertias is null or 
 						a.flag_sudah_sertias=0');

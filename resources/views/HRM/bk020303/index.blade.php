@@ -38,7 +38,7 @@
                 </div>
                 @if( ! empty($detil['534']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management/user/pelatihan/create">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/profil/user/pelatihan/create">Create</a>
 				</div>
                 @endif
             </div>
@@ -68,7 +68,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/management/user/pelatihan",
+                     "url": "/hrm/profil/user/pelatihan",
                      "dataType": "json",
                      "type": "POST"
                    },

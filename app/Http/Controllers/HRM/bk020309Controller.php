@@ -85,8 +85,8 @@ class bk020309Controller extends Controller
 			foreach ($posts as $post)
 			{
 				$edit =  $post->kode;
-				$url_edit="/hrm/management/kuota/kmp/create?kode=".$edit;
-				$url_delete="/hrm/management/kuota/kmp/delete?kode=".$edit;
+				$url_edit="/hrm/profil/kuota/kmp/create?kode=".$edit;
+				$url_delete="/hrm/profil/kuota/kmp/delete?kode=".$edit;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['quota_personil'] = $post->quota_personil;
 				$nestedData['kmp'] = $post->kmp;
@@ -194,7 +194,7 @@ class bk020309Controller extends Controller
 	{
 		DB::table('bkt_02010105_kuota_kmp')->where('kode', $request->input('kode'))->delete();
         $this->log_aktivitas('Delete', 517);
-        return Redirect::to('/hrm/management/kuota/kmp');
+        return Redirect::to('/hrm/profil/kuota/kmp');
     }
 
     public function log_aktivitas($aktifitas, $detil)

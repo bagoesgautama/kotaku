@@ -33,7 +33,7 @@
             </li>
             <li class="next">
                 <a href="/main/keberlanjutan/kota/serah_terima">
-                    Keberlanjutan / Skala Kota / Realisasi Kegiatan Skala Kota / Serah Terima Aset Bangunan kepada Pemerintah Kab/Kota
+                    Keberlanjutan / Skala Kota / Serah Terima Aset Bangunan kepada Pemerintah Kab/Kota
                 </a>
             </li>
             <li class="next">

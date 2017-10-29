@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Pembangunan Visi @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Status Kemandirian LKM/BKM @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -23,16 +23,13 @@
                 </a>
             </li>
             <li class="next">
-                Perencanaan
+                Keberlanjutan
             </li>
             <li class="next">
-                Penanganan Pemukiman Kota
+                Skala Kelurahan
             </li>
             <li class="next">
-                Perencanaan Penanganan Permukiman
-            </li>
-            <li class="next">
-                Pembangunan Visi
+                Status Kemandirian LKM/BKM
             </li>
         </ul>
     </div>
@@ -43,11 +40,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010301 index</b>
+                    <b>bk010503 index</b>
                 </div>
-                @if( ! empty($detil['254']))
+                @if( ! empty($detil['405']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/penanganan/pembangunan_visi/create'}}">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/keberlanjutan/kelurahan/status_kemandirian/create'}}">Create</a>
 				</div>
                 @endif
             </div>
@@ -56,14 +53,14 @@
 					<table class="table table-striped" id="pokja">
 						<thead>
                             <tr>
+                                <th>Kode</th>
                                 <th>Tahun</th>
                                 <th>Kota</th>
                                 <th>Kecamatan</th>
-                                <th>KMW</th>
-                                <th>Korkot</th>
-                                <th>Jenis Kegiatan</th>
-                                <th>Tgl Kegiatan</th>
-                                <th>Lokasi Kegiatan</th>
+                                <th>Kelurahan</th>
+                                <th>BKM</th>
+                                <th>Status</th>
+                                <th>Created Time</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -84,22 +81,23 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/perencanaan/penanganan/pembangunan_visi",
+                     "url": "/main/keberlanjutan/kelurahan/status_kemandirian",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
+                { "data": "kode" , name:"kode"},
 				{ "data": "tahun" , name:"tahun"},
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_kec" , name:"kode_kec"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+                { "data": "kode_kel" , name:"kode_kel"},
+                { "data": "kode_bkm" , name:"kode_bkm"},
+                { "data": "status" , name:"status"},
+                { "data": "created_time" , name:"created_time"},
 				{ "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order":[[0,"desc"]]
 	    });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

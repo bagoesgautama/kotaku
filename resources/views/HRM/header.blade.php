@@ -11,57 +11,10 @@
         </a>
 
     </div>
-	<a href="javascript:void(0)" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button"> <i class="fa-1x fa-fw ti-user text-white">HRM</i></a>
+	<a href="javascript:void(0)" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button"> <i class="fa-1x fa-fw text-white">HRM</i></a>
 	<div class="navbar-right">
-        <ul class="nav navbar-nav">
-            <li class="dropdown messages-menu">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-fw ti-email black"></i>
-                    <span id="msg_cnt" class="label label-success">0</span>
-                </a>
-                <ul id="msg" class="dropdown-menu dropdown-messages table-striped">
-                </ul>
-            </li>
-            <!-- User Account: style can be found in dropdown-->
-            <li class="dropdown user user-menu">
-                <a href="javascript:void(0)" class="dropdown-toggle padding-user" data-toggle="dropdown">
-                    <img src="{{asset('img/original.jpg')}}" width="35" class="img-circle img-responsive pull-left" height="35" alt="User Image">
-                    <div class="riot">
-                        <div>
-                            {{ $username }}
-                            <span><i class="caret"></i></span>
-                        </div>
-                    </div>
-                </a>
-                <ul class="dropdown-menu">
-                    <!-- User image -->
-                    <li class="user-header">
-                        <img src="{{asset('img/original.jpg')}}" class="img-circle" alt="User Image">
-                        <p> {{ $username }}</p>
-                    </li>
-                    <!-- Menu Body -->
-                    <li class="p-t-3">
-                        <a href="{{url('user_profile')}}">
-                            <i class="fa fa-fw ti-user"></i> My Profile
-                        </a>
-                    </li>
-                    <li role="presentation"></li>
-                    <li>
-                        <a href="/hrm/management/user/password">
-                            <i class="fa fa-fw ti-settings"></i> Change Password
-                        </a>
-                    </li>
-                    <li role="presentation" class="divider"></li>
-                    <!-- Menu Footer-->
-                    <li class="user-footer">
-						<a href="/logout">
-							<i class="fa fa-fw ti-shift-right"></i> Logout
-						</a>
-                        <!--<div class="pull-right">
+        <ul id="header" class="nav navbar-nav">
 
-                        </div>-->
-                    </li>
-                </ul>
-            </li>
         </ul>
     </div>
 </nav>
@@ -75,7 +28,17 @@
 
     function processRequest(e) {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-            var res = JSON.parse(xhr.responseText);
+            var res_data = JSON.parse(xhr.responseText);
+			var res=res_data.pesan;
+			var user=res_data.user;
+			var header=$('#header');
+			header.append(`<li class="dropdown messages-menu">
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-fw ti-email black"></i>
+                    <span id="msg_cnt" class="label label-success">0</span>
+                </a>
+                <ul id="msg" class="dropdown-menu dropdown-messages table-striped">
+                </ul>
+            </li>`)
             document.getElementById("msg_cnt").innerHTML=res.length;
 			var msg=$('#msg');
     		msg.empty();
@@ -106,6 +69,82 @@
     			}
     		}
     		msg.append('<li class="dropdown-footer"><a href="/hrm/management/pesan">View All messages</a></li>');
+
+			if(user.uri_img_profile!=null){
+				header.append(`<li class="dropdown user user-menu">
+	                <a href="javascript:void(0)" class="dropdown-toggle padding-user" data-toggle="dropdown">
+	                    <img src="/uploads/profil/`+user.uri_img_profile+`" width="35" class="img-circle img-responsive pull-left" height="35" alt="User Image">
+	                    <div class="riot">
+	                        <div>
+	                            `+user.user_name+`
+	                            <span><i class="caret"></i></span>
+	                        </div>
+	                    </div>
+	                </a>
+	                <ul class="dropdown-menu" >
+						<li class="user-header">
+							<img src="/uploads/profil/`+user.uri_img_profile+`" class="img-circle" alt="User Image">
+							<p> `+user.user_name+`</p>
+						</li>
+						<!-- Menu Body -->
+						<li class="p-t-3">
+							<a href="/hrm/profil/user/profil">
+								<i class="fa fa-fw ti-user"></i> My Profile
+							</a>
+						</li>
+						<li role="presentation"></li>
+						<li>
+							<a href="/hrm/management/user/password">
+								<i class="fa fa-fw ti-settings"></i> Change Password
+							</a>
+						</li>
+						<li role="presentation" class="divider"></li>
+						<!-- Menu Footer-->
+						<li class="user-footer">
+							<a href="/logout">
+								<i class="fa fa-fw ti-shift-right"></i> Logout
+							</a>
+						</li>
+					</ul>
+				</li>`);
+			}else{
+				header.append(`<li class="dropdown user user-menu">
+	                <a href="javascript:void(0)" class="dropdown-toggle padding-user" data-toggle="dropdown">
+	                    <img src="{{url('img/authors/avatar1.jpg')}}" width="35" class="img-circle img-responsive pull-left" height="35" alt="User Image">
+	                    <div class="riot">
+	                        <div>
+	                            `+user.user_name+`
+	                            <span><i class="caret"></i></span>
+	                        </div>
+	                    </div>
+	                </a>
+	                <ul class="dropdown-menu" >
+						<li class="user-header">
+							<img src="{{url('img/authors/avatar1.jpg')}}" class="img-circle" alt="User Image">
+							<p> `+user.user_name+`</p>
+						</li>
+						<!-- Menu Body -->
+						<li class="p-t-3">
+							<a href="/hrm/profil/user/profil">
+								<i class="fa fa-fw ti-user"></i> My Profile
+							</a>
+						</li>
+						<li role="presentation"></li>
+						<li>
+							<a href="/hrm/management/user/password">
+								<i class="fa fa-fw ti-settings"></i> Change Password
+							</a>
+						</li>
+						<li role="presentation" class="divider"></li>
+						<!-- Menu Footer-->
+						<li class="user-footer">
+							<a href="/logout">
+								<i class="fa fa-fw ti-shift-right"></i> Logout
+							</a>
+						</li>
+					</ul>
+				</li>`);
+			}
         }
     }
 </script>

@@ -60,7 +60,7 @@
                 <label class="col-sm-3 control-label">Provinsi</label>
                 <div class="col-sm-6">
                     <select id="kode-prop-input" name="kode-prop-input" class="form-control" size="1">
-						<option value=undefined>Please select</option>
+						<option value>Please select</option>
                         @foreach ($kode_prop_list as $kkl)
                             <option value="{{$kkl->kode}}" {!! $kode_prop==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                         @endforeach
@@ -209,6 +209,8 @@
 			if(prov_id!=undefined){
 				kota.empty();
 				kec.empty();
+				kota.append("<option value>Please Select</option>");
+				kec.append("<option value>Please Select</option>");
 				$.ajax({
 					type: 'get',
 					"url": "/main/kel_faskel/select?prov="+prov_id,
@@ -225,6 +227,7 @@
 			kota_id=kota.val();
 			if(kota_id!=undefined){
 				kec.empty();
+				kec.append("<option value>Please Select</option>");
 				$.ajax({
 					type: 'get',
 					"url": "/main/kel_faskel/select?kota="+kota_id,
