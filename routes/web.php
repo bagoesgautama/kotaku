@@ -735,18 +735,21 @@ Route::post('/main/keberlanjutan/kota/serah_terima/create', 'MAIN\bk010501Contro
 Route::get('/main/keberlanjutan/kota/serah_terima/delete', 'MAIN\bk010501Controller@delete');
 
 Route::get('/main/keberlanjutan/kota/operasional', 'MAIN\bk010502Controller@index');
+Route::get('/main/keberlanjutan/kota/operasional/select', 'MAIN\bk010502Controller@select');
 Route::post('/main/keberlanjutan/kota/operasional', 'MAIN\bk010502Controller@post');
 Route::get('/main/keberlanjutan/kota/operasional/create', 'MAIN\bk010502Controller@create');
 Route::post('/main/keberlanjutan/kota/operasional/create', 'MAIN\bk010502Controller@post_create');
 Route::get('/main/keberlanjutan/kota/operasional/delete', 'MAIN\bk010502Controller@delete');
 
 Route::get('/main/keberlanjutan/kelurahan/status_kemandirian', 'MAIN\bk010503Controller@index');
+Route::get('/main/keberlanjutan/kelurahan/status_kemandirian/select', 'MAIN\bk010503Controller@select');
 Route::post('/main/keberlanjutan/kelurahan/status_kemandirian', 'MAIN\bk010503Controller@post');
 Route::get('/main/keberlanjutan/kelurahan/status_kemandirian/create', 'MAIN\bk010503Controller@create');
 Route::post('/main/keberlanjutan/kelurahan/status_kemandirian/create', 'MAIN\bk010503Controller@post_create');
 Route::get('/main/keberlanjutan/kelurahan/status_kemandirian/delete', 'MAIN\bk010503Controller@delete');
 
 Route::get('/main/keberlanjutan/kelurahan/pemeliharaan', 'MAIN\bk010504Controller@index');
+Route::get('/main/keberlanjutan/kelurahan/pemeliharaan/select', 'MAIN\bk010504Controller@select');
 Route::post('/main/keberlanjutan/kelurahan/pemeliharaan', 'MAIN\bk010504Controller@post');
 Route::get('/main/keberlanjutan/kelurahan/pemeliharaan/create', 'MAIN\bk010504Controller@create');
 Route::post('/main/keberlanjutan/kelurahan/pemeliharaan/create', 'MAIN\bk010504Controller@post_create');

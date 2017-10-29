@@ -899,29 +899,29 @@
 			</li>
 			@endif
 			@if( ! empty($menu['126']))
-			<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+			<li {!! (Request::is( 'main/keberlanjutan/kelurahan/*')||Request::is( 'main/keberlanjutan/kelurahan/*/create')? 'class="active"': "") !!}>
 				<a href="javascript:void(0)">
 					<span class="mm-text">Skala kelurahan</span>
 					<span class="fa arrow"></span>
 				</a>
 				<ul class="sub-menu form-submenu">
 					@if( ! empty($menu['129']))
-					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
-						<a href="/main/data_wilayah/provinsi">
+					<li {!! (Request::is( 'main/keberlanjutan/kelurahan/status_kemandirian')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
+						<a href="/main/keberlanjutan/kelurahan/status_kemandirian">
 							<span class="mm-text">Status Kemandirian LKM/BKM</span>
 						</a>
 					</li>
 					@endif
 					@if( ! empty($menu['130']))
-					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
-						<a href="/main/data_wilayah/provinsi">
+					<li {!! (Request::is( 'main/keberlanjutan/kelurahan/pemeliharaan')||Request::is( 'main/keberlanjutan/kelurahan/pemeliharaan/create')? 'class="active"': "") !!}>
+						<a href="/main/keberlanjutan/kelurahan/pemeliharaan">
 							<span class="mm-text">Pemeliharaan & keberlanjutan</span>
 						</a>
 					</li>
 					@endif
 					@if( ! empty($menu['131']))
-					<li {!! (Request::is( 'main/data_wilayah/provinsi')||Request::is( 'main/data_wilayah/provinsi/create')? 'class="active"': "") !!}>
-						<a href="/main/data_wilayah/provinsi">
+					<li {!! (Request::is( 'main/keberlanjutan/kelurahan/audit')||Request::is( 'main/keberlanjutan/kelurahan/audit')? 'class="active"': "") !!}>
+						<a href="/main/keberlanjutan/kelurahan/audit">
 							<span class="mm-text">Pelaksanaan Audit Independent</span>
 						</a>
 					</li>
