@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Realisasi Kegiatan Skala Kota @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan - Realisasi Kegiatan Skala Kelurahan BDI Kolaborasi @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Pelaksanaan - Realisasi Kegiatan Skala Kelurahan BDI Kolaborasi</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,16 +23,9 @@
                 </a>
             </li>
             <li class="next">
-                Pelaksanaan
-            </li>
-            <li class="next">
-                Realisasi Kegiatan Skala Kota (BDI/Non BDI)
-            </li>
-            <li class="next">
-                Realisasi Kegiatan Skala Kota
-            </li>
-            <li class="next">
-                Realisasi Kegiatan
+                <a href="/main/pelaksanaan/kelurahan_non/realisasi_kegiatan">
+                    Pelaksanaan / Realisasi Kegiatan Skala Kelurahan /BDI Kolaborasi
+                </a>
             </li>
         </ul>
     </div>
@@ -53,16 +46,17 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users">
+                    <table class="table table-striped" id="users" width="3000px">
                         <thead>
                             <tr>
                                 <th>Data Usulan Kegiatan</th>
                                 <th>Sumber Dana</th>
-                                <th>KMW</th>
                                 <th>Kota</th>
                                 <th>Korkot</th>
+                                <th>Kecamatan</th>
+                                <th>Kelurahan</th>
+                                <th>Faskel</th>
                                 <th>Kawasan</th>
-                                <th>KSM</th>
                                 <th>KPP</th>
                                 <th>Tahun</th>
                                 <th>Tgl Realisasi</th>
@@ -97,11 +91,12 @@
             "columns": [
                 { "data": "kode_parent" , name:"kode_parent"},
                 { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_korkot" , name:"kode_korkot"},
+                { "data": "kode_kec" , name:"kode_kec"},
+                { "data": "kode_kel" , name:"kode_kel"},
+                { "data": "kode_faskel" , name:"kode_faskel"},
                 { "data": "kode_kawasan" , name:"kode_kawasan"},
-                { "data": "id_ksm" , name:"id_ksm"},
                 { "data": "id_kpp" , name:"id_kpp"},
                 { "data": "tahun" , name:"tahun"},
                 { "data": "tgl_realisasi" , name:"tgl_realisasi"},
@@ -110,7 +105,6 @@
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
             ],
-            "order": [[12,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {
