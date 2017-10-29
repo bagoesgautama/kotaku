@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan - Realisasi Kegiatan Skala Kelurahan @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan - Realisasi Kegiatan Skala Kelurahan BDI/Non BDI @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
@@ -23,7 +23,7 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Pelaksanaan - Realisasi Kegiatan Skala Kelurahan</h1>
+    <h1>Pelaksanaan - Realisasi Kegiatan Skala Kelurahan BDI/Non BDI</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -33,7 +33,7 @@
             </li>
             <li class="next">
                 <a href="/main/pelaksanaan/kelurahan/realisasi_kegiatan/create?kode={{$kode_real_keg}}">
-                    Pelaksanaan / Realisasi Kegiatan Skala Kelurahan / Create
+                    Pelaksanaan / Realisasi Kegiatan Skala Kelurahan BDI/Non BDI / Create
                 </a>
             </li>
             <li class="next">

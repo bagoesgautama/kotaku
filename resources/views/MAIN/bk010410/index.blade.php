@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan - Realisasi Kegiatan Skala Kelurahan @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan - Realisasi Kegiatan Skala Kelurahan BDI/Non BDI @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Pelaksanaan - Realisasi Kegiatan Skala Kelurahan</h1>
+    <h1>Pelaksanaan - Realisasi Kegiatan Skala Kelurahan BDI/Non BDI</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -24,7 +24,7 @@
             </li>
             <li class="next">
                 <a href="/main/pelaksanaan/kelurahan/realisasi_kegiatan">
-                    Pelaksanaan / Realisasi Kegiatan Skala Kelurahan
+                    Pelaksanaan / Realisasi Kegiatan Skala Kelurahan / BDI/Non BDI
                 </a>
             </li>
         </ul>
@@ -46,14 +46,16 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users" width="2000px">
+                    <table class="table table-striped" id="users" width="3000px">
                         <thead>
                             <tr>
                                 <th>Data Usulan Kegiatan</th>
                                 <th>Sumber Dana</th>
-                                <th>KMW</th>
                                 <th>Kota</th>
                                 <th>Korkot</th>
+                                <th>Kecamatan</th>
+                                <th>Kelurahan</th>
+                                <th>Faskel</th>
                                 <th>Kawasan</th>
                                 <th>KPP</th>
                                 <th>Tahun</th>
@@ -89,9 +91,11 @@
             "columns": [
                 { "data": "kode_parent" , name:"kode_parent"},
                 { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_korkot" , name:"kode_korkot"},
+                { "data": "kode_kec" , name:"kode_kec"},
+                { "data": "kode_kel" , name:"kode_kel"},
+                { "data": "kode_faskel" , name:"kode_faskel"},
                 { "data": "kode_kawasan" , name:"kode_kawasan"},
                 { "data": "id_kpp" , name:"id_kpp"},
                 { "data": "tahun" , name:"tahun"},

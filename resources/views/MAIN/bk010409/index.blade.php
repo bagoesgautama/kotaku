@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan - Realisasi Kegiatan Skala Kelurahan - Sertifikasi Infrastruktur @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan - Realisasi Kegiatan Skala Kelurahan BDI/Non BDI - Sertifikasi Infrastruktur @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Pelaksanaan - Realisasi Kegiatan Skala Kelurahan - Sertifikasi Infrastruktur</h1>
+    <h1>Pelaksanaan - Realisasi Kegiatan Skala Kelurahan BDI/Non BDI - Sertifikasi Infrastruktur</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -24,11 +24,8 @@
             </li>
             <li class="next">
                 <a href="/main/pelaksanaan/kelurahan/sertifikasi_infra">
-                    Pelaksanaan / Realisasi Kegiatan Skala Kelurahan / Sertifikasi Infrastruktur
+                    Pelaksanaan / Realisasi Kegiatan Skala Kelurahan BDI/Non BDI / Sertifikasi Infrastruktur
                 </a>
-            </li>
-            <li class="next">
-                Create
             </li>
         </ul>
     </div>
@@ -39,34 +36,29 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010404 index</b>
+                    <b>bk010408 index</b>
                 </div>
-                @if( ! empty($detil['359']))
+                <!-- @if( ! empty($detil['375']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'main/pelaksanaan/kelurahan/sertifikasi_infra/create'}}">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kelurahan/ksm/create'}}">Create</a>
                 </div>
-                @endif
+                @endif -->
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users">
+                    <table class="table table-striped" id="users" width="2000px">
                         <thead>
                             <tr>
-                                <th>Kode Realisasi Kontrak Paket Pekerjaan Kontraktor</th>
-                                <th>Kode Kontrak Paket Pekerjaan Kontraktor</th>
+                                <th>Input Hasil Sertifikasi</th>
+                                <th>Hasil Sertifikasi</th>
+                                <th>KSM Pelaksana Kegiatan</th>
+                                <th>Data Realisasi Kegiatan</th>
                                 <th>Sumber Dana</th>
-                                <th>KMW</th>
-                                <th>Kota</th>
-                                <th>Korkot</th>
+                                <th>Kelurahan</th>
+                                <th>Faskel</th>
                                 <th>Kawasan</th>
-                                <th>KPP</th>
                                 <th>Tahun</th>
-                                <th>Tgl Realisasi</th>
-                                <th>Vol Realisasi</th>
-                                <th>Satuan</th>
-                                <th>Sertifikasi</th>
                                 <th>Created Time</th>
-                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -92,22 +84,18 @@
                    },
 
             "columns": [
-                { "data": "kode" , name:"kode"},
+                { "data": "option" , name:"option",orderable:false},
+                { "data": "hasil_sertifikasi" , name:"hasil_sertifikasi"},
+                { "data": "id_ksm" , name:"id_ksm"},
                 { "data": "kode_parent" , name:"kode_parent"},
                 { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
+                { "data": "kode_kel" , name:"kode_kel"},
+                { "data": "kode_faskel" , name:"kode_faskel"},
                 { "data": "kode_kawasan" , name:"kode_kawasan"},
-                { "data": "id_kpp" , name:"id_kpp"},
                 { "data": "tahun" , name:"tahun"},
-                { "data": "tgl_realisasi" , name:"tgl_realisasi"},
-                { "data": "vol_realisasi" , name:"vol_realisasi"},
-                { "data": "satuan" , name:"satuan"},
-                { "data": "hasil_sertifikasi" , name:"hasil_sertifikasi"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "option" , name:"option",orderable:false}
-            ]
+                { "data": "created_time" , name:"created_time"}
+                
+            ],
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

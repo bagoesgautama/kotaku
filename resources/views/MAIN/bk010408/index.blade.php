@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan - Realisasi Kegiatan Skala Keluarahan - KSM Pelaksana Kegiatan @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan - Realisasi Kegiatan Skala Kelurahan - KSM Pelaksana Kegiatan @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Pelaksanaan - Realisasi Kegiatan Skala Keluarahan - KSM Pelaksana Kegiatan</h1>
+    <h1>Pelaksanaan - Realisasi Kegiatan Skala Kelurahan - KSM Pelaksana Kegiatan</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -24,7 +24,7 @@
             </li>
             <li class="next">
                 <a href="/main/pelaksanaan/kelurahan/ksm">
-                    Pelaksanaan / Realisasi Kegiatan Skala Keluarahan / KSM Pelaksana Kegiatan
+                    Pelaksanaan / Realisasi Kegiatan Skala Kelurahan / KSM Pelaksana Kegiatan
                 </a>
             </li>
         </ul>
@@ -38,27 +38,26 @@
                 <div class="panel-title pull-left">
                     <b>bk010408 index</b>
                 </div>
-                @if( ! empty($detil['375']))
-                <!-- <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kelurahan/ksm/create'}}">Create</a>
-				</div> -->
-                @endif
+                <!-- @if( ! empty($detil['375']))
+                <div class="tools pull-right">
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kelurahan/ksm/create'}}">Create</a>
+                </div>
+                @endif -->
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users">
-						<thead>
+                    <table class="table table-striped" id="users" width="2000px">
+                        <thead>
                             <tr>
-                                <th>Tahun</th>
-                                <th>Kota</th>
-                                <th>Korkot</th>
-                                <th>Kecamatan</th>
+                                <th>Input KSM</th>
+                                <th>KSM Pelaksana Kegiatan</th>
+                                <th>Data Realisasi Kegiatan</th>
+                                <th>Sumber Dana</th>
                                 <th>Kelurahan</th>
                                 <th>Faskel</th>
-                                <th>Kode Kawasan</th>
-                                <th>Tanggal Realisasi</th>
-                                <th>KSM</th>
-                                <th>Option</th>
+                                <th>Kawasan</th>
+                                <th>Tahun</th>
+                                <th>Created Time</th>
                             </tr>
                         </thead>
                     </table>
@@ -72,29 +71,30 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#users').DataTable({
-	        // dom: 'Bflrtip',
-	        
-			"processing": true,
+        var table = $('#users').DataTable({
+            // dom: 'Bflrtip',
+            
+            "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "//main/pelaksanaan/kelurahan/ksm",
+                     "url": "/main/pelaksanaan/kelurahan/ksm",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-				{ "data": "tahun" , name:"tahun"},
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
-                { "data": "kode_kec" , name:"kode_kec"},
+                { "data": "option" , name:"option",orderable:false},
+                { "data": "id_ksm" , name:"id_ksm"},
+                { "data": "kode_parent" , name:"kode_parent"},
+                { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
                 { "data": "kode_kel" , name:"kode_kel"},
                 { "data": "kode_faskel" , name:"kode_faskel"},
                 { "data": "kode_kawasan" , name:"kode_kawasan"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-				{ "data": "option" , name:"option",orderable:false}
-            ]
-	    });
+                { "data": "tahun" , name:"tahun"},
+                { "data": "created_time" , name:"created_time"}
+                
+            ],
+        });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
