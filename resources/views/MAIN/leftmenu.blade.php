@@ -816,6 +816,13 @@
 						</a>
 					</li>
 					@endif
+					@if( ! empty($menu['122']))
+					<li {!! (Request::is( 'main/pelaksanaan/kelurahan/realisasi_kegiatan')||Request::is( 'main/pelaksanaan/kelurahan/realisasi_kegiatan/create')? 'class="active"': "") !!}>
+						<a href="/main/pelaksanaan/kelurahan/realisasi_kegiatan">
+							<span class="mm-text">Realisasi Kegiatan Skala Kelurahan</span>
+						</a>
+					</li>
+					@endif
 					@if( ! empty($menu['120']))
 					<li {!! (Request::is( 'main/pelaksanaan/kelurahan/ksm')||Request::is( 'main/pelaksanaan/kelurahan/ksm/create')? 'class="active"': "") !!}>
 						<a href="/main/pelaksanaan/kelurahan/ksm">
@@ -827,13 +834,6 @@
 					<li {!! (Request::is( 'main/pelaksanaan/kelurahan/sertifikasi_infra')||Request::is( 'main/pelaksanaan/kelurahan/sertifikasi_infra/create')? 'class="active"': "") !!}>
 						<a href="/main/pelaksanaan/kelurahan/sertifikasi_infra">
 							<span class="mm-text">Sertifikasi Infrastruktur</span>
-						</a>
-					</li>
-					@endif
-					@if( ! empty($menu['122']))
-					<li {!! (Request::is( 'main/pelaksanaan/kelurahan/realisasi_kegiatan')||Request::is( 'main/pelaksanaan/kelurahan/realisasi_kegiatan/create')? 'class="active"': "") !!}>
-						<a href="/main/pelaksanaan/kelurahan/realisasi_kegiatan">
-							<span class="mm-text">Realisasi Kegiatan Skala Kelurahan</span>
 						</a>
 					</li>
 					@endif

@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Pesan @stop {{-- local styles --}} @section('header_styles')
+@extends('HRM/default') {{-- Page title --}} @section('title') Perubahan Status @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Pesan</h1>
+    <h1>Perubahan Status</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                Managemen Personil / Pesan
+                Managemen Personil / User / Perubahan Status
             </li>
         </ul>
     </div>
@@ -34,8 +34,13 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk020301 Index</b>
+                    <b>bk020306 Index</b>
                 </div>
+                @if( ! empty($detil['549']))
+                <div class="tools pull-right">
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/profil/user/perubahan/create">Create</a>
+				</div>
+                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -43,9 +48,12 @@
 						<thead>
                             <tr>
 								<th>ID</th>
-								<th>Pengirim</th>
-								<th>Pesan</th>
-                                <th>Tanggal</th>
+								<th>Nama Depan</th>
+								<th>Nama Belakang</th>
+								<th>Perubahan</th>
+								<th>Role Lama</th>
+								<th>Role Baru</th>
+								<th>Divalidasi Oleh</th>
 								<th>Option</th>
                             </tr>
                         </thead>
@@ -63,7 +71,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/profil/pesan",
+                     "url": "/hrm/profil/user/perubahan",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -76,9 +84,12 @@
               },
 			  "columns": [
 				{ "data": "kode" , name:"kode"},
-				{ "data": "pengirim" , name:"pengirim"},
-				{ "data": "text_pesan" , name:"text_pesan"},
-				{ "data": "tgl_pesan_masuk" , name:"tgl_pesan_masuk"},
+				{ "data": "nama_depan" , name:"nama_depan"},
+				{ "data": "nama_belakang" , name:"nama_belakang"},
+				{ "data": "perubahan" , name:"perubahan"},
+				{ "data": "role_lama" , name:"role_lama"},
+				{ "data": "role_baru" , name:"role_baru"},
+				{ "data": "divalidasi_oleh" , name:"divalidasi_oleh"},
 				{ "data": "option" , name:"option",orderable:false}
             ],
 			"order": [[ 0, "desc" ]]

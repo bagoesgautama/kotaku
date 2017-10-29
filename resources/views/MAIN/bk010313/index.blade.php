@@ -52,7 +52,7 @@
                     <table class="table table-striped" id="users">
                         <thead>
                             <tr>
-                                <th>Kode Rencana Investasi Tahunan</th>
+                                <th>Kode Paket Kerja Kontraktor</th>
                                 <th>Created Time</th>
                                 <th>Option</th>
                             </tr>

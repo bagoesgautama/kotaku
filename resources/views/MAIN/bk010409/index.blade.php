@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Sertifikasi Infrastruktur @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan - Realisasi Kegiatan Skala Kelurahan - Sertifikasi Infrastruktur @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Pelaksanaan - Realisasi Kegiatan Skala Kelurahan - Sertifikasi Infrastruktur</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,13 +23,12 @@
                 </a>
             </li>
             <li class="next">
-                Pelaksanaan
+                <a href="/main/pelaksanaan/kelurahan/sertifikasi_infra">
+                    Pelaksanaan / Realisasi Kegiatan Skala Kelurahan / Sertifikasi Infrastruktur
+                </a>
             </li>
             <li class="next">
-                Realisasi Kegiatan Skala Kota (BDI/Non BDI)
-            </li>
-            <li class="next">
-                Sertifikasi Infrastruktur
+                Create
             </li>
         </ul>
     </div>
@@ -81,7 +80,7 @@
 
 <script>
     $(document).ready(function () {
-        var table = $('#pokja').DataTable({
+        var table = $('#users').DataTable({
             // dom: 'Bflrtip',
             
             "processing": true,

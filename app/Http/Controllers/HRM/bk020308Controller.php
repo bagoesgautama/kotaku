@@ -88,7 +88,7 @@ class bk020308Controller extends Controller
 			foreach ($posts as $post)
 			{
 				$edit =  $post->id;
-				$url_edit="/hrm/management/user/blacklist/create?id=".$edit;
+				$url_edit="/hrm/management/blacklist/create?id=".$edit;
 				$nestedData['id'] = $post->id;
 				$nestedData['user_name'] = $post->user_name;
 				$nestedData['nama_depan'] = $post->nama_depan;

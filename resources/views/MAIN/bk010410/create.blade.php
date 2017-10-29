@@ -57,57 +57,46 @@
                     </li>
                     <li>
                         <a href="#tab2" data-toggle="tab">
-                                        Data Umum
-                                    </a>
-                    </li>
-                    <li>
-                        <a href="#tab3" data-toggle="tab">
                                         Data Realisasi Kegiatan
                                     </a>
                     </li>
                     <li>
-                        <a href="#tab4" data-toggle="tab">
+                        <a href="#tab3" data-toggle="tab">
                                          Nilai/Biaya
                                     </a>
                     </li>
                     <li>
-                        <a href="#tab5" data-toggle="tab">
+                        <a href="#tab4" data-toggle="tab">
                                          Jumlah Penerima Manfaat
                                     </a>
                     </li>
                     <li>
-                        <a href="#tab6" data-toggle="tab">
+                        <a href="#tab5" data-toggle="tab">
                                          Tenaga Kerja
                                     </a>
                     </li>
                     <li>
-                        <a href="#tab7" data-toggle="tab">
+                        <a href="#tab6" data-toggle="tab">
                                          KKP
                                     </a>
                     </li>
                     <li>
-                        <li>
-                        <a href="#tab8" data-toggle="tab">
-                                         Sertifikasi
-                                    </a>
-                    </li>
-                    <li>
-                        <a href="#tab9" data-toggle="tab">
+                        <a href="#tab7" data-toggle="tab">
                                         Koordinat Lokasi
                                     </a>
                     </li>
                     <li>
-                        <a href="#tab10" data-toggle="tab">
+                        <a href="#tab8" data-toggle="tab">
                                          Dokumentasi Foto Kegiatan
                                     </a>
                     </li>
                     <li>
-                        <a href="#tab11" data-toggle="tab">
+                        <a href="#tab9" data-toggle="tab">
                                         Progress Pemanfaatan Dana dan Fisik
                                     </a>
                     </li>
                     <!-- <li>
-                        <a href="#tab12" data-toggle="tab">
+                        <a href="#tab10" data-toggle="tab">
                                         Tambahan Data
                                     </a>
                     </li> -->
@@ -120,14 +109,138 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Data Usulan Kegiatan</label>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Pilih Usulan Kegiatan</label>
                                         <div class="col-sm-6">
                                             <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                            <select id="select-kode-parent-input" name="kode-parent-input" class="form-control select2" size="1" required>
-                                                <option value>Please select</option>
+                                            <select id="select-kode_parent-input" name="select-kode_parent-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
                                                 @foreach ($kode_parent_list as $kpl)
                                                     <option value="{{$kpl->kode}}" {!! $kode_parent==$kpl->kode ? 'selected':'' !!}>{{$kpl->jenis_komponen_keg.'-'.$kpl->nama_subkomponen.'-'.$kpl->nama_dtl_subkomponen}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Umum</label></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Skala Kegiatan</label>
+                                        <div class="col-sm-6">
+                                            <select id="select-skala_kegiatan-input" name="select-skala_kegiatan-input" class="form-control" size="1">
+                                                <option value="2" {!! $jns_sumber_dana=='2' ? 'selected':'' !!}>Desa/Kelurahan</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Sumber Dana</label>
+                                        <div class="col-sm-6">
+                                            <select id="select-jns_sumber_dana-input" name="select-jns_sumber_dana-input" class="form-control" size="1">
+                                                <option value="1" {!! $jns_sumber_dana=='1' ? 'selected':'' !!}>BDI/Non BDI</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="kode">Tahun</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="tahun-input" name="tahun-input" placeholder="Tahun" value="{{$tahun}}" maxlength="4" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">KMW</label>
+                                        <div class="col-sm-6">
+                                            <select id="select-kode_kmw-input" name="select-kode_kmw-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($kode_kmw_list as $kkl)
+                                                    <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Kota</label>
+                                        <div class="col-sm-6">
+                                            <select id="select-kode_kota-input" name="select-kode_kota-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($kode_kota_list as $kkl)
+                                                    <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Korkot</label>
+                                        <div class="col-sm-6">
+                                            <select id="select-kode_korkot-input" name="select-kode_korkot-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($kode_korkot_list as $kkl)
+                                                    <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Kecamatan</label>
+                                        <div class="col-sm-6">
+                                            <select id="select-kode_kec-input" name="select-kode_kec-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($kode_kec_list as $kkl)
+                                                    <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Kelurahan</label>
+                                        <div class="col-sm-6">
+                                            <select id="select-kode_kel-input" name="select-kode_kel-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($kode_kel_list as $kkl)
+                                                    <option value="{{$kkl->kode}}" {!! $kode_kel==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Faskel</label>
+                                        <div class="col-sm-6">
+                                            <select id="select-kode_faskel-input" name="select-kode_faskel-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($kode_faskel_list as $kkl)
+                                                    <option value="{{$kkl->kode}}" {!! $kode_faskel==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Komponen Kegiatan</label>
+                                        <div class="col-sm-6">
+                                            <select id="select-jenis_komponen_keg-input" name="select-jenis_komponen_keg-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                <option value="L" {!! $jenis_komponen_keg=='L' ? 'selected':'' !!}>Lingkungan</option>
+                                                <option value="S" {!! $jenis_komponen_keg=='S' ? 'selected':'' !!}>Sosial</option>
+                                                <option value="E" {!! $jenis_komponen_keg=='E' ? 'selected':'' !!}>Ekonomi</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Subkomponen</label>
+                                        <div class="col-sm-6">
+                                            <select id="select-id_subkomponen-input" name="select-id_subkomponen-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($kode_id_subkomponen_list as $kkl)
+                                                    <option value="{{$kkl->id}}" {!! $id_subkomponen==$kkl->id ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Detail Subkomponen</label>
+                                        <div class="col-sm-6">
+                                            <select id="select-id_dtl_subkomponen-input" name="select-id_dtl_subkomponen-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($kode_id_dtl_subkomponen_list as $kkl)
+                                                    <option value="{{$kkl->id}}" {!! $id_dtl_subkomponen==$kkl->id ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -141,72 +254,32 @@
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Sumber Dana</label>
-                                        <div class="col-sm-6">
-                                            <select id="jns_sumber_dana" name="jns_sumber_dana" class="form-control" size="1" required>
-                                                <option value="1" {!! $jns_sumber_dana=='1' ? 'selected':'' !!}>BDI/Non BDI</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="kode">Tahun</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="tahun-input" name="tahun-input" placeholder="Tahun" value="{{$tahun}}" required maxlength="4" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">KMW</label>
-                                        <div class="col-sm-6">
-                                            <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" required>
-                                                <option value>Please select</option>
-                                                @foreach ($kode_kmw_list as $kkl)
-                                                    <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Kota</label>
-                                        <div class="col-sm-6">
-                                            <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
-                                                <option value>Please select</option>
-                                                @foreach ($kode_kota_list as $kkl)
-                                                    <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Korkot</label>
-                                        <div class="col-sm-6">
-                                            <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
-                                                <option value>Please select</option>
-                                                @foreach ($kode_korkot_list as $kkl)
-                                                    <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Kawasan</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode-kawasan-input" name="kode-kawasan-input" class="form-control select2" size="1" required>
-                                                <option value>Please select</option>
+                                            <select id="select-kode_kawasan-input" name="select-kode_kawasan-input" class="form-control select2" size="1" required>
+                                                <option value="">Please select</option>
                                                 @foreach ($kode_kawasan_list as $kkl)
                                                     <option value="{{$kkl->id}}" {!! $kode_kawasan==$kkl->id ? 'selected':'' !!}>{{$kkl->kode_kawasan." ".$kkl->nama}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">KSM</label>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Realisasi</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode-ksm-input" name="id_ksm" class="form-control select2" size="1" required>
-                                                <option value>Please select</option>
-                                                @foreach ($kode_ksm_list as $kkl)
-                                                    <option value="{{$kkl->id}}" {!! $id_ksm==$kkl->id ? 'selected':'' !!}>{{$kkl->kode_ksm." ".$kkl->nama}}</option>
-                                                @endforeach
-                                            </select>
+                                            <input class="form-control" id="tgl_realisasi-input" name="tgl_realisasi-input" placeholder="Tanggal Realisasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_realisasi}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Volume</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="vol_realisasi-input" name="vol_realisasi-input" class="form-control" value="{{$vol_realisasi}}" maxlength="9">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Satuan (Meter/Unit/m<sup>2</sup>)</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="satuan-input" name="satuan-input" class="form-control" value="{{$satuan}}" maxlength="50">
                                         </div>
                                     </div>
                                 </div>
@@ -218,21 +291,96 @@
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Realisasi</label>
+                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">APBN (PUPR)</label></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">NSUP (BDI Kolaborasi)(Rp)</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" id="tgl_realisasi" name="tgl_realisasi" placeholder="Tanggal Realisasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_realisasi}}" required>
+                                            <input type="number" id="nb_a_pupr_bdi_kolab-input" name="nb_a_pupr_bdi_kolab-input" class="form-control" value="{{$nb_a_pupr_bdi_kolab}}" maxlength="27" placeholder="Nilai">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Volume</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">NSUP (BDI PLPBK)(Rp)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="vol_realisasi" name="vol_realisasi" class="form-control" value="{{$vol_realisasi}}" maxlength="9" required>
+                                            <input type="number" id="nb_a_pupr_bdi_plbk-input" name="nb_a_pupr_bdi_plbk-input" class="form-control" value="{{$nb_a_pupr_bdi_plbk}}" maxlength="27" placeholder="Nilai">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">NSUP (BDI Lain)(Rp)</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="nb_a_pupr_bdi_lain-input" name="nb_a_pupr_bdi_lain-input" class="form-control" value="{{$nb_a_pupr_bdi_lain}}" maxlength="27" placeholder="Nilai">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Satuan (Meter/Unit/m<sup>2</sup>)</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">NSUP 2(Rp)</label>
                                         <div class="col-sm-6">
-                                            <input type="text" id="satuan" name="satuan" class="form-control" value="{{$satuan}}" maxlength="50" required>
+                                            <input type="number" id="nb_a_pupr_nsup2-input" name="nb_a_pupr_nsup2-input" class="form-control" value="{{$nb_a_pupr_nsup2}}" maxlength="27" placeholder="Nilai">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Direktorat PKP(Rp)</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="nb_a_pupr_dir_pkp-input" name="nb_a_pupr_dir_pkp-input" class="form-control" value="{{$nb_a_pupr_dir_pkp}}" maxlength="27" placeholder="Nilai">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Direktorat Lain(Rp)</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="nb_a_pupr_dir_pkp_lain-input" name="nb_a_pupr_dir_pkp_lain-input" class="form-control" value="{{$nb_a_pupr_dir_pkp_lain}}" maxlength="27" placeholder="Nilai">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">APBN(K/L Lain)(Rp)</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="nb_apbn_kl_lain-input" name="nb_apbn_kl_lain-input" class="form-control" value="{{$nb_apbn_kl_lain}}" maxlength="27" placeholder="Nilai">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">APBD Provinsi(Rp)</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="nb_apbd_prop-input" name="nb_apbd_prop-input" class="form-control" value="{{$nb_apbd_prop}}" maxlength="27" placeholder="Nilai">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">APBD Kab/Kota/BUMD(Rp)</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="nb_apbd_kota-input" name="nb_apbd_kota-input" class="form-control" value="{{$nb_apbd_kota}}" maxlength="27" placeholder="Nilai">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">DAK(Rp)</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="nb_dak-input" name="nb_dak-input" class="form-control" value="{{$nb_dak}}" maxlength="27" placeholder="Nilai">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Hibah(Rp)</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="nb_hibah-input" name="nb_hibah-input" class="form-control" value="{{$nb_hibah}}" maxlength="27" placeholder="Nilai">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Non Pemerintah(Rp)</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="nb_non_gov-input" name="nb_non_gov-input" class="form-control" value="{{$nb_non_gov}}" maxlength="27" placeholder="Nilai">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Masyarakat(Rp)</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="nb_masyarakat-input" name="nb_masyarakat-input" class="form-control" value="{{$nb_masyarakat}}" maxlength="27" placeholder="Nilai">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Lainnya(Rp)</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="nb_lainnya-input" name="nb_lainnya-input" class="form-control" value="{{$nb_lainnya}}" maxlength="27" placeholder="Nilai">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Progress Keuangan (Realisasi/Rencana)/100%</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="progress_keuangan-input" name="progress_keuangan-input" class="form-control" value="{{$progress_keuangan}}" maxlength="6" placeholder="Nilai">
                                         </div>
                                     </div>
                                 </div>
@@ -244,99 +392,39 @@
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group striped-col">
-                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">APBN (PUPR)</label></div>
+                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Jiwa</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">NSUP (BDI Kolaborasi)(Rp)</label>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Jiwa</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="nb_a_pupr_bdi_kolab" name="nb_a_pupr_bdi_kolab" class="form-control" value="{{$nb_a_pupr_bdi_kolab}}" maxlength="27" placeholder="Nilai">
+                                            <input type="number" id="tpm_q_jiwa-input" name="tpm_q_jiwa-input" class="form-control" value="{{$tpm_q_jiwa}}" maxlength="9" placeholder="Jumlah" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">NSUP (BDI PLPBK)(Rp)</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Jiwa Perempuan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="nb_a_pupr_bdi_plbk" name="nb_a_pupr_bdi_plbk" class="form-control" value="{{$nb_a_pupr_bdi_plbk}}" maxlength="27" placeholder="Nilai">
+                                            <input type="number" id="tpm_q_jiwa_w-input" name="tpm_q_jiwa_w-input" class="form-control" value="{{$tpm_q_jiwa_w}}" maxlength="9" placeholder="Jumlah" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Kepala Keluarga</label></div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">MBR</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="tpm_q_mbr-input" name="tpm_q_mbr-input" class="form-control" value="{{$tpm_q_mbr}}" maxlength="9" placeholder="Jumlah">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">KK</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="tpm_q_kk-input" name="tpm_q_kk-input" class="form-control" value="{{$tpm_q_kk}}" maxlength="9" placeholder="Jumlah">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">NSUP (BDI Lain)(Rp)</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">KK Miskin (40% BPS)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="nb_a_pupr_bdi_lain" name="nb_a_pupr_bdi_lain" class="form-control" value="{{$nb_a_pupr_bdi_lain}}" maxlength="27" placeholder="Nilai">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">NSUP 2(Rp)</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="nb_a_pupr_nsup2" name="nb_a_pupr_nsup2" class="form-control" value="{{$nb_a_pupr_nsup2}}" maxlength="27" placeholder="Nilai">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Direktorat PKP(Rp)</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="nb_a_pupr_dir_pkp" name="nb_a_pupr_dir_pkp" class="form-control" value="{{$nb_a_pupr_dir_pkp}}" maxlength="27" placeholder="Nilai">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Direktorat Lain(Rp)</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="nb_a_pupr_dir_pkp_lain" name="nb_a_pupr_dir_pkp_lain" class="form-control" value="{{$nb_a_pupr_dir_pkp_lain}}" maxlength="27" placeholder="Nilai">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;"></label></div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">APBN(K/L Lain)(Rp)</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="nb_apbn_kl_lain" name="nb_apbn_kl_lain" class="form-control" value="{{$nb_apbn_kl_lain}}" maxlength="27" placeholder="Nilai">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">APBD Provinsi(Rp)</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="nb_apbd_prop" name="nb_apbd_prop" class="form-control" value="{{$nb_apbd_prop}}" maxlength="27" placeholder="Nilai">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">APBD Kab/Kota/BUMD(Rp)</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="nb_apbd_kota" name="nb_apbd_kota" class="form-control" value="{{$nb_apbd_kota}}" maxlength="27" placeholder="Nilai">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">DAK(Rp)</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="nb_dak" name="nb_dak" class="form-control" value="{{$nb_dak}}" maxlength="27" placeholder="Nilai">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Hibah(Rp)</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="nb_hibah" name="nb_hibah" class="form-control" value="{{$nb_hibah}}" maxlength="27" placeholder="Nilai">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Non Pemerintah(Rp)</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="nb_non_gov" name="nb_non_gov" class="form-control" value="{{$nb_non_gov}}" maxlength="27" placeholder="Nilai">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Masyarakat(Rp)</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="nb_masyarakat" name="nb_masyarakat" class="form-control" value="{{$nb_masyarakat}}" maxlength="27" placeholder="Nilai">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Lainnya(Rp)</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="nb_lainnya" name="nb_lainnya" class="form-control" value="{{$nb_lainnya}}" maxlength="27" placeholder="Nilai">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Progress Keuangan (Realisasi/Rencana)/100%</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="progress_keuangan" name="progress_keuangan" class="form-control" value="{{$progress_keuangan}}" maxlength="6" placeholder="Nilai">
+                                            <input type="number" id="tpm_q_kk_miskin-input" name="tpm_q_kk_miskin-input" class="form-control" value="{{$tpm_q_kk_miskin}}" maxlength="9" placeholder="Jumlah">
                                         </div>
                                     </div>
                                 </div>
@@ -348,39 +436,30 @@
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group striped-col">
-                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Jiwa</label></div>
+                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Jumlah Pekerja</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Jiwa</label>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">laki</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="tpm_q_jiwa" name="tpm_q_jiwa" class="form-control" value="{{$tpm_q_jiwa}}" maxlength="9" placeholder="Jumlah" readonly>
+                                            <input type="number" id="tk_q_pekerja-input" name="tk_q_pekerja-input" class="form-control" value="{{$tk_q_pekerja}}" maxlength="9" placeholder="Jumlah">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Jiwa Perempuan</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Perempuan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="tpm_q_jiwa_w" name="tpm_q_jiwa_w" class="form-control" value="{{$tpm_q_jiwa_w}}" maxlength="9" placeholder="Jumlah" readonly>
+                                            <input type="number" id="tk_q_pekerja_w-input" name="tk_q_pekerja_w-input" class="form-control" value="{{$tk_q_pekerja_w}}" maxlength="9" placeholder="Jumlah">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Jumlah HOK(HOK)</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="tk_q_hok-input" name="tk_q_hok-input" class="form-control" value="{{$tk_q_hok}}" maxlength="9" placeholder="Jumlah">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Kepala Keluarga</label></div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">MBR</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Nilai HOK(Rp)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="tpm_q_mbr" name="tpm_q_mbr" class="form-control" value="{{$tpm_q_mbr}}" maxlength="9" placeholder="Jumlah">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">KK</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="tpm_q_kk" name="tpm_q_kk" class="form-control" value="{{$tpm_q_kk}}" maxlength="9" placeholder="Jumlah">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">KK Miskin (40% BPS)</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="tpm_q_kk_miskin" name="tpm_q_kk_miskin" class="form-control" value="{{$tpm_q_kk_miskin}}" maxlength="9" placeholder="Jumlah">
+                                            <input type="number" id="tk_val_hok-input" name="tk_val_hok-input" class="form-control" value="{{$tk_val_hok}}" maxlength="9" placeholder="Nilai">
                                         </div>
                                     </div>
                                 </div>
@@ -391,34 +470,63 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
-                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Jumlah Pekerja</label></div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">laki</label>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">KPP</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="tk_q_pekerja" name="tk_q_pekerja" class="form-control" value="{{$tk_q_pekerja}}" maxlength="9" placeholder="Jumlah">
+                                            <select id="select-id_kpp-input" name="select-id_kpp-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($kode_kpp_list as $kkl)
+                                                    <option value="{{$kkl->id}}" {!! $id_kpp==$kkl->id ? 'selected':'' !!}>{{$kkl->kode_kpp." ".$kkl->nama}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Perempuan</label>
+                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Infrastruktur yang Masih Berfungsi dan Dimanfaatkan</label></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Bangunan yang Masih Ada</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="tk_q_pekerja_w" name="tk_q_pekerja_w" class="form-control" value="{{$tk_q_pekerja_w}}" maxlength="9" placeholder="Jumlah">
+                                            <select id="kpp_flag_bgn_msh_ada-input" name="kpp_flag_bgn_msh_ada-input" class="form-control" size="1">
+                                                <option value="0" {!! $kpp_flag_bgn_msh_ada==0 ? 'selected':'' !!}>Tidak</option>
+                                                <option value="1" {!! $kpp_flag_bgn_msh_ada==1 ? 'selected':'' !!}>Ya</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;"></label></div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Jumlah HOK(HOK)</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Bangunan dengan Kondisi Baik</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="tk_q_hok" name="tk_q_hok" class="form-control" value="{{$tk_q_hok}}" maxlength="9" placeholder="Jumlah">
+                                            <select id="kpp_flag_bgn_msh_baik-input" name="kpp_flag_bgn_msh_baik-input" class="form-control" size="1">
+                                                <option value="0" {!! $kpp_flag_bgn_msh_baik==0 ? 'selected':'' !!}>Tidak</option>
+                                                <option value="1" {!! $kpp_flag_bgn_msh_baik==1 ? 'selected':'' !!}>Ya</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Bangunan Masih Berfungsi</label>
+                                        <div class="col-sm-6">
+                                            <select id="kpp_flag_bgn_msh_fungsi-input" name="kpp_flag_bgn_msh_fungsi-input" class="form-control" size="1">
+                                                <option value="0" {!! $kpp_flag_bgn_msh_fungsi==0 ? 'selected':'' !!}>Tidak</option>
+                                                <option value="1" {!! $kpp_flag_bgn_msh_fungsi==1 ? 'selected':'' !!}>Ya</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Nilai HOK(Rp)</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Bangunan Masih Dimanfaatkan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="tk_val_hok" name="tk_val_hok" class="form-control" value="{{$tk_val_hok}}" maxlength="9" placeholder="Nilai">
+                                            <select id="kpp_flag_bgn_msh_man-input" name="kpp_flag_bgn_msh_man-input" class="form-control" size="1">
+                                                <option value="0" {!! $kpp_flag_bgn_msh_man==0 ? 'selected':'' !!}>Tidak</option>
+                                                <option value="1" {!! $kpp_flag_bgn_msh_man==1 ? 'selected':'' !!}>Ya</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Bangunan Dikembangkan/Ditingkatkan</label>
+                                        <div class="col-sm-6">
+                                            <select id="kpp_flag_bgn_msh_dev-input" name="kpp_flag_bgn_msh_dev-input" class="form-control" size="1">
+                                                <option value="0" {!! $kpp_flag_bgn_msh_dev==0 ? 'selected':'' !!}>Tidak</option>
+                                                <option value="1" {!! $kpp_flag_bgn_msh_dev==1 ? 'selected':'' !!}>Ya</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -429,63 +537,16 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">KPP</label>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Latitude</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode-kpp-input" name="id_kpp" class="form-control select2" size="1" required>
-                                                <option value>Please select</option>
-                                                @foreach ($kode_kpp_list as $kkl)
-                                                    <option value="{{$kkl->id}}" {!! $id_kpp==$kkl->id ? 'selected':'' !!}>{{$kkl->kode_kpp." ".$kkl->nama}}</option>
-                                                @endforeach
-                                            </select>
+                                            <input type="number" id="longitude-input" name="longitude-input" class="form-control" value="{{$longitude}}" maxlength="18">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Infrastruktur yang Masih Berfungsi dan Dimanfaatkan</label></div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Bangunan yang Masih Ada</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Longitude</label>
                                         <div class="col-sm-6">
-                                            <select id="kpp_flag_bgn_msh_ada" name="kpp_flag_bgn_msh_ada" class="form-control" size="1">
-                                                <option value="0" {!! $kpp_flag_bgn_msh_ada==0 ? 'selected':'' !!}>Tidak</option>
-                                                <option value="1" {!! $kpp_flag_bgn_msh_ada==1 ? 'selected':'' !!}>Ya</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Bangunan dengan Kondisi Baik</label>
-                                        <div class="col-sm-6">
-                                            <select id="kpp_flag_bgn_msh_baik" name="kpp_flag_bgn_msh_baik" class="form-control" size="1">
-                                                <option value="0" {!! $kpp_flag_bgn_msh_baik==0 ? 'selected':'' !!}>Tidak</option>
-                                                <option value="1" {!! $kpp_flag_bgn_msh_baik==1 ? 'selected':'' !!}>Ya</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Bangunan Masih Berfungsi</label>
-                                        <div class="col-sm-6">
-                                            <select id="kpp_flag_bgn_msh_fungsi" name="kpp_flag_bgn_msh_fungsi" class="form-control" size="1">
-                                                <option value="0" {!! $kpp_flag_bgn_msh_fungsi==0 ? 'selected':'' !!}>Tidak</option>
-                                                <option value="1" {!! $kpp_flag_bgn_msh_fungsi==1 ? 'selected':'' !!}>Ya</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Bangunan Masih Dimanfaatkan</label>
-                                        <div class="col-sm-6">
-                                            <select id="kpp_flag_bgn_msh_man" name="kpp_flag_bgn_msh_man" class="form-control" size="1">
-                                                <option value="0" {!! $kpp_flag_bgn_msh_man==0 ? 'selected':'' !!}>Tidak</option>
-                                                <option value="1" {!! $kpp_flag_bgn_msh_man==1 ? 'selected':'' !!}>Ya</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Bangunan Dikembangkan/Ditingkatkan</label>
-                                        <div class="col-sm-6">
-                                            <select id="kpp_flag_bgn_msh_dev" name="kpp_flag_bgn_msh_dev" class="form-control" size="1">
-                                                <option value="0" {!! $kpp_flag_bgn_msh_dev==0 ? 'selected':'' !!}>Tidak</option>
-                                                <option value="1" {!! $kpp_flag_bgn_msh_dev==1 ? 'selected':'' !!}>Ya</option>
-                                            </select>
+                                            <input type="number" id="latitude-input" name="latitude-input" class="form-control" value="{{$latitude}}" maxlength="18">
                                         </div>
                                     </div>
                                 </div>
@@ -496,46 +557,7 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Sertifikasi</label>
-                                        <div class="col-sm-6">
-                                            <select id="hasil_sertifikasi" name="hasil_sertifikasi" class="form-control" size="1">
-                                                <option value>Please Select</option>
-                                                <option value="KB" {!! $hasil_sertifikasi=='KB' ? 'selected':'' !!}>Kualitas Baik</option>
-                                                <option value="KC" {!! $hasil_sertifikasi=='KC' ? 'selected':'' !!}>Kualitas Cukup</option>
-                                                <option value="KK" {!! $hasil_sertifikasi=='KK' ? 'selected':'' !!}>Kualitas Kurang</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab9" class="tab-pane fade ">
-                        <div class="panel " >
-                            <div class="panel-body border">
-                                <div class="row">
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Latitude</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="longitude" name="longitude" class="form-control" value="{{$longitude}}" maxlength="18">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Longitude</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="latitude" name="latitude" class="form-control" value="{{$latitude}}" maxlength="18">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab10" class="tab-pane fade ">
-                        <div class="panel " >
-                            <div class="panel-body border">
-                                <div class="row">
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">0%</label>
                                         <div class="col-sm-2">
                                             <select id="flag_foto_prcn0" name="flag_foto_prcn0" class="form-control" size="1">
@@ -563,7 +585,7 @@
                                             <input type="text" class="btn btn-warning btn-modify" id="uploaded-url_img_prcn50" name="uploaded-url_img_prcn50" value="{{$url_img_prcn50}}" {!! $url_img_prcn50==null ? 'style="display:none"':'' !!} readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">100%</label>
                                         <div class="col-sm-2">
                                             <select id="flag_foto_prcn100" name="flag_foto_prcn100" class="form-control" size="1">
@@ -581,60 +603,60 @@
                             </div>
                         </div>
                     </div>
-                    <div id="tab11" class="tab-pane fade ">
+                    <div id="tab9" class="tab-pane fade ">
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Pencairan/Penyaluran Dana ke KSM</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Tahap I. 60% (Rp)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pencairan_dana1" name="pencairan_dana1" class="form-control" value="{{$pencairan_dana1}}" maxlength="27" placeholder="Nilai">
+                                            <input type="number" id="pencairan_dana1-input" name="pencairan_dana1-input" class="form-control" value="{{$pencairan_dana1}}" maxlength="27" placeholder="Nilai">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Tahap II. 30% (Rp)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pencairan_dana2" name="pencairan_dana2" class="form-control" value="{{$pencairan_dana2}}" maxlength="27" placeholder="Nilai">
+                                            <input type="number" id="pencairan_dana2-input" name="pencairan_dana2-input" class="form-control" value="{{$pencairan_dana2}}" maxlength="27" placeholder="Nilai">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Tahap III. 10% (Rp)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pencairan_dana3" name="pencairan_dana3" class="form-control" value="{{$pencairan_dana3}}" maxlength="27" placeholder="Nilai">
+                                            <input type="number" id="pencairan_dana3-input" name="pencairan_dana3-input" class="form-control" value="{{$pencairan_dana3}}" maxlength="27" placeholder="Nilai">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Pemanfaatan Dana KSM</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">(Rp)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pemanfaatan_dana" name="pemanfaatan_dana" class="form-control" value="{{$pemanfaatan_dana}}" maxlength="27" placeholder="Nilai">
+                                            <input type="number" id="pemanfaatan_dana-input" name="pemanfaatan_dana-input" class="form-control" value="{{$pemanfaatan_dana}}" maxlength="27" placeholder="Nilai">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">(%)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pemanfaatan_data_prcn" name="pemanfaatan_data_prcn" class="form-control" value="{{$pemanfaatan_data_prcn}}" maxlength="6" placeholder="Persentase">
+                                            <input type="number" id="pemanfaatan_data_prcn-input" name="pemanfaatan_data_prcn-input" class="form-control" value="{{$pemanfaatan_data_prcn}}" maxlength="6" placeholder="Persentase">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Fisik</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">(%)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="progres_fisik" name="progres_fisik" class="form-control" value="{{$progres_fisik}}" maxlength="26" placeholder="Persentase">
+                                            <input type="number" id="progres_fisik-input" name="progres_fisik-input" class="form-control" value="{{$progres_fisik}}" maxlength="26" placeholder="Persentase">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- <div id="tab12" class="tab-pane fade ">
+                    <!-- <div id="tab10" class="tab-pane fade ">
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
@@ -708,9 +730,9 @@
                 <div class="panel-title pull-left">
                     <b>Daftar Penerima Manfaat</b>
                 </div>
-                @if( ! empty($detil['506']))
+                @if( ! empty($detil['375']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kelurahan/realisasi_kegiatan/create?kode_real_keg='.$kode}}">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kelurahan/realisasi_kegiatan/pemanfaat/create?kode_real_keg='.$kode}}">Create</a>
                 </div>
                 @endif
             </div>
@@ -827,37 +849,85 @@
             }
           });
         });
-        $("#select-kode-parent-input").select2({
+
+        $("#select-kode_parent-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select",
             width: "100%"
         });
-        $("#select-kode-kota-input").select2({
+
+        $("#select-skala_kegiatan-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select",
             width: "100%"
         });
-        $("#select-kode-korkot-input").select2({
+
+        $("#select-jns_sumber_dana-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select",
             width: "100%"
         });
-        $("#select-kode-kmw-input").select2({
+        
+        $("#select-kode_kmw-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select",
             width: "100%"
         });
-        $("#select-kode-kawasan-input").select2({
+
+        $("#select-kode_kota-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select",
             width: "100%"
         });
-        $("#select-kode-ksm-input").select2({
+
+        $("#select-kode_korkot-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select",
             width: "100%"
         });
-        $("#select-kode-kpp-input").select2({
+
+        $("#select-kode_kec-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+
+        $("#select-kode_kel-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+
+        $("#select-kode_faskel-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+
+        $("#select-jenis_komponen_keg-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+        
+        $("#select-id_subkomponen-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+
+        $("#select-id_dtl_subkomponen-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+
+        $("#select-kode_kawasan-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+        $("#select-id_kpp-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select",
             width: "100%"
@@ -883,12 +953,18 @@
         }
         document.body.addEventListener('input', enforce_maxlength);
 
-        var parent = $('#select-kode-parent-input');
+        var parent = $('#select-kode_parent-input');
         var tahun = $('#tahun-input');
-        var kmw = $('#select-kode-kmw-input');
-        var kota = $('#select-kode-kota-input');
-        var korkot = $('#select-kode-korkot-input');
-        var kawasan = $('#select-kode-kawasan-input');
+        var kmw = $('#select-kode_kmw-input');
+        var kota = $('#select-kode_kota-input');
+        var korkot = $('#select-kode_korkot-input');
+        var kec = $('#select-kode_kec-input');
+        var kel = $('#select-kode_kel-input');
+        var faskel = $('#select-kode_faskel-input');
+        var komponen = $('#select-jenis_komponen_keg-input');
+        var subkomponen = $('#select-id_subkomponen-input');
+        var dtl_subkomponen = $('#select-id_dtl_subkomponen-input');
+        var kawasan = $('#select-kode_kawasan-input');
         var parent_id,kmw_id,kota_id,korkot_id;
 
         parent.change(function(){
@@ -942,10 +1018,83 @@
                     }
                 });
 
-                kawasan.empty();
+                kec.empty();
                 $.ajax({
                     type: 'get',
-                    "url": "/main/pelaksanaan/kelurahan/realisasi_kegiatan/select?kode_parent_kawasan="+parent_id,
+                    "url": "/main/pelaksanaan/kelurahan/realisasi_kegiatan/select?kode_parent_kec="+parent_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            kec.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+
+                kel.empty();
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/pelaksanaan/kelurahan/realisasi_kegiatan/select?kode_parent_kel="+parent_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            kel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+
+                faskel.empty();
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/pelaksanaan/kelurahan/realisasi_kegiatan/select?kode_parent_faskel="+parent_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            faskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+
+                komponen.empty();
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/pelaksanaan/kelurahan/realisasi_kegiatan/select?kode_parent_komponen="+parent_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            komponen.append("<option value="+data[i].kode+" >"+data[i].jenis_komponen_keg+"</option>");
+                        }
+                    }
+                });
+
+                subkomponen.empty();
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/pelaksanaan/kelurahan/realisasi_kegiatan/select?kode_parent_subkomponen="+parent_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            subkomponen.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+
+                dtl_subkomponen.empty();
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/pelaksanaan/kelurahan/realisasi_kegiatan/select?kode_parent_dtl_subkomponen="+parent_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            dtl_subkomponen.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+
+                kawasan.empty();
+                kawasan.append("<option value=undefined>Please select</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/select?kode_parent_kawasan="+parent_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -955,7 +1104,7 @@
                 });
             }
         });
-      });
+    });
 </script>
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 @stop
