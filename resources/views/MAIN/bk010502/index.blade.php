@@ -63,7 +63,6 @@
                                 <th>Sertifikasi</th>
                                 <th>Kota</th>
                                 <th>Kawasan</th>
-                                <th>Kelurahan</th>
                                 <th>Tgl Realisasi</th>
                                 <th>Vol Realisasi</th>
                                 <th>Satuan</th>
@@ -104,7 +103,6 @@
                 { "data": "hasil_sertifikasi" , name:"hasil_sertifikasi"},
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_kawasan" , name:"kode_kawasan"},
-                { "data": "kode_kel" , name:"kode_kel"},
                 { "data": "tgl_realisasi" , name:"tgl_realisasi"},
                 { "data": "vol_realisasi" , name:"vol_realisasi"},
                 { "data": "satuan" , name:"satuan"},

@@ -126,7 +126,7 @@ class bk010504Controller extends Controller
 					on (j.id=i.id_subkomponen or j.id=b.id_subkomponen)
 				left join bkt_01010121_dtl_subkomponen k 
 					on (k.id=i.id_dtl_subkomponen or k.id=b.id_dtl_subkomponen)
-				left join bkt_01010104_kel l on l.kode=b.kode_kota
+				left join bkt_01010104_kel l on l.kode=b.kode_kel
 			where 
 				b.flag_sudah_sertias=1 and
 				b.hasil_sertifikasi is not null and
@@ -385,7 +385,7 @@ class bk010504Controller extends Controller
 			}else if ($data['kode']==null  && !empty($data['detil']['409'])){
 				$data['tahun'] = null;
 				$data['tahun_keg'] = null;
-				$data['jns_sumber_dana'] = 1;
+				$data['jns_sumber_dana'] = null;
 				$data['kode_real_keg'] = null;
 				$data['kode_kota'] = null;
 				$data['kode_korkot'] = null;

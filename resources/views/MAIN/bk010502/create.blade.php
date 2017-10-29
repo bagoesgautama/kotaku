@@ -90,7 +90,7 @@
                                             <select id="select-kode-parent-input" name="kode-parent-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
                                                 @foreach ($kode_parent_list as $kpl)
-                                                    <option value="{{$kpl->kode}}" {!! $kode_real_keg==$kpl->kode ? 'selected':'' !!}>{{$kpl->jenis_komponen_keg.$kpl->usulan_komponen.'-'.$kpl->nama_subkomponen.'-'.$kpl->nama_dtl_subkomponen}}</option>
+                                                    <option value="{{$kpl->kode}}" {!! $kode_real_keg==$kpl->kode ? 'selected':'' !!}>{{$kpl->jenis_komponen_keg.$kpl->usulan_komponen.'-'.$kpl->nama_subkomponen.'-'.$kpl->nama_dtl_subkomponen.'-'.$kpl->nama_kota.'-'.$kpl->nama_kawasan}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -149,12 +149,6 @@
                                         <label class="col-sm-3 control-label">Kawasan</label>
                                         <div class="col-sm-6">
                                             <input type="text" id="select-kode-kawasan-input" name="kode-kawasan-input" class="form-control select2" size="1" readonly value="{{$kode_kawasan}}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Kelurahan</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" id="select-kode-kel-input" name="kode-kel-input" class="form-control select2" size="1" readonly value="{{$kode_kel}}">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">

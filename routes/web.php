@@ -770,6 +770,7 @@ Route::post('/main/keberlanjutan/kelurahan/pemeliharaan/create', 'MAIN\bk010504C
 Route::get('/main/keberlanjutan/kelurahan/pemeliharaan/delete', 'MAIN\bk010504Controller@delete');
 
 Route::get('/main/keberlanjutan/kelurahan/audit', 'MAIN\bk010505Controller@index');
+Route::get('/main/keberlanjutan/kelurahan/audit/select', 'MAIN\bk010505Controller@select');
 Route::post('/main/keberlanjutan/kelurahan/audit', 'MAIN\bk010505Controller@post');
 Route::get('/main/keberlanjutan/kelurahan/audit/create', 'MAIN\bk010505Controller@create');
 Route::post('/main/keberlanjutan/kelurahan/audit/create', 'MAIN\bk010505Controller@post_create');

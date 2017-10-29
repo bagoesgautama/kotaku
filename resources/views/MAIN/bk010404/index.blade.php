@@ -42,28 +42,29 @@
                 <div class="panel-title pull-left">
                     <b>bk010404 index</b>
                 </div>
-                @if( ! empty($detil['359']))
+                <!-- @if( ! empty($detil['359']))
                 <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kota_bdi/sertifikasi_infra/create'}}">Create</a>
                 </div>
-                @endif
+                @endif -->
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table table-striped" id="pokja">
                         <thead>
                             <tr>
+                                <th>Option</th>
+                                <th>Kode</th>
+                                <th>Tahun</th>
                                 <th>Data Realisasi Kegiatan</th>
                                 <th>Sumber Dana</th>
                                 <th>Sertifikasi</th>
                                 <th>Kota</th>
                                 <th>Kawasan</th>
-                                <th>Tahun</th>
                                 <th>Tgl Realisasi</th>
                                 <th>Vol Realisasi</th>
                                 <th>Satuan</th>
                                 <th>Created Time</th>
-                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -89,19 +90,20 @@
                    },
 
             "columns": [
+                { "data": "option" , name:"option",orderable:false},
+                { "data": "kode" , name:"kode"},
+                { "data": "tahun" , name:"tahun"},
                 { "data": "kode_parent" , name:"kode_parent"},
                 { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
                 { "data": "hasil_sertifikasi" , name:"hasil_sertifikasi"},
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_kawasan" , name:"kode_kawasan"},
-                { "data": "tahun" , name:"tahun"},
                 { "data": "tgl_realisasi" , name:"tgl_realisasi"},
                 { "data": "vol_realisasi" , name:"vol_realisasi"},
                 { "data": "satuan" , name:"satuan"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "option" , name:"option",orderable:false}
+                { "data": "created_time" , name:"created_time"}
             ],
-            "order":[[9,"desc"]]
+            "order":[[1,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

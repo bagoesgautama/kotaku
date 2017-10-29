@@ -77,24 +77,31 @@ class bk010403Controller extends Controller
 	{
 		$columns = array(
 			0 =>'kode',
-			1 =>'kode_parent',
-			2 =>'jns_sumber_dana',
+			1 =>'tahun',
+			2 =>'kode_parent',
+			3 =>'jns_sumber_dana',
 			4 =>'kode_kota',
-			6 =>'kode_kawasan',
-			8 =>'tahun',
-			9 =>'tgl_realisasi',
-			10 =>'vol_realisasi',
-			11 =>'satuan',
-			12 =>'created_time'
+			5 =>'kode_kawasan',
+			6 =>'tgl_realisasi',
+			7 =>'vol_realisasi',
+			8 =>'satuan',
+			9 =>'created_time'
 		);
 		$query='
-			select 
-				a.*, c.nama nama_kota,
+			select * from (select 
+				a.*, 
+				a.kode kode_ktrk,
+				a.tahun tahun_ktrk,
+				case when a.jns_sumber_dana=1 then "BDI / Non BDI" when a.jns_sumber_dana=2 then "Non BDI Kolaborasi" end jns_sumber_dana_convert,
+				a.tgl_realisasi tgl_realisasi_ktrk,
+				a.vol_realisasi vol_realisasi_ktrk,
+				a.satuan satuan_ktrk,
+				c.nama nama_kota,
 				d.nama nama_korkot,
 				e.nama nama_kmw,
 				f.nama nama_kawasan,
 				g.nama nama_kpp,
-				b.jenis_komponen_keg,
+				b.jenis_komponen_keg usulan_komponen,
 				h.nama nama_subkomponen,
 				i.nama nama_dtl_subkomponen
 			from bkt_01040202_real_ktrk_krj a
@@ -107,7 +114,7 @@ class bk010403Controller extends Controller
 				left join bkt_01010120_subkomponen h on h.id=b.id_subkomponen
 				left join bkt_01010121_dtl_subkomponen i on i.id=b.id_dtl_subkomponen 
 			where
-				a.jns_sumber_dana=1';
+				a.jns_sumber_dana=1) b';
 		$totalData = DB::select('select count(1) cnt from bkt_01040202_real_ktrk_krj a
 				left join bkt_01030213_ktrk_pkt_krj_kontraktor b on b.kode=a.kode_parent
 				left join bkt_01010102_kota c on c.kode=a.kode_kota
@@ -130,22 +137,22 @@ class bk010403Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (
-				a.kode like "%'.$search.'%" or 
-				b.jenis_komponen_keg like "%'.$search.'%" or 
-				h.nama like "%'.$search.'%" or 
-				i.nama like "%'.$search.'%" or 
-				f.nama like "%'.$search.'%" or 
-				c.nama like "%'.$search.'%" or  
-				a.tahun like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (
-				a.kode like "%'.$search.'%" or 
-				b.jenis_komponen_keg like "%'.$search.'%" or 
-				h.nama like "%'.$search.'%" or 
-				i.nama like "%'.$search.'%" or 
-				f.nama like "%'.$search.'%" or 
-				c.nama like "%'.$search.'%" or  
-				a.tahun like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+				b.kode_ktrk like "%'.$search.'%" or 
+				b.tahun_ktrk like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or 
+				b.nama_kawasan like "%'.$search.'%" or 
+				b.usulan_komponen like "%'.$search.'%" or 
+				b.nama_subkomponen like "%'.$search.'%" or
+				b.nama_dtl_subkomponen like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+				b.kode_ktrk like "%'.$search.'%" or 
+				b.tahun_ktrk like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or 
+				b.nama_kawasan like "%'.$search.'%" or 
+				b.usulan_komponen like "%'.$search.'%" or 
+				b.nama_subkomponen like "%'.$search.'%" or
+				b.nama_dtl_subkomponen like "%'.$search.'%")) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
@@ -157,28 +164,21 @@ class bk010403Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$jns_sumber_dana = null;
-
-				if($post->jns_sumber_dana == '1'){
-					$jns_sumber_dana = 'BDI / Non BDI';
-				}elseif($post->jns_sumber_dana == '2'){
-					$jns_sumber_dana = 'Non BDI Kolaborasi';
-				}
 
 				$url_edit=url('/')."/main/pelaksanaan/kota_bdi/realisasi_kontrak/create?kode=".$edit;
 				$url_delete=url('/')."/main/pelaksanaan/kota_bdi/realisasi_kontrak/delete?kode=".$delete;
-				$nestedData['kode'] = $post->kode;
-				$nestedData['kode_parent'] = $post->jenis_komponen_keg.'-'.$post->nama_subkomponen.'-'.$post->nama_dtl_subkomponen;
-				$nestedData['jns_sumber_dana'] = $jns_sumber_dana;
+				$nestedData['kode'] = $post->kode_ktrk;
+				$nestedData['kode_parent'] = $post->usulan_komponen.'-'.$post->nama_subkomponen.'-'.$post->nama_dtl_subkomponen;
+				$nestedData['jns_sumber_dana'] = $post->jns_sumber_dana_convert;
 				// $nestedData['kode_kmw'] = $post->nama_kmw;
 				$nestedData['kode_kota'] = $post->nama_kota;
 				// $nestedData['kode_korkot'] = $post->nama_korkot;
 				$nestedData['kode_kawasan'] = $post->nama_kawasan;
 				// $nestedData['id_kpp'] = $post->nama_kpp;
-				$nestedData['tahun'] = $post->tahun;
-				$nestedData['tgl_realisasi'] = $post->tgl_realisasi;
-				$nestedData['vol_realisasi'] = $post->vol_realisasi;
-				$nestedData['satuan'] = $post->satuan;
+				$nestedData['tahun'] = $post->tahun_ktrk;
+				$nestedData['tgl_realisasi'] = $post->tgl_realisasi_ktrk;
+				$nestedData['vol_realisasi'] = $post->vol_realisasi_ktrk;
+				$nestedData['satuan'] = $post->satuan_ktrk;
 				$nestedData['created_time'] = $post->created_time;
 
 				$user = Auth::user();
@@ -444,11 +444,13 @@ class bk010403Controller extends Controller
 						a.*,
 						b.jns_sumber_dana,
 						c.nama nama_subkomponen,
-						d.nama nama_dtl_subkomponen
+						d.nama nama_dtl_subkomponen,
+						e.nama as nama_kota
 					from bkt_01030213_ktrk_pkt_krj_kontraktor a
 						left join bkt_01040202_real_ktrk_krj b on b.kode_parent=a.kode
 						left join bkt_01010120_subkomponen c on c.id=a.id_subkomponen
 						left join bkt_01010121_dtl_subkomponen d on d.id=a.id_dtl_subkomponen 
+						left join bkt_01010102_kota e on e.kode=a.kode_kota
 					where
 						b.kode='.$request->input('kode'));
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
@@ -534,14 +536,16 @@ class bk010403Controller extends Controller
 					select 
 						a.*,
 						b.nama nama_subkomponen,
-						c.nama nama_dtl_subkomponen
+						c.nama nama_dtl_subkomponen,
+						d.nama nama_kota
 					from bkt_01030213_ktrk_pkt_krj_kontraktor a
 						left join bkt_01010120_subkomponen b on b.id=a.id_subkomponen
-						left join bkt_01010121_dtl_subkomponen c on c.id=a.id_dtl_subkomponen');
-				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
-				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
-				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
-				$data['kode_kawasan_list'] = DB::select('select * from bkt_01010123_kawasan');
+						left join bkt_01010121_dtl_subkomponen c on c.id=a.id_dtl_subkomponen
+						left join bkt_01010102_kota d on d.kode=a.kode_kota');
+				$data['kode_kota_list'] = null;
+				$data['kode_kmw_list'] = null;
+				$data['kode_korkot_list'] = null;
+				$data['kode_kawasan_list'] = null;
 				$data['kode_kpp_list'] = DB::select('select * from bkt_01010129_kpp where status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user'); 
 				return view('MAIN/bk010403/create',$data);

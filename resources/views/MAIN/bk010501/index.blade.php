@@ -42,17 +42,19 @@
                 <div class="panel-title pull-left">
                     <b>bk010501 index</b>
                 </div>
-                @if( ! empty($detil['397']))
+                <!-- @if( ! empty($detil['397']))
                 <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/keberlanjutan/kota/serah_terima/create'}}">Create</a>
                 </div>
-                @endif
+                @endif -->
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table table-striped" id="pokja">
                         <thead>
                             <tr>
+                                <th>Option</th>
+                                <th>Kode</th>
                                 <th>Data Realisasi Kegiatan</th>
                                 <th>Skala Kegiatan</th>
                                 <th>Sumber Dana</th>
@@ -66,7 +68,6 @@
                                 <th>Vol Realisasi</th>
                                 <th>Satuan</th>
                                 <th>Created Time</th>
-                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -92,6 +93,8 @@
                    },
 
             "columns": [
+                { "data": "option" , name:"option",orderable:false},
+                { "data": "kode" , name:"kode"},
                 { "data": "kode_parent" , name:"kode_parent"},
                 { "data": "skala_kegiatan" , name:"skala_kegiatan"},
                 { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
@@ -104,10 +107,9 @@
                 { "data": "tgl_realisasi" , name:"tgl_realisasi"},
                 { "data": "vol_realisasi" , name:"vol_realisasi"},
                 { "data": "satuan" , name:"satuan"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "option" , name:"option",orderable:false}
+                { "data": "created_time" , name:"created_time"}
             ],
-            "order": [[12,"desc"]]
+            "order": [[1,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {
