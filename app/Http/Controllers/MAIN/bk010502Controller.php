@@ -61,37 +61,36 @@ class bk010502Controller extends Controller
 			7 =>'hasil_sertifikasi',
 			8 =>'kode_kota',
 			9 =>'kode_kawasan',
-			10 =>'kode_kel',
-			11 =>'tgl_realisasi',
-			12 =>'vol_realisasi',
-			13 =>'satuan',
-			14 =>'created_time'
+			10 =>'tgl_realisasi',
+			11 =>'vol_realisasi',
+			12 =>'satuan',
+			13 =>'created_time'
 		);
 		$query='
-			select 
+			select * from (select 
 				a.*,
-				b.jns_sumber_dana,
-				b.skala_kegiatan,
-				b.jenis_komponen_keg,
+				a.kode kode_op,
+				a.tahun tahun_op,
+				case when b.jns_sumber_dana=1 then "BDI / Non BDI" when b.jns_sumber_dana=2 then "Non BDI Kolaborasi" end jns_sumber_dana_convert,
+				case when b.skala_kegiatan=1 or i.skala_kegiatan=1 then "Kota/Kabupaten" when b.skala_kegiatan=2 or i.skala_kegiatan=2 then "Desa/Kelurahan" end skala_kegiatan_convert,
+				b.jenis_komponen_keg jenis_komponen_keg_real,
 				b.id_subkomponen,
 				b.id_dtl_subkomponen,
-				b.flag_sudah_sertias,
-				b.tgl_sertias,	
-				b.tgl_realisasi,
-				b.vol_realisasi,
-				b.satuan,
-				b.hasil_sertifikasi, 
+				case when b.flag_sudah_sertias=0 then "No" when b.flag_sudah_sertias=1 then "Ya" end flag_sertias_convert,
+				b.tgl_sertias tgl_sertias_real,	
+				b.tgl_realisasi tgl_realisasi_real,
+				b.vol_realisasi vol_realisasi_real,
+				b.satuan satuan_real,
+				case when b.hasil_sertifikasi="KB" then "Kualitas Bagus" when b.hasil_sertifikasi="KC" then "Kualitas Cukup" when b.hasil_sertifikasi="KK" then "Kualitas Kurang" end hasil_sertifikasi_convert, 
 				c.nama nama_kota,
 				d.nama nama_korkot,
 				e.nama nama_kmw,
 				f.nama nama_kawasan,
 				g.nama nama_ksm,
 				h.nama nama_kpp,
-				i.skala_kegiatan as usulan_skala,
-				i.jenis_komponen_keg as usulan_komponen,
+				i.jenis_komponen_keg usulan_komponen,
 				j.nama nama_subkomponen,
-				k.nama nama_dtl_subkomponen,
-				l.nama nama_kel
+				k.nama nama_dtl_subkomponen
 			from bkt_01050201_op a 
 				left join bkt_01040201_real_keg b on b.kode=a.kode_real_keg 
 				left join bkt_01010102_kota c on c.kode=b.kode_kota
@@ -105,12 +104,11 @@ class bk010502Controller extends Controller
 					on (j.id=i.id_subkomponen or j.id=b.id_subkomponen)
 				left join bkt_01010121_dtl_subkomponen k 
 					on (k.id=i.id_dtl_subkomponen or k.id=b.id_dtl_subkomponen)
-				left join bkt_01010104_kel l on l.kode=b.kode_kel
 			where 
 				b.flag_sudah_sertias=1 and
 				b.hasil_sertifikasi is not null and
 				(i.skala_kegiatan=1 or
-				b.skala_kegiatan=1)';
+				b.skala_kegiatan=1)) b';
 		$totalData = DB::select('select count(1) cnt from bkt_01050201_op a 
 				left join bkt_01040201_real_keg b on b.kode=a.kode_real_keg 
 				left join bkt_01010102_kota c on c.kode=b.kode_kota
@@ -124,7 +122,6 @@ class bk010502Controller extends Controller
 					on (j.id=i.id_subkomponen or j.id=b.id_subkomponen)
 				left join bkt_01010121_dtl_subkomponen k 
 					on (k.id=i.id_dtl_subkomponen or k.id=b.id_dtl_subkomponen)
-				left join bkt_01010104_kel l on l.kode=b.kode_kota
 			where 
 				b.flag_sudah_sertias=1 and
 				b.hasil_sertifikasi is not null and
@@ -141,30 +138,28 @@ class bk010502Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (
-				a.kode like "%'.$search.'%" or 
-				b.jenis_komponen_keg like "%'.$search.'%" or 
-				i.jenis_komponen_keg like "%'.$search.'%" or 
-				j.nama like "%'.$search.'%" or 
-				k.nama like "%'.$search.'%" or 
-				c.nama like "%'.$search.'%" or 
-				f.nama like "%'.$search.'%" or 
-				l.nama like "%'.$search.'%" or 
-				b.skala_kegiatan like "%'.$search.'%" or 
-				i.skala_kegiatan like "%'.$search.'%" or 
-				a.tahun like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (
-				a.kode like "%'.$search.'%" or 
-				b.jenis_komponen_keg like "%'.$search.'%" or 
-				i.jenis_komponen_keg like "%'.$search.'%" or 
-				j.nama like "%'.$search.'%" or 
-				k.nama like "%'.$search.'%" or 
-				c.nama like "%'.$search.'%" or 
-				f.nama like "%'.$search.'%" or 
-				l.nama like "%'.$search.'%" or 
-				b.skala_kegiatan like "%'.$search.'%" or 
-				i.skala_kegiatan like "%'.$search.'%" or 
-				a.tahun like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+				b.kode_op like "%'.$search.'%" or 
+				b.jenis_komponen_keg_real like "%'.$search.'%" or 
+				b.usulan_komponen like "%'.$search.'%" or 
+				b.nama_subkomponen like "%'.$search.'%" or 
+				b.nama_dtl_subkomponen like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or 
+				b.nama_kawasan like "%'.$search.'%" or 
+				b.skala_kegiatan_convert like "%'.$search.'%" or
+				b.tahun_op like "%'.$search.'%" or 
+				b.hasil_sertifikasi_convert like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+				b.kode_op like "%'.$search.'%" or 
+				b.jenis_komponen_keg_real like "%'.$search.'%" or 
+				b.usulan_komponen like "%'.$search.'%" or 
+				b.nama_subkomponen like "%'.$search.'%" or 
+				b.nama_dtl_subkomponen like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or 
+				b.nama_kawasan like "%'.$search.'%" or 
+				b.skala_kegiatan_convert like "%'.$search.'%" or
+				b.tahun_op like "%'.$search.'%" or 
+				b.hasil_sertifikasi_convert like "%'.$search.'%")) a');
 			$totalFiltered = $totalFiltered[0]->cnt;
 		}
 
@@ -176,57 +171,26 @@ class bk010502Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$jns_sumber_dana = null;
-				$flag_sudah_sertias = null;
-				$skala_kegiatan = null;
-				$hasil_sertifikasi = null;
-
-				if($post->jns_sumber_dana == '1'){
-					$jns_sumber_dana = 'BDI / Non BDI';
-				}elseif($post->jns_sumber_dana == '2'){
-					$jns_sumber_dana = 'Non BDI Kolaborasi';
-				}
-
-				if($post->flag_sudah_sertias == '0'){
-					$flag_sudah_sertias = 'Tidak';
-				}elseif($post->flag_sudah_sertias == '1'){
-					$flag_sudah_sertias = 'Ya';
-				}
-
-				if($post->skala_kegiatan == '1' || $post->usulan_skala == '1'){
-					$skala_kegiatan = 'Kota/Kabupaten';
-				}elseif($post->skala_kegiatan == '2' || $post->usulan_skala == '2'){
-					$skala_kegiatan = 'Desa/Kelurahan';
-				}
-
-				if($post->hasil_sertifikasi == 'KB'){
-					$hasil_sertifikasi = 'Kualitas Baik';
-				}elseif($post->hasil_sertifikasi == 'KC'){
-					$hasil_sertifikasi = 'Kualitas Cukup';
-				}elseif($post->hasil_sertifikasi == 'KK'){
-					$hasil_sertifikasi = 'Kualitas Kurang';
-				}
 
 				$url_edit=url('/')."/main/keberlanjutan/kota/operasional/create?kode=".$edit;
 				$url_delete=url('/')."/main/keberlanjutan/kota/operasional/delete?kode=".$delete;
-				$nestedData['kode'] = $post->kode;
-				$nestedData['kode_real_keg'] = $post->jenis_komponen_keg.$post->usulan_komponen.'-'.$post->nama_subkomponen.'-'.$post->nama_dtl_subkomponen;
-				$nestedData['jns_sumber_dana'] = $jns_sumber_dana;
-				$nestedData['skala_kegiatan'] = $skala_kegiatan;
-				$nestedData['flag_sudah_sertias'] = $flag_sudah_sertias;
-				$nestedData['tgl_sertias'] = $post->tgl_sertias;
-				$nestedData['hasil_sertifikasi'] = $post->hasil_sertifikasi;
+				$nestedData['kode'] = $post->kode_op;
+				$nestedData['kode_real_keg'] = $post->jenis_komponen_keg_real.$post->usulan_komponen.'-'.$post->nama_subkomponen.'-'.$post->nama_dtl_subkomponen;
+				$nestedData['jns_sumber_dana'] = $post->jns_sumber_dana_convert;
+				$nestedData['skala_kegiatan'] = $post->skala_kegiatan_convert;
+				$nestedData['flag_sudah_sertias'] = $post->flag_sertias_convert;
+				$nestedData['tgl_sertias'] = $post->tgl_sertias_real;
+				$nestedData['hasil_sertifikasi'] = $post->hasil_sertifikasi_convert;
 				// $nestedData['kode_kmw'] = $post->nama_kmw;
 				$nestedData['kode_kota'] = $post->nama_kota;
 				// $nestedData['kode_korkot'] = $post->nama_korkot;
 				$nestedData['kode_kawasan'] = $post->nama_kawasan;
-				$nestedData['kode_kel'] = $post->nama_kel;
 				// $nestedData['id_ksm'] = $post->nama_ksm;
 				// $nestedData['id_kpp'] = $post->nama_kpp;
-				$nestedData['tahun'] = $post->tahun;
-				$nestedData['tgl_realisasi'] = $post->tgl_realisasi;
-				$nestedData['vol_realisasi'] = $post->vol_realisasi;
-				$nestedData['satuan'] = $post->satuan;
+				$nestedData['tahun'] = $post->tahun_op;
+				$nestedData['tgl_realisasi'] = $post->tgl_realisasi_real;
+				$nestedData['vol_realisasi'] = $post->vol_realisasi_real;
+				$nestedData['satuan'] = $post->satuan_real;
 				$nestedData['created_time'] = $post->created_time;
 
 				$user = Auth::user();
@@ -275,8 +239,7 @@ class bk010502Controller extends Controller
 				h.skala_kegiatan as usulan_skala,
 				h.jenis_komponen_keg as usulan_komponen,
 				i.nama nama_subkomponen,
-				j.nama nama_dtl_subkomponen,
-				k.nama nama_kel
+				j.nama nama_dtl_subkomponen
 			from bkt_01040201_real_keg a
 				left join bkt_01010102_kota b on b.kode=a.kode_kota
 				left join bkt_01010111_korkot c on c.kode=a.kode_korkot
@@ -289,7 +252,6 @@ class bk010502Controller extends Controller
 					on (i.id=h.id_subkomponen or i.id=a.id_subkomponen)
 				left join bkt_01010121_dtl_subkomponen j 
 					on (j.id=h.id_dtl_subkomponen or j.id=a.id_dtl_subkomponen)
-				left join bkt_01010104_kel k on k.kode=a.kode_kel
 			where a.kode='.$request->input('kode_parent'));
 			echo json_encode($data);
 		}
@@ -334,8 +296,7 @@ class bk010502Controller extends Controller
 					i.skala_kegiatan as usulan_skala,
 					i.jenis_komponen_keg as usulan_komponen,
 					j.nama nama_subkomponen,
-					k.nama nama_dtl_subkomponen,
-					l.nama nama_kel
+					k.nama nama_dtl_subkomponen
 				from bkt_01050201_op a 
 					left join bkt_01040201_real_keg b on b.kode=a.kode_real_keg 
 					left join bkt_01010102_kota c on c.kode=b.kode_kota
@@ -349,7 +310,6 @@ class bk010502Controller extends Controller
 						on (j.id=i.id_subkomponen or j.id=b.id_subkomponen)
 					left join bkt_01010121_dtl_subkomponen k 
 						on (k.id=i.id_dtl_subkomponen or k.id=b.id_dtl_subkomponen)
-					left join bkt_01010104_kel l on l.kode=b.kode_kota
 				where
 					a.kode='.$data['kode']);
 				$data['tahun'] = $rowData[0]->tahun;
@@ -360,7 +320,6 @@ class bk010502Controller extends Controller
 				$data['kode_korkot'] = $rowData[0]->nama_korkot;
 				// $data['kode_kec'] = $rowData[0]->nama_kec;
 				$data['kode_kmw'] = $rowData[0]->nama_kmw;
-				$data['kode_kel'] = $rowData[0]->nama_kel;
 				// $data['kode_faskel'] = $rowData[0]->kode_faskel;
 				$data['kode_kawasan'] = $rowData[0]->kode_kawasan.' '.$rowData[0]->nama_kawasan;
 				$data['id_ksm'] = $rowData[0]->kode_ksm.' '.$rowData[0]->nama_ksm;
@@ -393,13 +352,17 @@ class bk010502Controller extends Controller
 						b.jenis_komponen_keg usulan_komponen, 
 						b.skala_kegiatan usulan_skala,
 						c.nama nama_subkomponen,
-						d.nama nama_dtl_subkomponen
+						d.nama nama_dtl_subkomponen,
+						e.nama nama_kota,
+						f.nama nama_kawasan
 					from bkt_01040201_real_keg a
 						left join bkt_01030208_usulan_keg_kt b on b.kode=a.kode_parent
 						left join bkt_01010120_subkomponen c 
 							on (c.id=b.id_subkomponen or c.id=a.id_subkomponen)
 						left join bkt_01010121_dtl_subkomponen d 
 							on (d.id=b.id_dtl_subkomponen or d.id=a.id_dtl_subkomponen)
+						left join bkt_01010102_kota e on e.kode=a.kode_kota
+						left join bkt_01010123_kawasan f on f.id=a.kode_kawasan
 					where
 						a.kode='.$data['kode_real_keg']);
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
@@ -407,7 +370,7 @@ class bk010502Controller extends Controller
 			}else if ($data['kode']==null  && !empty($data['detil']['401'])){
 				$data['tahun'] = null;
 				$data['tahun_keg'] = null;
-				$data['jns_sumber_dana'] = 1;
+				$data['jns_sumber_dana'] = null;
 				$data['kode_real_keg'] = null;
 				$data['kode_kota'] = null;
 				$data['kode_korkot'] = null;
@@ -446,13 +409,17 @@ class bk010502Controller extends Controller
 						b.jenis_komponen_keg usulan_komponen, 
 						b.skala_kegiatan usulan_skala,
 						c.nama nama_subkomponen,
-						d.nama nama_dtl_subkomponen
+						d.nama nama_dtl_subkomponen,
+						e.nama nama_kota,
+						f.nama nama_kawasan
 					from bkt_01040201_real_keg a
 						left join bkt_01030208_usulan_keg_kt b on b.kode=a.kode_parent
 						left join bkt_01010120_subkomponen c 
 							on (c.id=b.id_subkomponen or c.id=a.id_subkomponen)
 						left join bkt_01010121_dtl_subkomponen d 
 							on (d.id=b.id_dtl_subkomponen or d.id=a.id_dtl_subkomponen)
+						left join bkt_01010102_kota e on e.kode=a.kode_kota
+						left join bkt_01010123_kawasan f on f.id=a.kode_kawasan
 					where
 						a.hasil_sertifikasi is not null and
 						a.flag_sudah_sertias is not null and

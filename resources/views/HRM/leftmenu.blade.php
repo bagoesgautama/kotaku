@@ -59,7 +59,7 @@
 			</li>
 			@endif
 			@if( ! empty($menu['178']))
-			<li {!! (Request::is( 'hrm/management/*')? 'class="active"': "") !!}>
+			<li {!! (Request::is( 'hrm/management/blacklist*')? 'class="active"': "") !!}>
 		        <a href="javascript:void(0)">
 		            <span class="mm-text ">Managemen User</span>
 					<span class="fa arrow"></span>

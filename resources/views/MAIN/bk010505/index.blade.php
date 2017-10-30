@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Realisasi Kontrak Paket Pekerjaan dari Kontraktor @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan Audit Independent @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -11,7 +11,7 @@
 <link href="{{asset('css/buttons_sass.css')}}" rel="stylesheet">
 
 @stop {{-- Page Header--}} @section('page-header')
-
+i
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>MAIN Module</h1>
@@ -23,13 +23,13 @@
                 </a>
             </li>
             <li class="next">
-                Pelaksanaan
+                Keberlanjutan
             </li>
             <li class="next">
-                Realisasi Kegiatan Skala Kota (BDI/Non BDI)
+                Skala Kelurahan
             </li>
             <li class="next">
-                Realisasi Kontrak Paket Pekerjaan dari Kontraktor
+                Pelaksanaan Audit Independent
             </li>
         </ul>
     </div>
@@ -40,11 +40,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010403 index</b>
+                    <b>bk010505 index</b>
                 </div>
-                @if( ! empty($detil['355']))
+                @if( ! empty($detil['413']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kota_bdi/realisasi_kontrak/create'}}">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/keberlanjutan/kelurahan/audit/create'}}">Create</a>
                 </div>
                 @endif
             </div>
@@ -55,13 +55,12 @@
                             <tr>
                                 <th>Kode</th>
                                 <th>Tahun</th>
-                                <th>Kode Kontrak Paket Pekerjaan Kontraktor</th>
-                                <th>Sumber Dana</th>
+                                <th>Propinsi</th>
                                 <th>Kota</th>
-                                <th>Kawasan</th>
-                                <th>Tgl Realisasi</th>
-                                <th>Vol Realisasi</th>
-                                <th>Satuan</th>
+                                <th>Kecamatan</th>
+                                <th>Kelurahan</th>
+                                <th>Audit</th>
+                                <th>Hasil Audit</th>
                                 <th>Created Time</th>
                                 <th>Option</th>
                             </tr>
@@ -83,7 +82,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/pelaksanaan/kota_bdi/realisasi_kontrak",
+                     "url": "/main/keberlanjutan/kelurahan/audit",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -91,17 +90,16 @@
             "columns": [
                 { "data": "kode" , name:"kode"},
                 { "data": "tahun" , name:"tahun"},
-                { "data": "kode_parent" , name:"kode_parent"},
-                { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
+                { "data": "kode_prop" , name:"kode_prop"},
                 { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_kawasan" , name:"kode_kawasan"},
-                { "data": "tgl_realisasi" , name:"tgl_realisasi"},
-                { "data": "vol_realisasi" , name:"vol_realisasi"},
-                { "data": "satuan" , name:"satuan"},
+                { "data": "kode_kec" , name:"kode_kec"},
+                { "data": "kode_kel" , name:"kode_kel"},
+                { "data": "flag_audit" , name:"flag_audit"},
+                { "data": "hasil_audit" , name:"hasil_audit"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
             ],
-            "order":[[0,'desc']]
+            "order": [[0,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

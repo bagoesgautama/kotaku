@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Realisasi Kontrak Paket Pekerjaan dari Kontraktor @stop {{-- local styles --}} @section('header_styles') 
+@extends('HRM/default') {{-- Page title --}} @section('title') Peringatan @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,22 +14,16 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Peringatan</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-                <a href="/main">
-                    <i class="fa fa-fw fa-home"></i> MAIN
+                <a href="/hrm">
+                    <i class="fa fa-fw fa-home"></i> HRM
                 </a>
             </li>
             <li class="next">
-                Pelaksanaan
-            </li>
-            <li class="next">
-                Realisasi Kegiatan Skala Kota (BDI/Non BDI)
-            </li>
-            <li class="next">
-                Realisasi Kontrak Paket Pekerjaan dari Kontraktor
+                Managemen Personil / User / Peringatan
             </li>
         </ul>
     </div>
@@ -40,30 +34,26 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010403 index</b>
+                    <b>bk020313 Index</b>
                 </div>
-                @if( ! empty($detil['355']))
+                @if( ! empty($detil['554']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kota_bdi/realisasi_kontrak/create'}}">Create</a>
-                </div>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management/peringatan/create">Create</a>
+				</div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="pokja">
-                        <thead>
+					<table class="table table-striped" id="users">
+						<thead>
                             <tr>
-                                <th>Kode</th>
-                                <th>Tahun</th>
-                                <th>Kode Kontrak Paket Pekerjaan Kontraktor</th>
-                                <th>Sumber Dana</th>
-                                <th>Kota</th>
-                                <th>Kawasan</th>
-                                <th>Tgl Realisasi</th>
-                                <th>Vol Realisasi</th>
-                                <th>Satuan</th>
-                                <th>Created Time</th>
-                                <th>Option</th>
+								<th>ID</th>
+								<th>User</th>
+								<th>Peringatan ke</th>
+								<th>Tanggal Peringatan</th>
+								<th>Verifikator</th>
+								<th>Tanggal di verifikasi</th>
+								<th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -72,39 +62,38 @@
         </div>
     </div>
 </div>
-
 <!-- /.modal ends here -->@stop {{-- local scripts --}} @section('footer_scripts')
 
 <script>
     $(document).ready(function () {
-        var table = $('#pokja').DataTable({
-            // dom: 'Bflrtip',
-            
-            "processing": true,
+		var table = $('#users').DataTable({
+			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/pelaksanaan/kota_bdi/realisasi_kontrak",
+                     "url": "/hrm/management/peringatan",
                      "dataType": "json",
                      "type": "POST"
                    },
-
-            "columns": [
-                { "data": "kode" , name:"kode"},
-                { "data": "tahun" , name:"tahun"},
-                { "data": "kode_parent" , name:"kode_parent"},
-                { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_kawasan" , name:"kode_kawasan"},
-                { "data": "tgl_realisasi" , name:"tgl_realisasi"},
-                { "data": "vol_realisasi" , name:"vol_realisasi"},
-                { "data": "satuan" , name:"satuan"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "option" , name:"option",orderable:false}
+            success: function(data) {
+                 alert('success')
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+              },
+			  "columns": [
+				{ "data": "kode" , name:"kode"},
+				{ "data": "user" , name:"user"},
+				{ "data": "counter_peringatan" , name:"counter_peringatan"},
+				{ "data": "tgl_peringatan" , name:"tgl_peringatan"},
+				{ "data": "verifikator" , name:"verifikator"},
+				{ "data": "tgl_verifikasi" , name:"tgl_verifikasi"},
+				{ "data": "option" , name:"option",orderable:false}
             ],
-            "order":[[0,'desc']]
-        });
-        $('#pokja_filter input').unbind();
-        $('#pokja_filter input').bind('keyup', function(e) {
+			"order": [[ 0, "desc" ]]
+	    });
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
             table.search(this.value).draw();
         }

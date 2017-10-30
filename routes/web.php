@@ -117,6 +117,24 @@ Route::get('/hrm/management/kuota/korkot/create', 'HRM\bk020311Controller@create
 Route::post('/hrm/management/kuota/korkot/create', 'HRM\bk020311Controller@post_create');
 Route::get('/hrm/management/kuota/korkot/delete', 'HRM\bk020311Controller@delete');
 
+Route::get('/hrm/management/peringatan', 'HRM\bk020313Controller@index');
+Route::post('hrm/management/peringatan', 'HRM\bk020313Controller@post');
+Route::get('/hrm/management/peringatan/create', 'HRM\bk020313Controller@create');
+Route::post('/hrm/management/peringatan/create', 'HRM\bk020313Controller@post_create');
+Route::get('/hrm/management/peringatan/delete', 'HRM\bk020313Controller@delete');
+
+Route::get('/hrm/management/evaluasi', 'HRM\bk020314Controller@index');
+Route::post('hrm/management/evaluasi', 'HRM\bk020314Controller@post');
+Route::get('/hrm/management/evaluasi/create', 'HRM\bk020314Controller@create');
+Route::post('/hrm/management/evaluasi/create', 'HRM\bk020314Controller@post_create');
+Route::get('/hrm/management/evaluasi/delete', 'HRM\bk020314Controller@delete');
+
+Route::get('/hrm/management/sidang', 'HRM\bk020315Controller@index');
+Route::post('hrm/management/sidang', 'HRM\bk020315Controller@post');
+Route::get('/hrm/management/sidang/create', 'HRM\bk020315Controller@create');
+Route::post('/hrm/management/sidang/create', 'HRM\bk020315Controller@post_create');
+Route::get('/hrm/management/sidang/delete', 'HRM\bk020315Controller@delete');
+
 //get html form data
 Route::get('/hrm/admin/role', 'HRM\bk020102Controller@index');
 //get data for datatable
@@ -754,6 +772,7 @@ Route::post('/main/keberlanjutan/kelurahan/pemeliharaan/create', 'MAIN\bk010504C
 Route::get('/main/keberlanjutan/kelurahan/pemeliharaan/delete', 'MAIN\bk010504Controller@delete');
 
 Route::get('/main/keberlanjutan/kelurahan/audit', 'MAIN\bk010505Controller@index');
+Route::get('/main/keberlanjutan/kelurahan/audit/select', 'MAIN\bk010505Controller@select');
 Route::post('/main/keberlanjutan/kelurahan/audit', 'MAIN\bk010505Controller@post');
 Route::get('/main/keberlanjutan/kelurahan/audit/create', 'MAIN\bk010505Controller@create');
 Route::post('/main/keberlanjutan/kelurahan/audit/create', 'MAIN\bk010505Controller@post_create');

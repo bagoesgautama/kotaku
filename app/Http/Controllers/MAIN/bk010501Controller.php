@@ -87,33 +87,45 @@ class bk010501Controller extends Controller
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'kode_parent',
-			1 =>'skala_kegiatan',
-			2 =>'jns_sumber_dana',
-			3 =>'flag_sudah_sertias',
-			4 =>'tgl_sertias',
-			5 =>'kode_kota',
-			6 =>'kode_kawasan',
-			7 =>'kode_kel',
-			8 =>'tahun',
-			9 =>'tgl_realisasi',
-			10 =>'vol_realisasi',
-			11 =>'satuan',
-			12 =>'created_time'
+			1 =>'kode',
+			2 =>'kode_parent',
+			3 =>'skala_kegiatan',
+			4 =>'jns_sumber_dana',
+			5 =>'flag_sudah_sertias',
+			6 =>'tgl_sertias',
+			7 =>'kode_kota',
+			8 =>'kode_kawasan',
+			9 =>'kode_kel',
+			10 =>'tahun',
+			11 =>'tgl_realisasi',
+			12 =>'vol_realisasi',
+			13 =>'satuan',
+			14 =>'created_time'
 		);
 		$query='
-			select 
-				a.*, b.nama nama_kota,
+			select * from (select 
+				a.*,
+				a.kode kode_real,
+				a.tahun tahun_real,
+				case when a.jns_sumber_dana=1 then "BDI / Non BDI" when a.jns_sumber_dana=2 then "Non BDI Kolaborasi" end jns_sumber_dana_convert,
+				case when a.skala_kegiatan=1 or h.skala_kegiatan=1 then "Kota/Kabupaten" when a.skala_kegiatan=2 or h.skala_kegiatan=2 then "Desa/Kelurahan" end skala_kegiatan_convert,
+				a.jenis_komponen_keg jenis_komponen_keg_real,
+				case when a.flag_sudah_sertias=0 then "No" when a.flag_sudah_sertias=1 then "Ya" when a.flag_sudah_sertias is null then "-" end flag_sertias_convert,
+				case when a.tgl_sertias is null then "-" else a.tgl_sertias end tgl_sertias_real,	
+				a.tgl_realisasi tgl_realisasi_real,
+				a.vol_realisasi vol_realisasi_real,
+				a.satuan satuan_real,
+				case when a.hasil_sertifikasi="KB" then "Kualitas Bagus" when a.hasil_sertifikasi="KC" then "Kualitas Cukup" when a.hasil_sertifikasi="KK" then "Kualitas Kurang" end hasil_sertifikasi_convert,
+				b.nama nama_kota,
 				c.nama nama_korkot,
 				d.nama nama_kmw,
 				e.nama nama_kawasan,
 				f.nama nama_ksm,
 				g.nama nama_kpp,
-				h.skala_kegiatan as usulan_skala,
 				h.jenis_komponen_keg as usulan_komponen,
 				i.nama nama_subkomponen,
 				j.nama nama_dtl_subkomponen,
-				k.nama nama_kel
+				case when l.nama is null then "-" else l.nama end nama_kel
 			from bkt_01040201_real_keg a
 				left join bkt_01010102_kota b on b.kode=a.kode_kota
 				left join bkt_01010111_korkot c on c.kode=a.kode_korkot
@@ -126,10 +138,9 @@ class bk010501Controller extends Controller
 					on (i.id=h.id_subkomponen or i.id=a.id_subkomponen)
 				left join bkt_01010121_dtl_subkomponen j 
 					on (j.id=h.id_dtl_subkomponen or j.id=a.id_dtl_subkomponen)
-				left join bkt_01010104_kel k on k.kode=a.kode_kota
+				left join bkt_01010104_kel l on l.kode=a.kode_kel
 			where 
-				a.flag_sudah_sertias=1 and
-				a.hasil_sertifikasi is not null';
+				a.hasil_sertifikasi is not null) b';
 		$totalData = DB::select('select count(1) cnt from bkt_01040201_real_keg a
 				left join bkt_01010102_kota b on b.kode=a.kode_kota
 				left join bkt_01010111_korkot c on c.kode=a.kode_korkot
@@ -142,9 +153,8 @@ class bk010501Controller extends Controller
 					on (i.id=h.id_subkomponen or i.id=a.id_subkomponen)
 				left join bkt_01010121_dtl_subkomponen j 
 					on (j.id=h.id_dtl_subkomponen or j.id=a.id_dtl_subkomponen)
-				left join bkt_01010104_kel k on k.kode=a.kode_kota
+				left join bkt_01010104_kel l on l.kode=a.kode_kel
 			where 
-				a.flag_sudah_sertias=1 and
 				a.hasil_sertifikasi is not null');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -157,32 +167,32 @@ class bk010501Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (
-				a.jenis_komponen_keg like "%'.$search.'%" or 
-				h.jenis_komponen_keg like "%'.$search.'%" or 
-				i.nama like "%'.$search.'%" or 
-				j.nama like "%'.$search.'%" or 
-				a.jns_sumber_dana like "%'.$search.'%" or 
-				a.tgl_sertias like "%'.$search.'%" or 
-				b.nama like "%'.$search.'%" or 
-				e.nama like "%'.$search.'%" or 
-				k.nama like "%'.$search.'%" or 
-				a.skala_kegiatan like "%'.$search.'%" or 
-				h.skala_kegiatan like "%'.$search.'%" or 
-				a.tahun like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (
-				a.jenis_komponen_keg like "%'.$search.'%" or 
-				h.jenis_komponen_keg like "%'.$search.'%" or 
-				i.nama like "%'.$search.'%" or 
-				j.nama like "%'.$search.'%" or 
-				a.jns_sumber_dana like "%'.$search.'%" or 
-				a.tgl_sertias like "%'.$search.'%" or 
-				b.nama like "%'.$search.'%" or 
-				e.nama like "%'.$search.'%" or 
-				k.nama like "%'.$search.'%" or 
-				a.skala_kegiatan like "%'.$search.'%" or 
-				h.skala_kegiatan like "%'.$search.'%" or 
-				a.tahun like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+				b.kode_real like "%'.$search.'%" or 
+				b.jenis_komponen_keg_real like "%'.$search.'%" or 
+				b.usulan_komponen like "%'.$search.'%" or 
+				b.nama_subkomponen like "%'.$search.'%" or 
+				b.nama_dtl_subkomponen like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or 
+				b.nama_kawasan like "%'.$search.'%" or
+				b.nama_kel like "%'.$search.'%" or 
+				b.skala_kegiatan_convert like "%'.$search.'%" or
+				b.tahun_real like "%'.$search.'%" or 
+				b.hasil_sertifikasi_convert like "%'.$search.'%" or
+				b.flag_sertias_convert like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+				b.kode_real like "%'.$search.'%" or 
+				b.jenis_komponen_keg_real like "%'.$search.'%" or 
+				b.usulan_komponen like "%'.$search.'%" or 
+				b.nama_subkomponen like "%'.$search.'%" or 
+				b.nama_dtl_subkomponen like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or 
+				b.nama_kawasan like "%'.$search.'%" or 
+				b.nama_kel like "%'.$search.'%" or
+				b.skala_kegiatan_convert like "%'.$search.'%" or
+				b.tahun_real like "%'.$search.'%" or 
+				b.hasil_sertifikasi_convert like "%'.$search.'%" or
+				b.flag_sertias_convert like "%'.$search.'%")) a');
 			$totalFiltered = $totalFiltered[0]->cnt;
 		}
 
@@ -194,35 +204,15 @@ class bk010501Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$jns_sumber_dana = null;
-				$flag_sudah_sertias = null;
-				$skala_kegiatan = null;
-
-				if($post->jns_sumber_dana == '1'){
-					$jns_sumber_dana = 'BDI / Non BDI';
-				}elseif($post->jns_sumber_dana == '2'){
-					$jns_sumber_dana = 'Non BDI Kolaborasi';
-				}
-
-				if($post->flag_sudah_sertias == '0'){
-					$flag_sudah_sertias = 'Tidak';
-				}elseif($post->flag_sudah_sertias == '1'){
-					$flag_sudah_sertias = 'Ya';
-				}
-
-				if($post->skala_kegiatan == '1' || $post->usulan_skala == '1'){
-					$skala_kegiatan = 'Kota/Kabupaten';
-				}elseif($post->skala_kegiatan == '2' || $post->usulan_skala == '2'){
-					$skala_kegiatan = 'Desa/Kelurahan';
-				}
 
 				$url_edit=url('/')."/main/keberlanjutan/kota/serah_terima/create?kode=".$edit;
 				$url_delete=url('/')."/main/keberlanjutan/kota/serah_terima/delete?kode=".$delete;
-				$nestedData['kode_parent'] = $post->jenis_komponen_keg.$post->usulan_komponen.'-'.$post->nama_subkomponen.'-'.$post->nama_dtl_subkomponen;
-				$nestedData['jns_sumber_dana'] = $jns_sumber_dana;
-				$nestedData['skala_kegiatan'] = $skala_kegiatan;
-				$nestedData['flag_sudah_sertias'] = $flag_sudah_sertias;
-				$nestedData['tgl_sertias'] = $post->tgl_sertias;
+				$nestedData['kode'] = $post->kode_real;
+				$nestedData['kode_parent'] = $post->jenis_komponen_keg_real.$post->usulan_komponen.'-'.$post->nama_subkomponen.'-'.$post->nama_dtl_subkomponen;
+				$nestedData['jns_sumber_dana'] = $post->jns_sumber_dana_convert;
+				$nestedData['skala_kegiatan'] = $post->skala_kegiatan_convert;
+				$nestedData['flag_sudah_sertias'] = $post->flag_sertias_convert;
+				$nestedData['tgl_sertias'] = $post->tgl_sertias_real;
 				// $nestedData['kode_kmw'] = $post->nama_kmw;
 				$nestedData['kode_kota'] = $post->nama_kota;
 				// $nestedData['kode_korkot'] = $post->nama_korkot;
@@ -230,10 +220,10 @@ class bk010501Controller extends Controller
 				$nestedData['kode_kel'] = $post->nama_kel;
 				// $nestedData['id_ksm'] = $post->nama_ksm;
 				// $nestedData['id_kpp'] = $post->nama_kpp;
-				$nestedData['tahun'] = $post->tahun;
-				$nestedData['tgl_realisasi'] = $post->tgl_realisasi;
-				$nestedData['vol_realisasi'] = $post->vol_realisasi;
-				$nestedData['satuan'] = $post->satuan;
+				$nestedData['tahun'] = $post->tahun_real;
+				$nestedData['tgl_realisasi'] = $post->tgl_realisasi_real;
+				$nestedData['vol_realisasi'] = $post->vol_realisasi_real;
+				$nestedData['satuan'] = $post->satuan_real;
 				$nestedData['created_time'] = $post->created_time;
 
 				$user = Auth::user();
@@ -249,9 +239,9 @@ class bk010501Controller extends Controller
 				if(!empty($detil['398'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['399'])){
-					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}
+				// if(!empty($detil['399'])){
+				// 	$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
+				// }
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
@@ -307,7 +297,7 @@ class bk010501Controller extends Controller
 						on (i.id=h.id_subkomponen or i.id=a.id_subkomponen)
 					left join bkt_01010121_dtl_subkomponen j 
 						on (j.id=h.id_dtl_subkomponen or j.id=a.id_dtl_subkomponen)
-					left join bkt_01010104_kel k on k.kode=a.kode_kota
+					left join bkt_01010104_kel k on k.kode=a.kode_kel
 				where a.kode='.$data['kode']);
 				$data['jns_sumber_dana'] = $rowData[0]->jns_sumber_dana;
 				$data['kode_parent'] = $rowData[0]->kode_parent;
@@ -354,7 +344,7 @@ class bk010501Controller extends Controller
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010501/create',$data);
 			}else if ($data['kode']==null  && !empty($data['detil']['397'])){
-				$data['jns_sumber_dana'] = 1;
+				$data['jns_sumber_dana'] = null;
 				$data['kode_parent'] = null;
 				$data['kode_kota'] = null;
 				$data['kode_korkot'] = null;

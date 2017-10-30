@@ -79,96 +79,64 @@ class bk010319Controller extends Controller
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'tahun',
-			1 => 'skala_kegiatan',
-			2 => 'kode_kota',
-			3 => 'kode_korkot',
+			0 => 'kode',
+			1 =>'tahun',
+			2 => 'skala_kegiatan',
+			3 => 'kode_kota',
 			4 => 'kode_kec',
-			5 => 'kode_kmw',
-			6 => 'kode_kel',
-			7 => 'kode_faskel',
-			8 => 'jenis_kegiatan',
-			9 => 'no_proposal',
-			10 => 'tgl_proposal',
-			11 => 'thn_anggaran',
-			12 => 'kategori_penanganan',
-			13 => 'jenis_komponen_keg',
-			14 => 'id_subkomponen',
-			15 => 'id_dtl_subkomponen',
-			16 => 'dk_vol_kegiatan',
-			17 => 'dk_satuan',
-			18 => 'dk_lok_kegiatan',
-			19 => 'dk_tgl_verifikasi',
-			20 => 'nb_a_pupr_bdi_kolab',
-			21 => 'nb_a_pupr_bdi_plbk',
-			22 => 'nb_a_pupr_bdi_lain',
-			23 => 'nb_a_pupr_nsup2',
-			24 => 'nb_a_pupr_dir_pkp',
-			25 => 'nb_a_pupr_dir_pkp_lain',
-			26 => 'nb_apbn_kl_lain',
-			27 => 'nb_apbd_prop',
-			28 => 'nb_apbd_kota',
-			29 => 'nb_dak',
-			30 => 'nb_hibah',
-			31 => 'nb_non_gov',
-			32 => 'nb_masyarakat',
-			33 => 'nb_lainnya',
-			34 => 'tpm_q_jiwa',
-			35 => 'tpm_q_jiwa_w',
-			36 => 'tpm_q_mbr',
-			37 => 'tpm_q_kk',
-			38 => 'tpm_q_kk_miskin',
-			39 => 'uri_img_document',
-			40 => 'uri_img_absensi',
-			41 => 'diser_tgl',
-			42 => 'diser_oleh',
-			43 => 'diket_tgl',
-			44 => 'diket_oleh',
-			45 => 'diver_tgl',
-			46 => 'diver_oleh',
-			47 => 'created_time',
-			48 => 'created_by',
-			49 => 'updated_time',
-			50 => 'updated_by'
+			5 => 'kode_kel',
+			6 => 'jenis_kegiatan',
+			7 => 'no_proposal',
+			8 => 'tgl_proposal',
+			9 => 'thn_anggaran',
+			10 => 'kategori_penanganan',
+			11 => 'jenis_komponen_keg',
+			12 => 'id_subkomponen',
+			13 => 'id_dtl_subkomponen',
+			14 => 'created_time',
 		);
-		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kec, e.nama nama_kmw, f.nama nama_kel, g.nama nama_faskel, h.nama id_subkomponen, i.nama id_dtl_subkomponen 
-			from bkt_01030208_usulan_keg_kt a, 
-				bkt_01010102_kota b, 
-				bkt_01010111_korkot c, 
-				bkt_01010103_kec d, 
-				bkt_01010110_kmw e,
-				bkt_01010104_kel f,
-				bkt_01010113_faskel g,
-				bkt_01010120_subkomponen h,
-				bkt_01010121_dtl_subkomponen i
-			where b.kode=a.kode_kota and 
-			c.kode=a.kode_korkot and 
-			d.kode=a.kode_kec and 
-			e.kode=a.kode_kmw and 
-			f.kode=a.kode_kel and 
-			g.kode=a.kode_faskel and
-			h.id=a.id_subkomponen and
-			i.id=a.id_dtl_subkomponen and
-			a.skala_kegiatan="2"';
-		$totalData = DB::select('select count(1) cnt from 
-				bkt_01030208_usulan_keg_kt a, 
-				bkt_01010102_kota b, 
-				bkt_01010111_korkot c, 
-				bkt_01010103_kec d, 
-				bkt_01010110_kmw e,
-				bkt_01010104_kel f,
-				bkt_01010113_faskel g,
-				bkt_01010120_subkomponen h,
-				bkt_01010121_dtl_subkomponen i
-			where b.kode=a.kode_kota and 
-			c.kode=a.kode_korkot and 
-			d.kode=a.kode_kec and 
-			e.kode=a.kode_kmw and 
-			f.kode=a.kode_kel and 
-			g.kode=a.kode_faskel and
-			h.id=a.id_subkomponen and
-			i.id=a.id_dtl_subkomponen and
-			a.skala_kegiatan="2"');
+		$query='
+			select * from (select 
+				a.*,
+				a.kode kode_usulan, 
+				a.tahun tahun_usulan,
+				a.tgl_proposal tgl_proposal_usulan,
+				a.no_proposal no_proposal_usulan,
+				a.thn_anggaran thn_anggaran_usulan,
+				case when a.skala_kegiatan=1 then "Kota/Kabupaten" when a.skala_kegiatan=2 then "Desa/Kelurahan" end skala_kegiatan_convert,
+				case when a.jenis_kegiatan=0 then "Non Bergulir" when a.jenis_kegiatan=1 then "Bergulir" end jenis_kegiatan_convert,
+				case when a.kategori_penanganan=0 then "Rehab" when a.kategori_penanganan=1 then "Baru" end kategori_penanganan_convert,
+				case when a.jenis_komponen_keg="L" then "Lingkungan" when a.jenis_komponen_keg="S" then "Sosial" when a.jenis_komponen_keg="E" then "Ekonomi" end komponen_convert,
+				b.nama nama_kota, 
+				c.nama nama_korkot, 
+				d.nama nama_kec, 
+				e.nama nama_kmw, 
+				f.nama nama_kel, 
+				g.nama nama_faskel, 
+				h.nama nama_subkomponen, 
+				i.nama nama_dtl_subkomponen 
+			from bkt_01030208_usulan_keg_kt a 
+				left join bkt_01010102_kota b on b.kode=a.kode_kota 
+				left join bkt_01010111_korkot c on c.kode=a.kode_korkot 
+				left join bkt_01010103_kec d on d.kode=a.kode_kec 
+				left join bkt_01010110_kmw e on e.kode=a.kode_kmw
+				left join bkt_01010104_kel f on f.kode=a.kode_kel
+				left join bkt_01010113_faskel g on g.kode=a.kode_faskel
+				left join bkt_01010120_subkomponen h on h.id=a.id_subkomponen
+				left join bkt_01010121_dtl_subkomponen i on i.id=a.id_dtl_subkomponen
+			where 
+				a.skala_kegiatan="2") b';
+		$totalData = DB::select('select count(1) cnt from bkt_01030208_usulan_keg_kt a 
+				left join bkt_01010102_kota b on b.kode=a.kode_kota 
+				left join bkt_01010111_korkot c on c.kode=a.kode_korkot 
+				left join bkt_01010103_kec d on d.kode=a.kode_kec 
+				left join bkt_01010110_kmw e on e.kode=a.kode_kmw
+				left join bkt_01010104_kel f on f.kode=a.kode_kel
+				left join bkt_01010113_faskel g on g.kode=a.kode_faskel
+				left join bkt_01010120_subkomponen h on h.id=a.id_subkomponen
+				left join bkt_01010121_dtl_subkomponen i on i.id=a.id_dtl_subkomponen
+			where 
+				a.skala_kegiatan="2"');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -176,12 +144,39 @@ class bk010319Controller extends Controller
 		$dir = $request->input('order.0.dir');
 		if(empty($request->input('search.value')))
 		{
-			$posts=DB::select($query .' order by a.'.$order.' '.$dir.' limit '.$start.','.$limit);
+			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (a.tahun like "%'.$search.'%" or a.skala_kegiatan like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or f.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or h.nama like "%'.$search.'%" or i.nama like "%'.$search.'%" or a.jenis_kegiatan like "%'.$search.'%" or a.no_proposal like "%'.$search.'%" or a.tgl_proposal like "%'.$search.'%" or a.thn_anggaran like "%'.$search.'%" or a.kategori_penanganan like "%'.$search.'%" or a.jenis_komponen_keg like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.tahun like "%'.$search.'%" or a.skala_kegiatan like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or f.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or h.nama like "%'.$search.'%" or i.nama like "%'.$search.'%" or a.jenis_kegiatan like "%'.$search.'%" or a.no_proposal like "%'.$search.'%" or a.tgl_proposal like "%'.$search.'%" or a.thn_anggaran like "%'.$search.'%" or a.kategori_penanganan like "%'.$search.'%" or a.jenis_komponen_keg like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+				b.kode_usulan like "%'.$search.'%" or 
+				b.komponen_convert like "%'.$search.'%" or 
+				b.nama_subkomponen like "%'.$search.'%" or 
+				b.nama_dtl_subkomponen like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or 
+				b.nama_kec like "%'.$search.'%" or
+				b.nama_kel like "%'.$search.'%" or 
+				b.skala_kegiatan_convert like "%'.$search.'%" or
+				b.tahun_usulan like "%'.$search.'%" or 
+				b.jenis_kegiatan_convert like "%'.$search.'%" or
+				b.thn_anggaran_usulan like "%'.$search.'%" or
+				b.no_proposal_usulan like "%'.$search.'%" or
+				b.kategori_penanganan_convert like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+				b.kode_usulan like "%'.$search.'%" or 
+				b.komponen_convert like "%'.$search.'%" or 
+				b.nama_subkomponen like "%'.$search.'%" or 
+				b.nama_dtl_subkomponen like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or 
+				b.nama_kec like "%'.$search.'%" or
+				b.nama_kel like "%'.$search.'%" or 
+				b.skala_kegiatan_convert like "%'.$search.'%" or
+				b.tahun_usulan like "%'.$search.'%" or 
+				b.jenis_kegiatan_convert like "%'.$search.'%" or
+				b.thn_anggaran_usulan like "%'.$search.'%" or
+				b.no_proposal_usulan like "%'.$search.'%" or
+				b.kategori_penanganan_convert like "%'.$search.'%")) a');
+			$totalFiltered = $totalFiltered[0]->cnt;
 		}
 
 		$data = array();
@@ -192,55 +187,26 @@ class bk010319Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$jenis_kegiatan = null;
-				$skala_kegiatan = null;
-				$kategori_penanganan = null;
-				$jenis_komponen_keg = null;
-
-				if($post->jenis_kegiatan == '0'){
-					$jenis_kegiatan = 'Non Bergulir';
-				}elseif($post->jenis_kegiatan == '1'){
-					$jenis_kegiatan = 'Bergulir';
-				}
-
-				if($post->skala_kegiatan == '1'){
-					$skala_kegiatan = 'Kota/Kabupaten';
-				}elseif($post->skala_kegiatan == '2'){
-					$skala_kegiatan = 'Desa/kelurahan';
-				}
-
-				if($post->kategori_penanganan == '0'){
-					$kategori_penanganan = 'Rehab';
-				}elseif($post->kategori_penanganan == '1'){
-					$kategori_penanganan = 'Baru';
-				}
-
-				if($post->jenis_komponen_keg == 'L'){
-					$jenis_komponen_keg = 'Lingkungan';
-				}elseif($post->jenis_komponen_keg == 'S'){
-					$jenis_komponen_keg = 'Sosial';
-				}elseif($post->jenis_komponen_keg == 'E'){
-					$jenis_komponen_keg = 'Ekonomi';
-				}
 
 				$url_edit=url('/')."/main/perencanaan/kelurahan/kegiatan/create?kode=".$edit;
 				$url_delete=url('/')."/main/perencanaan/kelurahan/kegiatan/delete?kode=".$delete;
-				$nestedData['tahun'] = $post->tahun;
-				$nestedData['skala_kegiatan'] = $skala_kegiatan;
+				$nestedData['kode'] = $post->kode_usulan;
+				$nestedData['tahun'] = $post->tahun_usulan;
+				$nestedData['skala_kegiatan'] = $post->skala_kegiatan_convert;
 				$nestedData['kode_kota'] = $post->nama_kota;
 				$nestedData['kode_korkot'] = $post->nama_korkot;
 				$nestedData['kode_kec'] = $post->nama_kec;
 				$nestedData['kode_kmw'] = $post->nama_kmw;
 				$nestedData['kode_kel'] = $post->nama_kel;
 				$nestedData['kode_faskel'] = $post->nama_faskel;
-				$nestedData['jenis_kegiatan'] = $jenis_kegiatan;
-				$nestedData['no_proposal'] = $post->no_proposal;
-				$nestedData['tgl_proposal'] = $post->tgl_proposal;
-				$nestedData['thn_anggaran'] = $post->thn_anggaran;
-				$nestedData['kategori_penanganan'] = $kategori_penanganan;
-				$nestedData['jenis_komponen_keg'] = $jenis_komponen_keg;
-				$nestedData['id_subkomponen'] = $post->id_subkomponen;
-				$nestedData['id_dtl_subkomponen'] = $post->id_dtl_subkomponen;
+				$nestedData['jenis_kegiatan'] = $post->jenis_kegiatan_convert;
+				$nestedData['no_proposal'] = $post->no_proposal_usulan;
+				$nestedData['tgl_proposal'] = $post->tgl_proposal_usulan;
+				$nestedData['thn_anggaran'] = $post->thn_anggaran_usulan;
+				$nestedData['kategori_penanganan'] = $post->kategori_penanganan_convert;
+				$nestedData['jenis_komponen_keg'] = $post->komponen_convert;
+				$nestedData['id_subkomponen'] = $post->nama_subkomponen;
+				$nestedData['id_dtl_subkomponen'] = $post->nama_dtl_subkomponen;
 				$nestedData['dk_vol_kegiatan'] = $post->dk_vol_kegiatan;
 				$nestedData['dk_satuan'] = $post->dk_satuan;
 				$nestedData['dk_lok_kegiatan'] = $post->dk_lok_kegiatan;
@@ -441,14 +407,14 @@ class bk010319Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
-				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
-				$data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
+				$data['kode_kota_list'] = null;
+				$data['kode_kec_list'] = null;
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
-				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
-				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
-				$data['kode_kel_list'] = DB::select('select * from bkt_01010104_kel where status=1');
+				$data['kode_korkot_list'] = null;
+				$data['kode_faskel_list'] = null;
+				$data['kode_kel_list'] = null;
 				$data['kode_subkomponen_list'] = DB::select('select * from bkt_01010120_subkomponen where status=1');
-				$data['kode_subdtlkomponen_list'] = DB::select('select * from bkt_01010121_dtl_subkomponen where status=1');
+				$data['kode_subdtlkomponen_list'] = null;
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user'); 
 				return view('MAIN/bk010319/create',$data);
 			}else{
