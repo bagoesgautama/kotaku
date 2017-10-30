@@ -21,7 +21,7 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/persiapan/nasional/pokja/kegiatan">
+                <a href="/main/persiapan/propinsi/pokja/kegiatan">
                     Persiapan / Propinsi / Pokja / Kegiatan atau Monitoring
                 </a>
             </li>
@@ -41,12 +41,12 @@
                     <div class="col-md-12">
                         <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Kode Pokja</label>
+                                <label class="col-sm-3 control-label">Pokja Propinsi</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                     <select id="select-kode-pokja-input" name="kode-pokja-input" class="form-control select2" size="1" required>
                                         @foreach ($kode_pokja_list as $kpl)
-                                            <option value="{{$kpl->kode}}" {!! $kode_pokja==$kpl->kode ? 'selected':'' !!}>{{$kpl->kode}}</option>
+                                            <option value="{{$kpl->kode}}" {!! $kode_pokja==$kpl->kode ? 'selected':'' !!}>{{$kpl->tahun.'-'.$kpl->nama_prop}}</option>
                                         @endforeach
                                     </select>
                                 </div>

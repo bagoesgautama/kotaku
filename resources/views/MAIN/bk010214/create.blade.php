@@ -51,21 +51,23 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Kode BKM</label>
+                                <label class="col-sm-3 control-label">Forum BKM</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-bkm-input" name="kode-bkm-input" class="form-control select2" size="1">
+                                        <option value=null>Please Select</option>
                                         @foreach ($kode_bkm_list as $kbl)
-                                            <option value="{{$kbl->kode}}" {!! $kode_bkm==$kbl->kode ? 'selected':'' !!}>{{$kbl->kode}}</option>
+                                            <option value="{{$kbl->kode}}" {!! $kode_bkm==$kbl->kode ? 'selected':'' !!}>{{$kbl->tahun.'-'.$kbl->nama_kota." ".$kbl->nama_kec}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Kode Kolab</label>
+                                <label class="col-sm-3 control-label">Forum Kolaborasi</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kolab-input" name="kode-kolab-input" class="form-control select2" size="1">
+                                        <option value=null>Please Select</option>
                                         @foreach ($kode_kolab_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_kolab==$kkl->kode ? 'selected':'' !!}>{{$kkl->kode}}</option>
+                                            <option value="{{$kkl->kode}}" {!! $kode_kolab==$kkl->kode ? 'selected':'' !!}>{{$kkl->tahun.'-'.$kkl->nama_kota.' '.$kkl->nama_kec}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -241,11 +243,11 @@
         });
         $("#select-kode-bkm-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
         $("#select-kode-kolab-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
       });
 </script>

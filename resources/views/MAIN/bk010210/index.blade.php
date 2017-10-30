@@ -56,10 +56,9 @@
                     <table class="table table-striped" id="kegiatan">
                         <thead>
                             <tr>
+                                <th>Kode</th>
                                 <th>Tahun</th>
-                                <th>KMW</th>
                                 <th>Kota</th>
-                                <th>Korkot</th>
                                 <th>Jenis Kegiatan</th>
                                 <th>Tanggal Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
@@ -90,16 +89,16 @@
                    },
 
             "columns": [
+                { "data": "kode" , name:"kode"},
                 { "data": "tahun" , name:"tahun"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
                 { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
                 { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order":[[0,"desc"]]
         });
         $('#kegiatan_filter input').unbind();
         $('#kegiatan_filter input').bind('keyup', function(e) {

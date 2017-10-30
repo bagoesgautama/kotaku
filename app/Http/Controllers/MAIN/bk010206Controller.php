@@ -55,17 +55,32 @@ class bk010206Controller extends Controller
 		$columns = array(
 			0 =>'kode',
 			1 =>'tahun',
-			2 =>'kode_kmw',
-			3 =>'kode_kota',
-			4 =>'kode_korkot',
-			5 =>'kode_faskel',
-			6 =>'jenis_kegiatan',
-			7 =>'tgl_kegiatan',
-			8 =>'status_pokja',
-			9 =>'created_time'
+			2 =>'kode_kota',
+			3 =>'tgl_kegiatan',
+			4 =>'status_pokja',
+			5 =>'created_time'
 		);
-		$query='select a.kode, a.tahun, b.nama as kode_kmw, c.nama as kode_kota, d.nama as kode_korkot, e.nama as kode_faskel, a.jenis_kegiatan, a.tgl_kegiatan, a.status_pokja, a.created_time from bkt_01020204_pokja_kota a, bkt_01010110_kmw b, bkt_01010102_kota c, bkt_01010111_korkot d, bkt_01010113_faskel e where a.kode_kmw = b.kode and a.kode_kota = c.kode and a.kode_korkot = d.kode and a.kode_faskel = e.kode and c.status = 1';
-		$totalData = DB::select('select count(1) cnt from bkt_01020204_pokja_kota a, bkt_01010110_kmw b, bkt_01010102_kota c, bkt_01010111_korkot d, bkt_01010113_faskel e where a.kode_kmw = b.kode and a.kode_kota = c.kode and a.kode_korkot = d.kode and a.kode_faskel = e.kode and c.status = 1');
+		$query='
+			select * from (select 
+				a.*,
+				a.kode kode_pokja, 
+				a.tahun tahun_pokja,
+				a.tgl_kegiatan tgl_kegiatan_pokja,
+				case when a.status_pokja=0 then "Pokja Lama" when a.status_pokja=1 then "Pokja Baru" end status_pokja_convert,
+				b.nama nama_kota, 
+				c.nama nama_korkot, 
+				d.nama nama_faskel,
+				e.nama nama_kmw
+			from bkt_01020204_pokja_kota a
+			 	left join bkt_01010102_kota b on a.kode_kota = b.kode
+			 	left join bkt_01010111_korkot c on a.kode_korkot = c.kode
+			 	left join bkt_01010113_faskel d on a.kode_faskel = d.kode
+			 	left join bkt_01010110_kmw e on a.kode_faskel = e.kode) b';
+		$totalData = DB::select('select count(1) cnt from bkt_01020204_pokja_kota a
+			 	left join bkt_01010102_kota b on a.kode_kota = b.kode
+			 	left join bkt_01010111_korkot c on a.kode_korkot = c.kode
+			 	left join bkt_01010113_faskel d on a.kode_faskel = d.kode
+			 	left join bkt_01010110_kmw e on a.kode_faskel = e.kode');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -73,12 +88,23 @@ class bk010206Controller extends Controller
 		$dir = $request->input('order.0.dir');
 		if(empty($request->input('search.value')))
 		{
-			$posts=DB::select($query .' order by a.'.$order.' '.$dir.' limit '.$start.','.$limit);
+			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (a.tahun like "%'.$search.'%" or c.nama like "%'.$search.'%" or b.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or a.jenis_kegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.status_pokja like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.tahun like "%'.$search.'%" or c.nama like "%'.$search.'%" or b.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or a.jenis_kegiatan like "%'.$search.'%" or e.nama like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.status_pokja like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+				b.kode_pokja like "%'.$search.'%" or 
+				b.status_pokja_convert like "%'.$search.'%" or 
+				b.tgl_kegiatan_pokja like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or 
+				b.tahun_pokja like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+				b.kode_pokja like "%'.$search.'%" or 
+				b.status_pokja_convert like "%'.$search.'%" or 
+				b.tgl_kegiatan_pokja like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or 
+				b.tahun_pokja like "%'.$search.'%")) a');
+			$totalFiltered = $totalFiltered[0]->cnt;
 		}
 
 		$data = array();
@@ -89,32 +115,17 @@ class bk010206Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$status_pokja = null;
-				$jenis_kegiatan = null;
-
-				if($post->jenis_kegiatan == '2.1'){
-					$jenis_kegiatan = 'Tingkat Nasional';
-				}elseif($post->jenis_kegiatan == '2.2'){
-					$jenis_kegiatan = 'Tingkat Propinsi';
-				}
-
-				if($post->status_pokja == 0){
-					$status_pokja = 'Lama';
-				}elseif($post->status_pokja == 1){
-					$status_pokja = 'Baru';
-				}
 
 				$url_edit=url('/')."/main/persiapan/kota/pokja/pembentukan/create?kode=".$edit;
 				$url_delete=url('/')."/main/persiapan/kota/pokja/pembentukan/delete?kode=".$delete;
-				$nestedData['kode'] = $post->kode;
-				$nestedData['tahun'] = $post->tahun;
-				$nestedData['kode_kota'] = $post->kode_kota;
-				$nestedData['kode_kmw'] = $post->kode_kmw;
-				$nestedData['kode_korkot'] = $post->kode_korkot;
-				$nestedData['kode_faskel'] = $post->kode_faskel;
-				$nestedData['jenis_kegiatan'] = $jenis_kegiatan;
-				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
-				$nestedData['status_pokja'] = $status_pokja;
+				$nestedData['kode'] = $post->kode_pokja;
+				$nestedData['tahun'] = $post->tahun_pokja;
+				$nestedData['kode_kota'] = $post->nama_kota;
+				$nestedData['kode_kmw'] = $post->nama_kmw;
+				$nestedData['kode_korkot'] = $post->nama_korkot;
+				$nestedData['kode_faskel'] = $post->nama_faskel;
+				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan_pokja;
+				$nestedData['status_pokja'] = $post->status_pokja_convert;
 				$nestedData['created_time'] = $post->created_time;
 				
 				$user = Auth::user();
@@ -183,7 +194,6 @@ class bk010206Controller extends Controller
 				$data['kode_kota'] = $rowData[0]->kode_kota;
 				$data['kode_korkot'] = $rowData[0]->kode_korkot;
 				$data['kode_faskel'] = $rowData[0]->kode_faskel;
-				$data['jenis_kegiatan'] = $rowData[0]->jenis_kegiatan;
 				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
 				$data['status_pokja'] = $rowData[0]->status_pokja;
 				$data['ds_hkm'] = $rowData[0]->ds_hkm;
@@ -225,7 +235,6 @@ class bk010206Controller extends Controller
 				$data['kode_kota'] = null;
 				$data['kode_korkot'] = null;
 				$data['kode_faskel'] = null;
-				$data['jenis_kegiatan'] = null;
 				$data['tgl_kegiatan'] = null;
 				$data['status_pokja'] = null;
 				$data['ds_hkm'] = null;
@@ -253,9 +262,9 @@ class bk010206Controller extends Controller
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
-				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
-				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
-				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
+				$data['kode_kota_list'] = null;
+				$data['kode_korkot_list'] = null;
+				$data['kode_faskel_list'] = null;
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010206/create',$data);
 			}else{
@@ -319,7 +328,6 @@ class bk010206Controller extends Controller
 				'kode_kota' => $request->input('kode-kota-input'), 
 				'kode_korkot' => $request->input('kode-korkot-input'), 
 				'kode_faskel' => $request->input('kode-faskel-input'), 
-				'jenis_kegiatan' => $request->input('jns-kegiatan-input'), 
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
 				'status_pokja' => $request->input('status-pokja-input'), 
 				'ds_hkm' => $request->input('dsr-pembentukan-input'),
@@ -366,8 +374,7 @@ class bk010206Controller extends Controller
 				'kode_kmw' => $request->input('kode-kmw-input'),
 				'kode_kota' => $request->input('kode-kota-input'), 
 				'kode_korkot' => $request->input('kode-korkot-input'), 
-				'kode_faskel' => $request->input('kode-faskel-input'), 
-				'jenis_kegiatan' => $request->input('jns-kegiatan-input'), 
+				'kode_faskel' => $request->input('kode-faskel-input'),  
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
 				'status_pokja' => $request->input('status-pokja-input'), 
 				'ds_hkm' => $request->input('dsr-pembentukan-input'),

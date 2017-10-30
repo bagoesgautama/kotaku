@@ -37,10 +37,6 @@ class bk010207Controller extends Controller
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
-				$data['totalData'] = DB::select('select b.kode modul_id,b.nama modul,c.kode apps_id,c.nama apps
-					from bkt_02010104_modul b,bkt_02010103_apps c
-					where b.kode_apps=c.kode');
-				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
 
 				$this->log_aktivitas('View', 80);
 				return view('MAIN/bk010207/index',$data);
@@ -57,14 +53,28 @@ class bk010207Controller extends Controller
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'kode_pokja_kota',
-			1 =>'jenis_subkegiatan',
-			2 =>'tgl_kegiatan',
-			3 =>'lok_kegiatan',
-			4 =>'created_time'
+			0 =>'kode',
+			1 =>'kode_pokja_kota',
+			2 =>'jenis_subkegiatan',
+			3 =>'tgl_kegiatan',
+			4 =>'lok_kegiatan',
+			5 =>'created_time'
 		);
-		$query='select bkt_01020205_f_pokja_kota.kode, bkt_01020205_f_pokja_kota.kode_pokja_kota, bkt_01020205_f_pokja_kota.jenis_subkegiatan, bkt_01020205_f_pokja_kota.tgl_kegiatan, bkt_01020205_f_pokja_kota.lok_kegiatan, bkt_01020205_f_pokja_kota.created_time from bkt_01020205_f_pokja_kota inner join bkt_01020204_pokja_kota on bkt_01020205_f_pokja_kota.kode_pokja_kota = bkt_01020204_pokja_kota.kode';
-		$totalData = DB::select('select count(1) cnt from bkt_01020205_f_pokja_kota inner join bkt_01020204_pokja_kota on bkt_01020205_f_pokja_kota.kode_pokja_kota = bkt_01020204_pokja_kota.kode');
+		$query='
+			select * from (select 
+				a.*,
+				a.kode kode_f,  
+				case when a.jenis_subkegiatan="2.2.3.3" then "Pertemuan Rutin" when a.jenis_subkegiatan="2.2.3.4" then "Monitoring" end jenis_subkegiatan_convert, 
+				a.tgl_kegiatan tgl_kegiatan_f, 
+				a.lok_kegiatan lok_kegiatan_f,
+				b.tahun tahun_pokja,
+				c.nama nama_kota
+			from bkt_01020205_f_pokja_kota a 
+				left join bkt_01020204_pokja_kota b on a.kode_pokja_kota = b.kode
+				left join bkt_01010102_kota c on b.kode_kota = c.kode) b';
+		$totalData = DB::select('select count(1) cnt from bkt_01020205_f_pokja_kota a 
+				left join bkt_01020204_pokja_kota b on a.kode_pokja_kota = b.kode
+				left join bkt_01010102_kota c on b.kode_kota = c.kode');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -72,12 +82,25 @@ class bk010207Controller extends Controller
 		$dir = $request->input('order.0.dir');
 		if(empty($request->input('search.value')))
 		{
-			$posts=DB::select($query .' order by bkt_01020205_f_pokja_kota.'.$order.' '.$dir.' limit '.$start.','.$limit);
+			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (bkt_01020205_f_pokja_kota.kode_pokja_kota like "%'.$search.'%" or bkt_01020205_f_pokja_kota.jenis_subkegiatan like "%'.$search.'%" or bkt_01020205_f_pokja_kota.tgl_kegiatan like "%'.$search.'%" or bkt_01020205_f_pokja_kota.lok_kegiatan like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (bkt_01020205_f_pokja_kota.kode_pokja_kota like "%'.$search.'%" or bkt_01020205_f_pokja_kota.jenis_subkegiatan like "%'.$search.'%" or bkt_01020205_f_pokja_kota.tgl_kegiatan like "%'.$search.'%" or bkt_01020205_f_pokja_kota.lok_kegiatan like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+				b.kode_f like "%'.$search.'%" or 
+				b.jenis_subkegiatan_convert like "%'.$search.'%" or 
+				b.tgl_kegiatan_f like "%'.$search.'%" or 
+				b.lok_kegiatan_f like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or 
+				b.tahun_pokja like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+				b.kode_f like "%'.$search.'%" or 
+				b.jenis_subkegiatan_convert like "%'.$search.'%" or 
+				b.tgl_kegiatan_f like "%'.$search.'%" or 
+				b.lok_kegiatan_f like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or 
+				b.tahun_pokja like "%'.$search.'%")) a');
+			$totalFiltered = $totalFiltered[0]->cnt;
 		}
 
 		$data = array();
@@ -88,20 +111,14 @@ class bk010207Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$jenis_kegiatan = null;
-
-				if($post->jenis_subkegiatan == '2.2.3.3'){
-					$jenis_kegiatan = 'Pertemuan Rutin';
-				}elseif($post->jenis_subkegiatan == '2.2.3.4'){
-					$jenis_kegiatan = 'Monitoring';
-				}
 
 				$url_edit=url('/')."/main/persiapan/kota/pokja/kegiatan/create?kode=".$edit;
 				$url_delete=url('/')."/main/persiapan/kota/pokja/kegiatan/delete?kode=".$delete;
-				$nestedData['kode_pokja_kota'] = $post->kode_pokja_kota;
-				$nestedData['jenis_subkegiatan'] = $jenis_kegiatan;
-				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
-				$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
+				$nestedData['kode'] = $post->kode_f;
+				$nestedData['kode_pokja_kota'] = $post->tahun_pokja.'-'.$post->nama_kota;
+				$nestedData['jenis_subkegiatan'] = $post->jenis_subkegiatan_convert;
+				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan_f;
+				$nestedData['lok_kegiatan'] = $post->lok_kegiatan_f;
 				$nestedData['created_time'] = $post->created_time;
 				
 				$user = Auth::user();
@@ -170,7 +187,12 @@ class bk010207Controller extends Controller
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
-				$data['kode_pokja_kota_list'] = DB::select('select * from bkt_01020204_pokja_kota');
+				$data['kode_pokja_kota_list'] = DB::select('
+					select 
+						a.*,
+						b.nama nama_kota
+					from bkt_01020204_pokja_kota a 
+						left join bkt_01010102_kota b on a.kode_kota = b.kode');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010207/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['81'])){
@@ -195,7 +217,12 @@ class bk010207Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
-				$data['kode_pokja_kota_list'] = DB::select('select * from bkt_01020204_pokja_kota');
+				$data['kode_pokja_kota_list'] = DB::select('
+					select 
+						a.*,
+						b.nama nama_kota
+					from bkt_01020204_pokja_kota a 
+						left join bkt_01010102_kota b on a.kode_kota = b.kode');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010207/create',$data);
 			}else{

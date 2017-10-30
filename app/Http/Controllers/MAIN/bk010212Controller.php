@@ -134,9 +134,9 @@ class bk010212Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
-				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
-				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
-				$data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
+				$data['kode_kota_list'] = null;
+				$data['kode_korkot_list'] = null;
+				$data['kode_kec_list'] = null;
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010212/create',$data);
@@ -262,18 +262,41 @@ class bk010212Controller extends Controller
 			}
 			if(!empty($data2['detil'])){
 				$columns = array(
-					0 =>'tahun',
-					1 =>'kode_kmw',
+					0 =>'kode',
+					1 =>'tahun',
 					2 =>'kode_kota',
-					3 =>'kode_korkot',
-					4 =>'kode_kec',
-					5 =>'jenis_kegiatan',
-					6 =>'tgl_kegiatan',
-					7 =>'lok_kegiatan',
-					8 =>'created_time'
+					3 =>'kode_kec',
+					4 =>'jenis_kegiatan',
+					5 =>'tgl_kegiatan',
+					6 =>'lok_kegiatan',
+					7 =>'created_time'
 				);
-				$query='select a.kode, a.tahun, b.nama as kode_kota, c.nama as kode_kec, d.nama as kode_kmw, e.nama as kode_korkot, a.jenis_kegiatan, a.tgl_kegiatan, a.lok_kegiatan, a.created_time from bkt_01020207_bkm_kota a, bkt_01010102_kota b, bkt_01010103_kec c, bkt_01010110_kmw d, bkt_01010111_korkot e where a.kode_kota = b.kode and a.kode_kec = c.kode and a.kode_kmw = d.kode and a.kode_korkot = e.kode and a.tk_forum = 2';
-				$totalData = DB::select('select count(1) cnt from bkt_01020207_bkm_kota a, bkt_01010102_kota b, bkt_01010103_kec c, bkt_01010110_kmw d, bkt_01010111_korkot e where a.kode_kota = b.kode and a.kode_kec = c.kode and a.kode_kmw = d.kode and a.kode_korkot = e.kode and a.tk_forum = 2');
+				$query='
+					select * from (select 
+						a.*,
+						a.kode kode_bkm, 
+						case when a.tgl_kegiatan is null then "-" else a.tgl_kegiatan end tgl_kegiatan_bkm, 
+						case when a.lok_kegiatan is null then "-" else a.lok_kegiatan end lok_kegiatan_bkm,
+						case when a.jenis_kegiatan="2.4.3" then " Forum LKM/BKM Kota" when a.jenis_kegiatan="2.4.4" then " Forum LKM/BKM Kecamatan" end jenis_kegiatan_convert, 
+						a.tahun tahun_bkm,
+						b.nama nama_kota,
+						c.nama nama_korkot,
+						case when d.nama is null then "-" else d.nama end nama_kec,
+						e.nama nama_kmw
+					from bkt_01020207_bkm_kota a
+						left join bkt_01010102_kota b on a.kode_kota = b.kode
+						left join bkt_01010111_korkot c on a.kode_korkot = c.kode
+						left join bkt_01010103_kec d on a.kode_kec = d.kode
+						left join bkt_01010110_kmw e on a.kode_kmw = e.kode
+					where 
+						a.tk_forum = 2) b';
+				$totalData = DB::select('select count(1) cnt from bkt_01020207_bkm_kota a
+						left join bkt_01010102_kota b on a.kode_kota = b.kode
+						left join bkt_01010111_korkot c on a.kode_korkot = c.kode
+						left join bkt_01010103_kec d on a.kode_kec = d.kode
+						left join bkt_01010110_kmw e on a.kode_kmw = e.kode
+					where 
+						a.tk_forum = 2');
 				$totalFiltered = $totalData[0]->cnt;
 				$limit = $request->input('length');
 				$start = $request->input('start');
@@ -281,12 +304,27 @@ class bk010212Controller extends Controller
 				$dir = $request->input('order.0.dir');
 				if(empty($request->input('search.value')))
 				{
-					$posts=DB::select($query .' order by a.'.$order.' '.$dir.' limit '.$start.','.$limit);
+					$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 				}
 				else {
 					$search = $request->input('search.value');
-					$posts=DB::select($query. ' and (a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or a.jenis_kegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-					$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or a.jenis_kegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%")) a');
+					$posts=DB::select($query. ' where (
+						b.kode_bkm like "%'.$search.'%" or 
+						b.tahun_bkm like "%'.$search.'%" or 
+						b.nama_kota like "%'.$search.'%" or
+						b.nama_kec like "%'.$search.'%" or 
+						b.jenis_kegiatan_convert like "%'.$search.'%" or 
+						b.tgl_kegiatan_bkm like "%'.$search.'%" or
+						b.lok_kegiatan_bkm like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+					$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+						b.kode_bkm like "%'.$search.'%" or 
+						b.tahun_bkm like "%'.$search.'%" or 
+						b.nama_kota like "%'.$search.'%" or
+						b.nama_kec like "%'.$search.'%" or 
+						b.jenis_kegiatan_convert like "%'.$search.'%" or 
+						b.tgl_kegiatan_bkm like "%'.$search.'%" or
+						b.lok_kegiatan_bkm like "%'.$search.'%")) a');
+					$totalFiltered = $totalFiltered[0]->cnt;
 				}
 
 				$data = array();
@@ -297,24 +335,18 @@ class bk010212Controller extends Controller
 						$show =  $post->kode;
 						$edit =  $post->kode;
 						$delete = $post->kode;
-						$jenis_kegiatan = null;
-
-						if($post->jenis_kegiatan == '2.4.3'){
-							$jenis_kegiatan = 'LKM/BKM Kota';
-						}elseif($post->jenis_kegiatan == '2.4.4'){
-							$jenis_kegiatan = 'LKM/BKM Kecamatan';
-						}
 
 						$url_edit=url('/')."/main/persiapan/kecamatan/bkm/create?kode=".$edit;
 						$url_delete=url('/')."/main/persiapan/kecamatan/bkm/delete?kode=".$delete;
-						$nestedData['tahun'] = $post->tahun;
-						$nestedData['kode_kota'] = $post->kode_kota;
-						$nestedData['kode_kec'] = $post->kode_kec;
-						$nestedData['kode_kmw'] = $post->kode_kmw;
-						$nestedData['kode_korkot'] = $post->kode_korkot;
-						$nestedData['jenis_kegiatan'] = $jenis_kegiatan;
-						$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
-						$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
+						$nestedData['kode'] = $post->kode_bkm;
+						$nestedData['tahun'] = $post->tahun_bkm;
+						$nestedData['kode_kota'] = $post->nama_kota;
+						$nestedData['kode_kec'] = $post->nama_kec;
+						$nestedData['kode_kmw'] = $post->nama_kmw;
+						$nestedData['kode_korkot'] = $post->nama_korkot;
+						$nestedData['jenis_kegiatan'] = $post->jenis_kegiatan_convert;
+						$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan_bkm;
+						$nestedData['lok_kegiatan'] = $post->lok_kegiatan_bkm;
 						$nestedData['created_time'] = $post->created_time;
 						$nestedData['option'] = "";
 						

@@ -53,9 +53,10 @@
                     <table class="table table-striped" id="kegiatan">
                         <thead>
                             <tr>
+                                <th>Kode</th>
                                 <th>Jenis Forum</th>
-                                <th>Kode BKM</th>
-                                <th>Kode Kolab</th>
+                                <th>BKM</th>
+                                <th>Kolaborasi</th>
                                 <th>Kode Kegiatan</th>
                                 <th>Tanggal Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
@@ -86,6 +87,7 @@
                    },
 
             "columns": [
+                { "data": "kode" , name:"kode"},
                 { "data": "jns_forum" , name:"jns_forum"},
                 { "data": "kode_bkm" , name:"kode_bkm"},
                 { "data": "kode_kolab" , name:"kode_kolab"},
@@ -94,7 +96,8 @@
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order": [[0,"desc"]]
         });
         $('#kegiatan_filter input').unbind();
         $('#kegiatan_filter input').bind('keyup', function(e) {

@@ -215,12 +215,12 @@ class bk010215Controller extends Controller
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
 				$data['kode_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
-				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
-				$data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
-				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
-				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
-				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
-				$data['kode_kel_list'] = DB::select('select * from bkt_01010104_kel where status=1');
+				$data['kode_kota_list'] = null;
+				$data['kode_kec_list'] = null;
+				$data['kode_kmw_list'] = null;
+				$data['kode_korkot_list'] = null;
+				$data['kode_faskel_list'] = null;
+				$data['kode_kel_list'] = null;
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user'); 
 				return view('MAIN/bk010215/create',$data);
 			}else {
@@ -407,17 +407,40 @@ class bk010215Controller extends Controller
 			}
 			if(!empty($data2['detil'])){
 				$columns = array(
-					0 =>'kode_prop',
-					1 =>'kode_kmw',
+					0 =>'kode',
+					1 =>'kode_prop',
 					2 =>'kode_kota',
-					3 =>'kode_korkot',
-					4 =>'kode_kec',
-					5 =>'kode_kel',
-					6 =>'kode_faskel',
-					7 =>'created_time'
+					3 =>'kode_kec',
+					4 =>'kode_kel',
+					5 =>'created_time'
 				);
-				$query='select a.kode as kode, b.nama as kode_prop, c.nama as kode_kota, d.nama as kode_kec, h.nama as kode_kel, e.nama as kode_kmw, f.nama as kode_korkot, g.nama as kode_faskel, a.created_time from bkt_01020201_info_kel a, bkt_01010101_prop b, bkt_01010102_kota c, bkt_01010103_kec d, bkt_01010110_kmw e, bkt_01010111_korkot f, bkt_01010113_faskel g, bkt_01010104_kel h where a.kode_prop = b.kode and a.kode_kota = c.kode and a.kode_kec = d.kode and a.kode_kel = h.kode and a.kode_kmw = e.kode and a.kode_korkot = f.kode and a.kode_faskel = g.kode';
-				$totalData = DB::select('select count(1) cnt from bkt_01020201_info_kel a, bkt_01010101_prop b, bkt_01010102_kota c, bkt_01010103_kec d, bkt_01010110_kmw e, bkt_01010111_korkot f, bkt_01010113_faskel g, bkt_01010104_kel h where a.kode_prop = b.kode and a.kode_kota = c.kode and a.kode_kec = d.kode and a.kode_kel = h.kode and a.kode_kmw = e.kode and a.kode_korkot = f.kode and a.kode_faskel = g.kode');
+				$query='
+					select * from (select 
+						a.*,
+						a.kode kode_info, 
+						b.nama nama_prop, 
+						c.nama nama_kota, 
+						d.nama nama_kec, 
+						e.nama nama_kel, 
+						f.nama nama_korkot, 
+						g.nama nama_faskel,
+						h.nama nama_kmw
+					from bkt_01020201_info_kel a
+					 	left join bkt_01010101_prop b on a.kode_prop = b.kode
+					 	left join bkt_01010102_kota c on a.kode_kota = c.kode
+					 	left join bkt_01010103_kec d on a.kode_kec = d.kode
+					 	left join bkt_01010104_kel e on a.kode_kel = e.kode
+					 	left join bkt_01010111_korkot f on a.kode_korkot = f.kode
+					 	left join bkt_01010113_faskel g on a.kode_faskel = g.kode
+					 	left join bkt_01010110_kmw h on a.kode_faskel = h.kode) b';
+				$totalData = DB::select('select count(1) cnt from bkt_01020201_info_kel a
+					 	left join bkt_01010101_prop b on a.kode_prop = b.kode
+					 	left join bkt_01010102_kota c on a.kode_kota = c.kode
+					 	left join bkt_01010103_kec d on a.kode_kec = d.kode
+					 	left join bkt_01010104_kel e on a.kode_kel = e.kode
+					 	left join bkt_01010111_korkot f on a.kode_korkot = f.kode
+					 	left join bkt_01010113_faskel g on a.kode_faskel = g.kode
+					 	left join bkt_01010110_kmw h on a.kode_faskel = h.kode');
 				$totalFiltered = $totalData[0]->cnt;
 				$limit = $request->input('length');
 				$start = $request->input('start');
@@ -425,12 +448,23 @@ class bk010215Controller extends Controller
 				$dir = $request->input('order.0.dir');
 				if(empty($request->input('search.value')))
 				{
-					$posts=DB::select($query .' order by a.'.$order.' '.$dir.' limit '.$start.','.$limit);
+					$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 				}
 				else {
 					$search = $request->input('search.value');
-					$posts=DB::select($query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or h.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or f.nama like "%'.$search.'%" or g.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-					$totalFiltered=DB::select('select count(1) from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or h.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or f.nama like "%'.$search.'%" or g.nama like "%'.$search.'%")) a');
+					$posts=DB::select($query. ' where (
+						b.kode_info like "%'.$search.'%" or 
+						b.nama_prop like "%'.$search.'%" or 
+						b.nama_kota like "%'.$search.'%" or
+						b.nama_kec like "%'.$search.'%" or 
+						b.nama_kel like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+					$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+						b.kode_info like "%'.$search.'%" or 
+						b.nama_prop like "%'.$search.'%" or 
+						b.nama_kota like "%'.$search.'%" or
+						b.nama_kec like "%'.$search.'%" or 
+						b.nama_kel like "%'.$search.'%")) a');
+					$totalFiltered = $totalFiltered[0]->cnt;
 				}
 
 				$data = array();
@@ -443,13 +477,14 @@ class bk010215Controller extends Controller
 						$delete = $post->kode;
 						$url_edit="/main/persiapan/kelurahan/info/create?kode=".$show;
 						$url_delete="/main/persiapan/kelurahan/info/delete?kode=".$delete;
-						$nestedData['kode_prop'] = $post->kode_prop;
-						$nestedData['kode_kota'] = $post->kode_kota;
-						$nestedData['kode_kec'] = $post->kode_kec;
-						$nestedData['kode_kel'] = $post->kode_kel;
-						$nestedData['kode_kmw'] = $post->kode_kmw;
-						$nestedData['kode_korkot'] = $post->kode_korkot;
-						$nestedData['kode_faskel'] = $post->kode_faskel;
+						$nestedData['kode'] = $post->kode_info;
+						$nestedData['kode_prop'] = $post->nama_prop;
+						$nestedData['kode_kota'] = $post->nama_kota;
+						$nestedData['kode_kec'] = $post->nama_kec;
+						$nestedData['kode_kel'] = $post->nama_kel;
+						$nestedData['kode_kmw'] = $post->nama_kmw;
+						$nestedData['kode_korkot'] = $post->nama_korkot;
+						$nestedData['kode_faskel'] = $post->nama_faskel;
 						$nestedData['created_time'] = $post->created_time;
 						$nestedData['option'] = "";
 						if(!empty($data2['detil']['178']))

@@ -55,15 +55,32 @@ class bk010203Controller extends Controller
 			0 =>'kode',
 			1 =>'tahun',
 			2 =>'kode_prop',
-			3 =>'kode_kmw',
-			4 =>'kode_faskel',
 			5 =>'jenis_kegiatan',
 			6 =>'tgl_kegiatan',
 			7 =>'status_pokja',
 			8 =>'created_time'
 		);
-		$query='select a.kode, a.tahun, b.nama as kode_prop, c.nama as kode_kmw, d.nama as kode_faskel, a.jenis_kegiatan, a.tgl_kegiatan, a.status_pokja, a.created_time from bkt_01020202_pokja a, bkt_01010101_prop b, bkt_01010110_kmw c, bkt_01010113_faskel d where a.kode_prop = b.kode and a.kode_kmw = c.kode and a.kode_faskel = d.kode and a.jenis_kegiatan = 2.2';
-		$totalData = DB::select('select count(1) cnt from bkt_01020202_pokja a, bkt_01010101_prop b, bkt_01010110_kmw c, bkt_01010113_faskel d where a.kode_prop = b.kode and a.kode_kmw = c.kode and a.kode_faskel = d.kode and a.jenis_kegiatan = 2.2');
+		$query='
+			select * from (select 
+				a.*,
+				a.kode kode_pokja, 
+				a.tahun tahun_pokja,
+				a.tgl_kegiatan tgl_kegiatan_pokja,
+				case when a.status_pokja=0 then "Pokja Lama" when a.status_pokja=1 then "Pokja Baru" end status_pokja_convert,
+				case when a.jenis_kegiatan="2.1" then "Tingkat Nasional" when a.jenis_kegiatan="2.2" then "Tingkat Propinsi" end jenis_kegiatan_convert,
+				b.nama nama_prop, 
+				c.nama nama_kmw, 
+				d.nama nama_faskel
+			from bkt_01020202_pokja a
+			 	left join bkt_01010101_prop b on a.kode_prop = b.kode
+			 	left join bkt_01010110_kmw c on a.kode_kmw = c.kode
+			 	left join bkt_01010113_faskel d on a.kode_faskel = d.kode
+			where a.jenis_kegiatan = "2.2") b';
+		$totalData = DB::select('select count(1) cnt from bkt_01020202_pokja a
+			 	left join bkt_01010101_prop b on a.kode_prop = b.kode
+			 	left join bkt_01010110_kmw c on a.kode_kmw = c.kode
+			 	left join bkt_01010113_faskel d on a.kode_faskel = d.kode
+			where a.jenis_kegiatan = "2.2"');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -71,12 +88,25 @@ class bk010203Controller extends Controller
 		$dir = $request->input('order.0.dir');
 		if(empty($request->input('search.value')))
 		{
-			$posts=DB::select($query .' order by a.'.$order.' '.$dir.' limit '.$start.','.$limit);
+			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (a.kode like "%'.$search.'%" or a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.status_pokja like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.kode like "%'.$search.'%" or a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.status_pokja like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+				b.kode_pokja like "%'.$search.'%" or 
+				b.status_pokja_convert like "%'.$search.'%" or 
+				b.jenis_kegiatan_convert like "%'.$search.'%" or
+				b.tgl_kegiatan_pokja like "%'.$search.'%" or 
+				b.nama_prop like "%'.$search.'%" or 
+				b.tahun_pokja like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+				b.kode_pokja like "%'.$search.'%" or 
+				b.status_pokja_convert like "%'.$search.'%" or 
+				b.jenis_kegiatan_convert like "%'.$search.'%" or
+				b.tgl_kegiatan_pokja like "%'.$search.'%" or 
+				b.nama_prop like "%'.$search.'%" or 
+				b.tahun_pokja like "%'.$search.'%")) a');
+			$totalFiltered = $totalFiltered[0]->cnt;
 		}
 
 		$data = array();
@@ -87,31 +117,17 @@ class bk010203Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$jenis_kegiatan = null;
-				$status_pokja = null;
-
-				if($post->jenis_kegiatan == '2.1'){
-					$jenis_kegiatan = 'Tingkat Nasional';
-				}elseif($post->jenis_kegiatan == '2.2'){
-					$jenis_kegiatan = 'Tingkat Propinsi';
-				}
-
-				if($post->status_pokja == 0){
-					$status_pokja = 'Lama';
-				}elseif($post->status_pokja == 1){
-					$status_pokja = 'Baru';
-				}
 
 				$url_edit=url('/')."/main/persiapan/propinsi/pokja/pembentukan/create?kode=".$edit;
 				$url_delete=url('/')."/main/persiapan/propinsi/pokja/pembentukan/delete?kode=".$delete;
-				$nestedData['kode'] = $post->kode;
-				$nestedData['tahun'] = $post->tahun;
-				$nestedData['kode_prop'] = $post->kode_prop;
-				$nestedData['kode_kmw'] = $post->kode_kmw;
-				$nestedData['kode_faskel'] = $post->kode_faskel;
-				$nestedData['jenis_kegiatan'] = $jenis_kegiatan;
-				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
-				$nestedData['status_pokja'] = $status_pokja;
+				$nestedData['kode'] = $post->kode_pokja;
+				$nestedData['tahun'] = $post->tahun_pokja;
+				$nestedData['kode_prop'] = $post->nama_prop;
+				$nestedData['kode_kmw'] = $post->nama_kmw;
+				$nestedData['kode_faskel'] = $post->nama_faskel;
+				$nestedData['jenis_kegiatan'] = $post->jenis_kegiatan_convert;
+				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan_pokja;
+				$nestedData['status_pokja'] = $post->status_pokja_convert;
 				$nestedData['created_time'] = $post->created_time;
 				
 				$user = Auth::user();
@@ -242,8 +258,8 @@ class bk010203Controller extends Controller
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
 				$data['kode_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
-				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
-				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
+				$data['kode_kmw_list'] = null;
+				$data['kode_faskel_list'] = null;
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010203/create',$data);
 			}else{

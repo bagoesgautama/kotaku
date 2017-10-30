@@ -91,7 +91,7 @@
                                         <option value>Please select</option>
                                         @if ($kode_kec_list!=null)
                                         @foreach ($kode_kec_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                            <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
                                         @endif
                                     </select>

@@ -41,12 +41,12 @@
                     <div class="col-md-12">
                         <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Kode Pokja Kota</label>
+                                <label class="col-sm-3 control-label">Pokja Kota</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                     <select id="select-kode-pokja-kota-input" name="kode-pokja-kota-input" class="form-control select2" size="1" required>
                                         @foreach ($kode_pokja_kota_list as $kpkl)
-                                            <option value="{{$kpkl->kode}}" {!! $kode_pokja_kota==$kpkl->kode ? 'selected':'' !!}>{{$kpkl->kode}}</option>
+                                            <option value="{{$kpkl->kode}}" {!! $kode_pokja_kota==$kpkl->kode ? 'selected':'' !!}>{{$kpkl->tahun.'-'.$kpkl->nama_kota}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -159,7 +159,7 @@
                             </div> -->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/main/persiapan/nasional/pokja/kegiatan" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/persiapan/kota/pokja/kegiatan" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
