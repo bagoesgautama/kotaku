@@ -53,6 +53,7 @@
                     <table class="table table-striped" id="pokja">
                         <thead>
                             <tr>
+                                <th>Kode</th>
                                 <th>Data Rencana Investasi Tahunan</th>
                                 <th>Created Time</th>
                                 <th>Option</th>
@@ -82,9 +83,11 @@
 
             "columns": [
                 { "data": "kode_parent" , name:"kode_parent"},
+                { "data": "nama_parent" , name:"nama_parent"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order":[[0,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

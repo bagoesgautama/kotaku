@@ -54,6 +54,10 @@ class bk010303Controller extends Controller
 			$kota = DB::select('select b.kode, b.nama from bkt_01010110_kmw a, bkt_01010102_kota b where a.kode_prop=b.kode_prop and a.kode='.$request->input('kmw'));
 			echo json_encode($kota);
 		}
+		if(!empty($request->input('kota_kec'))){
+			$kec = DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$request->input('kota_kec'));
+			echo json_encode($kec);
+		}
 		if(!empty($request->input('kota_korkot'))){
 			$korkot = DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode_kota='.$request->input('kota_korkot'));
 			echo json_encode($korkot);
@@ -63,17 +67,41 @@ class bk010303Controller extends Controller
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'tahun',
-			1 =>'kode_kmw',
+			0 =>'kode',
+			1 =>'tahun',
 			2 =>'kode_kota',
-			3 =>'kode_korkot',
+			3 =>'kode_kec',
 			4 =>'jenis_kegiatan',
 			5 =>'tgl_kegiatan',
 			6 =>'lok_kegiatan',
 			7 =>'created_time'
 		);
-		$query='select a.kode, a.tahun, b.nama as kode_kota, d.nama as kode_kmw, e.nama as kode_korkot, a.jenis_kegiatan, a.tgl_kegiatan, a.lok_kegiatan, a.created_time from bkt_01030201_plan_pmkm_kt a, bkt_01010102_kota b, bkt_01010110_kmw d, bkt_01010111_korkot e where a.kode_kota = b.kode and a.kode_kmw = d.kode and a.kode_korkot = e.kode and a.jenis_kegiatan = "3.3.1"';
-		$totalData = DB::select('select count(1) cnt from bkt_01030201_plan_pmkm_kt a, bkt_01010102_kota b, bkt_01010110_kmw d, bkt_01010111_korkot e where a.kode_kota = b.kode and a.kode_kmw = d.kode and a.kode_korkot = e.kode and a.jenis_kegiatan = "3.3.1"');
+		$query='
+			select * from (select 
+				a.*,
+				a.kode kode_pmkm, 
+				a.tahun tahun_pmkm, 
+				a.tgl_kegiatan tgl_kegiatan_pmkm, 
+				a.lok_kegiatan lok_kegiatan_pmkm, 
+				case when a.jenis_kegiatan="3.1.1" then "Pembangunan Visi" when a.jenis_kegiatan="3.1.2" then "Pelaksanaan RPK" when a.jenis_kegiatan="3.3.1" then "Lokakarya Perencanaan" when a.jenis_kegiatan="3.4" then " Konsultasi Perencanaan" end jenis_kegiatan_convert,
+				case when b.nama is null then "-" else b.nama end nama_kec, 
+				c.nama as nama_kmw, 
+				d.nama as nama_kota, 
+				e.nama as nama_korkot
+			from bkt_01030201_plan_pmkm_kt a
+				left join bkt_01010103_kec b on a.kode_kec=b.kode
+				left join bkt_01010110_kmw c on a.kode_kmw=c.kode
+				left join bkt_01010102_kota d on a.kode_kota=d.kode
+				left join bkt_01010111_korkot e on a.kode_korkot=e.kode
+			where 
+				a.jenis_kegiatan = "3.3.1") b';
+		$totalData = DB::select('select count(1) cnt from bkt_01030201_plan_pmkm_kt a
+				left join bkt_01010103_kec b on a.kode_kec=b.kode
+				left join bkt_01010110_kmw c on a.kode_kmw=c.kode
+				left join bkt_01010102_kota d on a.kode_kota=d.kode
+				left join bkt_01010111_korkot e on a.kode_korkot=e.kode
+			where 
+				a.jenis_kegiatan = "3.3.1"');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -81,12 +109,27 @@ class bk010303Controller extends Controller
 		$dir = $request->input('order.0.dir');
 		if(empty($request->input('search.value')))
 		{
-			$posts=DB::select($query .' order by a.'.$order.' '.$dir.' limit '.$start.','.$limit);
+			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or a.jenis_kegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or a.jenis_kegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+				b.kode_pmkm like "%'.$search.'%" or 
+				b.nama_kec like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or
+				b.jenis_kegiatan_convert like "%'.$search.'%" or 
+				b.tahun_pmkm like "%'.$search.'%" or
+				b.tgl_kegiatan_pmkm like "%'.$search.'%" or
+				b.lok_kegiatan_pmkm like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+				b.kode_pmkm like "%'.$search.'%" or 
+				b.nama_kec like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or
+				b.jenis_kegiatan_convert like "%'.$search.'%" or 
+				b.tahun_pmkm like "%'.$search.'%" or
+				b.tgl_kegiatan_pmkm like "%'.$search.'%" or
+				b.lok_kegiatan_pmkm like "%'.$search.'%")) a');
+			$totalFiltered = $totalFiltered[0]->cnt;
 		}
 
 		$data = array();
@@ -97,28 +140,18 @@ class bk010303Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$jenis_kegiatan = null;
-
-				if($post->jenis_kegiatan == '3.1.1'){
-					$jenis_kegiatan = 'Pembangunan Visi';
-				}elseif($post->jenis_kegiatan == '3.1.2'){
-					$jenis_kegiatan = 'Pelaksanaan RPK';
-				}elseif($post->jenis_kegiatan == '3.3.1'){
-					$jenis_kegiatan = 'Lokakarya Perencanaan';
-				}elseif($post->jenis_kegiatan == '3.4'){
-					$jenis_kegiatan = 'Konsultasi Perencanaan';
-				}
 
 				$url_edit=url('/')."/main/perencanaan/penanganan/lokakarya_perencanaan/create?kode=".$edit;
 				$url_delete=url('/')."/main/perencanaan/penanganan/lokakarya_perencanaan/delete?kode=".$delete;
-				$nestedData['tahun'] = $post->tahun;
-				$nestedData['kode_kota'] = $post->kode_kota;
-				// $nestedData['kode_kec'] = $post->kode_kec;
-				$nestedData['kode_kmw'] = $post->kode_kmw;
-				$nestedData['kode_korkot'] = $post->kode_korkot;
-				$nestedData['jenis_kegiatan'] = $jenis_kegiatan;
-				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
-				$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
+				$nestedData['kode'] = $post->kode_pmkm;
+				$nestedData['tahun'] = $post->tahun_pmkm;
+				$nestedData['kode_kota'] = $post->nama_kota;
+				$nestedData['kode_kec'] = $post->nama_kec;
+				$nestedData['kode_kmw'] = $post->nama_kmw;
+				$nestedData['kode_korkot'] = $post->nama_korkot;
+				$nestedData['jenis_kegiatan'] = $post->jenis_kegiatan_convert;
+				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan_pmkm;
+				$nestedData['lok_kegiatan'] = $post->lok_kegiatan_pmkm;
 				$nestedData['created_time'] = $post->created_time;
 
 				$user = Auth::user();
@@ -168,7 +201,7 @@ class bk010303Controller extends Controller
 				$rowData = DB::select('select * from bkt_01030201_plan_pmkm_kt where kode='.$data['kode']);
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_kota'] = $rowData[0]->kode_kota;
-				// $data['kode_kec'] = $rowData[0]->kode_kec;
+				$data['kode_kec'] = $rowData[0]->kode_kec;
 				$data['kode_kmw'] = $rowData[0]->kode_kmw;
 				$data['kode_korkot'] = $rowData[0]->kode_korkot;
 				$data['jenis_kegiatan'] = $rowData[0]->jenis_kegiatan;
@@ -191,7 +224,8 @@ class bk010303Controller extends Controller
 				$data['updated_by'] = $rowData[0]->updated_by;
 				if(!empty($rowData[0]->kode_kmw))
 					$data['kode_kota_list']=DB::select('select b.kode, b.nama from bkt_01010110_kmw a, bkt_01010102_kota b where a.kode_prop=b.kode_prop and a.kode='.$rowData[0]->kode_kmw);
-				// $data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
+				if(!empty($rowData[0]->kode_kota))
+					$data['kode_kec_list']=DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$rowData[0]->kode_kota);
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
 				if(!empty($rowData[0]->kode_kota))
 					$data['kode_korkot_list']=DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode_kota='.$rowData[0]->kode_kota);
@@ -200,7 +234,7 @@ class bk010303Controller extends Controller
 			}else if ($data['kode']==null  && !empty($data['detil']['262'])){
 				$data['tahun'] = null;
 				$data['kode_kota'] = null;
-				// $data['kode_kec'] = null;
+				$data['kode_kec'] = null;
 				$data['kode_kmw'] = null;
 				$data['kode_korkot'] = null;
 				$data['jenis_kegiatan'] = '3.3.1';
@@ -221,10 +255,10 @@ class bk010303Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
-				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
-				// $data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
+				$data['kode_kota_list'] = null;
+				$data['kode_kec_list'] = null;
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
-				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
+				$data['kode_korkot_list'] = null;
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010303/create',$data);
 			}else{
@@ -271,7 +305,7 @@ class bk010303Controller extends Controller
 			->update([
 				'tahun' => $request->input('tahun-input'),
 				'kode_kota' => $request->input('kode-kota-input'),
-				// 'kode_kec' => $request->input('kode-kec-input'),
+				'kode_kec' => $request->input('kode-kec-input'),
 				'kode_kmw' => $request->input('kode-kmw-input'),
 				'kode_korkot' => $request->input('kode-korkot-input'),
 				'jenis_kegiatan' => $request->input('jns-kegiatan-input'),
@@ -306,7 +340,7 @@ class bk010303Controller extends Controller
 			DB::table('bkt_01030201_plan_pmkm_kt')->insert([
 				'tahun' => $request->input('tahun-input'),
 				'kode_kota' => $request->input('kode-kota-input'),
-				// 'kode_kec' => $request->input('kode-kec-input'),
+				'kode_kec' => $request->input('kode-kec-input'),
 				'kode_kmw' => $request->input('kode-kmw-input'),
 				'kode_korkot' => $request->input('kode-korkot-input'),
 				'jenis_kegiatan' => $request->input('jns-kegiatan-input'),

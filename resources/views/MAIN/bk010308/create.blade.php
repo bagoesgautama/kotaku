@@ -81,7 +81,7 @@
                                             <select id="select-kode-plan-inves-input" name="kode-plan-inves-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
                                                 @foreach ($kode_plan_inves_list as $kpil)
-                                                    <option value="{{$kpil->kode}}" {!! $kode_parent==$kpil->kode ? 'selected':'' !!}>{{$kpil->kode}}</option>
+                                                    <option value="{{$kpil->kode}}" {!! $kode_parent==$kpil->kode ? 'selected':'' !!}>{{$kpil->tahun.'-'.$kpil->jenis_kegiatan.'-'.$kpil->nama_subkomponen.'-'.$kpil->nama_dtl_subkomponen.'-'.$kpil->nama_kota}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

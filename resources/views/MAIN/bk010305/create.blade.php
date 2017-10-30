@@ -109,9 +109,11 @@
                                         <div class="col-sm-6">
                                             <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
+                                                @if ($kode_kota_list!=null)
                                                 @foreach ($kode_kota_list as $kkl)
                                                     <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                                 @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -120,9 +122,11 @@
                                         <div class="col-sm-6">
                                             <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
+                                                @if ($kode_korkot_list!=null)
                                                 @foreach ($kode_korkot_list as $kkl)
                                                     <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                                 @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
