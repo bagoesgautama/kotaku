@@ -187,6 +187,7 @@
 				kota.empty();
 				kec.empty();
 				kel.empty();
+				kota.append("<option value>Please Select</option>");
 				$.ajax({
 					type: 'get',
 					"url": "/main/kel_faskel/select?prov="+prov_id,
@@ -204,6 +205,7 @@
 			if(kota_id!=undefined){
 				kec.empty();
 				kel.empty();
+				kec.append("<option value>Please Select</option>");
 				$.ajax({
 					type: 'get',
 					"url": "/main/kel_faskel/select?kota="+kota_id,
@@ -220,6 +222,7 @@
 			kec_id=kec.val();
 			if(kec_id!=undefined){
 				kel.empty();
+				kel.append("<option value>Please Select</option>");
 				$.ajax({
 					type: 'get',
 					"url": "/main/kel_faskel/select?kec="+kec_id,

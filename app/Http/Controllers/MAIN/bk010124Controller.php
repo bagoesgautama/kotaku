@@ -221,7 +221,7 @@ class bk010124Controller extends Controller
 
 	public function delete(Request $request)
 	{
-		DB::table('bkt_01010125_bkm')->where('kode', $request->input('kode'))->delete();
+		DB::table('bkt_01010125_bkm')->where('id', $request->input('id'))->update(['status' => 2]);
         $this->log_aktivitas('Delete', 456);
         return Redirect::to('/main/data_master/bkm');
     }
