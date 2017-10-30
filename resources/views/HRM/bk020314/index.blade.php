@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan - Realisasi Kegiatan Skala Kelurahan - KSM Pelaksana Kegiatan @stop {{-- local styles --}} @section('header_styles') 
+@extends('HRM/default') {{-- Page title --}} @section('title') Evaluasi @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,18 +14,16 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Pelaksanaan - Realisasi Kegiatan Skala Kelurahan - KSM Pelaksana Kegiatan</h1>
+    <h1>Evaluasi</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-                <a href="/main">
-                    <i class="fa fa-fw fa-home"></i> MAIN
+                <a href="/hrm">
+                    <i class="fa fa-fw fa-home"></i> HRM
                 </a>
             </li>
             <li class="next">
-                <a href="/main/pelaksanaan/kelurahan/ksm">
-                    Pelaksanaan / Realisasi Kegiatan Skala Kelurahan / KSM Pelaksana Kegiatan
-                </a>
+                Managemen Personil / User / Evaluasi
             </li>
         </ul>
     </div>
@@ -36,28 +34,26 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010408 index</b>
+                    <b>bk020314 Index</b>
                 </div>
-                <!-- @if( ! empty($detil['375']))
+                @if( ! empty($detil['558']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kelurahan/ksm/create'}}">Create</a>
-                </div>
-                @endif -->
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management/evaluasi/create">Create</a>
+				</div>
+                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users" width="2000px">
-                        <thead>
+					<table class="table table-striped" id="users">
+						<thead>
                             <tr>
-                                <th>Input KSM</th>
-                                <th>KSM Pelaksana Kegiatan</th>
-                                <th>Data Realisasi Kegiatan</th>
-                                <th>Sumber Dana</th>
-                                <th>Kelurahan</th>
-                                <th>Faskel</th>
-                                <th>Kawasan</th>
-                                <th>Tahun</th>
-                                <th>Created Time</th>
+								<th>ID</th>
+								<th>User</th>
+								<th>Periode</th>
+								<th>Hasil Evaluasi</th>
+								<th>Verifikator</th>
+								<th>Tanggal di verifikasi</th>
+								<th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -66,37 +62,38 @@
         </div>
     </div>
 </div>
-
 <!-- /.modal ends here -->@stop {{-- local scripts --}} @section('footer_scripts')
 
 <script>
     $(document).ready(function () {
-        var table = $('#users').DataTable({
-            // dom: 'Bflrtip',
-            
-            "processing": true,
+		var table = $('#users').DataTable({
+			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/pelaksanaan/kelurahan/ksm",
+                     "url": "/hrm/management/evaluasi",
                      "dataType": "json",
                      "type": "POST"
                    },
-
-            "columns": [
-                { "data": "option" , name:"option",orderable:false, className:"text-center"},
-                { "data": "id_ksm" , name:"id_ksm"},
-                { "data": "kode_parent" , name:"kode_parent"},
-                { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
-                { "data": "kode_kel" , name:"kode_kel"},
-                { "data": "kode_faskel" , name:"kode_faskel"},
-                { "data": "kode_kawasan" , name:"kode_kawasan"},
-                { "data": "tahun" , name:"tahun"},
-                { "data": "created_time" , name:"created_time"}
-                
+            success: function(data) {
+                 alert('success')
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+              },
+			  "columns": [
+				{ "data": "kode" , name:"kode"},
+				{ "data": "user" , name:"user"},
+				{ "data": "period_akhir" , name:"period_akhir"},
+				{ "data": "hasil_eval" , name:"hasil_eval"},
+				{ "data": "diver_oleh" , name:"diver_oleh"},
+				{ "data": "diver_tgl" , name:"diver_tgl"},
+				{ "data": "option" , name:"option",orderable:false}
             ],
-        });
-        $('#pokja_filter input').unbind();
-        $('#pokja_filter input').bind('keyup', function(e) {
+			"order": [[ 0, "desc" ]]
+	    });
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
             table.search(this.value).draw();
         }

@@ -130,12 +130,6 @@
                                             <input type="text" id="skala_kegiatan-input" name="skala_kegiatan-input" placeholder="Sumber Dana" value="{{$skala_kegiatan}}" class="form-control" readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Sumber Dana</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" id="jns_sumber_dana-input" name="jns_sumber_dana-input" placeholder="Sumber Dana" value="{{$jns_sumber_dana}}" class="form-control" readonly>
-                                        </div>
-                                    </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="kode">Tahun</label>
                                         <div class="col-sm-6">
@@ -145,37 +139,67 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">KMW</label>
                                         <div class="col-sm-6">
-                                            <input type="text" id="kode_kmw-input" name="kode_kmw-input" placeholder="Kordinator Manajemen Wilayah" value="{{$kode_kmw}}" class="form-control" readonly>    
+                                            <select id="select-kode_kmw-input" name="select-kode_kmw-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($data_kegiatan_list as $dkl)
+                                                    <option value="{{$dkl->kode_kmw}}" {!! $kode_kmw==$dkl->kode_kmw ? 'selected':'' !!}>{{$dkl->nama_kmw}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Kota</label>
                                         <div class="col-sm-6">
-                                            <input type="text" id="kode_kota-input" name="kode_kota-input" placeholder="Kota" value="{{$kode_kota}}" class="form-control" readonly>
+                                            <select id="select-kode_kota-input" name="select-kode_kota-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($data_kegiatan_list as $dkl)
+                                                    <option value="{{$dkl->kode_kota}}" {!! $kode_kota==$dkl->kode_kota ? 'selected':'' !!}>{{$dkl->nama_kota}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Korkot</label>
                                         <div class="col-sm-6">
-                                            <input type="text" id="kode_korkot-input" name="kode_korkot-input" placeholder="Kordinator Manajemen Kota" value="{{$kode_korkot}}" class="form-control" readonly>
+                                            <select id="select-kode_korkot-input" name="select-kode_korkot-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($data_kegiatan_list as $dkl)
+                                                    <option value="{{$dkl->kode_korkot}}" {!! $kode_korkot==$dkl->kode_korkot ? 'selected':'' !!}>{{$dkl->nama_korkot}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Kecamatan</label>
                                         <div class="col-sm-6">
-                                            <input type="text" id="kode_kec-input" name="kode_kec-input" placeholder="Kecamatan" value="{{$kode_kec}}" class="form-control" readonly>
+                                            <select id="select-kode_kec-input" name="select-kode_kec-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($data_kegiatan_list as $dkl)
+                                                    <option value="{{$dkl->kode_kec}}" {!! $kode_kec==$dkl->kode_kec ? 'selected':'' !!}>{{$dkl->nama_kec}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Kelurahan</label>
                                         <div class="col-sm-6">
-                                            <input type="text" id="kode_kel-input" name="kode_kel-input" placeholder="Kelurahan" value="{{$kode_kel}}" class="form-control" readonly>
+                                            <select id="select-kode_kel-input" name="select-kode_kel-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($data_kegiatan_list as $dkl)
+                                                    <option value="{{$dkl->kode_kel}}" {!! $kode_kel==$dkl->kode_kel ? 'selected':'' !!}>{{$dkl->nama_kel}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Faskel</label>
                                         <div class="col-sm-6">
-                                            <input type="text" id="kode_faskel-input" name="kode_faskel-input" placeholder="Fasilitator Kelurahan" value="{{$kode_faskel}}" class="form-control" readonly>
+                                            <select id="select-kode_faskel-input" name="select-kode_faskel-input" class="form-control select2" size="1">
+                                                <option value="">Please select</option>
+                                                @foreach ($data_kegiatan_list as $dkl)
+                                                    <option value="{{$dkl->kode_faskel}}" {!! $kode_faskel==$dkl->kode_faskel ? 'selected':'' !!}>{{$dkl->nama_faskel}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -219,7 +243,7 @@
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jenis Sumber Dana</label>
                                         <div class="col-sm-6">
                                             <select id="select-jns_sumber_dana-input" name="select-jns_sumber_dana-input" class="form-control" size="1">
-                                                <option value="1" {!! $satuan==1 ? 'selected':'' !!}>BDI/Non BDI</option>
+                                                <option value="1" {!! $jns_sumber_dana==1 ? 'selected':'' !!}>BDI/Non BDI</option>
                                             </select>
                                         </div>
                                     </div>
@@ -826,6 +850,42 @@
             width: "100%"
         });
 
+        $("#select-kode_kmw-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+
+        $("#select-kode_kota-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+
+        $("#select-kode_korkot-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+
+        $("#select-kode_kec-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+
+        $("#select-kode_kel-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+
+        $("#select-kode_faskel-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+
         $("#select-satuan-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select",
@@ -867,12 +927,12 @@
         var parent = $('#select-kode_parent-input');
         var tahun = $('#tahun-input');
         var skala_kegiatan = $('#skala_kegiatan-input');
-        var kmw = $('#kode_kmw-input');
-        var kota = $('#kode_kota-input');
-        var korkot = $('#kode_korkot-input');
-        var kec = $('#kode_kec-input');
-        var kel = $('#kode_kel-input');
-        var faskel = $('#kode_faskel-input');
+        var kmw = $('#select-kode_kmw-input');
+        var kota = $('#select-kode_kota-input');
+        var korkot = $('#select-kode_korkot-input');
+        var kec = $('#select-kode_kec-input');
+        var kel = $('#select-kode_kel-input');
+        var faskel = $('#select-kode_faskel-input');
         var komponen = $('#jenis_komponen_keg-input');
         var subkomponen = $('#id_subkomponen-input');
         var dtl_subkomponen = $('#id_dtl_subkomponen-input');
@@ -891,12 +951,12 @@
                         for (var i=0;i<data.length;i++){
                             tahun.val(data[0].tahun);
                             skala_kegiatan.val(data[0].skala_kegiatan+' - '+data[0].skala);
-                            kmw.val(data[0].nama_kmw);
-                            kota.val(data[0].nama_kota);
-                            korkot.val(data[0].nama_korkot);
-                            kec.val(data[0].nama_kec);
-                            kel.val(data[0].nama_kel);
-                            faskel.val(data[0].nama_faskel);
+                            kmw.append("<option value="+data[i].kode_kmw+" selected>"+data[i].nama_kmw+"</option>");
+                            kota.append("<option value="+data[i].kode_kota+" selected>"+data[i].nama_kota+"</option>");
+                            korkot.append("<option value="+data[i].kode_korkot+" selected>"+data[i].nama_korkot+"</option>");
+                            kec.append("<option value="+data[i].kode_kec+" selected>"+data[i].nama_kec+"</option>");
+                            kel.append("<option value="+data[i].kode_kel+" selected>"+data[i].nama_kel+"</option>");
+                            faskel.append("<option value="+data[i].kode_faskel+" selected>"+data[i].nama_faskel+"</option>");
                             komponen.val(data[0].jenis_komponen_keg+' - '+data[0].nama_komponen);
                             subkomponen.val(data[0].nama_subkomponen);
                             dtl_subkomponen.val(data[0].nama_dtl_subkomponen);

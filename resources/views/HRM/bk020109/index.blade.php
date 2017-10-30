@@ -109,7 +109,7 @@
 			modul_id=modul.val();
 		    $.ajax({
 		        type: "GET",
-		        url: "/hrm/role_akses/show",
+		        url: "/hrm/admin/role_akses/show",
 		        data: {
 		            modul: modul.val(),
 		            role: role.val()
@@ -156,11 +156,11 @@
 			var data=[];
 			$('#akses tbody tr').each(function(row, tr){
 				if($(this).find('input').val()==0 && $(this).find('input').is(':checked')){
-					var json={apps:apps_id,modul:modul_id,role:role.val(),menu_id:$(this).find('td:eq(1)').text(),detil_id:$(this).find('td:eq(3)').text()}
+					var json={apps:apps_id,modul:modul_id,role:role.val(),menu_id:$(this).find('td:eq(0)').text(),detil_id:$(this).find('td:eq(3)').text()}
 					json.flag=1;
 					data.push(json);
 				}else if ($(this).find('input').val()==1 && !$(this).find('input').is(':checked')){
-					var json={apps:apps_id,modul:modul_id,role:role.val(),menu_id:$(this).find('td:eq(1)').text(),detil_id:$(this).find('td:eq(3)').text()}
+					var json={apps:apps_id,modul:modul_id,role:role.val(),menu_id:$(this).find('td:eq(0)').text(),detil_id:$(this).find('td:eq(3)').text()}
 					json.flag=0;
 					data.push(json);
 				}
@@ -168,7 +168,7 @@
 			if(data.length>0){
 				$.ajax({
 			        type: "post",
-			        url: "/hrm/role_akses",
+			        url: "/hrm/admin/role_akses",
 					data: JSON.stringify(data),
 					beforeSend: function(){
 						$("#imgSpinner1").show();
