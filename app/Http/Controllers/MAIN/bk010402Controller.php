@@ -89,13 +89,15 @@ class bk010402Controller extends Controller
 			11 =>'created_time'
 		);
 		$query='
-			select 
-				a.*, e.nama nama_kota,
+			select * from (select 
+				a.*,
+				a.kode kode_cair,
+				case when b.skala_kegiatan="P" then "Primer" when b.skala_kegiatan="S" then "Sekunder" when b.skala_kegiatan="T" then "Tersier" end skala_kegiatan_convert, 
+				e.nama nama_kota,
 				c.nama nama_korkot,
 				d.nama nama_kmw,
-				b.jenis_komponen_keg,
-			    b.tahun,
-			    b.skala_kegiatan,
+				b.jenis_komponen_keg usulan_komponen,
+			    b.tahun tahun_usulan,
 			    f.nama nama_kontraktor,
 				g.nama nama_subkomponen,
 				h.nama nama_dtl_subkomponen
@@ -106,7 +108,7 @@ class bk010402Controller extends Controller
 				left join bkt_01010102_kota e on e.kode=b.kode_kota
 				left join bkt_01010126_kontraktor f on f.kode=b.kode_kontraktor
 				left join bkt_01010120_subkomponen g on g.id=b.id_subkomponen
-				left join bkt_01010121_dtl_subkomponen h on h.id=b.id_dtl_subkomponen';
+				left join bkt_01010121_dtl_subkomponen h on h.id=b.id_dtl_subkomponen) b';
 		$totalData = DB::select('select count(1) cnt from bkt_01040203_cair_rp_kontraktor a
 				left join bkt_01030213_ktrk_pkt_krj_kontraktor b on b.kode=a.kode_parent
 				left join bkt_01010111_korkot c on c.kode=b.kode_korkot
@@ -127,21 +129,23 @@ class bk010402Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. ' where (
-				a.kode like "%'.$search.'%" or 
-				b.tahun like "%'.$search.'%" or 
-				b.skala_kegiatan like "%'.$search.'%" or
-				e.nama like "%'.$search.'%" or 
-				f.nama like "%'.$search.'%" or 
-				g.nama like "%'.$search.'%" or 
-				h.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+				b.kode_cair like "%'.$search.'%" or 
+				b.tahun_usulan like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or  
+				b.usulan_komponen like "%'.$search.'%" or 
+				b.nama_subkomponen like "%'.$search.'%" or
+				b.nama_dtl_subkomponen like "%'.$search.'%" or
+				b.nama_kontraktor like "%'.$search.'%" or
+				b.skala_kegiatan_convert like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
-				a.kode like "%'.$search.'%" or 
-				b.tahun like "%'.$search.'%" or 
-				b.skala_kegiatan like "%'.$search.'%" or
-				e.nama like "%'.$search.'%" or 
-				f.nama like "%'.$search.'%" or 
-				g.nama like "%'.$search.'%" or 
-				h.nama like "%'.$search.'%")) a');
+				b.kode_cair like "%'.$search.'%" or 
+				b.tahun_usulan like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or  
+				b.usulan_komponen like "%'.$search.'%" or 
+				b.nama_subkomponen like "%'.$search.'%" or
+				b.nama_dtl_subkomponen like "%'.$search.'%" or
+				b.nama_kontraktor like "%'.$search.'%" or
+				b.skala_kegiatan_convert like "%'.$search.'%")) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
@@ -156,10 +160,10 @@ class bk010402Controller extends Controller
 
 				$url_edit=url('/')."/main/pelaksanaan/kota_bdi/pencairan_kontraktor/create?kode=".$edit;
 				$url_delete=url('/')."/main/pelaksanaan/kota_bdi/pencairan_kontraktor/delete?kode=".$delete;
-				$nestedData['kode'] = $post->kode;
-				$nestedData['tahun'] = $post->tahun;
-				$nestedData['skala_kegiatan'] = $post->skala_kegiatan;
-				$nestedData['kode_parent'] = $post->jenis_komponen_keg.'-'.$post->nama_subkomponen.'-'.$post->nama_dtl_subkomponen;
+				$nestedData['kode'] = $post->kode_cair;
+				$nestedData['tahun'] = $post->tahun_usulan;
+				$nestedData['skala_kegiatan'] = $post->skala_kegiatan_convert;
+				$nestedData['kode_parent'] = $post->usulan_komponen.'-'.$post->nama_subkomponen.'-'.$post->nama_dtl_subkomponen;
 				// $nestedData['kode_kmw'] = $post->nama_kmw;
 				$nestedData['kode_kota'] = $post->nama_kota;
 				// $nestedData['kode_korkot'] = $post->nama_korkot;
@@ -168,7 +172,7 @@ class bk010402Controller extends Controller
 				$nestedData['rp_termin1'] = number_format($post->rp_termin1,2,",",".");
 				$nestedData['rp_termin2'] = number_format($post->rp_termin2,2,",",".");
 				$nestedData['rp_termin3'] = number_format($post->rp_termin3,2,",",".");
-				$nestedData['rp_progress'] = $post->rp_progress;
+				$nestedData['rp_progress'] = number_format($post->rp_progress,2,".","");
 				$nestedData['created_time'] = $post->created_time;
 
 				$user = Auth::user();

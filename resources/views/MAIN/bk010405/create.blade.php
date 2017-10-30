@@ -134,9 +134,11 @@
                                         <div class="col-sm-6">
                                             <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
+                                                @if ($kode_kmw_list!=null)
                                                 @foreach ($kode_kmw_list as $kkl)
                                                     <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                                 @endforeach
+                                                @endif  
                                             </select>
                                         </div>
                                     </div>
@@ -145,9 +147,11 @@
                                         <div class="col-sm-6">
                                             <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
+                                                @if ($kode_kota_list!=null)
                                                 @foreach ($kode_kota_list as $kkl)
                                                     <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                                 @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -156,9 +160,11 @@
                                         <div class="col-sm-6">
                                             <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
+                                                @if ($kode_korkot_list!=null)
                                                 @foreach ($kode_korkot_list as $kkl)
                                                     <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                                 @endforeach
+                                                @endif 
                                             </select>
                                         </div>
                                     </div>
@@ -167,9 +173,11 @@
                                         <div class="col-sm-6">
                                             <select id="select-kode-kawasan-input" name="kode-kawasan-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
+                                                @if ($kode_kawasan_list!=null)
                                                 @foreach ($kode_kawasan_list as $kkl)
                                                     <option value="{{$kkl->id}}" {!! $kode_kawasan==$kkl->id ? 'selected':'' !!}>{{$kkl->kode_kawasan." ".$kkl->nama}}</option>
                                                 @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -227,9 +235,11 @@
                                         <div class="col-sm-6">
                                             <select id="select-kode-subdtlkomponen-input" name="kode-subdtlkomponen-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
+                                                @if ($kode_subdtlkomponen_list!=null)
                                                 @foreach ($kode_subdtlkomponen_list as $ksl)
                                                     <option value="{{$ksl->id}}" {!! $id_dtl_subkomponen==$ksl->id ? 'selected':'' !!}>{{$ksl->kode_dtl_subkomponen.' '.$ksl->nama}}</option>
                                                 @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>

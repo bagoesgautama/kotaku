@@ -90,7 +90,7 @@
                                             <select id="select-kode-parent-input" name="kode-parent-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
                                                 @foreach ($kode_parent_list as $kpl)
-                                                    <option value="{{$kpl->kode}}" {!! $kode_parent==$kpl->kode ? 'selected':'' !!}>{{$kpl->jenis_komponen_keg.'-'.$kpl->nama_subkomponen.'-'.$kpl->nama_dtl_subkomponen}}</option>
+                                                    <option value="{{$kpl->kode}}" {!! $kode_parent==$kpl->kode ? 'selected':'' !!}>{{$kpl->jenis_komponen_keg.'-'.$kpl->nama_subkomponen.'-'.$kpl->nama_dtl_subkomponen.'-'.$kpl->nama_kota}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

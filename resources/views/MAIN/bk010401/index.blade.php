@@ -56,11 +56,12 @@
                     <table class="table table-striped" id="pokja">
                         <thead>
                             <tr>
-                                <th>Data Usulan Kegiatan</th>
+                                <th>Kode</th>
+                                <th>Tahun</th>
+                                <th>Data Realisasi Kegiatan</th>
                                 <th>Sumber Dana</th>
                                 <th>Kota</th>
                                 <th>Kawasan</th>
-                                <th>Tahun</th>
                                 <th>Tgl Realisasi</th>
                                 <th>Vol Realisasi</th>
                                 <th>Satuan</th>
@@ -91,18 +92,19 @@
                    },
 
             "columns": [
+                { "data": "kode" , name:"kode"},
+                { "data": "tahun" , name:"tahun"},
                 { "data": "kode_parent" , name:"kode_parent"},
                 { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_kawasan" , name:"kode_kawasan"},
-                { "data": "tahun" , name:"tahun"},
                 { "data": "tgl_realisasi" , name:"tgl_realisasi"},
                 { "data": "vol_realisasi" , name:"vol_realisasi"},
                 { "data": "satuan" , name:"satuan"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
             ],
-            "order": [[8,"desc"]]
+            "order": [[0,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {
