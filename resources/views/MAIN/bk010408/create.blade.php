@@ -42,21 +42,16 @@
                 <ul class="nav nav-tabs ">
                     <li class="active">
                         <a href="#tab1" data-toggle="tab">
-                                        Pilih Kegiatan
-                                    </a>
-                    </li>
-                    <li>
-                        <a href="#tab2" data-toggle="tab">
                                         Data Kegiatan
                                     </a>
                     </li>
                     <li>
-                        <a href="#tab3" data-toggle="tab">
+                        <a href="#tab2" data-toggle="tab">
                                         Pilih KSM Pelaksana
                                     </a>
                     </li>
                     <!-- <li>
-                        <a href="#tab4" data-toggle="tab">
+                        <a href="#tab3" data-toggle="tab">
                                         Tambahan Data
                                     </a>
                     </li> -->
@@ -69,7 +64,7 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Data Reaslisasi Kegiatan</label>
                                         <div class="col-sm-6">
                                             <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
@@ -84,26 +79,19 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Kawasan</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode_kawasan-input" name="select-kode_kawasan-input" class="form-control select2" size="1">
-                                                <option value="">Please select</option>
-                                                @foreach ($kode_kawasan_list as $kkl)
-                                                    <option value="{{$kkl->id}}" {!! $kode_kawasan==$kkl->id ? 'selected':'' !!}>{{$kkl->kode_kawasan." ".$kkl->nama}}</option>
-                                                @endforeach
-                                            </select>
+                                            <input type="text" id="kode_kawasan-input" name="kode_kawasan-input" placeholder="Satuan" value="{{$kode_kawasan}}" class="form-control" readonly>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab2" class="tab-pane fade ">
-                        <div class="panel " >
-                            <div class="panel-body border">
-                                <div class="row">
                                     <div class="form-group">
+                                        <label class="col-sm-3 control-label">KSM Pelaksana</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="id_ksm-input" name="id_ksm-input" placeholder="Satuan" value="{{$id_ksm}}" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Umum</label></div>
                                     </div>
-                                    <div class="form-group  striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Sumber Dana</label>
                                         <div class="col-sm-6">
                                             <select id="select-jns_sumber_dana-input" name="select-jns_sumber_dana-input" class="form-control" size="1">
@@ -111,65 +99,88 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="kode">Tahun</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="tahun-input" name="tahun-input" placeholder="Tahun" value="{{$tahun}}" maxlength="4" class="form-control" readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">KMW</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1">
-                                                <option value="">Please select</option>
-                                                @foreach ($kode_kmw_list as $kkl)
-                                                    <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Kota</label>
-                                        <div class="col-sm-6">
-                                            <select id="select-kode_kota-input" name="select-kode_kota-input" class="form-control select2" size="1">
-                                                <option value="">Please select</option>
-                                                @foreach ($kode_kota_list as $kkl)
-                                                    <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                                @endforeach
-                                            </select>
+                                            <input type="text" id="kode_kmw-input" name="kode_kmw-input" placeholder="Satuan" value="{{$kode_kmw}}" class="form-control" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Korkot</label>
+                                        <label class="col-sm-3 control-label">Kota</label>
                                         <div class="col-sm-6">
-                                            <select id="select-kode_korkot-input" name="select-kode_korkot-input" class="form-control select2" size="1">
-                                                <option value="">Please select</option>
-                                                @foreach ($kode_korkot_list as $kkl)
-                                                    <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                                @endforeach
-                                            </select>
+                                            <input type="text" id="kode_kota-input" name="kode_kota-input" placeholder="Satuan" value="{{$kode_kota}}" class="form-control" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-sm-3 control-label">Korkot</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="kode_korkot-input" name="kode_korkot-input" placeholder="Satuan" value="{{$kode_korkot}}" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Kecamatan</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="kode_kec-input" name="kode_kec-input" placeholder="Satuan" value="{{$kode_kec}}" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Kelurahan</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="kode_kel-input" name="kode_kel-input" placeholder="Satuan" value="{{$kode_kel}}" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Faskel</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="kode_faskel-input" name="kode_faskel-input" placeholder="Satuan" value="{{$kode_faskel}}" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Komponen Kegiatan</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="jenis_komponen_keg-input" name="jenis_komponen_keg-input" placeholder="Subkomponen" value="{{$jenis_komponen_keg}}" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Subkomponen</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="id_subkomponen-input" name="id_subkomponen-input" placeholder="Subkomponen" value="{{$id_subkomponen}}" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Detail Subkomponen</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="id_dtl_subkomponen-input" name="id_dtl_subkomponen-input" placeholder=" Detail Subkomponen" value="{{$id_dtl_subkomponen}}" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Realisasi</label>
                                         <div class="col-sm-6">
                                             <input class="form-control" id="tgl_realisasi-input" name="tgl_realisasi-input" placeholder="Tanggal Realisasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_realisasi}}" readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Volume</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="vol_realisasi-input" name="vol_realisasi-input" class="form-control" value="{{$vol_realisasi}}" maxlength="9" readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Satuan (Meter/Unit/m<sup>2</sup>)</label>
                                         <div class="col-sm-6">
-                                            <select id="select-satuan-input" name="select-satuan-input" class="form-control" size="1">
-                                                <option value="Unit" {!! $satuan==0 ? 'selected':'' !!}>Unit</option>
-                                                <option value="Meter" {!! $satuan==1 ? 'selected':'' !!}>Meter</option>
-                                                <option value="m2" {!! $satuan==1 ? 'selected':'' !!}>m2</option>
-                                            </select>
+                                            <input type="text" id="satuan-input" name="satuan-input" placeholder="Satuan" value="{{$satuan}}" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="example-text-input1">KPP</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="id_kpp-input" name="id_kpp-input" class="form-control" value="{{$id_kpp}}" maxlength="9" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -331,12 +342,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">KPP</label>
                                         <div class="col-sm-6">
-                                            <select id="select-id_kpp-input" name="select-id_kpp-input" class="form-control select2" size="1">
-                                                <option value>Please select</option>
-                                                @foreach ($kode_kpp_list as $kkl)
-                                                    <option value="{{$kkl->id}}" {!! $id_kpp==$kkl->id ? 'selected':'' !!}>{{$kkl->kode_kpp." ".$kkl->nama}}</option>
-                                                @endforeach
-                                            </select>
+                                            <input type="text" id="id_kpp-input" name="id_kpp-input" placeholder="Satuan" value="{{$id_kpp}}" class="form-control" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -490,7 +496,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="tab3" class="tab-pane fade ">
+                    <div id="tab2" class="tab-pane fade ">
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
@@ -500,7 +506,7 @@
                                             <select id="select-id_ksm-input" name="select-id_ksm-input" class="form-control select2" size="1">
                                                 <option value>Please select</option>
                                                 @foreach ($kode_ksm_list as $kkl)
-                                                    <option value="{{$kkl->id}}" {!! $id_ksm==$kkl->id ? 'selected':'' !!}>{{$kkl->kode_ksm." ".$kkl->nama}}</option>
+                                                    <option value="{{$kkl->id}}" {!! $id_ksm==$kkl->id ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -509,7 +515,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div id="tab4" class="tab-pane fade ">
+                    <!-- <div id="tab3" class="tab-pane fade ">
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
@@ -638,7 +644,7 @@
             width: "100%"
         });
 
-        $("#select-kmw-input").select2({
+        $("#select-kode_kmw-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select",
             width: "100%"
@@ -668,7 +674,7 @@
             width: "100%"
         });
 
-        $("#select-kode_ksm-input").select2({
+        $("#select-id_ksm-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select",
             width: "100%"

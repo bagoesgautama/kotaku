@@ -71,15 +71,18 @@ class bk010408Controller extends Controller
 				c.nama nama_faskel,
 				d.nama nama_kawasan,
 				e.nama nama_ksm,
-				f.nama nama_subkomponen,
-				g.nama nama_dtl_subkomponen
+				a.jenis_komponen_keg real_komponen,
+				f.jenis_komponen_keg usulan_komponen,
+				g.nama nama_subkomponen,
+				h.nama nama_dtl_subkomponen
 			from bkt_01040201_real_keg a
 				left join bkt_01010104_kel b on b.kode=a.kode_kel
 				left join bkt_01010113_faskel c on c.kode=a.kode_faskel
 				left join bkt_01010123_kawasan d on d.id=a.kode_kawasan
 				left join bkt_01010128_ksm e on e.id=a.id_ksm
-				left join bkt_01010120_subkomponen f on f.id=a.id_subkomponen
-				left join bkt_01010121_dtl_subkomponen g on g.id=a.id_dtl_subkomponen 
+				left join bkt_01030208_usulan_keg_kt f on a.kode_parent=f.kode
+				left join bkt_01010120_subkomponen g on (g.id=f.id_subkomponen or g.id=a.id_subkomponen)
+				left join bkt_01010121_dtl_subkomponen h on (h.id=f.id_dtl_subkomponen or h.id=a.id_dtl_subkomponen)
 			where
 				a.jns_sumber_dana=1 and a.skala_kegiatan=2';
 		$totalData = DB::select('select count(1) cnt from bkt_01040201_real_keg a
@@ -87,8 +90,9 @@ class bk010408Controller extends Controller
 				left join bkt_01010113_faskel c on c.kode=a.kode_faskel
 				left join bkt_01010123_kawasan d on d.id=a.kode_kawasan
 				left join bkt_01010128_ksm e on e.id=a.id_ksm
-				left join bkt_01010120_subkomponen f on f.id=a.id_subkomponen
-				left join bkt_01010121_dtl_subkomponen g on g.id=a.id_dtl_subkomponen 
+				left join bkt_01030208_usulan_keg_kt f on a.kode_parent=f.kode
+				left join bkt_01010120_subkomponen g on (g.id=f.id_subkomponen or g.id=a.id_subkomponen)
+				left join bkt_01010121_dtl_subkomponen h on (h.id=f.id_dtl_subkomponen or h.id=a.id_dtl_subkomponen)
 			where
 				a.jns_sumber_dana=1 and a.skala_kegiatan=2');
 		$totalFiltered = $totalData[0]->cnt;
@@ -124,7 +128,7 @@ class bk010408Controller extends Controller
 
 				$url_edit=url('/')."/main/pelaksanaan/kelurahan/ksm/create?kode=".$edit;
 				$url_delete=url('/')."/main/pelaksanaan/kelurahan/ksm/delete?kode=".$delete;
-				$nestedData['kode_parent'] = $post->jenis_komponen_keg.'-'.$post->nama_subkomponen.'-'.$post->nama_dtl_subkomponen;
+				$nestedData['kode_parent'] = $post->real_komponen.$post->usulan_komponen.'-'.$post->nama_subkomponen.'-'.$post->nama_dtl_subkomponen;
 				$nestedData['jns_sumber_dana'] = $jns_sumber_dana;
 				$nestedData['kode_kel'] = $post->nama_kel;
 				$nestedData['kode_faskel'] = $post->nama_faskel;
@@ -174,20 +178,80 @@ class bk010408Controller extends Controller
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
 			$rowData = DB::select('select * from bkt_01040201_real_keg where kode='.$data['kode']);
-			$data['skala_kegiatan'] = $rowData[0]->skala_kegiatan;
+			$data['kode_parent_list'] = DB::select('
+				select 
+					a.*, 
+					b.nama nama_subkomponen,
+					c.nama nama_dtl_subkomponen
+				from bkt_01030208_usulan_keg_kt a
+					left join bkt_01010120_subkomponen b on b.id=a.id_subkomponen
+					left join bkt_01010121_dtl_subkomponen c on c.id=a.id_dtl_subkomponen 
+				where
+					a.kode='.$rowData[0]->kode_parent);
+			$data['data_kegiatan_list'] = DB::select('select 
+						a.*,
+						b.nama nama_kmw,
+						c.nama nama_kota,
+						d.nama nama_korkot,
+						e.nama nama_kec,
+						f.nama nama_kel,
+						g.nama nama_faskel,
+						h.nama nama_kpp,
+						i.nama nama_kawasan,
+						j.nama nama_ksm,
+						k.nama nama_kpp
+					from bkt_01040201_real_keg a
+						left join bkt_01010110_kmw b on a.kode_kmw=b.kode
+						left join bkt_01010102_kota c on a.kode_kota=c.kode 
+						left join bkt_01010111_korkot d on a.kode_korkot=d.kode
+						left join bkt_01010103_kec e on a.kode_kec=e.kode
+						left join bkt_01010104_kel f on a.kode_kel=f.kode
+						left join bkt_01010113_faskel g on a.kode_faskel=g.kode
+						left join bkt_01010129_kpp h on a.id_kpp=h.id 
+						left join bkt_01010123_kawasan i on a.kode_kawasan=i.id
+						left join bkt_01010128_ksm j on a.id_ksm=j.id
+						left join bkt_01010129_kpp k on a.id_kpp=k.id
+					where a.kode='.$rowData[0]->kode);
 			$data['jns_sumber_dana'] = $rowData[0]->jns_sumber_dana;
+			$data['skala_kegiatan'] = $rowData[0]->skala_kegiatan;
 			$data['kode_parent'] = $rowData[0]->kode_parent;
-			$data['kode_kota'] = $rowData[0]->kode_kota;
-			$data['kode_korkot'] = $rowData[0]->kode_korkot;
-			$data['kode_kec'] = $rowData[0]->kode_kec;
-			$data['kode_kmw'] = $rowData[0]->kode_kmw;
-			$data['kode_kel'] = $rowData[0]->kode_kel;
-			$data['kode_faskel'] = $rowData[0]->kode_faskel;
-			$data['kode_kawasan'] = $rowData[0]->kode_kawasan;
+			$data['kode_kmw'] = $data['data_kegiatan_list'][0]->nama_kmw;
+			$data['kode_kota'] = $data['data_kegiatan_list'][0]->nama_kota;
+			$data['kode_korkot'] = $data['data_kegiatan_list'][0]->nama_korkot;
+			$data['kode_kec'] = $data['data_kegiatan_list'][0]->nama_kec;
+			$data['kode_kel'] = $data['data_kegiatan_list'][0]->nama_kel;
+			$data['kode_faskel'] = $data['data_kegiatan_list'][0]->nama_faskel;
+			$data['kode_kawasan'] = $data['data_kegiatan_list'][0]->nama_kawasan;
+			$data['id_ksm'] = $data['data_kegiatan_list'][0]->nama_ksm;
+			$data['id_kpp'] = $data['data_kegiatan_list'][0]->nama_kpp;
+			$data['komponen'] = DB::select('
+				select
+				case
+					when jenis_komponen_keg = "L" then "Lingkungan"
+					when jenis_komponen_keg = "S" then "Sosial"
+					when jenis_komponen_keg = "E" then "Ekonomi"
+				end komponen
+				from bkt_01030208_usulan_keg_kt
+				where
+					kode='.$rowData[0]->kode_parent);
+			$data['jenis_komponen_keg'] = $data['komponen'][0]->komponen;
+			$data['subkomponen'] = DB::select('
+				select  
+					b.nama nama_subkomponen
+				from bkt_01030208_usulan_keg_kt a
+					left join bkt_01010120_subkomponen b on b.id=a.id_subkomponen
+				where
+					a.kode='.$rowData[0]->kode_parent);
+			$data['id_subkomponen'] = $data['subkomponen'][0]->nama_subkomponen;
+			$data['dtl_subkomponen'] = DB::select('
+				select 
+					b.nama nama_dtl_subkomponen
+				from bkt_01030208_usulan_keg_kt a
+					left join bkt_01010121_dtl_subkomponen b on b.id=a.id_dtl_subkomponen 
+				where
+					a.kode='.$rowData[0]->kode_parent);
+			$data['id_dtl_subkomponen'] = $data['dtl_subkomponen'][0]->nama_dtl_subkomponen;
 			$data['tahun'] = $rowData[0]->tahun;
-			$data['jenis_komponen_keg'] = $rowData[0]->jenis_komponen_keg;
-			$data['id_subkomponen'] = $rowData[0]->id_subkomponen;
-			$data['id_dtl_subkomponen'] = $rowData[0]->id_dtl_subkomponen;
 			$data['tgl_realisasi'] = $rowData[0]->tgl_realisasi;
 			$data['vol_realisasi'] = $rowData[0]->vol_realisasi;
 			$data['satuan'] = $rowData[0]->satuan;
@@ -215,13 +279,12 @@ class bk010408Controller extends Controller
 			$data['tk_q_pekerja_w'] = $rowData[0]->tk_q_pekerja_w;
 			$data['tk_q_hok'] = $rowData[0]->tk_q_hok;
 			$data['tk_val_hok'] = $rowData[0]->tk_val_hok;
-			$data['id_kpp'] = $rowData[0]->id_kpp;
-			$data['id_ksm'] = $rowData[0]->id_ksm;
 			$data['kpp_flag_bgn_msh_ada'] = $rowData[0]->kpp_flag_bgn_msh_ada;
 			$data['kpp_flag_bgn_msh_baik'] = $rowData[0]->kpp_flag_bgn_msh_baik;
 			$data['kpp_flag_bgn_msh_fungsi'] = $rowData[0]->kpp_flag_bgn_msh_fungsi;
 			$data['kpp_flag_bgn_msh_man'] = $rowData[0]->kpp_flag_bgn_msh_man;
 			$data['kpp_flag_bgn_msh_dev'] = $rowData[0]->kpp_flag_bgn_msh_dev;
+			$data['hasil_sertifikasi'] = $rowData[0]->hasil_sertifikasi;
 			$data['longitude'] = $rowData[0]->longitude;
 			$data['latitude'] = $rowData[0]->latitude;
 			$data['flag_foto_prcn0'] = $rowData[0]->flag_foto_prcn0;
@@ -248,37 +311,6 @@ class bk010408Controller extends Controller
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
 			$data['updated_by'] = $rowData[0]->updated_by;
-			$data['kode_parent_list'] = DB::select('
-				select 
-					a.*, 
-					b.nama nama_subkomponen,
-					c.nama nama_dtl_subkomponen
-				from bkt_01040201_real_keg a
-					left join bkt_01010120_subkomponen b on b.id=a.id_subkomponen
-					left join bkt_01010121_dtl_subkomponen c on c.id=a.id_dtl_subkomponen 
-				where
-					a.kode='.$rowData[0]->kode);
-			$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
-			if(!empty($rowData[0]->kode))
-				$data['kode_kmw_list']=DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010110_kmw b where a.kode_kmw=b.kode and a.kode='.$rowData[0]->kode);
-			if(!empty($rowData[0]->kode))
-				$data['kode_kota_list']=DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010102_kota b where a.kode_kota=b.kode and a.kode='.$rowData[0]->kode);
-			if(!empty($rowData[0]->kode))
-				$data['kode_korkot_list']=DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode='.$rowData[0]->kode);
-			if(!empty($rowData[0]->kode))
-				$data['kode_kec_list']=DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010103_kec b where a.kode_kec=b.kode and a.kode='.$rowData[0]->kode);
-			if(!empty($rowData[0]->kode))
-				$data['kode_kel_list']=DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010104_kel b where a.kode_kel=b.kode and a.kode='.$rowData[0]->kode_parent);
-			if(!empty($rowData[0]->kode))
-				$data['kode_faskel_list']=DB::select('select b.kode, b.nama from bkt_01040201_real_keg a, bkt_01010113_faskel b where a.kode_faskel=b.kode and a.kode='.$rowData[0]->kode);
-			$data['kode_jenis_komponen_keg_list'] = DB::select('select jenis_komponen_keg from bkt_01030208_usulan_keg_kt where kode='.$rowData[0]->kode);
-			if(!empty($rowData[0]->kode))
-				$data['kode_id_subkomponen_list']=DB::select('select b.id, b.nama from bkt_01040201_real_keg a, bkt_01010120_subkomponen b where a.id_subkomponen=b.id and a.kode='.$rowData[0]->kode);
-			if(!empty($rowData[0]->kode_parent))
-				$data['kode_id_dtl_subkomponen_list']=DB::select('select b.id, b.nama from bkt_01040201_real_keg a, bkt_01010121_dtl_subkomponen b where a.id_dtl_subkomponen=b.id and a.kode='.$rowData[0]->kode);
-			if(!empty($rowData[0]->kode))
-				$data['kode_kawasan_list']=DB::select('select b.id, b.kode_kawasan, b.nama from bkt_01040201_real_keg a, bkt_01010123_kawasan b where b.id=a.kode_kawasan and a.kode='.$rowData[0]->kode);
-			$data['kode_kpp_list'] = DB::select('select b.id, b.kode_kpp, b.nama from bkt_01040201_real_keg a, bkt_01010129_kpp b where a.id_ksm=b.id and a.kode='.$rowData[0]->kode);
 			$data['kode_ksm_list'] = DB::select('select * from bkt_01010128_ksm');
 			$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 			return view('MAIN/bk010408/create',$data);
