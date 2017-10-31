@@ -819,4 +819,7 @@ Route::get('/qs/master/schedule/create', 'QS\bk050104Controller@create');
 Route::post('/qs/master/schedule/create', 'QS\bk050104Controller@post_create');
 Route::get('/qs/master/schedule/delete', 'QS\bk050104Controller@delete');
 
+Route::get('/qs/monitoring/kelurahan', 'QS\bk050201Controller@index');
+Route::post('/qs/monitoring/kelurahan', 'QS\bk050201Controller@post');
+
 Auth::routes();
