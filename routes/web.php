@@ -820,6 +820,21 @@ Route::post('/qs/master/schedule/create', 'QS\bk050104Controller@post_create');
 Route::get('/qs/master/schedule/delete', 'QS\bk050104Controller@delete');
 
 Route::get('/qs/monitoring/kelurahan', 'QS\bk050201Controller@index');
-Route::post('/qs/monitoring/kelurahan', 'QS\bk050201Controller@post');
-
+Route::post('/qs/monitoring/kelurahan/prov', 'QS\bk050201Controller@post_prov');
+Route::get('/qs/monitoring/kelurahan/kota', 'QS\bk050201Controller@kota');
+Route::post('/qs/monitoring/kelurahan/kota', 'QS\bk050201Controller@post_kota');
+Route::get('/qs/monitoring/kelurahan/kelurahan', 'QS\bk050201Controller@kelurahan');
+Route::post('/qs/monitoring/kelurahan/kelurahan', 'QS\bk050201Controller@post_kelurahan');
+Route::get('/qs/monitoring/kelurahan/kelurahan/peningkatan', 'QS\bk050201Controller@peningkatan');
+Route::get('/qs/monitoring/kelurahan/kota/peningkatan', 'QS\bk050201Controller@peningkatan_kota');
+Route::get('/qs/monitoring/kelurahan/prov/peningkatan', 'QS\bk050201Controller@peningkatan_prov');
+Route::get('/qs/monitoring/kelurahan/kelurahan/pencegahan', 'QS\bk050201Controller@pencegahan');
+Route::get('/qs/monitoring/kelurahan/kota/pencegahan', 'QS\bk050201Controller@pencegahan_kota');
+Route::get('/qs/monitoring/kelurahan/prov/pencegahan', 'QS\bk050201Controller@pencegahan_prov');
+Route::get('/qs/monitoring/kelurahan/kelurahan/ppmk', 'QS\bk050201Controller@ppmk');
+Route::get('/qs/monitoring/kelurahan/kota/ppmk', 'QS\bk050201Controller@ppmk_kota');
+Route::get('/qs/monitoring/kelurahan/prov/ppmk', 'QS\bk050201Controller@ppmk_prov');
+Route::get('/qs/monitoring/kelurahan/kelurahan/bdi', 'QS\bk050201Controller@bdi');
+Route::get('/qs/monitoring/kelurahan/kota/bdi', 'QS\bk050201Controller@bdi_kota');
+Route::get('/qs/monitoring/kelurahan/prov/bdi', 'QS\bk050201Controller@bdi_prov');
 Auth::routes();

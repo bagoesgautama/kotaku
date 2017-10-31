@@ -1,4 +1,4 @@
-@extends('QS/default') {{-- Page title --}} @section('title') Kegiatan Kota @stop {{-- local styles --}} @section('header_styles')
+@extends('QS/default') {{-- Page title --}} @section('title') Provinsi @stop {{-- local styles --}} @section('header_styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/colReorder.bootstrap.css')}}" />
@@ -8,14 +8,11 @@
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/scroller.bootstrap.css')}}">
 <link href="{{asset('vendors/hover/css/hover-min.css')}}" rel="stylesheet">
 <link href="{{asset('css/buttons_sass.css')}}" rel="stylesheet">
-<link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
-
 @stop {{-- Page Header--}} @section('page-header')
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Kegiatan Kota</h1>
+    <h1>Provinsi</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -24,7 +21,7 @@
                 </a>
             </li>
             <li class="next">
-                Master Data / Kegiatan Kota
+                Monitoring / Kegiatan Kelurahan
             </li>
         </ul>
     </div>
@@ -37,34 +34,28 @@
                 <div class="panel-title pull-left">
                     <b>bk050201 Index</b>
                 </div>
-				<div class="tools pull-left">
-
-				</div>
-            </div>
-			<div class="panel-body">
 				<select id="agenda-input" name="agenda-input" class="form-control" size="1" required>
 					@foreach ($agenda as $kpl)
 						<option value="{{$kpl->kode_slum_prog}}" >{{$kpl->nama}}</option>
 					@endforeach
-					<option value="999" >nama</option>
 				</select>
-				<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" id="show" href="#">Show</a>
+            </div>
+            <div class="panel-body">
                 <div class="table-responsive">
 					<table class="table table-striped" id="users">
 						<thead>
                             <tr>
 								<th>ID</th>
-								<th>Agenda</th>
-								<th>Parent</th>
-                                <th>Kode Kegiatan</th>
+								<th>Provinsi</th>
+								<th>Peningkatan</th>
+								<th>Pencegahan</th>
+								<th>PPMK</th>
+								<th>BDI</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
             </div>
-			<!--<div class="tools pull-left">
-				<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" id="show" href="#">Show</a>
-			</div>-->
         </div>
     </div>
 </div>
@@ -72,19 +63,16 @@
 
 <script>
     $(document).ready(function () {
-		var dodol = {
-			par1: 'parameter'
-		}
 		var agenda=$('#agenda-input');
 		var table = $('#users').DataTable({
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/qs/master/kegiatan_kota",
+                     "url": "/qs/monitoring/kelurahan/prov",
                      "dataType": "json",
                      "type": "POST",
 					 "data": function ( d ) {
-						 d.par1=agenda.val()
+						 d.agenda=agenda.val()
 				     }
                    },
             success: function(data) {
@@ -95,66 +83,22 @@
                 alert(thrownError);
               },
 			  "columns": [
-				{ "data": "id" , name:"id"},
-				{ "data": "agenda" , name:"agenda"},
-				{ "data": "parent" , name:"parent"},
-				{ "data": "kode_keg_kota" , name:"kode_keg_kota"}
+				{ "data": "kode" , name:"kode"},
+				{ "data": "nama" , name:"nama"},
+				{ "data": "peningkatan" , name:"peningkatan",orderable:false},
+                { "data": "pencegahan" , name:"pencegahan",orderable:false},
+				{ "data": "ppmk" , name:"ppmk",orderable:false},
+				{ "data": "bdi" , name:"bdi",orderable:false}
             ],
-			"order": [[ 0, "desc" ]]
+			"order": [[ 0, "asc" ]]
 	    });
-
-		function setData(){
-			console.log('setData',$('#agenda-input').val())
-			return {par1:$('#agenda-input').val()}
-		}
-		console.log('dodol',table)
-
-		/*var table = $("#customerTable").DataTable({
-			data:[],
-			columns: [
-				{ "data": "CompanyId" },
-				{ "data": "CompanyName" },
-				{ "data": "City" },
-				{ "data": "Country" }
-			],
-			rowCallback: function (row, data) {},
-			filter: false,
-			info: false,
-			ordering: false,
-			processing: true,
-			retrieve: true
-		});*/
-		$("#show").on("click", function (event) {
-			//query_dt();
-
-			console.log('click');
-			table.ajax.reload();
-		});
-		function query_dt(){
-			$.ajax({
-				url: "/qs/monitoring/kelurahan",
-				type: "post",
-				data: function ( d ) {
-					 d.agenda =  agenda.val();
-				 }
-			}).done(function (result) {
-				console.log(result)
-				table.clear().draw();
-				table.rows.add(result).draw();
-			}).fail(function (jqXHR, textStatus, errorThrown) {
-			// needs to implement if it fails
-			});
-		}
-		$('#users_filter input').unbind();
-	    $('#users_filter input').bind('keyup', function(e) {
-		    if(e.keyCode == 13) {
-		        table.search(this.value).draw();
-		    }
-	    })
-		$("#agenda-input").select2({
-			theme: "bootstrap"
-		});
-	});
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
+        if(e.keyCode == 13) {
+            table.search(this.value).draw();
+        }
+    })
+});
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>
@@ -169,5 +113,4 @@
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.print.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.scroller.js')}}"></script>
 <script src="{{asset('js/custom_js/alert.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
 @stop
