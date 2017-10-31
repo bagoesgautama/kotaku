@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
+use Mail;
 
 class HomeController extends Controller
 {
@@ -33,6 +34,10 @@ class HomeController extends Controller
 					//$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['apps'])){
+				/*Mail::raw('Text to e-mail', function($message){
+					$message->from('kotakudemo@gmail.com', 'Sim');
+    				$message->to('ricky.yuliadi@gmail.com')->cc('ricky@alutechno.io');
+				})*/;
 			    return view('module',$data);
 			}
 			else {
