@@ -165,8 +165,7 @@ class bk010216Controller extends Controller
 					$data['kode_faskel_list']=DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010113_faskel b where a.kode_faskel=b.kode and a.kode_kel='.$rowData[0]->kode_kel);
 				if(!empty($rowData[0]->kode_kec))
 					$data['kode_kel_list']=DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$rowData[0]->kode_kec);
-				if($data['kode_unsur']!=null)
-					$data['kode_unsur_list'] =DB::select('select * from bkt_01010130_unsur where id='.$data['kode_unsur']);
+				$data['kode_unsur_list'] =DB::select('select * from bkt_01010130_unsur where status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010216/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['187'])){
