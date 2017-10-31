@@ -56,15 +56,15 @@
                     <table class="table table-striped" id="kegiatan">
                         <thead>
                             <tr>
-                                <th>KMW</th>
-                                <th>Kota</th>
-                                <th>Korkot</th>
-                                <th>Kecamatan</th>
+                                <th>Kode</th>
                                 <th>Kelurahan</th>
-                                <th>Faskel</th>
-                                <th>Jenis Kegiatan</th>
                                 <th>Tgl Kegiatan</th>
+                                <th>Nama Kegiatan</th>
+                                <th>Unsur</th>
+                                <th>Materi Narasumber</th>
+                                <th>Nama Narasumber</th>
                                 <th>Lokasi Kegiatan</th>
+                                <th>Jml Peserta</th>
                                 <th>Created Time</th>
                                 <th>option</th>
                             </tr>
@@ -92,18 +92,19 @@
                    },
 
             "columns": [
-                { "data": "kode_kmw" , name:"kode_kmw"},
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
-                { "data": "kode_kec" , name:"kode_kec"},
+                { "data": "kode" , name:"kode"},
                 { "data": "kode_kel" , name:"kode_kel"},
-                { "data": "kode_faskel" , name:"kode_faskel"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
+                { "data": "nama_kegiatan" , name:"nama_kegiatan"},
+                { "data": "nama_unsur" , name:"nama_unsur"},
+                { "data": "materi_narsum" , name:"materi_narsum"},
+                { "data": "nama_narsum" , name:"nama_narsum"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+                { "data": "jml_peserta" , name:"jml_peserta"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order":[[0,"desc"]]
         });
         $('#kegiatan_filter input').unbind();
         $('#kegiatan_filter input').bind('keyup', function(e) {
