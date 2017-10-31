@@ -46,19 +46,15 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users" width="3000px">
+                    <table class="table table-striped" id="users">
                         <thead>
                             <tr>
-                                <th>Data Usulan Kegiatan</th>
+                                <th>Kode</th>
+                                <th>Tahun</th>
+                                <th>Data Realisasi Kegiatan</th>
                                 <th>Sumber Dana</th>
                                 <th>Kota</th>
-                                <th>Korkot</th>
-                                <th>Kecamatan</th>
-                                <th>Kelurahan</th>
-                                <th>Faskel</th>
                                 <th>Kawasan</th>
-                                <th>KPP</th>
-                                <th>Tahun</th>
                                 <th>Tgl Realisasi</th>
                                 <th>Vol Realisasi</th>
                                 <th>Satuan</th>
@@ -89,16 +85,12 @@
                    },
 
             "columns": [
+                { "data": "kode" , name:"kode"},
+                { "data": "tahun" , name:"tahun"},
                 { "data": "kode_parent" , name:"kode_parent"},
                 { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
                 { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
-                { "data": "kode_kec" , name:"kode_kec"},
-                { "data": "kode_kel" , name:"kode_kel"},
-                { "data": "kode_faskel" , name:"kode_faskel"},
                 { "data": "kode_kawasan" , name:"kode_kawasan"},
-                { "data": "id_kpp" , name:"id_kpp"},
-                { "data": "tahun" , name:"tahun"},
                 { "data": "tgl_realisasi" , name:"tgl_realisasi"},
                 { "data": "vol_realisasi" , name:"vol_realisasi"},
                 { "data": "satuan" , name:"satuan"},
