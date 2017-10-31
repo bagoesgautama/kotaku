@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Pembangunan Visi @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pelaksanaan - Realisasi Kegiatan Skala Kelurahan BDI/Non BDI - Sertifikasi Infrastruktur @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Pelaksanaan - Realisasi Kegiatan Skala Kelurahan BDI/Non BDI - Sertifikasi Infrastruktur</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,16 +23,9 @@
                 </a>
             </li>
             <li class="next">
-                Perencanaan
-            </li>
-            <li class="next">
-                Penanganan Pemukiman Kota
-            </li>
-            <li class="next">
-                Perencanaan Penanganan Permukiman
-            </li>
-            <li class="next">
-                Pembangunan Visi
+                <a href="/main/pelaksanaan/kelurahan/sertifikasi_infra">
+                    Pelaksanaan / Realisasi Kegiatan Skala Kelurahan BDI/Non BDI / Sertifikasi Infrastruktur
+                </a>
             </li>
         </ul>
     </div>
@@ -43,28 +36,29 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010301 index</b>
+                    <b>bk010408 index</b>
                 </div>
-                @if( ! empty($detil['254']))
+                <!-- @if( ! empty($detil['375']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/penanganan/pembangunan_visi/create'}}">Create</a>
-				</div>
-                @endif
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kelurahan/ksm/create'}}">Create</a>
+                </div>
+                @endif -->
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="pokja">
-						<thead>
+                    <table class="table table-striped" id="users" width="2000px">
+                        <thead>
                             <tr>
+                                <th>Input Hasil Sertifikasi</th>
+                                <th>Hasil Sertifikasi</th>
+                                <th>KSM Pelaksana Kegiatan</th>
+                                <th>Data Realisasi Kegiatan</th>
+                                <th>Sumber Dana</th>
+                                <th>Kelurahan</th>
+                                <th>Faskel</th>
+                                <th>Kawasan</th>
                                 <th>Tahun</th>
-                                <th>Kota</th>
-                                <th>Kecamatan</th>
-                                <th>KMW</th>
-                                <th>Korkot</th>
-                                <th>Jenis Kegiatan</th>
-                                <th>Tgl Kegiatan</th>
-                                <th>Lokasi Kegiatan</th>
-                                <th>Option</th>
+                                <th>Created Time</th>
                             </tr>
                         </thead>
                     </table>
@@ -78,29 +72,31 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#pokja').DataTable({
-	        // dom: 'Bflrtip',
-	        
-			"processing": true,
+        var table = $('#users').DataTable({
+            // dom: 'Bflrtip',
+            
+            "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/perencanaan/penanganan/pembangunan_visi",
+                     "url": "/main/pelaksanaan/kelurahan_non/sertifikasi_infra",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-				{ "data": "tahun" , name:"tahun"},
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_kec" , name:"kode_kec"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
-				{ "data": "option" , name:"option",orderable:false}
-            ]
-	    });
+                { "data": "option" , name:"option",orderable:false, className:"text-center"},
+                { "data": "hasil_sertifikasi" , name:"hasil_sertifikasi"},
+                { "data": "id_ksm" , name:"id_ksm"},
+                { "data": "kode_parent" , name:"kode_parent"},
+                { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
+                { "data": "kode_kel" , name:"kode_kel"},
+                { "data": "kode_faskel" , name:"kode_faskel"},
+                { "data": "kode_kawasan" , name:"kode_kawasan"},
+                { "data": "tahun" , name:"tahun"},
+                { "data": "created_time" , name:"created_time"}
+                
+            ],
+        });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
@@ -123,3 +119,4 @@
 <script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.scroller.js')}}"></script>
 <script src="{{asset('js/custom_js/alert.js')}}" type="text/javascript"></script>
 @stop
+ 

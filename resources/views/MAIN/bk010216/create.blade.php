@@ -41,14 +41,35 @@
                     <div class="col-md-12">
                         <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">KMW</label>
+                                <label class="col-sm-3 control-label">Skala kegiatan</label>
+                                <div class="col-sm-6">
+                                    <select id="skala_kegiatan" name="skala_kegiatan" class="form-control" size="1" required>
+                                        <option value="2" {!! $skala_kegiatan=='2' ? 'selected':'' !!}>Skala Kelurahan</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Propinsi</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
+                                    <select id="select-kode-prop-input" name="kode-prop-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
+                                        @foreach ($kode_prop_list as $kpl)
+                                            <option value="{{$kpl->kode}}" {!! $kode_prop==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">KMW</label>
+                                <div class="col-sm-6">
                                     <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_kmw_list!=null)
                                         @foreach ($kode_kmw_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -57,9 +78,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_kota_list!=null)
                                         @foreach ($kode_kota_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -68,9 +91,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_korkot_list!=null)
                                         @foreach ($kode_korkot_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -79,9 +104,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_kec_list!=null)
                                         @foreach ($kode_kec_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -90,9 +117,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-kel-input" name="kode-kel-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_kel_list!=null)
                                         @foreach ($kode_kel_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kel==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -101,21 +130,18 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_faskel_list!=null)
                                         @foreach ($kode_faskel_list as $kfl)
                                             <option value="{{$kfl->kode}}" {!! $kode_faskel==$kfl->kode ? 'selected':'' !!}>{{$kfl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Jenis kegiatan</label>
+                                <label class="col-sm-3 control-label" for="example-text-input1">Nama Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1" required>
-                                        <option value="2.5.1" {!! $jenis_kegiatan=='2.5.1' ? 'selected':'' !!}>Sosialisasi</option>
-                                        <option value="2.5.1.4" {!! $jenis_kegiatan=='2.5.1.4' ? 'selected':'' !!}>Relawan</option>
-                                        <option value="2.5.1.5" {!! $jenis_kegiatan=='2.5.1.5' ? 'selected':'' !!}>Agen Sosialisasi</option>
-                                        <option value="2.5.3" {!! $jenis_kegiatan=='2.5.3' ? 'selected':'' !!}>Pelatihan Masyarakat</option>
-                                    </select>
+                                    <input type="text" id="nama_kegiatan" name="nama_kegiatan" class="form-control" value="{{$nama_kegiatan}}" maxlength="100" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -131,33 +157,56 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
+                                <label class="col-sm-3 control-label" for="kode">Unsur</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
-                                <div class="col-sm-6">
-                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="kode">Anggota Miskin/MBR</label>
-                                <div class="col-sm-6">
-                                    <input type="number" id="q-mbr-input" name="q-mbr-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_mbr}}" required>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="kode">Bahan Sosialisasi</label>
-                                <div class="col-sm-6">
-                                    <select id="bhn-sosialisasi-input" name="bhn-sosialisasi-input" class="form-control" size="1">
-                                        @foreach ($kode_bhn_sos_list as $kbsl)
-                                            <option value="{{$kbsl->id}}" {!! $id_bhn_sosialisasi==$kbsl->id ? 'selected':'' !!}>{{$kbsl->kode_bhn_sosialisasi}}</option>
+                                    <select id="select-kode-unsur-input" name="kode-unsur-input" class="form-control select2" size="1" required>
+                                        @foreach ($kode_unsur_list as $kul)
+                                            <option value="{{$kul->id}}" {!! $kode_unsur==$kul->id ? 'selected':'' !!}>{{$kul->nama}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="example-text-input1">Materi Narasumber</label>
+                                <div class="col-sm-6">
+                                    <textarea style="resize: vertical" id="materi_narsum" name="materi_narsum" class="form-control" maxlength="1000" required>{{$materi_narsum}}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="example-text-input1">Nama Narasumber</label>
+                                <div class="col-sm-6">
+                                    <input type="text" id="nama_narsum" name="nama_narsum" class="form-control" value="{{$nama_narsum}}" maxlength="100" required>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="example-text-input1">Jumlah Peserta</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="jml_peserta" name="jml_peserta" class="form-control" value="{{$jml_peserta}}" maxlength="11" required>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="example-text-input1">Media</label>
+                                <div class="col-sm-6">
+                                    <textarea style="resize: vertical" id="media" name="media" class="form-control" maxlength="255" required>{{$media}}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="example-text-input1">Hasil Kesepakatan</label>
+                                <div class="col-sm-6">
+                                    <textarea style="resize: vertical" id="hasil_kesepakatan" name="hasil_kesepakatan" class="form-control" maxlength="1000" required>{{$hasil_kesepakatan}}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Sumber Pembiayaan</label>
+                                <div class="col-sm-6">
+                                    <select id="sumber_pembiayaan" name="sumber_pembiayaan" class="form-control" size="1" required>
+                                        <option value="1" {!! $sumber_pembiayaan=='1' ? 'selected':'' !!}>APBN</option>
+                                        <option value="2" {!! $sumber_pembiayaan=='2' ? 'selected':'' !!}>APBD</option>
+                                        <option value="3" {!! $sumber_pembiayaan=='3' ? 'selected':'' !!}>CSR</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">File Dokumen</label>
                                 <div class="col-sm-6">
@@ -244,33 +293,7 @@
   	        showUpload: false
   	    });
         $('#form').on('submit', function (e) {
-            var file_dokumen = document.getElementById('file-dokumen-input').files[0];
-            var file_absensi = document.getElementById('file-absensi-input').files[0];
-            var form_data = new FormData();
-            form_data.append('kode', $('#kode').val());
-            form_data.append('file-dokumen-input', file_dokumen);
-            form_data.append('file-absensi-input', file_absensi);
-            form_data.append('uploaded-file-dokumen', $('#uploaded-file-dokumen').val());
-            form_data.append('uploaded-file-absensi', $('#uploaded-file-absensi').val());
-            form_data.append('kode-kota-input', $('#select-kode-kota-input').val());
-            form_data.append('kode-kec-input', $('#select-kode-kec-input').val());
-            form_data.append('kode-kel-input', $('#select-kode-kel-input').val());
-            form_data.append('kode-kmw-input', $('#select-kode-kmw-input').val());
-            form_data.append('kode-korkot-input', $('#select-kode-korkot-input').val());
-            form_data.append('kode-faskel-input', $('#select-kode-faskel-input').val());
-            form_data.append('jns-kegiatan-input', $('#jns-kegiatan-input').val());
-            form_data.append('tgl-kegiatan-input', $('#tgl-kegiatan-input').val());
-            form_data.append('lok-kegiatan-input', $('#lok-kegiatan-input').val());
-            form_data.append('q-laki-input', $('#q-laki-input').val());
-            form_data.append('q-perempuan-input', $('#q-perempuan-input').val());
-            form_data.append('q-mbr-input', $('#q-mbr-input').val());
-            form_data.append('bhn-sosialisasi-input', $('#bhn-sosialisasi-input').val());
-            form_data.append('tgl-diser-input', $('#tgl-diser-input').val());
-            form_data.append('diser-oleh-input', $('#diser-oleh-input').val());
-            form_data.append('tgl-diket-input', $('#tgl-diket-input').val());
-            form_data.append('diket-oleh-input', $('#diket-oleh-input').val());
-            form_data.append('tgl-diver-input', $('#tgl-diver-input').val());
-            form_data.append('diver-oleh-input', $('#diver-oleh-input').val());
+            var form_data = new FormData(this);
           e.preventDefault();
           $.ajax({
             type: 'post',
@@ -292,29 +315,45 @@
             }
           });
         });
+        $("#select-kode-prop-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
         $("#select-kode-kota-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width:"100%"
         });
         $("#select-kode-kec-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width:"100%"
         });
         $("#select-kode-kel-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width:"100%"
         });
         $("#select-kode-kmw-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width:"100%"
         });
         $("#select-kode-korkot-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width:"100%"
         });
         $("#select-kode-faskel-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width:"100%"
+        });
+        $("#select-kode-unsur-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
         });
 
         function enforce_maxlength(event) {
@@ -325,6 +364,7 @@
         }
         document.body.addEventListener('input', enforce_maxlength);
 
+        var prop = $('#select-kode-prop-input');
         var kmw = $('#select-kode-kmw-input');
         var kota = $('#select-kode-kota-input');
         var korkot = $('#select-kode-korkot-input');
@@ -332,12 +372,24 @@
         var kel = $('#select-kode-kel-input');
         var faskel = $('#select-kode-faskel-input');
         var kmw_id,kota_id,korkot_id,kec_id,kel_id,faskel_id;
-        var kode_kmw = {!! json_encode($kode_kmw) !!};
-        var kode_kota = {!! json_encode($kode_kota) !!};
-        var kode_korkot = {!! json_encode($kode_korkot) !!};
-        var kode_kec = {!! json_encode($kode_kec) !!};
-        var kode_kel = {!! json_encode($kode_kel) !!};
-        var kode_faskel = {!! json_encode($kode_faskel) !!};
+
+        prop.change(function(){
+            prop_id=prop.val();
+            if(prop_id!=null){
+                kmw.empty();
+                kmw.append("<option value>Please select</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/sosialisasi/select?prop="+prop_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            kmw.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
 
         kmw.change(function(){
             kmw_id=kmw.val();
