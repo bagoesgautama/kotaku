@@ -56,7 +56,8 @@
                     <table class="table table-striped" id="kegiatan">
                         <thead>
                             <tr>
-                                <th>Kode Pokja</th>
+                                <th>Kode</th>
+                                <th>Pokja Propinsi</th>
                                 <th>Jenis Sub Kegiatan</th>
                                 <th>Tanggal Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
@@ -87,13 +88,15 @@
                    },
 
             "columns": [
+                { "data": "kode" , name:"kode"},
                 { "data": "kode_pokja" , name:"kode_pokja"},
                 { "data": "jenis_subkegiatan" , name:"jenis_subkegiatan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order":[[0,"desc"]]
         });
         $('#kegiatan_filter input').unbind();
         $('#kegiatan_filter input').bind('keyup', function(e) {

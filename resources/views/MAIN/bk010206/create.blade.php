@@ -63,9 +63,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_kota_list!=null)
                                         @foreach ($kode_kota_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -74,29 +76,24 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_korkot_list!=null)
                                         @foreach ($kode_korkot_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Faskel</label>
                                 <div class="col-sm-6">
-                                    <select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1" required>
+                                    <select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1">
                                         <option value>Please select</option>
+                                        @if ($kode_faskel_list!=null)
                                         @foreach ($kode_faskel_list as $kfl)
                                             <option value="{{$kfl->kode}}" {!! $kode_faskel==$kfl->kode ? 'selected':'' !!}>{{$kfl->nama}}</option>
                                         @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Jenis Kegiatan</label>
-                                <div class="col-sm-6">
-                                    <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1" required>
-                                        <option value="2.1" {!! $jenis_kegiatan=='2.1' ? 'selected':'' !!}>2.1</option>
-                                        <option value="2.2" {!! $jenis_kegiatan=='2.2' ? 'selected':'' !!}>2.2</option>
+                                        @endif
                                     </select>
                                 </div>
                             </div>

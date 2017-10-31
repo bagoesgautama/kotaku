@@ -51,14 +51,28 @@ class bk010305Controller extends Controller
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'tahun',
-			1 =>'kode_prop',
-			2 =>'kode_kota',
-			3 =>'kode_korkot',
+			0 =>'kode',
+			1 =>'tahun',
+			2 =>'kode_prop',
+			3 =>'kode_kota',
 			4 =>'created_time'
 		);
-		$query='select a.kode, a.tahun, b.nama as kode_prop, c.nama as kode_kota, d.nama as kode_korkot, a.created_time from bkt_01030202_pfl_pmkm_kt a, bkt_01010101_prop b, bkt_01010102_kota c, bkt_01010111_korkot d where a.kode_prop = b.kode and a.kode_kota = c.kode and a.kode_korkot = d.kode';
-		$totalData = DB::select('select count(1) cnt from bkt_01030202_pfl_pmkm_kt a, bkt_01010101_prop b, bkt_01010102_kota c, bkt_01010111_korkot d where a.kode_prop = b.kode and a.kode_kota = c.kode and a.kode_korkot = d.kode');
+		$query='
+			select * from (select 
+				a.*,
+				a.kode kode_pfl, 
+				a.tahun tahun_pfl, 
+				b.nama as nama_prop,  
+				c.nama as nama_kota, 
+				d.nama as nama_korkot
+			from bkt_01030202_pfl_pmkm_kt a
+				left join bkt_01010101_prop b on a.kode_prop=b.kode
+				left join bkt_01010102_kota c on a.kode_kota=c.kode
+				left join bkt_01010111_korkot d on a.kode_korkot=d.kode) b';
+		$totalData = DB::select('select count(1) cnt from bkt_01030202_pfl_pmkm_kt a
+				left join bkt_01010101_prop b on a.kode_prop=b.kode
+				left join bkt_01010102_kota c on a.kode_kota=c.kode
+				left join bkt_01010111_korkot d on a.kode_korkot=d.kode');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -66,12 +80,21 @@ class bk010305Controller extends Controller
 		$dir = $request->input('order.0.dir');
 		if(empty($request->input('search.value')))
 		{
-			$posts=DB::select($query .' order by a.'.$order.' '.$dir.' limit '.$start.','.$limit);
+			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and (a.tahun like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+				b.kode_pfl like "%'.$search.'%" or 
+				b.nama_prop like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or 
+				b.tahun_pfl like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+				b.kode_pfl like "%'.$search.'%" or 
+				b.nama_prop like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or 
+				b.tahun_pfl like "%'.$search.'%")) a');
+			$totalFiltered = $totalFiltered[0]->cnt;
 		}
 
 		$data = array();
@@ -85,10 +108,11 @@ class bk010305Controller extends Controller
 
 				$url_edit=url('/')."/main/perencanaan/penanganan/lokasi_profile/create?kode=".$edit;
 				$url_delete=url('/')."/main/perencanaan/penanganan/lokasi_profile/delete?kode=".$delete;
-				$nestedData['tahun'] = $post->tahun;
-				$nestedData['kode_prop'] = $post->kode_prop;
-				$nestedData['kode_kota'] = $post->kode_kota;
-				$nestedData['kode_korkot'] = $post->kode_korkot;
+				$nestedData['kode'] = $post->kode_pfl;
+				$nestedData['tahun'] = $post->tahun_pfl;
+				$nestedData['kode_prop'] = $post->nama_prop;
+				$nestedData['kode_kota'] = $post->nama_kota;
+				$nestedData['kode_korkot'] = $post->nama_korkot;
 				$nestedData['created_time'] =  $post->created_time;
 
 				$user = Auth::user();
@@ -273,8 +297,8 @@ class bk010305Controller extends Controller
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
 				$data['kode_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
-				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
-				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota');
+				$data['kode_korkot_list'] = null;
+				$data['kode_kota_list'] = null;
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010305/create',$data);
 			}else{

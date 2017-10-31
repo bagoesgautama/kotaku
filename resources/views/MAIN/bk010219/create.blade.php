@@ -57,9 +57,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_kota_list!=null)
                                         @foreach ($kode_kota_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -68,9 +70,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_korkot_list!=null)
                                         @foreach ($kode_korkot_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -79,9 +83,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_kec_list!=null)
                                         @foreach ($kode_kec_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -90,9 +96,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-kel-input" name="kode-kel-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_kel_list!=null)
                                         @foreach ($kode_kel_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kel==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -101,9 +109,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_faskel_list!=null)
                                         @foreach ($kode_faskel_list as $kfl)
                                             <option value="{{$kfl->kode}}" {!! $kode_faskel==$kfl->kode ? 'selected':'' !!}>{{$kfl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>

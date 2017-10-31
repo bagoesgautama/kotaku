@@ -56,11 +56,10 @@
                     <table class="table table-striped" id="pokja">
                         <thead>
                             <tr>
+                                <th>Kode</th>
                                 <th>Tahun</th>
                                 <th>Propinsi</th>
-                                <th>KMW</th>
                                 <th>Kota</th>
-                                <th>Korkot</th>
                                 <th>Created Time</th>
                                 <th>Option</th>
                             </tr>
@@ -88,14 +87,14 @@
                    },
 
             "columns": [
+                { "data": "kode" , name:"kode"},
                 { "data": "tahun" , name:"tahun"},
                 { "data": "kode_prop" , name:"kode_prop"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
                 { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order":[[0,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

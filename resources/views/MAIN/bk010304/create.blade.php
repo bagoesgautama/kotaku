@@ -63,9 +63,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_kota_list!=null)
                                         @foreach ($kode_kota_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -74,9 +76,24 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_korkot_list!=null)
                                         @foreach ($kode_korkot_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Kecamatan</label>
+                                <div class="col-sm-6">
+                                    <select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1">
+                                        <option value>Please select</option>
+                                        @if ($kode_kec_list!=null)
+                                        @foreach ($kode_kec_list as $kkl)
+                                            <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                        @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -84,9 +101,9 @@
                                 <label class="col-sm-3 control-label">Jenis Kegiatan</label>
                                 <div class="col-sm-6">
                                     <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1" required>
-                                        <option value="3.1.1" {!! $jenis_kegiatan=='3.1.1' ? 'selected':'' !!}>Pembangunan Visi</option>
+                                        <!-- <option value="3.1.1" {!! $jenis_kegiatan=='3.1.1' ? 'selected':'' !!}>Pembangunan Visi</option>
                                         <option value="3.1.2" {!! $jenis_kegiatan=='3.1.2' ? 'selected':'' !!}>Pelaksanaan RPK</option>
-                                        <option value="3.3.1" {!! $jenis_kegiatan=='3.3.1' ? 'selected':'' !!}>Lokakarya Perencanaan</option>
+                                        <option value="3.3.1" {!! $jenis_kegiatan=='3.3.1' ? 'selected':'' !!}>Lokakarya Perencanaan</option> -->
                                         <option value="3.4" {!! $jenis_kegiatan=='3.4' ? 'selected':'' !!}>Konsultasi Perencanaan</option>
                                     </select>
                                 </div>
@@ -275,6 +292,10 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
+        $("#select-kode-kec-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
 
          function enforce_maxlength(event) {
             var t = event.target;
@@ -287,6 +308,7 @@
         var kmw = $('#select-kode-kmw-input');
         var kota = $('#select-kode-kota-input');
         var korkot = $('#select-kode-korkot-input');
+        var kec = $('#select-kode-kec-input');
         var kmw_id,kota_id,korkot_id;
         var kode_kmw = {!! json_encode($kode_kmw) !!};
         var kode_kota = {!! json_encode($kode_kota) !!};
@@ -328,6 +350,24 @@
                 });
 
 
+            }
+        });
+
+        kota.change(function(){
+            kota_id=kota.val();
+            if(kota_id!=null){
+                kec.empty();
+                kec.append("<option value>Please select</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/perencanaan/penanganan/pelaksanaan_rpk/select?kota_kec="+kota_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            kec.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
             }
         });
       });

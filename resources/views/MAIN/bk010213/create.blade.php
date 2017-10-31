@@ -51,7 +51,7 @@
                                 <label class="col-sm-3 control-label">Tingkat Forum</label>
                                 <div class="col-sm-6">
                                     <select id="tk-forum-input" name="tk-forum-input" class="form-control" size="1" required>
-                                        <option value="1" {!! $tk_forum=='1' ? 'selected':'' !!}>Kota</option>
+                                        <!-- <option value="1" {!! $tk_forum=='1' ? 'selected':'' !!}>Kota</option> -->
                                         <option value="2" {!! $tk_forum=='2' ? 'selected':'' !!}>Kecamatan</option>
                                     </select>
                                 </div>
@@ -72,9 +72,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_kota_list!=null)
                                         @foreach ($kode_kota_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -83,9 +85,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_korkot_list!=null)
                                         @foreach ($kode_korkot_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -94,9 +98,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
+                                        @if ($kode_kec_list!=null)
                                         @foreach ($kode_kec_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -104,7 +110,7 @@
                                 <label class="col-sm-3 control-label">Jenis kegiatan</label>
                                 <div class="col-sm-6">
                                     <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1" required>
-                                        <option value="2.4.5" {!! $jenis_kegiatan=='2.4.5' ? 'selected':'' !!}>Kolaborasi Kota</option>
+                                        <!-- <option value="2.4.5" {!! $jenis_kegiatan=='2.4.5' ? 'selected':'' !!}>Kolaborasi Kota</option> -->
                                         <option value="2.4.6" {!! $jenis_kegiatan=='2.4.6' ? 'selected':'' !!}>Kolaborasi Kecamatan</option>
                                     </select>
                                 </div>

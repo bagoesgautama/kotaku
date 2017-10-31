@@ -96,7 +96,8 @@
                 { "data": "status_pokja" , name:"status_pokja"},
                 { "data": "created_time" , name:"created_time"},
 				{ "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order":[[0,"desc"]]
 	    });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

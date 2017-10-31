@@ -58,11 +58,7 @@
                             <tr>
                                 <th>Kode</th>
                                 <th>Tahun</th>
-                                <th>KMW</th>
                                 <th>Kota</th>
-                                <th>Korkot</th>
-                                <th>Faskel</th>
-                                <th>Jenis Kegiatan</th>
                                 <th>Tanggal Pembentukan</th>
                                 <th>Status Pokja</th>
                                 <th>Created Time</th>
@@ -94,16 +90,13 @@
             "columns": [
                 { "data": "kode" , name:"kode"},
                 { "data": "tahun" , name:"tahun"},
-                { "data": "kode_kmw" , name:"kode_kmw"},
                 { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_korkot" , name:"kode_korkot"},
-                { "data": "kode_faskel" , name:"kode_faskel"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "status_pokja" , name:"status_pokja"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order":[[0,"desc"]]
         });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {

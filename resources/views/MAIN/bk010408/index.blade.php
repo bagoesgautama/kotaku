@@ -83,7 +83,7 @@
                    },
 
             "columns": [
-                { "data": "option" , name:"option",orderable:false},
+                { "data": "option" , name:"option",orderable:false, className:"text-center"},
                 { "data": "id_ksm" , name:"id_ksm"},
                 { "data": "kode_parent" , name:"kode_parent"},
                 { "data": "jns_sumber_dana" , name:"jns_sumber_dana"},
