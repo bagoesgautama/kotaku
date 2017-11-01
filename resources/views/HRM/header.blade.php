@@ -94,7 +94,7 @@
 						</li>
 						<li role="presentation"></li>
 						<li>
-							<a href="/hrm/management/user/password">
+							<a href="/hrm/profil/user/password">
 								<i class="fa fa-fw ti-settings"></i> Change Password
 							</a>
 						</li>
@@ -131,7 +131,7 @@
 						</li>
 						<li role="presentation"></li>
 						<li>
-							<a href="/hrm/management/user/password">
+							<a href="/hrm/profil/user/password">
 								<i class="fa fa-fw ti-settings"></i> Change Password
 							</a>
 						</li>

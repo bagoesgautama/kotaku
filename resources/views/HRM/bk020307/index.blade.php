@@ -27,8 +27,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk020307 Index</b>
+                    <b>Change Password</b>
                 </div>
+				<div class="tools pull-right">
+					<b>bk020307 Index</b>
+				</div>
             </div>
             <div class="panel-body">
 				<form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
