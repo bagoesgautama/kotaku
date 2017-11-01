@@ -94,8 +94,30 @@ class bk010114Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+					b.nama like "%'.$search.'%" or 
+					c.nama like "%'.$search.'%" or
+					d.nama like "%'.$search.'%" or 
+					e.nama like "%'.$search.'%" or
+					f.nama like "%'.$search.'%" or
+					a.blm like "%'.$search.'%" or 
+					a.jenis_project like "%'.$search.'%" or
+					a.tahun_glossary like "%'.$search.'%" or 
+					a.tahun_project like "%'.$search.'%" or
+					a.awal_project like "%'.$search.'%" )
+					order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+					b.nama like "%'.$search.'%" or 
+					c.nama like "%'.$search.'%" or
+					d.nama like "%'.$search.'%" or 
+					e.nama like "%'.$search.'%" or
+					f.nama like "%'.$search.'%" or
+					a.blm like "%'.$search.'%" or 
+					a.jenis_project like "%'.$search.'%" or
+					a.tahun_glossary like "%'.$search.'%" or 
+					a.tahun_project like "%'.$search.'%" or
+					a.awal_project like "%'.$search.'%"
+					)) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 

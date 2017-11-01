@@ -84,8 +84,7 @@ class bk010111Controller extends Controller
 					from bkt_01010111_korkot a
 					left join bkt_01010110_kmw b on a.kode_kmw=b.kode
 					left join bkt_01010115_pms c on a.kode_pms=c.kode ';
-		$totalData = DB::select('select count(1) cnt
-									from bkt_01010111_korkot a
+		$totalData = DB::select('select count(1) cnt from bkt_01010111_korkot a
 									left join bkt_01010110_kmw b on a.kode_kmw=b.kode
 									left join bkt_01010115_pms c on a.kode_pms=c.kode ');
 		$totalFiltered = $totalData[0]->cnt;
@@ -99,8 +98,32 @@ class bk010111Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (a.nama like "%'.$search.'%" or a.email1 like "%'.$search.'%" or a.no_hp1 like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (a.nama like "%'.$search.'%" or a.email1 like "%'.$search.'%" or a.no_hp1 like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+					a.nama like "%'.$search.'%" or 
+					b.nama like "%'.$search.'%" or
+					a.alamat like "%'.$search.'%" or 
+					a.kodepos like "%'.$search.'%" or
+					a.contact_person like "%'.$search.'%" or
+					a.no_phone like "%'.$search.'%" or
+					a.no_hp1 like "%'.$search.'%" or
+					a.no_hp2 like "%'.$search.'%" or
+					a.email1 like "%'.$search.'%" or
+					a.email2 like "%'.$search.'%" or
+					c.nama like "%'.$search.'%" )
+					order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+					a.nama like "%'.$search.'%" or 
+					b.nama like "%'.$search.'%" or
+					a.alamat like "%'.$search.'%" or 
+					a.kodepos like "%'.$search.'%" or
+					a.contact_person like "%'.$search.'%" or
+					a.no_phone like "%'.$search.'%" or
+					a.no_hp1 like "%'.$search.'%" or
+					a.no_hp2 like "%'.$search.'%" or
+					a.email1 like "%'.$search.'%" or
+					a.email2 like "%'.$search.'%" or
+					c.nama like "%'.$search.'%"
+					)) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 

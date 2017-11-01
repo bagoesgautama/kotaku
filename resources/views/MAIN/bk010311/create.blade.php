@@ -84,7 +84,6 @@
                                             <select id="select-skala_kegiatan-input" class="form-control select2" name="select-skala_kegiatan-input" required>
                                                 <option value=""></option>
                                                 <option value="1" {!! $skala_kegiatan=='1' ? 'selected':'' !!}>Kota/Kabupaten</option>
-                                                <option value="2" {!! $skala_kegiatan=='2' ? 'selected':'' !!}>Desa/Kelurahan</option>
                                             </select>
                                         </div>
                                     </div>

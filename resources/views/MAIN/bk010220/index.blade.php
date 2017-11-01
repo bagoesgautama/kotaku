@@ -108,8 +108,8 @@
             ]
         });
 
-        $('#provinsi_filter input').unbind();
-        $('#provinsi_filter input').bind('keyup', function(e) {
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
             if(e.keyCode == 13) {
                 table.search(this.value).draw();
             }

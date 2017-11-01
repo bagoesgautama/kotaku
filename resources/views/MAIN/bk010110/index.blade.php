@@ -46,7 +46,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users" >
+					<table class="table table-striped" id="users" width="2000px" >
 						<thead>
                             <tr>
 								<th>Kode</th>
@@ -92,7 +92,7 @@
               },
             "columns": [
 				{ "data": "kode" , name:"kode"},
-                { "data": "slum_program" , name:"slum_program"},
+                { "data": "kode_kmp_slum_prog" , name:"kode_kmp_slum_prog"},
                 { "data": "nama_prop" , name:"nama_prop"},
                 { "data": "nama" , name:"nama"},
                 { "data": "alamat" , name:"alamat"},

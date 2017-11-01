@@ -94,17 +94,38 @@ class bk010310Controller extends Controller
 			36 => 'updated_time',
 			37 => 'updated_by'
 		);
-		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kmw, e.nama nama_faskel, g.nama nama_kawasan
-			from bkt_01030207_k_prior_inv_5th a, 
-				bkt_01010102_kota b, 
-				bkt_01010111_korkot c, 
-				bkt_01010110_kmw d, 
-				bkt_01010113_faskel e,
-				bkt_01030206_plan_kaw_prior f,
-				bkt_01010123_kawasan g
-			where b.kode=a.kode_kota and c.kode=a.kode_korkot and d.kode=a.kode_kmw and e.kode=a.kode_faskel and f.kode_kawasan=g.id ';
+		$query='select a.*, 
+					b.nama nama_kota, 
+					c.nama nama_korkot, 
+					d.nama nama_kmw, 
+					e.nama nama_faskel, 
+					g.nama nama_kawasan,
+					h.nama nama_subkomponen,
+					i.nama nama_dtl_subkomponen,
+					case 
+						when a.jenis_kegiatan = "L" then "Lingkungan"
+						when a.jenis_kegiatan = "S" then "Sosial"
+						when a.jenis_kegiatan = "E" then "EKonomi"
+					end nama_jenis_kegiatan
+				from bkt_01030207_k_prior_inv_5th a 
+					left join bkt_01010102_kota b on b.kode=a.kode_kota
+					left join bkt_01010111_korkot c on c.kode=a.kode_korkot
+					left join bkt_01010110_kmw d on d.kode=a.kode_kmw
+					left join bkt_01010113_faskel e on e.kode=a.kode_faskel
+					left join bkt_01030206_plan_kaw_prior f on f.kode=a.kode_kaw_prior
+					left join bkt_01010123_kawasan g on g.id=f.kode_kawasan
+					left join bkt_01010120_subkomponen h on h.id=a.id_subkomponen
+					left join bkt_01010121_dtl_subkomponen i on i.id=a.id_dtl_subkomponen';
 			
-		$totalData = DB::select('select count(1) cnt from bkt_01030207_k_prior_inv_5th ');
+		$totalData = DB::select('select count(1) cnt from bkt_01030207_k_prior_inv_5th a 
+									left join bkt_01010102_kota b on b.kode=a.kode_kota
+									left join bkt_01010111_korkot c on c.kode=a.kode_korkot
+									left join bkt_01010110_kmw d on d.kode=a.kode_kmw
+									left join bkt_01010113_faskel e on e.kode=a.kode_faskel
+									left join bkt_01030206_plan_kaw_prior f on f.kode=a.kode_kaw_prior
+									left join bkt_01010123_kawasan g on g.id=f.kode_kawasan
+									left join bkt_01010120_subkomponen h on h.id=a.id_subkomponen
+									left join bkt_01010121_dtl_subkomponen i on i.id=a.id_dtl_subkomponen ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -116,8 +137,28 @@ class bk010310Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and a.tahun like "%'.$search.'%" or b.kode_prop like "%'.$search.'%" or c.kode_kota like "%'.$search.'%" or d.kode_korkot like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and a.tahun like "%'.$search.'%" or b.kode_prop like "%'.$search.'%" or c.kode_kota like "%'.$search.'%" or d.kode_korkot like "%'.$search.'%") a');
+			$posts=DB::select($query. ' where (
+					b.nama like "%'.$search.'%" or 
+					c.nama like "%'.$search.'%" or
+					d.nama like "%'.$search.'%" or 
+					e.nama like "%'.$search.'%" or
+					g.nama like "%'.$search.'%" or
+					lower(a.jenis_kegiatan) = "'.strtolower(substr($search,0,1)).'" or  
+					h.nama like "%'.$search.'%" or 
+					i.nama like "%'.$search.'%" or
+					a.tahun like "%'.$search.'%" )
+					order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+					b.nama like "%'.$search.'%" or 
+					c.nama like "%'.$search.'%" or
+					d.nama like "%'.$search.'%" or 
+					e.nama like "%'.$search.'%" or
+					g.nama like "%'.$search.'%" or
+					lower(a.jenis_kegiatan) = "'.strtolower(substr($search,0,1)).'" or 
+					h.nama like "%'.$search.'%" or 
+					i.nama like "%'.$search.'%" or
+					a.tahun like "%'.$search.'%"
+					)) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
@@ -138,9 +179,9 @@ class bk010310Controller extends Controller
 				$nestedData['nama_kawasan'] = $post->nama_kawasan;
 				$nestedData['nama_kmw'] = $post->nama_kmw;
 				$nestedData['nama_faskel'] = $post->nama_faskel;
-				$nestedData['jenis_kegiatan'] = $post->jenis_kegiatan;
-				$nestedData['id_subkomponen'] = $post->id_subkomponen;
-				$nestedData['id_dtl_subkomponen'] = $post->id_dtl_subkomponen;
+				$nestedData['nama_jenis_kegiatan'] = $post->nama_jenis_kegiatan;
+				$nestedData['nama_subkomponen'] = $post->nama_subkomponen;
+				$nestedData['nama_dtl_subkomponen'] = $post->nama_dtl_subkomponen;
 				$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
 				$nestedData['dk_q_kegiatan'] = $post->dk_q_kegiatan;
 				$nestedData['dk_vol_kegiatan'] = $post->dk_vol_kegiatan;

@@ -185,6 +185,173 @@ class bk010314Controller extends Controller
 		echo json_encode($json_data);
 	}
 
+	public function post_peserta(Request $request)
+	{
+		if($request->input('kode')!=null)
+		{
+			$columns = array(
+				0 =>'kode_lelang',
+				1 => 'no_urut',
+				2 => 'kode_kontraktor',
+				3 => 'flag_pemenang',
+				4 => 'diser_tgl',
+				5 => 'diser_oleh',
+				6 => 'diket_tgl',
+				7 => 'diket_oleh',
+				8 => 'diver_tgl',
+				9 => 'diver_oleh',
+				10 => 'created_time',
+				11 => 'created_by',
+				12 => 'updated_time',
+				13 => 'updated_by',
+				14 => 'nama_paket'
+			);
+			$query='select * from bkt_01030212_pst_lelang ';
+				
+			$totalData = DB::select('select count(1) cnt from bkt_01030212_pst_lelang ');
+			$totalFiltered = $totalData[0]->cnt;
+			$limit = $request->input('length');
+			$start = $request->input('start');
+			$order = $columns[$request->input('order.0.column')];
+			$dir = $request->input('order.0.dir');
+			if(empty($request->input('search.value')))
+			{
+				$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			}
+			else {
+				$search = $request->input('search.value');
+				$posts=DB::select($query. ' and a.tahun like "%'.$search.'%" or b.kode_prop like "%'.$search.'%" or c.kode_kota like "%'.$search.'%" or d.kode_korkot like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+				$totalFiltered=DB::select('select count(1) from ('.$query. ' and a.tahun like "%'.$search.'%" or b.kode_prop like "%'.$search.'%" or c.kode_kota like "%'.$search.'%" or d.kode_korkot like "%'.$search.'%") a');
+			}
+
+			$data = array();
+			if(!empty($posts))
+			{
+				foreach ($posts as $post)
+				{
+					$show =  $post->kode;
+					$edit =  $post->kode;
+					$delete = $post->kode;
+
+					$url_edit=url('/')."/main/perencanaan/pengadaan_lelang/peserta/create?kode=".$edit;
+					$url_delete=url('/')."/main/perencanaan/pengadaan_lelang/peserta/delete?kode=".$delete;
+					$nestedData['kode_lelang'] = $post->kode_lelang;
+					$nestedData['no_urut'] = $post->no_urut;
+					$nestedData['kode_kontraktor'] = $post->kode_kontraktor;
+					$nestedData['flag_pemenang'] = $post->flag_pemenang;
+					$nestedData['diser_tgl'] = $post->diser_tgl;
+					$nestedData['diser_oleh'] = $post->diser_oleh;
+					$nestedData['diket_tgl'] = $post->diket_tgl;
+					$nestedData['diket_oleh'] = $post->diket_oleh;
+					$nestedData['diver_tgl'] = $post->diver_tgl;
+					$nestedData['diver_oleh'] = $post->diver_oleh;
+					$nestedData['created_time'] = $post->created_time;
+					$nestedData['created_by'] = $post->created_by;
+					$nestedData['updated_time'] = $post->updated_time;
+					$nestedData['updated_by'] = $post->updated_by;
+					$nestedData['nama_paket'] = $post->nama_paket;
+
+					$user = Auth::user();
+			        $akses= $user->menu()->where('kode_apps', 1)->get();
+					if(count($akses) > 0){
+						foreach ($akses as $item) {
+							if($item->kode_menu==100)
+								$detil[$item->kode_menu_detil]='a';
+						}
+					}
+
+					$option = '';
+					if(!empty($detil['305'])){
+						$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
+					}
+					$nestedData['option'] = $option;
+					$data[] = $nestedData;
+				}
+			}
+
+			$json_data = array(
+						"draw"            => intval($request->input('draw')),
+						"recordsTotal"    => intval($totalData[0]->cnt),
+						"recordsFiltered" => intval($totalFiltered),
+						"data"            => $data
+						);
+
+			echo json_encode($json_data);
+		}
+		elseif($request->input('kode_real_keg')!=null)
+		{
+			$columns = array(
+				0 =>'nik',
+				1 =>'nama',
+				2 =>'alamat',
+				3 =>'kode_jenis_kelamin',
+				4 =>'created_time'
+			);
+
+			if($request->input('where')!=null){
+				$query='select * from bkt_01010131_pemanfaat where '.$request->input('where');
+				$totalData = DB::select('select count(1) cnt from bkt_01010131_pemanfaat where '.$request->input('where'));
+			}else{
+				$query='select * from bkt_01010131_pemanfaat';
+				$totalData = DB::select('select count(1) cnt from bkt_01010131_pemanfaat');
+			}
+			
+			$totalFiltered = $totalData[0]->cnt;
+			$limit = $request->input('length');
+			$start = $request->input('start');
+			$order = $columns[$request->input('order.0.column')];
+			$dir = $request->input('order.0.dir');
+			if(empty($request->input('search.value')))
+			{
+				$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			}
+			else {
+				$search = $request->input('search.value');
+				$posts=DB::select($query. ' and (nik like "%'.$search.'%" or nama like "%'.$search.'%" or alamat like "%'.$search.'%" or kode_jenis_kelamin like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+				$totalFiltered=DB::select('select count(1) from ('.$query. ' and (nik like "%'.$search.'%" or nama like "%'.$search.'%" or alamat like "%'.$search.'%" or kode_jenis_kelamin like "%'.$search.'%")) a');
+			}
+
+			$data = array();
+			if(!empty($posts))
+			{
+				foreach ($posts as $post)
+				{
+					$show =  $post->kode;
+					$nestedData['nik'] = $post->nik;
+					$nestedData['nama'] = $post->nama;
+					$nestedData['alamat'] = $post->alamat;
+					$nestedData['kode_jenis_kelamin'] = $post->kode_jenis_kelamin;
+					$nestedData['created_time'] = $post->created_time;
+
+					$user = Auth::user();
+			        $akses= $user->menu()->where('kode_apps', 1)->get();
+					if(count($akses) > 0){
+						foreach ($akses as $item) {
+							if($item->kode_menu==122)
+								$detil[$item->kode_menu_detil]='a';
+						}
+					}
+
+					$option = '';
+					if(!empty($detil['385'])){
+						$option .= "<input type='checkbox' name='check[]' id='check[]' value='$show'>";
+					}
+					$nestedData['option'] = $option;
+					$data[] = $nestedData;
+				}
+			}
+
+			$json_data = array(
+						"draw"            => intval($request->input('draw')),
+						"recordsTotal"    => intval($totalData[0]->cnt),
+						"recordsFiltered" => intval($totalFiltered),
+						"data"            => $data
+						);
+
+			echo json_encode($json_data);
+		}
+	}
+
 	public function select(Request $request)
 	{
 		// if(!empty($request->input('prop'))){
@@ -395,100 +562,7 @@ class bk010314Controller extends Controller
        			]);
     }
 
-    public function post_peserta(Request $request)
-	{
-		$columns = array(
-			0 =>'kode_lelang',
-			1 => 'no_urut',
-			2 => 'kode_kontraktor',
-			3 => 'flag_pemenang',
-			4 => 'diser_tgl',
-			5 => 'diser_oleh',
-			6 => 'diket_tgl',
-			7 => 'diket_oleh',
-			8 => 'diver_tgl',
-			9 => 'diver_oleh',
-			10 => 'created_time',
-			11 => 'created_by',
-			12 => 'updated_time',
-			13 => 'updated_by',
-			14 => 'nama_paket'
-		);
-		$query='select * from bkt_01030212_pst_lelang ';
-			
-		$totalData = DB::select('select count(1) cnt from bkt_01030212_pst_lelang ');
-		$totalFiltered = $totalData[0]->cnt;
-		$limit = $request->input('length');
-		$start = $request->input('start');
-		$order = $columns[$request->input('order.0.column')];
-		$dir = $request->input('order.0.dir');
-		if(empty($request->input('search.value')))
-		{
-			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-		}
-		else {
-			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and a.tahun like "%'.$search.'%" or b.kode_prop like "%'.$search.'%" or c.kode_kota like "%'.$search.'%" or d.kode_korkot like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and a.tahun like "%'.$search.'%" or b.kode_prop like "%'.$search.'%" or c.kode_kota like "%'.$search.'%" or d.kode_korkot like "%'.$search.'%") a');
-		}
-
-		$data = array();
-		if(!empty($posts))
-		{
-			foreach ($posts as $post)
-			{
-				$show =  $post->kode;
-				$edit =  $post->kode;
-				$delete = $post->kode;
-
-				$url_edit=url('/')."/main/perencanaan/pengadaan_lelang/peserta/create?kode=".$edit;
-				$url_delete=url('/')."/main/perencanaan/pengadaan_lelang/peserta/delete?kode=".$delete;
-				$nestedData['kode_lelang'] = $post->kode_lelang;
-				$nestedData['no_urut'] = $post->no_urut;
-				$nestedData['kode_kontraktor'] = $post->kode_kontraktor;
-				$nestedData['flag_pemenang'] = $post->flag_pemenang;
-				$nestedData['diser_tgl'] = $post->diser_tgl;
-				$nestedData['diser_oleh'] = $post->diser_oleh;
-				$nestedData['diket_tgl'] = $post->diket_tgl;
-				$nestedData['diket_oleh'] = $post->diket_oleh;
-				$nestedData['diver_tgl'] = $post->diver_tgl;
-				$nestedData['diver_oleh'] = $post->diver_oleh;
-				$nestedData['created_time'] = $post->created_time;
-				$nestedData['created_by'] = $post->created_by;
-				$nestedData['updated_time'] = $post->updated_time;
-				$nestedData['updated_by'] = $post->updated_by;
-				$nestedData['nama_paket'] = $post->nama_paket;
-
-				$user = Auth::user();
-		        $akses= $user->menu()->where('kode_apps', 1)->get();
-				if(count($akses) > 0){
-					foreach ($akses as $item) {
-						if($item->kode_menu==100)
-							$detil[$item->kode_menu_detil]='a';
-					}
-				}
-
-				$option = '';
-				if(!empty($detil['303'])){
-					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
-				}
-				if(!empty($detil['305'])){
-					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}
-				$nestedData['option'] = $option;
-				$data[] = $nestedData;
-			}
-		}
-
-		$json_data = array(
-					"draw"            => intval($request->input('draw')),
-					"recordsTotal"    => intval($totalData[0]->cnt),
-					"recordsFiltered" => intval($totalFiltered),
-					"data"            => $data
-					);
-
-		echo json_encode($json_data);
-	}
+    
 
 	public function create_peserta(Request $request)
 	{

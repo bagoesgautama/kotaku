@@ -101,8 +101,18 @@ class bk010221Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+					kode_forum like "%'.$search.'%" or 
+					kode_kegiatan like "%'.$search.'%" or
+					tgl_kegiatan like "%'.$search.'%" or 
+					lok_kegiatan like "%'.$search.'%" )
+					order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+					kode_forum like "%'.$search.'%" or 
+					kode_kegiatan like "%'.$search.'%" or
+					tgl_kegiatan like "%'.$search.'%" or 
+					lok_kegiatan like "%'.$search.'%"
+					)) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 

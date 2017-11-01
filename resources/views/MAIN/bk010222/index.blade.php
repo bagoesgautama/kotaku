@@ -42,7 +42,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users" width="2000px">
+                    <table class="table table-striped" id="users" width="3000px">
                         <thead>
                             <tr>
                                 <th>Tahun</th>
@@ -112,8 +112,8 @@
             ]
         });
 
-        $('#provinsi_filter input').unbind();
-        $('#provinsi_filter input').bind('keyup', function(e) {
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
             if(e.keyCode == 13) {
                 table.search(this.value).draw();
             }

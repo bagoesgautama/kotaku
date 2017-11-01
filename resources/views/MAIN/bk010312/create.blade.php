@@ -212,7 +212,11 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Satuan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="dk_satuan-input" name="dk_satuan-input" class="form-control" placeholder="Satuan" value="{{$dk_satuan}}" maxlength="50">
+                                            <select id="select-dk_satuan-input" class="form-control select2" name="select-dk_satuan-input">
+                                                <option value="unit" {!! $dk_satuan=='unit' ? 'selected':'' !!}>Unit</option>
+                                                <option value="meter" {!! $dk_satuan=='meter' ? 'selected':'' !!}>Meter</option>
+                                                <option value="m2" {!! $dk_satuan=='m2' ? 'selected':'' !!}>m2</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -433,6 +437,12 @@
         $("#select-kode_faskel-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
+        });
+
+        $("#select-dk_satuan-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
         });
 
         $("#select-jenis_komponen_keg-input").select2({

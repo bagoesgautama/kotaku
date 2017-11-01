@@ -195,13 +195,17 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Satuan</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="dk_satuan-input" name="dk_satuan-input" class="form-control" placeholder="Satuan" value="{{$dk_satuan}}" maxlength="50">
+                                    <select id="select-dk_satuan-input" class="form-control select2" name="select-dk_satuan-input">
+                                        <option value="unit" {!! $dk_satuan=='unit' ? 'selected':'' !!}>Unit</option>
+                                        <option value="meter" {!! $dk_satuan=='meter' ? 'selected':'' !!}>Meter</option>
+                                        <option value="m2" {!! $dk_satuan=='m2' ? 'selected':'' !!}>m2</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                  <label class="col-sm-3 control-label" for="example-text-input31">Kategori Penanganan</label>
                                 <div class="col-sm-6">
-                                    <select id="select-dk_tipe_penanganan-input" class="form-control select2" name="select-dk_tipe_penanganan-input-input">
+                                    <select id="select-dk_tipe_penanganan-input" class="form-control select2" name="select-dk_tipe_penanganan-input">
                                         <option value="">Please Select</option>
                                         <option value="0" {!! $dk_tipe_penanganan=='0' ? 'selected':'' !!}>Rehab</option>
                                         <option value="1" {!! $dk_tipe_penanganan=='1' ? 'selected':'' !!}>Baru</option>
@@ -413,6 +417,12 @@
         });
 
         $("#select-kode_kontraktor-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
+
+        $("#select-dk_satuan-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select",
             width:"100%"

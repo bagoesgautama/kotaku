@@ -46,7 +46,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users" width="6000px">
+                    <table class="table table-striped" id="users" width="7000px">
                         <thead>
                             <tr>
                                 <th>Tahun</th>
@@ -116,20 +116,20 @@
 
             "columns": [
                 { "data": "tahun" , name:"tahun"},
-                { "data": "skala_kegiatan" , name:"skala_kegiatan"},
+                { "data": "nama_skala_kegiatan" , name:"nama_skala_kegiatan"},
                 { "data": "nama_kota" , name:"nama_kota"},
                 { "data": "nama_korkot" , name:"nama_korkot"},
                 { "data": "nama_kel" , name:"nama_kel"},
                 { "data": "nama_kmw" , name:"nama_kmw"},
                 { "data": "nama_faskel" , name:"nama_faskel"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
+                { "data": "nama_jenis_kegiatan" , name:"nama_jenis_kegiatan"},
                 { "data": "no_proposal" , name:"no_proposal"},
                 { "data": "tgl_proposal" , name:"tgl_proposal"},
                 { "data": "thn_anggaran" , name:"thn_anggaran"},
-                { "data": "kategori_penanganan" , name:"kategori_penanganan"},
-                { "data": "jenis_komponen_keg" , name:"jenis_komponen_keg"},
-                { "data": "id_subkomponen" , name:"id_subkomponen"},
-                { "data": "id_dtl_subkomponen" , name:"id_dtl_subkomponen"},
+                { "data": "nama_kategori_penanganan" , name:"nama_kategori_penanganan"},
+                { "data": "nama_jenis_komponen_keg" , name:"nama_jenis_komponen_keg"},
+                { "data": "nama_subkomponen" , name:"nama_subkomponen"},
+                { "data": "nama_dtl_subkomponen" , name:"nama_dtl_subkomponen"},
                 { "data": "dk_vol_kegiatan" , name:"dk_vol_kegiatan"},
                 { "data": "dk_satuan" , name:"dk_satuan"},
                 { "data": "dk_lok_kegiatan" , name:"dk_lok_kegiatan"},
