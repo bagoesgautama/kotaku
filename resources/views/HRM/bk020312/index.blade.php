@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Profil @stop {{-- local styles --}} @section('header_styles')
+@extends('HRM/default') {{-- Page title --}} @section('title') Profile @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
@@ -6,7 +6,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Profil</h1>
+    <h1>Profile</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -26,8 +26,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk020312 Index</b>
+                    <b>Profile Index</b>
                 </div>
+				<div class="tools pull-right">
+					<b>bk020307 Index</b>
+				</div>
             </div>
             <div class="panel-body">
 				<form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">

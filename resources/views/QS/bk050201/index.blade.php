@@ -103,6 +103,12 @@
 			"order": [[ 0, "desc" ]]
 	    });
 
+		function setData(){
+			console.log('setData',$('#agenda-input').val())
+			return {par1:$('#agenda-input').val()}
+		}
+		console.log('dodol',table)
+
 		/*var table = $("#customerTable").DataTable({
 			data:[],
 			columns: [
@@ -119,6 +125,8 @@
 			retrieve: true
 		});*/
 		$("#show").on("click", function (event) {
+			//query_dt();
+
 			console.log('click');
 			table.ajax.reload();
 		});

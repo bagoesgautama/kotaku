@@ -34,8 +34,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk020301 Index</b>
+                    <b>Pesan</b>
                 </div>
+				<div class="tools pull-right">
+					<b>bk020301 Index</b>
+				</div>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">

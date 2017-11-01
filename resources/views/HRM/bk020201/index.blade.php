@@ -33,8 +33,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk020201 Index</b>
+					<b>Web Activity Log Index</b>
                 </div>
+				<div class="tools pull-right">
+					<b>bk020201 Index</b>
+				</div>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">

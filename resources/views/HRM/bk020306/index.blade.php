@@ -34,8 +34,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk020306 Index</b>
+                    <b>Perubahan Status</b>
                 </div>
+				<div class="tools pull-right">
+					<b>bk020306 Index</b>
+				</div>
                 @if( ! empty($detil['549']))
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/profil/user/perubahan/create">Create</a>

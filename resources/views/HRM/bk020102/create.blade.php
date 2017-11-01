@@ -10,7 +10,7 @@
                 <i class="fa fa-fw fa-home"></i> HRM
             </a>
         </li>
-        <li><a href="/hrm/role"> Role </a></li>
+        <li><a href="/hrm/admin/role"> Role </a></li>
         <li class="active">
             Create
         </li>
@@ -19,6 +19,7 @@
 @stop
 {{-- Page content --}} @section('content')
 <div class="panel-body border">
+
     <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
         <div class="row">
             <div class="form-group striped-col">
@@ -79,7 +80,7 @@
             </div>-->
             <div class="form-group form-actions">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <a href="/hrm/role" type="button" class="btn btn-effect-ripple btn-danger">
+                    <a href="/hrm/admin/role" type="button" class="btn btn-effect-ripple btn-danger">
                         Cancel
                     </a>
                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -103,7 +104,7 @@
           e.preventDefault();
           $.ajax({
             type: 'post',
-            "url": "/hrm/role/create",
+            "url": "/hrm/admin/role/create",
             data: $('form').serialize(),
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
@@ -111,7 +112,7 @@
             success: function () {
 
             alert('From Submitted.');
-            window.location.href = "/hrm/role";
+            window.location.href = "/hrm/admin/role";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

@@ -41,7 +41,7 @@ class bk020102Controller extends Controller
 					from bkt_02010104_modul b,bkt_02010103_apps c
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
-				
+
 				$this->log_aktivitas('View', 15);
 				return view('HRM/bk020102/index',$data);
 			}
@@ -103,8 +103,8 @@ class bk020102Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_edit=url('/')."/hrm/role/create?kode=".$show;
-				$url_delete=url('/')."/hrm/role/delete?kode=".$delete;
+				$url_edit=url('/')."/hrm/admin/role/create?kode=".$show;
+				$url_delete=url('/')."/hrm/admin/role/delete?kode=".$delete;
 				$nestedData['nama'] = $post->nama;
 				$nestedData['deskripsi'] = $post->deskripsi;
 				$nestedData['status'] = $post->nama_status;
@@ -128,7 +128,7 @@ class bk020102Controller extends Controller
 				}
 				if(!empty($detil['18'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}		
+				}
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
@@ -163,7 +163,7 @@ class bk020102Controller extends Controller
 		//get dropdown list from Database
 		$kode_level = DB::select('select kode, nama from bkt_02010101_role_level where status=1');
 		$data['kode_level_list'] = $kode_level;
-		
+
 		if($data['kode']!=null && !empty($data['detil']['17'])){
 			$rowData = DB::select('select * from bkt_02010102_role where kode='.$data['kode']);
 			$data['nama'] = $rowData[0]->nama;
@@ -184,7 +184,7 @@ class bk020102Controller extends Controller
 			$data['created_by'] = null;
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
-		
+
 		return view('HRM/bk020102/create',$data);
 			}else {
 				return Redirect::to('/');
@@ -199,9 +199,9 @@ class bk020102Controller extends Controller
 		date_default_timezone_set('Asia/Jakarta');
 		if ($request->input('example-id-input')!=null){
 			DB::table('bkt_02010102_role')->where('kode', $request->input('example-id-input'))
-			->update(['nama' => $request->input('example-text-input'), 
-				'deskripsi' => $request->input('example-textarea-input'), 
-				'status' => $request->input('example-select'), 
+			->update(['nama' => $request->input('example-text-input'),
+				'deskripsi' => $request->input('example-textarea-input'),
+				'status' => $request->input('example-select'),
 				'kode_level' => $request->input('example-select-level'),
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
@@ -209,10 +209,10 @@ class bk020102Controller extends Controller
 		$this->log_aktivitas('Update', 17);
 		}else{
 			DB::table('bkt_02010102_role')->insert(
-       			['nama' => $request->input('example-text-input'), 
-       			'deskripsi' => $request->input('example-textarea-input'), 
-       			'status' => $request->input('example-select'), 
-       			'kode_level' => $request->input('example-select-level'), 
+       			['nama' => $request->input('example-text-input'),
+       			'deskripsi' => $request->input('example-textarea-input'),
+       			'status' => $request->input('example-select'),
+       			'kode_level' => $request->input('example-select-level'),
        			'created_by' => Auth::user()->id
        			]);
 		$this->log_aktivitas('Create', 16);
@@ -222,12 +222,12 @@ class bk020102Controller extends Controller
 	public function delete(Request $request)
 	{
 		DB::table('bkt_02010102_role')->where('kode', $request->input('kode'))
-			->update(['status' => '2', 
+			->update(['status' => '2',
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
         $this->log_aktivitas('Delete', 18);
-        return Redirect::to('/hrm/role');
+        return Redirect::to('/hrm/admin/role');
     }
 
     public function log_aktivitas($aktifitas, $detil)
@@ -235,10 +235,10 @@ class bk020102Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 2,
-				'kode_modul' => 4, 
-				'kode_menu' => 9,   
-				'kode_menu_detil' => $detil, 
-				'aktifitas' => $aktifitas, 
+				'kode_modul' => 4,
+				'kode_menu' => 9,
+				'kode_menu_detil' => $detil,
+				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas
        			]);
     }
