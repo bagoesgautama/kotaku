@@ -195,32 +195,48 @@
                                        placeholder="No. Hp" required>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <p class="form-group">
+                                Role Level
+                            </p>
+                        </div>
 						<div class="col-md-12">
                             <div class="form-group">
                                 <label for="alamat" class="sr-only">Level</label>
 								<select id="kode_level-input" name="kode_level-input" class="form-control select2" size="1">
-                                    <option value>Level</option>
+                                    <option value>Role Level</option>
 			                        @foreach ($level_list as $kpl)
 			                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
 			                        @endforeach
 			                    </select>
                             </div>
                         </div>
-						<div class="col-md-12">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="alamat" class="sr-only">Role</label>
-								<select id="kode_role-input" name="kode_role-input" class="form-control select2" size="1">
+                                <select id="kode_role-input" name="kode_role-input" class="form-control select2" size="1">
                                     <option value>Role</option>
 
-			                    </select>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">KMP</label>
+                                <select id="kode_kmp-input" name="kode_kmp-input" class="form-control select2" size="1">
+                                    <option value>KMP</option>
+                                    @foreach ($kmp_list as $kpl)
+                                        <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12" id="wil_kerja_label" hidden>
                             <p class="form-group">
                                 Wilayah Kerja
                             </p>
                         </div>
-						<div class="col-md-12">
+						<div class="col-md-12" id="prov_label" hidden>
                             <div class="form-group">
                                 <label for="alamat" class="sr-only">Provinsi</label>
                                 <select id="wk_kd_prop-input" name="wk_kd_prop-input" class="form-control select2" size="1">
@@ -231,7 +247,15 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12" id="kmw_label" hidden>
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">KMW</label>
+                                <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1">
+                                    <option value>KMW</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12" id="kota_label" hidden>
                             <div class="form-group">
                                 <label for="alamat" class="sr-only">Kota</label>
                                 <select id="wk_kd_kota-input" name="wk_kd_kota-input" class="form-control select2" size="1">
@@ -239,11 +263,35 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12" id="korkot_label" hidden>
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">Korkot</label>
+                                <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1">
+                                    <option value>Korkot</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12" id="kec_label" hidden>
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">Kecamatan</label>
+                                <select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1">
+                                    <option value>Kecamatan</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12" id="kel_label" hidden>
                             <div class="form-group">
                                 <label for="alamat" class="sr-only">Kelurahan</label>
                                 <select id="wk_kd_kel-input" name="wk_kd_kel-input" class="form-control select2" size="1">
                                     <option value>WK Kelurahan</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12" id="faskel_label" hidden>
+                            <div class="form-group">
+                                <label for="alamat" class="sr-only">Faskel</label>
+                                <select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1">
+                                    <option value>Faskel</option>
                                 </select>
                             </div>
                         </div>
@@ -293,54 +341,95 @@
     $(document).ready(function () {
         $('#kode_level-input').select2({
             theme: "bootstrap",
-            placeholder: "Level"
+            placeholder: "Role Level",
+            width: "100%"
         });
         $('#kode_role-input').select2({
             theme: "bootstrap",
-            placeholder: "Role"
+            placeholder: "Role",
+            width: "100%"
+        });
+        $('#kode_kmp-input').select2({
+            theme: "bootstrap",
+            placeholder: "KMP",
+            width: "100%"
         });
         $('#kode_prop-input').select2({
             theme: "bootstrap",
-            placeholder: "Provinsi"
+            placeholder: "Provinsi",
+            width: "100%"
+        });
+        $('#select-kode-kmw-input').select2({
+            theme: "bootstrap",
+            placeholder: "KMW",
+            width: "100%"
         });
         $('#kode_kota-input').select2({
             theme: "bootstrap",
-            placeholder: "Kota"
+            placeholder: "Kota",
+            width: "100%"
+        });
+        $('#select-kode-korkot-input').select2({
+            theme: "bootstrap",
+            placeholder: "Korkot",
+            width: "100%"
+        });
+        $('#select-kode-kec-input').select2({
+            theme: "bootstrap",
+            placeholder: "Kecamatan",
+            width: "100%"
         });
         $('#kode_kecamatan-input').select2({
             theme: "bootstrap",
-            placeholder: "Kecamatan"
+            placeholder: "Kecamatan",
+            width: "100%"
         });
         $('#kode_kelurahan-input').select2({
             theme: "bootstrap",
-            placeholder: "Kelurahan"
+            placeholder: "Kelurahan",
+            width: "100%"
+        });
+        $('#select-kode-faskel-input').select2({
+            theme: "bootstrap",
+            placeholder: "Faskel",
+            width: "100%"
         });
         $('#kode_tempat_lahir-input').select2({
             theme: "bootstrap",
-            placeholder: "Tempat Lahir"
+            placeholder: "Tempat Lahir",
+            width: "100%"
         });
         $('#wk_kd_prop-input').select2({
             theme: "bootstrap",
-            placeholder: "WK Provinsi"
+            placeholder: "WK Provinsi",
+            width: "100%"
         });
         $('#wk_kd_kota-input').select2({
             theme: "bootstrap",
-            placeholder: "WK Kota"
+            placeholder: "WK Kota",
+            width: "100%"
         });
         $('#wk_kd_kel-input').select2({
             theme: "bootstrap",
-            placeholder: "WK Kelurahan"
+            placeholder: "WK Kelurahan",
+            width: "100%"
         });
+
         var level = $('#kode_level-input');
         var role = $('#kode_role-input');
+        var kmp = $('#kode_kmp-input');
         var prop = $('#kode_prop-input');
         var kota = $('#kode_kota-input');
         var kec = $('#kode_kecamatan-input');
         var kel = $('#kode_kelurahan-input');
         var wkprop = $('#wk_kd_prop-input');
+        var wkkmw = $('#select-kode-kmw-input');
         var wkkota = $('#wk_kd_kota-input');
+        var wkkorkot = $('#select-kode-korkot-input');
+        var wkkec = $('#select-kode-kec-input');
         var wkkel = $('#wk_kd_kel-input');
-        var level_id,role_id,prop_id,kota_id,kec_id,kel_id,wkprop_id,wkkota_id;
+        var wkfaskel = $('#select-kode-faskel-input');
+        var level_id,role_id,kmp_id,prop_id,kota_id,kec_id,kel_id,wkprop_id,wkkota_id,wkkmw_id,wkkorkot_id,wkkec_id,wkfaskel_id;
 
         level.change(function(){
             level_id=level.val();
@@ -357,6 +446,88 @@
                         }
                     }
                 });
+            }
+        });
+
+        level.change(function(){
+            level_id=level.val();
+            role_id=role.val();
+            kmp_id=kmp.val();
+
+            if(level_id!=null){
+                if(level_id==2){
+                    wkkota.empty();
+                    $('#kota_label').hide();
+                    wkfaskel.empty();
+                    $('#faskel_label').hide();
+                    wkkec.empty();
+                    $('#kec_label').hide();
+                    wkkel.empty();
+                    $('#kel_label').hide();
+                    $('#wil_kerja_label').show();
+                    wkprop.val(null).trigger('change');
+                    $('#prov_label').show();
+                    $('#kmw_label').show();
+
+                }else if(level_id==3){
+                    wkkorkot.empty();
+                    $('#korkot_label').hide();
+                    wkkec.empty();
+                    $('#kec_label').hide();
+                    wkkel.empty();
+                    $('#kel_label').hide();
+                    $('#wil_kerja_label').show();
+                    wkprop.val(null).trigger('change');
+                    $('#prov_label').show();
+                    $('#kmw_label').show();
+                    $('#kota_label').show();
+
+                }else if(level_id==4){
+                    wkkorkot.empty();
+                    $('#korkot_label').hide();
+                    wkkota.empty();
+                    $('#kota_label').hide();
+                    wkfaskel.empty();
+                    $('#faskel_label').hide();
+                    wkkel.empty();
+                    $('#kel_label').hide();
+                    $('#wil_kerja_label').show();
+                    wkprop.val(null).trigger('change');
+                    $('#prov_label').show();
+                    $('#kmw_label').show();
+                    $('#kota_label').show();
+                    $('#kec_label').show();
+
+                }else if(level_id==5){
+                    wkkorkot.empty();
+                    $('#korkot_label').hide();
+                    wkkota.empty();
+                    $('#kota_label').hide();
+                    wkfaskel.empty();
+                    $('#faskel_label').hide();
+                    wkkec.empty();
+                    $('#kec_label').hide();
+                    $('#wil_kerja_label').show();
+                    wkprop.val(null).trigger('change');
+                    $('#prov_label').show();
+                    $('#kmw_label').show();
+                    $('#kota_label').show();
+                    $('#kec_label').show();
+                    $('#kel_label').show();
+
+                }else{
+                    $('#wil_kerja_label').hide();
+                    wkprop.val(null).trigger('change');
+                    $('#prov_label').hide();
+                    wkkmw.empty();
+                    $('#kmw_label').hide();
+                    wkkorkot.empty();
+                    $('#korkot_label').hide();
+                    wkkota.empty();
+                    $('#kota_label').hide();
+                    wkfaskel.empty();
+                    $('#faskel_label').hide();
+                }
             }
         });
 
@@ -414,14 +585,56 @@
             }
         });
 
+        role.change(function(){
+            role_id=role.val();
+            if(role_id!=null){
+                $.ajax({
+                    type: 'get',
+                    "url": "/register/select?role_flag_koor="+role_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        if(data!=null){
+                            if(data[0].flag_koordinator==1 && data[0].kode_level==2){
+                                $('#korkot_label').show();
+                            }else if(data[0].flag_koordinator==1 && data[0].kode_level==3){
+                                $('#faskel_label').show();
+                            }else{
+                                if(data[0].kode_level==2){
+                                    wkkorkot.val(null).trigger('change');
+                                    $('#korkot_label').hide();
+                                }else if(data[0].kode_level==3){
+                                    wkfaskel.val(null).trigger('change');
+                                    $('#faskel_label').hide();
+                                }
+                                
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
         wkprop.change(function(){
             wkprop_id=wkprop.val();
             if(wkprop_id!=null){
+                wkkmw.empty();
+                wkkmw.append("<option value>KMW</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/register/select?wk_kd_prop_kmw="+wkprop_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkkmw.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+
                 wkkota.empty();
                 wkkota.append("<option value>Kota</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/register/select?wk_kd_prop="+wkprop_id,
+                    "url": "/register/select?wk_kd_prop_kota="+wkprop_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -432,14 +645,63 @@
             }
         });
 
+        wkkmw.change(function(){
+            wkkmw_id=wkkmw.val();
+            if(wkkmw_id!=null){
+                wkkorkot.empty();
+                wkkorkot.append("<option value>Korkot</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/register/select?wk_kd_kmw_korkot="+wkkmw_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkkorkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+
+                wkfaskel.empty();
+                wkfaskel.append("<option value>Faskel</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/register/select?wk_kd_kmw_faskel="+wkkmw_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkfaskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
         wkkota.change(function(){
             wkkota_id=wkkota.val();
             if(wkkota_id!=null){
+                wkkec.empty();
+                wkkec.append("<option value>Kota</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/register/select?wk_kd_kota_kec="+wkkota_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkkec.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        wkkec.change(function(){
+            wkkec_id=wkkec.val();
+            if(wkkec_id!=null){
                 wkkel.empty();
                 wkkel.append("<option value>Kota</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/register/select?wk_kd_kota="+wkkota_id,
+                    "url": "/register/select?wk_kd_kec_kel="+wkkec_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
