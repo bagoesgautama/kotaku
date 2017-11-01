@@ -78,8 +78,7 @@ class bk010109Controller extends Controller
 					left join bkt_01010108_kmp b on a.kode_kmp=b.kode 
 					left join bkt_01010107_slum_program c on a.kode_slum_prog=c.kode ';
 
-		$totalData = DB::select('select count(1) cnt 
-									from bkt_01010109_kmp_slum_prog a
+		$totalData = DB::select('select count(1) cnt from bkt_01010109_kmp_slum_prog a
 									left join bkt_01010108_kmp b on a.kode_kmp=b.kode 
 									left join bkt_01010107_slum_program c on a.kode_slum_prog=c.kode');
 		$totalFiltered = $totalData[0]->cnt;
@@ -93,8 +92,14 @@ class bk010109Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+					b.nama like "%'.$search.'%" or 
+					c.nama like "%'.$search.'%" )
+					order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+					b.nama like "%'.$search.'%" or 
+					c.nama like "%'.$search.'%" 
+					)) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 

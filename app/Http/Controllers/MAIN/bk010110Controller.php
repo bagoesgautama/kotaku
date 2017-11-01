@@ -70,7 +70,7 @@ class bk010110Controller extends Controller
 	{
 		$columns = array(
 			0 =>'a.kode',
-			1 =>'slum_program',
+			1 =>'kode_kmp_slum_prog',
 			2 =>'kode_prop',
 			3 =>'nama',
 			4 =>'alamat',
@@ -102,8 +102,34 @@ class bk010110Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. 'where nama like "%'.$search.'%" or email1 like "%'.$search.'%" or no_hp1 like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. 'where nama like "%'.$search.'%" or email1 like "%'.$search.'%" or no_hp1 like "%'.$search.'%") a');
+			$posts=DB::select($query. ' where (
+					a.kode_kmp_slum_prog like "%'.$search.'%" or
+					a.nama like "%'.$search.'%" or 
+					b.nama like "%'.$search.'%" or
+					a.alamat like "%'.$search.'%" or
+					a.kodepos like "%'.$search.'%" or
+					a.contact_person like "%'.$search.'%" or
+					a.no_phone like "%'.$search.'%" or
+					a.no_hp1 like "%'.$search.'%" or
+					a.no_hp2 like "%'.$search.'%" or
+					a.email1 like "%'.$search.'%" or
+					a.email2 like "%'.$search.'%" or
+					c.nama like "%'.$search.'%" )
+					order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+					a.kode_kmp_slum_prog like "%'.$search.'%" or
+					a.nama like "%'.$search.'%" or 
+					b.nama like "%'.$search.'%" or
+					a.alamat like "%'.$search.'%" or
+					a.kodepos like "%'.$search.'%" or
+					a.contact_person like "%'.$search.'%" or
+					a.no_phone like "%'.$search.'%" or
+					a.no_hp1 like "%'.$search.'%" or
+					a.no_hp2 like "%'.$search.'%" or
+					a.email1 like "%'.$search.'%" or
+					a.email2 like "%'.$search.'%" or
+					c.nama like "%'.$search.'%"
+					)) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
@@ -118,7 +144,7 @@ class bk010110Controller extends Controller
 				$url_edit=url('/')."/main/kmw/create?kode=".$show;
 				$url_delete=url('/')."/main/kmw/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode;
-				$nestedData['slum_program'] = $post->slum_program;
+				$nestedData['kode_kmp_slum_prog'] = $post->kode_kmp_slum_prog;
 				$nestedData['nama_prop'] = $post->nama_prop;
 				$nestedData['nama'] = $post->nama;
 				$nestedData['alamat'] = $post->alamat;

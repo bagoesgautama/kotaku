@@ -99,23 +99,23 @@
 
             "columns": [
                 { "data": "tahun" , name:"tahun"},
-                { "data": "skala_kegiatan" , name:"skala_kegiatan"},
+                { "data": "nama_skala_kegiatan" , name:"nama_skala_kegiatan"},
                 { "data": "nama_kmw" , name:"nama_kmw"},
                 { "data": "nama_kota" , name:"nama_kota"},
                 { "data": "nama_korkot" , name:"nama_korkot"},
                 { "data": "nama_kec" , name:"nama_kec"},
                 { "data": "nama_kel" , name:"nama_kel"},
                 { "data": "nama_faskel" , name:"nama_faskel"},
-                { "data": "kode_kontraktor" , name:"kode_kontraktor"},
+                { "data": "nama_kontraktor" , name:"nama_kontraktor"},
                 { "data": "tgl_mulai_ktrk" , name:"tgl_mulai_ktrk"},
                 { "data": "tgl_selesai_ktrk" , name:"tgl_selesai_ktrk"},
-                { "data": "jenis_komponen_keg" , name:"jenis_komponen_keg"},
-                { "data": "id_subkomponen" , name:"id_subkomponen"},
-                { "data": "id_dtl_subkomponen" , name:"id_dtl_subkomponen"},
+                { "data": "nama_jenis_komponen_keg" , name:"nama_jenis_komponen_keg"},
+                { "data": "nama_subkomponen" , name:"nama_subkomponen"},
+                { "data": "nama_dtl_subkomponen" , name:"nama_dtl_subkomponen"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
                 { "data": "dk_vol_kegiatan" , name:"dk_vol_kegiatan"},
                 { "data": "dk_satuan" , name:"dk_satuan"},
-                { "data": "dk_tipe_penanganan" , name:"dk_tipe_penanganan"},
+                { "data": "nama_tipe_penanganan" , name:"nama_tipe_penanganan"},
                 { "data": "nb_apbn_nsup" , name:"nb_apbn_nsup"},
                 { "data": "nb_apbn_lain" , name:"nb_apbn_kl_lain"},
                 { "data": "nb_apbd_prop" , name:"nb_apbd_prop"},
@@ -124,8 +124,8 @@
                 { "data": "option" , name:"option",orderable:false}
             ]
         });
-        $('#pokja_filter input').unbind();
-        $('#pokja_filter input').bind('keyup', function(e) {
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
             table.search(this.value).draw();
         }

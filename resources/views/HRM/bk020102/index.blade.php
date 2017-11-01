@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles') 
+@extends('HRM/default') {{-- Page title --}} @section('title') @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -32,10 +32,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010107 index</b>
+                    <b>Role</b>
                 </div>
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('hrm/role/create') }}">Create</a>
+					<b>bk010102 index</b>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ url('hrm/admin/role/create') }}">Create</a>
 				</div>
             </div>
             <div class="panel-body">
@@ -66,7 +67,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "{{ url('hrm/role') }}",
+                     "url": "{{ url('hrm/admin/role') }}",
                      "dataType": "json",
                      "type": "POST"
                    },

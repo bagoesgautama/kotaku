@@ -34,8 +34,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk020309 Index</b>
+                    <b>Kuota Korkot Index</b>
                 </div>
+				<div class="tools pull-right">
+					<b>bk020307 Index</b>
+				</div>
                 @if( ! empty($detil['523']))
                 <div class="tools pull-right">
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/profil/kuota/korkot/create">Create</a>

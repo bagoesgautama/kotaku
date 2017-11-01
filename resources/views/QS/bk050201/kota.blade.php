@@ -1,5 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Evaluasi @stop {{-- local styles --}} @section('header_styles')
-
+@extends('QS/default') {{-- Page title --}} @section('title') Kota @stop {{-- local styles --}} @section('header_styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/colReorder.bootstrap.css')}}" />
@@ -9,22 +8,26 @@
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/scroller.bootstrap.css')}}">
 <link href="{{asset('vendors/hover/css/hover-min.css')}}" rel="stylesheet">
 <link href="{{asset('css/buttons_sass.css')}}" rel="stylesheet">
-
 @stop {{-- Page Header--}} @section('page-header')
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Evaluasi</h1>
+    <h1>Kota</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-                <a href="/hrm">
-                    <i class="fa fa-fw fa-home"></i> HRM
+                <a href="/qs">
+                    <i class="fa fa-fw fa-home"></i> QS
                 </a>
             </li>
             <li class="next">
-                Managemen Personil / User / Evaluasi
+				<a href="/qs/monitoring/kelurahan">
+	                Monitoring / Kegiatan Kelurahan
+				</a>
             </li>
+			<li class="next">
+				{{$kota}}
+			</li>
         </ul>
     </div>
 </section>
@@ -34,16 +37,8 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>Evaluasi Index</b>
+                    <b>bk050201 Kota</b>
                 </div>
-				<div class="tools pull-right">
-					<b>bk020307 Index</b>
-				</div>
-                @if( ! empty($detil['558']))
-                <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management/evaluasi/create">Create</a>
-				</div>
-                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -51,12 +46,11 @@
 						<thead>
                             <tr>
 								<th>ID</th>
-								<th>User</th>
-								<th>Periode</th>
-								<th>Hasil Evaluasi</th>
-								<th>Verifikator</th>
-								<th>Tanggal di verifikasi</th>
-								<th>Option</th>
+								<th>Kota</th>
+								<th>Peningkatan</th>
+								<th>Pencegahan</th>
+								<th>PPMK</th>
+								<th>BDI</th>
                             </tr>
                         </thead>
                     </table>
@@ -69,13 +63,19 @@
 
 <script>
     $(document).ready(function () {
+		var kode = {!! json_encode($kode) !!};
+		var agenda = {!! json_encode($agenda) !!};
 		var table = $('#users').DataTable({
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/management/evaluasi",
+                     "url": "/qs/monitoring/kelurahan/kota",
                      "dataType": "json",
-                     "type": "POST"
+                     "type": "POST",
+					 "data": function ( d ) {
+						 d.agenda=agenda
+						 d.kode=kode
+				     }
                    },
             success: function(data) {
                  alert('success')
@@ -86,14 +86,13 @@
               },
 			  "columns": [
 				{ "data": "kode" , name:"kode"},
-				{ "data": "user" , name:"user"},
-				{ "data": "period_akhir" , name:"period_akhir"},
-				{ "data": "hasil_eval" , name:"hasil_eval"},
-				{ "data": "diver_oleh" , name:"diver_oleh"},
-				{ "data": "diver_tgl" , name:"diver_tgl"},
-				{ "data": "option" , name:"option",orderable:false}
+				{ "data": "nama" , name:"nama"},
+				{ "data": "peningkatan" , name:"peningkatan",orderable:false},
+                { "data": "pencegahan" , name:"pencegahan",orderable:false},
+				{ "data": "ppmk" , name:"ppmk",orderable:false},
+				{ "data": "bdi" , name:"bdi",orderable:false}
             ],
-			"order": [[ 0, "desc" ]]
+			"order": [[ 0, "asc" ]]
 	    });
         $('#users_filter input').unbind();
         $('#users_filter input').bind('keyup', function(e) {

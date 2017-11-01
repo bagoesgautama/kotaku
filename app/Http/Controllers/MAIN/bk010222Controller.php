@@ -127,8 +127,30 @@ class bk010222Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+					b.nama like "%'.$search.'%" or 
+					c.nama like "%'.$search.'%" or
+					d.nama like "%'.$search.'%" or 
+					e.nama like "%'.$search.'%" or
+					f.nama like "%'.$search.'%" or
+					g.nama like "%'.$search.'%" or
+					a.jenis_kegiatan like "%'.$search.'%" or 
+					a.tgl_kegiatan like "%'.$search.'%" or
+					a.lok_kegiatan like "%'.$search.'%" or 
+					a.tahun like "%'.$search.'%" )
+					order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+					b.nama like "%'.$search.'%" or 
+					c.nama like "%'.$search.'%" or
+					d.nama like "%'.$search.'%" or 
+					e.nama like "%'.$search.'%" or
+					f.nama like "%'.$search.'%" or
+					g.nama like "%'.$search.'%" or
+					a.jenis_kegiatan like "%'.$search.'%" or 
+					a.tgl_kegiatan like "%'.$search.'%" or
+					a.lok_kegiatan like "%'.$search.'%" or 
+					a.tahun like "%'.$search.'%"
+					)) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 

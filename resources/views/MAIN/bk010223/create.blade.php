@@ -434,7 +434,6 @@
         });
         kecamatan.change(function(){
             kec_id=kecamatan.val();
-            console.log(kec_id)
             if(kec_id!=undefined){
                 kelurahan.empty();
                 kelurahan.append("<option value=undefined>Please select</option>");

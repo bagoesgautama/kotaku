@@ -96,8 +96,15 @@ class bk010223Controller extends Controller
 			24 =>'updated_time',
 			25 =>'updated_by'
 		);
-		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kec, e.nama nama_kmw, f.nama nama_kel, g.nama nama_faskel, h.nama nama_kegiatan
-					from bkt_01020215_lembaga_kel a
+		$query='select a.*, 
+					b.nama nama_kota, 
+					c.nama nama_korkot, 
+					d.nama nama_kec, 
+					e.nama nama_kmw, 
+					f.nama nama_kel, 
+					g.nama nama_faskel, 
+					h.nama nama_kegiatan
+				from bkt_01020215_lembaga_kel a
 					left join bkt_01010102_kota b on a.kode_kota=b.kode
 					left join bkt_01010111_korkot c on a.kode_korkot=c.kode
 					left join bkt_01010103_kec d on a.kode_kec=d.kode
@@ -125,8 +132,28 @@ class bk010223Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%")) a');
+			$posts=DB::select($query. ' where (
+					b.nama like "%'.$search.'%" or 
+					c.nama like "%'.$search.'%" or
+					d.nama like "%'.$search.'%" or 
+					e.nama like "%'.$search.'%" or
+					f.nama like "%'.$search.'%" or
+					g.nama like "%'.$search.'%" or
+					a.tgl_kegiatan like "%'.$search.'%" or
+					a.lok_kegiatan like "%'.$search.'%" or 
+					a.tahun like "%'.$search.'%" )
+					order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+					b.nama like "%'.$search.'%" or 
+					c.nama like "%'.$search.'%" or
+					d.nama like "%'.$search.'%" or 
+					e.nama like "%'.$search.'%" or
+					f.nama like "%'.$search.'%" or
+					g.nama like "%'.$search.'%" or
+					a.tgl_kegiatan like "%'.$search.'%" or
+					a.lok_kegiatan like "%'.$search.'%" or 
+					a.tahun like "%'.$search.'%"
+					)) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
@@ -199,33 +226,31 @@ class bk010223Controller extends Controller
 
 	public function select(Request $request)
 	{
-		echo $request->input('kegiatan');
 		if(!empty($request->input('kmw'))){
-			$kota = DB::select('select * from bkt_01010110_kmw a,bkt_01010102_kota b
+			$kmw = DB::select('select * from bkt_01010110_kmw a,bkt_01010102_kota b
 				where a.kode_prop=b.kode_prop and a.kode='.$request->input('kmw'));
-			echo json_encode($kota);
+			echo json_encode($kmw);
 		}
 		else if(!empty($request->input('kota'))){
 			$kota = DB::select('select b.* from bkt_01010112_kota_korkot a,bkt_01010111_korkot b where a.kode_korkot=b.kode and kode_kota='.$request->input('kota'));
 			echo json_encode($kota);
 		}
 		else if(!empty($request->input('korkot'))){
-			$kota = DB::select('select a.* from bkt_01010103_kec a where a.kode_kota='.$request->input('korkot'));
-			echo json_encode($kota);
+			$korkot = DB::select('select a.* from bkt_01010103_kec a where a.kode_kota='.$request->input('korkot'));
+			echo json_encode($korkot);
 		}
 		else if(!empty($request->input('kec'))){
-			$kota = DB::select('select a.* from bkt_01010104_kel a where a.kode_kec='.$request->input('kec'));
-			echo json_encode($kota);
+			$kec = DB::select('select a.* from bkt_01010104_kel a where a.kode_kec='.$request->input('kec'));
+			echo json_encode($kec);
 		}
 		else if(!empty($request->input('kel'))){
-			$kota = DB::select('select a.* from bkt_01010114_kel_faskel b,bkt_01010113_faskel a
+			$kel = DB::select('select a.* from bkt_01010114_kel_faskel b,bkt_01010113_faskel a
 				where a.kode=b.kode_faskel and b.kode_kel='.$request->input('kel'));
-			echo json_encode($kota);
+			echo json_encode($kel);
 		}
 		else if(!empty($request->input('kegiatan'))){
-			$kota = DB::select('select id, nama from  bkt_01010119_dtl_keg_kel where id_kegiatan='.$request->input('kegiatan'));
-			echo $request->input('kegiatan');
-			//echo json_encode($kota);
+			$keg = DB::select('select * from bkt_01010119_dtl_keg_kel where id_kegiatan='.$request->input('kegiatan'));
+			echo json_encode($keg);
 		}
 	}
 
