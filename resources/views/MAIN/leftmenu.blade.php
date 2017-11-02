@@ -351,7 +351,14 @@
 							@if( ! empty($menu['53']))
 							<li {!! (Request::is( 'main/persiapan/kota/kegiatan/sosialisasi')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi/create') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/kegiatan/sosialisasi">
-				                    <span class="mm-text">Sosialisasi & Relawan</span>
+				                    <span class="mm-text">Sosialisasi</span>
+				                </a>
+						    </li>
+							@endif
+							@if( ! empty($menu['53']))
+							<li {!! (Request::is( 'main/persiapan/kota/kegiatan/relawan')||Request::is( 'main/persiapan/kota/kegiatan/relawan/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kota/kegiatan/relawan">
+				                    <span class="mm-text">Relawan</span>
 				                </a>
 						    </li>
 							@endif

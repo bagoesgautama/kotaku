@@ -2,7 +2,16 @@
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
 <link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
+<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
+<link href="{{asset('css/custom_css/wizard.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('vendors/pnotify/css/pnotify.buttons.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('vendors/pnotify/css/pnotify.css')}}" rel="stylesheet" type="text/css">
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -15,7 +24,7 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/hrm/admin/registrasi_manual">
+				<a href="/hrm/management/registrasi_manual">
 	                Administrator / Registrasi Manual
 				</a>
             </li>
@@ -54,10 +63,10 @@
                     </li>
                     <!-- <li>
                         <a href="#tab5" data-toggle="tab">
-                                        Tingkat Kekumuhan
+                                        Validasi Registrasi
                                     </a>
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                         <a href="#tab6" data-toggle="tab">
                                         Aspek Kumuh (Sumber Data Baseline)
                                     </a>
@@ -155,7 +164,7 @@
 											<select id="kode_prop-input" name="kode_prop-input" class="form-control select2" size="1">
 		                                    <option value>Provinsi</option>
 		                                    @foreach ($prop_list as $kpl)
-		                                        <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+		                                        <option value="{{$kpl->kode}}" {!! $kode_prop==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
 		                                    @endforeach
 		                                </select>
 						                </div>
@@ -219,7 +228,7 @@
 						                	<select id="kode_tempat_lahir-input" name="kode_tempat_lahir-input" class="form-control select2" size="1">
 			                                    <option value>Kota</option>
 			                                    @foreach ($kota_list as $kpl)
-			                                        <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+			                                        <option value="{{$kpl->kode}}" {!! $kode_kota_lahir==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
 			                                    @endforeach
 			                                </select>
 						                </div>
@@ -234,7 +243,7 @@
 						                <label class="col-sm-3 control-label">No. Hp</label>
 						                <div class="col-sm-6">
 						                	<input type="text" class="form-control  form-control-lg" id="no_hp" name="no_hp"
-                                       placeholder="No. Hp" required maxlength="50">
+                                       placeholder="No. Hp" maxlength="50">
 						                </div>
 						            </div>
                                 </div>
@@ -251,7 +260,7 @@
 						                	<select id="kode_level-input" name="kode_level-input" class="form-control select2" size="1">
 			                                    <option value>Role Level</option>
 						                        @foreach ($level_list as $kpl)
-						                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+						                            <option value="{{$kpl->kode}}" {!! $kode_level==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
 						                        @endforeach
 						                    </select>
 						                </div>
@@ -271,26 +280,26 @@
 						                	<select id="kode_kmp-input" name="kode_kmp-input" class="form-control select2" size="1">
 			                                    <option value>KMP</option>
 			                                    @foreach ($kmp_list as $kpl)
-			                                        <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+			                                        <option value="{{$kpl->kode}}" {!! $kode_kmp==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
 			                                    @endforeach
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col" id="wil_kerja_label">
+						            <div class="form-group striped-col" id="wil_kerja_label" hidden>
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Wilayah Kerja</label></div>
                                     </div>
-						            <div class="form-group striped-col">
+						            <div class="form-group striped-col" id="prov_label" hidden>
 						                <label class="col-sm-3 control-label">Provinsi</label>
 						                <div class="col-sm-6">
 						                	<select id="wk_kd_prop-input" name="wk_kd_prop-input" class="form-control select2" size="1">
 			                                    <option value>WK Provinsi</option>
 			                                    @foreach ($wk_kd_prop_list as $kpl)
-			                                        <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+			                                        <option value="{{$kpl->kode}}" {!! $wk_kd_prop==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
 			                                    @endforeach
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col">
+						            <div class="form-group striped-col" id="kmw_label" hidden>
 						                <label class="col-sm-3 control-label">KMW</label>
 						                <div class="col-sm-6">
 						                	<select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1">
@@ -298,7 +307,7 @@
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col">
+						            <div class="form-group striped-col" id="kota_label" hidden>
 						                <label class="col-sm-3 control-label">Kota</label>
 						                <div class="col-sm-6">
 						                	<select id="wk_kd_kota-input" name="wk_kd_kota-input" class="form-control select2" size="1">
@@ -306,7 +315,7 @@
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col">
+						            <div class="form-group striped-col" id="korkot_label" hidden>
 						                <label class="col-sm-3 control-label">Korkot</label>
 						                <div class="col-sm-6">
 						                	<select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1">
@@ -314,7 +323,7 @@
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col">
+						            <div class="form-group striped-col" id="kec_label" hidden>
 						                <label class="col-sm-3 control-label">Kecamatan</label>
 						                <div class="col-sm-6">
 						                	<select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1">
@@ -322,7 +331,7 @@
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col">
+						            <div class="form-group striped-col" id="kel_label" hidden>
 						                <label class="col-sm-3 control-label">Kelurahan</label>
 						                <div class="col-sm-6">
 						                	<select id="wk_kd_kel-input" name="wk_kd_kel-input" class="form-control select2" size="1">
@@ -330,7 +339,7 @@
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col">
+						            <div class="form-group striped-col" id="faskel_label" hidden>
 						                <label class="col-sm-3 control-label">Faskel</label>
 						                <div class="col-sm-6">
 						                	<select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1">
@@ -342,12 +351,18 @@
                             </div>
                         </div>
                     </div>
-                    <div id="tab5" class="tab-pane fade">
-                        <div class="panel " >
-                            <div class="panel-body border">
-                                <div class="row">
-                                </div>
-                            </div>
+
+                    <div class="form-group form-actions">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <a href="/hrm/management/registrasi_manual" type="button" class="btn btn-effect-ripple btn-danger">
+                                Cancel
+                            </a>
+                            <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
+                                Submit
+                            </button>
+                            <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
+                                Reset
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -358,14 +373,29 @@
 </div>
 @stop
 {{-- local scripts --}} @section('footer_scripts')
+<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
+
+<script src="{{asset('vendors/bootstrapwizard/js/jquery.bootstrap.wizard.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_wizards.js')}}" type="text/javascript"></script>
+
+<script type="text/javascript" src="{{asset('vendors/pnotify/js/pnotify.js')}}"></script>
+<script src="{{asset('js/custom_js/notifications.js')}}"></script>
 <script>
   $(document).ready(function () {
-
+  	$('.ui-pnotify').remove();
 	$('#form').on('submit', function (e) {
 		e.preventDefault();
 		$.ajax({
 			type: 'post',
-			"url": "/hrm/profil/kuota/kmw/create",
+			"url": "/hrm/management/registrasi_manual/create",
 			data: $('form').serialize(),
 			beforeSend: function (){
 			    $("#submit").prop('disabled', true);
@@ -373,7 +403,7 @@
 			success: function () {
 
 			alert('From Submitted.');
-			window.location.href = "/hrm/profil/kuota/kmw";
+			window.location.href = "/hrm/management/registrasi_manual";
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);
@@ -457,6 +487,26 @@
             width: "100%"
         });
 
+        document.addEventListener('invalid', (function () {
+          return function (e) {
+            e.preventDefault();
+            console.log(e)
+            new PNotify({
+                title: 'Pengisian Form Tidak Lengkap',
+                text: 'Field input '+e.target.id+' belum diisi.',
+                type: 'error'
+            });
+          };
+        })(), true);
+
+        function enforce_maxlength(event) {
+            var t = event.target;
+            if (t.hasAttribute('maxlength')) {
+                t.value = t.value.slice(0, t.getAttribute('maxlength'));
+            }
+        }
+        document.body.addEventListener('input', enforce_maxlength);
+
         var level = $('#kode_level-input');
         var role = $('#kode_role-input');
         var kmp = $('#kode_kmp-input');
@@ -480,7 +530,7 @@
                 role.append("<option value>Role</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "hrm/admin/registrasi_manual/select?level="+level_id,
+                    "url": "/hrm/management/registrasi_manual/select?level="+level_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -580,7 +630,7 @@
                 kota.append("<option value>Kota</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "hrm/admin/registrasi_manual/select?prop="+prop_id,
+                    "url": "/hrm/management/registrasi_manual/select?prop="+prop_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -598,7 +648,7 @@
                 kec.append("<option value>Kota</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "hrm/admin/registrasi_manual/select?kota="+kota_id,
+                    "url": "/hrm/management/registrasi_manual/select?kota="+kota_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -616,7 +666,7 @@
                 kel.append("<option value>Kota</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "hrm/admin/registrasi_manual/select?kec="+kec_id,
+                    "url": "/hrm/management/registrasi_manual/select?kec="+kec_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -632,7 +682,7 @@
             if(role_id!=null){
                 $.ajax({
                     type: 'get',
-                    "url": "hrm/admin/registrasi_manual/select?role_flag_koor="+role_id,
+                    "url": "/hrm/management/registrasi_manual/select?role_flag_koor="+role_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         if(data!=null){
@@ -663,7 +713,7 @@
                 wkkmw.append("<option value>KMW</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "hrm/admin/registrasi_manual/select?wk_kd_prop_kmw="+wkprop_id,
+                    "url": "/hrm/management/registrasi_manual/select?wk_kd_prop_kmw="+wkprop_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -676,7 +726,7 @@
                 wkkota.append("<option value>Kota</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "hrm/admin/registrasi_manual/select?wk_kd_prop_kota="+wkprop_id,
+                    "url": "/hrm/management/registrasi_manual/select?wk_kd_prop_kota="+wkprop_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -694,7 +744,7 @@
                 wkkorkot.append("<option value>Korkot</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "hrm/admin/registrasi_manual/select?wk_kd_kmw_korkot="+wkkmw_id,
+                    "url": "/hrm/management/registrasi_manual/select?wk_kd_kmw_korkot="+wkkmw_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -707,7 +757,7 @@
                 wkfaskel.append("<option value>Faskel</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "hrm/admin/registrasi_manual/select?wk_kd_kmw_faskel="+wkkmw_id,
+                    "url": "/hrm/management/registrasi_manual/select?wk_kd_kmw_faskel="+wkkmw_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -725,7 +775,7 @@
                 wkkec.append("<option value>Kota</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "hrm/admin/registrasi_manual/select?wk_kd_kota_kec="+wkkota_id,
+                    "url": "/hrm/management/registrasi_manual/select?wk_kd_kota_kec="+wkkota_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -743,7 +793,7 @@
                 wkkel.append("<option value>Kota</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "hrm/admin/registrasi_manual/select?wk_kd_kec_kel="+wkkec_id,
+                    "url": "/hrm/management/registrasi_manual/select?wk_kd_kec_kel="+wkkec_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -756,7 +806,5 @@
 
   });
 </script>
-<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
+
 @stop

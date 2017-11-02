@@ -1,5 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Registrasi Manual
-@stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Relawan @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -19,15 +18,21 @@
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-                <a href="/hrm">
-                    <i class="fa fa-fw fa-home"></i> HRM
+                <a href="/main">
+                    <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
             </li>
             <li class="next">
-                Administrator
+                Persiapan
             </li>
             <li class="next">
-                Registrasi Manual
+                Kota atau Kabupaten
+            </li>
+            <li class="next">
+                Kegiatan
+            </li>
+            <li class="next">
+                Relawan
             </li>
         </ul>
     </div>
@@ -38,28 +43,28 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk020111 index</b>
+                    <b>bk010232 index</b>
                 </div>
-                @if( ! empty($detil['567']))
+                @if( ! empty($detil['575']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/hrm/management/registrasi_manual/create'}}">Create</a>
-				</div>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/kota/kegiatan/relawan/create' }}">Create</a>
+                </div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="pokja">
-						<thead>
+                    <table class="table table-striped" id="kegiatan">
+                        <thead>
                             <tr>
-                                <th>id</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Nama</th>
-                                <th>Status Personil</th>
-                                <th>Status Aktif</th>
-                                <th>Blacklist</th>
+                                <th>Kode</th>
+                                <th>Tahun</th>
+                                <th>Kota</th>
+                                <th>Kecamatan</th>
+                                <th>Jenis Kegiatan</th>
+                                <th>Tanggal Kegiatan</th>
+                                <th>Lokasi Kegiatan</th>
                                 <th>Created Time</th>
-                                <th>Option</th>
+                                <th>option</th>
                             </tr>
                         </thead>
                     </table>
@@ -73,32 +78,32 @@
 
 <script>
     $(document).ready(function () {
-		var table = $('#pokja').DataTable({
-	        // dom: 'Bflrtip',
-	        
-			"processing": true,
+        var table = $('#kegiatan').DataTable({
+            // dom: 'Bflrtip',
+            
+            "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/management/registrasi_manual",
+                     "url": "/main/persiapan/kota/kegiatan/relawan",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-                { "data": "id" , name:"id"},
-				{ "data": "user_name" , name:"user_name"},
-                { "data": "email" , name:"email"},
-                { "data": "nama_depan" , name:"nama_depan"},
-                { "data": "status_personil" , name:"status_personil"},
-                { "data": "status_aktif" , name:"status_aktif"},
-                { "data": "flag_blacklist" , name:"flag_blacklist"},
+                { "data": "kode" , name:"kode"},
+                { "data": "tahun" , name:"tahun"},
+                { "data": "kode_kota" , name:"kode_kota"},
+                { "data": "kode_kec" , name:"kode_kec"},
+                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
+                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
+                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
                 { "data": "created_time" , name:"created_time"},
-				{ "data": "option" , name:"option",orderable:false}
+                { "data": "option" , name:"option",orderable:false}
             ],
             "order":[[0,"desc"]]
-	    });
-        $('#pokja_filter input').unbind();
-        $('#pokja_filter input').bind('keyup', function(e) {
+        });
+        $('#kegiatan_filter input').unbind();
+        $('#kegiatan_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
             table.search(this.value).draw();
         }

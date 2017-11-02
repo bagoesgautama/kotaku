@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Redirect;
 
 class bk020111Controller extends Controller
@@ -124,7 +125,7 @@ class bk020111Controller extends Controller
 				a.user_name as user_name_u,
 				a.email email_u,
 				a.nama_depan nama_depan_u,
-				case when a.status_personil=0 then "Belum Diverifikasi" when a.status_personil=1 then "Registrasi Berhasil" when a.status_personil=2 then "Registrasi Ditolak" end status_personil_convert,
+				case when a.status_personil=0 then "Tidak Aktif (Diberhentikan)" when a.status_personil=1 then "Tidak Aktif (Kontrak Habis)" when a.status_personil=2 then "Aktif" end status_personil_convert,
 				case when a.status_aktif=0 then "Belum Reaktivasi" when a.status_aktif=1 then " Aktif Kontrak" end status_aktif_convert,
 				case when a.flag_blacklist=0 then "Tidak" when a.flag_blacklist=1 then "Ya" end blacklist_convert
 			from bkt_02010111_user a
@@ -191,12 +192,12 @@ class bk020111Controller extends Controller
 				}
 
 				$option = '';
-				if(!empty($detil['568'])){
-					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
-				}
-				if(!empty($detil['569'])){
-					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}
+				// if(!empty($detil['568'])){
+				// 	$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
+				// }
+				// if(!empty($detil['569'])){
+				// 	$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
+				// }
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
@@ -273,7 +274,7 @@ class bk020111Controller extends Controller
 			$data['created_by'] = $rowData[0]->created_by;
 			$data['updated_time'] = $rowData[0]->updated_time;
 			$data['updated_by'] = $rowData[0]->updated_by;
-			$data['kode_level_list'] = DB::select('select kode, nama from bkt_02010101_role_level where status=1');
+			$data['level_list']=DB::select('select * from bkt_02010101_role_level where status=1');
 			if(!empty($rowData[0]->kode_level)){
 				$data['kode_role_list'] = DB::select('select kode, nama, flag_koordinator from bkt_02010102_role where kode_level='.$rowData[0]->kode_level);
 			$data['prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
@@ -342,45 +343,65 @@ class bk020111Controller extends Controller
 	public function post_create(Request $request)
 	{
 		date_default_timezone_set('Asia/Jakarta');
-		if ($request->input('example-id-input')!=null){
-			DB::table('bkt_02010102_role')->where('kode', $request->input('example-id-input'))
-			->update(['nama' => $request->input('example-text-input'),
-				'deskripsi' => $request->input('example-textarea-input'),
-				'status' => $request->input('example-select'),
-				'kode_level' => $request->input('example-select-level'),
-				'updated_time' => date('Y-m-d H:i:s'),
-				'updated_by' => Auth::user()->id
-				]);
-		$this->log_aktivitas('Update', 17);
-		}else{
-			DB::table('bkt_02010102_role')->insert(
-       			['nama' => $request->input('example-text-input'),
-       			'deskripsi' => $request->input('example-textarea-input'),
-       			'status' => $request->input('example-select'),
-       			'kode_level' => $request->input('example-select-level'),
-       			'created_by' => Auth::user()->id
-       			]);
-		$this->log_aktivitas('Create', 16);
-		}
+		DB::table('bkt_02010111_user')->insert([
+            'user_name' => $request->input('username'), 
+            'password' => Hash::make($request->input('password')), 
+            'nama_depan' => $request->input('first_name'), 
+            'nama_belakang' => $request->input('last_name'),
+            'kode_level' => $request->input('kode_level-input'),
+            'kode_role' => $request->input('kode_role-input'),
+            'wk_kd_prop' => $request->input('wk_kd_prop-input'),
+            'wk_kd_kota' => $request->input('wk_kd_kota-input'),
+            'wk_kd_kel' => $request->input('wk_kd_kel-input'),
+            'kode_kmp' => $request->input('kode_kmp-input'),
+            'kode_kmw' => $request->input('kode-kmw-input'),
+            'kode_korkot' => $request->input('kode-korkot-input'),
+            'kode_faskel' => $request->input('kode-faskel-input'),
+            'kode_prop' => $request->input('kode_prop-input'),
+            'kode_kota' => $request->input('kode_kota-input'),
+            'kode_kec' => $request->input('kode_kecamatan-input'),
+            'kode_kel' => $request->input('kode_kelurahan-input'),
+            'alamat' => $request->input('alamat'),
+            'kodepos' => $request->input('kodepos'),
+            'kode_jenis_kelamin' => $request->input('kode-jk'),
+            'tgl_lahir' => $this->date_conversion($request->input('tgl_lahir')),
+            'kode_kota_lahir' => $request->input('kode_tempat_lahir-input'),
+            'email' => $request->input('email'),
+            'no_hp' => $request->input('no_hp'),
+            'jenis_registrasi' => 1,
+            'status_registrasi' => 1,
+            'status_personil' => 2,
+            'status_aktif' => 1,
+            'flag_blacklist' => 0,
+            'created_by' => Auth::user()->id
+        ]);
+
+		$this->log_aktivitas('Create', 567);
 	}
 
-	public function delete(Request $request)
+	public function date_conversion($date)
 	{
-		DB::table('bkt_02010102_role')->where('kode', $request->input('kode'))
-			->update(['status' => '2',
-				'updated_time' => date('Y-m-d H:i:s'),
-				'updated_by' => Auth::user()->id
-				]);
-        $this->log_aktivitas('Delete', 18);
-        return Redirect::to('/hrm/admin/role');
-    }
+        $date_convert = date('Y-m-d', strtotime($date));
+        return $date_convert;
+	}
+
+	// public function delete(Request $request)
+	// {
+	// 	DB::table('bkt_02010102_role')->where('kode', $request->input('kode'))
+	// 		->update(['status' => '2',
+	// 			'updated_time' => date('Y-m-d H:i:s'),
+	// 			'updated_by' => Auth::user()->id
+	// 			]);
+ //        $this->log_aktivitas('Delete', 18);
+ //        return Redirect::to('/hrm/admin/role');
+ //    }
 
     public function log_aktivitas($aktifitas, $detil)
     {
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 2,
-				'kode_modul' => 4,
+				'kode_modul' => 14,
 				'kode_menu' => 180,
 				'kode_menu_detil' => $detil,
 				'aktifitas' => $aktifitas,
