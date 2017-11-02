@@ -104,13 +104,13 @@ Route::get('/hrm/management/registrasi_manual', 'HRM\bk020111Controller@index');
 Route::post('hrm/management/registrasi_manual', 'HRM\bk020111Controller@post');
 Route::get('/hrm/management/registrasi_manual/create', 'HRM\bk020111Controller@create');
 Route::post('/hrm/management/registrasi_manual/create', 'HRM\bk020111Controller@post_create');
-Route::get('/hrm/admin/registrasi_manual/delete', 'HRM\bk020111Controller@delete');
+Route::get('/hrm/management/registrasi_manual/delete', 'HRM\bk020111Controller@delete');
 
 Route::get('/hrm/management/persetujuan', 'HRM\bk020116Controller@index');
 Route::post('hrm/management/persetujuan', 'HRM\bk020116Controller@post');
 Route::get('/hrm/management/persetujuan/create', 'HRM\bk020116Controller@create');
 Route::post('/hrm/management/persetujuan/create', 'HRM\bk020116Controller@post_create');
-Route::get('/hrm/admin/persetujuan/delete', 'HRM\bk020116Controller@delete');
+Route::get('/hrm/management/persetujuan/delete', 'HRM\bk020116Controller@delete');
 
 Route::get('/hrm/management/user/blacklist', 'HRM\bk020308Controller@index');
 Route::post('/hrm/management/user/blacklist', 'HRM\bk020308Controller@post');
