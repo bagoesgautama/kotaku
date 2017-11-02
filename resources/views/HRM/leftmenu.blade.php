@@ -66,13 +66,6 @@
 					<span class="fa arrow"></span>
 		        </a>
 				<ul class="sub-menu form-submenu">
-					@if( ! empty($menu['174']))
-					<li {!! (Request::is( 'hrm/management/blacklist*')? 'class="active"': "") !!}>
-						<a href="/hrm/management/blacklist">
-							<span class="mm-text ">Black List Personil</span>
-						</a>
-					</li>
-					@endif
 					@if( ! empty($menu['180']))
 						<li {!! (Request::is( 'hrm/admin/registrasi_manual*')? 'class="active"': "") !!}>
 					        <a href="/hrm/admin/registrasi_manual">
@@ -80,6 +73,14 @@
 					        </a>
 					    </li>
 					@endif
+					@if( ! empty($menu['174']))
+					<li {!! (Request::is( 'hrm/management/blacklist*')? 'class="active"': "") !!}>
+						<a href="/hrm/management/blacklist">
+							<span class="mm-text ">Black List Personil</span>
+						</a>
+					</li>
+					@endif
+
 				</ul>
 			</li>
 			@endif
