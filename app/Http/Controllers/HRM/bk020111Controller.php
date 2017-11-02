@@ -52,7 +52,7 @@ class bk020111Controller extends Controller
 
     public function select(Request $request)
     {
-        if($request->input('level')){
+        if(!empty($request->input('level')) || strlen($request->input('level'))>0){
             $role = DB::select('select kode, nama, flag_koordinator from bkt_02010102_role where kode_level='.$request->input('level'));
             echo json_encode($role);
         }
@@ -172,8 +172,8 @@ class bk020111Controller extends Controller
 				$show =  $post->id;
 				$edit =  $post->id;
 				$delete = $post->id;
-				$url_edit=url('/')."/hrm/admin/registrasi_manual/create?kode=".$show;
-				$url_delete=url('/')."/hrm/admin/registrasi_manual/delete?kode=".$delete;
+				$url_edit=url('/')."/hrm/management/registrasi_manual/create?kode=".$show;
+				$url_delete=url('/')."/hrm/management/registrasi_manual/delete?kode=".$delete;
 				$nestedData['id'] = $post->id;
 				$nestedData['user_name'] = $post->user_name;
 				$nestedData['email'] = $post->email;
@@ -192,9 +192,9 @@ class bk020111Controller extends Controller
 				}
 
 				$option = '';
-				// if(!empty($detil['568'])){
-				// 	$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
-				// }
+				if(!empty($detil['568'])){
+					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
+				}
 				// if(!empty($detil['569'])){
 				// 	$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				// }
@@ -230,7 +230,7 @@ class bk020111Controller extends Controller
 		$data['kode']=$request->input('kode');
 		
 		if($data['kode']!=null && !empty($data['detil']['568'])){
-			$rowData = DB::select('select * from bkt_02010111_user where kode='.$data['kode']);
+			$rowData = DB::select('select * from bkt_02010111_user where id='.$data['kode']);
 			$data['user_name'] = $rowData[0]->user_name;
 			$data['password'] = $rowData[0]->password;
 			$data['nama_depan'] = $rowData[0]->nama_depan;
@@ -275,9 +275,52 @@ class bk020111Controller extends Controller
 			$data['updated_time'] = $rowData[0]->updated_time;
 			$data['updated_by'] = $rowData[0]->updated_by;
 			$data['level_list']=DB::select('select * from bkt_02010101_role_level where status=1');
-			if(!empty($rowData[0]->kode_level)){
-				$data['kode_role_list'] = DB::select('select kode, nama, flag_koordinator from bkt_02010102_role where kode_level='.$rowData[0]->kode_level);
+			if(!empty($rowData[0]->kode_level) || strlen($rowData[0]->kode_level)>0)
+				$data['role_list']=DB::select('select kode, nama, flag_koordinator from bkt_02010102_role where kode_level='.$rowData[0]->kode_level);
+			
 			$data['prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
+			if(!empty($rowData[0]->kode_prop)){
+				$data['kota_list'] = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010102_kota b where b.kode_prop=a.kode and b.kode_prop='.$rowData[0]->kode_prop);
+			}else{
+				$data['kota_list'] = null;
+			}
+			if(!empty($rowData[0]->kode_kota)){
+				$data['kec_list'] = DB::select('select b.kode, b.nama from bkt_01010102_kota a, bkt_01010103_kec b where b.kode_kota=a.kode and b.kode_kota='.$rowData[0]->kode_kota);
+			}else{
+				$data['kec_list'] = null;
+			}
+			if(!empty($rowData[0]->kode_kec)){
+				$data['kel_list'] = DB::select('select b.kode, b.nama from bkt_01010103_kec a, bkt_01010104_kel b where b.kode_kec=a.kode and b.kode_kec='.$rowData[0]->kode_kec);
+			}else{
+				$data['kel_list'] = null;
+			}
+			$data['kota_lahir_list'] = DB::select('select * from bkt_01010102_kota where status=1');
+			$data['kmp_list']=DB::select('select * from bkt_01010108_kmp');
+			$data['wk_kd_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1 and flag_cakupan_prog=1');
+			if(!empty($rowData[0]->wk_kd_prop)){
+				$data['wk_kd_kmw_list'] = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010110_kmw b where b.kode_prop=a.kode and a.flag_cakupan_prog=1 and b.kode_prop='.$rowData[0]->wk_kd_prop);
+			}else{
+				$data['wk_kd_kmw_list'] = null;
+			}
+			if(!empty($rowData[0]->wk_kd_prop)){
+				$data['wk_kd_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010102_kota b where b.kode_prop=a.kode and a.flag_cakupan_prog=1 and b.flag_cakupan_prog=1 and b.kode_prop='.$rowData[0]->wk_kd_prop);
+			}else{
+				$data['wk_kd_kota_list'] = null;
+			}
+			if(!empty($rowData[0]->kode_kmw)){
+				$data['wk_kd_korkot_list'] = DB::select('select b.kode, b.nama from bkt_01010110_kmw a, bkt_01010111_korkot b where b.kode_kmw=a.kode and b.kode_kmw='.$rowData[0]->kode_kmw);
+			}else{
+				$data['wk_kd_korkot_list'] = null;
+			}
+			if(!empty($rowData[0]->wk_kd_kota)){
+				$data['wk_kd_kel_list'] = DB::select('select b.kode, b.nama from bkt_01010103_kec a, bkt_01010104_kel b, bkt_01010102_kota c where a.kode_kota=c.kode and b.kode_kec=a.kode and a.flag_cakupan_prog=1 and b.flag_cakupan_prog=1 and c.flag_cakupan_prog=1 and a.kode_kota='.$rowData[0]->wk_kd_kota);
+			}else{
+				$data['wk_kd_kel_list'] = null;
+			}
+			if(!empty($rowData[0]->kode_kmw)){
+				$data['wk_kd_faskel_list'] = DB::select('select b.kode, b.nama from bkt_01010110_kmw a, bkt_01010113_faskel b where b.kode_kmw=a.kode and b.kode_kmw='.$rowData[0]->kode_kmw);
+			}else{
+				$data['wk_kd_faskel_list'] = null;
 			}
 
 			return view('HRM/bk020111/create',$data);
@@ -286,7 +329,7 @@ class bk020111Controller extends Controller
 			$data['password'] = null;
 			$data['nama_depan'] = null;
 			$data['nama_belakang'] = null;
-			$data['kode_level'] = null;
+			$data['kode_level'] = 999999999999999999;
 			$data['kode_role'] = null;
 			$data['wk_kd_prop'] = null;
 			$data['wk_kd_kota'] = null;
@@ -326,10 +369,19 @@ class bk020111Controller extends Controller
 			$data['updated_time'] = null;
 			$data['updated_by'] = null;
 			$data['level_list']=DB::select('select * from bkt_02010101_role_level where status=1');
+			$data['role_list'] = null;
 			$data['kmp_list']=DB::select('select * from bkt_01010108_kmp');
 			$data['prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
-			$data['kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
+			$data['kota_list'] = null;
+			$data['kec_list'] = null;
+			$data['kel_list'] = null;
+			$data['kota_lahir_list'] = DB::select('select * from bkt_01010102_kota where status=1');
 			$data['wk_kd_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1 and flag_cakupan_prog=1');
+			$data['wk_kd_kmw_list'] = null;
+			$data['wk_kd_kota_list'] = null;
+			$data['wk_kd_korkot_list'] = null;
+			$data['wk_kd_kel_list'] = null;
+			$data['wk_kd_faskel_list'] = null;
 
 		return view('HRM/bk020111/create',$data);
 			}else {
@@ -364,7 +416,7 @@ class bk020111Controller extends Controller
             'alamat' => $request->input('alamat'),
             'kodepos' => $request->input('kodepos'),
             'kode_jenis_kelamin' => $request->input('kode-jk'),
-            'tgl_lahir' => $this->date_conversion($request->input('tgl_lahir')),
+            'tgl_lahir' => $request->input('tgl_lahir')==null?null:$this->date_conversion($request->input('tgl_lahir')),
             'kode_kota_lahir' => $request->input('kode_tempat_lahir-input'),
             'email' => $request->input('email'),
             'no_hp' => $request->input('no_hp'),

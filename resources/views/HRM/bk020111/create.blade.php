@@ -90,7 +90,7 @@
 						                <label class="col-sm-3 control-label">Username</label>
 						                <div class="col-sm-6">
 											<input type="text" class="form-control form-control-lg" id="username"
-		                                       name="username" placeholder="Username" required maxlength="50">
+		                                       name="username" placeholder="Username" required maxlength="50" value="{{$user_name}}">
 
 			                                @if ($errors->has('username'))
 			                                    <span class="help-block">
@@ -99,6 +99,7 @@
 			                                @endif
 						                </div>
 						            </div>
+						            @if($kode==null)
 						            <div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">Password</label>
 						                <div class="col-sm-6">
@@ -112,10 +113,11 @@
 			                                @endif
 						                </div>
 						            </div>
+						            @endif
 						            <div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">Email</label>
 						                <div class="col-sm-6">
-											<input id="email" type="email" class="form-control  form-control-lg" name="email" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
+											<input id="email" type="email" class="form-control  form-control-lg" name="email" placeholder="E-mail" required maxlength="255" value="{{$email}}">
 
 			                                @if ($errors->has('email'))
 			                                    <span class="help-block">
@@ -135,8 +137,7 @@
                                 	<div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">First Name</label>
 						                <div class="col-sm-6">
-											<input type="text" class="form-control  form-control-lg" id="first_name" name="first_name"
-		                                       placeholder="First name" value="{{ old('first_name') }}" required maxlength="50">
+											<input type="text" class="form-control  form-control-lg" id="first_name" name="first_name" placeholder="First name" required maxlength="50" value="{{$nama_depan}}">
 			                                @if ($errors->has('first_name'))
 			                                    <span class="help-block">
 			                                        <strong>{{ $errors->first('first_name') }}</strong>
@@ -148,14 +149,14 @@
 						                <label class="col-sm-3 control-label">Last Name</label>
 						                <div class="col-sm-6">
 											<input type="text" class="form-control  form-control-lg" id="last" name="last_name"
-		                                       placeholder="Last name" maxlength="50">
+		                                       placeholder="Last name" maxlength="50" value="{{$nama_belakang}}">
 						                </div>
 						            </div>
 						            <div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">Alamat</label>
 						                <div class="col-sm-6">
 											<input type="text" class="form-control  form-control-lg" id="alamat" name="alamat"
-		                                       placeholder="Alamat" maxlength="50">
+		                                       placeholder="Alamat" maxlength="50" value="{{$alamat}}">
 						                </div>
 						            </div>
 						            <div class="form-group striped-col">
@@ -174,7 +175,11 @@
 						                <div class="col-sm-6">
 											<select id="kode_kota-input" name="kode_kota-input" class="form-control select2" size="1">
 		                                    <option value>Kota</option>
-
+		                                    @if($kota_list!=null)
+		                                    @foreach ($kota_list as $kpl)
+		                                        <option value="{{$kpl->kode}}" {!! $kode_kota==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
+		                                    @endforeach
+		                                    @endif
 		                                </select>
 						                </div>
 						            </div>
@@ -183,7 +188,11 @@
 						                <div class="col-sm-6">
 											<select id="kode_kecamatan-input" name="kode_kecamatan-input" class="form-control select2" size="1">
 		                                    <option value>Kecamatan</option>
-
+		                                    @if($kec_list!=null)
+		                                    @foreach ($kec_list as $kpl)
+		                                        <option value="{{$kpl->kode}}" {!! $kode_kec==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
+		                                    @endforeach
+		                                    @endif
 		                                </select>
 						                </div>
 						            </div>
@@ -192,7 +201,11 @@
 						                <div class="col-sm-6">
 											<select id="kode_kelurahan-input" name="kode_kelurahan-input" class="form-control select2" size="1">
 		                                    <option value>Kelurahan</option>
-
+		                                    @if($kel_list!=null)
+		                                    @foreach ($kel_list as $kpl)
+		                                        <option value="{{$kpl->kode}}" {!! $kode_kel==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
+		                                    @endforeach
+		                                    @endif
 		                                </select>
 						                </div>
 						            </div>
@@ -200,7 +213,7 @@
 						                <label class="col-sm-3 control-label">Kodepos</label>
 						                <div class="col-sm-6">
 											<input type="text" class="form-control  form-control-lg" id="kodepos" name="kodepos"
-		                                       placeholder="kodepos" maxlength="5">
+		                                       placeholder="kodepos" maxlength="5" value="{{$kodepos}}">
 						                </div>
 	                                </div>
 	                            </div>
@@ -215,11 +228,11 @@
 						                <label class="col-sm-3 control-label">Jenis Kelamin</label>
 						                <div class="col-sm-3">
 						                	<label class="radio-inline">
-                                    		<input type="radio" id="kode-jk" name="kode-jk" class="radio-blue" value="P" required checked> Pria</label>
+                                    		<input type="radio" id="kode-jk" name="kode-jk" class="radio-blue" value="P" required {!! $kode_jenis_kelamin=='P' ? 'checked':'checked'!!}> Pria</label>
 						                </div>
 						                <div class="col-sm-3">
 						                	<label class="radio-inline">
-                                    		<input type="radio" id="kode-jk" name="kode-jk" class="radio-blue" value="W"> Wanita</label>
+                                    		<input type="radio" id="kode-jk" name="kode-jk" class="radio-blue" value="W" {!! $kode_jenis_kelamin=='W' ? 'checked':''!!}> Wanita</label>
 						                </div>
 						            </div>
 						            <div class="form-group striped-col">
@@ -227,7 +240,7 @@
 						                <div class="col-sm-6">
 						                	<select id="kode_tempat_lahir-input" name="kode_tempat_lahir-input" class="form-control select2" size="1">
 			                                    <option value>Kota</option>
-			                                    @foreach ($kota_list as $kpl)
+			                                    @foreach ($kota_lahir_list as $kpl)
 			                                        <option value="{{$kpl->kode}}" {!! $kode_kota_lahir==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
 			                                    @endforeach
 			                                </select>
@@ -236,14 +249,14 @@
 						            <div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">Tanggal Lahir</label>
 						                <div class="col-sm-6">
-						                	<input class="form-control" id="return_date" name="tgl_lahir" placeholder="Select Date" data-provide="datepicker">
+						                	<input class="form-control" id="return_date" name="tgl_lahir" placeholder="Select Date" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_lahir}}">
 						                </div>
 						            </div>
 						            <div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">No. Hp</label>
 						                <div class="col-sm-6">
 						                	<input type="text" class="form-control  form-control-lg" id="no_hp" name="no_hp"
-                                       placeholder="No. Hp" maxlength="50">
+                                       placeholder="No. Hp" maxlength="50" value="{{$no_hp}}">
 						                </div>
 						            </div>
                                 </div>
@@ -257,7 +270,7 @@
                                 	<div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">Level</label>
 						                <div class="col-sm-6">
-						                	<select id="kode_level-input" name="kode_level-input" class="form-control select2" size="1">
+						                	<select id="kode_level-input" name="kode_level-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
 			                                    <option value>Role Level</option>
 						                        @foreach ($level_list as $kpl)
 						                            <option value="{{$kpl->kode}}" {!! $kode_level==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
@@ -268,16 +281,20 @@
 						            <div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">Role</label>
 						                <div class="col-sm-6">
-						                	<select id="kode_role-input" name="kode_role-input" class="form-control select2" size="1">
+						                	<select id="kode_role-input" name="kode_role-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
 			                                    <option value>Role</option>
-
+			                                    @if($role_list!=null)
+			                                    @foreach ($role_list as $kpl)
+						                            <option value="{{$kpl->kode}}" {!! $kode_role==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
+						                        @endforeach
+						                        @endif
 			                                </select>
 						                </div>
 						            </div>
 						            <div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">KMP</label>
 						                <div class="col-sm-6">
-						                	<select id="kode_kmp-input" name="kode_kmp-input" class="form-control select2" size="1">
+						                	<select id="kode_kmp-input" name="kode_kmp-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
 			                                    <option value>KMP</option>
 			                                    @foreach ($kmp_list as $kpl)
 			                                        <option value="{{$kpl->kode}}" {!! $kode_kmp==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
@@ -288,10 +305,10 @@
 						            <div class="form-group striped-col" id="wil_kerja_label" hidden>
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Wilayah Kerja</label></div>
                                     </div>
-						            <div class="form-group striped-col" id="prov_label" hidden>
+						            <div class="form-group striped-col" id="prov_label" {!! $kode!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">Provinsi</label>
 						                <div class="col-sm-6">
-						                	<select id="wk_kd_prop-input" name="wk_kd_prop-input" class="form-control select2" size="1">
+						                	<select id="wk_kd_prop-input" name="wk_kd_prop-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
 			                                    <option value>WK Provinsi</option>
 			                                    @foreach ($wk_kd_prop_list as $kpl)
 			                                        <option value="{{$kpl->kode}}" {!! $wk_kd_prop==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
@@ -299,51 +316,78 @@
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col" id="kmw_label" hidden>
+						            <div class="form-group striped-col" id="kmw_label" {!! $kode!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">KMW</label>
 						                <div class="col-sm-6">
-						                	<select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1">
+						                	<select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
 			                                    <option value>KMW</option>
+			                                    @if($wk_kd_kmw_list!=null)
+			                                    @foreach ($wk_kd_kmw_list as $kpl)
+			                                        <option value="{{$kpl->kode}}" {!! $kode_kmw==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
+			                                    @endforeach
+			                                    @endif
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col" id="kota_label" hidden>
+						            <div class="form-group striped-col" id="kota_label" {!! $kode!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">Kota</label>
 						                <div class="col-sm-6">
-						                	<select id="wk_kd_kota-input" name="wk_kd_kota-input" class="form-control select2" size="1">
+						                	<select id="wk_kd_kota-input" name="wk_kd_kota-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
 			                                    <option value>WK Kota</option>
+			                                    @if($wk_kd_kota_list!=null)
+			                                    @foreach ($wk_kd_kota_list as $kpl)
+			                                        <option value="{{$kpl->kode}}" {!! $wk_kd_kota==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
+			                                    @endforeach
+			                                    @endif
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col" id="korkot_label" hidden>
+						            <div class="form-group striped-col" id="korkot_label" {!! $kode!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">Korkot</label>
 						                <div class="col-sm-6">
-						                	<select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1">
+						                	<select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
 			                                    <option value>Korkot</option>
+			                                    @if($wk_kd_korkot_list!=null)
+			                                    @foreach ($wk_kd_korkot_list as $kpl)
+			                                        <option value="{{$kpl->kode}}" {!! $kode_korkot==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
+			                                    @endforeach
+			                                    @endif
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col" id="kec_label" hidden>
+						            @if($kode==null)
+						            <div class="form-group striped-col" id="kec_label" {!! $kode!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">Kecamatan</label>
 						                <div class="col-sm-6">
-						                	<select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1">
+						                	<select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
 			                                    <option value>Kecamatan</option>
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col" id="kel_label" hidden>
+						            @endif
+						            <div class="form-group striped-col" id="kel_label" {!! $kode!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">Kelurahan</label>
 						                <div class="col-sm-6">
-						                	<select id="wk_kd_kel-input" name="wk_kd_kel-input" class="form-control select2" size="1">
+						                	<select id="wk_kd_kel-input" name="wk_kd_kel-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
 			                                    <option value>WK Kelurahan</option>
+			                                    @if($wk_kd_kel_list!=null)
+			                                    @foreach ($wk_kd_kel_list as $kpl)
+			                                        <option value="{{$kpl->kode}}" {!! $wk_kd_kel==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
+			                                    @endforeach
+			                                    @endif
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col" id="faskel_label" hidden>
+						            <div class="form-group striped-col" id="faskel_label" {!! $kode!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">Faskel</label>
 						                <div class="col-sm-6">
-						                	<select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1">
+						                	<select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
 			                                    <option value>Faskel</option>
+			                                    @if($wk_kd_faskel_list!=null)
+			                                    @foreach ($wk_kd_faskel_list as $kpl)
+			                                        <option value="{{$kpl->kode}}" {!! $kode_faskel==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
+			                                    @endforeach
+			                                    @endif
 			                                </select>
 						                </div>
 						            </div>
@@ -351,20 +395,23 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="form-group form-actions">
                         <div class="col-sm-9 col-sm-offset-3">
                             <a href="/hrm/management/registrasi_manual" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
+                            @if ($kode==null)
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                 Submit
                             </button>
                             <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                 Reset
                             </button>
+                            @endif
                         </div>
                     </div>
+                    
                 </div>
             	</form>
             </div>
