@@ -89,7 +89,7 @@ class bk010315Controller extends Controller
 			31 => 'created_time',
 			32 => 'created_by',
 			33 => 'updated_time',
-			34	 => 'updated_by'
+			34 => 'updated_by'
 		);
 		$query='select * from (select 
 					a.*,
