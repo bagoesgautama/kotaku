@@ -1,51 +1,3 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Perencanaan - Pengadaan / Proses Lelang @stop {{-- local styles --}}
-@section('header_styles')
-<link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
-<link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
-<link href="{{asset('vendors/bootstrap-multiselect/css/bootstrap-multiselect.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
-<link href="{{asset('vendors/pnotify/css/pnotify.buttons.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/pnotify/css/pnotify.css')}}" rel="stylesheet" type="text/css">
-
-<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/colReorder.bootstrap.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/rowReorder.bootstrap.css')}}" />
-<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/scroller.bootstrap.css')}}">
-<link href="{{asset('vendors/hover/css/hover-min.css')}}" rel="stylesheet">
-<link href="{{asset('css/buttons_sass.css')}}" rel="stylesheet">
-@stop {{-- Page Header--}}
-@section('page-header')
-<!-- Content Header (Page header) -->
-<section class="content-header">
-    <h1>Perencanaan - Pengadaan / Proses Lelang</h1>
-    <div class="bs-example">
-        <ul class="breadcrumb">
-            <li class="next">
-                <a href="/main">
-                    <i class="fa fa-fw fa-home"></i> MAIN
-                </a>
-            </li>
-            <li class="next">
-                <a href="/main/perencanaan/pengadaan_lelang">
-                    Perencanaan / Pengadaan/Proses Lelang
-                </a>
-            </li>
-            <li class="next">
-                Create
-            </li>
-        </ul>
-    </div>
-</section>
-@stop {{-- Page content --}} @section('content')
 <div class="row">
     <div class="col-lg-12">
         <div class="panel">
@@ -67,7 +19,7 @@
                                     </a>
                     </li>
                     <!-- <li>
-                        <a href="#tab4" data-toggle="tab">
+                        <a href="#tab5" data-toggle="tab">
                                         Tambahan Data
                                     </a>
                     </li> -->
@@ -100,11 +52,10 @@
                             <div class="panel " >
                                 <div class="panel-body border">
                                     <div class="row">
-                                        <div class="form-group">
-                                            <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Umum</label>
-                                            </div>
-                                        </div>
                                         <div class="form-group striped-col">
+                                            <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Umum</label></div>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="col-sm-3 control-label">Skala Kegiatan</label>
                                             <div class="col-sm-6">
                                                 <input type="text" id="skala_kegiatan-input" name="skala_kegiatan-input" placeholder="Sumber Dana" value="{{$skala_kegiatan}}" class="form-control" readonly>
@@ -230,13 +181,13 @@
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label" for="example-text-input1">APBN NSUP (Rp)</label>
                                             <div class="col-sm-6">
-                                                <input type="number" id="nb_apbn_nsup-input" name="nb_apbn_nsup-input" class="form-control" value="{{$nb_apbn_nsup}}" maxlength="27" placeholder="Nilai">
+                                                <input type="number" id="nb_a_pupr_bdi_kolab-input" name="nb_a_pupr_bdi_kolab-input" class="form-control" value="{{$nb_a_pupr_bdi_kolab}}" maxlength="27" placeholder="Nilai">
                                             </div>
                                         </div>
                                         <div class="form-group striped-col">
                                             <label class="col-sm-3 control-label" for="example-text-input1">APBN LAIN (Rp)</label>
                                             <div class="col-sm-6">
-                                                <input type="number" id="nb_apbn_lain-input" name="nb_apbn_lain-input" class="form-control" value="{{$nb_apbn_lain}}" maxlength="27" placeholder="Nilai">
+                                                <input type="number" id="nb_a_pupr_bdi_plbk-input" name="nb_a_pupr_bdi_plbk-input" class="form-control" value="{{$nb_a_pupr_bdi_plbk}}" maxlength="27" placeholder="Nilai">
                                             </div>
                                         </div>
                                         <div class="form-group striped-col">
@@ -399,272 +350,3 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="panel filterable">
-            <div class="panel-heading clearfix  ">
-                <div class="panel-title pull-left">
-                    <b>Daftar Peserta Lelang</b>
-                </div>
-                @if( ! empty($detil['302']))
-                <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/pengadaan_lelang/peserta/create'}}">Create</a>
-                </div>
-                @endif
-            </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-striped" id="peserta">
-                        <thead>
-                            <tr>
-                                <th>Kode Lelang</th>
-                                <th>No Urut</th>
-                                <th>Kode Kontraktor</th>
-                                <th>Flag Pemenang</th>
-                                <th>Created Time</th>
-                                <th>Created By</th>
-                                <th>Option</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@stop {{-- local scripts --}} @section('footer_scripts')
-<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
-<script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrapwizard/js/jquery.bootstrap.wizard.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_wizards.js')}}" type="text/javascript"></script>
-<script>
-      $(document).ready(function () {
-	  	$("#file-dokumen-input").fileinput({
-  	  		showUpload: false
-  	  	});
-  	  	$("#file-absensi-input").fileinput({
-  	  		showUpload: false
-  	  	});
-        $('#form').on('submit', function (e) {
-          e.preventDefault();
-          var form_data = new FormData(this);
-          $.ajax({
-            type: 'post',
-            processData: false,
-            contentType: false,
-            "url": "/main/perencanaan/pengadaan_lelang/create",
-            data: form_data,
-            beforeSend: function (){
-                $("#submit").prop('disabled', true);
-            },
-            success: function () {
-
-            alert('From Submitted.');
-            window.location.href = "/main/perencanaan/pengadaan_lelang";
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-              alert(xhr.status);
-              alert(thrownError);
-              $("#submit").prop('disabled', false);
-            }
-          });
-        });
-        $("#select-kode_kmw-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
-        $("#select-skala_kegiatan-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
-        $("#select-kode_kota-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
-        $("#select-kode_korkot-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
-        $("#select-kode_kec-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
-        $("#select-kode_kel-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
-        $("#select-kode_faskel-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
-        $("#select-kode_pkt_krj-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
-        document.addEventListener('invalid', (function () {
-          return function (e) {
-            e.preventDefault();
-            console.log(e)
-            alert('Field input '+e.target.id+' belum diisi.');
-          };
-        })(), true);
-
-        function enforce_maxlength(event) {
-            var t = event.target;
-            if (t.hasAttribute('maxlength')) {
-                t.value = t.value.slice(0, t.getAttribute('maxlength'));
-            }
-        }
-        document.body.addEventListener('input', enforce_maxlength);
-
-        var kmw = $('#select-kode_kmw-input');
-        var kota = $('#select-kode_kota-input');
-        var korkot = $('#select-kode_korkot-input');
-        var kecamatan = $('#select-kode_kec-input');
-        var kelurahan = $('#select-kode_kel-input');
-        var faskel = $('#select-kode_faskel-input');
-        var kmw_id,kota_id,korkot_id,kel_id,kec_id,faskel_id;
-        kmw.change(function(){
-            kmw_id=kmw.val();
-            if(kmw_id!=undefined){
-                kota.empty();
-                kota.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/perencanaan/rencana_kegiatan/select?kmw="+kmw_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
-        kota.change(function(){
-            kota_id=kota.val();
-            if(kota_id!=undefined){
-                korkot.empty();
-                korkot.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/perencanaan/rencana_kegiatan/select?kota="+kota_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-                kecamatan.empty();
-                kecamatan.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/perencanaan/rencana_kegiatan/select?korkot="+kota_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kecamatan.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
-        kecamatan.change(function(){
-            kec_id=kecamatan.val();
-            console.log(kec_id)
-            if(kec_id!=undefined){
-                kelurahan.empty();
-                kelurahan.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/perencanaan/rencana_kegiatan/select?kec="+kec_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kelurahan.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
-        kelurahan.change(function(){
-            kel_id=kelurahan.val();
-            if(kel_id!=undefined){
-                faskel.empty();
-                faskel.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/perencanaan/rencana_kegiatan/select?faskel="+kel_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            faskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        var table = $('#peserta').DataTable({
-            // dom: 'Bflrtip',
-
-            "processing": true,
-            "serverSide": true,
-            "ajax":{
-                     "url": "/main/perencanaan/pengadaan_lelang/peserta",
-                     "dataType": "json",
-                     "type": "POST"
-                   },
-
-            "columns": [
-                { "data": "kode_lelang" , name:"kode_lelang"},
-                { "data": "no_urut" , name:"no_urut"},
-                { "data": "kode_kontraktor" , name:"kode_kontraktor"},
-                { "data": "flag_pemenang" , name:"flag_pemenang"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
-                { "data": "option" , name:"option",orderable:false}
-            ]
-        });
-        $('#pokja_filter input').unbind();
-        $('#pokja_filter input').bind('keyup', function(e) {
-        if(e.keyCode == 13) {
-            table.search(this.value).draw();
-        }
-    })
-});
-</script>
-<script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
-<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>
-<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.bootstrap.js')}}"></script>
-<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.buttons.js')}}"></script>
-<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.colReorder.js')}}"></script>
-<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.responsive.js')}}"></script>
-<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.rowReorder.js')}}"></script>
-<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.colVis.js')}}"></script>
-<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>
-<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.bootstrap.js')}}"></script>
-<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.print.js')}}"></script>
-<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.scroller.js')}}"></script>
-<script src="{{asset('js/custom_js/alert.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
-@stop
