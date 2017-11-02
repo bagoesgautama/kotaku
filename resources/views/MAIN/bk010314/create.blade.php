@@ -87,7 +87,7 @@
                                                 <select id="select-kode_pkt_krj-input" name="select-kode_pkt_krj-input" class="form-control select2" size="1">
                                                     <option value="">Please select</option>
                                                     @foreach ($kode_pkt_krj_list as $kpkl)
-                                                        <option value="{{$kpl->kode}}" {!! $kode_pkt_krj==$kpkl->kode ? 'selected':'' !!}>{{$kpkl->jenis_komponen_keg.'-'.$kpkl->nama_subkomponen.'-'.$kpkl->nama_dtl_subkomponen}}</option>
+                                                        <option value="{{$kpkl->kode}}" {!! $kode_pkt_krj==$kpkl->kode ? 'selected':'' !!}>{{$kpkl->jenis_komponen_keg.'-'.$kpkl->nama_subkomponen.'-'.$kpkl->nama_dtl_subkomponen}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -107,7 +107,7 @@
                                         <div class="form-group striped-col">
                                             <label class="col-sm-3 control-label">Skala Kegiatan</label>
                                             <div class="col-sm-6">
-                                                <input type="text" id="skala_kegiatan-input" name="skala_kegiatan-input" placeholder="Sumber Dana" value="{{$skala_kegiatan}}" class="form-control" readonly>
+                                                <input type="text" id="skala_kegiatan-input" name="skala_kegiatan-input" placeholder="skala_kegiatan" value="{{$skala_kegiatan}}" class="form-control" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -265,6 +265,18 @@
                             <div class="panel " >
                                 <div class="panel-body border">
                                     <div class="row">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">No Kontrak</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" id="nomor_kontrak-input" name="nomor_kontrak-input" class="form-control" placeholder="Nomor Kontrak" value="{{$nomor_kontrak}}" maxlength="50">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Nama Paket</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" id="nama_paket-input" name="nama_paket-input" class="form-control" placeholder="Nama Paket" value="{{$nama_paket}}" maxlength="30">
+                                            </div>
+                                        </div>
                                         <div class="form-group striped-col">
                                             <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Mulai Lelang</label>
                                             <div class="col-sm-6">
@@ -408,7 +420,7 @@
                 </div>
                 @if( ! empty($detil['302']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/pengadaan_lelang/peserta/create'}}">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/pengadaan_lelang/peserta/create?kode_lelang='.$kode}}">Create</a>
                 </div>
                 @endif
             </div>
@@ -433,17 +445,7 @@
     </div>
 </div>
 @stop {{-- local scripts --}} @section('footer_scripts')
-<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
-<script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrapwizard/js/jquery.bootstrap.wizard.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_wizards.js')}}" type="text/javascript"></script>
+
 <script>
       $(document).ready(function () {
 	  	$("#file-dokumen-input").fileinput({
@@ -478,37 +480,44 @@
         });
         $("#select-kode_kmw-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width:"100%"
         });
 
         $("#select-skala_kegiatan-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width:"100%"
         });
 
         $("#select-kode_kota-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width:"100%"
         });
 
         $("#select-kode_korkot-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width:"100%"
         });
 
         $("#select-kode_kec-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width:"100%"
         });
 
         $("#select-kode_kel-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width:"100%"
         });
 
         $("#select-kode_faskel-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width:"100%"
         });
 
         $("#select-kode_pkt_krj-input").select2({
@@ -532,89 +541,59 @@
         }
         document.body.addEventListener('input', enforce_maxlength);
 
+        var paket = $('#select-kode_pkt_krj-input');
         var kmw = $('#select-kode_kmw-input');
         var kota = $('#select-kode_kota-input');
         var korkot = $('#select-kode_korkot-input');
-        var kecamatan = $('#select-kode_kec-input');
-        var kelurahan = $('#select-kode_kel-input');
+        var kec = $('#select-kode_kec-input');
+        var kel = $('#select-kode_kel-input');
         var faskel = $('#select-kode_faskel-input');
-        var kmw_id,kota_id,korkot_id,kel_id,kec_id,faskel_id;
-        kmw.change(function(){
-            kmw_id=kmw.val();
-            if(kmw_id!=undefined){
-                kota.empty();
-                kota.append("<option value=undefined>Please select</option>");
+        var skala = $('#skala_kegiatan-input');
+        var tahun = $('#tahun-input');
+        var komponen = $('#jenis_komponen_keg-input');
+        var subkomponen = $('#id_subkomponen-input');
+        var dtl_subkomponen = $('#id_dtl_subkomponen-input');
+        var vol = $('#dk_vol_kegiatan-input');
+        var satuan = $('#dk_satuan-input');
+        var lok = $('#lok_kegiatan-input');
+        var penanganan = $('#dk_tipe_penanganan-input');
+        var nsup = $('#nb_apbn_nsup-input');
+        var lain = $('#nb_apbn_lain-input');
+        var apbd_prop = $('#nb_apbd_prop-input');
+        var apbd_kota = $('#nb_apbd_kota-input');
+        var lainnya = $('#nb_lainnya-input');
+        var paket_id;
+
+        paket.change(function(){
+            paket_id=paket.val();
+            if(paket_id!=null){
+                tahun.empty();
                 $.ajax({
                     type: 'get',
-                    "url": "/main/perencanaan/rencana_kegiatan/select?kmw="+kmw_id,
+                    "url": "/main/perencanaan/pengadaan_lelang/select?data_kegiatan="+paket_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
-                            kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
-        kota.change(function(){
-            kota_id=kota.val();
-            if(kota_id!=undefined){
-                korkot.empty();
-                korkot.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/perencanaan/rencana_kegiatan/select?kota="+kota_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-                kecamatan.empty();
-                kecamatan.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/perencanaan/rencana_kegiatan/select?korkot="+kota_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kecamatan.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
-        kecamatan.change(function(){
-            kec_id=kecamatan.val();
-            console.log(kec_id)
-            if(kec_id!=undefined){
-                kelurahan.empty();
-                kelurahan.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/perencanaan/rencana_kegiatan/select?kec="+kec_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kelurahan.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
-        kelurahan.change(function(){
-            kel_id=kelurahan.val();
-            if(kel_id!=undefined){
-                faskel.empty();
-                faskel.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/perencanaan/rencana_kegiatan/select?faskel="+kel_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            faskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                            kmw.append("<option value="+data[i].kode_kmw+" selected>"+data[i].nama_kmw+"</option>");
+                            kota.append("<option value="+data[i].kode_kota+" selected>"+data[i].nama_kota+"</option>");
+                            korkot.append("<option value="+data[i].kode_korkot+" selected>"+data[i].nama_korkot+"</option>");
+                            kec.append("<option value="+data[i].kode_kec+" selected>"+data[i].nama_kec+"</option>");
+                            kel.append("<option value="+data[i].kode_kel+" selected>"+data[i].nama_kel+"</option>");
+                            faskel.append("<option value="+data[i].kode_faskel+" selected>"+data[i].nama_faskel+"</option>");
+                            tahun.val(data[0].tahun);
+                            skala.val(data[0].skala);
+                            komponen.val(data[0].nama_komponen);
+                            subkomponen.val(data[0].nama_subkomponen);
+                            dtl_subkomponen.val(data[0].nama_dtl_subkomponen);
+                            vol.val(data[0].dk_vol_kegiatan);
+                            satuan.val(data[0].dk_satuan);
+                            lok.val(data[0].lok_kegiatan);
+                            penanganan.val(data[0].nama_penanganan);
+                            nsup.val(data[0].nb_apbn_nsup);
+                            lain.val(data[0].nb_apbn_lain);
+                            apbd_prop.val(data[0].nb_apbd_prop);
+                            apbd_kota.val(data[0].nb_apbd_kota);
+                            lainnya.val(data[0].nb_lainnya);
                         }
                     }
                 });
@@ -653,6 +632,18 @@
     })
 });
 </script>
+<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrapwizard/js/jquery.bootstrap.wizard.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_wizards.js')}}" type="text/javascript"></script>
+
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.bootstrap.js')}}"></script>
