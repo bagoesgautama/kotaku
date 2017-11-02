@@ -169,6 +169,16 @@ Route::get('/hrm/admin/role_akses', 'HRM\bk020109Controller@index');
 Route::get('/hrm/admin/role_akses/show', 'HRM\bk020109Controller@show');
 Route::post('/hrm/admin/role_akses', 'HRM\bk020109Controller@post');
 
+//get html form data
+Route::get('/hrm/admin/registrasi_manual', 'HRM\bk020111Controller@index');
+//get data for datatable
+Route::post('hrm/admin/registrasi_manual', 'HRM\bk020111Controller@post');
+//get html for form CRUD
+Route::get('/hrm/admin/registrasi_manual/create', 'HRM\bk020111Controller@create');
+//insert or update data
+Route::post('/hrm/admin/registrasi_manual/create', 'HRM\bk020111Controller@post_create');
+//delete data
+Route::get('/hrm/admin/registrasi_manual/delete', 'HRM\bk020111Controller@delete');
 /**
  *
  *
@@ -611,7 +621,7 @@ Route::get('/main/perencanaan/pengadaan_lelang/select', 'MAIN\bk010314Controller
 
 Route::post('/main/perencanaan/pengadaan_lelang/peserta', 'MAIN\bk010314Controller@post_peserta');
 Route::get('/main/perencanaan/pengadaan_lelang/peserta/create', 'MAIN\bk010314Controller@create_peserta');
-Route::post('/main/perencanaan/pengadaan_lelang/peserta/create', 'MAIN\bk010314Controller@post_create_peserta');
+Route::post('/main/perencanaan/pengadaan_lelang/peserta/create', 'MAIN\bk010314Controller@post_peserta_create');
 Route::get('/main/perencanaan/pengadaan_lelang/peserta/delete', 'MAIN\bk010314Controller@delete_peserta');
 
 Route::get('/main/perencanaan/kontrak_paket', 'MAIN\bk010315Controller@index');

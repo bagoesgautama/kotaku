@@ -39,7 +39,7 @@
                             <div class="form-group">
                                 <label for="username" class="sr-only">Username</label>
                                 <input type="text" class="form-control form-control-lg" id="username"
-                                       name="username" placeholder="Username" required>
+                                       name="username" placeholder="Username" required maxlength="50">
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">
@@ -52,7 +52,7 @@
                             <div class="form-group">
                                 <label for="password" class="sr-only">Password</label>
                                 <input type="password" class="form-control form-control-lg" id="password"
-                                       name="password" placeholder="Password" required>
+                                       name="password" placeholder="Password" required maxlength="255">
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -65,7 +65,7 @@
                             <div class="form-group">
                                 <label for="first" class="sr-only">First Name</label>
                                 <input type="text" class="form-control  form-control-lg" id="first_name" name="first_name"
-                                       placeholder="First name" value="{{ old('first_name') }}" required autofocus>
+                                       placeholder="First name" value="{{ old('first_name') }}" required autofocus maxlength="50">
                                 @if ($errors->has('first_name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('first_name') }}</strong>
@@ -77,14 +77,14 @@
                             <div class="form-group">
                                 <label for="last" class="sr-only">Last Name</label>
                                 <input type="text" class="form-control  form-control-lg" id="last" name="last_name"
-                                       placeholder="Last name" required>
+                                       placeholder="Last name" maxlength="50">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="alamat" class="sr-only">Alamat</label>
                                 <input type="text" class="form-control  form-control-lg" id="alamat" name="alamat"
-                                       placeholder="Alamat" required>
+                                       placeholder="Alamat" maxlength="50">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -129,7 +129,7 @@
                             <div class="form-group">
                                 <label for="kodepos" class="sr-only">Kodepos</label>
                                 <input type="text" class="form-control  form-control-lg" id="kodepos" name="kodepos"
-                                       placeholder="kodepos" required>
+                                       placeholder="kodepos" maxlength="5">
                             </div>
                         </div>
                         <!-- <div class="col-md-12">
@@ -178,7 +178,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="email" class="sr-only"> E-mail</label>
-                                <input id="email" type="email" class="form-control  form-control-lg" name="email" value="{{ old('email') }}" placeholder="E-mail" required>
+                                <input id="email" type="email" class="form-control  form-control-lg" name="email" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
 
                                 <!-- <input type="text" class="form-control  form-control-lg" id="email" name="email" placeholder="E-mail"> -->
                                 @if ($errors->has('email'))
@@ -192,7 +192,7 @@
                             <div class="form-group">
                                 <label for="no_hp" class="sr-only">No. Hp</label>
                                 <input type="text" class="form-control  form-control-lg" id="no_hp" name="no_hp"
-                                       placeholder="No. Hp" required>
+                                       placeholder="No. Hp" required maxlength="50">
                             </div>
                         </div>
                         <div class="col-md-12">

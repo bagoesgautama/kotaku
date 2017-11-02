@@ -34,6 +34,13 @@
 			        </a>
 			    </li>
 			@endif
+			@if( ! empty($menu['180']))
+				<li {!! (Request::is( 'hrm/admin/registrasi_manual*')? 'class="active"': "") !!}>
+			        <a href="/hrm/admin/registrasi_manual">
+			            <span class="mm-text ">Registrasi Manual</span>
+			        </a>
+			    </li>
+			@endif
 		</ul>
     </li>
 	@endif

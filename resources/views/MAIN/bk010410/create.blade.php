@@ -127,7 +127,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Skala Kegiatan</label>
                                         <div class="col-sm-6">
-                                            <input type="text" id="skala_kegiatan-input" name="skala_kegiatan-input" placeholder="Sumber Dana" value="{{$skala_kegiatan}}" class="form-control" readonly>
+                                            <input type="text" id="skala_kegiatan-input" name="skala_kegiatan-input" placeholder="Skala Kegiatan" value="{{$skala_kegiatan}}" class="form-control" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
