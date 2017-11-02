@@ -256,6 +256,88 @@
 						                    </select>
 						                </div>
 						            </div>
+						            <div class="form-group striped-col">
+						                <label class="col-sm-3 control-label">Role</label>
+						                <div class="col-sm-6">
+						                	<select id="kode_role-input" name="kode_role-input" class="form-control select2" size="1">
+			                                    <option value>Role</option>
+
+			                                </select>
+						                </div>
+						            </div>
+						            <div class="form-group striped-col">
+						                <label class="col-sm-3 control-label">KMP</label>
+						                <div class="col-sm-6">
+						                	<select id="kode_kmp-input" name="kode_kmp-input" class="form-control select2" size="1">
+			                                    <option value>KMP</option>
+			                                    @foreach ($kmp_list as $kpl)
+			                                        <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+			                                    @endforeach
+			                                </select>
+						                </div>
+						            </div>
+						            <div class="form-group striped-col" id="wil_kerja_label">
+                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Wilayah Kerja</label></div>
+                                    </div>
+						            <div class="form-group striped-col">
+						                <label class="col-sm-3 control-label">Provinsi</label>
+						                <div class="col-sm-6">
+						                	<select id="wk_kd_prop-input" name="wk_kd_prop-input" class="form-control select2" size="1">
+			                                    <option value>WK Provinsi</option>
+			                                    @foreach ($wk_kd_prop_list as $kpl)
+			                                        <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+			                                    @endforeach
+			                                </select>
+						                </div>
+						            </div>
+						            <div class="form-group striped-col">
+						                <label class="col-sm-3 control-label">KMW</label>
+						                <div class="col-sm-6">
+						                	<select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1">
+			                                    <option value>KMW</option>
+			                                </select>
+						                </div>
+						            </div>
+						            <div class="form-group striped-col">
+						                <label class="col-sm-3 control-label">Kota</label>
+						                <div class="col-sm-6">
+						                	<select id="wk_kd_kota-input" name="wk_kd_kota-input" class="form-control select2" size="1">
+			                                    <option value>WK Kota</option>
+			                                </select>
+						                </div>
+						            </div>
+						            <div class="form-group striped-col">
+						                <label class="col-sm-3 control-label">Korkot</label>
+						                <div class="col-sm-6">
+						                	<select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1">
+			                                    <option value>Korkot</option>
+			                                </select>
+						                </div>
+						            </div>
+						            <div class="form-group striped-col">
+						                <label class="col-sm-3 control-label">Kecamatan</label>
+						                <div class="col-sm-6">
+						                	<select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1">
+			                                    <option value>Kecamatan</option>
+			                                </select>
+						                </div>
+						            </div>
+						            <div class="form-group striped-col">
+						                <label class="col-sm-3 control-label">Kelurahan</label>
+						                <div class="col-sm-6">
+						                	<select id="wk_kd_kel-input" name="wk_kd_kel-input" class="form-control select2" size="1">
+			                                    <option value>WK Kelurahan</option>
+			                                </select>
+						                </div>
+						            </div>
+						            <div class="form-group striped-col">
+						                <label class="col-sm-3 control-label">Faskel</label>
+						                <div class="col-sm-6">
+						                	<select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1">
+			                                    <option value>Faskel</option>
+			                                </select>
+						                </div>
+						            </div>
                                 </div>
                             </div>
                         </div>
@@ -373,6 +455,303 @@
             theme: "bootstrap",
             placeholder: "WK Kelurahan",
             width: "100%"
+        });
+
+        var level = $('#kode_level-input');
+        var role = $('#kode_role-input');
+        var kmp = $('#kode_kmp-input');
+        var prop = $('#kode_prop-input');
+        var kota = $('#kode_kota-input');
+        var kec = $('#kode_kecamatan-input');
+        var kel = $('#kode_kelurahan-input');
+        var wkprop = $('#wk_kd_prop-input');
+        var wkkmw = $('#select-kode-kmw-input');
+        var wkkota = $('#wk_kd_kota-input');
+        var wkkorkot = $('#select-kode-korkot-input');
+        var wkkec = $('#select-kode-kec-input');
+        var wkkel = $('#wk_kd_kel-input');
+        var wkfaskel = $('#select-kode-faskel-input');
+        var level_id,role_id,kmp_id,prop_id,kota_id,kec_id,kel_id,wkprop_id,wkkota_id,wkkmw_id,wkkorkot_id,wkkec_id,wkfaskel_id;
+
+        level.change(function(){
+            level_id=level.val();
+            if(level_id!=null){
+                role.empty();
+                role.append("<option value>Role</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "hrm/admin/registrasi_manual/select?level="+level_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            role.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        level.change(function(){
+            level_id=level.val();
+            role_id=role.val();
+            kmp_id=kmp.val();
+
+            if(level_id!=null){
+                if(level_id==2){
+                    wkkota.empty();
+                    $('#kota_label').hide();
+                    wkfaskel.empty();
+                    $('#faskel_label').hide();
+                    wkkec.empty();
+                    $('#kec_label').hide();
+                    wkkel.empty();
+                    $('#kel_label').hide();
+                    $('#wil_kerja_label').show();
+                    wkprop.val(null).trigger('change');
+                    $('#prov_label').show();
+                    $('#kmw_label').show();
+
+                }else if(level_id==3){
+                    wkkorkot.empty();
+                    $('#korkot_label').hide();
+                    wkkec.empty();
+                    $('#kec_label').hide();
+                    wkkel.empty();
+                    $('#kel_label').hide();
+                    $('#wil_kerja_label').show();
+                    wkprop.val(null).trigger('change');
+                    $('#prov_label').show();
+                    $('#kmw_label').show();
+                    $('#kota_label').show();
+
+                }else if(level_id==4){
+                    wkkorkot.empty();
+                    $('#korkot_label').hide();
+                    wkkota.empty();
+                    $('#kota_label').hide();
+                    wkfaskel.empty();
+                    $('#faskel_label').hide();
+                    wkkel.empty();
+                    $('#kel_label').hide();
+                    $('#wil_kerja_label').show();
+                    wkprop.val(null).trigger('change');
+                    $('#prov_label').show();
+                    $('#kmw_label').show();
+                    $('#kota_label').show();
+                    $('#kec_label').show();
+
+                }else if(level_id==5){
+                    wkkorkot.empty();
+                    $('#korkot_label').hide();
+                    wkkota.empty();
+                    $('#kota_label').hide();
+                    wkfaskel.empty();
+                    $('#faskel_label').hide();
+                    wkkec.empty();
+                    $('#kec_label').hide();
+                    $('#wil_kerja_label').show();
+                    wkprop.val(null).trigger('change');
+                    $('#prov_label').show();
+                    $('#kmw_label').show();
+                    $('#kota_label').show();
+                    $('#kec_label').show();
+                    $('#kel_label').show();
+
+                }else{
+                    $('#wil_kerja_label').hide();
+                    wkprop.val(null).trigger('change');
+                    $('#prov_label').hide();
+                    wkkmw.empty();
+                    $('#kmw_label').hide();
+                    wkkorkot.empty();
+                    $('#korkot_label').hide();
+                    wkkota.empty();
+                    $('#kota_label').hide();
+                    wkfaskel.empty();
+                    $('#faskel_label').hide();
+                }
+            }
+        });
+
+        prop.change(function(){
+            prop_id=prop.val();
+            if(prop_id!=null){
+                kota.empty();
+                kota.append("<option value>Kota</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "hrm/admin/registrasi_manual/select?prop="+prop_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        kota.change(function(){
+            kota_id=kota.val();
+            if(prop_id!=null){
+                kec.empty();
+                kec.append("<option value>Kota</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "hrm/admin/registrasi_manual/select?kota="+kota_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            kec.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        kec.change(function(){
+            kec_id=kec.val();
+            if(kec_id!=null){
+                kel.empty();
+                kel.append("<option value>Kota</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "hrm/admin/registrasi_manual/select?kec="+kec_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            kel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        role.change(function(){
+            role_id=role.val();
+            if(role_id!=null){
+                $.ajax({
+                    type: 'get',
+                    "url": "hrm/admin/registrasi_manual/select?role_flag_koor="+role_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        if(data!=null){
+                            if(data[0].flag_koordinator==1 && data[0].kode_level==2){
+                                $('#korkot_label').show();
+                            }else if(data[0].flag_koordinator==1 && data[0].kode_level==3){
+                                $('#faskel_label').show();
+                            }else{
+                                if(data[0].kode_level==2){
+                                    wkkorkot.val(null).trigger('change');
+                                    $('#korkot_label').hide();
+                                }else if(data[0].kode_level==3){
+                                    wkfaskel.val(null).trigger('change');
+                                    $('#faskel_label').hide();
+                                }
+                                
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+        wkprop.change(function(){
+            wkprop_id=wkprop.val();
+            if(wkprop_id!=null){
+                wkkmw.empty();
+                wkkmw.append("<option value>KMW</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "hrm/admin/registrasi_manual/select?wk_kd_prop_kmw="+wkprop_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkkmw.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+
+                wkkota.empty();
+                wkkota.append("<option value>Kota</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "hrm/admin/registrasi_manual/select?wk_kd_prop_kota="+wkprop_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkkota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        wkkmw.change(function(){
+            wkkmw_id=wkkmw.val();
+            if(wkkmw_id!=null){
+                wkkorkot.empty();
+                wkkorkot.append("<option value>Korkot</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "hrm/admin/registrasi_manual/select?wk_kd_kmw_korkot="+wkkmw_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkkorkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+
+                wkfaskel.empty();
+                wkfaskel.append("<option value>Faskel</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "hrm/admin/registrasi_manual/select?wk_kd_kmw_faskel="+wkkmw_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkfaskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        wkkota.change(function(){
+            wkkota_id=wkkota.val();
+            if(wkkota_id!=null){
+                wkkec.empty();
+                wkkec.append("<option value>Kota</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "hrm/admin/registrasi_manual/select?wk_kd_kota_kec="+wkkota_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkkec.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
+        wkkec.change(function(){
+            wkkec_id=wkkec.val();
+            if(wkkec_id!=null){
+                wkkel.empty();
+                wkkel.append("<option value>Kota</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "hrm/admin/registrasi_manual/select?wk_kd_kec_kel="+wkkec_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkkel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
         });
 
   });
