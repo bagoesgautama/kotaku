@@ -68,6 +68,9 @@ Route::post('/hrm/activity_log/create', 'HRM\bk020201Controller@post_create');
 Route::get('/hrm/activity_log/delete', 'HRM\bk020201Controller@delete');
 
 //management
+Route::get('/hrm/profil/user/aktivasi', 'HRM\bk020302Controller@index');
+Route::post('/hrm/profil/user/aktivasi', 'HRM\bk020302Controller@post');
+
 Route::get('/hrm/profil/user/profil', 'HRM\bk020312Controller@index');
 Route::post('/hrm/profil/user/profil', 'HRM\bk020312Controller@post');
 
