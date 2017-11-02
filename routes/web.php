@@ -100,6 +100,18 @@ Route::get('/hrm/profil/user/penghargaan/delete', 'HRM\bk020305Controller@delete
 Route::get('/hrm/profil/user/password', 'HRM\bk020307Controller@index');
 Route::post('hrm/profil/user/password', 'HRM\bk020307Controller@post');
 
+Route::get('/hrm/management/registrasi_manual', 'HRM\bk020111Controller@index');
+Route::post('hrm/management/registrasi_manual', 'HRM\bk020111Controller@post');
+Route::get('/hrm/management/registrasi_manual/create', 'HRM\bk020111Controller@create');
+Route::post('/hrm/management/registrasi_manual/create', 'HRM\bk020111Controller@post_create');
+Route::get('/hrm/admin/registrasi_manual/delete', 'HRM\bk020111Controller@delete');
+
+Route::get('/hrm/management/persetujuan', 'HRM\bk020116Controller@index');
+Route::post('hrm/management/persetujuan', 'HRM\bk020116Controller@post');
+Route::get('/hrm/management/persetujuan/create', 'HRM\bk020116Controller@create');
+Route::post('/hrm/management/persetujuan/create', 'HRM\bk020116Controller@post_create');
+Route::get('/hrm/admin/persetujuan/delete', 'HRM\bk020116Controller@delete');
+
 Route::get('/hrm/management/user/blacklist', 'HRM\bk020308Controller@index');
 Route::post('/hrm/management/user/blacklist', 'HRM\bk020308Controller@post');
 Route::get('/hrm/management/user/blacklist/create', 'HRM\bk020308Controller@create');
@@ -169,16 +181,7 @@ Route::get('/hrm/admin/role_akses', 'HRM\bk020109Controller@index');
 Route::get('/hrm/admin/role_akses/show', 'HRM\bk020109Controller@show');
 Route::post('/hrm/admin/role_akses', 'HRM\bk020109Controller@post');
 
-//get html form data
-Route::get('/hrm/admin/registrasi_manual', 'HRM\bk020111Controller@index');
-//get data for datatable
-Route::post('hrm/admin/registrasi_manual', 'HRM\bk020111Controller@post');
-//get html for form CRUD
-Route::get('/hrm/admin/registrasi_manual/create', 'HRM\bk020111Controller@create');
-//insert or update data
-Route::post('/hrm/admin/registrasi_manual/create', 'HRM\bk020111Controller@post_create');
-//delete data
-Route::get('/hrm/admin/registrasi_manual/delete', 'HRM\bk020111Controller@delete');
+
 /**
  *
  *

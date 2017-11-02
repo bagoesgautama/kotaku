@@ -34,7 +34,7 @@
 			        </a>
 			    </li>
 			@endif
-			
+
 		</ul>
     </li>
 	@endif
@@ -65,11 +65,18 @@
 		            <span class="mm-text ">Managemen User</span>
 					<span class="fa arrow"></span>
 		        </a>
-				<ul class="sub-menu form-submenu">
+				<ul class="form-sub-submenu">
 					@if( ! empty($menu['180']))
-						<li {!! (Request::is( 'hrm/admin/registrasi_manual*')? 'class="active"': "") !!}>
-					        <a href="/hrm/admin/registrasi_manual">
+						<li {!! (Request::is( 'hrm/management/registrasi_manual*')? 'class="active"': "") !!}>
+					        <a href="/hrm/management/registrasi_manual">
 					            <span class="mm-text ">Registrasi Manual</span>
+					        </a>
+					    </li>
+					@endif
+					@if( ! empty($menu['182']))
+						<li {!! (Request::is( 'hrm/admin/persetujuan*')? 'class="active"': "") !!}>
+					        <a href="/hrm/admin/persetujuan">
+					            <span class="mm-text ">Persetujuan Pendaftaran Personil</span>
 					        </a>
 					    </li>
 					@endif
