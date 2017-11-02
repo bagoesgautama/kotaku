@@ -151,12 +151,12 @@ class bk010217Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
-				$data['kode_kel_list'] = DB::select('select * from bkt_01010104_kel where status=1');
-				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
-				$data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
+				$data['kode_kel_list'] = null;
+				$data['kode_kota_list'] = null;
+				$data['kode_kec_list'] = null;
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
-				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
-				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
+				$data['kode_korkot_list'] = null;
+				$data['kode_faskel_list'] = null;
 				$data['kode_bhn_sos_list'] = DB::select('select * from bkt_01010125_bhn_sosialisasi where status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010217/create',$data);
@@ -286,19 +286,46 @@ class bk010217Controller extends Controller
 			}
 			if(!empty($data2['detil'])){
 				$columns = array(
-					0 =>'kode_kmw',
+					0 =>'kode',
 					1 =>'kode_kota',
-					2 =>'kode_korkot',
-					3 =>'kode_kec',
-					4 =>'kode_kel',
-					5 =>'kode_faskel',
-					6 =>'jenis_kegiatan',
-					7 =>'tgl_kegiatan',
-					8 =>'lok_kegiatan',
-					9 =>'created_time'
+					2 =>'kode_kec',
+					3 =>'kode_kel',
+					4 =>'jenis_kegiatan',
+					5 =>'tgl_kegiatan',
+					6 =>'lok_kegiatan',
+					7 =>'created_time'
 				);
-				$query='select a.kode as kode, b.nama as kode_kota, c.nama as kode_kec, d.nama as kode_kel, e.nama as kode_kmw, f.nama as kode_korkot, g.nama as kode_faskel, a.jenis_kegiatan, a.tgl_kegiatan, a.lok_kegiatan, a.created_time from bkt_01020210_sos_rel_kel a, bkt_01010102_kota b, bkt_01010103_kec c, bkt_01010104_kel d, bkt_01010110_kmw e, bkt_01010111_korkot f, bkt_01010113_faskel g where a.kode_kota = b.kode and a.kode_kec = c.kode and a.kode_kel = d.kode and a.kode_kmw = e.kode and a.kode_korkot = f.kode and a.kode_faskel = g.kode and a.jenis_kegiatan = "2.5.1.4"';
-				$totalData = DB::select('select count(1) cnt from bkt_01020210_sos_rel_kel a, bkt_01010102_kota b, bkt_01010103_kec c, bkt_01010104_kel d, bkt_01010110_kmw e, bkt_01010111_korkot f, bkt_01010113_faskel g where a.kode_kota = b.kode and a.kode_kec = c.kode and a.kode_kel = d.kode and a.kode_kmw = e.kode and a.kode_korkot = f.kode and a.kode_faskel = g.kode and a.jenis_kegiatan = "2.5.1.4"');
+				$query='
+					select * from (select
+						a.*, 
+						a.kode as kode_sos, 
+						b.nama as nama_kota, 
+						c.nama as nama_kec, 
+						d.nama as nama_kel, 
+						e.nama as nama_kmw, 
+						f.nama as nama_korkot, 
+						g.nama as nama_faskel, 
+						case when a.jenis_kegiatan="2.5.1.4" then "Relawan" when a.jenis_kegiatan="2.5.1.5" then "Agen Sosialisasi" when a.jenis_kegiatan="2.5.3" then "Pelatihan Masyarakat" end jenis_kegiatan_convert, 
+						a.tgl_kegiatan tgl_kegiatan_sos, 
+						a.lok_kegiatan lok_kegiatan_sos
+					from bkt_01020210_sos_rel_kel a
+						left join bkt_01010102_kota b on a.kode_kota = b.kode
+						left join bkt_01010103_kec c on a.kode_kec = c.kode
+						left join bkt_01010104_kel d on a.kode_kel = d.kode
+						left join bkt_01010110_kmw e on a.kode_kmw = e.kode
+						left join bkt_01010111_korkot f on a.kode_korkot = f.kode
+						left join bkt_01010113_faskel g on a.kode_faskel = g.kode
+					where
+					a.jenis_kegiatan = "2.5.1.4") b';
+				$totalData = DB::select('select count(1) cnt from bkt_01020210_sos_rel_kel a
+						left join bkt_01010102_kota b on a.kode_kota = b.kode
+						left join bkt_01010103_kec c on a.kode_kec = c.kode
+						left join bkt_01010104_kel d on a.kode_kel = d.kode
+						left join bkt_01010110_kmw e on a.kode_kmw = e.kode
+						left join bkt_01010111_korkot f on a.kode_korkot = f.kode
+						left join bkt_01010113_faskel g on a.kode_faskel = g.kode
+					where
+					a.jenis_kegiatan = "2.5.1.4"');
 				$totalFiltered = $totalData[0]->cnt;
 				$limit = $request->input('length');
 				$start = $request->input('start');
@@ -306,12 +333,27 @@ class bk010217Controller extends Controller
 				$dir = $request->input('order.0.dir');
 				if(empty($request->input('search.value')))
 				{
-					$posts=DB::select($query .' order by a.'.$order.' '.$dir.' limit '.$start.','.$limit);
+					$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 				}
 				else {
 					$search = $request->input('search.value');
-					$posts=DB::select($query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or f.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or a.jenis_kegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-					$totalFiltered=DB::select('select count(1) from ('.$query. ' and (b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%" or d.nama like "%'.$search.'%" or e.nama like "%'.$search.'%" or f.nama like "%'.$search.'%" or g.nama like "%'.$search.'%" or a.jenis_kegiatan like "%'.$search.'%" or a.tgl_kegiatan like "%'.$search.'%" or a.lok_kegiatan like "%'.$search.'%")) a');
+					$posts=DB::select($query. ' where (
+						b.kode_sos like "%'.$search.'%" or 
+						b.tgl_kegiatan_sos like "%'.$search.'%" or
+						b.lok_kegiatan_sos like "%'.$search.'%" or
+						b.jenis_kegiatan_convert like "%'.$search.'%" or
+						b.nama_kota like "%'.$search.'%" or
+						b.nama_kec like "%'.$search.'%" or 
+						b.nama_kel like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+					$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+						b.kode_sos like "%'.$search.'%" or 
+						b.tgl_kegiatan_sos like "%'.$search.'%" or
+						b.lok_kegiatan_sos like "%'.$search.'%" or
+						b.jenis_kegiatan_convert like "%'.$search.'%" or
+						b.nama_kota like "%'.$search.'%" or
+						b.nama_kec like "%'.$search.'%" or 
+						b.nama_kel like "%'.$search.'%")) a');
+					$totalFiltered = $totalFiltered[0]->cnt;
 				}
 
 				$data = array();
@@ -322,29 +364,19 @@ class bk010217Controller extends Controller
 						$show =  $post->kode;
 						$edit =  $post->kode;
 						$delete = $post->kode;
-						$jenis_kegiatan = null;
-
-						if($post->jenis_kegiatan == '2.5.1'){
-							$jenis_kegiatan = 'Sosialisasi';
-						}elseif($post->jenis_kegiatan == '2.5.1.4'){
-							$jenis_kegiatan = 'Relawan';
-						}elseif($post->jenis_kegiatan == '2.5.1.5'){
-							$jenis_kegiatan = 'Agen Sosialisasi';
-						}elseif($post->jenis_kegiatan == '2.5.3'){
-							$jenis_kegiatan = 'Pelatihan Masyarakat';
-						}
 
 						$url_edit="/main/persiapan/kelurahan/relawan/create?kode=".$show;
 						$url_delete="/main/persiapan/kelurahan/relawan/delete?kode=".$delete;
-						$nestedData['kode_kota'] = $post->kode_kota;
-						$nestedData['kode_kec'] = $post->kode_kec;
-						$nestedData['kode_kel'] = $post->kode_kel;
-						$nestedData['kode_kmw'] = $post->kode_kmw;
-						$nestedData['kode_korkot'] = $post->kode_korkot;
-						$nestedData['kode_faskel'] = $post->kode_faskel;
-						$nestedData['jenis_kegiatan'] = $jenis_kegiatan;
-						$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
-						$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
+						$nestedData['kode'] = $post->kode_sos;
+						$nestedData['kode_kota'] = $post->nama_kota;
+						$nestedData['kode_kec'] = $post->nama_kec;
+						$nestedData['kode_kel'] = $post->nama_kel;
+						$nestedData['kode_kmw'] = $post->nama_kmw;
+						$nestedData['kode_korkot'] = $post->nama_korkot;
+						$nestedData['kode_faskel'] = $post->nama_faskel;
+						$nestedData['jenis_kegiatan'] = $post->jenis_kegiatan_convert;
+						$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan_sos;
+						$nestedData['lok_kegiatan'] = $post->lok_kegiatan_sos;
 						$nestedData['created_time'] = $post->created_time;
 						$nestedData['option'] = "";
 						if(!empty($data2['detil']['192']))
