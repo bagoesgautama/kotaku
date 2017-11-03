@@ -74,8 +74,8 @@
 					    </li>
 					@endif
 					@if( ! empty($menu['182']))
-						<li {!! (Request::is( 'hrm/admin/persetujuan*')? 'class="active"': "") !!}>
-					        <a href="/hrm/admin/persetujuan">
+						<li {!! (Request::is( 'hrm/management/persetujuan*')? 'class="active"': "") !!}>
+					        <a href="/hrm/management/persetujuan">
 					            <span class="mm-text ">Persetujuan Pendaftaran Personil</span>
 					        </a>
 					    </li>
