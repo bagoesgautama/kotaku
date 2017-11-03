@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Penanganan Dampak Sosial & Lingkungan @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Manajemen Personil - Persetujuan Pendaftaran Personil @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,21 +14,18 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Penanganan Dampak Sosial & Lingkungan</h1>
+    <h1>Manajemen Personil - Persetujuan Pendaftaran Personil</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
                 <a href="/main">
-                    <i class="fa fa-fw fa-home"></i> MAIN
+                    <i class="fa fa-fw fa-home"></i> HRM
                 </a>
             </li>
             <li class="next">
-                <a href="/main/perencanaan/infra/amdal">
-                    Perencanaan / Penyiapan DED, Pengadaan Skala Kota / Penanganan Dampak Sosial & Lingkungan
+                <a href="/hrm/management/persetujuan">
+                    Manajemen Personil / Persetujuan Pendaftaran Personil
                 </a>
-            </li>
-            <li class="next">
-                Create
             </li>
         </ul>
     </div>
@@ -39,22 +36,27 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010313 index</b>
+                    <b>bk020316 index</b>
                 </div>
-                @if( ! empty($detil['318']))
+                <!-- @if( ! empty($detil['375']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/infra/amdal/create'}}">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/pelaksanaan/kelurahan/ksm/create'}}">Create</a>
                 </div>
-                @endif
+                @endif -->
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users">
+                    <table class="table table-striped" id="users" width="2000px">
                         <thead>
                             <tr>
-                                <th>Kode Paket Kerja Kontraktor</th>
+                                <th>Beri Persetujuan</th>
+                                <th>Username</th>
+                                <th>Nama Depan</th>
+                                <th>Nama Belakang</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Jenis Registrasi</th>
+                                <th>Status Registrasi</th>
                                 <th>Created Time</th>
-                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -74,16 +76,22 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/perencanaan/infra/amdal",
+                     "url": "/hrm/management/persetujuan",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-                { "data": "kode_parent" , name:"kode_parent"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "option" , name:"option",orderable:false}
-            ]
+                { "data": "option" , name:"option",orderable:false, className:"text-center"},
+                { "data": "user_name" , name:"user_name"},
+                { "data": "nama_depan" , name:"nama_depan"},
+                { "data": "nama_belakang" , name:"nama_belakang"},
+                { "data": "jenis_kel" , name:"jenis_kel"},
+                { "data": "jenis_reg" , name:"jenis_reg"},
+                { "data": "status_reg" , name:"status_reg"},
+                { "data": "created_time" , name:"created_time"}
+                
+            ],
         });
         $('#users_filter input').unbind();
         $('#users_filter input').bind('keyup', function(e) {

@@ -91,17 +91,31 @@ class bk010407Controller extends Controller
 			33 => 'updated_time',
 			34 => 'updated_by'
 		);
-		$query='select a.*, b.nama nama_kota, c.nama nama_korkot, d.nama nama_kec, e.nama nama_kmw, f.nama nama_kel, g.nama nama_faskel 
-			from bkt_01040204_cair_rp_bkm a, 
-				bkt_01010102_kota b, 
-				bkt_01010111_korkot c, 
-				bkt_01010103_kec d, 
-				bkt_01010110_kmw e,
-				bkt_01010104_kel f,
-				bkt_01010113_faskel g 
-			where b.kode=a.kode_kota and c.kode=a.kode_korkot and d.kode=a.kode_kec and e.kode=a.kode_kmw and f.kode=kode_kel and g.kode=kode_faskel ';
+		$query='select * from (select 
+					a.*, 
+					b.nama nama_kota, 
+					c.nama nama_korkot, 
+					d.nama nama_kec, 
+					e.nama nama_kmw, 
+					f.nama nama_kel, 
+					g.nama nama_faskel 
+				from bkt_01040204_cair_rp_bkm a 
+					left join bkt_01010110_kmw b on b.kode=a.kode_kmw
+					left join bkt_01010102_kota c on c.kode=a.kode_kota
+					left join bkt_01010111_korkot d on d.kode=a.kode_korkot
+					left join bkt_01010103_kec e on e.kode=a.kode_kec 
+					left join bkt_01010104_kel f on f.kode=kode_kel
+					left join bkt_01010113_faskel g on g.kode=kode_faskel
+				) b ';
 			 
-		$totalData = DB::select('select count(1) cnt from bkt_01040204_cair_rp_bkm ');
+		$totalData = DB::select('select count(1) cnt from bkt_01040204_cair_rp_bkm a 
+									left join bkt_01010110_kmw b on b.kode=a.kode_kmw
+									left join bkt_01010102_kota c on c.kode=a.kode_kota
+									left join bkt_01010111_korkot d on d.kode=a.kode_korkot
+									left join bkt_01010103_kec e on e.kode=a.kode_kec 
+									left join bkt_01010104_kel f on f.kode=kode_kel
+									left join bkt_01010113_faskel g on g.kode=kode_faskel
+								');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -113,8 +127,39 @@ class bk010407Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and a.tahun like "%'.$search.'%" or b.kode_prop like "%'.$search.'%" or c.kode_kota like "%'.$search.'%" or d.kode_korkot like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and a.tahun like "%'.$search.'%" or b.kode_prop like "%'.$search.'%" or c.kode_kota like "%'.$search.'%" or d.kode_korkot like "%'.$search.'%") a');
+			$posts=DB::select($query. ' where (
+					b.tahun_real like "%'.$search.'%" or 
+					b.tgl_mulai_ktrk_real like "%'.$search.'%" or
+					b.tgl_selesai_ktrk_real like "%'.$search.'%" or 
+					b.lok_kegiatan_real like "%'.$search.'%" or
+					b.nama_kmw like "%'.$search.'%" or
+					b.nama_kota like "%'.$search.'%" or
+					b.nama_kec like "%'.$search.'%" or
+					b.nama_kel like "%'.$search.'%" or
+					b.nama_faskel like "%'.$search.'%" or
+					b.nama_subkomponen like "%'.$search.'%" or
+					b.nama_dtl_subkomponen like "%'.$search.'%" or
+					b.nama_skala_kegiatan like "%'.$search.'%" or
+					b.nama_tipe_penanganan like "%'.$search.'%" or
+					b.nama_jenis_komponen_keg like "%'.$search.'%" )
+					order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+					b.tahun_real like "%'.$search.'%" or 
+					b.tgl_mulai_ktrk_real like "%'.$search.'%" or
+					b.tgl_selesai_ktrk_real like "%'.$search.'%" or 
+					b.lok_kegiatan_real like "%'.$search.'%" or
+					b.nama_kmw like "%'.$search.'%" or
+					b.nama_kota like "%'.$search.'%" or
+					b.nama_kec like "%'.$search.'%" or
+					b.nama_kel like "%'.$search.'%" or
+					b.nama_faskel like "%'.$search.'%" or
+					b.nama_subkomponen like "%'.$search.'%" or
+					b.nama_dtl_subkomponen like "%'.$search.'%" or
+					b.nama_skala_kegiatan like "%'.$search.'%" or
+					b.nama_tipe_penanganan like "%'.$search.'%" or
+					b.nama_jenis_komponen_keg like "%'.$search.'%" 
+					)) a');
+			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
 		$data = array();
