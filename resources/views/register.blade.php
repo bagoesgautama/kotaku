@@ -25,7 +25,7 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 login-form">
+        <div class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 login-form">
             <!-- <div class="panel-header">
                 <h2 class="text-center">
                     <img src="{{asset('img/pages/clear_black.png')}}" alt="Logo">
@@ -35,101 +35,302 @@
                 <div class="row">
                     <form action="/registrasi" id="authentication" method="post" class="signup_validator">
                         {{ csrf_field() }}
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="username" class="sr-only">Username</label>
-                                <input type="text" class="form-control form-control-lg" id="username"
-                                       name="username" placeholder="Username" required maxlength="50">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="username" class="sr-only">Username</label>
+                                    <input type="text" class="form-control form-control-lg" id="username"
+                                           name="username" placeholder="Username" required maxlength="50">
 
-                                @if ($errors->has('username'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('username') }}</strong>
-                                    </span>
-                                @endif
+                                    @if ($errors->has('username'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('username') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="password" class="sr-only">Password</label>
-                                <input type="password" class="form-control form-control-lg" id="password"
-                                       name="password" placeholder="Password" required maxlength="255">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="password" class="sr-only">Password</label>
+                                    <input type="password" class="form-control form-control-lg" id="password"
+                                           name="password" placeholder="Password" required maxlength="255">
 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                                    @if ($errors->has('password'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="first" class="sr-only">First Name</label>
+                                    <input type="text" class="form-control  form-control-lg" id="first_name" name="first_name"
+                                           placeholder="First name" value="{{ old('first_name') }}" required autofocus maxlength="50">
+                                    @if ($errors->has('first_name'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('first_name') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="last" class="sr-only">Last Name</label>
+                                    <input type="text" class="form-control  form-control-lg" id="last" name="last_name"
+                                           placeholder="Last name" maxlength="50">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">Alamat</label>
+                                    <input type="text" class="form-control  form-control-lg" id="alamat" name="alamat"
+                                           placeholder="Alamat" maxlength="50">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">Provinsi</label>
+                                    <select id="kode_prop-input" name="kode_prop-input" class="form-control select2" size="1">
+                                        <option value>Provinsi</option>
+                                        @foreach ($prop_list as $kpl)
+                                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">Kota</label>
+                                    <select id="kode_kota-input" name="kode_kota-input" class="form-control select2" size="1">
+                                        <option value>Kota</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">Kecamatan</label>
+                                    <select id="kode_kecamatan-input" name="kode_kecamatan-input" class="form-control select2" size="1">
+                                        <option value>Kecamatan</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">Kelurahan</label>
+                                    <select id="kode_kelurahan-input" name="kode_kelurahan-input" class="form-control select2" size="1">
+                                        <option value>Kelurahan</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="kodepos" class="sr-only">Kodepos</label>
+                                    <input type="text" class="form-control  form-control-lg" id="kodepos" name="kodepos"
+                                           placeholder="kodepos" maxlength="5">
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="first" class="sr-only">First Name</label>
-                                <input type="text" class="form-control  form-control-lg" id="first_name" name="first_name"
-                                       placeholder="First name" value="{{ old('first_name') }}" required autofocus maxlength="50">
-                                @if ($errors->has('first_name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('first_name') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="last" class="sr-only">NIK</label>
+                                    <input type="text" class="form-control  form-control-lg" id="nik" name="nik"
+                                           placeholder="NIK" maxlength="16" required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="last" class="sr-only">Last Name</label>
-                                <input type="text" class="form-control  form-control-lg" id="last" name="last_name"
-                                       placeholder="Last name" maxlength="50">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="last" class="sr-only">No. NPWP</label>
+                                    <input type="text" class="form-control  form-control-lg" id="no_npwp" name="no_npwp"
+                                           placeholder="No. NPWP" maxlength="20">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Alamat</label>
-                                <input type="text" class="form-control  form-control-lg" id="alamat" name="alamat"
-                                       placeholder="Alamat" maxlength="50">
+                            <div class="col-md-12">
+                                <p class="form-group">
+                                    Jenis Kelamin
+                                </p>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Provinsi</label>
-                                <select id="kode_prop-input" name="kode_prop-input" class="form-control select2" size="1">
-                                    <option value>Provinsi</option>
-                                    @foreach ($prop_list as $kpl)
-                                        <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
-                                    @endforeach
-                                </select>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="kode-jk" name="kode-jk" class="radio-blue" value="P" required checked> Pria</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Kota</label>
-                                <select id="kode_kota-input" name="kode_kota-input" class="form-control select2" size="1">
-                                    <option value>Kota</option>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="kode-jk" name="kode-jk" class="radio-blue" value="W"> Wanita</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p class="form-group">
+                                    Tanggal Lahir
+                                </p>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">Tempat Lahir</label>
+                                    <select id="kode_tempat_lahir-input" name="kode_tempat_lahir-input" class="form-control select2" size="1">
+                                        <option value>Kota</option>
+                                        @foreach ($kota_list as $kpl)
+                                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input class="form-control" id="return_date" name="tgl_lahir" placeholder="Select Date" data-provide="datepicker">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="email" class="sr-only"> E-mail</label>
+                                    <input id="email" type="email" class="form-control  form-control-lg" name="email" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
 
-                                </select>
+                                    <!-- <input type="text" class="form-control  form-control-lg" id="email" name="email" placeholder="E-mail"> -->
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="no_hp" class="sr-only">No. Hp</label>
+                                    <input type="text" class="form-control  form-control-lg" id="no_hp" name="no_hp"
+                                           placeholder="No. Hp" required maxlength="50">
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Kecamatan</label>
-                                <select id="kode_kecamatan-input" name="kode_kecamatan-input" class="form-control select2" size="1">
-                                    <option value>Kecamatan</option>
+                            <div class="col-md-12">
+                                <p class="form-group">
+                                    Role Level
+                                </p>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">Level</label>
+                                    <select id="kode_level-input" name="kode_level-input" class="form-control select2" size="1">
+                                        <option value>Role Level</option>
+                                        @foreach ($level_list as $kpl)
+                                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">Role</label>
+                                    <select id="kode_role-input" name="kode_role-input" class="form-control select2" size="1">
+                                        <option value>Role</option>
 
-                                </select>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Kelurahan</label>
-                                <select id="kode_kelurahan-input" name="kode_kelurahan-input" class="form-control select2" size="1">
-                                    <option value>Kelurahan</option>
-
-                                </select>
+                            <div class="col-md-12" id="kmp_label" hidden>
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">KMP</label>
+                                    <select id="kode_kmp-input" name="kode_kmp-input" class="form-control select2" size="1">
+                                        <option value>KMP</option>
+                                        @foreach ($kmp_list as $kpl)
+                                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="kodepos" class="sr-only">Kodepos</label>
-                                <input type="text" class="form-control  form-control-lg" id="kodepos" name="kodepos"
-                                       placeholder="kodepos" maxlength="5">
+                            <div class="col-md-12" id="wil_kerja_label" hidden>
+                                <p class="form-group">
+                                    Wilayah Kerja
+                                </p>
+                            </div>
+                            <div class="col-md-12" id="prov_label" hidden>
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">Provinsi</label>
+                                    <select id="wk_kd_prop-input" name="wk_kd_prop-input" class="form-control select2" size="1">
+                                        <option value>WK Provinsi</option>
+                                        @foreach ($wk_kd_prop_list as $kpl)
+                                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="kmw_label" hidden>
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">KMW</label>
+                                    <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1">
+                                        <option value>KMW</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="kota_label" hidden>
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">Kota</label>
+                                    <select id="wk_kd_kota-input" name="wk_kd_kota-input" class="form-control select2" size="1">
+                                        <option value>WK Kota</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="korkot_label" hidden>
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">Korkot</label>
+                                    <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1">
+                                        <option value>Korkot</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="kec_label" hidden>
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">Kecamatan</label>
+                                    <select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1">
+                                        <option value>Kecamatan</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="kel_label" hidden>
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">Kelurahan</label>
+                                    <select id="wk_kd_kel-input" name="wk_kd_kel-input" class="form-control select2" size="1">
+                                        <option value>WK Kelurahan</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="faskel_label" hidden>
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">Faskel</label>
+                                    <select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1">
+                                        <option value>Faskel</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p class="form-group">
+                                    Jenis Registrasi
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="kode-jr" name="kode-jr" class="radio-blue" value="0" checked> Mandiri</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="radio-inline">
+                                        <input type="radio" id="kode-jr" name="kode-jr" class="radio-blue" value="1" disabled> Manual</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="submit" value="Sign Up" class="btn btn-primary btn-block"/>
+                                </div>
+                                <span class="sign-in">Already a member? <a href="login">Sign In</a></span>
                             </div>
                         </div>
                         <!-- <div class="col-md-12">
@@ -137,187 +338,8 @@
                                 Jenis Kelamin
                             </p>
                         </div> -->
-                        <div class="col-md-12">
-                            <p class="form-group">
-                                Jenis Kelamin
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="radio-inline">
-                                    <input type="radio" id="kode-jk" name="kode-jk" class="radio-blue" value="P" required checked> Pria</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="radio-inline">
-                                    <input type="radio" id="kode-jk" name="kode-jk" class="radio-blue" value="W"> Wanita</label>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <p class="form-group">
-                                Tanggal Lahir
-                            </p>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Tempat Lahir</label>
-                                <select id="kode_tempat_lahir-input" name="kode_tempat_lahir-input" class="form-control select2" size="1">
-                                    <option value>Kota</option>
-                                    @foreach ($kota_list as $kpl)
-                                        <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input class="form-control" id="return_date" name="tgl_lahir" placeholder="Select Date" data-provide="datepicker">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="email" class="sr-only"> E-mail</label>
-                                <input id="email" type="email" class="form-control  form-control-lg" name="email" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
-
-                                <!-- <input type="text" class="form-control  form-control-lg" id="email" name="email" placeholder="E-mail"> -->
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="no_hp" class="sr-only">No. Hp</label>
-                                <input type="text" class="form-control  form-control-lg" id="no_hp" name="no_hp"
-                                       placeholder="No. Hp" required maxlength="50">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <p class="form-group">
-                                Role Level
-                            </p>
-                        </div>
-						<div class="col-md-12">
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Level</label>
-								<select id="kode_level-input" name="kode_level-input" class="form-control select2" size="1">
-                                    <option value>Role Level</option>
-			                        @foreach ($level_list as $kpl)
-			                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
-			                        @endforeach
-			                    </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Role</label>
-                                <select id="kode_role-input" name="kode_role-input" class="form-control select2" size="1">
-                                    <option value>Role</option>
-
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">KMP</label>
-                                <select id="kode_kmp-input" name="kode_kmp-input" class="form-control select2" size="1">
-                                    <option value>KMP</option>
-                                    @foreach ($kmp_list as $kpl)
-                                        <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12" id="wil_kerja_label" hidden>
-                            <p class="form-group">
-                                Wilayah Kerja
-                            </p>
-                        </div>
-						<div class="col-md-12" id="prov_label" hidden>
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Provinsi</label>
-                                <select id="wk_kd_prop-input" name="wk_kd_prop-input" class="form-control select2" size="1">
-                                    <option value>WK Provinsi</option>
-                                    @foreach ($wk_kd_prop_list as $kpl)
-                                        <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12" id="kmw_label" hidden>
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">KMW</label>
-                                <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1">
-                                    <option value>KMW</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12" id="kota_label" hidden>
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Kota</label>
-                                <select id="wk_kd_kota-input" name="wk_kd_kota-input" class="form-control select2" size="1">
-                                    <option value>WK Kota</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12" id="korkot_label" hidden>
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Korkot</label>
-                                <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1">
-                                    <option value>Korkot</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12" id="kec_label" hidden>
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Kecamatan</label>
-                                <select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1">
-                                    <option value>Kecamatan</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12" id="kel_label" hidden>
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Kelurahan</label>
-                                <select id="wk_kd_kel-input" name="wk_kd_kel-input" class="form-control select2" size="1">
-                                    <option value>WK Kelurahan</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12" id="faskel_label" hidden>
-                            <div class="form-group">
-                                <label for="alamat" class="sr-only">Faskel</label>
-                                <select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1">
-                                    <option value>Faskel</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <p class="form-group">
-                                Jenis Registrasi
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="radio-inline">
-                                    <input type="radio" id="kode-jr" name="kode-jr" class="radio-blue" value="0" checked> Mandiri</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="radio-inline">
-                                    <input type="radio" id="kode-jr" name="kode-jr" class="radio-blue" value="1" disabled> Manual</label>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input type="submit" value="Sign Up" class="btn btn-primary btn-block"/>
-                            </div>
-                            <span class="sign-in">Already a member? <a href="login">Sign In</a></span>
-                        </div>
+                        
+                        
                     </form>
                 </div>
 
@@ -449,86 +471,140 @@
             }
         });
 
-        level.change(function(){
-            level_id=level.val();
+        role.change(function(){
             role_id=role.val();
-            kmp_id=kmp.val();
+            level_id=level.val();
+            if(role_id!=null && level_id!=null){
+                $.ajax({
+                    type: 'get',
+                    "url": "/register/select?role_flag_koor="+role_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        if(data!=null){
+                            if(data[0].flag_konsultan==1){
+                                if(level_id!=null){
+                                    if(level_id==2){
+                                        wkkota.empty();
+                                        $('#kota_label').hide();
+                                        wkfaskel.empty();
+                                        $('#faskel_label').hide();
+                                        wkkec.empty();
+                                        $('#kec_label').hide();
+                                        wkkel.empty();
+                                        $('#kel_label').hide();
+                                        $('#wil_kerja_label').show();
+                                        wkprop.val(null).trigger('change');
+                                        $('#prov_label').show();
+                                        $('#kmw_label').show();
 
-            if(level_id!=null){
-                if(level_id==2){
-                    wkkota.empty();
-                    $('#kota_label').hide();
-                    wkfaskel.empty();
-                    $('#faskel_label').hide();
-                    wkkec.empty();
-                    $('#kec_label').hide();
-                    wkkel.empty();
-                    $('#kel_label').hide();
-                    $('#wil_kerja_label').show();
-                    wkprop.val(null).trigger('change');
-                    $('#prov_label').show();
-                    $('#kmw_label').show();
+                                    }else if(level_id==3){
+                                        wkkorkot.empty();
+                                        $('#korkot_label').hide();
+                                        wkkec.empty();
+                                        $('#kec_label').hide();
+                                        wkkel.empty();
+                                        $('#kel_label').hide();
+                                        $('#wil_kerja_label').show();
+                                        wkprop.val(null).trigger('change');
+                                        $('#prov_label').show();
+                                        $('#kmw_label').show();
+                                        $('#kota_label').show();
 
-                }else if(level_id==3){
-                    wkkorkot.empty();
-                    $('#korkot_label').hide();
-                    wkkec.empty();
-                    $('#kec_label').hide();
-                    wkkel.empty();
-                    $('#kel_label').hide();
-                    $('#wil_kerja_label').show();
-                    wkprop.val(null).trigger('change');
-                    $('#prov_label').show();
-                    $('#kmw_label').show();
-                    $('#kota_label').show();
+                                    }else if(level_id==4){
+                                        wkkorkot.empty();
+                                        $('#korkot_label').hide();
+                                        wkkota.empty();
+                                        $('#kota_label').hide();
+                                        wkfaskel.empty();
+                                        $('#faskel_label').hide();
+                                        wkkel.empty();
+                                        $('#kel_label').hide();
+                                        $('#wil_kerja_label').show();
+                                        wkprop.val(null).trigger('change');
+                                        $('#prov_label').show();
+                                        $('#kmw_label').show();
+                                        $('#kota_label').show();
+                                        $('#kec_label').show();
 
-                }else if(level_id==4){
-                    wkkorkot.empty();
-                    $('#korkot_label').hide();
-                    wkkota.empty();
-                    $('#kota_label').hide();
-                    wkfaskel.empty();
-                    $('#faskel_label').hide();
-                    wkkel.empty();
-                    $('#kel_label').hide();
-                    $('#wil_kerja_label').show();
-                    wkprop.val(null).trigger('change');
-                    $('#prov_label').show();
-                    $('#kmw_label').show();
-                    $('#kota_label').show();
-                    $('#kec_label').show();
+                                    }else if(level_id==5){
+                                        wkkorkot.empty();
+                                        $('#korkot_label').hide();
+                                        wkkota.empty();
+                                        $('#kota_label').hide();
+                                        wkfaskel.empty();
+                                        $('#faskel_label').hide();
+                                        wkkec.empty();
+                                        $('#kec_label').hide();
+                                        $('#wil_kerja_label').show();
+                                        wkprop.val(null).trigger('change');
+                                        $('#prov_label').show();
+                                        $('#kmw_label').show();
+                                        $('#kota_label').show();
+                                        $('#kec_label').show();
+                                        $('#kel_label').show();
 
-                }else if(level_id==5){
-                    wkkorkot.empty();
-                    $('#korkot_label').hide();
-                    wkkota.empty();
-                    $('#kota_label').hide();
-                    wkfaskel.empty();
-                    $('#faskel_label').hide();
-                    wkkec.empty();
-                    $('#kec_label').hide();
-                    $('#wil_kerja_label').show();
-                    wkprop.val(null).trigger('change');
-                    $('#prov_label').show();
-                    $('#kmw_label').show();
-                    $('#kota_label').show();
-                    $('#kec_label').show();
-                    $('#kel_label').show();
-
-                }else{
-                    $('#wil_kerja_label').hide();
-                    wkprop.val(null).trigger('change');
-                    $('#prov_label').hide();
-                    wkkmw.empty();
-                    $('#kmw_label').hide();
-                    wkkorkot.empty();
-                    $('#korkot_label').hide();
-                    wkkota.empty();
-                    $('#kota_label').hide();
-                    wkfaskel.empty();
-                    $('#faskel_label').hide();
-                }
+                                    }else{
+                                        $('#wil_kerja_label').hide();
+                                        wkprop.val(null).trigger('change');
+                                        $('#prov_label').hide();
+                                        wkkmw.empty();
+                                        $('#kmw_label').hide();
+                                        wkkorkot.empty();
+                                        $('#korkot_label').hide();
+                                        wkkota.empty();
+                                        $('#kota_label').hide();
+                                        wkfaskel.empty();
+                                        $('#faskel_label').hide();
+                                    }
+                                }
+                                $('#kmp_label').show();
+                                if(data[0].flag_koordinator==1 && data[0].kode_level==2){
+                                    $('#korkot_label').show();
+                                }else{
+                                    if(data[0].flag_fasilitator==1 && data[0].kode_level==2){
+                                        $('#korkot_label').show();
+                                        $('#faskel_label').show();
+                                    }
+                                }
+                            }else if(data[0].flag_konsultan==0){
+                                kmp.val(null).trigger('change');
+                                $('#kmp_label').hide();
+                                $('#wil_kerja_label').hide();
+                                wkprop.val(null).trigger('change');
+                                $('#prov_label').hide();
+                                wkkmw.empty();
+                                $('#kmw_label').hide();
+                                wkkorkot.empty();
+                                $('#korkot_label').hide();
+                                wkkota.empty();
+                                $('#kota_label').hide();
+                                wkfaskel.empty();
+                                $('#faskel_label').hide();
+                                wkkec.empty();
+                                $('#kec_label').hide();
+                                wkkel.empty();
+                                $('#kel_label').hide();
+                            }
+                        }
+                    }
+                });
             }
+        });
+
+        level.change(function(){
+            $('#wil_kerja_label').hide();
+            wkprop.val(null).trigger('change');
+            $('#prov_label').hide();
+            wkkmw.empty();
+            $('#kmw_label').hide();
+            wkkorkot.empty();
+            $('#korkot_label').hide();
+            wkkota.empty();
+            $('#kota_label').hide();
+            wkfaskel.empty();
+            $('#faskel_label').hide();
+            kmp.val(null).trigger('change');
+            $('#kmp_label').hide();
         });
 
         prop.change(function(){
@@ -585,34 +661,7 @@
             }
         });
 
-        role.change(function(){
-            role_id=role.val();
-            if(role_id!=null){
-                $.ajax({
-                    type: 'get',
-                    "url": "/register/select?role_flag_koor="+role_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        if(data!=null){
-                            if(data[0].flag_koordinator==1 && data[0].kode_level==2){
-                                $('#korkot_label').show();
-                            }else if(data[0].flag_koordinator==1 && data[0].kode_level==3){
-                                $('#faskel_label').show();
-                            }else{
-                                if(data[0].kode_level==2){
-                                    wkkorkot.val(null).trigger('change');
-                                    $('#korkot_label').hide();
-                                }else if(data[0].kode_level==3){
-                                    wkfaskel.val(null).trigger('change');
-                                    $('#faskel_label').hide();
-                                }
-                                
-                            }
-                        }
-                    }
-                });
-            }
-        });
+        
 
         wkprop.change(function(){
             wkprop_id=wkprop.val();

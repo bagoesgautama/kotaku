@@ -34,6 +34,8 @@ class RegistrasiController extends Controller
             'password' => Hash::make($request->input('password')), 
             'nama_depan' => $request->input('first_name'), 
             'nama_belakang' => $request->input('last_name'),
+            'nik' => $request->input('nik'),
+            'no_npwp' => $request->input('no_npwp'),
             'kode_level' => $request->input('kode_level-input'),
             'kode_role' => $request->input('kode_role-input'),
             'wk_kd_prop' => $request->input('wk_kd_prop-input'),
