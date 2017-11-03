@@ -138,16 +138,20 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="last" class="sr-only">NIK</label>
-                                    <input type="text" class="form-control  form-control-lg" id="nik" name="nik"
+                                    <input type="number" class="form-control  form-control-lg" id="nik" name="nik"
                                            placeholder="NIK" maxlength="16" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="last" class="sr-only">No. NPWP</label>
-                                    <input type="text" class="form-control  form-control-lg" id="no_npwp" name="no_npwp"
+                                    <input type="number" class="form-control  form-control-lg" id="no_npwp" name="no_npwp"
                                            placeholder="No. NPWP" maxlength="20">
                                 </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p class="form-group">
+                                </p>
                             </div>
                             <div class="col-md-12">
                                 <p class="form-group">
@@ -168,7 +172,6 @@
                             </div>
                             <div class="col-md-12">
                                 <p class="form-group">
-                                    Tanggal Lahir
                                 </p>
                             </div>
                             <div class="col-md-12">
@@ -184,7 +187,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input class="form-control" id="return_date" name="tgl_lahir" placeholder="Select Date" data-provide="datepicker">
+                                    <input class="form-control" id="return_date" name="tgl_lahir" placeholder="Tanggal Lahir" data-provide="datepicker">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -203,8 +206,15 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="no_hp" class="sr-only">No. Hp</label>
-                                    <input type="text" class="form-control  form-control-lg" id="no_hp" name="no_hp"
-                                           placeholder="No. Hp" required maxlength="50">
+                                    <input type="number" class="form-control  form-control-lg" id="no_hp" name="no_hp"
+                                           placeholder="No. Hp" maxlength="50">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="no_hp" class="sr-only">No. Telp</label>
+                                    <input type="text" class="form-control  form-control-lg" id="no_telp" name="no_telp"
+                                           placeholder="No. Telp" maxlength="45">
                                 </div>
                             </div>
                         </div>
@@ -232,6 +242,33 @@
                                         <option value>Role</option>
 
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="no_spk_label" hidden>
+                                <div class="form-group">
+                                    <label for="no_hp" class="sr-only">No. SPK</label>
+                                    <input type="number" class="form-control  form-control-lg" id="no_spk" name="no_spk"
+                                           placeholder="No. SPK" maxlength="45">
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="tgl_spk_label" hidden>
+                                <div class="form-group">
+                                    <label for="no_hp" class="sr-only">Tgl. SPK</label>
+                                    <input class="form-control" id="return_date" name="tgl_spk" placeholder="Tanggal SPK" data-provide="datepicker">
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="nama_bank_label" hidden>
+                                <div class="form-group">
+                                    <label for="no_hp" class="sr-only">Nama Bank</label>
+                                    <input type="text" class="form-control  form-control-lg" id="nama_bank" name="nama_bank"
+                                           placeholder="Bank" maxlength="100">
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="no_rekening_label" hidden>
+                                <div class="form-group">
+                                    <label for="no_hp" class="sr-only">No. Rekening</label>
+                                    <input type="number" class="form-control  form-control-lg" id="no_rekening" name="no_rekening"
+                                           placeholder="No. Rekening" maxlength="20">
                                 </div>
                             </div>
                             <div class="col-md-12" id="kmp_label" hidden>
@@ -437,6 +474,14 @@
             width: "100%"
         });
 
+        function enforce_maxlength(event) {
+            var t = event.target;
+            if (t.hasAttribute('maxlength')) {
+                t.value = t.value.slice(0, t.getAttribute('maxlength'));
+            }
+        }
+        document.body.addEventListener('input', enforce_maxlength);
+
         var level = $('#kode_level-input');
         var role = $('#kode_role-input');
         var kmp = $('#kode_kmp-input');
@@ -486,8 +531,6 @@
                                     if(level_id==2){
                                         wkkota.empty();
                                         $('#kota_label').hide();
-                                        wkfaskel.empty();
-                                        $('#faskel_label').hide();
                                         wkkec.empty();
                                         $('#kec_label').hide();
                                         wkkel.empty();
@@ -519,12 +562,13 @@
                                         $('#faskel_label').hide();
                                         wkkel.empty();
                                         $('#kel_label').hide();
-                                        $('#wil_kerja_label').show();
+                                        $('#wil_kerja_label').hide();
                                         wkprop.val(null).trigger('change');
-                                        $('#prov_label').show();
-                                        $('#kmw_label').show();
-                                        $('#kota_label').show();
-                                        $('#kec_label').show();
+                                        $('#prov_label').hide();
+                                        wkkmw.empty();
+                                        $('#kmw_label').hide();
+                                        wkkec.empty();
+                                        $('#kec_label').hide();
 
                                     }else if(level_id==5){
                                         wkkorkot.empty();
@@ -544,6 +588,8 @@
                                         $('#kel_label').show();
 
                                     }else{
+                                        kmp.val(null).trigger('change');
+                                        $('#kmp_label').hide();
                                         $('#wil_kerja_label').hide();
                                         wkprop.val(null).trigger('change');
                                         $('#prov_label').hide();
@@ -555,35 +601,117 @@
                                         $('#kota_label').hide();
                                         wkfaskel.empty();
                                         $('#faskel_label').hide();
+                                        wkkec.empty();
+                                        $('#kec_label').hide();
+                                        wkkel.empty();
+                                        $('#kel_label').hide();
                                     }
                                 }
                                 $('#kmp_label').show();
+                                $('#no_spk_label').show();
+                                $('#tgl_spk_label').show();
+                                $('#nama_bank_label').show();
+                                $('#no_rekening_label').show();
                                 if(data[0].flag_koordinator==1 && data[0].kode_level==2){
                                     $('#korkot_label').show();
-                                }else{
-                                    if(data[0].flag_fasilitator==1 && data[0].kode_level==2){
-                                        $('#korkot_label').show();
-                                        $('#faskel_label').show();
-                                    }
+                                    wkfaskel.empty();
+                                    $('#faskel_label').hide();
+                                }else if(data[0].flag_koordinator==0 && data[0].flag_konsultan==1 && data[0].kode_level==2){
+                                    $('#korkot_label').show();
+                                    $('#faskel_label').show();
                                 }
                             }else if(data[0].flag_konsultan==0){
-                                kmp.val(null).trigger('change');
-                                $('#kmp_label').hide();
-                                $('#wil_kerja_label').hide();
-                                wkprop.val(null).trigger('change');
-                                $('#prov_label').hide();
-                                wkkmw.empty();
-                                $('#kmw_label').hide();
-                                wkkorkot.empty();
-                                $('#korkot_label').hide();
-                                wkkota.empty();
-                                $('#kota_label').hide();
-                                wkfaskel.empty();
-                                $('#faskel_label').hide();
-                                wkkec.empty();
-                                $('#kec_label').hide();
-                                wkkel.empty();
-                                $('#kel_label').hide();
+                                if(level_id==2){
+                                    wkkota.empty();
+                                    $('#kota_label').hide();
+                                    wkkec.empty();
+                                    $('#kec_label').hide();
+                                    wkkel.empty();
+                                    $('#kel_label').hide();
+                                    wkkorkot.empty();
+                                    $('#korkot_label').hide();
+                                    wkfaskel.empty();
+                                    $('#faskel_label').hide();
+                                    wkkmw.empty();
+                                    $('#kmw_label').hide();
+
+                                    $('#wil_kerja_label').show();
+                                    wkprop.val(null).trigger('change');
+                                    $('#prov_label').show();
+
+                                }else if(level_id==3){
+                                    wkkorkot.empty();
+                                    $('#korkot_label').hide();
+                                    wkfaskel.empty();
+                                    $('#faskel_label').hide();
+                                    wkkec.empty();
+                                    $('#kec_label').hide();
+                                    wkkel.empty();
+                                    $('#kel_label').hide();
+                                    $('#wil_kerja_label').show();
+                                    wkprop.val(null).trigger('change');
+                                    $('#prov_label').show();
+                                    $('#kmw_label').show();
+                                    $('#kota_label').show();
+
+                                }else if(level_id==4){
+                                    wkkorkot.empty();
+                                    $('#korkot_label').hide();
+                                    wkkota.empty();
+                                    $('#kota_label').hide();
+                                    wkfaskel.empty();
+                                    $('#faskel_label').hide();
+                                    wkkel.empty();
+                                    $('#kel_label').hide();
+                                    $('#wil_kerja_label').hide();
+                                    wkprop.val(null).trigger('change');
+                                    $('#prov_label').hide();
+                                    wkkmw.empty();
+                                    $('#kmw_label').hide();
+                                    wkkec.empty();
+                                    $('#kec_label').hide();
+
+                                }else if(level_id==5){
+                                    wkkorkot.empty();
+                                    $('#korkot_label').hide();
+                                    wkkota.empty();
+                                    $('#kota_label').hide();
+                                    wkfaskel.empty();
+                                    $('#faskel_label').hide();
+                                    wkkec.empty();
+                                    $('#kec_label').hide();
+                                    $('#wil_kerja_label').show();
+                                    wkprop.val(null).trigger('change');
+                                    $('#prov_label').show();
+                                    $('#kmw_label').show();
+                                    $('#kota_label').show();
+                                    $('#kec_label').show();
+                                    $('#kel_label').show();
+
+                                }else{
+                                    
+                                    $('#wil_kerja_label').hide();
+                                    wkprop.val(null).trigger('change');
+                                    $('#prov_label').hide();
+                                    wkkmw.empty();
+                                    $('#kmw_label').hide();
+                                    wkkorkot.empty();
+                                    $('#korkot_label').hide();
+                                    wkkota.empty();
+                                    $('#kota_label').hide();
+                                    wkfaskel.empty();
+                                    $('#faskel_label').hide();
+                                    wkkec.empty();
+                                    $('#kec_label').hide();
+                                    wkkel.empty();
+                                    $('#kel_label').hide();
+                                }
+                            kmp.val(null).trigger('change');
+                            $('#kmp_label').hide();
+                            $('#no_spk_label').hide();
+                            $('#tgl_spk_label').hide();
+                            $('#nama_bank_label').hide();
+                            $('#no_rekening_label').hide();
                             }
                         }
                     }
@@ -605,6 +733,14 @@
             $('#faskel_label').hide();
             kmp.val(null).trigger('change');
             $('#kmp_label').hide();
+            wkkec.empty();
+            $('#kec_label').hide();
+            wkkel.empty();
+            $('#kel_label').hide();
+            $('#no_spk_label').hide();
+            $('#tgl_spk_label').hide();
+            $('#nama_bank_label').hide();
+            $('#no_rekening_label').hide();
         });
 
         prop.change(function(){
