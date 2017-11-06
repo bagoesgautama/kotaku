@@ -59,7 +59,20 @@ class bk020306Controller extends Controller
 			5 =>'role_baru',
 			6 =>'divalidasi_oleh'
 		);
-		$query='select a.kode, a.kode_user,e.nama_depan,e.nama_belakang,d.nama perubahan,b.nama role_lama,c.nama role_baru,f.user_name divalidasi_oleh
+		if($user->kode_role==35){
+			$query='select a.kode,a.kode_user,e.nama_depan,e.nama_belakang,d.nama perubahan,b.nama role_lama,c.nama role_baru,f.user_name divalidasi_oleh
+			from bkt_02030204_perubahan_status a left join bkt_02010111_user f on a.divalidasi_oleh=f.id,bkt_02010102_role b,bkt_02010102_role c,bkt_02010112_jns_perubahan d,bkt_02010111_user e
+			where a.kode_user=e.id
+			and a.kode_jns_perubahan=d.kode
+			and a.kode_role_lama=b.kode
+			and a.kode_role_baru=c.kode and a.kode_user!='.$user->id;
+			$totalData = DB::select('select count(1) cnt from bkt_02030204_perubahan_status a left join bkt_02010111_user f on a.divalidasi_oleh=f.id,bkt_02010102_role b,bkt_02010102_role c,bkt_02010112_jns_perubahan d,bkt_02010111_user e
+			where a.kode_user=e.id
+			and a.kode_jns_perubahan=d.kode
+			and a.kode_role_lama=b.kode
+			and a.kode_role_baru=c.kode and a.kode_user!='.$user->id);
+		}else{
+			$query='select a.kode, a.kode_user,e.nama_depan,e.nama_belakang,d.nama perubahan,b.nama role_lama,c.nama role_baru,f.user_name divalidasi_oleh
 			from bkt_02030204_perubahan_status a left join bkt_02010111_user f on a.divalidasi_oleh=f.id,bkt_02010102_role b,bkt_02010102_role c,bkt_02010112_jns_perubahan d,bkt_02010111_user e
 			where a.kode_user=e.id
 			and a.kode_jns_perubahan=d.kode
@@ -140,6 +153,8 @@ class bk020306Controller extends Controller
 					 where a.id = "'.$user->id.'"
 				   ) x 
 				)))');
+		}
+		
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -215,6 +230,7 @@ class bk020306Controller extends Controller
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['id'] = $user->id;
+			$data['role_login'] = $user->kode_role;
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
 			$data['perubahan']=DB::select('select kode,nama from bkt_02010112_jns_perubahan where status=1');
@@ -226,6 +242,8 @@ class bk020306Controller extends Controller
 			$data['kel_baru_list']=[];
 			if($data['kode']!=null && !empty($data['detil']['550'])){
 				$rowData = DB::select('select * from bkt_02030204_perubahan_status where kode='.$data['kode']);
+				$role_upper = DB::select('select b.kode_role_upper from bkt_02010111_user a, bkt_02010102_role b where a.kode_role=b.kode and a.id='.$rowData[0]->kode_user);
+				$data['role_upper'] = $role_upper[0]->kode_role_upper;
 				$data['kode_user'] = $rowData[0]->kode_user;
 				$data['kode_jns_perubahan'] = $rowData[0]->kode_jns_perubahan;
 				$data['kode_role_lama'] = $rowData[0]->kode_role_lama;
@@ -258,6 +276,7 @@ class bk020306Controller extends Controller
 				}
 				return view('HRM/bk020306/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['549'])){
+				$data['role_upper'] = null;
 				$data['kode_user'] = null;
 				$data['kode_jns_perubahan'] = null;
 				$data['kode_role_lama'] = $user->kode_role;
@@ -396,7 +415,7 @@ class bk020306Controller extends Controller
 	{
 		date_default_timezone_set('Asia/Jakarta');
 		DB::table('bkt_02030204_perubahan_status')->where('kode', $request->input('kode'))
-		->update([
+		->update([	
 			'divalidasi_oleh' => Auth::user()->id,
 			'validasi_dt' => date('Y-m-d H:i:s'),
 			'catatan_validasi' => $request->input('catatan-val-input'),

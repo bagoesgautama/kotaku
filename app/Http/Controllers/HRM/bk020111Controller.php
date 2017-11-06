@@ -52,7 +52,7 @@ class bk020111Controller extends Controller
 
     public function select(Request $request)
     {
-        if(!empty($request->input('level')) || strlen($request->input('level'))>0){
+        if($request->input('level') || strlen($request->input('level'))>0){
             $role = DB::select('select kode, nama, flag_koordinator from bkt_02010102_role where kode_level='.$request->input('level'));
             echo json_encode($role);
         }
@@ -81,7 +81,7 @@ class bk020111Controller extends Controller
             echo json_encode($kota);
         }
         if($request->input('wk_kd_kmw_prop')){
-            $kota = DB::select('select a.kode, a.nama from bkt_01010101_prop a, bkt_01010110_kmw b where b.kode_prop=a.kode and a.flag_cakupan_prog=1 and b.kode_prop='.$request->input('wk_kd_kmw_prop'));
+            $kota = DB::select('select a.kode, a.nama from bkt_01010101_prop a, bkt_01010110_kmw b where b.kode_prop=a.kode and a.flag_cakupan_prog=1 and b.kode='.$request->input('wk_kd_kmw_prop'));
             echo json_encode($kota);
         }
         if($request->input('wk_kd_prop_kota')){
@@ -307,9 +307,13 @@ class bk020111Controller extends Controller
 			}
 			$data['kota_lahir_list'] = DB::select('select * from bkt_01010102_kota where status=1');
 			$data['kmp_list']=DB::select('select * from bkt_01010108_kmp');
-			$data['wk_kd_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1 and flag_cakupan_prog=1');
-			if(!empty($rowData[0]->wk_kd_prop)){
-				$data['wk_kd_kmw_list'] = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010110_kmw b where b.kode_prop=a.kode and a.flag_cakupan_prog=1 and b.kode_prop='.$rowData[0]->wk_kd_prop);
+			if(!empty($rowData[0]->kode_kmw)){
+				$data['wk_kd_prop_list'] = DB::select('select a.kode, a.nama from bkt_01010101_prop a, bkt_01010110_kmw b where b.kode_prop=a.kode and a.flag_cakupan_prog=1 and b.kode='.$rowData[0]->kode_kmw);
+			}else{
+				$data['wk_kd_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1 and flag_cakupan_prog=1');
+			}
+			if(!empty($rowData[0]->kode_kmp)){
+				$data['wk_kd_kmw_list'] = DB::select('select a.kode, a.nama from bkt_01010110_kmw a, bkt_01010109_kmp_slum_prog b where a.kode_kmp_slum_prog=b.kode and b.kode_kmp='.$rowData[0]->kode_kmp);
 			}else{
 				$data['wk_kd_kmw_list'] = null;
 			}

@@ -225,7 +225,7 @@
                                         Submit
                                     </button>
 									@endif
-									@if( empty($divalidasi_oleh) && $kode_user!=$id)
+									@if( empty($divalidasi_oleh) && $kode_user!=$id && $role_upper==$role_login)
                                     <button type="submit" id="approve" class="btn btn-effect-ripple btn-success">
                                         Approve
                                     </button>
