@@ -57,7 +57,7 @@ class bk020111Controller extends Controller
             echo json_encode($role);
         }
         if($request->input('role_flag_koor')){
-            $role = DB::select('select kode, nama, flag_koordinator, kode_level from bkt_02010102_role where kode='.$request->input('role_flag_koor'));
+            $role = DB::select('select a.kode, a.nama, a.flag_koordinator, a.kode_level, b.flag_konsultan from bkt_02010102_role a, bkt_02010116_tipe_role b where a.tipe_role=b.kode and a.kode='.$request->input('role_flag_koor'));
             echo json_encode($role);
         }
         if($request->input('prop')){
@@ -76,8 +76,12 @@ class bk020111Controller extends Controller
             $kota = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010102_kota b where b.kode_prop=a.kode and a.flag_cakupan_prog=1 and b.flag_cakupan_prog=1 and b.kode_prop='.$request->input('wk_kd_prop'));
             echo json_encode($kota);
         }
-        if($request->input('wk_kd_prop_kmw')){
-            $kota = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010110_kmw b where b.kode_prop=a.kode and a.flag_cakupan_prog=1 and b.kode_prop='.$request->input('wk_kd_prop_kmw'));
+        if($request->input('wk_kd_kmp_kmw')){
+           	$kota = DB::select('select a.kode, a.nama from bkt_01010110_kmw a, bkt_01010109_kmp_slum_prog b where a.kode_kmp_slum_prog=b.kode and b.kode_kmp='.$request->input('wk_kd_kmp_kmw'));
+            echo json_encode($kota);
+        }
+        if($request->input('wk_kd_kmw_prop')){
+            $kota = DB::select('select a.kode, a.nama from bkt_01010101_prop a, bkt_01010110_kmw b where b.kode_prop=a.kode and a.flag_cakupan_prog=1 and b.kode_prop='.$request->input('wk_kd_kmw_prop'));
             echo json_encode($kota);
         }
         if($request->input('wk_kd_prop_kota')){
@@ -237,6 +241,10 @@ class bk020111Controller extends Controller
 			$data['nama_belakang'] = $rowData[0]->nama_belakang;
 			$data['nik'] = $rowData[0]->nik;
 			$data['no_npwp'] = $rowData[0]->no_npwp;
+			$data['no_spk'] = $rowData[0]->no_spk;
+			$data['tgl_spk'] = $rowData[0]->tgl_spk;
+			$data['nama_bank'] = $rowData[0]->nama_bank;
+			$data['no_rekening'] = $rowData[0]->no_rekening;
 			$data['kode_level'] = $rowData[0]->kode_level;
 			$data['kode_role'] = $rowData[0]->kode_role;
 			$data['wk_kd_prop'] = $rowData[0]->wk_kd_prop;
@@ -257,6 +265,7 @@ class bk020111Controller extends Controller
 			$data['kodepos'] = $rowData[0]->kodepos;
 			$data['email'] = $rowData[0]->email;
 			$data['no_hp'] = $rowData[0]->no_hp;
+			$data['no_telp'] = $rowData[0]->no_telp;
 			$data['jenis_registrasi'] = $rowData[0]->jenis_registrasi;
 			$data['status_registrasi'] = $rowData[0]->status_registrasi;
 			$data['validated_by'] = $rowData[0]->validated_by;
@@ -335,6 +344,10 @@ class bk020111Controller extends Controller
 			$data['no_npwp'] = null;
 			$data['kode_level'] = 999999999999999999;
 			$data['kode_role'] = null;
+			$data['no_spk'] = null;
+			$data['tgl_spk'] = null;
+			$data['nama_bank'] = null;
+			$data['no_rekening'] = null;
 			$data['wk_kd_prop'] = null;
 			$data['wk_kd_kota'] = null;
 			$data['wk_kd_kel'] = null;
@@ -353,6 +366,7 @@ class bk020111Controller extends Controller
 			$data['kodepos'] = null;
 			$data['email'] = null;
 			$data['no_hp'] = null;
+			$data['no_telp'] = null;
 			$data['jenis_registrasi'] = null;
 			$data['status_registrasi'] = null;
 			$data['validated_by'] = null;
@@ -406,6 +420,10 @@ class bk020111Controller extends Controller
             'nama_belakang' => $request->input('last_name'),
             'nik' => $request->input('nik'),
             'no_npwp' => $request->input('no_npwp'),
+            'no_spk' => $request->input('no_spk'),
+            'tgl_spk' => $request->input('tgl_spk')==null?null:$this->date_conversion($request->input('tgl_spk')),
+            'nama_bank' => $request->input('nama_bank'),
+            'no_rekening' => $request->input('no_rekening'),
             'kode_level' => $request->input('kode_level-input'),
             'kode_role' => $request->input('kode_role-input'),
             'wk_kd_prop' => $request->input('wk_kd_prop-input'),
@@ -426,6 +444,7 @@ class bk020111Controller extends Controller
             'kode_kota_lahir' => $request->input('kode_tempat_lahir-input'),
             'email' => $request->input('email'),
             'no_hp' => $request->input('no_hp'),
+            'no_telp' => $request->input('no_telp'),
             'jenis_registrasi' => 1,
             'status_registrasi' => 1,
             'status_personil' => 2,
