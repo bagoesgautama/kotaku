@@ -15,7 +15,7 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Kuota KMW</h1>
+    <h1>Registrasi Manual</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -153,6 +153,13 @@
 						                </div>
 						            </div>
 						            <div class="form-group striped-col">
+						                <label class="col-sm-3 control-label">NIK</label>
+						                <div class="col-sm-6">
+											<input type="text" class="form-control  form-control-lg" id="nik" name="nik"
+                                       placeholder="NIK" maxlength="16" required value="{{$nik}}">
+						                </div>
+						            </div>
+						            <div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">Alamat</label>
 						                <div class="col-sm-6">
 											<input type="text" class="form-control  form-control-lg" id="alamat" name="alamat"
@@ -216,6 +223,13 @@
 		                                       placeholder="kodepos" maxlength="5" value="{{$kodepos}}">
 						                </div>
 	                                </div>
+	                                <div class="form-group striped-col">
+						                <label class="col-sm-3 control-label">No. NPWP</label>
+						                <div class="col-sm-6">
+											<input type="text" class="form-control  form-control-lg" id="no_npwp" name="no_npwp"
+                                       placeholder="No. NPWP" maxlength="20" value="{{$no_npwp}}">
+						                </div>
+						            </div>
 	                            </div>
                             </div>
                         </div>

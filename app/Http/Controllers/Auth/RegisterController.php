@@ -109,7 +109,7 @@ class RegisterController extends Controller
             echo json_encode($role);
         }
         if($request->input('role_flag_koor')){
-            $role = DB::select('select kode, nama, flag_koordinator, kode_level from bkt_02010102_role where kode='.$request->input('role_flag_koor'));
+            $role = DB::select('select a.kode, a.nama, a.flag_koordinator, a.kode_level, b.flag_konsultan from bkt_02010102_role a, bkt_02010116_tipe_role b where a.tipe_role=b.kode and a.kode='.$request->input('role_flag_koor'));
             echo json_encode($role);
         }
         if($request->input('prop')){

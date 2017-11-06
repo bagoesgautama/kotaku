@@ -40,13 +40,14 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010501 index</b>
+                    <b>Serah Terima Aset Bangunan kepada Pemerintah Kab/Kota</b>
                 </div>
-                <!-- @if( ! empty($detil['397']))
+                
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/keberlanjutan/kota/serah_terima/create'}}">Create</a>
+                    <b>bk010501 index</b>
+                    <!-- <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/keberlanjutan/kota/serah_terima/create'}}">Create</a> -->
                 </div>
-                @endif -->
+                
             </div>
             <div class="panel-body">
                 <div class="table-responsive">

@@ -43,10 +43,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010301 index</b>
+                    <b>Pembangunan Visi</b>
                 </div>
                 @if( ! empty($detil['254']))
                 <div class="tools pull-right">
+                    <b>bk010301 index</b>
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/penanganan/pembangunan_visi/create'}}">Create</a>
 				</div>
                 @endif

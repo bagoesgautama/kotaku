@@ -40,10 +40,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010214 index</b>
+                    <b>Keberfungsian Forum</b>
                 </div>
                 @if( ! empty($detil['172']))
                 <div class="tools pull-right">
+                    <b>bk010214 index</b>
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/kecamatan/keberfungsian/create' }}">Create</a>
                 </div>
                 @endif

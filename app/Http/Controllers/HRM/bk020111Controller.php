@@ -235,6 +235,8 @@ class bk020111Controller extends Controller
 			$data['password'] = $rowData[0]->password;
 			$data['nama_depan'] = $rowData[0]->nama_depan;
 			$data['nama_belakang'] = $rowData[0]->nama_belakang;
+			$data['nik'] = $rowData[0]->nik;
+			$data['no_npwp'] = $rowData[0]->no_npwp;
 			$data['kode_level'] = $rowData[0]->kode_level;
 			$data['kode_role'] = $rowData[0]->kode_role;
 			$data['wk_kd_prop'] = $rowData[0]->wk_kd_prop;
@@ -329,6 +331,8 @@ class bk020111Controller extends Controller
 			$data['password'] = null;
 			$data['nama_depan'] = null;
 			$data['nama_belakang'] = null;
+			$data['nik'] = null;
+			$data['no_npwp'] = null;
 			$data['kode_level'] = 999999999999999999;
 			$data['kode_role'] = null;
 			$data['wk_kd_prop'] = null;
@@ -400,6 +404,8 @@ class bk020111Controller extends Controller
             'password' => Hash::make($request->input('password')), 
             'nama_depan' => $request->input('first_name'), 
             'nama_belakang' => $request->input('last_name'),
+            'nik' => $request->input('nik'),
+            'no_npwp' => $request->input('no_npwp'),
             'kode_level' => $request->input('kode_level-input'),
             'kode_role' => $request->input('kode_role-input'),
             'wk_kd_prop' => $request->input('wk_kd_prop-input'),
