@@ -119,8 +119,7 @@
             <div class="form-group striped-col">
                 <label class="col-sm-3 control-label" for="example-email">Email</label>
                 <div class="col-sm-6">
-                    <label for="email" class="sr-only"> E-mail 1</label>
-                    <input id="email-input" type="email" class="form-control  form-control-lg" name="email-input" value="{{ old('email') }}" placeholder="E-mail"  maxlength="255" readonly>
+                    <input id="email-input" type="email" class="form-control  form-control-lg" name="email-input" value="{{ $email }}" placeholder="E-mail"  maxlength="255" readonly>
                 </div>
             </div>
             <div class="form-group">
@@ -383,55 +382,44 @@
 <script type="text/javascript" src="{{asset('vendors/pnotify/js/pnotify.js')}}"></script>
 <script src="{{asset('js/custom_js/notifications.js')}}"></script>
 <script>
-        $('#form').on('submit', function (e) {
-            var form_data = new FormData(this);
-          e.preventDefault();
-          $.ajax({
-            type: 'post',
-            processData: false,
-            contentType: false,
-            "url": "/hrm/management/persetujuan/create",
-            data: form_data,
-            beforeSend: function (){
-                $("#verify").prop('disabled', true);
-            },
-            success: function () {
-
-            alert('From Submitted.');
-            window.location.href = "/hrm/management/persetujuan";
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-              alert(xhr.status);
-              alert(thrownError);
-              $("#verifiy").prop('disabled', false);
+    $(document).ready(function () {
+    $('#verify').on('click', function (e) {
+      e.preventDefault();
+      $.ajax({
+        type: 'post',
+        "url": "/hrm/management/persetujuan/create",
+        data: $('form').serialize(),
+        success: function () {
+        alert('Success !!!');
+        window.location.href = "/hrm/management/persetujuan";
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
             }
-          });
         });
+      });
+    });
 
-        $('#form').on('submit', function (e) {
-            var form_data = new FormData(this);
-          e.preventDefault();
-          $.ajax({
-            type: 'post',
-            processData: false,
-            contentType: false,
-            "url": "/hrm/management/persetujuan/tolak",
-            data: form_data,
-            beforeSend: function (){
-                $("#tolak").prop('disabled', true);
-            },
-            success: function () {
-
-            alert('From Ditolak.');
-            window.location.href = "/hrm/management/persetujuan";
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-              alert(xhr.status);
-              alert(thrownError);
-              $("#tolak").prop('disabled', false);
+    $(document).ready(function () {
+    $('#tolak').on('click', function (e) {
+      e.preventDefault();
+      $.ajax({
+        type: 'post',
+        "url": "/hrm/management/persetujuan/tolak",
+        data: $('form').serialize(),
+        success: function () {
+        alert('Success !!!');
+        window.location.href = "/hrm/management/persetujuan";
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
             }
-          });
         });
+      });
+    });
+        
 
         $("#select-wk_kd_prop-input").select2({
             theme: "bootstrap",
