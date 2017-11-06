@@ -287,6 +287,14 @@
                                     Wilayah Kerja
                                 </p>
                             </div>
+                            <div class="col-md-12" id="kmw_label" hidden>
+                                <div class="form-group">
+                                    <label for="alamat" class="sr-only">KMW</label>
+                                    <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1">
+                                        <option value>KMW</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-md-12" id="prov_label" hidden>
                                 <div class="form-group">
                                     <label for="alamat" class="sr-only">Provinsi</label>
@@ -295,14 +303,6 @@
                                         @foreach ($wk_kd_prop_list as $kpl)
                                             <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
                                         @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12" id="kmw_label" hidden>
-                                <div class="form-group">
-                                    <label for="alamat" class="sr-only">KMW</label>
-                                    <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1">
-                                        <option value>KMW</option>
                                     </select>
                                 </div>
                             </div>
@@ -797,23 +797,9 @@
             }
         });
 
-        
-
         wkprop.change(function(){
             wkprop_id=wkprop.val();
             if(wkprop_id!=null){
-                wkkmw.empty();
-                wkkmw.append("<option value>KMW</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/register/select?wk_kd_prop_kmw="+wkprop_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            wkkmw.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
 
                 wkkota.empty();
                 wkkota.append("<option value>Kota</option>");
@@ -830,9 +816,41 @@
             }
         });
 
+        kmp.change(function(){
+            kmp_id=kmp.val();
+            if(kmp_id!=null){
+
+                wkkmw.empty();
+                wkkmw.append("<option value>Kota</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/register/select?wk_kd_kmp_kmw="+kmp_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkkmw.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
         wkkmw.change(function(){
             wkkmw_id=wkkmw.val();
             if(wkkmw_id!=null){
+                wkprop.empty();
+                wkprop.append("<option value>KMW</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/register/select?wk_kd_kmw_prop="+wkkmw_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkprop.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+
                 wkkorkot.empty();
                 wkkorkot.append("<option value>Korkot</option>");
                 $.ajax({

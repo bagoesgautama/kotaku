@@ -128,6 +128,10 @@ class RegisterController extends Controller
             $kota = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010102_kota b where b.kode_prop=a.kode and a.flag_cakupan_prog=1 and b.flag_cakupan_prog=1 and b.kode_prop='.$request->input('wk_kd_prop'));
             echo json_encode($kota);
         }
+        if($request->input('wk_kd_kmp_kmw')){
+            $kota = DB::select('select a.kode, a.nama from bkt_01010110_kmw a, bkt_01010109_kmp_slum_prog b where a.kode_kmp_slum_prog=b.kode and b.kode_kmp='.$request->input('wk_kd_kmp_kmw'));
+            echo json_encode($kota);
+        }
         if($request->input('wk_kd_prop_kmw')){
             $kota = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010110_kmw b where b.kode_prop=a.kode and a.flag_cakupan_prog=1 and b.kode_prop='.$request->input('wk_kd_prop_kmw'));
             echo json_encode($kota);

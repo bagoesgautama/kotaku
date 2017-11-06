@@ -59,15 +59,97 @@ class bk020308Controller extends Controller
 			5 => 'level',
 			6 => 'flag_blacklist'
 		);
+		if($user->kode_role==35){
+			$query='select a.*,b.nama role,c.nama level from bkt_02010111_user a,bkt_02010102_role b,bkt_02010101_role_level c
+				where a.kode_role=b.kode
+				and a.kode_level=c.kode
+				and a.id!='.$user->id;
+			$totalData = DB::select('select count(1) cnt from bkt_02010111_user a,bkt_02010102_role b,bkt_02010101_role_level c
+				where a.kode_role=b.kode
+				and a.kode_level=c.kode
+				and a.id!='.$user->id);
+		}else{
+			$query='
+			select a.*,b.nama role,c.nama level from bkt_02010111_user a,bkt_02010102_role b,bkt_02010101_role_level c
+				where a.kode_role=b.kode
+				and a.kode_level=c.kode
+				and a.id
+			in
+			(select u.id
+		    from bkt_02010111_user u,
+		       (select kode_level from bkt_02010111_user where id = "'.$user->id.'") r
+		    where (u.kode_role, 
+				case when r.kode_level = 0 then "x" else u.kode_kmp end, 
+				case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
+				case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
+				case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
+				case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
+				)
+		    in (
+				select 
+				x.kode_role_lower,
+				   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
+				   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
+				   case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
+				   case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
+				   case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
+			  	from (
+					select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
+						   a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
+						   ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
+					  from bkt_02010111_user a 
+					  join bkt_02010102_role b on a.kode_role = b.kode
+					  join bkt_02010101_role_level c on b.kode_level = c.kode
+					  left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
+					  left join bkt_02010102_role e on e.kode_role_upper = b.kode
+					  left join bkt_01010111_korkot f on f.kode = a.kode_korkot
+					  left join bkt_01010113_faskel g on g.kode = a.kode_faskel
+					  left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
+					  left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
+					 where a.id = "'.$user->id.'"
+				   ) x 
+				))';
+			$totalData = DB::select('select count(1) cnt from bkt_02010111_user a,bkt_02010102_role b,bkt_02010101_role_level c
+				where a.kode_role=b.kode
+				and a.kode_level=c.kode
+				and a.id
+			in
+			(select u.id
+		    from bkt_02010111_user u,
+		       (select kode_level from bkt_02010111_user where id = "'.$user->id.'") r
+		    where (u.kode_role, 
+				case when r.kode_level = 0 then "x" else u.kode_kmp end, 
+				case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
+				case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
+				case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
+				case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
+				)
+		    in (
+				select 
+				x.kode_role_lower,
+				   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
+				   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
+				   case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
+				   case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
+				   case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
+			  	from (
+					select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
+						   a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
+						   ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
+					  from bkt_02010111_user a 
+					  join bkt_02010102_role b on a.kode_role = b.kode
+					  join bkt_02010101_role_level c on b.kode_level = c.kode
+					  left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
+					  left join bkt_02010102_role e on e.kode_role_upper = b.kode
+					  left join bkt_01010111_korkot f on f.kode = a.kode_korkot
+					  left join bkt_01010113_faskel g on g.kode = a.kode_faskel
+					  left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
+					  left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
+					 where a.id = "'.$user->id.'"
+				   ) x 
+				))');
+		}
 
-		$query='select a.*,b.nama role,c.nama level from bkt_02010111_user a,bkt_02010102_role b,bkt_02010101_role_level c
-			where a.kode_role=b.kode
-			and a.kode_level=c.kode
-			and a.id!='.$user->id;
-		$totalData = DB::select('select count(1) cnt from bkt_02010111_user a,bkt_02010102_role b,bkt_02010101_role_level c
-			where a.kode_role=b.kode
-			and a.kode_level=c.kode
-			and a.id!='.$user->id);
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -77,8 +159,8 @@ class bk020308Controller extends Controller
 			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 		}else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and (b.user_name like "%'.$search.'%" or text_pesan like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (b.user_name like "%'.$search.'%" or text_pesan like "%'.$search.'%") ) a');
+			$posts=DB::select($query. ' and (a.id like "%'.$search.'%" or a.user_name like "%'.$search.'%" or a.nama_belakang like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (a.id like "%'.$search.'%" or a.user_name like "%'.$search.'%" or a.nama_belakang like "%'.$search.'%" or b.nama like "%'.$search.'%" or c.nama like "%'.$search.'%") ) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
@@ -88,7 +170,7 @@ class bk020308Controller extends Controller
 			foreach ($posts as $post)
 			{
 				$edit =  $post->id;
-				$url_edit="/hrm/management/blacklist/create?id=".$edit;
+				$url_edit="/hrm/management/user/blacklist/create?id=".$edit;
 				$nestedData['id'] = $post->id;
 				$nestedData['user_name'] = $post->user_name;
 				$nestedData['nama_depan'] = $post->nama_depan;
