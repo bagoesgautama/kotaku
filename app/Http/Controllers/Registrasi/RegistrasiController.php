@@ -30,12 +30,23 @@ class RegistrasiController extends Controller
     {
         $date = strtotime($request->input('tgl_lahir'));
         $date_convert = date('Y-m-d', $date);
+<<<<<<< HEAD
 
+=======
+        $date2 = strtotime($request->input('tgl_spk'));
+        $date_convert2 = date('Y-m-d', $date2);
+>>>>>>> f0979aa1cfbc86f37243dc1dbef3fca1ceb9439d
         DB::table('bkt_02020201_registrasi')->insert([
             'user_name' => $request->input('username'),
             'password' => Hash::make($request->input('password')),
             'nama_depan' => $request->input('first_name'),
             'nama_belakang' => $request->input('last_name'),
+            'nik' => $request->input('nik'),
+            'no_npwp' => $request->input('no_npwp'),
+            'no_spk' => $request->input('no_spk'),
+            'tgl_spk' => $date_convert2,
+            'nama_bank' => $request->input('nama_bank'),
+            'no_rekening' => $request->input('no_rekening'),
             'kode_level' => $request->input('kode_level-input'),
             'kode_role' => $request->input('kode_role-input'),
             'wk_kd_prop' => $request->input('wk_kd_prop-input'),
@@ -56,6 +67,7 @@ class RegistrasiController extends Controller
             'kode_tempat_lahir' => $request->input('kode_tempat_lahir-input'),
             'email' => $request->input('email'),
             'no_hp' => $request->input('no_hp'),
+            'no_telp' => $request->input('no_telp'),
             'jenis_registrasi' => $request->input('kode-jr')
         ]);
 		$list=DB::select('select *

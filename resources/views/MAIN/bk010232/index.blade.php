@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Penanganan Dampak Sosial & Lingkungan @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Relawan @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Penanganan Dampak Sosial & Lingkungan</h1>
+    <h1>MAIN Module</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,12 +23,16 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/perencanaan/infra/amdal">
-                    Perencanaan / Penyiapan DED, Pengadaan Skala Kota / Penanganan Dampak Sosial & Lingkungan
-                </a>
+                Persiapan
             </li>
             <li class="next">
-                Create
+                Kota atau Kabupaten
+            </li>
+            <li class="next">
+                Kegiatan
+            </li>
+            <li class="next">
+                Relawan
             </li>
         </ul>
     </div>
@@ -39,22 +43,29 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010313 index</b>
+                    <b>Relawan</b>
                 </div>
-                @if( ! empty($detil['318']))
+                @if( ! empty($detil['575']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/infra/amdal/create'}}">Create</a>
+                    <b>bk010232 index</b>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/kota/kegiatan/relawan/create' }}">Create</a>
                 </div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users">
+                    <table class="table table-striped" id="kegiatan">
                         <thead>
                             <tr>
-                                <th>Kode Paket Kerja Kontraktor</th>
+                                <th>Kode</th>
+                                <th>Tahun</th>
+                                <th>Kota</th>
+                                <th>Kecamatan</th>
+                                <th>Jenis Kegiatan</th>
+                                <th>Tanggal Kegiatan</th>
+                                <th>Lokasi Kegiatan</th>
                                 <th>Created Time</th>
-                                <th>Option</th>
+                                <th>option</th>
                             </tr>
                         </thead>
                     </table>
@@ -68,25 +79,32 @@
 
 <script>
     $(document).ready(function () {
-        var table = $('#users').DataTable({
+        var table = $('#kegiatan').DataTable({
             // dom: 'Bflrtip',
             
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/perencanaan/infra/amdal",
+                     "url": "/main/persiapan/kota/kegiatan/relawan",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-                { "data": "kode_parent" , name:"kode_parent"},
+                { "data": "kode" , name:"kode"},
+                { "data": "tahun" , name:"tahun"},
+                { "data": "kode_kota" , name:"kode_kota"},
+                { "data": "kode_kec" , name:"kode_kec"},
+                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
+                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
+                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order":[[0,"desc"]]
         });
-        $('#users_filter input').unbind();
-        $('#users_filter input').bind('keyup', function(e) {
+        $('#kegiatan_filter input').unbind();
+        $('#kegiatan_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
             table.search(this.value).draw();
         }

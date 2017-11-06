@@ -109,10 +109,21 @@ class bk010313Controller extends Controller
 			51 => 'updated_time',
 			52 => 'updated_by'
 		);
-		$query='select a.*, b.kode 
+		$query='select * from ( select 
+					a.*, 
+					b.kode parent, 
+					c.nama nama_subkomponen,
+					d.nama nama_dtl_subkomponen,
+					case 
+						when b.jenis_komponen_keg = "L" then "Lingkungan"
+						when b.jenis_komponen_keg = "S" then "Sosial"
+						when b.jenis_komponen_keg = "E" then "Ekonomi"
+					end komponen 
 					from bkt_01030210_pkt_krj_amdal a 
-						left join bkt_01030209_pkt_krj_kontraktor b on a.kode_parent=b.kode ';
-			
+						left join bkt_01030209_pkt_krj_kontraktor b on a.kode_parent=b.kode 
+						left join bkt_01010120_subkomponen c on c.id=b.id_subkomponen
+						left join bkt_01010121_dtl_subkomponen d on d.id=b.id_dtl_subkomponen) b';
+					
 		$totalData = DB::select('select count(1) cnt 
 									from bkt_01030210_pkt_krj_amdal a 
 												left join bkt_01030209_pkt_krj_kontraktor b on a.kode_parent=b.kode');
@@ -127,8 +138,17 @@ class bk010313Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and a.tahun like "%'.$search.'%" or b.kode_prop like "%'.$search.'%" or c.kode_kota like "%'.$search.'%" or d.kode_korkot like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and a.tahun like "%'.$search.'%" or b.kode_prop like "%'.$search.'%" or c.kode_kota like "%'.$search.'%" or d.kode_korkot like "%'.$search.'%") a');
+			$posts=DB::select($query. ' where 
+											b.kode_parent like "%'.$search.'%" or
+											b.komponen like "%'.$search.'%" or
+											b.nama_subkomponen like "%'.$search.'%" or
+											b.nama_dtl_subkomponen like "%'.$search.'%"
+											order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' where 
+											b.kode_parent like "%'.$search.'%" or
+											b.komponen like "%'.$search.'%" or
+											b.nama_subkomponen like "%'.$search.'%" or
+											b.nama_dtl_subkomponen like "%'.$search.'%") a');
 		}
 
 		$data = array();
@@ -142,59 +162,8 @@ class bk010313Controller extends Controller
 
 				$url_edit=url('/')."/main/perencanaan/infra/amdal/create?kode_parent=".$edit;
 				$url_delete=url('/')."/main/perencanaan/infra/amdal/delete?kode_parent=".$delete;
-				$nestedData['kode_parent'] = $post->kode_parent;
-				$nestedData['lpt_l_hibah_gov'] = $post->lpt_l_hibah_gov;
-				$nestedData['lpt_l_hibah_masy'] = $post->lpt_l_hibah_masy;
-				$nestedData['lpt_l_hibah_lain'] = $post->lpt_l_hibah_lain;
-				$nestedData['lpt_l_ijin_pakai_gov'] = $post->lpt_l_ijin_pakai_gov;
-				$nestedData['lpt_l_ijin_pakai_masy'] = $post->lpt_l_ijin_pakai_masy;
-				$nestedData['lpt_l_ijin_pakai_lain'] = $post->lpt_l_ijin_pakai_lain;
-				$nestedData['lpt_l_dilalui_gov'] = $post->lpt_l_dilalui_gov;
-				$nestedData['lpt_l_dilalui_masy'] = $post->lpt_l_dilalui_masy;
-				$nestedData['lpt_l_dilalui_lain'] = $post->lpt_l_dilalui_lain;
-				$nestedData['lpt_rp_nilai_gov'] = $post->lpt_rp_nilai_gov;
-				$nestedData['lpt_rp_nilai_masy'] = $post->lpt_rp_nilai_masy;
-				$nestedData['lpt_rp_nilai_lain'] = $post->lpt_rp_nilai_lain;
-				$nestedData['lpt_q_pt_kk_hibah'] = $post->lpt_q_pt_kk_hibah;
-				$nestedData['lpt_q_pt_kk_ijin_pakai'] = $post->lpt_q_pt_kk_ijin_pakai;
-				$nestedData['lpt_q_pt_kk_ijin_dilalui'] = $post->lpt_q_pt_kk_ijin_dilalui;
-				$nestedData['kl_lt_pre'] = $post->kl_lt_pre;
-				$nestedData['kl_lt_pos'] = $post->kl_lt_pos;
-				$nestedData['kl_q_peserta'] = $post->kl_q_peserta;
-				$nestedData['kl_q_peserta_w'] = $post->kl_q_peserta_w;
-				$nestedData['pk_lt_pre'] = $post->pk_lt_pre;
-				$nestedData['pk_lt_pos'] = $post->pk_lt_pos;
-				$nestedData['pk_q_peserta'] = $post->pk_q_peserta;
-				$nestedData['pk_q_peserta_w'] = $post->pk_q_peserta_w;
-				$nestedData['mha_q_jiwa'] = $post->mha_q_jiwa;
-				$nestedData['mha_q_jiwa_w'] = $post->mha_q_jiwa_w;
-				$nestedData['mha_q_wtp'] = $post->mha_q_wtp;
-				$nestedData['mha_q_wtp_w'] = $post->mha_q_wtp_w;
-				$nestedData['mha_q_wpm'] = $post->mha_q_wpm;
-				$nestedData['mha_q_wpm_w'] = $post->mha_q_wpm_w;
-				$nestedData['mha_flag_rk_mha'] = $post->mha_flag_rk_mha;
-				$nestedData['dl_flag_ukl_upl'] = $post->dl_flag_ukl_upl;
-				$nestedData['dl_flag_sop'] = $post->dl_flag_sop;
-				$nestedData['cb_flag_di_kaw_cb'] = $post->cb_flag_di_kaw_cb;
-				$nestedData['cb_flag_sop'] = $post->cb_flag_sop;
-				$nestedData['rb_flag_di_kaw_rb'] = $post->rb_flag_di_kaw_rb;
-				$nestedData['dl_flag_sop'] = $post->dl_flag_sop;
-				$nestedData['pk_flag_pakai_kayu'] = $post->pk_flag_pakai_kayu;
-				$nestedData['pk_vol_kayu'] = $post->pk_vol_kayu;
-				$nestedData['lk_flag_legal_kayu'] = $post->lk_flag_legal_kayu;
-				$nestedData['lk_vol_kayu_legal'] = $post->lk_vol_kayu_legal;
-				$nestedData['uri_img_document'] = $post->uri_img_document;
-				$nestedData['uri_img_absensi'] = $post->uri_img_absensi;
-				$nestedData['diser_tgl'] = $post->diser_tgl;
-				$nestedData['diser_oleh'] = $post->diser_oleh;
-				$nestedData['diket_tgl'] = $post->diket_tgl;
-				$nestedData['diket_oleh'] = $post->diket_oleh;
-				$nestedData['diver_tgl'] = $post->diver_tgl;
-				$nestedData['diver_oleh'] = $post->diver_oleh;
+				$nestedData['kode_parent'] = $post->parent.' - '.$post->komponen.' - '.$post->nama_subkomponen.' - '.$post->nama_dtl_subkomponen;
 				$nestedData['created_time'] = $post->created_time;
-				$nestedData['created_by'] = $post->created_by;
-				$nestedData['updated_time'] = $post->updated_time;
-				$nestedData['updated_by'] = $post->updated_by;
 
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
@@ -243,6 +212,16 @@ class bk010313Controller extends Controller
 			if($data['kode_parent']!=null  && !empty($data['detil']['319'])){
 				$rowData = DB::select('select * from bkt_01030210_pkt_krj_amdal where kode_parent='.$data['kode_parent']);
 				$data['kode_parent'] = $rowData[0]->kode_parent;
+				$data['kode_parent_list'] = DB::select('
+					select 
+						a.*, 
+						b.nama nama_subkomponen,
+						c.nama nama_dtl_subkomponen
+					from bkt_01030209_pkt_krj_kontraktor a
+						left join bkt_01010120_subkomponen b on b.id=a.id_subkomponen
+						left join bkt_01010121_dtl_subkomponen c on c.id=a.id_dtl_subkomponen 
+					where
+						a.kode='.$rowData[0]->kode_parent);
 				$data['lpt_l_hibah_gov'] = $rowData[0]->lpt_l_hibah_gov;
 				$data['lpt_l_hibah_masy'] = $rowData[0]->lpt_l_hibah_masy;
 				$data['lpt_l_hibah_lain'] = $rowData[0]->lpt_l_hibah_lain;
@@ -300,6 +279,14 @@ class bk010313Controller extends Controller
 				return view('MAIN/bk010313/create',$data);
 			}else if ($data['kode_parent']==null  && !empty($data['detil']['318'])){
 				$data['kode_parent'] = null;
+				$data['kode_parent_list'] = DB::select('
+					select 
+						a.*, 
+						b.nama nama_subkomponen,
+						c.nama nama_dtl_subkomponen
+					from bkt_01030209_pkt_krj_kontraktor a
+						left join bkt_01010120_subkomponen b on b.id=a.id_subkomponen
+						left join bkt_01010121_dtl_subkomponen c on c.id=a.id_dtl_subkomponen ');
 				$data['lpt_l_hibah_gov'] = null;
 				$data['lpt_l_hibah_masy'] = null;
 				$data['lpt_l_hibah_lain'] = null;

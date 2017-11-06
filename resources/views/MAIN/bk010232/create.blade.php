@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Sosialisasi Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Relawan Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
@@ -21,8 +21,8 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/persiapan/kota/kegiatan/sosialisasi">
-                    Persiapan / Kota atau Kabupaten / Kegiatan / Sosialisasi
+                <a href="/main/persiapan/kota/kegiatan/relawan">
+                    Persiapan / Kota atau Kabupaten / Kegiatan / Relawan
                 </a>
             </li>
             <li class="next">
@@ -41,23 +41,10 @@
                     <div class="col-md-12">
                         <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Skala kegiatan</label>
+                                <label class="col-sm-3 control-label" for="kode">Tahun</label>
                                 <div class="col-sm-6">
-                                    <select id="skala_kegiatan" name="skala_kegiatan" class="form-control" size="1" required>
-                                        <option value="1" {!! $skala_kegiatan=='1' ? 'selected':'' !!}>Skala Kota/Kabupaten</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Propinsi</label>
-                                <div class="col-sm-6">
-                                    <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                    <select id="select-kode-prop-input" name="kode-prop-input" class="form-control select2" size="1" required>
-                                        <option value>Please select</option>
-                                        @foreach ($kode_prop_list as $kpl)
-                                            <option value="{{$kpl->kode}}" {!! $kode_prop==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
-                                        @endforeach
-                                    </select>
+                                <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
+                                    <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}" maxlength="4" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -65,11 +52,9 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
-                                        @if ($kode_kmw_list!=null)
                                         @foreach ($kode_kmw_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
-                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -87,7 +72,7 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Korkot</label>
+                                <label class="col-sm-3 control-label">Kode Korkot</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
@@ -99,11 +84,26 @@
                                     </select>
                                 </div>
                             </div>
-                            
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Nama Kegiatan</label>
+                                <label class="col-sm-3 control-label">Kecamatan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="nama_kegiatan" name="nama_kegiatan" class="form-control" value="{{$nama_kegiatan}}" maxlength="100" required>
+                                    <select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
+                                        @if ($kode_kec_list!=null)
+                                        @foreach ($kode_kec_list as $kkl)
+                                            <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Jenis kegiatan</label>
+                                <div class="col-sm-6">
+                                    <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1" required>
+                                        <!-- <option value="2.4.1" {!! $jenis_kegiatan=='2.4.1' ? 'selected':'' !!}>Sosialisasi Tingkat Kota</option> -->
+                                        <option value="2.4.2" {!! $jenis_kegiatan=='2.4.2' ? 'selected':'' !!}>Relawan Kota</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -119,56 +119,17 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="kode">Unsur</label>
+                                <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <select id="select-kode-unsur-input" name="kode-unsur-input" class="form-control select2" size="1" required>
-                                        @foreach ($kode_unsur_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $kode_unsur==$kul->id ? 'selected':'' !!}>{{$kul->nama}}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Materi Narasumber</label>
+                                <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
-                                    <textarea style="resize: vertical" id="materi_narsum" name="materi_narsum" class="form-control" maxlength="1000" required>{{$materi_narsum}}</textarea>
+                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Nama Narasumber</label>
-                                <div class="col-sm-6">
-                                    <input type="text" id="nama_narsum" name="nama_narsum" class="form-control" value="{{$nama_narsum}}" maxlength="100" required>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Jumlah Peserta</label>
-                                <div class="col-sm-6">
-                                    <input type="number" id="jml_peserta" name="jml_peserta" class="form-control" value="{{$jml_peserta}}" maxlength="11" required>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Media</label>
-                                <div class="col-sm-6">
-                                    <textarea style="resize: vertical" id="media" name="media" class="form-control" maxlength="255" required>{{$media}}</textarea>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Hasil Kesepakatan</label>
-                                <div class="col-sm-6">
-                                    <textarea style="resize: vertical" id="hasil_kesepakatan" name="hasil_kesepakatan" class="form-control" maxlength="1000" required>{{$hasil_kesepakatan}}</textarea>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Sumber Pembiayaan</label>
-                                <div class="col-sm-6">
-                                    <select id="sumber_pembiayaan" name="sumber_pembiayaan" class="form-control" size="1" required>
-                                        <option value="1" {!! $sumber_pembiayaan=='1' ? 'selected':'' !!}>APBN</option>
-                                        <option value="2" {!! $sumber_pembiayaan=='2' ? 'selected':'' !!}>APBD</option>
-                                        <option value="3" {!! $sumber_pembiayaan=='3' ? 'selected':'' !!}>CSR</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">File Dokumen</label>
                                 <div class="col-sm-6">
@@ -226,7 +187,7 @@
                             </div> -->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/main/persiapan/kota/kegiatan/sosialisasi" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/persiapan/kota/kegiatan/relawan" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -249,27 +210,50 @@
 {{-- local scripts --}} @section('footer_scripts')
 <script>
       $(document).ready(function () {
-        $("#file-dokumen-input").fileinput({
-            showUpload: false
-        });
-        $("#file-absensi-input").fileinput({
-            showUpload: false
-        });
+	  	$("#file-dokumen-input").fileinput({
+	        showUpload: false
+	    });
+		$("#file-absensi-input").fileinput({
+  	        showUpload: false
+  	    });
         $('#form').on('submit', function (e) {
-            var form_data = new FormData(this);
+            var file_dokumen = document.getElementById('file-dokumen-input').files[0];
+            var file_absensi = document.getElementById('file-absensi-input').files[0];
+            var form_data = new FormData();
+            form_data.append('kode', $('#kode').val());
+            form_data.append('file-dokumen-input', file_dokumen);
+            form_data.append('file-absensi-input', file_absensi);
+            form_data.append('uploaded-file-dokumen', $('#uploaded-file-dokumen').val());
+            form_data.append('uploaded-file-absensi', $('#uploaded-file-absensi').val());
+            form_data.append('tahun-input', $('#tahun-input').val());
+            form_data.append('kode-kota-input', $('#select-kode-kota-input').val());
+            form_data.append('kode-kec-input', $('#select-kode-kec-input').val());
+            form_data.append('kode-kmw-input', $('#select-kode-kmw-input').val());
+            form_data.append('kode-korkot-input', $('#select-kode-korkot-input').val());
+            form_data.append('jns-kegiatan-input', $('#jns-kegiatan-input').val());
+            form_data.append('tgl-kegiatan-input', $('#tgl-kegiatan-input').val());
+            form_data.append('lok-kegiatan-input', $('#lok-kegiatan-input').val());
+            form_data.append('q-laki-input', $('#q-laki-input').val());
+            form_data.append('q-perempuan-input', $('#q-perempuan-input').val());
+            form_data.append('tgl-diser-input', $('#tgl-diser-input').val());
+            form_data.append('diser-oleh-input', $('#diser-oleh-input').val());
+            form_data.append('tgl-diket-input', $('#tgl-diket-input').val());
+            form_data.append('diket-oleh-input', $('#diket-oleh-input').val());
+            form_data.append('tgl-diver-input', $('#tgl-diver-input').val());
+            form_data.append('diver-oleh-input', $('#diver-oleh-input').val());
           e.preventDefault();
           $.ajax({
             type: 'post',
             processData: false,
             contentType: false,
-            "url": "/main/persiapan/kota/kegiatan/sosialisasi/create",
+            "url": "/main/persiapan/kota/kegiatan/relawan/create",
             data: form_data,
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
             },
             success: function () {
             alert('From Submitted.');
-            window.location.href = "/main/persiapan/kota/kegiatan/sosialisasi";
+            window.location.href = "/main/persiapan/kota/kegiatan/relawan";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -278,45 +262,21 @@
             }
           });
         });
-        $("#select-kode-prop-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
         $("#select-kode-kota-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-kec-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-kel-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-kmw-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
+            placeholder: "Please Select"
         });
         $("#select-kode-korkot-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
+            placeholder: "Please Select"
         });
-        $("#select-kode-faskel-input").select2({
+        $("#select-kode-kec-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
+            placeholder: "Please Select"
         });
-        $("#select-kode-unsur-input").select2({
+        $("#select-kode-kmw-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
+            placeholder: "Please Select"
         });
 
         function enforce_maxlength(event) {
@@ -327,32 +287,15 @@
         }
         document.body.addEventListener('input', enforce_maxlength);
 
-        var prop = $('#select-kode-prop-input');
         var kmw = $('#select-kode-kmw-input');
         var kota = $('#select-kode-kota-input');
         var korkot = $('#select-kode-korkot-input');
         var kec = $('#select-kode-kec-input');
-        var kel = $('#select-kode-kel-input');
-        var faskel = $('#select-kode-faskel-input');
-        var kmw_id,kota_id,korkot_id,kec_id,kel_id,faskel_id;
-
-        prop.change(function(){
-            prop_id=prop.val();
-            if(prop_id!=null){
-                kmw.empty();
-                kmw.append("<option value>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?prop="+prop_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kmw.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
+        var kmw_id,kota_id,korkot_id,kec_id;
+        var kode_kmw = {!! json_encode($kode_kmw) !!};
+        var kode_kota = {!! json_encode($kode_kota) !!};
+        var kode_korkot = {!! json_encode($kode_korkot) !!};
+        var kode_kec = {!! json_encode($kode_kec) !!};
 
         kmw.change(function(){
             kmw_id=kmw.val();
@@ -361,7 +304,7 @@
                 kota.append("<option value>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kmw="+kmw_id,
+                    "url": "/main/persiapan/kota/kegiatan/relawan/select?kmw="+kmw_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -380,7 +323,7 @@
                 korkot.append("<option value>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kota_korkot="+kota_id,
+                    "url": "/main/persiapan/kota/kegiatan/relawan/select?kota_korkot="+kota_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -400,7 +343,7 @@
                 kec.append("<option value>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kota_kec="+kota_id,
+                    "url": "/main/persiapan/kota/kegiatan/relawan/select?kota_kec="+kota_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -411,41 +354,7 @@
             }
         });
 
-        kec.change(function(){
-            kec_id=kec.val();
-            if(kec_id!=null){
-                kel.empty();
-                kel.append("<option value>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kec_kel="+kec_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
 
-        kel.change(function(){
-            kel_id=kel.val();
-            if(kel_id!=null){
-                faskel.empty();
-                faskel.append("<option value>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kel_faskel="+kel_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            faskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
       });
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>

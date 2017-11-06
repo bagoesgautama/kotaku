@@ -77,8 +77,8 @@
                                             <input type="hidden" id="kode_parent" name="kode_parent" value="{{ $kode_parent }}">
                                             <select id="select-paket_kerja_kontraktor-input" name="select-paket_kerja_kontraktor-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
-                                                @foreach ($paket_kerja_kontraktor_list as $kpil)
-                                                    <option value="{{$kpil->kode}}" {!! $kode_parent==$kpil->kode ? 'selected':'' !!}>{{$kpil->kode}}</option>
+                                                @foreach ($kode_parent_list as $kpl)
+                                                    <option value="{{$kpl->kode}}" {!! $kode_parent==$kpl->kode ? 'selected':'' !!}>{{$kpl->kode.' - '.$kpl->nama_subkomponen.' - '.$kpl->nama_dtl_subkomponen}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

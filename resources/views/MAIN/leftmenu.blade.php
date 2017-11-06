@@ -304,7 +304,7 @@
 			</li>
 			@endif
 			@if( ! empty($menu['34']))
-			<li {!! (Request::is( 'main/persiapan/kota/forum/bkm')||Request::is( 'main/persiapan/kota/forum/bkm/create')||Request::is( 'main/persiapan/kota/forum/kolaborasi')||Request::is( 'main/persiapan/kota/forum/kolaborasi/create')||Request::is( 'main/persiapan/kota/forum/f_forum')||Request::is( 'main/persiapan/kota/forum/f_forum/create')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi/create')||Request::is( 'main/persiapan/kota/info')||Request::is( 'main/persiapan/kota/info/create')||Request::is( 'main/persiapan/kota/pokja/pembentukan')||Request::is( 'main/persiapan/kota/pokja/pembentukan/create')||Request::is( 'main/persiapan/kota/pokja/kegiatan')||Request::is( 'main/persiapan/kota/pokja/kegiatan/create') ? 'class="active"': 'class=""') !!}>
+			<li {!! (Request::is( 'main/persiapan/kota/kegiatan/*')||Request::is( 'main/persiapan/kota/forum/bkm')||Request::is( 'main/persiapan/kota/forum/bkm/create')||Request::is( 'main/persiapan/kota/forum/kolaborasi')||Request::is( 'main/persiapan/kota/forum/kolaborasi/create')||Request::is( 'main/persiapan/kota/forum/f_forum')||Request::is( 'main/persiapan/kota/forum/f_forum/create')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi/create')||Request::is( 'main/persiapan/kota/info')||Request::is( 'main/persiapan/kota/info/create')||Request::is( 'main/persiapan/kota/pokja/pembentukan')||Request::is( 'main/persiapan/kota/pokja/pembentukan/create')||Request::is( 'main/persiapan/kota/pokja/kegiatan')||Request::is( 'main/persiapan/kota/pokja/kegiatan/create') ? 'class="active"': 'class=""') !!}>
                 <a href="javascript:void(0)">
                     <span class="mm-text">Kota/Kabupaten</span>
                     <span class="fa arrow"></span>
@@ -342,7 +342,7 @@
 				    </li>
 					@endif
 					@if( ! empty($menu['41']))
-					<li {!! (Request::is( 'main/persiapan/kota/kegiatan/sosialisasi')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi/create') ? 'class="active"': "") !!}>
+					<li {!! (Request::is( 'main/persiapan/kota/kegiatan/*')? 'class="active"': "") !!}>
 						<a href="javascript:void(0)">
 		                    <span class="mm-text">Kegiatan</span>
 		                    <span class="fa arrow"></span>
@@ -351,7 +351,14 @@
 							@if( ! empty($menu['53']))
 							<li {!! (Request::is( 'main/persiapan/kota/kegiatan/sosialisasi')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi/create') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/kegiatan/sosialisasi">
-				                    <span class="mm-text">Sosialisasi & Relawan</span>
+				                    <span class="mm-text">Sosialisasi</span>
+				                </a>
+						    </li>
+							@endif
+							@if( ! empty($menu['53']))
+							<li {!! (Request::is( 'main/persiapan/kota/kegiatan/relawan')||Request::is( 'main/persiapan/kota/kegiatan/relawan/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kota/kegiatan/relawan">
+				                    <span class="mm-text">Relawan</span>
 				                </a>
 						    </li>
 							@endif

@@ -101,16 +101,18 @@ Route::get('/hrm/profil/user/password', 'HRM\bk020307Controller@index');
 Route::post('hrm/profil/user/password', 'HRM\bk020307Controller@post');
 
 Route::get('/hrm/management/registrasi_manual', 'HRM\bk020111Controller@index');
+Route::get('/hrm/management/registrasi_manual/select', 'HRM\bk020111Controller@select');
 Route::post('hrm/management/registrasi_manual', 'HRM\bk020111Controller@post');
 Route::get('/hrm/management/registrasi_manual/create', 'HRM\bk020111Controller@create');
 Route::post('/hrm/management/registrasi_manual/create', 'HRM\bk020111Controller@post_create');
 Route::get('/hrm/management/registrasi_manual/delete', 'HRM\bk020111Controller@delete');
 
-Route::get('/hrm/management/persetujuan', 'HRM\bk020116Controller@index');
-Route::post('hrm/management/persetujuan', 'HRM\bk020116Controller@post');
-Route::get('/hrm/management/persetujuan/create', 'HRM\bk020116Controller@create');
-Route::post('/hrm/management/persetujuan/create', 'HRM\bk020116Controller@post_create');
-Route::get('/hrm/management/persetujuan/delete', 'HRM\bk020116Controller@delete');
+Route::get('/hrm/management/persetujuan', 'HRM\bk020316Controller@index');
+Route::post('hrm/management/persetujuan', 'HRM\bk020316Controller@post');
+Route::get('/hrm/management/persetujuan/create', 'HRM\bk020316Controller@create');
+Route::post('/hrm/management/persetujuan/create', 'HRM\bk020316Controller@post_create');
+Route::post('/hrm/management/persetujuan/tolak', 'HRM\bk020316Controller@post_tolak');
+Route::get('/hrm/management/persetujuan/delete', 'HRM\bk020316Controller@delete');
 
 Route::get('/hrm/management/user/blacklist', 'HRM\bk020308Controller@index');
 Route::post('/hrm/management/user/blacklist', 'HRM\bk020308Controller@post');
@@ -416,6 +418,13 @@ Route::post('/main/persiapan/kota/kegiatan/sosialisasi', 'MAIN\bk010208Controlle
 Route::get('/main/persiapan/kota/kegiatan/sosialisasi/create', 'MAIN\bk010208Controller@create');
 Route::post('/main/persiapan/kota/kegiatan/sosialisasi/create', 'MAIN\bk010208Controller@post_create');
 Route::get('/main/persiapan/kota/kegiatan/sosialisasi/delete', 'MAIN\bk010208Controller@delete');
+
+Route::get('/main/persiapan/kota/kegiatan/relawan', 'MAIN\bk010232Controller@index');
+Route::get('/main/persiapan/kota/kegiatan/relawan/select', 'MAIN\bk010232Controller@select');
+Route::post('/main/persiapan/kota/kegiatan/relawan', 'MAIN\bk010232Controller@post');
+Route::get('/main/persiapan/kota/kegiatan/relawan/create', 'MAIN\bk010232Controller@create');
+Route::post('/main/persiapan/kota/kegiatan/relawan/create', 'MAIN\bk010232Controller@post_create');
+Route::get('/main/persiapan/kota/kegiatan/relawan/delete', 'MAIN\bk010232Controller@delete');
 
 Route::get('/main/persiapan/kota/forum/bkm', 'MAIN\bk010209Controller@index');
 Route::get('/main/persiapan/kota/forum/bkm/select', 'MAIN\bk010209Controller@select');

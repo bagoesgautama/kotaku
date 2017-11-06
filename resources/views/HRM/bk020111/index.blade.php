@@ -38,11 +38,12 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk020111 index</b>
+                    <b>Registrasi Manual</b>
                 </div>
                 @if( ! empty($detil['567']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/hrm/admin/registrasi_manual/create'}}">Create</a>
+                    <b>bk020111 index</b>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/hrm/management/registrasi_manual/create'}}">Create</a>
 				</div>
                 @endif
             </div>
@@ -79,7 +80,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/admin/registrasi_manual",
+                     "url": "/hrm/management/registrasi_manual",
                      "dataType": "json",
                      "type": "POST"
                    },

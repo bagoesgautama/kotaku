@@ -60,7 +60,7 @@
 			</li>
 			@endif
 			@if( ! empty($menu['178']))
-			<li {!! (Request::is( 'hrm/management/blacklist*')? 'class="active"': "") !!}>
+			<li {!! (Request::is( 'hrm/management/*')? 'class="active"': "") !!}>
 		        <a href="javascript:void(0)">
 		            <span class="mm-text ">Managemen User</span>
 					<span class="fa arrow"></span>
@@ -74,8 +74,8 @@
 					    </li>
 					@endif
 					@if( ! empty($menu['182']))
-						<li {!! (Request::is( 'hrm/admin/persetujuan*')? 'class="active"': "") !!}>
-					        <a href="/hrm/admin/persetujuan">
+						<li {!! (Request::is( 'hrm/management/persetujuan*')? 'class="active"': "") !!}>
+					        <a href="/hrm/management/persetujuan">
 					            <span class="mm-text ">Persetujuan Pendaftaran Personil</span>
 					        </a>
 					    </li>
