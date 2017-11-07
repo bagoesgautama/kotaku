@@ -387,6 +387,7 @@ Route::get('/main/persiapan/nasional/pokja/pembentukan/delete', 'MAIN\bk010201Co
 Route::get('/main/persiapan/nasional/pokja/kegiatan', 'MAIN\bk010202Controller@index');
 Route::post('/main/persiapan/nasional/pokja/kegiatan', 'MAIN\bk010202Controller@post');
 Route::get('/main/persiapan/nasional/pokja/kegiatan/create', 'MAIN\bk010202Controller@create');
+Route::get('/main/persiapan/nasional/pokja/kegiatan/show', 'MAIN\bk010202Controller@show');
 Route::post('/main/persiapan/nasional/pokja/kegiatan/create', 'MAIN\bk010202Controller@post_create');
 Route::get('/main/persiapan/nasional/pokja/kegiatan/delete', 'MAIN\bk010202Controller@delete');
 

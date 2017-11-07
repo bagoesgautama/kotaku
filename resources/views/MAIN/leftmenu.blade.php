@@ -236,28 +236,28 @@
         </a>
 		<ul class="sub-menu">
 			@if( ! empty($menu['32']))
-			<li {!! (Request::is( 'main/persiapan/nasional/pokja/pembentukan')||Request::is( 'main/persiapan/nasional/pokja/pembentukan/create')||Request::is( 'main/persiapan/nasional/pokja/kegiatan')||Request::is( 'main/persiapan/nasional/pokja/kegiatan/create')? 'class="active"': 'class=""') !!}>
+			<li {!! (Request::is( 'main/persiapan/nasional/pokja/pembentukan')||Request::is( 'main/persiapan/nasional/pokja/pembentukan/*')||Request::is( 'main/persiapan/nasional/pokja/kegiatan')||Request::is( 'main/persiapan/nasional/pokja/kegiatan/*')? 'class="active"': 'class=""') !!}>
                 <a href="javascript:void(0)">
                     <span class="mm-text">Nasional</span>
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="sub-menu form-submenu">
 					@if( ! empty($menu['37']))
-					<li {!! (Request::is( 'main/persiapan/nasional/pokja/pembentukan')||Request::is( 'main/persiapan/nasional/pokja/pembentukan/create')||Request::is( 'main/persiapan/nasional/pokja/kegiatan')||Request::is( 'main/persiapan/nasional/pokja/kegiatan/create')? 'class="active"': "") !!}>
+					<li {!! (Request::is( 'main/persiapan/nasional/pokja/pembentukan')||Request::is( 'main/persiapan/nasional/pokja/pembentukan/*')||Request::is( 'main/persiapan/nasional/pokja/kegiatan')||Request::is( 'main/persiapan/nasional/pokja/kegiatan/*')? 'class="active"': "") !!}>
 						<a href="javascript:void(0)">
 		                    <span class="mm-text">Kelompok Kerja (Pokja)</span>
 		                    <span class="fa arrow"></span>
 		                </a>
 						<ul class="form-sub-submenu">
 							@if( ! empty($menu['47']))
-							<li {!! (Request::is( 'main/persiapan/nasional/pokja/pembentukan')||Request::is( 'main/persiapan/nasional/pokja/pembentukan/create') ? 'class="active"': "") !!}>
+							<li {!! (Request::is( 'main/persiapan/nasional/pokja/pembentukan')||Request::is( 'main/persiapan/nasional/pokja/pembentukan/*') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/nasional/pokja/pembentukan">
 				                    <span class="mm-text">Pembentukan</span>
 				                </a>
 						    </li>
 							@endif
 							@if( ! empty($menu['48']))
-							<li {!! (Request::is( 'main/persiapan/nasional/pokja/kegiatan')||Request::is( 'main/persiapan/nasional/pokja/kegiatan/create')? 'class="active"': "") !!}>
+							<li {!! (Request::is( 'main/persiapan/nasional/pokja/kegiatan')||Request::is( 'main/persiapan/nasional/pokja/kegiatan/*')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/nasional/pokja/kegiatan">
 				                    <span class="mm-text">Keberfungsian Pokja</span>
 				                </a>
