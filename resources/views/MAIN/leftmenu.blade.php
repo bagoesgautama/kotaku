@@ -231,7 +231,7 @@
 	@if( ! empty($menu['12']))
 	<li {!! (Request::is( 'main/persiapan/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
-            <span class="mm-text">Persiapan</span>
+            <span class="mm-text"><b>1. Tahap</b>Persiapan</span>
             <span class="fa arrow"></span>
         </a>
 		<ul class="sub-menu">
@@ -259,7 +259,7 @@
 							@if( ! empty($menu['48']))
 							<li {!! (Request::is( 'main/persiapan/nasional/pokja/kegiatan')||Request::is( 'main/persiapan/nasional/pokja/kegiatan/create')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/nasional/pokja/kegiatan">
-				                    <span class="mm-text">Kegiatan / Monitoring</span>
+				                    <span class="mm-text">Keberfungsian Pokja</span>
 				                </a>
 						    </li>
 							@endif
