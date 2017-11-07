@@ -280,14 +280,12 @@
 		});
     });
     $('#approve').on('click', function (e) {
-		var form_data = new FormData(this);
+		var kode = $('#kode').val();
 		e.preventDefault();
 		$.ajax({
 			type: 'post',
-			processData: false,
-            contentType: false,
 			"url": "/hrm/profil/user/perubahan/approve",
-			data: form_data,
+			data: {kode:kode},
 			beforeSend: function (){
 			    $("#approve").prop('disabled', true);
 			},
@@ -302,14 +300,12 @@
 		});
     });
     $('#reject').on('click', function (e) {
-		var form_data = new FormData(this);
+		var kode = $('#kode').val();
 		e.preventDefault();
 		$.ajax({
 			type: 'post',
-			processData: false,
-            contentType: false,
 			"url": "/hrm/profil/user/perubahan/reject",
-			data: form_data,
+			data: {kode:kode},
 			beforeSend: function (){
 			    $("#reject").prop('disabled', true);
 			},

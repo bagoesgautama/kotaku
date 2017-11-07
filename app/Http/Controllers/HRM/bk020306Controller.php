@@ -250,6 +250,7 @@ class bk020306Controller extends Controller
 				$data['kode_role_baru'] = $rowData[0]->kode_role_baru;
 				$data['tgl_efektif_role_baru'] = $rowData[0]->tgl_efektif_role_baru;
 				$data['catatan'] = $rowData[0]->catatan;
+				$data['catatan_validasi'] = $rowData[0]->catatan_validasi;
 				$data['uri_img_sk1'] = $rowData[0]->uri_img_sk1;
 				$data['uri_img_sk2'] = $rowData[0]->uri_img_sk2;
 				$data['uri_img_sk3'] = $rowData[0]->uri_img_sk3;
@@ -358,6 +359,7 @@ class bk020306Controller extends Controller
 				'uri_img_sk1' => $url,
 				'uri_img_sk2' => $url2,
 				'uri_img_sk3' => $url3,
+				'status_validasi' => 0,
 				'kode_prop_lama' => $request->input('kode_prop_lama'),
 				'kode_prop_baru' => $request->input('kode_prop_baru-input'),
 				'kode_kota_lama' => $request->input('kode_kota_lama'),
@@ -389,6 +391,7 @@ class bk020306Controller extends Controller
 				'uri_img_sk1' => $url,
 				'uri_img_sk2' => $url2,
 				'uri_img_sk3' => $url3,
+				'status_validasi' => 0,
 				'kode_prop_lama' => $request->input('kode_prop_lama'),
 				'kode_prop_baru' => $request->input('kode_prop_baru-input'),
 				'kode_kota_lama' => $request->input('kode_kota_lama'),
@@ -416,6 +419,21 @@ class bk020306Controller extends Controller
 		date_default_timezone_set('Asia/Jakarta');
 		DB::table('bkt_02030204_perubahan_status')->where('kode', $request->input('kode'))
 		->update([	
+			'status_validasi' => 1,
+			'divalidasi_oleh' => Auth::user()->id,
+			'validasi_dt' => date('Y-m-d H:i:s'),
+			'catatan_validasi' => $request->input('catatan-val-input'),
+			'updated_time' => date('Y-m-d H:i:s'),
+			'updated_by' => Auth::user()->id
+			]);
+	}
+
+	public function reject(Request $request)
+	{
+		date_default_timezone_set('Asia/Jakarta');
+		DB::table('bkt_02030204_perubahan_status')->where('kode', $request->input('kode'))
+		->update([	
+			'status_validasi' => 2,
 			'divalidasi_oleh' => Auth::user()->id,
 			'validasi_dt' => date('Y-m-d H:i:s'),
 			'catatan_validasi' => $request->input('catatan-val-input'),

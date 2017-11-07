@@ -102,8 +102,8 @@ Route::post('hrm/profil/user/perubahan', 'HRM\bk020306Controller@post');
 Route::get('/hrm/profil/user/perubahan/create', 'HRM\bk020306Controller@create');
 Route::post('/hrm/profil/user/perubahan/create', 'HRM\bk020306Controller@post_create');
 Route::get('/hrm/profil/user/perubahan/delete', 'HRM\bk020306Controller@delete');
-Route::get('/hrm/profil/user/perubahan/approve', 'HRM\bk020306Controller@approve');
-Route::get('/hrm/profil/user/perubahan/reject', 'HRM\bk020306Controller@reject');
+Route::post('/hrm/profil/user/perubahan/approve', 'HRM\bk020306Controller@approve');
+Route::post('/hrm/profil/user/perubahan/reject', 'HRM\bk020306Controller@reject');
 
 Route::get('/hrm/profil/user/password', 'HRM\bk020307Controller@index');
 Route::post('hrm/profil/user/password', 'HRM\bk020307Controller@post');
