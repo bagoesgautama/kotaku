@@ -67,9 +67,78 @@ class bk020314Controller extends Controller
 		}else{
 			$query='select a.*,b.user_name verifikator,c.user_name user
 				from bkt_02030208_eval_kerja a left join bkt_02010111_user b on a.diver_oleh=b.id,bkt_02010111_user c
-				where a.kode_personil=c.id and (a.kode_personil in (select id from bkt_02010111_user where kode_role=(select kode from bkt_02010102_role where kode_role_upper='.$user->kode_role.')) or a.kode_personil='.$user->id.') ';
-			$totalData = DB::select('select count(1) cnt from bkt_02030208_eval_kerja a left join bkt_02010111_user b on a.diver_oleh=b.id,bkt_02010111_user c
-				where a.kode_personil=c.id and (a.kode_personil in (select id from bkt_02010111_user where kode_role=(select kode from bkt_02010102_role where kode_role_upper='.$user->kode_role.'))or a.kode_personil='.$user->id.')');
+				where a.kode_personil=c.id 
+				and c.id in (
+							select u.id
+								from bkt_02010111_user u,
+								    (select kode_level from bkt_02010111_user where user_name = "'.$user->user_name.'") r
+								where (u.kode_role, 
+									case when r.kode_level = 0 then "x" else u.kode_kmp end, 
+									case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
+									case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
+									case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
+									case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
+									)
+								in (
+									select x.kode_role_lower,
+									   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
+									   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
+									   case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
+									   case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
+									   case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
+									from (
+										select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
+											a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
+												   ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
+										from bkt_02010111_user a 
+											join bkt_02010102_role b on a.kode_role = b.kode
+											join bkt_02010101_role_level c on b.kode_level = c.kode
+											left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
+											left join bkt_02010102_role e on e.kode_role_upper = b.kode
+											left join bkt_01010111_korkot f on f.kode = a.kode_korkot
+											left join bkt_01010113_faskel g on g.kode = a.kode_faskel
+											left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
+											left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
+										where a.user_name = "'.$user->user_name.'"
+										) x 
+									))';
+			$totalData = DB::select('select count(1) cnt from bkt_02030208_eval_kerja a 
+										left join bkt_02010111_user b on a.diver_oleh=b.id,bkt_02010111_user c
+									where a.kode_personil=c.id 
+									and c.id in (
+												select u.id
+													from bkt_02010111_user u,
+													    (select kode_level from bkt_02010111_user where user_name = "'.$user->user_name.'") r
+													where (u.kode_role, 
+														case when r.kode_level = 0 then "x" else u.kode_kmp end, 
+														case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
+														case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
+														case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
+														case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
+														)
+													in (
+														select x.kode_role_lower,
+														   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
+														   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
+														   case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
+														   case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
+														   case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
+														from (
+															select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
+																a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
+																	   ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
+															from bkt_02010111_user a 
+																join bkt_02010102_role b on a.kode_role = b.kode
+																join bkt_02010101_role_level c on b.kode_level = c.kode
+																left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
+																left join bkt_02010102_role e on e.kode_role_upper = b.kode
+																left join bkt_01010111_korkot f on f.kode = a.kode_korkot
+																left join bkt_01010113_faskel g on g.kode = a.kode_faskel
+																left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
+																left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
+															where a.user_name = "'.$user->user_name.'"
+															) x 
+														))');
 		}
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');

@@ -64,7 +64,7 @@ class bk020316Controller extends Controller
 			5 => 'status_registrasi',
 			6 => 'created_time',
 		);
-		if($user->kode_role==1){
+		if($user->kode_role==35){
 			$query='
 				select * from (select 
 					*,
@@ -88,41 +88,114 @@ class bk020316Controller extends Controller
 			$totalData = DB::select('select count(1) cnt from bkt_02020201_registrasi
 									where status_registrasi=0 ');
 		}else{
-			$query='select u.*
-					from bkt_02020201_registrasi u,
-					    (select kode_level from bkt_02010111_user where user_name = '.$user->user_name.') r
-					where (u.kode_role, 
-							case when r.kode_level = 0 then "x" else u.kode_kmp end, 
-							case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
-							case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
-							case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
-							case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
-							)
-					    in (
-							select x.kode_role_lower,
-								   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
-								   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
-								   case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
-								   case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
-								   case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
-							  from (
-									select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
-										   a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
-										   ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
-									  from bkt_02010111_user a 
-									  join bkt_02010102_role b on a.kode_role = b.kode
-									  join bkt_02010101_role_level c on b.kode_level = c.kode
-									  left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
-									  left join bkt_02010102_role e on e.kode_role_upper = b.kode
-									  left join bkt_01010111_korkot f on f.kode = a.kode_korkot
-									  left join bkt_01010113_faskel g on g.kode = a.kode_faskel
-									  left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
-									  left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
-									 where a.user_name = '.$user->user_name.'
-								   ) x 
-							)';
-			$totalData = DB::select('select count(1) cnt from bkt_02020201_registrasi
-									where status_registrasi=0 ');
+			$query='select * from (
+								select *,
+									user_name user_name_real, 
+									nama_depan nama_depan_real, 
+									nama_belakang nama_belakang_real, 
+									case 
+										when kode_jenis_kelamin = "P" then "Pria" 
+										when kode_jenis_kelamin = "W" then "Wanita" 
+									end jenis_kel, 
+									case 
+										when jenis_registrasi = "0" then "Mandiri" 
+										when jenis_registrasi = "1" then "Manual" 
+									end jenis_reg, 
+									case 
+										when status_registrasi = "0" then "Belum Diverifikasi" 
+									end status_reg
+								from bkt_02020201_registrasi
+								where status_registrasi=0 and kode 
+									in (
+										select u.kode
+					  						from bkt_02020201_registrasi u,
+					      					 (select kode_level from bkt_02010111_user where user_name = "'.$user->user_name.'") r
+					 					where (u.kode_role, 
+											case when r.kode_level = 0 then "x" else u.kode_kmp end, 
+											case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
+											case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
+											case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
+											case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
+										)
+					    				in (
+											select x.kode_role_lower,
+								  				case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
+								   				case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
+								   				case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
+								   				case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
+								   				case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
+							  				from (
+												select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
+										   				a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
+										  				 ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
+									  			from bkt_02010111_user a 
+									  			join bkt_02010102_role b on a.kode_role = b.kode
+									  			join bkt_02010101_role_level c on b.kode_level = c.kode
+									  			left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
+									  			left join bkt_02010102_role e on e.kode_role_upper = b.kode
+									  			left join bkt_01010111_korkot f on f.kode = a.kode_korkot
+									  			left join bkt_01010113_faskel g on g.kode = a.kode_faskel
+									  			left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
+									  			left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
+									 		where a.user_name = "'.$user->user_name.'"
+								  				 ) x 
+											)
+										)
+									 ) b ';
+			$totalData = DB::select('select count(1) cnt from (
+								select *,
+									user_name user_name_real, 
+									nama_depan nama_depan_real, 
+									nama_belakang nama_belakang_real, 
+									case 
+										when kode_jenis_kelamin = "P" then "Pria" 
+										when kode_jenis_kelamin = "W" then "Wanita" 
+									end jenis_kel, 
+									case 
+										when jenis_registrasi = "0" then "Mandiri" 
+										when jenis_registrasi = "1" then "Manual" 
+									end jenis_reg, 
+									case 
+										when status_registrasi = "0" then "Belum Diverifikasi" 
+									end status_reg
+								from bkt_02020201_registrasi
+								where status_registrasi=0 and kode 
+									in (
+										select u.kode
+					  						from bkt_02020201_registrasi u,
+					      					 (select kode_level from bkt_02010111_user where user_name = "'.$user->user_name.'") r
+					 					where (u.kode_role, 
+											case when r.kode_level = 0 then "x" else u.kode_kmp end, 
+											case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
+											case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
+											case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
+											case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
+										)
+					    				in (
+											select x.kode_role_lower,
+								  				case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
+								   				case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
+								   				case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
+								   				case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
+								   				case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
+							  				from (
+												select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
+										   				a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
+										  				 ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
+									  			from bkt_02010111_user a 
+									  			join bkt_02010102_role b on a.kode_role = b.kode
+									  			join bkt_02010101_role_level c on b.kode_level = c.kode
+									  			left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
+									  			left join bkt_02010102_role e on e.kode_role_upper = b.kode
+									  			left join bkt_01010111_korkot f on f.kode = a.kode_korkot
+									  			left join bkt_01010113_faskel g on g.kode = a.kode_faskel
+									  			left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
+									  			left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
+									 		where a.user_name = "'.$user->user_name.'"
+								  				 ) x 
+											)
+										)
+									 ) b ');
 
 		}
 
@@ -144,7 +217,8 @@ class bk020316Controller extends Controller
 												b.jenis_reg like "%'.$search.'%" or 
 												b.status_reg like "%'.$search.'%") 
 										order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (b.user_name_real like "%'.$search.'%" or 
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query.' 
+										where (b.user_name_real like "%'.$search.'%" or 
 												b.nama_depan_real like "%'.$search.'%" or
 												b.nama_belakang_real like "%'.$search.'%" or
 												b.jenis_kel like "%'.$search.'%" or

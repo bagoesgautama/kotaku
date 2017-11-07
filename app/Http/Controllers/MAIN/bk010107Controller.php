@@ -98,7 +98,8 @@ class bk010107Controller extends Controller
 					17 => 'created_time',
 					18 => 'created_by',
 					19 => 'updated_time',
-					20 => 'updated_by'
+					20 => 'updated_by',
+					21 => 'kode'
 				);
 
 				$query='select a.*, b.nama nama_kota, c.nama nama_pms 	
@@ -121,6 +122,7 @@ class bk010107Controller extends Controller
 				else {
 					$search = $request->input('search.value');
 					$posts=DB::select($query. ' where (
+							a.kode like "%'.$search.'%" or
 							a.nourut like "%'.$search.'%" or
 							a.nama like "%'.$search.'%" or 
 							b.nama like "%'.$search.'%" or
@@ -136,6 +138,7 @@ class bk010107Controller extends Controller
 							a.kode_departemen like "%'.$search.'%" )
 							order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 					$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+							a.kode like "%'.$search.'%" or
 							a.nourut like "%'.$search.'%" or
 							a.nama like "%'.$search.'%" or 
 							b.nama like "%'.$search.'%" or
@@ -169,6 +172,7 @@ class bk010107Controller extends Controller
 						$delete = $post->kode;
 						$url_edit="/main/slum_program/create?kode=".$show;
 						$url_delete="/main/slum_program/delete?kode=".$delete;
+						$nestedData['kode'] = $post->kode;
 						$nestedData['nourut'] = $post->nourut;
 						$nestedData['nama'] = $post->nama;
 						$nestedData['keterangan'] = $post->keterangan;

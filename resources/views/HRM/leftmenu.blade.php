@@ -206,5 +206,33 @@
 		</ul>
 	</li>
 	@endif
+	
+	@if( ! empty($menu['161']))
+	<li {!! (Request::is( 'hrm/report/*')||Request::is( 'hrm/report*')? 'class="active"': "") !!}>
+        <a href="javascript:void(0)">
+            <span class="mm-text ">Report</span>
+			<span class="fa arrow"></span>
+        </a>
+		<ul class="sub-menu form-submenu">
+			@if( ! empty($menu['178']))
+			<li {!! (Request::is( 'hrm/report/realisasi_kuota_personil*')? 'class="active"': "") !!}>
+		        <a href="javascript:void(0)">
+		            <span class="mm-text ">Realisasi Kuota Personil</span>
+					<span class="fa arrow"></span>
+		        </a>
+				<ul class="form-sub-submenu">
+					@if( ! empty($menu['180']))
+						<li {!! (Request::is( 'hrm/report/realisasi_kuota_personil/kmp*')? 'class="active"': "") !!}>
+					        <a href="/hrm/report/realisasi_kuota_personil/kmp">
+					            <span class="mm-text ">Personil KMP</span>
+					        </a>
+					    </li>
+					@endif
+				</ul>
+			</li>
+			@endif
+		</ul>
+	</li>
+	@endif
 </ul>
 <!-- / .navigation -->
