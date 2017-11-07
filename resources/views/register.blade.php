@@ -219,6 +219,25 @@
                             </div>
                         </div>
                         <div class="col-md-12">
+                            <div class="col-md-12" id="info_bank" hidden>
+                                <p class="form-group">
+                                    Informasi Bank
+                                </p>
+                            </div>
+                            <div class="col-md-12" id="nama_bank_label" hidden>
+                                <div class="form-group">
+                                    <label for="no_hp" class="sr-only">Nama Bank</label>
+                                    <input type="text" class="form-control  form-control-lg" id="nama_bank" name="nama_bank"
+                                           placeholder="Bank" maxlength="100">
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="no_rekening_label" hidden>
+                                <div class="form-group">
+                                    <label for="no_hp" class="sr-only">No. Rekening</label>
+                                    <input type="number" class="form-control  form-control-lg" id="no_rekening" name="no_rekening"
+                                           placeholder="No. Rekening" maxlength="20">
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <p class="form-group">
                                     Role Level
@@ -257,20 +276,7 @@
                                     <input class="form-control" id="return_date" name="tgl_spk" placeholder="Tanggal SPK" data-provide="datepicker">
                                 </div>
                             </div>
-                            <div class="col-md-12" id="nama_bank_label" hidden>
-                                <div class="form-group">
-                                    <label for="no_hp" class="sr-only">Nama Bank</label>
-                                    <input type="text" class="form-control  form-control-lg" id="nama_bank" name="nama_bank"
-                                           placeholder="Bank" maxlength="100">
-                                </div>
-                            </div>
-                            <div class="col-md-12" id="no_rekening_label" hidden>
-                                <div class="form-group">
-                                    <label for="no_hp" class="sr-only">No. Rekening</label>
-                                    <input type="number" class="form-control  form-control-lg" id="no_rekening" name="no_rekening"
-                                           placeholder="No. Rekening" maxlength="20">
-                                </div>
-                            </div>
+                            
                             <div class="col-md-12" id="kmp_label" hidden>
                                 <div class="form-group">
                                     <label for="alamat" class="sr-only">KMP</label>
@@ -300,9 +306,7 @@
                                     <label for="alamat" class="sr-only">Provinsi</label>
                                     <select id="wk_kd_prop-input" name="wk_kd_prop-input" class="form-control select2" size="1">
                                         <option value>WK Provinsi</option>
-                                        @foreach ($wk_kd_prop_list as $kpl)
-                                            <option value="{{$kpl->kode}}" >{{$kpl->nama}}</option>
-                                        @endforeach
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -326,7 +330,7 @@
                                 <div class="form-group">
                                     <label for="alamat" class="sr-only">Kecamatan</label>
                                     <select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1">
-                                        <option value>Kecamatan</option>
+                                        <option value>WK Kecamatan</option>
                                     </select>
                                 </div>
                             </div>
@@ -529,28 +533,39 @@
                             if(data[0].flag_konsultan==1){
                                 if(level_id!=null){
                                     if(level_id==2){
+                                        wkkorkot.empty();
+                                        $('#korkot_label').hide();
+                                        wkfaskel.empty();
+                                        $('#faskel_label').hide();
                                         wkkota.empty();
                                         $('#kota_label').hide();
                                         wkkec.empty();
                                         $('#kec_label').hide();
                                         wkkel.empty();
                                         $('#kel_label').hide();
+
                                         $('#wil_kerja_label').show();
-                                        wkprop.val(null).trigger('change');
+                                        wkprop.empty();
                                         $('#prov_label').show();
+                                        wkkmw.empty();
                                         $('#kmw_label').show();
 
                                     }else if(level_id==3){
                                         wkkorkot.empty();
                                         $('#korkot_label').hide();
+                                        wkfaskel.empty();
+                                        $('#faskel_label').hide();
                                         wkkec.empty();
                                         $('#kec_label').hide();
                                         wkkel.empty();
                                         $('#kel_label').hide();
+
                                         $('#wil_kerja_label').show();
-                                        wkprop.val(null).trigger('change');
+                                        wkprop.empty();
                                         $('#prov_label').show();
+                                        wkkmw.empty();
                                         $('#kmw_label').show();
+                                        wkkota.empty();
                                         $('#kota_label').show();
 
                                     }else if(level_id==4){
@@ -563,7 +578,7 @@
                                         wkkel.empty();
                                         $('#kel_label').hide();
                                         $('#wil_kerja_label').hide();
-                                        wkprop.val(null).trigger('change');
+                                        wkprop.empty();
                                         $('#prov_label').hide();
                                         wkkmw.empty();
                                         $('#kmw_label').hide();
@@ -579,19 +594,24 @@
                                         $('#faskel_label').hide();
                                         wkkec.empty();
                                         $('#kec_label').hide();
+
                                         $('#wil_kerja_label').show();
-                                        wkprop.val(null).trigger('change');
+                                        wkprop.empty();
                                         $('#prov_label').show();
+                                        wkkmw.empty();
                                         $('#kmw_label').show();
+                                        wkkota.empty();
                                         $('#kota_label').show();
+                                        wkkec.empty();
                                         $('#kec_label').show();
+                                        wkkel.empty();
                                         $('#kel_label').show();
 
                                     }else{
                                         kmp.val(null).trigger('change');
                                         $('#kmp_label').hide();
                                         $('#wil_kerja_label').hide();
-                                        wkprop.val(null).trigger('change');
+                                        wkprop.empty();
                                         $('#prov_label').hide();
                                         wkkmw.empty();
                                         $('#kmw_label').hide();
@@ -607,20 +627,27 @@
                                         $('#kel_label').hide();
                                     }
                                 }
+                                kmp.val(null).trigger('change');
                                 $('#kmp_label').show();
                                 $('#no_spk_label').show();
                                 $('#tgl_spk_label').show();
+                                $('#info_bank').show();
                                 $('#nama_bank_label').show();
                                 $('#no_rekening_label').show();
                                 if(data[0].flag_koordinator==1 && data[0].kode_level==2){
+                                    wkkorkot.empty();
                                     $('#korkot_label').show();
                                     wkfaskel.empty();
                                     $('#faskel_label').hide();
                                 }else if(data[0].flag_koordinator==0 && data[0].flag_konsultan==1 && data[0].kode_level==2){
+                                    wkkorkot.empty();
                                     $('#korkot_label').show();
+                                    wkfaskel.empty();
                                     $('#faskel_label').show();
                                 }
                             }else if(data[0].flag_konsultan==0){
+                                wkprop.append("<option value>WK Provinsi</option>");
+                                wkprop.append("@foreach ($wk_kd_prop_list as $kpl)<option value='{{$kpl->kode}}'>{{$kpl->nama}}</option>@endforeach");
                                 if(level_id==2){
                                     wkkota.empty();
                                     $('#kota_label').hide();
@@ -648,10 +675,13 @@
                                     $('#kec_label').hide();
                                     wkkel.empty();
                                     $('#kel_label').hide();
+
                                     $('#wil_kerja_label').show();
                                     wkprop.val(null).trigger('change');
                                     $('#prov_label').show();
-                                    $('#kmw_label').show();
+                                    wkkmw.empty();
+                                    $('#kmw_label').hide();
+                                    wkkota.empty();
                                     $('#kota_label').show();
 
                                 }else if(level_id==4){
@@ -663,6 +693,7 @@
                                     $('#faskel_label').hide();
                                     wkkel.empty();
                                     $('#kel_label').hide();
+
                                     $('#wil_kerja_label').hide();
                                     wkprop.val(null).trigger('change');
                                     $('#prov_label').hide();
@@ -680,12 +711,17 @@
                                     $('#faskel_label').hide();
                                     wkkec.empty();
                                     $('#kec_label').hide();
+
                                     $('#wil_kerja_label').show();
                                     wkprop.val(null).trigger('change');
                                     $('#prov_label').show();
-                                    $('#kmw_label').show();
+                                    wkkmw.empty();
+                                    $('#kmw_label').hide();
+                                    wkkota.empty();
                                     $('#kota_label').show();
+                                    wkkec.empty();
                                     $('#kec_label').show();
+                                    wkkel.empty();
                                     $('#kel_label').show();
 
                                 }else{
@@ -710,8 +746,11 @@
                             $('#kmp_label').hide();
                             $('#no_spk_label').hide();
                             $('#tgl_spk_label').hide();
+                            $('#info_bank').hide();
                             $('#nama_bank_label').hide();
                             $('#no_rekening_label').hide();
+                            wkkmw.empty();
+                            $('#kmw_label').hide();
                             }
                         }
                     }
@@ -739,6 +778,7 @@
             $('#kel_label').hide();
             $('#no_spk_label').hide();
             $('#tgl_spk_label').hide();
+            $('#info_bank').hide();
             $('#nama_bank_label').hide();
             $('#no_rekening_label').hide();
         });
@@ -802,7 +842,7 @@
             if(wkprop_id!=null){
 
                 wkkota.empty();
-                wkkota.append("<option value>Kota</option>");
+                wkkota.append("<option value>WK Kota</option>");
                 $.ajax({
                     type: 'get',
                     "url": "/register/select?wk_kd_prop_kota="+wkprop_id,
@@ -821,7 +861,7 @@
             if(kmp_id!=null){
 
                 wkkmw.empty();
-                wkkmw.append("<option value>Kota</option>");
+                wkkmw.append("<option value>WK KMW</option>");
                 $.ajax({
                     type: 'get',
                     "url": "/register/select?wk_kd_kmp_kmw="+kmp_id,
@@ -839,7 +879,7 @@
             wkkmw_id=wkkmw.val();
             if(wkkmw_id!=null){
                 wkprop.empty();
-                wkprop.append("<option value>KMW</option>");
+                wkprop.append("<option value>WK Provinsi</option>");
                 $.ajax({
                     type: 'get',
                     "url": "/register/select?wk_kd_kmw_prop="+wkkmw_id,
@@ -852,7 +892,7 @@
                 });
 
                 wkkorkot.empty();
-                wkkorkot.append("<option value>Korkot</option>");
+                wkkorkot.append("<option value>WK Korkot</option>");
                 $.ajax({
                     type: 'get',
                     "url": "/register/select?wk_kd_kmw_korkot="+wkkmw_id,
@@ -865,7 +905,7 @@
                 });
 
                 wkfaskel.empty();
-                wkfaskel.append("<option value>Faskel</option>");
+                wkfaskel.append("<option value>WK Faskel</option>");
                 $.ajax({
                     type: 'get',
                     "url": "/register/select?wk_kd_kmw_faskel="+wkkmw_id,
@@ -883,7 +923,7 @@
             wkkota_id=wkkota.val();
             if(wkkota_id!=null){
                 wkkec.empty();
-                wkkec.append("<option value>Kota</option>");
+                wkkec.append("<option value>WK Kecamatan</option>");
                 $.ajax({
                     type: 'get',
                     "url": "/register/select?wk_kd_kota_kec="+wkkota_id,
@@ -901,7 +941,7 @@
             wkkec_id=wkkec.val();
             if(wkkec_id!=null){
                 wkkel.empty();
-                wkkel.append("<option value>Kota</option>");
+                wkkel.append("<option value>WK Kelurahan</option>");
                 $.ajax({
                     type: 'get',
                     "url": "/register/select?wk_kd_kec_kel="+wkkec_id,

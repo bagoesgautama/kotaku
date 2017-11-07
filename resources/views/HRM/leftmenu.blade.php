@@ -136,7 +136,7 @@
 					@if( ! empty($menu['172']))
 					<li {!! (Request::is( 'hrm/profil/user/perubahan*')? 'class="active"': "") !!}>
 						<a href="/hrm/profil/user/perubahan">
-				            <span class="mm-text ">update status (mutasi/promosi/demosi/pemecatan)</span>
+				            <span class="mm-text ">update status (mutasi/promosi/demosi/<br>pemecatan)</span>
 				        </a>
 					</li>
 					@endif
