@@ -68,7 +68,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-	             "url": "/hrm/management/blacklist",
+	             "url": "/hrm/management/user/blacklist",
 	             "dataType": "json",
 	             "type": "POST"
 	           },

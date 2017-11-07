@@ -5,6 +5,7 @@
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
+<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -152,6 +153,14 @@
 				                    <textarea id="catatan-input" name="catatan-input" class="form-control" >{{$catatan}}</textarea>
 				                </div>
 				            </div>
+				            @if ($kode_user!=$id)
+				            <div class="form-group striped-col">
+				                <label class="col-sm-3 control-label">Catatan Validasi</label>
+				                <div class="col-sm-6">
+				                    <textarea id="catatan-val-input" name="catatan-val-input" class="form-control" >{{$catatan_validasi}}</textarea>
+				                </div>
+				            </div>
+				            @endif
 							<div class="form-group ">
 				                <label class="col-sm-3 control-label">Image 1</label>
 				                <div class="col-sm-6">
@@ -211,9 +220,17 @@
                                     <a href="/hrm/profil/user/perubahan" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
-									@if( empty($divalidasi_oleh))
+									@if( empty($divalidasi_oleh) && $kode_user==$id)
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
+                                    </button>
+									@endif
+									@if( empty($divalidasi_oleh) && $kode_user!=$id && $role_upper==$role_login)
+                                    <button type="submit" id="approve" class="btn btn-effect-ripple btn-success">
+                                        Approve
+                                    </button>
+                                    <button type="submit" id="reject" class="btn btn-effect-ripple btn-danger">
+                                        Reject
                                     </button>
 									@endif
                                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
@@ -259,6 +276,46 @@
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);
 			$("#submit").prop('disabled', false);
+			}
+		});
+    });
+    $('#approve').on('click', function (e) {
+		var kode = $('#kode').val();
+		e.preventDefault();
+		$.ajax({
+			type: 'post',
+			"url": "/hrm/profil/user/perubahan/approve",
+			data: {kode:kode},
+			beforeSend: function (){
+			    $("#approve").prop('disabled', true);
+			},
+			success: function () {
+				alert('From Submitted.');
+				window.location.href = "/hrm/profil/user/perubahan";
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+			alert(xhr.status);
+			$("#approve").prop('disabled', false);
+			}
+		});
+    });
+    $('#reject').on('click', function (e) {
+		var kode = $('#kode').val();
+		e.preventDefault();
+		$.ajax({
+			type: 'post',
+			"url": "/hrm/profil/user/perubahan/reject",
+			data: {kode:kode},
+			beforeSend: function (){
+			    $("#reject").prop('disabled', true);
+			},
+			success: function () {
+				alert('From Submitted.');
+				window.location.href = "/hrm/profil/user/perubahan";
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+			alert(xhr.status);
+			$("#reject").prop('disabled', false);
 			}
 		});
     });
@@ -351,4 +408,6 @@
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_validations.js')}}" type="text/javascript"></script>
 @stop

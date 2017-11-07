@@ -59,17 +59,102 @@ class bk020306Controller extends Controller
 			5 =>'role_baru',
 			6 =>'divalidasi_oleh'
 		);
-		$query='select a.kode,e.nama_depan,e.nama_belakang,d.nama perubahan,b.nama role_lama,c.nama role_baru,f.user_name divalidasi_oleh
+		if($user->kode_role==35){
+			$query='select a.kode,a.kode_user,e.nama_depan,e.nama_belakang,d.nama perubahan,b.nama role_lama,c.nama role_baru,f.user_name divalidasi_oleh
 			from bkt_02030204_perubahan_status a left join bkt_02010111_user f on a.divalidasi_oleh=f.id,bkt_02010102_role b,bkt_02010102_role c,bkt_02010112_jns_perubahan d,bkt_02010111_user e
 			where a.kode_user=e.id
 			and a.kode_jns_perubahan=d.kode
 			and a.kode_role_lama=b.kode
-			and a.kode_role_baru=c.kode and a.kode_user='.$user->id;
-		$totalData = DB::select('select count(1) cnt from bkt_02030204_perubahan_status a,bkt_02010102_role b,bkt_02010102_role c,bkt_02010112_jns_perubahan d,bkt_02010111_user e
+			and a.kode_role_baru=c.kode and a.kode_user!='.$user->id;
+			$totalData = DB::select('select count(1) cnt from bkt_02030204_perubahan_status a left join bkt_02010111_user f on a.divalidasi_oleh=f.id,bkt_02010102_role b,bkt_02010102_role c,bkt_02010112_jns_perubahan d,bkt_02010111_user e
 			where a.kode_user=e.id
 			and a.kode_jns_perubahan=d.kode
 			and a.kode_role_lama=b.kode
-			and a.kode_role_baru=c.kode and a.kode_user='.$user->id);
+			and a.kode_role_baru=c.kode and a.kode_user!='.$user->id);
+		}else{
+			$query='select a.kode, a.kode_user,e.nama_depan,e.nama_belakang,d.nama perubahan,b.nama role_lama,c.nama role_baru,f.user_name divalidasi_oleh
+			from bkt_02030204_perubahan_status a left join bkt_02010111_user f on a.divalidasi_oleh=f.id,bkt_02010102_role b,bkt_02010102_role c,bkt_02010112_jns_perubahan d,bkt_02010111_user e
+			where a.kode_user=e.id
+			and a.kode_jns_perubahan=d.kode
+			and a.kode_role_lama=b.kode
+			and a.kode_role_baru=c.kode and (a.kode_user = "'.$user->id.'" or a.kode_user 
+			in
+			(select u.id
+		    from bkt_02010111_user u,
+		       (select kode_level from bkt_02010111_user where id = "'.$user->id.'") r
+		    where (u.kode_role, 
+				case when r.kode_level = 0 then "x" else u.kode_kmp end, 
+				case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
+				case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
+				case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
+				case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
+				)
+		    in (
+				select 
+				x.kode_role_lower,
+				   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
+				   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
+				   case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
+				   case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
+				   case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
+			  	from (
+					select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
+						   a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
+						   ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
+					  from bkt_02010111_user a 
+					  join bkt_02010102_role b on a.kode_role = b.kode
+					  join bkt_02010101_role_level c on b.kode_level = c.kode
+					  left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
+					  left join bkt_02010102_role e on e.kode_role_upper = b.kode
+					  left join bkt_01010111_korkot f on f.kode = a.kode_korkot
+					  left join bkt_01010113_faskel g on g.kode = a.kode_faskel
+					  left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
+					  left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
+					 where a.id = "'.$user->id.'"
+				   ) x 
+				)))';
+		$totalData = DB::select('select count(1) cnt from bkt_02030204_perubahan_status a left join bkt_02010111_user f on a.divalidasi_oleh=f.id,bkt_02010102_role b,bkt_02010102_role c,bkt_02010112_jns_perubahan d,bkt_02010111_user e
+			where a.kode_user=e.id
+			and a.kode_jns_perubahan=d.kode
+			and a.kode_role_lama=b.kode
+			and a.kode_role_baru=c.kode and (a.kode_user = "'.$user->id.'" or a.kode_user 
+			in
+			(select u.id
+		    from bkt_02010111_user u,
+		       (select kode_level from bkt_02010111_user where id = "'.$user->id.'") r
+		    where (u.kode_role, 
+				case when r.kode_level = 0 then "x" else u.kode_kmp end, 
+				case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
+				case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
+				case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
+				case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
+				)
+		    in (
+				select 
+				x.kode_role_lower,
+				   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
+				   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
+				   case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
+				   case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
+				   case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
+			  	from (
+					select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
+						   a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
+						   ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
+					  from bkt_02010111_user a 
+					  join bkt_02010102_role b on a.kode_role = b.kode
+					  join bkt_02010101_role_level c on b.kode_level = c.kode
+					  left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
+					  left join bkt_02010102_role e on e.kode_role_upper = b.kode
+					  left join bkt_01010111_korkot f on f.kode = a.kode_korkot
+					  left join bkt_01010113_faskel g on g.kode = a.kode_faskel
+					  left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
+					  left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
+					 where a.id = "'.$user->id.'"
+				   ) x 
+				)))');
+		}
+		
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -115,7 +200,7 @@ class bk020306Controller extends Controller
 				if(!empty($detil['550'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['551']) && empty($nestedData['divalidasi_oleh'])){
+				if(!empty($detil['551']) && empty($nestedData['divalidasi_oleh']) && $user->id==$post->kode_user){
 					//$option .= "&emsp;<a href='{$url_edit}' title='Approve' ><span class='fa fa-fw fa-edit'></span></a>";
 					$option .= "&emsp;<a href='#' title='Delete' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				}
@@ -144,6 +229,8 @@ class bk020306Controller extends Controller
 				if($item->kode_menu==172)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
+			$data['id'] = $user->id;
+			$data['role_login'] = $user->kode_role;
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
 			$data['perubahan']=DB::select('select kode,nama from bkt_02010112_jns_perubahan where status=1');
@@ -155,11 +242,15 @@ class bk020306Controller extends Controller
 			$data['kel_baru_list']=[];
 			if($data['kode']!=null && !empty($data['detil']['550'])){
 				$rowData = DB::select('select * from bkt_02030204_perubahan_status where kode='.$data['kode']);
+				$role_upper = DB::select('select b.kode_role_upper from bkt_02010111_user a, bkt_02010102_role b where a.kode_role=b.kode and a.id='.$rowData[0]->kode_user);
+				$data['role_upper'] = $role_upper[0]->kode_role_upper;
+				$data['kode_user'] = $rowData[0]->kode_user;
 				$data['kode_jns_perubahan'] = $rowData[0]->kode_jns_perubahan;
 				$data['kode_role_lama'] = $rowData[0]->kode_role_lama;
 				$data['kode_role_baru'] = $rowData[0]->kode_role_baru;
 				$data['tgl_efektif_role_baru'] = $rowData[0]->tgl_efektif_role_baru;
 				$data['catatan'] = $rowData[0]->catatan;
+				$data['catatan_validasi'] = $rowData[0]->catatan_validasi;
 				$data['uri_img_sk1'] = $rowData[0]->uri_img_sk1;
 				$data['uri_img_sk2'] = $rowData[0]->uri_img_sk2;
 				$data['uri_img_sk3'] = $rowData[0]->uri_img_sk3;
@@ -186,6 +277,8 @@ class bk020306Controller extends Controller
 				}
 				return view('HRM/bk020306/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['549'])){
+				$data['role_upper'] = null;
+				$data['kode_user'] = null;
 				$data['kode_jns_perubahan'] = null;
 				$data['kode_role_lama'] = $user->kode_role;
 				$data['kode_role_baru'] = null;
@@ -266,6 +359,7 @@ class bk020306Controller extends Controller
 				'uri_img_sk1' => $url,
 				'uri_img_sk2' => $url2,
 				'uri_img_sk3' => $url3,
+				'status_validasi' => 0,
 				'kode_prop_lama' => $request->input('kode_prop_lama'),
 				'kode_prop_baru' => $request->input('kode_prop_baru-input'),
 				'kode_kota_lama' => $request->input('kode_kota_lama'),
@@ -297,6 +391,7 @@ class bk020306Controller extends Controller
 				'uri_img_sk1' => $url,
 				'uri_img_sk2' => $url2,
 				'uri_img_sk3' => $url3,
+				'status_validasi' => 0,
 				'kode_prop_lama' => $request->input('kode_prop_lama'),
 				'kode_prop_baru' => $request->input('kode_prop_baru-input'),
 				'kode_kota_lama' => $request->input('kode_kota_lama'),
@@ -317,6 +412,34 @@ class bk020306Controller extends Controller
 			}
 			$this->log_aktivitas('Create', 549);
 		}
+	}
+
+	public function approve(Request $request)
+	{
+		date_default_timezone_set('Asia/Jakarta');
+		DB::table('bkt_02030204_perubahan_status')->where('kode', $request->input('kode'))
+		->update([	
+			'status_validasi' => 1,
+			'divalidasi_oleh' => Auth::user()->id,
+			'validasi_dt' => date('Y-m-d H:i:s'),
+			'catatan_validasi' => $request->input('catatan-val-input'),
+			'updated_time' => date('Y-m-d H:i:s'),
+			'updated_by' => Auth::user()->id
+			]);
+	}
+
+	public function reject(Request $request)
+	{
+		date_default_timezone_set('Asia/Jakarta');
+		DB::table('bkt_02030204_perubahan_status')->where('kode', $request->input('kode'))
+		->update([	
+			'status_validasi' => 2,
+			'divalidasi_oleh' => Auth::user()->id,
+			'validasi_dt' => date('Y-m-d H:i:s'),
+			'catatan_validasi' => $request->input('catatan-val-input'),
+			'updated_time' => date('Y-m-d H:i:s'),
+			'updated_by' => Auth::user()->id
+			]);
 	}
 
 	public function delete(Request $request)

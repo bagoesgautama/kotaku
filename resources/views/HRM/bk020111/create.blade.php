@@ -152,13 +152,7 @@
 		                                       placeholder="Last name" maxlength="50" value="{{$nama_belakang}}">
 						                </div>
 						            </div>
-						            <div class="form-group striped-col">
-						                <label class="col-sm-3 control-label">NIK</label>
-						                <div class="col-sm-6">
-											<input type="text" class="form-control  form-control-lg" id="nik" name="nik"
-                                       placeholder="NIK" maxlength="16" required value="{{$nik}}">
-						                </div>
-						            </div>
+						            
 						            <div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">Alamat</label>
 						                <div class="col-sm-6">
@@ -223,13 +217,7 @@
 		                                       placeholder="kodepos" maxlength="5" value="{{$kodepos}}">
 						                </div>
 	                                </div>
-	                                <div class="form-group striped-col">
-						                <label class="col-sm-3 control-label">No. NPWP</label>
-						                <div class="col-sm-6">
-											<input type="text" class="form-control  form-control-lg" id="no_npwp" name="no_npwp"
-                                       placeholder="No. NPWP" maxlength="20" value="{{$no_npwp}}">
-						                </div>
-						            </div>
+	                                
 	                            </div>
                             </div>
                         </div>
@@ -238,6 +226,20 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
+                                	<div class="form-group striped-col">
+						                <label class="col-sm-3 control-label">NIK</label>
+						                <div class="col-sm-6">
+											<input type="text" class="form-control  form-control-lg" id="nik" name="nik"
+                                       placeholder="NIK" maxlength="16" required value="{{$nik}}">
+						                </div>
+						            </div>
+						            <div class="form-group striped-col">
+						                <label class="col-sm-3 control-label">No. NPWP</label>
+						                <div class="col-sm-6">
+											<input type="text" class="form-control  form-control-lg" id="no_npwp" name="no_npwp"
+                                       placeholder="No. NPWP" maxlength="20" value="{{$no_npwp}}">
+						                </div>
+						            </div>
                                 	<div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">Jenis Kelamin</label>
 						                <div class="col-sm-3">
@@ -269,8 +271,14 @@
 						            <div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">No. Hp</label>
 						                <div class="col-sm-6">
-						                	<input type="text" class="form-control  form-control-lg" id="no_hp" name="no_hp"
+						                	<input type="number" class="form-control  form-control-lg" id="no_hp" name="no_hp"
                                        placeholder="No. Hp" maxlength="50" value="{{$no_hp}}">
+						                </div>
+						            </div>
+						            <div class="form-group striped-col">
+						                <label class="col-sm-3 control-label">No. Telp</label>
+						                <div class="col-sm-6">
+						                	<input type="text" class="form-control  form-control-lg" id="no_telp" name="no_telp" placeholder="No. Telp" maxlength="45" value="{{$no_telp}}">
 						                </div>
 						            </div>
                                 </div>
@@ -305,7 +313,34 @@
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col">
+						            <div class="form-group striped-col" id="no_spk_label" {!! $no_spk!=null ? '':'hidden' !!}>
+						                <label class="col-sm-3 control-label">No. SPK</label>
+						                <div class="col-sm-6">
+						                	<input type="number" class="form-control  form-control-lg" id="no_spk" name="no_spk"
+                                           placeholder="No. SPK" maxlength="45" value="{{$no_spk}}" {!! $kode!=null ? 'disabled':'' !!}>
+						                </div>
+						            </div>
+						            <div class="form-group striped-col" id="tgl_spk_label" {!! $tgl_spk!=null ? '':'hidden' !!}>
+						                <label class="col-sm-3 control-label">Tgl. SPK</label>
+						                <div class="col-sm-6">
+						                	<input class="form-control" id="return_date" name="tgl_spk" placeholder="Tanggal SPK" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_spk}}" {!! $kode!=null ? 'disabled':'' !!}>
+						                </div>
+						            </div>
+						            <div class="form-group striped-col" id="nama_bank_label" {!! $nama_bank!=null ? '':'hidden' !!}>
+						                <label class="col-sm-3 control-label">Bank</label>
+						                <div class="col-sm-6">
+						                	<input type="text" class="form-control  form-control-lg" id="nama_bank" name="nama_bank"
+                                           placeholder="Bank" maxlength="100" value="{{$nama_bank}}" {!! $kode!=null ? 'disabled':'' !!}>
+						                </div>
+						            </div>
+						            <div class="form-group striped-col" id="no_rekening_label" {!! $no_rekening!=null ? '':'hidden' !!}>
+						                <label class="col-sm-3 control-label">No. Rekening</label>
+						                <div class="col-sm-6">
+						                	<input type="number" class="form-control  form-control-lg" id="no_rekening" name="no_rekening"
+                                           placeholder="No. Rekening" maxlength="20" value="{{$no_rekening}}" {!! $kode!=null ? 'disabled':'' !!}>
+						                </div>
+						            </div>
+						            <div class="form-group striped-col" id="kmp_label" {!! $kode_kmp!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">KMP</label>
 						                <div class="col-sm-6">
 						                	<select id="kode_kmp-input" name="kode_kmp-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
@@ -316,21 +351,10 @@
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col" id="wil_kerja_label" hidden>
+						            <div class="form-group striped-col" id="wil_kerja_label" {!! $kode!=null ? '':'hidden' !!}>
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Wilayah Kerja</label></div>
                                     </div>
-						            <div class="form-group striped-col" id="prov_label" {!! $kode!=null ? '':'hidden' !!}>
-						                <label class="col-sm-3 control-label">Provinsi</label>
-						                <div class="col-sm-6">
-						                	<select id="wk_kd_prop-input" name="wk_kd_prop-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
-			                                    <option value>WK Provinsi</option>
-			                                    @foreach ($wk_kd_prop_list as $kpl)
-			                                        <option value="{{$kpl->kode}}" {!! $wk_kd_prop==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
-			                                    @endforeach
-			                                </select>
-						                </div>
-						            </div>
-						            <div class="form-group striped-col" id="kmw_label" {!! $kode!=null ? '':'hidden' !!}>
+                                    <div class="form-group striped-col" id="kmw_label" {!! $kode_kmw!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">KMW</label>
 						                <div class="col-sm-6">
 						                	<select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
@@ -343,7 +367,19 @@
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col" id="kota_label" {!! $kode!=null ? '':'hidden' !!}>
+						            <div class="form-group striped-col" id="prov_label" {!! $wk_kd_prop!=null ? '':'hidden' !!}>
+						                <label class="col-sm-3 control-label">Provinsi</label>
+						                <div class="col-sm-6">
+						                	<select id="wk_kd_prop-input" name="wk_kd_prop-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
+			                                    <option value>WK Provinsi</option>
+			                                    @foreach ($wk_kd_prop_list as $kpl)
+			                                        <option value="{{$kpl->kode}}" {!! $wk_kd_prop==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
+			                                    @endforeach
+			                                </select>
+						                </div>
+						            </div>
+						            
+						            <div class="form-group striped-col" id="kota_label" {!! $wk_kd_kota!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">Kota</label>
 						                <div class="col-sm-6">
 						                	<select id="wk_kd_kota-input" name="wk_kd_kota-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
@@ -356,7 +392,7 @@
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col" id="korkot_label" {!! $kode!=null ? '':'hidden' !!}>
+						            <div class="form-group striped-col" id="korkot_label" {!! $kode_korkot!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">Korkot</label>
 						                <div class="col-sm-6">
 						                	<select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
@@ -379,7 +415,7 @@
 						                </div>
 						            </div>
 						            @endif
-						            <div class="form-group striped-col" id="kel_label" {!! $kode!=null ? '':'hidden' !!}>
+						            <div class="form-group striped-col" id="kel_label" {!! $wk_kd_kel!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">Kelurahan</label>
 						                <div class="col-sm-6">
 						                	<select id="wk_kd_kel-input" name="wk_kd_kel-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
@@ -392,7 +428,7 @@
 			                                </select>
 						                </div>
 						            </div>
-						            <div class="form-group striped-col" id="faskel_label" {!! $kode!=null ? '':'hidden' !!}>
+						            <div class="form-group striped-col" id="faskel_label" {!! $kode_faskel!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">Faskel</label>
 						                <div class="col-sm-6">
 						                	<select id="select-kode-faskel-input" name="kode-faskel-input" class="form-control select2" size="1" {!! $kode!=null ? 'disabled':'' !!}>
@@ -602,86 +638,267 @@
             }
         });
 
-        level.change(function(){
-            level_id=level.val();
+        role.change(function(){
             role_id=role.val();
-            kmp_id=kmp.val();
+            level_id=level.val();
+            if(role_id!=null && level_id!=null){
+                $.ajax({
+                    type: 'get',
+                    "url": "/hrm/management/registrasi_manual/select?role_flag_koor="+role_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        if(data!=null){
+                            if(data[0].flag_konsultan==1){
+                                if(level_id!=null){
+                                    if(level_id==2){
+                                    	wkkorkot.empty();
+                                        $('#korkot_label').hide();
+                                        wkfaskel.empty();
+                                        $('#faskel_label').hide();
+                                        wkkota.empty();
+                                        $('#kota_label').hide();
+                                        wkkec.empty();
+                                        $('#kec_label').hide();
+                                        wkkel.empty();
+                                        $('#kel_label').hide();
 
-            if(level_id!=null){
-                if(level_id==2){
-                    wkkota.empty();
-                    $('#kota_label').hide();
-                    wkfaskel.empty();
-                    $('#faskel_label').hide();
-                    wkkec.empty();
-                    $('#kec_label').hide();
-                    wkkel.empty();
-                    $('#kel_label').hide();
-                    $('#wil_kerja_label').show();
-                    wkprop.val(null).trigger('change');
-                    $('#prov_label').show();
-                    $('#kmw_label').show();
+                                        $('#wil_kerja_label').show();
+                                        wkprop.empty();
+                                        $('#prov_label').show();
+                                        wkkmw.empty();
+                                        $('#kmw_label').show();
 
-                }else if(level_id==3){
-                    wkkorkot.empty();
-                    $('#korkot_label').hide();
-                    wkkec.empty();
-                    $('#kec_label').hide();
-                    wkkel.empty();
-                    $('#kel_label').hide();
-                    $('#wil_kerja_label').show();
-                    wkprop.val(null).trigger('change');
-                    $('#prov_label').show();
-                    $('#kmw_label').show();
-                    $('#kota_label').show();
+                                    }else if(level_id==3){
+                                        wkkorkot.empty();
+                                        $('#korkot_label').hide();
+                                        wkfaskel.empty();
+                                        $('#faskel_label').hide();
+                                        wkkec.empty();
+                                        $('#kec_label').hide();
+                                        wkkel.empty();
+                                        $('#kel_label').hide();
 
-                }else if(level_id==4){
-                    wkkorkot.empty();
-                    $('#korkot_label').hide();
-                    wkkota.empty();
-                    $('#kota_label').hide();
-                    wkfaskel.empty();
-                    $('#faskel_label').hide();
-                    wkkel.empty();
-                    $('#kel_label').hide();
-                    $('#wil_kerja_label').show();
-                    wkprop.val(null).trigger('change');
-                    $('#prov_label').show();
-                    $('#kmw_label').show();
-                    $('#kota_label').show();
-                    $('#kec_label').show();
+                                        $('#wil_kerja_label').show();
+                                        wkprop.empty();
+                                        $('#prov_label').show();
+                                        wkkmw.empty();
+                                        $('#kmw_label').show();
+                                        wkkota.empty();
+                                        $('#kota_label').show();
 
-                }else if(level_id==5){
-                    wkkorkot.empty();
-                    $('#korkot_label').hide();
-                    wkkota.empty();
-                    $('#kota_label').hide();
-                    wkfaskel.empty();
-                    $('#faskel_label').hide();
-                    wkkec.empty();
-                    $('#kec_label').hide();
-                    $('#wil_kerja_label').show();
-                    wkprop.val(null).trigger('change');
-                    $('#prov_label').show();
-                    $('#kmw_label').show();
-                    $('#kota_label').show();
-                    $('#kec_label').show();
-                    $('#kel_label').show();
+                                    }else if(level_id==4){
+                                        wkkorkot.empty();
+                                        $('#korkot_label').hide();
+                                        wkkota.empty();
+                                        $('#kota_label').hide();
+                                        wkfaskel.empty();
+                                        $('#faskel_label').hide();
+                                        wkkel.empty();
+                                        $('#kel_label').hide();
+                                        $('#wil_kerja_label').hide();
+                                        wkprop.empty();
+                                        $('#prov_label').hide();
+                                        wkkmw.empty();
+                                        $('#kmw_label').hide();
+                                        wkkec.empty();
+                                        $('#kec_label').hide();
 
-                }else{
-                    $('#wil_kerja_label').hide();
-                    wkprop.val(null).trigger('change');
-                    $('#prov_label').hide();
-                    wkkmw.empty();
-                    $('#kmw_label').hide();
-                    wkkorkot.empty();
-                    $('#korkot_label').hide();
-                    wkkota.empty();
-                    $('#kota_label').hide();
-                    wkfaskel.empty();
-                    $('#faskel_label').hide();
-                }
+                                    }else if(level_id==5){
+                                        wkkorkot.empty();
+                                        $('#korkot_label').hide();
+                                        wkkota.empty();
+                                        $('#kota_label').hide();
+                                        wkfaskel.empty();
+                                        $('#faskel_label').hide();
+                                        wkkec.empty();
+                                        $('#kec_label').hide();
+
+                                        $('#wil_kerja_label').show();
+                                        wkprop.empty();
+                                        $('#prov_label').show();
+                                        wkkmw.empty();
+                                        $('#kmw_label').show();
+                                        wkkota.empty();
+                                        $('#kota_label').show();
+                                        wkkec.empty();
+                                        $('#kec_label').show();
+                                        wkkel.empty();
+                                        $('#kel_label').show();
+
+                                    }else{
+                                        kmp.val(null).trigger('change');
+                                        $('#kmp_label').hide();
+                                        $('#wil_kerja_label').hide();
+                                        wkprop.empty();
+                                        $('#prov_label').hide();
+                                        wkkmw.empty();
+                                        $('#kmw_label').hide();
+                                        wkkorkot.empty();
+                                        $('#korkot_label').hide();
+                                        wkkota.empty();
+                                        $('#kota_label').hide();
+                                        wkfaskel.empty();
+                                        $('#faskel_label').hide();
+                                        wkkec.empty();
+                                        $('#kec_label').hide();
+                                        wkkel.empty();
+                                        $('#kel_label').hide();
+                                    }
+                                }
+                                kmp.val(null).trigger('change');
+                                $('#kmp_label').show();
+                                $('#no_spk_label').show();
+                                $('#tgl_spk_label').show();
+                                $('#info_bank').show();
+                                $('#nama_bank_label').show();
+                                $('#no_rekening_label').show();
+                                if(data[0].flag_koordinator==1 && data[0].kode_level==2){
+                                	wkkorkot.empty();
+                                    $('#korkot_label').show();
+                                    wkfaskel.empty();
+                                    $('#faskel_label').hide();
+                                }else if(data[0].flag_koordinator==0 && data[0].flag_konsultan==1 && data[0].kode_level==2){
+                                	wkkorkot.empty();
+                                    $('#korkot_label').show();
+                                    wkfaskel.empty();
+                                    $('#faskel_label').show();
+                                }
+                            }else if(data[0].flag_konsultan==0){
+                                wkprop.append("<option value>WK Provinsi</option>");
+                                wkprop.append("@foreach ($wk_kd_prop_list as $kpl)<option value='{{$kpl->kode}}'>{{$kpl->nama}}</option>@endforeach");
+                                if(level_id==2){
+                                    wkkota.empty();
+                                    $('#kota_label').hide();
+                                    wkkec.empty();
+                                    $('#kec_label').hide();
+                                    wkkel.empty();
+                                    $('#kel_label').hide();
+                                    wkkorkot.empty();
+                                    $('#korkot_label').hide();
+                                    wkfaskel.empty();
+                                    $('#faskel_label').hide();
+                                    wkkmw.empty();
+                                    $('#kmw_label').hide();
+
+                                    $('#wil_kerja_label').show();
+                                    wkprop.val(null).trigger('change');
+                                    $('#prov_label').show();
+
+                                }else if(level_id==3){
+                                    wkkorkot.empty();
+                                    $('#korkot_label').hide();
+                                    wkfaskel.empty();
+                                    $('#faskel_label').hide();
+                                    wkkec.empty();
+                                    $('#kec_label').hide();
+                                    wkkel.empty();
+                                    $('#kel_label').hide();
+
+                                    $('#wil_kerja_label').show();
+                                    wkprop.val(null).trigger('change');
+                                    $('#prov_label').show();
+                                    wkkmw.empty();
+                                    $('#kmw_label').hide();
+                                    wkkota.empty();
+                                    $('#kota_label').show();
+
+                                }else if(level_id==4){
+                                    wkkorkot.empty();
+                                    $('#korkot_label').hide();
+                                    wkkota.empty();
+                                    $('#kota_label').hide();
+                                    wkfaskel.empty();
+                                    $('#faskel_label').hide();
+                                    wkkel.empty();
+                                    $('#kel_label').hide();
+
+                                    $('#wil_kerja_label').hide();
+                                    wkprop.val(null).trigger('change');
+                                    $('#prov_label').hide();
+                                    wkkmw.empty();
+                                    $('#kmw_label').hide();
+                                    wkkec.empty();
+                                    $('#kec_label').hide();
+
+                                }else if(level_id==5){
+                                    wkkorkot.empty();
+                                    $('#korkot_label').hide();
+                                    wkkota.empty();
+                                    $('#kota_label').hide();
+                                    wkfaskel.empty();
+                                    $('#faskel_label').hide();
+                                    wkkec.empty();
+                                    $('#kec_label').hide();
+
+                                    $('#wil_kerja_label').show();
+                                    wkprop.val(null).trigger('change');
+                                    $('#prov_label').show();
+                                    wkkmw.empty();
+                                    $('#kmw_label').hide();
+                                    wkkota.empty();
+                                    $('#kota_label').show();
+                                    wkkec.empty();
+                                    $('#kec_label').show();
+                                    wkkel.empty();
+                                    $('#kel_label').show();
+
+                                }else{
+                                    
+                                    $('#wil_kerja_label').hide();
+                                    wkprop.val(null).trigger('change');
+                                    $('#prov_label').hide();
+                                    wkkmw.empty();
+                                    $('#kmw_label').hide();
+                                    wkkorkot.empty();
+                                    $('#korkot_label').hide();
+                                    wkkota.empty();
+                                    $('#kota_label').hide();
+                                    wkfaskel.empty();
+                                    $('#faskel_label').hide();
+                                    wkkec.empty();
+                                    $('#kec_label').hide();
+                                    wkkel.empty();
+                                    $('#kel_label').hide();
+                                }
+                            kmp.val(null).trigger('change');
+                            $('#kmp_label').hide();
+                            $('#no_spk_label').hide();
+                            $('#tgl_spk_label').hide();
+                            $('#info_bank').hide();
+                            $('#nama_bank_label').hide();
+                            $('#no_rekening_label').hide();
+                            wkkmw.empty();
+                            $('#kmw_label').hide();
+                            }
+                        }
+                    }
+                });
             }
+        });
+
+        level.change(function(){
+            $('#wil_kerja_label').hide();
+            wkprop.val(null).trigger('change');
+            $('#prov_label').hide();
+            wkkmw.empty();
+            $('#kmw_label').hide();
+            wkkorkot.empty();
+            $('#korkot_label').hide();
+            wkkota.empty();
+            $('#kota_label').hide();
+            wkfaskel.empty();
+            $('#faskel_label').hide();
+            kmp.val(null).trigger('change');
+            $('#kmp_label').hide();
+            wkkec.empty();
+            $('#kec_label').hide();
+            wkkel.empty();
+            $('#kel_label').hide();
+            $('#no_spk_label').hide();
+            $('#tgl_spk_label').hide();
+            $('#info_bank').hide();
+            $('#nama_bank_label').hide();
+            $('#no_rekening_label').hide();
         });
 
         prop.change(function(){
@@ -738,53 +955,13 @@
             }
         });
 
-        role.change(function(){
-            role_id=role.val();
-            if(role_id!=null){
-                $.ajax({
-                    type: 'get',
-                    "url": "/hrm/management/registrasi_manual/select?role_flag_koor="+role_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        if(data!=null){
-                            if(data[0].flag_koordinator==1 && data[0].kode_level==2){
-                                $('#korkot_label').show();
-                            }else if(data[0].flag_koordinator==1 && data[0].kode_level==3){
-                                $('#faskel_label').show();
-                            }else{
-                                if(data[0].kode_level==2){
-                                    wkkorkot.val(null).trigger('change');
-                                    $('#korkot_label').hide();
-                                }else if(data[0].kode_level==3){
-                                    wkfaskel.val(null).trigger('change');
-                                    $('#faskel_label').hide();
-                                }
-                                
-                            }
-                        }
-                    }
-                });
-            }
-        });
 
         wkprop.change(function(){
             wkprop_id=wkprop.val();
             if(wkprop_id!=null){
-                wkkmw.empty();
-                wkkmw.append("<option value>KMW</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/hrm/management/registrasi_manual/select?wk_kd_prop_kmw="+wkprop_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            wkkmw.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
 
                 wkkota.empty();
-                wkkota.append("<option value>Kota</option>");
+                wkkota.append("<option value>WK Kota</option>");
                 $.ajax({
                     type: 'get',
                     "url": "/hrm/management/registrasi_manual/select?wk_kd_prop_kota="+wkprop_id,
@@ -798,11 +975,43 @@
             }
         });
 
+        kmp.change(function(){
+            kmp_id=kmp.val();
+            if(kmp_id!=null){
+
+                wkkmw.empty();
+                wkkmw.append("<option value>WK KMW</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/hrm/management/registrasi_manual/select?wk_kd_kmp_kmw="+kmp_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkkmw.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+
         wkkmw.change(function(){
             wkkmw_id=wkkmw.val();
             if(wkkmw_id!=null){
+                wkprop.empty();
+                wkprop.append("<option value>WK Provinsi</option>");
+                $.ajax({
+                    type: 'get',
+                    "url": "/hrm/management/registrasi_manual/select?wk_kd_kmw_prop="+wkkmw_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            wkprop.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+
                 wkkorkot.empty();
-                wkkorkot.append("<option value>Korkot</option>");
+                wkkorkot.append("<option value>WK Korkot</option>");
                 $.ajax({
                     type: 'get',
                     "url": "/hrm/management/registrasi_manual/select?wk_kd_kmw_korkot="+wkkmw_id,
@@ -815,7 +1024,7 @@
                 });
 
                 wkfaskel.empty();
-                wkfaskel.append("<option value>Faskel</option>");
+                wkfaskel.append("<option value>WK Faskel</option>");
                 $.ajax({
                     type: 'get',
                     "url": "/hrm/management/registrasi_manual/select?wk_kd_kmw_faskel="+wkkmw_id,

@@ -81,8 +81,8 @@
 					    </li>
 					@endif
 					@if( ! empty($menu['174']))
-					<li {!! (Request::is( 'hrm/management/blacklist*')? 'class="active"': "") !!}>
-						<a href="/hrm/management/blacklist">
+					<li {!! (Request::is( 'hrm/management/user/blacklist*')? 'class="active"': "") !!}>
+						<a href="/hrm/management/user/blacklist">
 							<span class="mm-text ">Black List Personil</span>
 						</a>
 					</li>
@@ -136,7 +136,7 @@
 					@if( ! empty($menu['172']))
 					<li {!! (Request::is( 'hrm/profil/user/perubahan*')? 'class="active"': "") !!}>
 						<a href="/hrm/profil/user/perubahan">
-				            <span class="mm-text ">update status (mutasi/promosi/demosi/pemecatan)</span>
+				            <span class="mm-text ">update status (mutasi/promosi/demosi/<br>pemecatan)</span>
 				        </a>
 					</li>
 					@endif
