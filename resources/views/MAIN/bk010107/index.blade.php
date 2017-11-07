@@ -49,7 +49,8 @@
 					<table class="table table-striped" id="users" width="4000px">
 						<thead>
                             <tr>
-								<th>No Urut</th>
+								<th>Kode</th>
+                                <th>No Urut</th>
                                 <th>Nama</th>
                                 <th>Keterangan</th>
                                 <th>Kota</th>
@@ -98,7 +99,8 @@
                 alert(thrownError);
               },
             "columns": [
-				{ "data": "nourut" , name:"nourut"},
+				{ "data": "kode" , name:"kode"},
+                { "data": "nourut" , name:"nourut"},
 				{ "data": "nama" , name:"nama"},
                 { "data": "keterangan" , name:"keterangan"},
                 { "data": "nama_kota" , name:"nama_kota"},

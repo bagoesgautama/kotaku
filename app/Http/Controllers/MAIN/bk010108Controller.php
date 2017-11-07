@@ -75,7 +75,7 @@ class bk010108Controller extends Controller
 			3 =>'no_hp1',
 			4 =>'email1',
 			5 =>'kode_pms',
-			6 =>'a.kode'
+			6 =>'kode'
 		);
 		$query='select a.*, b.nama nama_pms
 					from bkt_01010108_kmp a
@@ -94,6 +94,7 @@ class bk010108Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. ' where (
+					a.kode like "%'.$search.'%" or
 					a.nama like "%'.$search.'%" or 
 					a.alamat like "%'.$search.'%" or
 					a.kodepos like "%'.$search.'%" or
@@ -106,6 +107,7 @@ class bk010108Controller extends Controller
 					b.nama like "%'.$search.'%" )
 					order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+					a.kode like "%'.$search.'%" or
 					a.nama like "%'.$search.'%" or 
 					a.alamat like "%'.$search.'%" or
 					a.kodepos like "%'.$search.'%" or
@@ -130,6 +132,7 @@ class bk010108Controller extends Controller
 				$delete = $post->kode;
 				$url_edit=url('/')."/main/kmp/create?kode=".$show;
 				$url_delete=url('/')."/main/kmp/delete?kode=".$delete;
+				$nestedData['kode'] = $post->kode;
 				$nestedData['nama'] = $post->nama;
 				$nestedData['contact_person'] = $post->contact_person;
 				$nestedData['no_phone'] = $post->no_phone;

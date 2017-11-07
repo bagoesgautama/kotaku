@@ -46,9 +46,10 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users" >
+					<table class="table table-striped" id="users" width="1500px">
 						<thead>
                             <tr>
+                                <th>Kode</th>
                                 <th>Nama</th>
                                 <th>Contact Person</th>
                                 <th>No Telepon</th>
@@ -87,7 +88,8 @@
                 alert(thrownError);
               },
             "columns": [
-				{ "data": "nama" , name:"nama"},
+                { "data": "kode" , name:"kode"},
+                { "data": "nama" , name:"nama"},
                 { "data": "contact_person" , name:"contact_person"},
                 { "data": "no_phone" , name:"no_phone"},
                 { "data": "no_hp1" , name:"no_hp1"},

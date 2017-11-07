@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Manajemen Personil - Persetujuan Pendaftaran Personil @stop {{-- local styles --}} @section('header_styles') 
+@extends('HRM/default') {{-- Page title --}} @section('title') Report - Realisasi Kuota Personil - KMP @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Manajemen Personil - Persetujuan Pendaftaran Personil</h1>
+    <h1>Report - Realisasi Kuota Personil - KMP</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,8 +23,8 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/hrm/management/persetujuan">
-                    Manajemen Personil / Persetujuan Pendaftaran Personil
+                <a href="/hrm/report/realisasi_kuota_personil/kmp">
+                    Report / Realisasi Kuota Personil / KMP
                 </a>
             </li>
         </ul>
@@ -36,26 +36,23 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>Persetujuan Pendaftaran Personil</b>
+                    <b>Realisasi Kuota Personil - KMP</b>
                 </div>
-                @if( ! empty($detil['375']))
-                <div class="tools pull-right">
-                    <b>bk020316 index</b>
+                <div class="panel-title pull-right">
+                    <i class="ti-export"></i> <b>Want to export data?</b>
                 </div>
-                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users" width="2000px">
+                    <table class="table table-striped" id="users" width="1500px">
                         <thead>
                             <tr>
-                                <th>Beri Persetujuan</th>
-                                <th>Username</th>
-                                <th>Nama Depan</th>
-                                <th>Nama Belakang</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Jenis Registrasi</th>
-                                <th>Status Registrasi</th>
+                                <th>Kode</th>
+                                <th>Periode</th>
+                                <th>Kode Mapping KMP ke Slum Program</th>
+                                <th>Kuota</th>
+                                <th>Jumlah Orang</th>
+                                <th>Persentase</th>
                                 <th>Created Time</th>
                             </tr>
                         </thead>
@@ -71,24 +68,27 @@
 <script>
     $(document).ready(function () {
         var table = $('#users').DataTable({
-            // dom: 'Bflrtip',
-            
+            "dom": '<"m-t-10"B><"m-t-10 pull-left"f><"m-t-10 pull-right"l>rt<"pull-left m-t-10"i><"m-t-10 pull-right"p>',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+
+            "bPaginate":false,
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/management/persetujuan",
+                     "url": "/hrm/report/realisasi_kuota_personil/kmp",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-                { "data": "option" , name:"option",orderable:false, className:"text-center"},
-                { "data": "user_name" , name:"user_name"},
-                { "data": "nama_depan" , name:"nama_depan"},
-                { "data": "nama_belakang" , name:"nama_belakang"},
-                { "data": "jenis_kel" , name:"jenis_kel"},
-                { "data": "jenis_reg" , name:"jenis_reg"},
-                { "data": "status_reg" , name:"status_reg"},
+                { "data": "kode" , name:"kode"},
+                { "data": "periode" , name:"periode"},
+                { "data": "kode_kmp_slum_prop" , name:"kode_kmp_slum_prop"},
+                { "data": "kuota_person" , name:"kuota_person"},
+                { "data": "real_person" , name:"real_person"},
+                { "data": "persen_real" , name:"persen_real"},
                 { "data": "created_time" , name:"created_time"}
                 
             ],

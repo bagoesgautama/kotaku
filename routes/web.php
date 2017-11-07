@@ -155,6 +155,9 @@ Route::get('/hrm/management/sidang/create', 'HRM\bk020315Controller@create');
 Route::post('/hrm/management/sidang/create', 'HRM\bk020315Controller@post_create');
 Route::get('/hrm/management/sidang/delete', 'HRM\bk020315Controller@delete');
 
+Route::get('/hrm/report/realisasi_kuota_personil/kmp', 'HRM\bk020401Controller@index');
+Route::post('hrm/report/realisasi_kuota_personil/kmp', 'HRM\bk020401Controller@post');
+
 //get html form data
 Route::get('/hrm/admin/role', 'HRM\bk020102Controller@index');
 //get data for datatable
