@@ -36,11 +36,9 @@
                 <div class="panel-title pull-left">
                     <b>Pendidikan</b>
                 </div>
-				<div class="tools pull-right">
-					<b>bk020303 Index</b>
-				</div>
                 @if( ! empty($detil['538']))
                 <div class="tools pull-right">
+                    <b>bk020303 Index</b>
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/profil/user/pendidikan/create">Create</a>
 				</div>
                 @endif

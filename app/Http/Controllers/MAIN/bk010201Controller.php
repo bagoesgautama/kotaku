@@ -54,15 +54,16 @@ class bk010201Controller extends Controller
 		$columns = array(
 			0 =>'kode',
 			1 =>'tahun',
-			2 =>'jenis_kegiatan',
-			3 =>'tgl_kegiatan',
-			4 =>'status_pokja',
-			5 =>'created_time'
+			2 =>'tgl_kegiatan',
+			3 =>'status_pokja',
+			4 =>'q_anggota_p',
+			5 =>'q_anggota_w'
 		);
 		$query='
 			select * from (select
 				kode, 
-				created_time,
+				q_anggota_p,
+				q_anggota_w,
 				kode kode_pokja,
 				tahun tahun_pokja,
 				tgl_kegiatan tgl_kegiatan_pokja,
@@ -86,13 +87,11 @@ class bk010201Controller extends Controller
 			$posts=DB::select($query. ' where (
 				b.kode_pokja like "%'.$search.'%" or 
 				b.status_pokja_convert like "%'.$search.'%" or 
-				b.jenis_kegiatan_convert like "%'.$search.'%" or
 				b.tgl_kegiatan_pokja like "%'.$search.'%" or  
 				b.tahun_pokja like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
 				b.kode_pokja like "%'.$search.'%" or 
 				b.status_pokja_convert like "%'.$search.'%" or 
-				b.jenis_kegiatan_convert like "%'.$search.'%" or
 				b.tgl_kegiatan_pokja like "%'.$search.'%" or  
 				b.tahun_pokja like "%'.$search.'%")) a');
 			$totalFiltered = $totalFiltered[0]->cnt;
@@ -106,15 +105,16 @@ class bk010201Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-
+				//show
+				$url_show=url('/')."/main/persiapan/nasional/pokja/pembentukan/create?kode=".$edit."&show=true";
 				$url_edit=url('/')."/main/persiapan/nasional/pokja/pembentukan/create?kode=".$edit;
 				$url_delete=url('/')."/main/persiapan/nasional/pokja/pembentukan/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode_pokja;
 				$nestedData['tahun'] = $post->tahun_pokja;
-				$nestedData['jenis_kegiatan'] = $post->jenis_kegiatan_convert;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan_pokja;
 				$nestedData['status_pokja'] = $post->status_pokja_convert;
-				$nestedData['created_time'] = $post->created_time;
+				$nestedData['q_anggota_p'] = $post->q_anggota_p;
+				$nestedData['q_anggota_w'] = $post->q_anggota_w;
 
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
@@ -126,6 +126,10 @@ class bk010201Controller extends Controller
 				}
 
 				$option = '';
+				//show
+				if(!empty($detil['60'])){
+					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
+				}
 				if(!empty($detil['62'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
@@ -171,7 +175,49 @@ class bk010201Controller extends Controller
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			if($data['kode']!=null  && !empty($data['detil']['62'])){
+			//show
+			$data['show']=!empty($request->input('show'))?$request->input('show'):false;
+			$data['tahun_list'] = DB::select('select * from list_tahun');
+			//show
+			if($data['kode']!=null  && !empty($data['detil']['60'])){
+				$rowData = DB::select('select * from bkt_01020202_pokja where kode='.$data['kode']);
+				$data['tahun'] = $rowData[0]->tahun;
+				// $data['kode_prop'] = $rowData[0]->kode_prop;
+				// $data['kode_kmw'] = $rowData[0]->kode_kmw;
+				// $data['kode_faskel'] = $rowData[0]->kode_faskel;
+				$data['jenis_kegiatan'] = $rowData[0]->jenis_kegiatan;
+				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
+				$data['status_pokja'] = $rowData[0]->status_pokja;
+				$data['ds_hkm'] = $rowData[0]->ds_hkm;
+				$data['q_anggota_p'] = $rowData[0]->q_anggota_p;
+				$data['q_anggota_w'] = $rowData[0]->q_anggota_w;
+				$data['upp_kl'] = $rowData[0]->upp_kl;
+				$data['upp_dinas'] = $rowData[0]->upp_dinas;
+				$data['upp_dpr'] = $rowData[0]->upp_dpr;
+				$data['upn_lsm'] = $rowData[0]->upn_lsm;
+				$data['unp_bu'] = $rowData[0]->unp_bu;
+				$data['upn_praktisi'] = $rowData[0]->upn_praktisi;
+				$data['nilai_dana_ops'] = $rowData[0]->nilai_dana_ops;
+				$data['url_rencana_kerja'] = $rowData[0]->url_rencana_kerja;
+				$data['ket_rencana_kerja'] = $rowData[0]->ket_rencana_kerja;
+				$data['uri_img_document'] = $rowData[0]->uri_img_document;
+				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
+				$data['diser_tgl'] = $rowData[0]->diser_tgl;
+				$data['diser_oleh'] = $rowData[0]->diser_oleh;
+				$data['diket_tgl'] = $rowData[0]->diket_tgl;
+				$data['diket_oleh'] = $rowData[0]->diket_oleh;
+				$data['diver_tgl'] = $rowData[0]->diver_tgl;
+				$data['diver_oleh'] = $rowData[0]->diver_oleh;
+				$data['created_time'] = $rowData[0]->created_time;
+				$data['created_by'] = $rowData[0]->created_by;
+				$data['updated_time'] = $rowData[0]->updated_time;
+				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
+				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
+				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
+				return view('MAIN/bk010201/create',$data);
+			}else if($data['kode']!=null  && !empty($data['detil']['62'])){
 				$rowData = DB::select('select * from bkt_01020202_pokja where kode='.$data['kode']);
 				$data['tahun'] = $rowData[0]->tahun;
 				// $data['kode_prop'] = $rowData[0]->kode_prop;
@@ -218,15 +264,15 @@ class bk010201Controller extends Controller
 				$data['tgl_kegiatan'] = null;
 				$data['status_pokja'] = null;
 				$data['ds_hkm'] = null;
-				$data['q_anggota_p'] = null;
-				$data['q_anggota_w'] = null;
-				$data['upp_kl'] = null;
-				$data['upp_dinas'] = null;
-				$data['upp_dpr'] = null;
-				$data['upn_lsm'] = null;
-				$data['unp_bu'] = null;
-				$data['upn_praktisi'] = null;
-				$data['nilai_dana_ops'] = null;
+				$data['q_anggota_p'] = 0;
+				$data['q_anggota_w'] = 0;
+				$data['upp_kl'] = 0;
+				$data['upp_dinas'] = 0;
+				$data['upp_dpr'] = 0;
+				$data['upn_lsm'] = 0;
+				$data['unp_bu'] = 0;
+				$data['upn_praktisi'] = 0;
+				$data['nilai_dana_ops'] = 0;
 				$data['url_rencana_kerja'] = null;
 				$data['ket_rencana_kerja'] = null;
 				$data['uri_img_document'] = null;

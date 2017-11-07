@@ -37,11 +37,11 @@
                     <b>Kuota Korkot Index</b>
                 </div>
 				<div class="tools pull-right">
-					<b>bk020307 Index</b>
+					<b>bk020311 Index</b>
 				</div>
                 @if( ! empty($detil['523']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/profil/kuota/korkot/create">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management/kuota/korkot/create">Create</a>
 				</div>
                 @endif
             </div>
@@ -72,7 +72,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/profil/kuota/korkot",
+                     "url": "/hrm/management/kuota/korkot",
                      "dataType": "json",
                      "type": "POST"
                    },

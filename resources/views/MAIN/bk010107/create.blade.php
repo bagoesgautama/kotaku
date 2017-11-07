@@ -155,7 +155,13 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="example-text-input1">Tahun</label>
                 <div class="col-sm-6">
-                    <input type="text" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{ $tahun }}" maxlength="4" onKeyPress="return HanyaAngka(event)">
+                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1">
+                        <option>Please select</option>
+                        @foreach($tahun_list as $list)
+                            <option value="{{ $list->tahun }}" @if($list->tahun==$tahun) selected="selected" @endif >{{ $list->tahun }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="form-group striped-col">
@@ -244,6 +250,12 @@
         $("#select-status-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
+        });
+
+        $("#tahun-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
         });
     });
 </script>

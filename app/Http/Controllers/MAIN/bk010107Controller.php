@@ -236,6 +236,7 @@ class bk010107Controller extends Controller
 
 		$kode_pms = DB::select('select kode, nama from bkt_01010115_pms where status=1');
 		$data['kode_pms_list'] = $kode_pms;
+		$data['tahun_list'] = DB::select('select * from list_tahun');
 
 		if($data['kode']!=null && !empty($data['detil']['30'])){
 			$rowData = DB::select('select * from bkt_01010107_slum_program where kode='.$data['kode']);

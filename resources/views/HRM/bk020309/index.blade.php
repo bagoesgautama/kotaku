@@ -37,11 +37,11 @@
                     <b>Kuota KMP Index</b>
                 </div>
 				<div class="tools pull-right">
-					<b>bk020307 Index</b>
+					<b>bk020309 Index</b>
 				</div>
                 @if( ! empty($detil['515']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/profil/kuota/kmp/create">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management/kuota/kmp/create">Create</a>
 				</div>
                 @endif
             </div>
@@ -72,7 +72,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/profil/kuota/kmp",
+                     "url": "/hrm/management/kuota/kmp",
                      "dataType": "json",
                      "type": "POST"
                    },
