@@ -231,7 +231,7 @@
 	@if( ! empty($menu['12']))
 	<li {!! (Request::is( 'main/persiapan/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
-            <span class="mm-text"><b>1. Tahap</b>Persiapan</span>
+            <span class="mm-text"><b>1. Tahap</b> Persiapan</span>
             <span class="fa arrow"></span>
         </a>
 		<ul class="sub-menu">
