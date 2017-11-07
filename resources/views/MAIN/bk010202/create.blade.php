@@ -46,7 +46,7 @@
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                     <select id="select-kode-pokja-input" name="kode-pokja-input" class="form-control select2" size="1" required>
                                         @foreach ($kode_pokja_list as $kpl)
-                                            <option value="{{$kpl->kode}}" {!! $kode_pokja==$kpl->kode ? 'selected':'' !!}>{{$kpl->kode.'-'.$kpl->tahun}}</option>
+                                            <option value="{{$kpl->kode}}" {!! $kode_pokja==$kpl->kode ? 'selected':'' !!}>{{$kpl->kode.'-'.$kpl->tahun.'-'.$kpl->status_pokja_convert}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -144,9 +144,11 @@
                                     <a href="/main/persiapan/nasional/pokja/kegiatan" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
+                                    @if ($show==false)
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
+                                    @endif
                                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                         Reset
                                     </button>

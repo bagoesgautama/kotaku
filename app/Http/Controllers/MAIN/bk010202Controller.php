@@ -67,6 +67,8 @@ class bk010202Controller extends Controller
 				a.tgl_kegiatan tgl_kegiatan_f, 
 				a.lok_kegiatan lok_kegiatan_f,
 				b.tahun tahun_pokja,
+				b.kode kode_pokja_n,
+				case when b.status_pokja=0 then "Pokja Lama" when b.status_pokja=1 then "Pokja Baru" end status_pokja_convert,
 				c.nama nama_prop
 			from bkt_01020203_fungsi_pokja a 
 				left join bkt_01020202_pokja b on a.kode_pokja = b.kode
@@ -94,13 +96,17 @@ class bk010202Controller extends Controller
 				b.jenis_subkegiatan_convert like "%'.$search.'%" or 
 				b.tgl_kegiatan_f like "%'.$search.'%" or 
 				b.lok_kegiatan_f like "%'.$search.'%" or  
-				b.tahun_pokja like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+				b.tahun_pokja like "%'.$search.'%" or
+				b.status_pokja_convert like "%'.$search.'%" or 
+				b.kode_pokja_n like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
 				b.kode_f like "%'.$search.'%" or 
 				b.jenis_subkegiatan_convert like "%'.$search.'%" or 
 				b.tgl_kegiatan_f like "%'.$search.'%" or 
 				b.lok_kegiatan_f like "%'.$search.'%" or  
-				b.tahun_pokja like "%'.$search.'%")) a');
+				b.tahun_pokja like "%'.$search.'%" or
+				b.status_pokja_convert like "%'.$search.'%" or 
+				b.kode_pokja_n like "%'.$search.'%")) a');
 			$totalFiltered = $totalFiltered[0]->cnt;
 		}
 
@@ -113,10 +119,11 @@ class bk010202Controller extends Controller
 				$edit =  $post->kode;
 				$delete = $post->kode;
 
+				$url_show=url('/')."/main/persiapan/nasional/pokja/kegiatan/create?kode=".$edit."&show=true";
 				$url_edit=url('/')."/main/persiapan/nasional/pokja/kegiatan/create?kode=".$edit;
 				$url_delete=url('/')."/main/persiapan/nasional/pokja/kegiatan/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode_f;
-				$nestedData['kode_pokja'] = $post->kode_f.'-'.$post->tahun_pokja;
+				$nestedData['kode_pokja'] = $post->kode_pokja_n.'-'.$post->tahun_pokja.'-'.$post->status_pokja_convert;
 				$nestedData['jenis_subkegiatan'] = $post->jenis_subkegiatan_convert;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan_f;
 				$nestedData['lok_kegiatan'] = $post->lok_kegiatan_f;
@@ -132,6 +139,9 @@ class bk010202Controller extends Controller
 				}
 
 				$option = '';
+				if(!empty($detil['64'])){
+					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
+				}
 				if(!empty($detil['66'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
@@ -165,6 +175,7 @@ class bk010202Controller extends Controller
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
+			
 			if($data['kode']!=null  && !empty($data['detil']['66'])){
 				$rowData = DB::select('select * from bkt_01020203_fungsi_pokja where kode='.$data['kode']);
 				$data['kode_pokja'] = $rowData[0]->kode_pokja;

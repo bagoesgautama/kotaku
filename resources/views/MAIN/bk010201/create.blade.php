@@ -223,7 +223,7 @@
                                     <a href="/main/persiapan/nasional/pokja/pembentukan" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
-                                    @if ($show==false)
+                                    @if ($detil_menu=='62' || $detil_menu=='61')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
@@ -334,6 +334,13 @@
         }).on('error.form.bv', function(e) {
             $("#submit").prop('disabled', false);
         });
+
+        $('#tgl-kegiatan-input')
+            .on('changeDate show', function(e) {
+                // Revalidate the date when user change it
+                $('#form-validation').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
+                $("#submit").prop('disabled', false);
+        });
         $("#select-kode-kmw-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
@@ -366,7 +373,8 @@
             $('#upnp-lsm-input').val(0);
             $('#upnp-swasta-input').val(0);
             $('#upnp-praktisi-input').val(0);
-            $('#kl_label').removeClass('has-error').;
+            // $('#kl_label').removeClass('has-error');
+            // $('.help-block').hide();
         });
         w.change(function(){
             $('#upp-kementrian-input').val(0);

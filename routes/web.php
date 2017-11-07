@@ -380,6 +380,7 @@ Route::get('/main/persiapan/nasional/pokja/pembentukan', 'MAIN\bk010201Controlle
 Route::get('/main/persiapan/nasional/pokja/pembentukan/select', 'MAIN\bk010201Controller@select');
 Route::post('/main/persiapan/nasional/pokja/pembentukan', 'MAIN\bk010201Controller@post');
 Route::get('/main/persiapan/nasional/pokja/pembentukan/create', 'MAIN\bk010201Controller@create');
+Route::get('/main/persiapan/nasional/pokja/pembentukan/show', 'MAIN\bk010201Controller@show');
 Route::post('/main/persiapan/nasional/pokja/pembentukan/create', 'MAIN\bk010201Controller@post_create');
 Route::get('/main/persiapan/nasional/pokja/pembentukan/delete', 'MAIN\bk010201Controller@delete');
 
