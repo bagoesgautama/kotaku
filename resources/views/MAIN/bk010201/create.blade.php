@@ -54,14 +54,14 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col" hidden>
+                            <!--<div class="form-group striped-col" hidden>
                                 <label class="col-sm-3 control-label" for="example-text-input1">Jenis Kegiatan</label>
                                 <div class="col-sm-6">
                                     <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1">
                                         <option value="2.1" {!! $jenis_kegiatan=='2.1' ? 'selected':'' !!}>Tingkat Nasional</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pembentukan</label>
                                 <div class="col-sm-6">
