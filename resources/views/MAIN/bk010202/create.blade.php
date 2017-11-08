@@ -144,7 +144,7 @@
                                     <a href="/main/persiapan/nasional/pokja/kegiatan" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
-                                    @if ($show==false)
+                                    @if ($detil_menu=='66' || $detil_menu=='65')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
