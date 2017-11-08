@@ -38,9 +38,9 @@
                 <div class="panel-title pull-left">
                     <b>Realisasi Kuota Personil - KMP</b>
                 </div>
-                <div class="panel-title pull-right">
+                <!-- <div class="panel-title pull-right">
                     <i class="ti-export"></i> <b>Want to export data?</b>
-                </div>
+                </div> -->
             </div>
             <div class="panel-body">
                 <div class="table-responsive">

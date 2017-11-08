@@ -453,9 +453,11 @@
                             <a href="/main/perencanaan/kawasan/perencanaan" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
+                            @if($show==false)
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                 Submit
                             </button>
+                            @endif
                             <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                 Reset
                             </button>

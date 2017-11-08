@@ -35,11 +35,12 @@
     <div class="col-lg-12">
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
-               <!--  <div class="panel-title pull-left">
-                    <b>bk010309 index</b>
-                </div> -->
+                <div class="panel-title pull-left">
+                    <b>Perencanaan Kawasan Prioritas</b>
+                </div>
                 @if( ! empty($detil['290']))
                 <div class="tools pull-right">
+                    <b>bk010309 index</b>
 					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/kawasan/perencanaan/create'}}">Create</a>
 				</div>
                 @endif

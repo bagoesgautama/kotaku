@@ -74,7 +74,7 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Rencana Investasi Tahunan</label>
                                         <div class="col-sm-6">
                                             <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
@@ -97,7 +97,7 @@
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Luas Pengadaan Tanah (Ha)</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Hibah</label>
                                         <div class="col-sm-2">
                                             <input type="number" id="lpt_l_hibah_gov" name="lpt_l_hibah_gov" class="form-control" value="{{$lpt_l_hibah_gov}}" maxlength="9" placeholder="Milik Pemerintah">
@@ -121,7 +121,7 @@
                                             <input type="number" id="lpt_l_ijin_pakai_lain" name="lpt_l_ijin_pakai_lain" class="form-control" value="{{$lpt_l_ijin_pakai_lain}}" maxlength="9" placeholder="Milik Lain-lain">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Ijin Dilalui</label>
                                         <div class="col-sm-2">
                                             <input type="number" id="lpt_l_dilalui_gov" name="lpt_l_dilalui_gov" class="form-control" value="{{$lpt_l_dilalui_gov}}" maxlength="9" placeholder="Milik Pemerintah">
@@ -145,7 +145,7 @@
                                             <input type="number" id="lpt_rp_nilai_lain" name="lpt_rp_nilai_lain" class="form-control" value="{{$lpt_rp_nilai_lain}}" maxlength="27" placeholder="Milik Lain-lain">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Pemberi Tanah (Jumlah Masyarakat/KK)</label>
                                         <div class="col-sm-2">
                                             <input type="number" id="lpt_q_pt_kk_hibah" name="lpt_q_pt_kk_hibah" class="form-control" value="{{$lpt_q_pt_kk_hibah}}" maxlength="9" placeholder="Hibah">
@@ -160,7 +160,7 @@
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Konsolidasi Lahan</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Luas Tanah (Ha)</label>
                                         <div class="col-sm-3">
                                             <input type="number" id="kl_lt_pre" name="kl_lt_pre" class="form-control" value="{{$kl_lt_pre}}" maxlength="9" placeholder="Sebelum">
@@ -189,7 +189,7 @@
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Permukiman Kembali</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Luas Tanah (Ha)</label>
                                         <div class="col-sm-3">
                                             <input type="number" id="pk_lt_pre" name="pk_lt_pre" class="form-control" value="{{$pk_lt_pre}}" maxlength="9" placeholder="Sebelum">
@@ -207,7 +207,7 @@
                                             <input type="number" id="pk_q_peserta_w" name="pk_q_peserta_w" class="form-control" value="{{$pk_q_peserta_w}}" maxlength="9" placeholder="KK Perempuan">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Masyarakat Hukum Adat (MHA)</label></div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -219,7 +219,7 @@
                                             <input type="number" id="mha_q_jiwa_w" name="mha_q_jiwa_w" class="form-control" value="{{$mha_q_jiwa_w}}" maxlength="9" placeholder="Perempuan (Jiwa)">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jumlah Warga Terdampak Proyek (WTP)</label>
                                         <div class="col-sm-3">
                                             <input type="number" id="mha_q_wtp" name="mha_q_wtp" class="form-control" value="{{$mha_q_wtp}}" maxlength="9" placeholder="Jiwa">
@@ -237,7 +237,7 @@
                                             <input type="number" id="mha_q_wpm_w" name="mha_q_wpm_w" class="form-control" value="{{$mha_q_wpm_w}}" maxlength="9" placeholder="Perempuan (Jiwa)">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Ada Rencana Kerja MHA (RK-MHA)</label>
                                         <div class="col-sm-6">
                                             <select id="mha_flag_rk_mha" name="mha_flag_rk_mha" class="form-control" size="1">
@@ -257,7 +257,7 @@
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Dampak Lingkungan</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Ada UKL-UPL</label>
                                         <div class="col-sm-3">
                                             <select id="dl_flag_ukl_upl" name="dl_flag_ukl_upl" class="form-control" size="1">
@@ -276,7 +276,7 @@
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Kawasan/Benda Cagar Budaya</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Ada dikawasan/Benda Cagar Budaya</label>
                                         <div class="col-sm-3">
                                             <select id="cb_flag_di_kaw_cb" name="cb_flag_di_kaw_cb" class="form-control" size="1">
@@ -295,7 +295,7 @@
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Rawan Resiko Bencana</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Ada dilokasi Rawan Bencana</label>
                                         <div class="col-sm-3">
                                             <select id="rb_flag_di_kaw_rb" name="rb_flag_di_kaw_rb" class="form-control" size="1">
@@ -314,7 +314,7 @@
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Penggunaan Kayu >= 3m<sup>3</sup></label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Ada Menggunakan Kayu >= 3m<sup>3</sup></label>
                                         <div class="col-sm-3">
                                             <select id="pk_flag_pakai_kayu" name="pk_flag_pakai_kayu" class="form-control" size="1">
@@ -330,7 +330,7 @@
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Dokumen Legalitas Kayu</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Ada Dok. Legalitas Kayu</label>
                                         <div class="col-sm-3">
                                             <select id="lk_flag_legal_kayu" name="lk_flag_legal_kayu" class="form-control" size="1">
@@ -351,7 +351,7 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">File Dokumen</label>
                                         <div class="col-sm-6">
                                             <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
@@ -415,9 +415,11 @@
                             <a href="/main/perencanaan/penanganan/pengamanan_dampak" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
+                            @if($show==false)
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                 Submit
                             </button>
+                            @endif
                             <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                 Reset
                             </button>

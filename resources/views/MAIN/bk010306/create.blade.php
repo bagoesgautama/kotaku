@@ -81,7 +81,7 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="kode">Tahun</label>
                                         <div class="col-sm-6">
                                         <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
@@ -99,7 +99,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">KMW</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" required>
@@ -125,7 +125,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Korkot</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
@@ -146,7 +146,7 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Bangunan Hunian (*)</label>
                                         <div class="col-sm-3">
                                             <input type="number" id="pk-val-abs-hunian" name="pk-val-abs-hunian" class="form-control" value="{{$pk_val_abs_hunian}}" maxlength="9" placeholder="Nilai Absolut">
@@ -164,7 +164,7 @@
                                             <input type="number" id="pk-prcn-gap-jalan" name="pk-prcn-gap-jalan" class="form-control" value="{{$pk_prcn_gap_jalan}}" maxlength="6" placeholder="Presentase Gap (Nilai Negatif)">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Penyedian Air Minum (*)</label>
                                         <div class="col-sm-3">
                                             <input type="number" id="pk-val-abs-air-minum" name="pk-val-abs-air-minum" class="form-control" value="{{$pk_val_abs_air_minum}}" maxlength="9" placeholder="Nilai Absolut">
@@ -182,7 +182,7 @@
                                             <input type="number" id="pk-prcn-gap-drainase" name="pk-prcn-gap-drainase" class="form-control" value="{{$pk_prcn_gap_drainase}}" maxlength="6" placeholder="Presentase Gap (Nilai Negatif)">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Pengelolaan Air Limbah (*)</label>
                                         <div class="col-sm-3">
                                             <input type="number" id="pk-val-abs-air-limbah" name="pk-val-abs-air-limbah" class="form-control" value="{{$pk_val_abs_air_limbah}}" maxlength="9" placeholder="Nilai Absolut">
@@ -200,7 +200,7 @@
                                             <input type="number" id="pk-prcn-gap-sampah" name="pk-prcn-gap-sampah" class="form-control" value="{{$pk_prcn_gap_sampah}}" maxlength="6" placeholder="Presentase Gap (Nilai Negatif)">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Proteksi Kebakaran (*)</label>
                                         <div class="col-sm-3">
                                             <input type="number" id="pk-val-abs-kebakaran" name="pk-val-abs-kebakaran" class="form-control" value="{{$pk_val_abs_kebakaran}}" maxlength="9" placeholder="Nilai Absolut">
@@ -218,7 +218,7 @@
                                             <input type="number" id="pk-prcn-gap-rtp" name="pk-prcn-gap-rtp" class="form-control" value="{{$pk_prcn_gap_rtp}}" maxlength="6" placeholder="Presentase Gap (Nilai Negatif)">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Ekonomi (*)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="pk-prcn-gap-ekonomi" name="pk-prcn-gap-ekonomi" class="form-control" value="{{$pk_prcn_gap_ekonomi}}" maxlength="6" placeholder="Presentase Gap (Nilai Negatif)">
@@ -238,7 +238,7 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jumlah Kawasan Kumuh Yang akan Ditangani</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="rp5_q_kaw_kmh_manage" name="rp5_q_kaw_kmh_manage" class="form-control" value="{{$rp5_q_kaw_kmh_manage}}" maxlength="6" placeholder="Jumlah">
@@ -250,7 +250,7 @@
                                             <input type="number" id="rp5_l_kaw_kmh_manage" name="rp5_l_kaw_kmh_manage" class="form-control" value="{{$rp5_l_kaw_kmh_manage}}" maxlength="9" placeholder="Luas">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jumlah Kelurahan Kumuh</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="rp5_q_kel_kmh" name="rp5_q_kel_kmh" class="form-control" value="{{$rp5_q_kel_kmh}}" maxlength="6" placeholder="Jumlah">
@@ -262,7 +262,7 @@
                                             <input type="number" id="rp5_q_rt_kmh" name="rp5_q_rt_kmh" class="form-control" value="{{$rp5_q_rt_kmh}}" maxlength="6" placeholder="Jumlah">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Luas Kumuh Menurut Tingkat Kekumuhan</label></div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -271,7 +271,7 @@
                                             <input type="number" id="tk_l_kmh_berat" name="tk_l_kmh_berat" class="form-control" value="{{$tk_l_kmh_berat}}" maxlength="9" placeholder="Luas">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Luas Kumuh Sedang (Ha)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="tk_l_kmh_sedang" name="tk_l_kmh_sedang" class="form-control" value="{{$tk_l_kmh_sedang}}" maxlength="9" placeholder="Luas">
@@ -283,7 +283,7 @@
                                             <input type="number" id="tk_l_kmh_ringan" name="tk_l_kmh_ringan" class="form-control" value="{{$tk_l_kmh_ringan}}" maxlength="9" placeholder="Luas">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Luas Kawasan Penanganan Menurut Status Lahan</label></div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -292,7 +292,7 @@
                                             <input type="number" id="sl_l_masy_legal" name="sl_l_masy_legal" class="form-control" value="{{$sl_l_masy_legal}}" maxlength="9" placeholder="Luas">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Lahan Legal, Menempati tanpa Legalitas (Ha)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="sl_l_lhn_legal_tmp_ilegal" name="sl_l_lhn_legal_tmp_ilegal" class="form-control" value="{{$sl_l_lhn_legal_tmp_ilegal}}" maxlength="9" placeholder="Luas">
@@ -315,7 +315,7 @@
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Jumlah Kawasan Berdasarkan Tipologi Permukiman Kumuh (Isi hanya pada kategori yang sesuai)</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Di Atas Air</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="tpk_q_atas_air" name="tpk_q_atas_air" class="form-control" value="{{$tpk_q_atas_air}}" maxlength="6" placeholder="Jumlah">
@@ -327,7 +327,7 @@
                                             <input type="number" id="tpk_q_tepi_air" name="tpk_q_tepi_air" class="form-control" value="{{$tpk_q_tepi_air}}" maxlength="6" placeholder="Jumlah">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Dataran Rendah</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="tpk_q_dataran_rendah" name="tpk_q_dataran_rendah" class="form-control" value="{{$tpk_q_dataran_rendah}}" maxlength="6" placeholder="Jumlah">
@@ -339,7 +339,7 @@
                                             <input type="number" id="tpk_q_dataran_tinggi" name="tpk_q_dataran_tinggi" class="form-control" value="{{$tpk_q_dataran_tinggi}}" maxlength="6" placeholder="Jumlah">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Dataran Rawan Bencana</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="tpk_q_rawan_bencana" name="tpk_q_rawan_bencana" class="form-control" value="{{$tpk_q_rawan_bencana}}" maxlength="6" placeholder="Jumlah">
@@ -348,7 +348,7 @@
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Jumlah Kawasan Menurut Lokasi/Penggunaan Lahan</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Kawasan Pusat Kota/Pemerintahan</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="pl_kaw_pst_kota" name="pl_kaw_pst_kota" class="form-control" value="{{$pl_kaw_pst_kota}}" maxlength="6" placeholder="Jumlah">
@@ -360,7 +360,7 @@
                                             <input type="number" id="pl_kaw_komersil" name="pl_kaw_komersil" class="form-control" value="{{$pl_kaw_komersil}}" maxlength="6" placeholder="Jumlah">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Kawasan Permukiman Pinggiran Kota</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="pl_kaw_pmkm_pinggir_kt" name="pl_kaw_pmkm_pinggir_kt" class="form-control" value="{{$pl_kaw_pmkm_pinggir_kt}}" maxlength="6" placeholder="Jumlah">
@@ -383,7 +383,7 @@
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Konsep/Pola Penanganan yang Direncanakan</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Pemugaran</label>
                                         <div class="col-sm-3">
                                             <input type="number" id="kp_q_kaw_pemugaran" name="kp_q_kaw_pemugaran" class="form-control" value="{{$kp_q_kaw_pemugaran}}" maxlength="6" placeholder="Jumlah Kawasan">
@@ -401,7 +401,7 @@
                                             <input type="number" id="kp_q_jml_kk_pemugaran" name="kp_q_jml_kk_pemugaran" class="form-control" value="{{$kp_q_jml_kk_pemugaran}}" maxlength="6" placeholder="Jumlah Kepala Keluarga (KK)">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Peremajaan</label>
                                         <div class="col-sm-3">
                                             <input type="number" id="kp_q_kaw_peremajaan" name="kp_q_kaw_peremajaan" class="form-control" value="{{$kp_q_kaw_peremajaan}}" maxlength="6" placeholder="Jumlah Kawasan">
@@ -419,7 +419,7 @@
                                             <input type="number" id="kp_q_jml_kk_peremajaan" name="kp_q_jml_kk_peremajaan" class="form-control" value="{{$kp_q_jml_kk_peremajaan}}" maxlength="6" placeholder="Jumlah Kepala Keluarga (KK)">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Permukiman Kembali (Dalam Kawasan yang Sama)</label>
                                         <div class="col-sm-3">
                                             <input type="number" id="kp_q_kaw_pmkm_kmbl" name="kp_q_kaw_pmkm_kmbl" class="form-control" value="{{$kp_q_kaw_pmkm_kmbl}}" maxlength="6" placeholder="Jumlah Kawasan">
@@ -437,7 +437,7 @@
                                             <input type="number" id="kp_q_jml_kk_pmkm_kmbl" name="kp_q_jml_kk_pmkm_kmbl" class="form-control" value="{{$kp_q_jml_kk_pmkm_kmbl}}" maxlength="6" placeholder="Jumlah Kepala Keluarga (KK)">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Relokasi (Keluar Kawasan)</label>
                                         <div class="col-sm-3">
                                             <input type="number" id="kp_q_kaw_relokasi" name="kp_q_kaw_relokasi" class="form-control" value="{{$kp_q_kaw_relokasi}}" maxlength="6" placeholder="Jumlah Kawasan">
@@ -463,7 +463,7 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">File Dokumen</label>
                                         <div class="col-sm-6">
                                             <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
@@ -527,9 +527,11 @@
                             <a href="/main/perencanaan/penanganan/profile_rencana_5thn" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
+                            @if($show==false)
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                 Submit
                             </button>
+                            @endif
                             <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                 Reset
                             </button>

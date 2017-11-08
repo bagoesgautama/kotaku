@@ -51,7 +51,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="pokja">
+					<table class="table table-striped" id="pokja" width="1500px">
 						<thead>
                             <tr>
                                 <th>Kode</th>

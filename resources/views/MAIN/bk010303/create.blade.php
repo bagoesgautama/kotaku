@@ -47,7 +47,7 @@
                                     <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}" required maxlength="4">
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">KMW</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" required>
@@ -71,7 +71,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">Korkot</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
@@ -97,7 +97,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">Jenis Kegiatan</label>
                                 <div class="col-sm-6">
                                     <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1" required>
@@ -114,7 +114,7 @@
                                     <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50" required>
@@ -126,7 +126,7 @@
                                     <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required>
@@ -138,7 +138,7 @@
                                     <input type="number" id="q-mbr-input" name="q-mbr-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_mbr}}" required>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">File Dokumen</label>
                                 <div class="col-sm-6">
                                     <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
@@ -198,9 +198,11 @@
                                     <a href="/main/perencanaan/penanganan/lokakarya_perencanaan" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
+                                    @if ($detil_menu=='263' || $detil_menu=='264')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
+                                    @endif
                                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                         Reset
                                     </button>
@@ -293,6 +295,10 @@
             placeholder: "Please Select"
         });
         $("#select-kode-kec-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+        $("#jns-kegiatan-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
         });

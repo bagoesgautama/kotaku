@@ -74,7 +74,7 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="kode">Tahun</label>
                                         <div class="col-sm-6">
                                         <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
@@ -92,7 +92,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Kota</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
@@ -118,7 +118,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Sub Komponen Kegiatan</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode-subkomponen-input" name="kode-subkomponen-input" class="form-control select2" size="1" required>
@@ -142,7 +142,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Skala Kegiatan</label>
                                         <div class="col-sm-6">
                                             <select id="skala_kegiatan" name="skala_kegiatan" class="form-control" size="1" required>
@@ -160,7 +160,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Lokasi Kegiatan</label>
                                         <div class="col-sm-6">
                                             <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50">
@@ -174,7 +174,7 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jumlah Kegiatan</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="dk_q_kegiatan" name="dk_q_kegiatan" class="form-control" value="{{$dk_q_kegiatan}}" maxlength="6" placeholder="Jumlah">
@@ -186,7 +186,7 @@
                                             <input type="text" id="dk_vol_kegiatan" name="dk_vol_kegiatan" class="form-control" value="{{$dk_vol_kegiatan}}" maxlength="50" placeholder="Volume">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Satuan</label>
                                         <div class="col-sm-6">
                                             <input type="text" id="dk_satuan" name="dk_satuan" class="form-control" value="{{$dk_satuan}}" maxlength="50" placeholder="Satuan">
@@ -200,7 +200,7 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">APBN(PUPR)(Rp)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="nb_apbn_pupr" name="nb_apbn_pupr" class="form-control" value="{{$nb_apbn_pupr}}" maxlength="27" placeholder="Nilai">
@@ -212,7 +212,7 @@
                                             <input type="number" id="nb_apbn_kl_lain" name="nb_apbn_kl_lain" class="form-control" value="{{$nb_apbn_kl_lain}}" maxlength="27" placeholder="Nilai">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">APBD Provinsi(Rp)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="nb_apbd_prop" name="nb_apbd_prop" class="form-control" value="{{$nb_apbd_prop}}" maxlength="27" placeholder="Nilai">
@@ -224,7 +224,7 @@
                                             <input type="number" id="nb_apbd_kota" name="nb_apbd_kota" class="form-control" value="{{$nb_apbd_kota}}" maxlength="27" placeholder="Nilai">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Hibah, DAK, Dll(Rp)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="nb_hibah" name="nb_hibah" class="form-control" value="{{$nb_hibah}}" maxlength="27" placeholder="Nilai">
@@ -236,7 +236,7 @@
                                             <input type="number" id="nb_non_gov" name="nb_non_gov" class="form-control" value="{{$nb_non_gov}}" maxlength="27" placeholder="Nilai">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Masyarakat(Rp)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="nb_masyarakat" name="nb_masyarakat" class="form-control" value="{{$nb_masyarakat}}" maxlength="27" placeholder="Nilai">
@@ -256,7 +256,7 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jiwa</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="tpm_q_jiwa" name="tpm_q_jiwa" class="form-control" value="{{$tpm_q_jiwa}}" maxlength="9" placeholder="Jumlah">
@@ -268,7 +268,7 @@
                                             <input type="number" id="tpm_q_jiwa_w" name="tpm_q_jiwa_w" class="form-control" value="{{$tpm_q_jiwa_w}}" maxlength="9" placeholder="Jumlah">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">MBR</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="tpm_q_mbr" name="tpm_q_mbr" class="form-control" value="{{$tpm_q_mbr}}" maxlength="9" placeholder="Jumlah">
@@ -280,7 +280,7 @@
                                             <input type="number" id="tpm_q_kk" name="tpm_q_kk" class="form-control" value="{{$tpm_q_kk}}" maxlength="9" placeholder="Jumlah">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">KK Miskin (40% BPS)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="tpm_q_kk_miskin" name="tpm_q_kk_miskin" class="form-control" value="{{$tpm_q_kk_miskin}}" maxlength="9" placeholder="Jumlah">
@@ -294,7 +294,7 @@
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">File Dokumen</label>
                                         <div class="col-sm-6">
                                             <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
@@ -358,9 +358,11 @@
                             <a href="/main/perencanaan/penanganan/rencana_investasi" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
+                            @if($show==false)
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                 Submit
                             </button>
+                            @endif
                             <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                 Reset
                             </button>
@@ -446,6 +448,14 @@
             placeholder: "Please Select"
         });
         $("#select-kode-subdtlkomponen-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+        $("#skala_kegiatan").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+        $("#jns-kegiatan-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
         });

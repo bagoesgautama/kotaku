@@ -181,7 +181,8 @@ class bk010309Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-
+				//show
+				$url_show=url('/')."/main/perencanaan/kawasan/perencanaan/create?kode=".$edit."&show=true";
 				$url_edit=url('/')."/main/perencanaan/kawasan/perencanaan/create?kode=".$show;
 				$url_delete=url('/')."/main/perencanaan/kawasan/perencanaan/delete?kode=".$delete;
 				$nestedData['tahun'] = $post->tahun;
@@ -253,6 +254,10 @@ class bk010309Controller extends Controller
 				}
 
 				$option = '';
+				//show
+				if(!empty($detil['289'])){
+					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
+				}
 				if(!empty($detil['291'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
@@ -310,7 +315,86 @@ class bk010309Controller extends Controller
 
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			if($data['kode']!=null && !empty($data['detil']['291'])){
+			//show
+			$data['show']=!empty($request->input('show'))?$request->input('show'):false;
+			$data['tahun_list'] = DB::select('select * from list_tahun');
+			//show
+			if($data['kode']!=null  && !empty($data['detil']['289'])){
+				$rowData = DB::select('select * from bkt_01030206_plan_kaw_prior where kode='.$data['kode']);
+				$data['tahun'] = $rowData[0]->tahun;
+				$data['kode_prop'] = $rowData[0]->kode_prop;
+				$data['kode_kota'] = $rowData[0]->kode_kota;
+				$data['kode_korkot'] = $rowData[0]->kode_korkot;
+				$data['kode_kec'] = $rowData[0]->kode_kec;
+				$data['kode_kawasan'] = $rowData[0]->kode_kawasan;
+				$data['tipologi_pmkm'] = $rowData[0]->tipologi_pmkm;
+				$data['karakter_kaw'] = $rowData[0]->karakter_kaw;
+				$data['pola_penanganan'] = $rowData[0]->pola_penanganan;
+				$data['status_lahan'] = $rowData[0]->status_lahan;
+				$data['status_hunian'] = $rowData[0]->status_hunian;
+				$data['kepadatan_bangunan'] = $rowData[0]->kepadatan_bangunan;
+				$data['pdk_q_jiwa'] = $rowData[0]->pdk_q_jiwa;
+				$data['pdk_q_jiwa_w'] = $rowData[0]->pdk_q_jiwa_w;
+				$data['pdk_q_mbr'] = $rowData[0]->pdk_q_mbr;
+				$data['pdk_q_kk'] = $rowData[0]->pdk_q_kk;
+				$data['pdk_q_kk_miskin'] = $rowData[0]->pdk_q_kk_miskin;
+				$data['pdk_kpdt_pddk'] = $rowData[0]->pdk_kpdt_pddk;
+				$data['pk_l_kaw_kmh'] = $rowData[0]->pk_l_kaw_kmh;
+				$data['pk_q_kel_kmh_thn_cur'] = $rowData[0]->pk_q_kel_kmh_thn_cur;
+				$data['pk_q_rt_kmh_thn_cur'] = $rowData[0]->pk_q_rt_kmh_thn_cur;
+				$data['pk_l_rt_kmh_thn_cur'] = $rowData[0]->pk_l_rt_kmh_thn_cur;
+				$data['tk_berat_l_wil'] = $rowData[0]->tk_berat_l_wil;
+				$data['tk_berat_q_rt'] = $rowData[0]->tk_berat_q_rt;
+				$data['tk_sedang_l_wil'] = $rowData[0]->tk_sedang_l_wil;
+				$data['tk_sedang_q_rt'] = $rowData[0]->tk_sedang_q_rt;
+				$data['tk_ringan_l_wil'] = $rowData[0]->tk_ringan_l_wil;
+				$data['tk_ringan_q_rt'] = $rowData[0]->tk_ringan_q_rt;
+				$data['ak_val_abs_hunian'] = $rowData[0]->ak_val_abs_hunian;
+				$data['ak_prcn_gap_hunian'] = $rowData[0]->ak_prcn_gap_hunian;
+				$data['ak_val_abs_jalan'] = $rowData[0]->ak_val_abs_jalan;
+				$data['ak_prcn_gap_jalan'] = $rowData[0]->ak_prcn_gap_jalan;
+				$data['ak_val_abs_air_minum'] = $rowData[0]->ak_val_abs_air_minum;
+				$data['ak_prcn_gap_air_minum'] = $rowData[0]->ak_prcn_gap_air_minum;
+				$data['ak_val_abs_drainase'] = $rowData[0]->ak_val_abs_drainase;
+				$data['ak_prcn_gap_drainase'] = $rowData[0]->ak_prcn_gap_drainase;
+				$data['ak_val_abs_air_limbah'] = $rowData[0]->ak_val_abs_air_limbah;
+				$data['ak_prcn_gap_air_limbah'] = $rowData[0]->ak_prcn_gap_air_limbah;
+				$data['ak_val_abs_sampah'] = $rowData[0]->ak_val_abs_sampah;
+				$data['ak_prcn_gap_sampah'] = $rowData[0]->ak_prcn_gap_sampah;
+				$data['ak_val_abs_kebakaran'] = $rowData[0]->ak_val_abs_kebakaran;
+				$data['ak_prcn_gap_kebakaran'] = $rowData[0]->ak_prcn_gap_kebakaran;
+				$data['ak_val_abs_rtp'] = $rowData[0]->ak_val_abs_rtp;
+				$data['ak_prcn_gap_rtp'] = $rowData[0]->ak_prcn_gap_rtp;
+				$data['ak_prcn_gap_ekonomi'] = $rowData[0]->ak_prcn_gap_ekonomi;
+				$data['ak_prcn_gap_sosial'] = $rowData[0]->ak_prcn_gap_sosial;
+				$data['uri_img_document'] = $rowData[0]->uri_img_document;
+				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
+				$data['diser_tgl'] = $rowData[0]->diser_tgl;
+				$data['diser_oleh'] = $rowData[0]->diser_oleh;
+				$data['diket_tgl'] = $rowData[0]->diket_tgl;
+				$data['diket_oleh'] = $rowData[0]->diket_oleh;
+				$data['diver_tgl'] = $rowData[0]->diver_tgl;
+				$data['diver_oleh'] = $rowData[0]->diver_oleh;
+				$data['created_time'] = $rowData[0]->created_time;
+				$data['created_by'] = $rowData[0]->created_by;
+				$data['updated_time'] = $rowData[0]->updated_time;
+				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_prop_list'] = DB::select('select * from bkt_01010101_prop');
+				if(!empty($rowData[0]->kode_prop))
+					$data['kode_kota_list']=DB::select('select kode, nama from bkt_01010102_kota where kode_prop='.$rowData[0]->kode_prop);
+				if(!empty($rowData[0]->kode_kota))
+					$data['kode_kec_list']=DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$rowData[0]->kode_kota);
+				if(!empty($rowData[0]->kode_kota))
+					$data['kode_korkot_list']=DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode_kota='.$rowData[0]->kode_kota);
+				if(!empty($rowData[0]->kode_kec))
+					$data['kode_kel_list']=DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$rowData[0]->kode_kec);
+				if(!empty($rowData[0]->kode_kel))
+					$data['kode_faskel_list']=DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010113_faskel b where a.kode_faskel=b.kode and a.kode_kel='.$rowData[0]->kode_kel);
+				if(!empty($rowData[0]->kode_kota))
+					$data['kode_kawasan_list']=DB::select('select * from bkt_01010123_kawasan where kode_kota='.$rowData[0]->kode_kota);
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
+				return view('MAIN/bk010309/create',$data);
+			}else if ($data['kode']!=null && !empty($data['detil']['291'])){
 				$rowData = DB::select('select * from bkt_01030206_plan_kaw_prior where kode='.$data['kode']);
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_prop'] = $rowData[0]->kode_prop;

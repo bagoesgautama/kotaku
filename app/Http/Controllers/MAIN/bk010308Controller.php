@@ -112,7 +112,8 @@ class bk010308Controller extends Controller
 				$show =  $post->kode_parent;
 				$edit =  $post->kode_parent;
 				$delete = $post->kode_parent;
-
+				//show
+				$url_show=url('/')."/main/perencanaan/penanganan/pengamanan_dampak/create?kode=".$edit."&show=true";
 				$url_edit=url('/')."/main/perencanaan/penanganan/pengamanan_dampak/create?kode=".$edit;
 				$url_delete=url('/')."/main/perencanaan/penanganan/pengamanan_dampak/delete?kode=".$delete;
 				$nestedData['kode_parent'] = $post->kode_parent;
@@ -129,6 +130,10 @@ class bk010308Controller extends Controller
 				}
 
 				$option = '';
+				//show
+				if(!empty($detil['281'])){
+					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
+				}
 				if(!empty($detil['283'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
@@ -162,7 +167,80 @@ class bk010308Controller extends Controller
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			if($data['kode']!=null  && !empty($data['detil']['283'])){
+			//show
+			$data['show']=!empty($request->input('show'))?$request->input('show'):false;
+			$data['tahun_list'] = DB::select('select * from list_tahun');
+			//show
+			if($data['kode']!=null  && !empty($data['detil']['281'])){
+				$rowData = DB::select('select * from bkt_01030205_plan_amdal_sos where kode_parent='.$data['kode']);
+				$data['kode_parent'] = $rowData[0]->kode_parent;
+				$data['lpt_l_hibah_gov'] = $rowData[0]->lpt_l_hibah_gov;
+				$data['lpt_l_hibah_masy'] = $rowData[0]->lpt_l_hibah_masy;
+				$data['lpt_l_hibah_lain'] = $rowData[0]->lpt_l_hibah_lain;
+				$data['lpt_l_ijin_pakai_gov'] = $rowData[0]->lpt_l_ijin_pakai_gov;
+				$data['lpt_l_ijin_pakai_masy'] = $rowData[0]->lpt_l_ijin_pakai_masy;
+				$data['lpt_l_ijin_pakai_lain'] = $rowData[0]->lpt_l_ijin_pakai_lain;
+				$data['lpt_l_dilalui_gov'] = $rowData[0]->lpt_l_dilalui_gov;
+				$data['lpt_l_dilalui_masy'] = $rowData[0]->lpt_l_dilalui_masy;
+				$data['lpt_l_dilalui_lain'] = $rowData[0]->lpt_l_dilalui_lain;
+				$data['lpt_rp_nilai_gov'] = $rowData[0]->lpt_rp_nilai_gov;
+				$data['lpt_rp_nilai_masy'] = $rowData[0]->lpt_rp_nilai_masy;
+				$data['lpt_rp_nilai_lain'] = $rowData[0]->lpt_rp_nilai_lain;
+				$data['lpt_q_pt_kk_hibah'] = $rowData[0]->lpt_q_pt_kk_hibah;
+				$data['lpt_q_pt_kk_ijin_pakai'] = $rowData[0]->lpt_q_pt_kk_ijin_pakai;
+				$data['lpt_q_pt_kk_ijin_dilalui'] = $rowData[0]->lpt_q_pt_kk_ijin_dilalui;
+				$data['kl_lt_pre'] = $rowData[0]->kl_lt_pre;
+				$data['kl_lt_pos'] = $rowData[0]->kl_lt_pos;
+				$data['kl_q_peserta'] = $rowData[0]->kl_q_peserta;
+				$data['kl_q_peserta_w'] = $rowData[0]->kl_q_peserta_w;
+				$data['pk_lt_pre'] = $rowData[0]->pk_lt_pre;
+				$data['pk_lt_pos'] = $rowData[0]->pk_lt_pos;
+				$data['pk_q_peserta'] = $rowData[0]->pk_q_peserta;
+				$data['pk_q_peserta_w'] = $rowData[0]->pk_q_peserta_w;
+				$data['mha_q_jiwa'] = $rowData[0]->mha_q_jiwa;
+				$data['mha_q_jiwa_w'] = $rowData[0]->mha_q_jiwa_w;
+				$data['mha_q_wtp'] = $rowData[0]->mha_q_wtp;
+				$data['mha_q_wtp_w'] = $rowData[0]->mha_q_wtp_w;
+				$data['mha_q_wpm'] = $rowData[0]->mha_q_wpm;
+				$data['mha_q_wpm_w'] = $rowData[0]->mha_q_wpm_w;
+				$data['mha_flag_rk_mha'] = $rowData[0]->mha_flag_rk_mha;
+				$data['dl_flag_ukl_upl'] = $rowData[0]->dl_flag_ukl_upl;
+				$data['dl_flag_sop'] = $rowData[0]->dl_flag_sop;
+				$data['cb_flag_di_kaw_cb'] = $rowData[0]->cb_flag_di_kaw_cb;
+				$data['cb_flag_sop'] = $rowData[0]->cb_flag_sop;
+				$data['rb_flag_di_kaw_rb'] = $rowData[0]->rb_flag_di_kaw_rb;
+				$data['rb_flag_sop'] = $rowData[0]->rb_flag_sop;
+				$data['pk_flag_pakai_kayu'] = $rowData[0]->pk_flag_pakai_kayu;
+				$data['pk_vol_kayu'] = $rowData[0]->pk_vol_kayu;
+				$data['lk_flag_legal_kayu'] = $rowData[0]->lk_flag_legal_kayu;
+				$data['lk_vol_kayu_legal'] = $rowData[0]->lk_vol_kayu_legal;
+				$data['uri_img_document'] = $rowData[0]->uri_img_document;
+				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
+				$data['diser_tgl'] = $rowData[0]->diser_tgl;
+				$data['diser_oleh'] = $rowData[0]->diser_oleh;
+				$data['diket_tgl'] = $rowData[0]->diket_tgl;
+				$data['diket_oleh'] = $rowData[0]->diket_oleh;
+				$data['diver_tgl'] = $rowData[0]->diver_tgl;
+				$data['diver_oleh'] = $rowData[0]->diver_oleh;
+				$data['created_time'] = $rowData[0]->created_time;
+				$data['created_by'] = $rowData[0]->created_by;
+				$data['updated_time'] = $rowData[0]->updated_time;
+				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_plan_inves_list'] = DB::select('
+					select 
+						a.*,
+						b.nama nama_kota, 
+						h.nama nama_subkomponen, 
+						i.nama nama_dtl_subkomponen 
+					from bkt_01030204_plan_inves_thn a 
+						left join bkt_01010102_kota b on b.kode=a.kode_kota 
+						left join bkt_01010120_subkomponen h on h.id=a.id_subkomponen
+						left join bkt_01010121_dtl_subkomponen i on i.id=a.id_dtl_subkomponen
+					where 
+						a.skala_kegiatan="1"');
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
+				return view('MAIN/bk010308/create',$data);
+			}else if ($data['kode']!=null  && !empty($data['detil']['283'])){
 				$rowData = DB::select('select * from bkt_01030205_plan_amdal_sos where kode_parent='.$data['kode']);
 				$data['kode_parent'] = $rowData[0]->kode_parent;
 				$data['lpt_l_hibah_gov'] = $rowData[0]->lpt_l_hibah_gov;

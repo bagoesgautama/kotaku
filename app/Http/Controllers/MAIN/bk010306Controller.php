@@ -108,7 +108,8 @@ class bk010306Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-
+				//show
+				$url_show=url('/')."/main/perencanaan/penanganan/profile_rencana_5thn/create?kode=".$edit."&show=true";
 				$url_edit=url('/')."/main/perencanaan/penanganan/profile_rencana_5thn/create?kode=".$edit;
 				$url_delete=url('/')."/main/perencanaan/penanganan/profile_rencana_5thn/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode_rp2kp;
@@ -129,6 +130,10 @@ class bk010306Controller extends Controller
 				}
 
 				$option = '';
+				//show
+				if(!empty($detil['273'])){
+					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
+				}
 				if(!empty($detil['275'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
@@ -178,7 +183,92 @@ class bk010306Controller extends Controller
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			if($data['kode']!=null  && !empty($data['detil']['275'])){
+			//show
+			$data['show']=!empty($request->input('show'))?$request->input('show'):false;
+			$data['tahun_list'] = DB::select('select * from list_tahun');
+			//show
+			if($data['kode']!=null  && !empty($data['detil']['273'])){
+				$rowData = DB::select('select * from bkt_01030203_rp2kp_siap where kode='.$data['kode']);
+				$data['tahun'] = $rowData[0]->tahun;
+				$data['kode_prop'] = $rowData[0]->kode_prop;
+				$data['kode_kmw'] = $rowData[0]->kode_kmw;
+				$data['kode_kota'] = $rowData[0]->kode_kota;
+				$data['kode_korkot'] = $rowData[0]->kode_korkot;
+				$data['pk_val_abs_hunian'] = $rowData[0]->pk_val_abs_hunian;
+				$data['pk_prcn_gap_hunian'] = $rowData[0]->pk_prcn_gap_hunian;
+				$data['pk_val_abs_jalan'] = $rowData[0]->pk_val_abs_jalan;
+				$data['pk_prcn_gap_jalan'] = $rowData[0]->pk_prcn_gap_jalan;
+				$data['pk_val_abs_air_minum'] = $rowData[0]->pk_val_abs_air_minum;
+				$data['pk_prcn_gap_air_minum'] = $rowData[0]->pk_prcn_gap_air_minum;
+				$data['pk_val_abs_drainase'] = $rowData[0]->pk_val_abs_drainase;
+				$data['pk_prcn_gap_drainase'] = $rowData[0]->pk_prcn_gap_drainase;
+				$data['pk_val_abs_air_limbah'] = $rowData[0]->pk_val_abs_air_limbah;
+				$data['pk_prcn_gap_air_limbah'] = $rowData[0]->pk_prcn_gap_air_limbah;
+				$data['pk_val_abs_sampah'] = $rowData[0]->pk_val_abs_sampah;
+				$data['pk_prcn_gap_sampah'] = $rowData[0]->pk_prcn_gap_sampah;
+				$data['pk_val_abs_kebakaran'] = $rowData[0]->pk_val_abs_kebakaran;
+				$data['pk_prcn_gap_kebakaran'] = $rowData[0]->pk_prcn_gap_kebakaran;
+				$data['pk_val_abs_rtp'] = $rowData[0]->pk_val_abs_rtp;
+				$data['pk_prcn_gap_rtp'] = $rowData[0]->pk_prcn_gap_rtp;
+				$data['pk_prcn_gap_ekonomi'] = $rowData[0]->pk_prcn_gap_ekonomi;
+				$data['pk_prcn_gap_sosial'] = $rowData[0]->pk_prcn_gap_sosial;
+				$data['rp5_q_kaw_kmh_manage'] = $rowData[0]->rp5_q_kaw_kmh_manage;
+				$data['rp5_l_kaw_kmh_manage'] = $rowData[0]->rp5_l_kaw_kmh_manage;
+				$data['rp5_q_kel_kmh'] = $rowData[0]->rp5_q_kel_kmh;
+				$data['rp5_q_rt_kmh'] = $rowData[0]->rp5_q_rt_kmh;
+				$data['tk_l_kmh_berat'] = $rowData[0]->tk_l_kmh_berat;
+				$data['tk_l_kmh_sedang'] = $rowData[0]->tk_l_kmh_sedang;
+				$data['tk_l_kmh_ringan'] = $rowData[0]->tk_l_kmh_ringan;
+				$data['sl_l_masy_legal'] = $rowData[0]->sl_l_masy_legal;
+				$data['sl_l_lhn_legal_tmp_ilegal'] = $rowData[0]->sl_l_lhn_legal_tmp_ilegal;
+				$data['sl_l_lhn_ilegal'] = $rowData[0]->sl_l_lhn_ilegal;
+				$data['tpk_q_atas_air'] = $rowData[0]->tpk_q_atas_air;
+				$data['tpk_q_tepi_air'] = $rowData[0]->tpk_q_tepi_air;
+				$data['tpk_q_dataran_rendah'] = $rowData[0]->tpk_q_dataran_rendah;
+				$data['tpk_q_dataran_tinggi'] = $rowData[0]->tpk_q_dataran_tinggi;
+				$data['tpk_q_rawan_bencana'] = $rowData[0]->tpk_q_rawan_bencana;
+				$data['pl_kaw_pst_kota'] = $rowData[0]->pl_kaw_pst_kota;
+				$data['pl_kaw_komersil'] = $rowData[0]->pl_kaw_komersil;
+				$data['pl_kaw_pmkm_pinggir_kt'] = $rowData[0]->pl_kaw_pmkm_pinggir_kt;
+				$data['pl_kaw_semi_pedesaan'] = $rowData[0]->pl_kaw_semi_pedesaan;
+				$data['kp_q_kaw_pemugaran'] = $rowData[0]->kp_q_kaw_pemugaran;
+				$data['kp_l_kaw_pemugaran'] = $rowData[0]->kp_l_kaw_pemugaran;
+				$data['kp_q_jml_pdk_pemugaran'] = $rowData[0]->kp_q_jml_pdk_pemugaran;
+				$data['kp_q_jml_kk_pemugaran'] = $rowData[0]->kp_q_jml_kk_pemugaran;
+				$data['kp_q_kaw_peremajaan'] = $rowData[0]->kp_q_kaw_peremajaan;
+				$data['kp_l_kaw_peremajaan'] = $rowData[0]->kp_l_kaw_peremajaan;
+				$data['kp_q_jml_pdk_peremajaan'] = $rowData[0]->kp_q_jml_pdk_peremajaan;
+				$data['kp_q_jml_kk_peremajaan'] = $rowData[0]->kp_q_jml_kk_peremajaan;
+				$data['kp_q_kaw_pmkm_kmbl'] = $rowData[0]->kp_q_kaw_pmkm_kmbl;
+				$data['kp_l_kaw_pmkm_kmbl'] = $rowData[0]->kp_l_kaw_pmkm_kmbl;
+				$data['kp_q_jml_pdk_pmkm_kmbl'] = $rowData[0]->kp_q_jml_pdk_pmkm_kmbl;
+				$data['kp_q_jml_kk_pmkm_kmbl'] = $rowData[0]->kp_q_jml_kk_pmkm_kmbl;
+				$data['kp_q_kaw_relokasi'] = $rowData[0]->kp_q_kaw_relokasi;
+				$data['kp_l_kaw_relokasi'] = $rowData[0]->kp_l_kaw_relokasi;
+				$data['kp_q_jml_pdk_relokasi'] = $rowData[0]->kp_q_jml_pdk_relokasi;
+				$data['kp_q_jml_kk_relokasi'] = $rowData[0]->kp_q_jml_kk_relokasi;
+				$data['uri_img_document'] = $rowData[0]->uri_img_document;
+				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
+				$data['diser_tgl'] = $rowData[0]->diser_tgl;
+				$data['diser_oleh'] = $rowData[0]->diser_oleh;
+				$data['diket_tgl'] = $rowData[0]->diket_tgl;
+				$data['diket_oleh'] = $rowData[0]->diket_oleh;
+				$data['diver_tgl'] = $rowData[0]->diver_tgl;
+				$data['diver_oleh'] = $rowData[0]->diver_oleh;
+				$data['created_time'] = $rowData[0]->created_time;
+				$data['created_by'] = $rowData[0]->created_by;
+				$data['updated_time'] = $rowData[0]->updated_time;
+				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
+				if(!empty($rowData[0]->kode_prop))
+					$data['kode_kmw_list']=DB::select('select kode, nama from bkt_01010110_kmw where kode_prop='.$rowData[0]->kode_prop);
+				if(!empty($rowData[0]->kode_kmw))
+					$data['kode_kota_list']=DB::select('select b.kode, b.nama from bkt_01010110_kmw a, bkt_01010102_kota b where a.kode_prop=b.kode_prop and a.kode='.$rowData[0]->kode_kmw);
+				if(!empty($rowData[0]->kode_kota))
+					$data['kode_korkot_list']=DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode_kota='.$rowData[0]->kode_kota.' and b.kode_kmw ='.$rowData[0]->kode_kmw);
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
+				return view('MAIN/bk010306/create',$data);
+			}else if ($data['kode']!=null  && !empty($data['detil']['275'])){
 				$rowData = DB::select('select * from bkt_01030203_rp2kp_siap where kode='.$data['kode']);
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_prop'] = $rowData[0]->kode_prop;
