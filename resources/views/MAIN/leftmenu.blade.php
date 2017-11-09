@@ -231,7 +231,7 @@
 	@if( ! empty($menu['12']))
 	<li {!! (Request::is( 'main/persiapan/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
-            <span class="mm-text"><b>1. Tahap</b> Persiapan</span>
+            <span class="mm-text">1. Tahap Persiapan</span>
             <span class="fa arrow"></span>
         </a>
 		<ul class="sub-menu">
@@ -293,7 +293,7 @@
 							@if( ! empty($menu['50']))
 							<li {!! (Request::is( 'main/persiapan/propinsi/pokja/kegiatan')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan/create')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/propinsi/pokja/kegiatan">
-				                    <span class="mm-text">Kegiatan / Monitoring</span>
+				                    <span class="mm-text">Keberfungsian Pokja</span>
 				                </a>
 						    </li>
 							@endif
@@ -334,7 +334,7 @@
 							@if( ! empty($menu['52']))
 							<li {!! (Request::is( 'main/persiapan/kota/pokja/kegiatan')||Request::is( 'main/persiapan/kota/pokja/kegiatan/create')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/pokja/kegiatan">
-				                    <span class="mm-text">Kegiatan / Monitoring</span>
+				                    <span class="mm-text">Keberfungsian Pokja</span>
 				                </a>
 						    </li>
 							@endif
@@ -530,7 +530,7 @@
 	@if( ! empty($menu['13']))
 	<li {!! (Request::is( 'main/perencanaan/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
-            <span class="mm-text">Perencanaan</span>
+            <span class="mm-text">2. Tahap Perencanaan</span>
             <span class="fa arrow"></span>
         </a>
 		<ul class="sub-menu">
@@ -743,7 +743,7 @@
 	@if( ! empty($menu['15']))
 	<li {!! (Request::is( 'main/pelaksanaan/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
-            <span class="mm-text">Pelaksanaan</span>
+            <span class="mm-text">3. Tahap Pelaksanaan</span>
             <span class="fa arrow"></span>
         </a>
 		<ul class="sub-menu">
@@ -877,7 +877,7 @@
 	@if( ! empty($menu['16']))
 	<li {!! (Request::is( 'main/keberlanjutan/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
-            <span class="mm-text">Keberlanjutan</span>
+            <span class="mm-text">4. Tahap Keberlanjutan</span>
             <span class="fa arrow"></span>
         </a>
 		<ul class="sub-menu">
