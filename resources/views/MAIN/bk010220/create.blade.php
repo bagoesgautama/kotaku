@@ -44,20 +44,12 @@
                                 <label class="col-sm-3 control-label">Tahun</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
+                                    <input type="hidden" id="kode_kmw-input" name="kode_kmw-input" value="{{ $kode_kmw }}">
+                                    <input type="hidden" id="kode_korkot-input" name="kode_korkot-input" value="{{ $kode_korkot }}">
+                                    <input type="hidden" id="kode_faskel-input" name="kode_faskel-input" value="{{ $kode_faskel }}">
                                     <input type="text" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}" maxlength="4">
                                 </div>
                             </div>
-                            <!-- <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">KMW</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode_kmw-input" class="form-control select2" name="select-kode_kmw-input" required>
-                                        <option value="">Please Select</option>
-                                        @foreach ($kode_kmw_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div> -->
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Kota</label>
                                 <div class="col-sm-6">
@@ -71,17 +63,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <!-- <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">KorKot</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode_korkot-input" class="form-control select2" name="select-kode_korkot-input" required>
-                                        <option value="">Please Select</option>
-                                        @foreach ($kode_korkot_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div> -->
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Kecamatan</label>
                                 <div class="col-sm-6">
@@ -108,38 +89,12 @@
                                     </select>
                                 </div>
                             </div>
-                            <!-- <div class="form-group">
-                                <label class="col-sm-3 control-label" for="example-text-input31">Faskel</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode_faskel-input" class="form-control select2" name="select-kode_faskel-input">
-                                        <option value="">Please Select</option>
-                                        @foreach ($kode_faskel_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_faskel==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div> -->
-                            <!-- <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Jenis Kegiatan</label>
-                                <div class="col-sm-6">
-                                    <select id="select-jenis_kegiatan-input" name="select-jenis_kegiatan-input" class="form-control" size="1">
-                                        <option value="">Please Select</option>
-                                        <option value="2.6.1" @if($jenis_kegiatan=="2.6.1") selected="selected" @endif >Forum Kolaborasi Tingkat Kelurahan</option>
-                                    </select>
-                                </div>
-                            </div> -->
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pembentukan</label>
                                 <div class="col-sm-6">
                                     <input class="form-control" id="tgl_kegiatan-input" name="tgl_kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}">
                                 </div>
                             </div>
-                            <!-- <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Lokasi Kegiatan</label>
-                                <div class="col-sm-6">
-                                    <input type="text" id="lok_kegiatan-input" name="lok_kegiatan-input" class="form-control" placeholder="Lokasi Kegiatan" value="{{$lok_kegiatan}}" maxlength="50">
-                                </div>
-                            </div> -->
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
@@ -320,27 +275,12 @@
             placeholder: "single select"
         });
 
-        $("#select-kode_korkot-input").select2({
-            theme: "bootstrap",
-            placeholder: "single select"
-        });
-
         $("#select-kode_kel-input").select2({
             theme: "bootstrap",
             placeholder: "single select"
         });
 
         $("#select-kode_kec-input").select2({
-            theme: "bootstrap",
-            placeholder: "single select"
-        });
-
-        $("#select-kode_kmw-input").select2({
-            theme: "bootstrap",
-            placeholder: "single select"
-        });
-
-        $("#select-kode_faskel-input").select2({
             theme: "bootstrap",
             placeholder: "single select"
         });
@@ -399,50 +339,19 @@
         }
         document.body.addEventListener('input', enforce_maxlength);
 
-        var kmw = $('#select-kode_kmw-input');
+        
         var kota = $('#select-kode_kota-input');
-        var korkot = $('#select-kode_korkot-input');
         var kecamatan = $('#select-kode_kec-input');
         var kelurahan = $('#select-kode_kel-input');
-        var faskel = $('#select-kode_faskel-input');
-        var kmw_id,kota_id,korkot_id,kel_id,kec_id,faskel_id;
-        kmw.change(function(){
-            kmw_id=kmw.val();
-            if(kmw_id!=undefined){
-                kota.empty();
-                kota.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?kmw="+kmw_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
+        var kota_id,kel_id,kec_id;
         kota.change(function(){
             kota_id=kota.val();
             if(kota_id!=undefined){
-                korkot.empty();
-                korkot.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?kota="+kota_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
                 kecamatan.empty();
                 kecamatan.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?korkot="+kota_id,
+                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?kec="+kota_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -460,28 +369,11 @@
                 kelurahan.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?kec="+kec_id,
+                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?kel="+kec_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
                             kelurahan.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
-        kelurahan.change(function(){
-            kel_id=kelurahan.val();
-            if(kel_id!=undefined){
-                faskel.empty();
-                faskel.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?faskel="+kel_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            faskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
                         }
                     }
                 });
