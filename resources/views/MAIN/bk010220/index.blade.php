@@ -48,6 +48,7 @@
                     <table class="table table-striped" id="users" width="1500px">
                         <thead>
                             <tr>
+                                <th>Kode</th>
                                 <th>Kota</th>
                                 <th>Kecamatan</th>
                                 <th>Kelurahan</th>
@@ -81,6 +82,7 @@
                    },
 
             "columns": [
+                { "data": "kode" , name:"kode"},
                 { "data": "nama_kota" , name:"nama_kota"},
                 { "data": "nama_kec" , name:"nama_kec"},
                 { "data": "nama_kel" , name:"nama_kel"},

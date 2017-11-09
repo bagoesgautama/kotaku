@@ -48,6 +48,7 @@
                     <table class="table table-striped" id="users" width="1500px">
                         <thead>
                             <tr>
+                                <th>Kode</th>
                                 <th>Jenis Forum</th>
                                 <th>Jenis Kegiatan</th>
                                 <th>Tanggal Kegiatan</th>
@@ -80,6 +81,7 @@
                    },
 
             "columns": [
+                { "data": "kode" , name:"kode"},
                 { "data": "jenis_forum" , name:"jenis_forum"},
                 { "data": "kode_kegiatan" , name:"kode_kegiatan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
@@ -88,7 +90,8 @@
                 { "data": "q_peserta_w" , name:"q_peserta_w"},
                 { "data": "jumlah_peserta" , name:"jumlah_peserta"},
                 { "data": "option" , name:"option"}
-            ]
+            ],
+            "order":[[0,"desc"]]
         });
 
         $('#users_filter input').unbind();

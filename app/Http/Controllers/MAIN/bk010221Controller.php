@@ -58,34 +58,32 @@ class bk010221Controller extends Controller
 		$columns = array(
 			0 =>'kode_forum',
 			1 =>'kode_kegiatan',
-			8 =>'tgl_kegiatan',
-			9 =>'lok_kegiatan',
-			10 =>'q_peserta_p',
-			11 =>'q_peserta_w',
-			12 =>'uri_img_document',
-			13 =>'uri_img_absensi',
-			15 =>'diser_tgl',
-			16 =>'diser_oleh',
-			17 =>'diket_tgl',
-			18 =>'diket_oleh',
-			19 =>'diver_tgl',
-			20 =>'diver_oleh',
-			22 =>'created_time',
-			23 =>'created_by',
-			24 =>'updated_time',
-			25 =>'updated_by'
+			2 =>'lok_kegiatan',
+			3 =>'tgl_kegiatan',
+			4 =>'q_peserta_p',
+			5 =>'q_peserta_w',
+			6 =>'created_time',
+			7 =>'created_by',
+			8 =>'updated_time',
+			9 =>'updated_by'
 		);
-		$query='select a.*,  
-					c.nama nama_kota, 
-					d.nama nama_kel, 
-					case 
-						when a.kode_kegiatan = "2.6.1.2.3" then "Pertemuan Rutin"
-						when a.kode_kegiatan = "2.6.1.2.4" then "Kegiatan Monitoring"
-					end jenis_kegiatan
-				from  bkt_01020213_f_forum_kel a, bkt_01020212_forum_kel b
-					left join bkt_01010102_kota c on b.kode_kota=c.kode
-					left join bkt_01010104_kel d on b.kode_kel=d.kode';
-		$totalData = DB::select('select count(1) cnt from bkt_01020213_f_forum_kel ');
+		$query='select * from (
+					select a.*, 
+						c.nama nama_kota, 
+						d.nama nama_kel, 
+						case 
+							when a.kode_kegiatan = "2.6.1.2.3" then "Pertemuan Rutin"
+							when a.kode_kegiatan = "2.6.1.2.4" then "Kegiatan Monitoring"
+						end jenis_kegiatan
+					from  bkt_01020213_f_forum_kel a 
+						left join bkt_01020212_forum_kel b on a.kode_forum=b.kode
+						left join bkt_01010102_kota c on b.kode_kota=c.kode
+						left join bkt_01010104_kel d on b.kode_kel=d.kode) x ';
+		$totalData = DB::select('select count(1) cnt
+								from  bkt_01020213_f_forum_kel a 
+									left join bkt_01020212_forum_kel b on a.kode_forum=b.kode
+									left join bkt_01010102_kota c on b.kode_kota=c.kode
+									left join bkt_01010104_kel d on b.kode_kel=d.kode ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -98,16 +96,18 @@ class bk010221Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. ' where (
-					kode_forum like "%'.$search.'%" or 
-					kode_kegiatan like "%'.$search.'%" or
-					tgl_kegiatan like "%'.$search.'%" or 
-					lok_kegiatan like "%'.$search.'%" )
+					x.kode like "%'.$search.'%" or 
+					x.kode_forum like "%'.$search.'%" or 
+					x.jenis_kegiatan like "%'.$search.'%" or
+					x.nama_kota like "%'.$search.'%" or 
+					x.nama_kel like "%'.$search.'%" )
 					order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
-					kode_forum like "%'.$search.'%" or 
-					kode_kegiatan like "%'.$search.'%" or
-					tgl_kegiatan like "%'.$search.'%" or 
-					lok_kegiatan like "%'.$search.'%"
+					x.kode like "%'.$search.'%" or 
+					x.kode_forum like "%'.$search.'%" or 
+					x.jenis_kegiatan like "%'.$search.'%" or
+					x.nama_kota like "%'.$search.'%" or 
+					x.nama_kel like "%'.$search.'%"
 					)) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
@@ -124,6 +124,7 @@ class bk010221Controller extends Controller
 				$url_show=url('/')."/main/persiapan/kelurahan/forum/keberfungsian/show?kode=".$edit;
 				$url_edit=url('/')."/main/persiapan/kelurahan/forum/keberfungsian/create?kode=".$edit;
 				$url_delete=url('/')."/main/persiapan/kelurahan/forum/keberfungsian/delete?kode=".$delete;
+				$nestedData['kode'] = $post->kode;
 				$nestedData['jenis_forum'] = $post->kode_forum.'-'.$post->nama_kota.'-'.$post->nama_kel;
 				$nestedData['kode_kegiatan'] = $post->jenis_kegiatan;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
@@ -131,14 +132,6 @@ class bk010221Controller extends Controller
 				$nestedData['q_peserta_p'] = $post->q_peserta_p;
 				$nestedData['q_peserta_w'] = $post->q_peserta_w;
 				$nestedData['jumlah_peserta'] = $post->q_peserta_p + $post->q_peserta_w;
-				$nestedData['uri_img_document'] = $post->uri_img_document;
-				$nestedData['uri_img_absensi'] = $post->uri_img_absensi;
-				$nestedData['diser_tgl'] = $post->diser_tgl;
-				$nestedData['diser_oleh'] = $post->diser_oleh;
-				$nestedData['diket_tgl'] = $post->diket_tgl;
-				$nestedData['diket_oleh'] = $post->diket_oleh;
-				$nestedData['diver_tgl'] = $post->diver_tgl;
-				$nestedData['diver_oleh'] = $post->diver_oleh;
 				$nestedData['created_time'] = $post->created_time;
 				$nestedData['created_by'] = $post->created_by;
 				$nestedData['updated_time'] = $post->updated_time;
@@ -194,9 +187,14 @@ class bk010221Controller extends Controller
 				$rowData = DB::select('select * from bkt_01020213_f_forum_kel where kode='.$data['kode']);
 				$data['detil_menu']='202';
 				$data['kode_forum'] = $rowData[0]->kode_forum;
-				$data['kode_forum_list'] = DB::select('select a.kode kode_forum, b.nama nama_kota, b.kode, c.nama nama_kel, c.kode 
-											from bkt_01020212_forum_kel a, bkt_01010102_kota b, bkt_01010104_kel c, bkt_01020213_f_forum_kel d
-											where a.kode_kota=b.kode and a.kode_kel=c.kode and d.kode='.$rowData[0]->kode);
+				$data['kode_forum_list'] = DB::select('select b.kode kode_forum, 
+																c.nama nama_kota, c.kode, 
+																d.nama nama_kel, d.kode 
+														from bkt_01020213_f_forum_kel a 
+															left join bkt_01020212_forum_kel b on a.kode_forum=b.kode
+															left join bkt_01010102_kota c on b.kode_kota=c.kode 
+															left join bkt_01010104_kel d on b.kode_kel=d.kode
+														where a.kode='.$rowData[0]->kode);
 				$data['kode_kegiatan'] = $rowData[0]->kode_kegiatan;
 				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
 				$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
@@ -241,9 +239,13 @@ class bk010221Controller extends Controller
 			$rowData = DB::select('select * from bkt_01020213_f_forum_kel where kode='.$data['kode']);
 			$data['detil_menu']='204';
 			$data['kode_forum'] = $rowData[0]->kode_forum;
-			$data['kode_forum_list'] = DB::select('select a.kode kode_forum, b.nama nama_kota, b.kode, c.nama nama_kel, c.kode 
-										from bkt_01020212_forum_kel a, bkt_01010102_kota b, bkt_01010104_kel c, bkt_01020213_f_forum_kel d
-										where a.kode_kota=b.kode and a.kode_kel=c.kode and d.kode='.$rowData[0]->kode);
+			$data['kode_forum_list'] = DB::select('select a.kode kode_forum, 
+															b.nama nama_kota, b.kode, 
+															c.nama nama_kel, c.kode 
+													from bkt_01020212_forum_kel a, bkt_01010102_kota b, 
+														bkt_01010104_kel c, 
+														bkt_01020213_f_forum_kel d
+													where a.kode_kota=b.kode and a.kode_kel=c.kode and d.kode='.$rowData[0]->kode);
 			$data['kode_kegiatan'] = $rowData[0]->kode_kegiatan;
 			$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
 			$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
@@ -266,8 +268,12 @@ class bk010221Controller extends Controller
 		}else if($data['kode']==null && !empty($data['detil']['203'])){
 			$data['detil_menu']='203';
 			$data['kode_forum'] = null;
-			$data['kode_forum_list'] = DB::select('select a.kode kode_forum, b.nama nama_kota, b.kode, c.nama nama_kel, c.kode 
-										from bkt_01020212_forum_kel a, bkt_01010102_kota b, bkt_01010104_kel c
+			$data['kode_forum_list'] = DB::select('select a.kode kode_forum, 
+															b.nama nama_kota, b.kode, 
+															c.nama nama_kel, c.kode 
+										from bkt_01020212_forum_kel a, 
+												bkt_01010102_kota b, 
+												bkt_01010104_kel c
 										where a.kode_kota=b.kode and a.kode_kel=c.kode');
 			$data['kode_kegiatan'] = null;
 			$data['tgl_kegiatan'] = null;
