@@ -165,14 +165,16 @@ class bk010223Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_edit=url('/')."/main/persiapan/kelurahan/lembaga/create?kode=".$show;
+				//show
+				$url_show=url('/')."/main/persiapan/kelurahan/lembaga/show?kode=".$edit;
+				$url_edit=url('/')."/main/persiapan/kelurahan/lembaga/create?kode=".$edit;
 				$url_delete=url('/')."/main/persiapan/kelurahan/lembaga/delete?kode=".$delete;
 				$nestedData['tahun'] = $post->tahun;
 				$nestedData['nama_kota'] = $post->nama_kota;
 				$nestedData['nama_korkot'] = $post->nama_korkot;
 				$nestedData['nama_kec'] = $post->nama_kec;
 				$nestedData['nama_kmw'] = $post->nama_kmw;
-				$nestedData['nama_kel'] = $post->nama_kec;
+				$nestedData['nama_kel'] = $post->nama_kel;
 				$nestedData['nama_faskel'] = $post->nama_faskel;
 				$nestedData['nama_kegiatan'] = $post->nama_kegiatan;
 				$nestedData['id_dtl_kegiatan'] = $post->id_dtl_kegiatan;
@@ -203,6 +205,9 @@ class bk010223Controller extends Controller
 				}
 
 				$option = '';
+				if(!empty($detil['338'])){
+					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
+				}
 				if(!empty($detil['340'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
@@ -251,6 +256,51 @@ class bk010223Controller extends Controller
 		else if(!empty($request->input('kegiatan'))){
 			$keg = DB::select('select * from bkt_01010119_dtl_keg_kel where id_kegiatan='.$request->input('kegiatan'));
 			echo json_encode($keg);
+		}
+	}
+
+	public function show(Request $request)
+	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==71)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			$data['username'] = $user->name;
+			$data['kode']=$request->input('kode');
+			$data['tahun_list'] = DB::select('select * from list_tahun');
+			if($data['kode']!=null && !empty($data['detil']['202'])){
+				$rowData = DB::select('select * from bkt_01020213_f_forum_kel where kode='.$data['kode']);
+				$data['detil_menu']='202';
+				$data['kode_forum'] = $rowData[0]->kode_forum;
+				$data['kode_forum_list'] = DB::select('select a.kode kode_forum, b.nama nama_kota, b.kode, c.nama nama_kel, c.kode 
+											from bkt_01020212_forum_kel a, bkt_01010102_kota b, bkt_01010104_kel c, bkt_01020213_f_forum_kel d
+											where a.kode_kota=b.kode and a.kode_kel=c.kode and d.kode='.$rowData[0]->kode);
+				$data['kode_kegiatan'] = $rowData[0]->kode_kegiatan;
+				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
+				$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
+				$data['q_peserta_p'] = $rowData[0]->q_peserta_p;
+				$data['q_peserta_w'] = $rowData[0]->q_peserta_w;
+				$data['uri_img_document'] = $rowData[0]->uri_img_document;
+				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
+				$data['diser_tgl'] = $rowData[0]->diser_tgl;
+				$data['diser_oleh'] = $rowData[0]->diser_oleh;
+				$data['diket_tgl'] = $rowData[0]->diser_tgl;
+				$data['diket_oleh'] = $rowData[0]->diser_oleh;
+				$data['diver_tgl'] = $rowData[0]->diver_tgl;
+				$data['diver_oleh'] = $rowData[0]->diver_oleh			;
+				$data['created_time'] = $rowData[0]->created_time;
+				$data['created_by'] = $rowData[0]->created_by;
+				$data['updated_time'] = $rowData[0]->updated_time;
+				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
+				return view('MAIN/bk010221/create',$data);
+			}
+		}else{
+			return Redirect::to('/');
 		}
 	}
 

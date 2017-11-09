@@ -358,7 +358,7 @@
                             <a href="/main/perencanaan/penanganan/rencana_investasi" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
-                            @if($show==false)
+                            @if ($detil_menu=='279' || $detil_menu=='278')
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                 Submit
                             </button>

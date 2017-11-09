@@ -47,7 +47,7 @@
                                     <select id="select-kode_forum-input" class="form-control select2" name="select-kode_forum-input">
                                         <option value="">Please Select</option>
                                         @foreach($kode_forum_list as $list)
-                                            <option value="{{ $list->kode }}" @if($list->kode==$kode_forum) selected="selected" @endif >{{ $list->kode }}
+                                            <option value="{{ $list->kode_forum }}" @if($list->kode_forum==$kode_forum) selected="selected" @endif >{{ $list->kode_forum.' - '.$list->nama_kota.' - '.$list->nama_kel}}
                                             </option>
                                         @endforeach
                                     </select>
@@ -97,7 +97,7 @@
                                     <input type="text" id="q_peserta_w-input" name="q_peserta_w-input" class="form-control" placeholder="Anggota Wanita" value="{{$q_peserta_w}}" maxlength="5">
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">File Document</label>
                                 <div class="col-sm-6">
                                     <input id="file-document-input" type="file" class="file" accept="image/*" name="file-document-input">
@@ -107,7 +107,7 @@
                                     <button type="button" class="btn btn-effect-ripple btn-danger" id="uploaded-file-document" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">delete</button>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">File Absensi</label>
                                 <div class="col-sm-6">
                                     <input id="file-absensi-input" type="file" class="file" accept="image/*" name="file-absensi-input">
@@ -161,9 +161,11 @@
                                     <a href="/main/persiapan/kelurahan/forum/keberfungsian" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
+                                    @if ($detil_menu=='203' || $detil_menu=='204')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
+                                    @endif
                                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                         Reset
                                     </button>

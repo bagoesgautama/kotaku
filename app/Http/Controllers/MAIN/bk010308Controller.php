@@ -113,7 +113,7 @@ class bk010308Controller extends Controller
 				$edit =  $post->kode_parent;
 				$delete = $post->kode_parent;
 				//show
-				$url_show=url('/')."/main/perencanaan/penanganan/pengamanan_dampak/create?kode=".$edit."&show=true";
+				$url_show=url('/')."/main/perencanaan/penanganan/pengamanan_dampak/show?kode=".$edit;
 				$url_edit=url('/')."/main/perencanaan/penanganan/pengamanan_dampak/create?kode=".$edit;
 				$url_delete=url('/')."/main/perencanaan/penanganan/pengamanan_dampak/delete?kode=".$delete;
 				$nestedData['kode_parent'] = $post->kode_parent;
@@ -155,7 +155,7 @@ class bk010308Controller extends Controller
 		echo json_encode($json_data);
 	}
 
-	public function create(Request $request)
+	public function show(Request $request)
 	{
 		$user = Auth::user();
         $akses= $user->menu()->where('kode_apps', 1)->get();
@@ -167,12 +167,10 @@ class bk010308Controller extends Controller
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			//show
-			$data['show']=!empty($request->input('show'))?$request->input('show'):false;
 			$data['tahun_list'] = DB::select('select * from list_tahun');
-			//show
 			if($data['kode']!=null  && !empty($data['detil']['281'])){
 				$rowData = DB::select('select * from bkt_01030205_plan_amdal_sos where kode_parent='.$data['kode']);
+				$data['detil_menu']='281';
 				$data['kode_parent'] = $rowData[0]->kode_parent;
 				$data['lpt_l_hibah_gov'] = $rowData[0]->lpt_l_hibah_gov;
 				$data['lpt_l_hibah_masy'] = $rowData[0]->lpt_l_hibah_masy;
@@ -240,7 +238,25 @@ class bk010308Controller extends Controller
 						a.skala_kegiatan="1"');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010308/create',$data);
-			}else if ($data['kode']!=null  && !empty($data['detil']['283'])){
+			}
+		}else{
+			return Redirect::to('/');
+		}
+	}
+
+	public function create(Request $request)
+	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==88)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			$data['username'] = $user->name;
+			$data['kode']=$request->input('kode');
+			if ($data['kode']!=null  && !empty($data['detil']['283'])){
 				$rowData = DB::select('select * from bkt_01030205_plan_amdal_sos where kode_parent='.$data['kode']);
 				$data['kode_parent'] = $rowData[0]->kode_parent;
 				$data['lpt_l_hibah_gov'] = $rowData[0]->lpt_l_hibah_gov;

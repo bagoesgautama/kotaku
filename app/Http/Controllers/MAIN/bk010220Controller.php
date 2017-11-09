@@ -53,17 +53,6 @@ class bk010220Controller extends Controller
 		}
     }
 
-	public function show()
-	{
-		$data['username'] = '';
-		$data['test']=true;
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
-		return view('/main/persiapan/kelurahan/forum/keanggotaan',$data);
-	}
-
 	public function Post(Request $request)
 	{
 		$columns = array(
@@ -159,6 +148,8 @@ class bk010220Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
+				//show
+				$url_show=url('/')."/main/persiapan/kelurahan/forum/keanggotaan/show?kode=".$edit;
 				$url_edit=url('/')."/main/persiapan/kelurahan/forum/keanggotaan/create?kode=".$show;
 				$url_delete=url('/')."/main/persiapan/kelurahan/forum/keanggotaan/delete?kode=".$delete;
 				$nestedData['tahun'] = $post->tahun;
@@ -169,6 +160,7 @@ class bk010220Controller extends Controller
 				$nestedData['nama_kel'] = $post->nama_kec;
 				$nestedData['nama_faskel'] = $post->nama_faskel;
 				$nestedData['jenis_kegiatan'] = $post->jenis_kegiatan;
+				$nestedData['total_anggota'] = $post->q_anggota_p + $post->q_anggota_w;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 				$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
 				$nestedData['q_anggota_p'] = $post->q_anggota_p;
@@ -200,6 +192,9 @@ class bk010220Controller extends Controller
 				}
 
 				$option = '';
+				if(!empty($detil['198'])){
+					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
+				}
 				if(!empty($detil['200'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
@@ -249,6 +244,70 @@ class bk010220Controller extends Controller
 		}
 	}
 
+	public function show(Request $request)
+	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==70)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			$data['username'] = $user->name;
+			$data['kode']=$request->input('kode');
+			$data['tahun_list'] = DB::select('select * from list_tahun');
+			if($data['kode']!=null && !empty($data['detil']['198'])){
+				$rowData = DB::select('select * from bkt_01020212_forum_kel where kode='.$data['kode']);
+				$data['detil_menu']='198';
+				$data['tahun'] = $rowData[0]->tahun;
+				$data['kode_kota'] = $rowData[0]->kode_kota;
+				$data['kode_korkot'] = $rowData[0]->kode_korkot;
+				$data['kode_kec'] = $rowData[0]->kode_kec;
+				$data['kode_kmw'] = $rowData[0]->kode_kmw;
+				$data['kode_kel'] = $rowData[0]->kode_kel;
+				$data['kode_faskel'] = $rowData[0]->kode_faskel;
+				$data['jenis_kegiatan'] = $rowData[0]->jenis_kegiatan;
+				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
+				$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
+				$data['q_anggota_p'] = $rowData[0]->q_anggota_p;
+				$data['q_anggota_w'] = $rowData[0]->q_anggota_w;
+				$data['q_anggota_pem_desa'] = $rowData[0]->q_anggota_pem_desa;
+				$data['q_anggota_pem_bpd'] = $rowData[0]->q_anggota_pem_bpd;
+				$data['q_anggota_non_pem'] = $rowData[0]->q_anggota_non_pem;
+				$data['uri_dok_rencana_kerja'] = $rowData[0]->uri_dok_rencana_kerja;
+				$data['nilai_dana_ops'] = $rowData[0]->nilai_dana_ops;
+				$data['uri_img_document'] = $rowData[0]->uri_img_document;
+				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
+				$data['diser_tgl'] = $rowData[0]->diser_tgl;
+				$data['diser_oleh'] = $rowData[0]->diser_oleh;
+				$data['diket_tgl'] = $rowData[0]->diser_tgl;
+				$data['diket_oleh'] = $rowData[0]->diser_oleh;
+				$data['diver_tgl'] = $rowData[0]->diver_tgl;
+				$data['diver_oleh'] = $rowData[0]->diver_oleh			;
+				$data['created_time'] = $rowData[0]->created_time;
+				$data['created_by'] = $rowData[0]->created_by;
+				$data['updated_time'] = $rowData[0]->updated_time;
+				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
+				if(!empty($rowData[0]->kode_kmw))
+					$data['kode_kota_list']=DB::select('select b.kode, b.nama from bkt_01010110_kmw a, bkt_01010102_kota b where a.kode_prop=b.kode_prop and a.kode='.$rowData[0]->kode_kmw);
+				if(!empty($rowData[0]->kode_kota))
+					$data['kode_korkot_list']=DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode_kota='.$rowData[0]->kode_kota);
+				if(!empty($rowData[0]->kode_kota))
+					$data['kode_kec_list']=DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$rowData[0]->kode_kota);
+				if(!empty($rowData[0]->kode_kec))
+					$data['kode_kel_list']=DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$rowData[0]->kode_kec);
+				if(!empty($rowData[0]->kode_kel))
+					$data['kode_faskel_list']=DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010113_faskel b where a.kode_faskel=b.kode and a.kode_kel='.$rowData[0]->kode_kel);
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
+				return view('MAIN/bk010220/create',$data);
+			}
+		}else{
+			return Redirect::to('/');
+		}
+	}
+
 	public function create(Request $request)
 	{
 		$user = Auth::user();
@@ -270,6 +329,7 @@ class bk010220Controller extends Controller
 
 			if($data['kode']!=null && !empty($data['detil']['200'])){
 				$rowData = DB::select('select * from bkt_01020212_forum_kel where kode='.$data['kode']);
+				$data['detil_menu']='200';
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_kota'] = $rowData[0]->kode_kota;
 				$data['kode_korkot'] = $rowData[0]->kode_korkot;
@@ -313,13 +373,17 @@ class bk010220Controller extends Controller
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010220/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['199'])){
+				$rowData = DB::select('select *, kode_kmp kode_kmp_real, kode_kmw kode_kmw_real, kode_korkot kode_korkot_real, kode_faskel kode_faskel_real from bkt_02010111_user where id='.$user['id']);
+				$data['detil_menu']='199';
+				$data['kode_korkot'] = $rowData[0]->kode_korkot_real;
+				$data['kode_kmw'] = $rowData[0]->kode_kmw_real;
+				$data['kode_faskel'] = $rowData[0]->kode_faskel_real;
 				$data['tahun'] = null;
 				$data['kode_kota'] = null;
-				$data['kode_korkot'] = null;
+					$data['kode_kota_list']=DB::select('select a.kode, a.nama from bkt_01010102_kota a, bkt_02010111_user b, bkt_01010112_kota_korkot c where b.kode_korkot=c.kode_korkot and c.kode_kota=a.kode and b.id=84');
+					
 				$data['kode_kec'] = null;
-				$data['kode_kmw'] = null;
 				$data['kode_kel'] = null;
-				$data['kode_faskel'] = null;
 				$data['jenis_kegiatan'] = null;
 				$data['tgl_kegiatan'] = null;
 				$data['lok_kegiatan'] = null;
@@ -342,12 +406,12 @@ class bk010220Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
-				$data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
-				$data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
+				// $data['kode_kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
+				$data['kode_kec_list'] = null;
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
 				$data['kode_korkot_list'] = DB::select('select * from bkt_01010111_korkot');
 				$data['kode_faskel_list'] = DB::select('select * from bkt_01010113_faskel');
-				$data['kode_kel_list'] = DB::select('select * from bkt_01010104_kel where status=1');
+				$data['kode_kel_list'] = null;
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010220/create',$data);
 			}else {

@@ -34,35 +34,28 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010220 index</b>
+                    <b>Keanggotaan</b>
                 </div>
                 @if( ! empty($detil['199']))
                 <div class="tools pull-right">
+                    <b>bk010220 index</b>
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/forum/keanggotaan/create">Create</a>
                 </div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users" width="4000px">
+                    <table class="table table-striped" id="users" width="1500px">
                         <thead>
                             <tr>
-                                <th>Tahun</th>
                                 <th>Kota</th>
-                                <th>Korkot</th>
                                 <th>Kecamatan</th>
-                                <th>KMW</th>
                                 <th>Kelurahan</th>
-                                <th>Faskel</th>
-                                <th>Jenis Kegiatan</th>
-                                <th>Tanggal Kegiatan</th>
-                                <th>Lokasi</th>
-                                <th>Anggota Pria</th>
-                                <th>Anggota Wanita</th>
-                                <th>Anggota Pemerintah Desa</th>
-                                <th>Anggota Pemerintah BPD</th>
-                                <th>Anggota Non Pemerintah</th>
-                                <th>Dana Operasional</th>
+                                <th>Tahun</th>
+                                <th>Tanggal Pembentukan</th>
+                                <th>Jumlah Anggota Laki-laki</th>
+                                <th>Jumlah Anggota Perempuan</th>
+                                <th>Total Peserta</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -88,24 +81,17 @@
                    },
 
             "columns": [
-                { "data": "tahun" , name:"tahun"},
                 { "data": "nama_kota" , name:"nama_kota"},
-                { "data": "nama_korkot" , name:"nama_korkot"},
                 { "data": "nama_kec" , name:"nama_kec"},
-                { "data": "nama_kmw" , name:"nama_kmw"},
                 { "data": "nama_kel" , name:"nama_kel"},
-                { "data": "nama_faskel" , name:"nama_faskel"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
+                { "data": "tahun" , name:"tahun"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
                 { "data": "q_anggota_p" , name:"q_anggota_p"},
                 { "data": "q_anggota_w" , name:"q_anggota_w"},
-                { "data": "q_anggota_pem_desa" , name:"q_anggota_pem_desa"},
-                { "data": "q_anggota_pem_bpd" , name:"q_anggota_pem_bpd"},
-                { "data": "q_anggota_non_pem" , name:"q_anggota_non_pem"},
-                { "data": "nilai_dana_ops" , name:"nilai_dana_ops"},
+                { "data": "total_anggota" , name:"total_anggota"},
                 { "data": "option" , name:"option"}
-            ]
+            ],
+            "order":[[0,"desc"]]
         });
 
         $('#users_filter input').unbind();

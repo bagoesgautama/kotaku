@@ -168,7 +168,7 @@ class bk010307Controller extends Controller
 				$edit =  $post->kode;
 				$delete = $post->kode;
 				//show
-				$url_show=url('/')."/main/perencanaan/penanganan/rencana_investasi/create?kode=".$edit."&show=true";
+				$url_show=url('/')."/main/perencanaan/penanganan/rencana_investasi/show?kode=".$edit;
 				$url_edit=url('/')."/main/perencanaan/penanganan/rencana_investasi/create?kode=".$edit;
 				$url_delete=url('/')."/main/perencanaan/penanganan/rencana_investasi/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode_plan;
@@ -218,7 +218,7 @@ class bk010307Controller extends Controller
 		echo json_encode($json_data);
 	}
 
-	public function create(Request $request)
+	public function show(Request $request)
 	{
 		$user = Auth::user();
         $akses= $user->menu()->where('kode_apps', 1)->get();
@@ -230,13 +230,11 @@ class bk010307Controller extends Controller
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			//show
-			$data['show']=!empty($request->input('show'))?$request->input('show'):false;
 			$data['tahun_list'] = DB::select('select * from list_tahun');
-			//show
 			if($data['kode']!=null  && !empty($data['detil']['277'])){
 				$rowData = DB::select('select * from bkt_01030204_plan_inves_thn where kode='.$data['kode']);
 				$data['tahun'] = $rowData[0]->tahun;
+				$data['detil_menu']='277';
 				$data['skala_kegiatan'] = $rowData[0]->skala_kegiatan;
 				$data['kode_kota'] = $rowData[0]->kode_kota;
 				$data['kode_korkot'] = $rowData[0]->kode_korkot;
@@ -292,7 +290,25 @@ class bk010307Controller extends Controller
 					$data['kode_subdtlkomponen_list']=DB::select('select id, kode_dtl_subkomponen, nama from bkt_01010121_dtl_subkomponen where id_subkomponen='.$rowData[0]->id_subkomponen.' and status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010307/create',$data);
-			}else if ($data['kode']!=null  && !empty($data['detil']['279'])){
+			}
+		}else{
+			return Redirect::to('/');
+		}
+	}
+
+	public function create(Request $request)
+	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==92)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			$data['username'] = $user->name;
+			$data['kode']=$request->input('kode');
+			if ($data['kode']!=null  && !empty($data['detil']['279'])){
 				$rowData = DB::select('select * from bkt_01030204_plan_inves_thn where kode='.$data['kode']);
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['skala_kegiatan'] = $rowData[0]->skala_kegiatan;
