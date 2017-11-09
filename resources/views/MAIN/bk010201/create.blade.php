@@ -259,7 +259,9 @@
         var res = true;
         if(sum2>sum){
             res=false;
-        }
+        }else if(p==0 && w==0){
+			res=false;
+		}
         return res;
     };
       $(document).ready(function () {
