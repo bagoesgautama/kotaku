@@ -396,12 +396,14 @@ Route::get('/main/persiapan/propinsi/pokja/pembentukan', 'MAIN\bk010203Controlle
 Route::get('/main/persiapan/propinsi/pokja/pembentukan/select', 'MAIN\bk010203Controller@select');
 Route::post('/main/persiapan/propinsi/pokja/pembentukan', 'MAIN\bk010203Controller@post');
 Route::get('/main/persiapan/propinsi/pokja/pembentukan/create', 'MAIN\bk010203Controller@create');
+Route::get('/main/persiapan/propinsi/pokja/pembentukan/show', 'MAIN\bk010203Controller@show');
 Route::post('/main/persiapan/propinsi/pokja/pembentukan/create', 'MAIN\bk010203Controller@post_create');
 Route::get('/main/persiapan/propinsi/pokja/pembentukan/delete', 'MAIN\bk010203Controller@delete');
 
 Route::get('/main/persiapan/propinsi/pokja/kegiatan', 'MAIN\bk010204Controller@index');
 Route::post('/main/persiapan/propinsi/pokja/kegiatan', 'MAIN\bk010204Controller@post');
 Route::get('/main/persiapan/propinsi/pokja/kegiatan/create', 'MAIN\bk010204Controller@create');
+Route::get('/main/persiapan/propinsi/pokja/kegiatan/show', 'MAIN\bk010204Controller@show');
 Route::post('/main/persiapan/propinsi/pokja/kegiatan/create', 'MAIN\bk010204Controller@post_create');
 Route::get('/main/persiapan/propinsi/pokja/kegiatan/delete', 'MAIN\bk010204Controller@delete');
 

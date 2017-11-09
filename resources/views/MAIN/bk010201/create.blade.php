@@ -248,12 +248,12 @@
         var p = parseInt($('#q-laki-input').val());
         var w = parseInt($('#q-perempuan-input').val());
 
-        var kl = parseInt($('#upp-kementrian-input').val());
-        var dinas = parseInt($('#upp-dinas-input').val());
-        var dpr = parseInt($('#upp-dpr-input').val());
-        var lsm = parseInt($('#upnp-lsm-input').val());
-        var swasta = parseInt($('#upnp-swasta-input').val());
-        var prak = parseInt($('#upnp-praktisi-input').val());
+        var kl = parseInt($('#upp-kementrian-input').val())|| 0;
+        var dinas = parseInt($('#upp-dinas-input').val())|| 0;
+        var dpr = parseInt($('#upp-dpr-input').val())|| 0;
+        var lsm = parseInt($('#upnp-lsm-input').val())|| 0;
+        var swasta = parseInt($('#upnp-swasta-input').val())|| 0;
+        var prak = parseInt($('#upnp-praktisi-input').val())|| 0;
         var sum = p+w;
         var sum2 = kl+dinas+dpr+lsm+swasta+prak;
         var res = true;
