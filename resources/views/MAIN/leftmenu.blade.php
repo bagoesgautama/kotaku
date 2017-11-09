@@ -743,7 +743,7 @@
 	@if( ! empty($menu['15']))
 	<li {!! (Request::is( 'main/pelaksanaan/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
-            <span class="mm-text">2. Tahap Pelaksanaan</span>
+            <span class="mm-text">3. Tahap Pelaksanaan</span>
             <span class="fa arrow"></span>
         </a>
 		<ul class="sub-menu">
@@ -877,7 +877,7 @@
 	@if( ! empty($menu['16']))
 	<li {!! (Request::is( 'main/keberlanjutan/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
         <a href="javascript:void(0)">
-            <span class="mm-text">2. Tahap Keberlanjutan</span>
+            <span class="mm-text">4. Tahap Keberlanjutan</span>
             <span class="fa arrow"></span>
         </a>
 		<ul class="sub-menu">
