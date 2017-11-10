@@ -54,9 +54,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode_kota-input" class="form-control select2" name="select-kode_kota-input" required>
                                         <option value="">Please Select</option>
+                                        @if ($kode_kota_list!=null)
                                         @foreach ($kode_kota_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -65,9 +67,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode_kec-input" class="form-control select2" name="select-kode_kec-input">
                                         <option value="">Please Select</option>
+                                        @if ($kode_kec_list!=null)
                                         @foreach ($kode_kec_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -76,9 +80,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-kode_kel-input" class="form-control select2" name="select-kode_kel-input">
                                         <option value="">Please Select</option>
+                                        @if ($kode_kel_list!=null)
                                         @foreach ($kode_kel_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kel==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -87,9 +93,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-id_kegiatan-input" class="form-control select2" name="select-id_kegiatan-input">
                                         <option value="">Please Select</option>
+                                        @if ($kode_id_kegiatan_list!=null)
                                         @foreach ($kode_id_kegiatan_list as $kkl)
                                             <option value="{{$kkl->id}}" {!! $id_kegiatan==$kkl->id ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -98,9 +106,11 @@
                                 <div class="col-sm-6">
                                     <select id="select-id_dtl_kegiatan-input" class="form-control select2" name="select-id_dtl_kegiatan-input">
                                         <option value="">Please Select</option>
+                                        @if ($kode_id_dtl_kegiatan_list!=null)
                                         @foreach ($kode_id_dtl_kegiatan_list as $kkl)
                                             <option value="{{$kkl->id}}" {!! $id_dtl_kegiatan==$kkl->id ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -211,9 +221,11 @@
                                     <a href="/main/persiapan/kelurahan/lembaga" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
+                                    @if ($detil_menu=='339' || $detil_menu=='340')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
+                                    @endif
                                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                         Reset
                                     </button>
@@ -274,27 +286,12 @@
             placeholder: "Please Select"
         });
 
-        $("#select-kode_korkot-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
         $("#select-kode_kel-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
         });
 
         $("#select-kode_kec-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
-        $("#select-kode_kmw-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
-        $("#select-kode_faskel-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
         });
@@ -347,52 +344,21 @@
         }
         document.body.addEventListener('input', enforce_maxlength);
 
-        var kmw = $('#select-kode_kmw-input');
         var kota = $('#select-kode_kota-input');
-        var korkot = $('#select-kode_korkot-input');
         var kecamatan = $('#select-kode_kec-input');
         var kelurahan = $('#select-kode_kel-input');
-        var faskel = $('#select-kode_faskel-input');
         var kegiatan = $('#select-id_kegiatan-input');
         var dtl_kegiatan = $('#select-id_dtl_kegiatan-input');
-        var kmw_id,kota_id,korkot_id,kel_id,kec_id,faskel_id,kegiatan_id;
-        kmw.change(function(){
-            kmw_id=kmw.val();
-            if(kmw_id!=undefined){
-                kota.empty();
-                kota.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kelurahan/lembaga/select?kmw="+kmw_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
+        var kota_id,kel_id,kec_id,kegiatan_id;
+        
         kota.change(function(){
             kota_id=kota.val();
             if(kota_id!=undefined){
-                korkot.empty();
-                korkot.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kelurahan/lembaga/select?kota="+kota_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
                 kecamatan.empty();
                 kecamatan.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/lembaga/select?korkot="+kota_id,
+                    "url": "/main/persiapan/kelurahan/lembaga/select?kec="+kota_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -409,28 +375,11 @@
                 kelurahan.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/lembaga/select?kec="+kec_id,
+                    "url": "/main/persiapan/kelurahan/lembaga/select?kel="+kec_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
                             kelurahan.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
-        kelurahan.change(function(){
-            kel_id=kelurahan.val();
-            if(kel_id!=undefined){
-                faskel.empty();
-                faskel.append("<option value=undefined>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kelurahan/lembaga/select?kel="+kel_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            faskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
                         }
                     }
                 });
