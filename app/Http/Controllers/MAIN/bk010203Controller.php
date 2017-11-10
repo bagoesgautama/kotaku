@@ -109,8 +109,9 @@ class bk010203Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_edit=url('/')."/main/persiapan/propinsi/pokja/pembentukan/create?kode=".$edit;
-				$url_delete=url('/')."/main/persiapan/propinsi/pokja/pembentukan/delete?kode=".$delete;
+				$url_show="/main/persiapan/propinsi/pokja/pembentukan/show?kode=".$edit;
+				$url_edit="/main/persiapan/propinsi/pokja/pembentukan/create?kode=".$edit;
+				$url_delete="/main/persiapan/propinsi/pokja/pembentukan/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['tahun'] = $post->tahun_pokja;
 				$nestedData['nama_prop'] = $post->nama_prop;
@@ -129,6 +130,9 @@ class bk010203Controller extends Controller
 				}
 
 				$option = '';
+				if(!empty($detil['69'])){
+					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
+				}
 				if(!empty($detil['70'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
@@ -176,7 +180,8 @@ class bk010203Controller extends Controller
 			$data['kode']=$request->input('kode');
 			$data['tahun_list'] = DB::select('select * from list_tahun');
 
-			if($data['kode']!=null  && !empty($data['detil']['60'])){
+			if($data['kode']!=null  && !empty($data['detil']['68'])){
+				$data['detil_menu']='68';
 				$rowData = DB::select('select * from bkt_01020202_pokja where kode='.$data['kode']);
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_prop'] = $rowData[0]->kode_prop;
@@ -208,9 +213,10 @@ class bk010203Controller extends Controller
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
-				$data['kode_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
-				if(!empty($rowData[0]->kode_prop))
-					$data['kode_kmw_list']=DB::select('select kode, nama from bkt_01010110_kmw where kode_prop='.$rowData[0]->kode_prop);
+				$data['flag_sekretariat'] = $rowData[0]->flag_sekretariat;
+				//$data['kode_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
+				$data['kode_prop_list']=[];
+				$data['kode_kmw_list'] = [];
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010203/create',$data);
 			}
@@ -233,6 +239,7 @@ class bk010203Controller extends Controller
 			$data['kode']=$request->input('kode');
 			$data['tahun_list'] = DB::select('select * from list_tahun');
 			if($data['kode']!=null && !empty($data['detil']['70'])){
+				$data['detil_menu']='70';
 				$rowData = DB::select('select * from bkt_01020202_pokja where kode='.$data['kode']);
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_prop'] = $rowData[0]->kode_prop;
@@ -264,12 +271,14 @@ class bk010203Controller extends Controller
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['flag_sekretariat'] = $rowData[0]->flag_sekretariat;
 				$data['kode_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
 				if(!empty($rowData[0]->kode_prop))
 					$data['kode_kmw_list']=DB::select('select kode, nama from bkt_01010110_kmw where kode_prop='.$rowData[0]->kode_prop);
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010203/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['69'])){
+				$data['detil_menu']='69';
 				$data['tahun'] = null;
 				$data['kode_prop'] = null;
 				$data['kode_kmw'] = null;
@@ -300,6 +309,7 @@ class bk010203Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
+				$data['flag_sekretariat'] = null;
 				$data['kode_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
 				$data['kode_kmw_list'] = null;
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
@@ -382,6 +392,7 @@ class bk010203Controller extends Controller
 				'ket_rencana_kerja' => $request->input('ket-rencana-kerja-input'),
 				'uri_img_document' => $url_dokumen,
 				'uri_img_absensi' => $url_absensi,
+				'flag_sekretariat' => (int)$request->input('flag_sekretariat-input'),
 				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
 				// 'diser_oleh' => $request->input('diser-oleh-input'),
 				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
@@ -429,6 +440,7 @@ class bk010203Controller extends Controller
 				'ket_rencana_kerja' => $request->input('ket-rencana-kerja-input'),
 				'uri_img_document' => $url_dokumen,
 				'uri_img_absensi' => $url_absensi,
+				'flag_sekretariat' => (int)$request->input('flag_sekretariat-input'),
 				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
 				// 'diser_oleh' => $request->input('diser-oleh-input'),
 				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
