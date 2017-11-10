@@ -272,22 +272,22 @@
 
         $("#select-kode_kota-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
 
         $("#select-kode_kel-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
 
         $("#select-kode_kec-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
 
         $("#select-jenis_kegiatan-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
 
         $("#file-dok_rencana_kerja-input").fileinput({
@@ -343,7 +343,9 @@
         var kota = $('#select-kode_kota-input');
         var kecamatan = $('#select-kode_kec-input');
         var kelurahan = $('#select-kode_kel-input');
-        var kota_id,kel_id,kec_id;
+        var korkot = $('#kode_korkot-input');
+        var faskel = $('#kode_faskel-input');
+        var kota_id,kec_id,kel_id;
         kota.change(function(){
             kota_id=kota.val();
             if(kota_id!=undefined){
@@ -356,6 +358,17 @@
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
                             kecamatan.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+                korkot.empty();
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?korkot="+kota_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            korkot.val(data[0].kode_korkot);
                         }
                     }
                 });
@@ -374,6 +387,23 @@
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
                             kelurahan.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });   
+            }
+        });
+        kelurahan.change(function(){
+            kel_id=kelurahan.val();
+            console.log(kel_id)
+            if(kel_id!=undefined){
+                faskel.empty();
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?faskel="+kel_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            faskel.val(data[0].kode_faskel);;
                         }
                     }
                 });

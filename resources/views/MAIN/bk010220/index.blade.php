@@ -93,7 +93,7 @@
                 { "data": "total_anggota" , name:"total_anggota"},
                 { "data": "option" , name:"option"}
             ],
-            "order":[[0,"desc"]]
+            "order":[[1,"desc"]]
         });
 
         $('#users_filter input').unbind();
