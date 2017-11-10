@@ -939,4 +939,42 @@
 		</ul>
 	</li>
 	@endif
+	<li {!! (Request::is( 'report/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+        <a href="javascript:void(0)">
+            <span class="mm-text">Report</span>
+            <span class="fa arrow"></span>
+        </a>
+		<ul class="sub-menu">
+			<li {!! (Request::is( 'report/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+		        <a href="javascript:void(0)">
+		            <span class="mm-text">KPI Report</span>
+		        </a>
+			</li>
+			<li {!! (Request::is( 'report/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+		        <a href="javascript:void(0)">
+		            <span class="mm-text">Laporan Profil Permukiman</span>
+		        </a>
+			</li>
+			<li {!! (Request::is( 'report/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+		        <a href="javascript:void(0)">
+		            <span class="mm-text">Laporan Profil Kumuh</span>
+		        </a>
+			</li>
+			<li {!! (Request::is( 'report/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+		        <a href="javascript:void(0)">
+		            <span class="mm-text">Laporan Pengurangan Luasan Kumuh</span>
+		        </a>
+			</li>
+			<li {!! (Request::is( 'report/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+		        <a href="javascript:void(0)">
+		            <span class="mm-text">Laporan Profil SIM</span>
+		        </a>
+			</li>
+			<li {!! (Request::is( 'report/*') ? 'class="menu-dropdown active"': 'class="menu-dropdown"') !!}>
+		        <a href="javascript:void(0)">
+		            <span class="mm-text">Kelengkapan Data</span>
+		        </a>
+			</li>
+		</ul>
+	</li>
 </ul>
