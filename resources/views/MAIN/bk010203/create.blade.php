@@ -283,8 +283,6 @@
 		var sum = p+w;
 		var sum2 = kl+dinas+dpr+lsm+swasta+prak;
 		var res = true;
-		console.log(sum2)
-		console.log(sum)
 		if(sum2>sum){
 			res=false;
 		}else if(p==0 && w==0){
@@ -332,6 +330,8 @@
 	            form_data.append('upnp-praktisi-input', $('#upnp-praktisi-input').val());
 	            form_data.append('dana-ops-input', $('#dana-ops-input').val());
 	            form_data.append('ket-rencana-kerja-input', $('#ket-rencana-kerja-input').val());
+				form_data.append('flag_sekretariat-input', $('#flag_sekretariat-input').val());
+
 	            //form_data.append('tgl-diser-input', $('#tgl-diser-input').val());
 	            //form_data.append('diser-oleh-input', $('#diser-oleh-input').val());
 	            //form_data.append('tgl-diket-input', $('#tgl-diket-input').val());

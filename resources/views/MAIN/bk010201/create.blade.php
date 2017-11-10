@@ -320,6 +320,7 @@
                 form_data.append('diket-oleh-input', $('#diket-oleh-input').val());
                 form_data.append('tgl-diver-input', $('#tgl-diver-input').val());
                 form_data.append('diver-oleh-input', $('#diver-oleh-input').val());
+				form_data.append('flag_sekretariat-input', $('#flag_sekretariat-input').val());
               e.preventDefault();
               $.ajax({
                 type: 'post',

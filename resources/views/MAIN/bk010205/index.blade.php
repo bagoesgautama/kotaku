@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Informasi Umum @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Informasi Umum @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -53,6 +53,12 @@
                         <thead>
                             <tr>
                                 <th>Kota</th>
+								<th>Dasar Hukum</th>
+								<th>Jumlah Kawasan Kumuh</th>
+								<th>Jumlah Kecamatan Kumuh</th>
+								<th>Jumlah Kelurahan Kumuh</th>
+								<th>Jumlah RT Kumuh</th>
+								<th>Jumlah RT Non Kumuh</th>
                                 <th>option</th>
                             </tr>
                         </thead>
@@ -69,7 +75,7 @@
     $(document).ready(function () {
         var table = $('#kegiatan').DataTable({
             // dom: 'Bflrtip',
-            
+
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -77,9 +83,14 @@
                      "dataType": "json",
                      "type": "POST"
                    },
-
             "columns": [
-                { "data": "kode_kota" , name:"kode_kota"},
+                { "data": "nama" , name:"nama"},
+				{ "data": "km_ds_hkm" , name:"km_ds_hkm"},
+				{ "data": "km_q_kw_kmh" , name:"km_q_kw_kmh"},
+				{ "data": "km_q_kec_kmh" , name:"km_q_kec_kmh"},
+				{ "data": "km_q_kel_kmh" , name:"km_q_kel_kmh"},
+				{ "data": "km_q_rt_kmh" , name:"km_q_rt_kmh"},
+				{ "data": "km_q_rt_non_kmh" , name:"km_q_rt_non_kmh"},
                 { "data": "option" , name:"option",orderable:false}
             ]
         });

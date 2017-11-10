@@ -53,9 +53,15 @@ class bk010205Controller extends Controller
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'kode_kota'
+			0 =>'nama',
+			1 =>'km_ds_hkm',
+			2 =>'km_q_kw_kmh',
+			3 =>'km_q_kec_kmh',
+			4 =>'km_q_kel_kmh',
+			5 =>'km_q_rt_kmh',
+			6 =>'km_q_rt_non_kmh'
 		);
-		$query='select bkv_01020201_info_kota.kode_kota as kode_kota, bkt_01010102_kota.nama as nama from bkv_01020201_info_kota inner join bkt_01010102_kota on bkv_01020201_info_kota.kode_kota = bkt_01010102_kota.kode';
+		$query='select a.*, b.nama as nama from bkv_01020201_info_kota a inner join bkt_01010102_kota b on a.kode_kota = b.kode';
 		$totalData = DB::select('select count(1) cnt from bkv_01020201_info_kota inner join bkt_01010102_kota on bkv_01020201_info_kota.kode_kota = bkt_01010102_kota.kode');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -64,12 +70,12 @@ class bk010205Controller extends Controller
 		$dir = $request->input('order.0.dir');
 		if(empty($request->input('search.value')))
 		{
-			$posts=DB::select($query .' order by bkv_01020201_info_kota.'.$order.' '.$dir.' limit '.$start.','.$limit);
+			$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and bkt_01010102_kota.nama like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) from ('.$query. ' and bkt_01010102_kota.nama like "%'.$search.'%") a');
+			$posts=DB::select($query. ' and b.nama like "%'.$search.'%" order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) from ('.$query. ' and b.nama like "%'.$search.'%") a');
 		}
 
 		$data = array();
@@ -80,10 +86,32 @@ class bk010205Controller extends Controller
 				$show =  $post->kode_kota;
 				$edit =  $post->kode_kota;
 				$delete = $post->kode_kota;
-				$url_edit=url('/')."/main/persiapan/kota/info/create?kode_kota=".$show;
-				$url_delete=url('/')."/main/persiapan/kota/info/delete?kode_kota=".$delete;
-				$nestedData['kode_kota'] = $post->nama;
-				$nestedData['option'] = "&emsp;<a href='{$url_edit}' title='Show' ><span class='fa fa-fw fa-edit'></span></a>";
+				$url_edit="/main/persiapan/kota/info/create?kode_kota=".$show;
+				$url_show="/main/persiapan/kota/info/show?kode_kota=".$show;
+				$url_delete="/main/persiapan/kota/info/delete?kode_kota=".$delete;
+				$nestedData['nama'] = $post->nama;
+				$nestedData['km_ds_hkm'] = $post->km_ds_hkm;
+				$nestedData['km_q_kw_kmh'] = $post->km_q_kw_kmh;
+				$nestedData['km_q_kec_kmh'] = $post->km_q_kec_kmh;
+				$nestedData['km_q_kel_kmh'] = $post->km_q_kel_kmh;
+				$nestedData['km_q_rt_kmh'] = $post->km_q_rt_kmh;
+				$nestedData['km_q_rt_non_kmh'] = $post->km_q_rt_non_kmh;
+				$user = Auth::user();
+		        $akses= $user->menu()->where('kode_apps', 1)->get();
+				if(count($akses) > 0){
+					foreach ($akses as $item) {
+						if($item->kode_menu==40)
+							$detil[$item->kode_menu_detil]='a';
+					}
+				}
+				$option = '';
+				if(!empty($detil['107'])){
+					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
+				}
+				if(!empty($detil['578'])){
+					$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
+				}
+				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
 		}
@@ -141,36 +169,6 @@ class bk010205Controller extends Controller
 					$data['cpk_q_kk_miskin'] = $rowData[0]->cpk_q_kk_miskin;
 					$data['cpk_r_pdt_kpdk'] = $rowData[0]->cpk_r_pdt_kpdk;
 					$data['cpk_t_pdk_thn'] = $rowData[0]->cpk_t_pdk_thn;
-				}else{
-					$data['ca_q_kec'] = null;
-					$data['ca_q_kel'] = null;
-					$data['ca_q_dusun'] = null;
-					$data['ca_q_rw'] = null;
-					$data['ca_q_rt'] = null;
-					$data['lw_l_wil_adm'] = null;
-					$data['lw_l_pmkm'] = null;
-					$data['cp_q_pdk'] = null;
-					$data['cp_q_pdk_w'] = null;
-					$data['cp_q_kk'] = null;
-					$data['cp_q_kk_mbr'] = null;
-					$data['cp_q_kk_miskin'] = null;
-					$data['cp_r_pdt_kpdk'] = null;
-					$data['cp_t_pdk_thn'] = null;
-					$data['km_ds_hkm'] = null;
-					$data['km_q_kw_kmh'] = null;
-					$data['km_q_kec_kmh'] = null;
-					$data['km_q_kel_kmh'] = null;
-					$data['km_q_rt_kmh'] = null;
-					$data['km_q_rt_non_kmh'] = null;
-					$data['lk_l_kw_kmh'] = null;
-					$data['lk_l_rt_kmh'] = null;
-					$data['cpk_q_pdk'] = null;
-					$data['cpk_q_pdk_w'] = null;
-					$data['cpk_q_kk'] = null;
-					$data['cpk_q_kk_mbr'] = null;
-					$data['cpk_q_kk_miskin'] = null;
-					$data['cpk_r_pdt_kpdk'] = null;
-					$data['cpk_t_pdk_thn'] = null;
 				}
 				if (Auth::check()) {
 					$user = Auth::user();

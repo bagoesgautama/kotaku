@@ -86,7 +86,7 @@
                                 </div>
                             </div>
 							<div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="kode">Hadirin Bukan Anggota Pokja</label>
+                                <label class="col-sm-3 control-label" for="kode">Peserta Non Anggota Pokja</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q_non_anggota-input" name="q_non_anggota-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota}}" maxlength="11" required min="0">
                                 </div>
