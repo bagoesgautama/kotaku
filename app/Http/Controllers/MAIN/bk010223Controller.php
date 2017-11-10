@@ -53,29 +53,14 @@ class bk010223Controller extends Controller
 		}
     }
 
-	public function show()
-	{
-		//$users = DB::select('select * from users ');
-		//echo json_encode($users);
-		$data['username'] = '';
-		$data['test']=true;
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
-		return view('/main/persiapan/kelurahan/lembaga',$data);
-	}
-
 	public function Post(Request $request)
 	{
 		$columns = array(
-			0 =>'tahun',
+			0 =>'kode',
+			1 =>'tahun',
 			1 =>'kode_kota',
-			2 =>'kode_korkot',
 			3 =>'kode_kec',
-			4 =>'kode_kmw',
 			5 =>'kode_kel',
-			6 =>'kode_faskel',
 			7 =>'id_kegiatan',
 			8 =>'id_dtl_kegiatan',
 			9 =>'tgl_kegiatan',
@@ -96,31 +81,25 @@ class bk010223Controller extends Controller
 			24 =>'updated_time',
 			25 =>'updated_by'
 		);
-		$query='select a.*, 
-					b.nama nama_kota, 
-					c.nama nama_korkot, 
-					d.nama nama_kec, 
-					e.nama nama_kmw, 
-					f.nama nama_kel, 
-					g.nama nama_faskel, 
-					h.nama nama_kegiatan
-				from bkt_01020215_lembaga_kel a
-					left join bkt_01010102_kota b on a.kode_kota=b.kode
-					left join bkt_01010111_korkot c on a.kode_korkot=c.kode
-					left join bkt_01010103_kec d on a.kode_kec=d.kode
-					left join bkt_01010110_kmw e on a.kode_kmw=e.kode
-					left join bkt_01010104_kel f on a.kode_kel=f.kode
-					left join bkt_01010113_faskel g on a.kode_faskel=g.kode
-					left join bkt_01010118_kegiatan_kel h on h.id=a.id_kegiatan ';
-		$totalData = DB::select('select count(1) cnt
-									from bkt_01020215_lembaga_kel a
+		$query='select * from (
+					select a.*, 
+						b.nama nama_kota, 
+						c.nama nama_kec,  
+						d.nama nama_kel, 
+						e.nama nama_kegiatan,
+						f.nama nama_dtl_kegiatan
+					from bkt_01020215_lembaga_kel a
+						left join bkt_01010102_kota b on a.kode_kota=b.kode
+						left join bkt_01010103_kec c on a.kode_kec=c.kode
+						left join bkt_01010104_kel d on a.kode_kel=d.kode
+						left join bkt_01010118_kegiatan_kel e on e.id=a.id_kegiatan 
+						left join bkt_01010119_dtl_keg_kel f on f.id=a.id_dtl_kegiatan) x ';
+		$totalData = DB::select('select count(1) cnt from bkt_01020215_lembaga_kel a
 									left join bkt_01010102_kota b on a.kode_kota=b.kode
-									left join bkt_01010111_korkot c on a.kode_korkot=c.kode
-									left join bkt_01010103_kec d on a.kode_kec=d.kode
-									left join bkt_01010110_kmw e on a.kode_kmw=e.kode
-									left join bkt_01010104_kel f on a.kode_kel=f.kode
-									left join bkt_01010113_faskel g on a.kode_faskel=g.kode
-									left join bkt_01010118_kegiatan_kel h on h.id=a.id_kegiatan ');
+									left join bkt_01010103_kec c on a.kode_kec=c.kode
+									left join bkt_01010104_kel d on a.kode_kel=d.kode
+									left join bkt_01010118_kegiatan_kel e on e.id=a.id_kegiatan 
+									left join bkt_01010119_dtl_keg_kel f on f.id=a.id_dtl_kegiatan ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -133,26 +112,24 @@ class bk010223Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. ' where (
-					b.nama like "%'.$search.'%" or 
-					c.nama like "%'.$search.'%" or
-					d.nama like "%'.$search.'%" or 
-					e.nama like "%'.$search.'%" or
-					f.nama like "%'.$search.'%" or
-					g.nama like "%'.$search.'%" or
-					a.tgl_kegiatan like "%'.$search.'%" or
-					a.lok_kegiatan like "%'.$search.'%" or 
-					a.tahun like "%'.$search.'%" )
+					x.kode like "%'.$search.'%" or 
+					x.nama_kota like "%'.$search.'%" or 
+					x.nama_kec like "%'.$search.'%" or
+					x.nama_kel like "%'.$search.'%" or 
+					x.nama_kegiatan like "%'.$search.'%" or
+					x.nama_dtl_kegiatan like "%'.$search.'%" or
+					x.lok_kegiatan like "%'.$search.'%" or 
+					x.tahun like "%'.$search.'%" )
 					order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
-					b.nama like "%'.$search.'%" or 
-					c.nama like "%'.$search.'%" or
-					d.nama like "%'.$search.'%" or 
-					e.nama like "%'.$search.'%" or
-					f.nama like "%'.$search.'%" or
-					g.nama like "%'.$search.'%" or
-					a.tgl_kegiatan like "%'.$search.'%" or
-					a.lok_kegiatan like "%'.$search.'%" or 
-					a.tahun like "%'.$search.'%"
+					x.kode like "%'.$search.'%" or 
+					x.nama_kota like "%'.$search.'%" or 
+					x.nama_kec like "%'.$search.'%" or
+					x.nama_kel like "%'.$search.'%" or 
+					x.nama_kegiatan like "%'.$search.'%" or
+					x.nama_dtl_kegiatan like "%'.$search.'%" or
+					x.lok_kegiatan like "%'.$search.'%" or 
+					x.tahun like "%'.$search.'%"
 					)) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
@@ -169,15 +146,12 @@ class bk010223Controller extends Controller
 				$url_show=url('/')."/main/persiapan/kelurahan/lembaga/show?kode=".$edit;
 				$url_edit=url('/')."/main/persiapan/kelurahan/lembaga/create?kode=".$edit;
 				$url_delete=url('/')."/main/persiapan/kelurahan/lembaga/delete?kode=".$delete;
+				$nestedData['kode'] = $post->kode;
 				$nestedData['tahun'] = $post->tahun;
 				$nestedData['nama_kota'] = $post->nama_kota;
-				$nestedData['nama_korkot'] = $post->nama_korkot;
 				$nestedData['nama_kec'] = $post->nama_kec;
-				$nestedData['nama_kmw'] = $post->nama_kmw;
 				$nestedData['nama_kel'] = $post->nama_kel;
-				$nestedData['nama_faskel'] = $post->nama_faskel;
-				$nestedData['nama_kegiatan'] = $post->nama_kegiatan;
-				$nestedData['id_dtl_kegiatan'] = $post->id_dtl_kegiatan;
+				$nestedData['nama_kegiatan'] = $post->nama_kegiatan.' - '.$post->nama_dtl_kegiatan;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 				$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
 				$nestedData['q_peserta_p'] = $post->q_peserta_p;
@@ -185,12 +159,6 @@ class bk010223Controller extends Controller
 				$nestedData['q_peserta_miskin'] = $post->q_peserta_miskin;
 				$nestedData['uri_img_document'] = $post->uri_img_document;
 				$nestedData['uri_img_absensi'] = $post->uri_img_absensi;
-				$nestedData['diser_tgl'] = $post->diser_tgl;
-				$nestedData['diser_oleh'] = $post->diser_oleh;
-				$nestedData['diket_tgl'] = $post->diket_tgl;
-				$nestedData['diket_oleh'] = $post->diket_oleh;
-				$nestedData['diver_tgl'] = $post->diver_tgl;
-				$nestedData['diver_oleh'] = $post->diver_oleh;
 				$nestedData['created_time'] = $post->created_time;
 				$nestedData['created_by'] = $post->created_by;
 				$nestedData['updated_time'] = $post->updated_time;
@@ -205,7 +173,7 @@ class bk010223Controller extends Controller
 				}
 
 				$option = '';
-				if(!empty($detil['338'])){
+				if(!empty($detil['181'])){
 					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
 				}
 				if(!empty($detil['340'])){
@@ -266,24 +234,29 @@ class bk010223Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==71)
+				if($item->kode_menu==69)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
 			$data['tahun_list'] = DB::select('select * from list_tahun');
-			if($data['kode']!=null && !empty($data['detil']['202'])){
-				$rowData = DB::select('select * from bkt_01020213_f_forum_kel where kode='.$data['kode']);
-				$data['detil_menu']='202';
-				$data['kode_forum'] = $rowData[0]->kode_forum;
-				$data['kode_forum_list'] = DB::select('select a.kode kode_forum, b.nama nama_kota, b.kode, c.nama nama_kel, c.kode 
-											from bkt_01020212_forum_kel a, bkt_01010102_kota b, bkt_01010104_kel c, bkt_01020213_f_forum_kel d
-											where a.kode_kota=b.kode and a.kode_kel=c.kode and d.kode='.$rowData[0]->kode);
-				$data['kode_kegiatan'] = $rowData[0]->kode_kegiatan;
+			if($data['kode']!=null && !empty($data['detil']['181'])){
+				$rowData = DB::select('select * from bkt_01020215_lembaga_kel where kode='.$data['kode']);
+				$data['detil_menu']='181';
+				$data['tahun'] = $rowData[0]->tahun;
+				$data['kode_kota'] = $rowData[0]->kode_kota;
+				$data['kode_korkot'] = $rowData[0]->kode_korkot;
+				$data['kode_kec'] = $rowData[0]->kode_kec;
+				$data['kode_kmw'] = $rowData[0]->kode_kmw;
+				$data['kode_kel'] = $rowData[0]->kode_kel;
+				$data['kode_faskel'] = $rowData[0]->kode_faskel;
+				$data['id_kegiatan'] = $rowData[0]->id_kegiatan;
+				$data['id_dtl_kegiatan'] = $rowData[0]->id_dtl_kegiatan;
 				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
 				$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
 				$data['q_peserta_p'] = $rowData[0]->q_peserta_p;
 				$data['q_peserta_w'] = $rowData[0]->q_peserta_w;
+				$data['q_peserta_miskin'] = $rowData[0]->q_peserta_miskin;
 				$data['uri_img_document'] = $rowData[0]->uri_img_document;
 				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
 				$data['diser_tgl'] = $rowData[0]->diser_tgl;
@@ -296,8 +269,13 @@ class bk010223Controller extends Controller
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_kota_list']=DB::select('select b.kode, b.nama from bkt_01020215_lembaga_kel a, bkt_01010102_kota b where a.kode_kota=b.kode');
+				$data['kode_kec_list']=DB::select('select b.kode, b.nama from bkt_01020215_lembaga_kel a, bkt_01010103_kec b where a.kode_kec=b.kode');
+				$data['kode_kel_list']=DB::select('select b.kode, b.nama from bkt_01020215_lembaga_kel a, bkt_01010104_kel b where a.kode_kel=b.kode');
+				$data['kode_id_kegiatan_list'] = DB::select('select b.id, b.kode_kegiatan, b.nama from bkt_01020215_lembaga_kel a,  bkt_01010118_kegiatan_kel b where a.id_kegiatan=b.id');
+				$data['kode_id_dtl_kegiatan_list']=DB::select('select b.id, b.nama from bkt_01020215_lembaga_kel a,  bkt_01010119_dtl_keg_kel b where a.id_dtl_kegiatan=b.id');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
-				return view('MAIN/bk010221/create',$data);
+				return view('MAIN/bk010223/create',$data);
 			}
 		}else{
 			return Redirect::to('/');
