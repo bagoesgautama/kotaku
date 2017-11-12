@@ -457,6 +457,7 @@ class bk010311Controller extends Controller
 
 			if($data['kode']!=null  && !empty($data['detil']['299'])){
 				$rowData = DB::select('select * from bkt_01030208_usulan_keg_kt where kode='.$data['kode']);
+				$data['detil_menu']='299';
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['skala_kegiatan'] = $rowData[0]->skala_kegiatan;
 				$data['kode_kota'] = $rowData[0]->kode_kota;
@@ -525,6 +526,7 @@ class bk010311Controller extends Controller
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010311/create',$data);
 			}else if ($data['kode']==null  && !empty($data['detil']['298'])){
+				$data['detil_menu']='298';
 				$data['tahun'] = null;
 				$data['skala_kegiatan'] = null;
 				$data['kode_kota'] = null;

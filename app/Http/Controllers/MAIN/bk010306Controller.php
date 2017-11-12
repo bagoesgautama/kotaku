@@ -186,7 +186,7 @@ class bk010306Controller extends Controller
 			$data['tahun_list'] = DB::select('select * from list_tahun');
 			if($data['kode']!=null  && !empty($data['detil']['273'])){
 				$rowData = DB::select('select * from bkt_01030203_rp2kp_siap where kode='.$data['kode']);
-				$data['detil_menu']='253';
+				$data['detil_menu']='273';
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_prop'] = $rowData[0]->kode_prop;
 				$data['kode_kmw'] = $rowData[0]->kode_kmw;
@@ -286,6 +286,7 @@ class bk010306Controller extends Controller
 			$data['kode']=$request->input('kode');
 			if ($data['kode']!=null  && !empty($data['detil']['275'])){
 				$rowData = DB::select('select * from bkt_01030203_rp2kp_siap where kode='.$data['kode']);
+				$data['detil_menu']='275';
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_prop'] = $rowData[0]->kode_prop;
 				$data['kode_kmw'] = $rowData[0]->kode_kmw;
@@ -366,6 +367,7 @@ class bk010306Controller extends Controller
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010306/create',$data);
 			}else if ($data['kode']==null  && !empty($data['detil']['274'])){
+				$data['detil_menu']='274';
 				$data['tahun'] = null;
 				$data['kode_prop'] = null;
 				$data['kode_kmw'] = null;
