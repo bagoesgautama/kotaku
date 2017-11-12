@@ -54,6 +54,19 @@ $(document).ready(function() {
 	for(var i=0;i<prop.length;i++){
 		map.data.loadGeoJson('/uploads/provinsi/'+prop[i].url_border_area);
 		attr[prop[i].nama]=prop[i]
+		attr[prop[i].nama].infowindow = new google.maps.InfoWindow({});
+		console.log(prop[i])
+		var contentString = '<div id="content">'+
+			'<div id="siteNotice">'+
+			'</div>'+
+			'<div id="bodyContent">'
+			+`
+			<p><b>Nama :`+prop[i].nama+` </b></br>
+			<p><b>Luas :`+prop[i].luas_wil+` </b></br>
+			<p><b>Latitude :`+prop[i].latitude+` </b></br>
+			<p><b>Longitude :`+prop[i].longitude+` </b></br>
+			<p><b>Cakupan Program :`+prop[i].flag_cakupan_prog+` </b></br></p>`
+		attr[prop[i].nama].infowindow.setContent(contentString);
 	}
 
 	map.data.setStyle(function(feature) {
@@ -69,8 +82,10 @@ $(document).ready(function() {
 			  });
 		}
 	})
+
+
 	map.data.addListener('mouseover', function(event) {
-		var data_detil=attr[event.feature.f.PROPINSI]
+		/*var data_detil=attr[event.feature.f.PROPINSI]
     	var row = '';
 		for(var key in data_detil){
 			row += '<tr>';
@@ -78,7 +93,9 @@ $(document).ready(function() {
 			row+='<td>' + data_detil[key]+' </td>';
 			row +='<tr>'
 		}
-	    $('#info').html(row);
+	    $('#info').html(row);*/
+		attr[event.feature.f.PROPINSI].infowindow.setPosition(event.latLng);
+		attr[event.feature.f.PROPINSI].infowindow.open(map)
 	});
 	map.data.addListener('click', function(event) {
 		window.location.href = '/gis/map-kota?id='+attr[event.feature.f.PROPINSI].kode;

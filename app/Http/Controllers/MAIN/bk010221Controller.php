@@ -53,43 +53,37 @@ class bk010221Controller extends Controller
 		}
     }
 
-	public function show()
-	{
-		//$users = DB::select('select * from users ');
-		//echo json_encode($users);
-		$data['username'] = '';
-		$data['test']=true;
-		if (Auth::check()) {
-			$user = Auth::user();
-			$data['username'] = Auth::user()->name;
-		}
-		return view('/main/persiapan/kelurahan/forum/keberfungsian',$data);
-	}
-
 	public function Post(Request $request)
 	{
 		$columns = array(
 			0 =>'kode_forum',
 			1 =>'kode_kegiatan',
-			8 =>'tgl_kegiatan',
-			9 =>'lok_kegiatan',
-			10 =>'q_peserta_p',
-			11 =>'q_peserta_w',
-			12 =>'uri_img_document',
-			13 =>'uri_img_absensi',
-			15 =>'diser_tgl',
-			16 =>'diser_oleh',
-			17 =>'diket_tgl',
-			18 =>'diket_oleh',
-			19 =>'diver_tgl',
-			20 =>'diver_oleh',
-			22 =>'created_time',
-			23 =>'created_by',
-			24 =>'updated_time',
-			25 =>'updated_by'
+			2 =>'lok_kegiatan',
+			3 =>'tgl_kegiatan',
+			4 =>'q_peserta_p',
+			5 =>'q_peserta_w',
+			6 =>'created_time',
+			7 =>'created_by',
+			8 =>'updated_time',
+			9 =>'updated_by'
 		);
-		$query='select * from bkt_01020213_f_forum_kel';
-		$totalData = DB::select('select count(1) cnt from bkt_01020213_f_forum_kel ');
+		$query='select * from (
+					select a.*, 
+						c.nama nama_kota, 
+						d.nama nama_kel, 
+						case 
+							when a.kode_kegiatan = "2.6.1.2.3" then "Pertemuan Rutin"
+							when a.kode_kegiatan = "2.6.1.2.4" then "Kegiatan Monitoring"
+						end jenis_kegiatan
+					from  bkt_01020213_f_forum_kel a 
+						left join bkt_01020212_forum_kel b on a.kode_forum=b.kode
+						left join bkt_01010102_kota c on b.kode_kota=c.kode
+						left join bkt_01010104_kel d on b.kode_kel=d.kode) x ';
+		$totalData = DB::select('select count(1) cnt
+								from  bkt_01020213_f_forum_kel a 
+									left join bkt_01020212_forum_kel b on a.kode_forum=b.kode
+									left join bkt_01010102_kota c on b.kode_kota=c.kode
+									left join bkt_01010104_kel d on b.kode_kel=d.kode ');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -102,16 +96,18 @@ class bk010221Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. ' where (
-					kode_forum like "%'.$search.'%" or 
-					kode_kegiatan like "%'.$search.'%" or
-					tgl_kegiatan like "%'.$search.'%" or 
-					lok_kegiatan like "%'.$search.'%" )
+					x.kode like "%'.$search.'%" or 
+					x.kode_forum like "%'.$search.'%" or 
+					x.jenis_kegiatan like "%'.$search.'%" or
+					x.nama_kota like "%'.$search.'%" or 
+					x.nama_kel like "%'.$search.'%" )
 					order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
-					kode_forum like "%'.$search.'%" or 
-					kode_kegiatan like "%'.$search.'%" or
-					tgl_kegiatan like "%'.$search.'%" or 
-					lok_kegiatan like "%'.$search.'%"
+					x.kode like "%'.$search.'%" or 
+					x.kode_forum like "%'.$search.'%" or 
+					x.jenis_kegiatan like "%'.$search.'%" or
+					x.nama_kota like "%'.$search.'%" or 
+					x.nama_kel like "%'.$search.'%"
 					)) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
@@ -124,22 +120,18 @@ class bk010221Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_edit=url('/')."/main/persiapan/kelurahan/forum/keberfungsian/create?kode=".$show;
+				//show
+				$url_show=url('/')."/main/persiapan/kelurahan/forum/keberfungsian/show?kode=".$edit;
+				$url_edit=url('/')."/main/persiapan/kelurahan/forum/keberfungsian/create?kode=".$edit;
 				$url_delete=url('/')."/main/persiapan/kelurahan/forum/keberfungsian/delete?kode=".$delete;
-				$nestedData['kode_forum'] = $post->kode_forum;
-				$nestedData['kode_kegiatan'] = $post->kode_kegiatan;
+				$nestedData['kode'] = $post->kode;
+				$nestedData['jenis_forum'] = $post->kode_forum.'-'.$post->nama_kota.'-'.$post->nama_kel;
+				$nestedData['kode_kegiatan'] = $post->jenis_kegiatan;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 				$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
 				$nestedData['q_peserta_p'] = $post->q_peserta_p;
 				$nestedData['q_peserta_w'] = $post->q_peserta_w;
-				$nestedData['uri_img_document'] = $post->uri_img_document;
-				$nestedData['uri_img_absensi'] = $post->uri_img_absensi;
-				$nestedData['diser_tgl'] = $post->diser_tgl;
-				$nestedData['diser_oleh'] = $post->diser_oleh;
-				$nestedData['diket_tgl'] = $post->diket_tgl;
-				$nestedData['diket_oleh'] = $post->diket_oleh;
-				$nestedData['diver_tgl'] = $post->diver_tgl;
-				$nestedData['diver_oleh'] = $post->diver_oleh;
+				$nestedData['jumlah_peserta'] = $post->q_peserta_p + $post->q_peserta_w;
 				$nestedData['created_time'] = $post->created_time;
 				$nestedData['created_by'] = $post->created_by;
 				$nestedData['updated_time'] = $post->updated_time;
@@ -154,6 +146,9 @@ class bk010221Controller extends Controller
 				}
 
 				$option = '';
+				if(!empty($detil['202'])){
+					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
+				}
 				if(!empty($detil['204'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
@@ -175,6 +170,56 @@ class bk010221Controller extends Controller
 		echo json_encode($json_data);
 	}
 
+	public function show(Request $request)
+	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==71)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			$data['username'] = $user->name;
+			$data['kode']=$request->input('kode');
+			$data['tahun_list'] = DB::select('select * from list_tahun');
+			if($data['kode']!=null && !empty($data['detil']['202'])){
+				$rowData = DB::select('select * from bkt_01020213_f_forum_kel where kode='.$data['kode']);
+				$data['detil_menu']='202';
+				$data['kode_forum'] = $rowData[0]->kode_forum;
+				$data['kode_forum_list'] = DB::select('select b.kode kode_forum, 
+																c.nama nama_kota, c.kode, 
+																d.nama nama_kel, d.kode 
+														from bkt_01020213_f_forum_kel a 
+															left join bkt_01020212_forum_kel b on a.kode_forum=b.kode
+															left join bkt_01010102_kota c on b.kode_kota=c.kode 
+															left join bkt_01010104_kel d on b.kode_kel=d.kode
+														where a.kode='.$rowData[0]->kode);
+				$data['kode_kegiatan'] = $rowData[0]->kode_kegiatan;
+				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
+				$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
+				$data['q_peserta_p'] = $rowData[0]->q_peserta_p;
+				$data['q_peserta_w'] = $rowData[0]->q_peserta_w;
+				$data['uri_img_document'] = $rowData[0]->uri_img_document;
+				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
+				$data['diser_tgl'] = $rowData[0]->diser_tgl;
+				$data['diser_oleh'] = $rowData[0]->diser_oleh;
+				$data['diket_tgl'] = $rowData[0]->diser_tgl;
+				$data['diket_oleh'] = $rowData[0]->diser_oleh;
+				$data['diver_tgl'] = $rowData[0]->diver_tgl;
+				$data['diver_oleh'] = $rowData[0]->diver_oleh			;
+				$data['created_time'] = $rowData[0]->created_time;
+				$data['created_by'] = $rowData[0]->created_by;
+				$data['updated_time'] = $rowData[0]->updated_time;
+				$data['updated_by'] = $rowData[0]->updated_by;
+				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
+				return view('MAIN/bk010221/create',$data);
+			}
+		}else{
+			return Redirect::to('/');
+		}
+	}
+
 	public function create(Request $request)
 	{
 		$user = Auth::user();
@@ -190,13 +235,17 @@ class bk010221Controller extends Controller
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
 
-		//get dropdown list from Database
-		$list_forum = DB::select('select kode from bkt_01020212_forum_kel');
-		$data['kode_forum_list'] = $list_forum;
-
 		if($data['kode']!=null && !empty($data['detil']['204'])){
 			$rowData = DB::select('select * from bkt_01020213_f_forum_kel where kode='.$data['kode']);
+			$data['detil_menu']='204';
 			$data['kode_forum'] = $rowData[0]->kode_forum;
+			$data['kode_forum_list'] = DB::select('select a.kode kode_forum, 
+															b.nama nama_kota, b.kode, 
+															c.nama nama_kel, c.kode 
+													from bkt_01020212_forum_kel a, bkt_01010102_kota b, 
+														bkt_01010104_kel c, 
+														bkt_01020213_f_forum_kel d
+													where a.kode_kota=b.kode and a.kode_kel=c.kode and d.kode='.$rowData[0]->kode);
 			$data['kode_kegiatan'] = $rowData[0]->kode_kegiatan;
 			$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
 			$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
@@ -217,7 +266,15 @@ class bk010221Controller extends Controller
 			$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 			return view('MAIN/bk010221/create',$data);
 		}else if($data['kode']==null && !empty($data['detil']['203'])){
+			$data['detil_menu']='203';
 			$data['kode_forum'] = null;
+			$data['kode_forum_list'] = DB::select('select a.kode kode_forum, 
+															b.nama nama_kota, b.kode, 
+															c.nama nama_kel, c.kode 
+										from bkt_01020212_forum_kel a, 
+												bkt_01010102_kota b, 
+												bkt_01010104_kel c
+										where a.kode_kota=b.kode and a.kode_kel=c.kode');
 			$data['kode_kegiatan'] = null;
 			$data['tgl_kegiatan'] = null;
 			$data['lok_kegiatan'] = null;

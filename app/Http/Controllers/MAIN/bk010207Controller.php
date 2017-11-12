@@ -47,32 +47,36 @@ class bk010207Controller extends Controller
 		}else{
 			return Redirect::to('/');
 		}
-		
+
     }
 
 	public function Post(Request $request)
 	{
-		$columns = array(
+	   $columns = array(
 			0 =>'kode',
-			1 =>'kode_pokja_kota',
-			2 =>'jenis_subkegiatan',
-			3 =>'tgl_kegiatan',
-			4 =>'lok_kegiatan',
-			5 =>'created_time'
+			1 =>'prop_stat',
+			2 =>'tahun_pokja',
+			3 =>'jenis_subkegiatan',
+			4 =>'tgl_kegiatan',
+			5 =>'lok_kegiatan',
+			6 =>'q_peserta_p',
+			7 =>'q_peserta_w',
+			8 =>'q_non_anggota'
 		);
 		$query='
-			select * from (select 
+			select *,concat(nama_kota,"-",status_pokja_convert) prop_stat from (select
 				a.*,
-				a.kode kode_f,  
-				case when a.jenis_subkegiatan="2.2.3.3" then "Pertemuan Rutin" when a.jenis_subkegiatan="2.2.3.4" then "Monitoring" end jenis_subkegiatan_convert, 
-				a.tgl_kegiatan tgl_kegiatan_f, 
+				a.kode kode_f,
+				case when a.jenis_subkegiatan="2.2.3.3" then "Pertemuan Rutin" when a.jenis_subkegiatan="2.2.3.4" then "Monitoring" end jenis_subkegiatan_convert,
+				a.tgl_kegiatan tgl_kegiatan_f,
 				a.lok_kegiatan lok_kegiatan_f,
 				b.tahun tahun_pokja,
-				c.nama nama_kota
-			from bkt_01020205_f_pokja_kota a 
+				c.nama nama_kota,
+				case when b.status_pokja=0 then "Pokja Lama" when b.status_pokja=1 then "Pokja Baru" end status_pokja_convert
+			from bkt_01020205_f_pokja_kota a
 				left join bkt_01020204_pokja_kota b on a.kode_pokja_kota = b.kode
 				left join bkt_01010102_kota c on b.kode_kota = c.kode) b';
-		$totalData = DB::select('select count(1) cnt from bkt_01020205_f_pokja_kota a 
+		$totalData = DB::select('select count(1) cnt from bkt_01020205_f_pokja_kota a
 				left join bkt_01020204_pokja_kota b on a.kode_pokja_kota = b.kode
 				left join bkt_01010102_kota c on b.kode_kota = c.kode');
 		$totalFiltered = $totalData[0]->cnt;
@@ -87,18 +91,10 @@ class bk010207Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. ' where (
-				b.kode_f like "%'.$search.'%" or 
-				b.jenis_subkegiatan_convert like "%'.$search.'%" or 
-				b.tgl_kegiatan_f like "%'.$search.'%" or 
-				b.lok_kegiatan_f like "%'.$search.'%" or 
-				b.nama_kota like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or
 				b.tahun_pokja like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
-				b.kode_f like "%'.$search.'%" or 
-				b.jenis_subkegiatan_convert like "%'.$search.'%" or 
-				b.tgl_kegiatan_f like "%'.$search.'%" or 
-				b.lok_kegiatan_f like "%'.$search.'%" or 
-				b.nama_kota like "%'.$search.'%" or 
+				b.nama_kota like "%'.$search.'%" or
 				b.tahun_pokja like "%'.$search.'%")) a');
 			$totalFiltered = $totalFiltered[0]->cnt;
 		}
@@ -111,16 +107,20 @@ class bk010207Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
+				$url_show="/main/persiapan/kota/pokja/kegiatan/show?kode=".$edit;
+				$url_edit="/main/persiapan/kota/pokja/kegiatan/create?kode=".$edit;
+				$url_delete="/main/persiapan/kota/pokja/kegiatan/delete?kode=".$delete;
 
-				$url_edit=url('/')."/main/persiapan/kota/pokja/kegiatan/create?kode=".$edit;
-				$url_delete=url('/')."/main/persiapan/kota/pokja/kegiatan/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode_f;
-				$nestedData['kode_pokja_kota'] = $post->tahun_pokja.'-'.$post->nama_kota;
+				$nestedData['prop_stat'] = $post->prop_stat;
+				$nestedData['tahun_pokja'] = $post->tahun_pokja;
 				$nestedData['jenis_subkegiatan'] = $post->jenis_subkegiatan_convert;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan_f;
 				$nestedData['lok_kegiatan'] = $post->lok_kegiatan_f;
-				$nestedData['created_time'] = $post->created_time;
-				
+				$nestedData['q_peserta_p'] = $post->q_peserta_p;
+				$nestedData['q_peserta_w'] = $post->q_peserta_w;
+				$nestedData['q_non_anggota'] = $post->q_non_anggota;
+
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){
@@ -129,14 +129,17 @@ class bk010207Controller extends Controller
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
-
+				
 				$option = '';
+				if(!empty($detil['80'])){
+					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
+				}
 				if(!empty($detil['82'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
 				if(!empty($detil['83'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}		
+				}
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
@@ -188,10 +191,10 @@ class bk010207Controller extends Controller
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
 				$data['kode_pokja_kota_list'] = DB::select('
-					select 
+					select
 						a.*,
 						b.nama nama_kota
-					from bkt_01020204_pokja_kota a 
+					from bkt_01020204_pokja_kota a
 						left join bkt_01010102_kota b on a.kode_kota = b.kode');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010207/create',$data);
@@ -218,10 +221,10 @@ class bk010207Controller extends Controller
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
 				$data['kode_pokja_kota_list'] = DB::select('
-					select 
+					select
 						a.*,
 						b.nama nama_kota
-					from bkt_01020204_pokja_kota a 
+					from bkt_01020204_pokja_kota a
 						left join bkt_01010102_kota b on a.kode_kota = b.kode');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010207/create',$data);
@@ -267,9 +270,9 @@ class bk010207Controller extends Controller
 			date_default_timezone_set('Asia/Jakarta');
 			DB::table('bkt_01020205_f_pokja_kota')->where('kode', $request->input('kode'))
 			->update([
-				'kode_pokja_kota' => $request->input('kode-pokja-kota-input'), 
-				'jenis_subkegiatan' => $request->input('sub-kegiatan-input'), 
-				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
+				'kode_pokja_kota' => $request->input('kode-pokja-kota-input'),
+				'jenis_subkegiatan' => $request->input('sub-kegiatan-input'),
+				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
@@ -284,7 +287,7 @@ class bk010207Controller extends Controller
 				// 'diket_oleh' => $request->input('diket-oleh-input'),
 				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
 				// 'diver_oleh' => $request->input('diver-oleh-input'),
-				'updated_by' => Auth::user()->id, 
+				'updated_by' => Auth::user()->id,
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
 
@@ -300,9 +303,9 @@ class bk010207Controller extends Controller
 
 		}else{
 			DB::table('bkt_01020205_f_pokja_kota')->insert([
-				'kode_pokja_kota' => $request->input('kode-pokja-kota-input'), 
-				'jenis_subkegiatan' => $request->input('sub-kegiatan-input'), 
-				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
+				'kode_pokja_kota' => $request->input('kode-pokja-kota-input'),
+				'jenis_subkegiatan' => $request->input('sub-kegiatan-input'),
+				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
@@ -350,10 +353,10 @@ class bk010207Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
-				'kode_modul' => 5, 
-				'kode_menu' => 52,   
-				'kode_menu_detil' => $detil, 
-				'aktifitas' => $aktifitas, 
+				'kode_modul' => 5,
+				'kode_menu' => 52,
+				'kode_menu_detil' => $detil,
+				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas
        			]);
     }

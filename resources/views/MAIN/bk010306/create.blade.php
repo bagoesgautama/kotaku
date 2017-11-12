@@ -527,7 +527,7 @@
                             <a href="/main/perencanaan/penanganan/profile_rencana_5thn" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
-                            @if($show==false)
+                            @if ($detil_menu=='274' || $detil_menu=='275')
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                 Submit
                             </button>

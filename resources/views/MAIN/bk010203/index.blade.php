@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Pembentukan POKJA @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pembentukan POKJA @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -60,10 +60,10 @@
                                 <th>Kode</th>
                                 <th>Tahun</th>
                                 <th>Propinsi</th>
-                                <th>Jenis Kegiatan</th>
+								<th>Status Pokja</th>
                                 <th>Tanggal Pembentukan</th>
-                                <th>Status Pokja</th>
-                                <th>Created Time</th>
+                                <th>Anggota Pria</th>
+                                <th>Anggota Wanita</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -80,7 +80,7 @@
     $(document).ready(function () {
         var table = $('#pokja').DataTable({
             // dom: 'Bflrtip',
-            
+
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -88,15 +88,14 @@
                      "dataType": "json",
                      "type": "POST"
                    },
-
             "columns": [
                 { "data": "kode" , name:"kode"},
                 { "data": "tahun" , name:"tahun"},
-                { "data": "kode_prop" , name:"kode_prop"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
+                { "data": "nama_prop" , name:"nama_prop"},
+				{ "data": "status_pokja" , name:"status_pokja"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "status_pokja" , name:"status_pokja"},
-                { "data": "created_time" , name:"created_time"},
+				{ "data": "q_anggota_p" , name:"q_anggota_p"},
+                { "data": "q_anggota_w" , name:"q_anggota_w"},
                 { "data": "option" , name:"option",orderable:false}
             ],
             "order":[[0,"desc"]]

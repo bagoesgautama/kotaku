@@ -109,7 +109,7 @@ class bk010306Controller extends Controller
 				$edit =  $post->kode;
 				$delete = $post->kode;
 				//show
-				$url_show=url('/')."/main/perencanaan/penanganan/profile_rencana_5thn/create?kode=".$edit."&show=true";
+				$url_show=url('/')."/main/perencanaan/penanganan/profile_rencana_5thn/show?kode=".$edit;
 				$url_edit=url('/')."/main/perencanaan/penanganan/profile_rencana_5thn/create?kode=".$edit;
 				$url_delete=url('/')."/main/perencanaan/penanganan/profile_rencana_5thn/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode_rp2kp;
@@ -171,7 +171,7 @@ class bk010306Controller extends Controller
 		}
 	}
 
-	public function create(Request $request)
+	public function show(Request $request)
 	{
 		$user = Auth::user();
         $akses= $user->menu()->where('kode_apps', 1)->get();
@@ -183,12 +183,10 @@ class bk010306Controller extends Controller
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			//show
-			$data['show']=!empty($request->input('show'))?$request->input('show'):false;
 			$data['tahun_list'] = DB::select('select * from list_tahun');
-			//show
 			if($data['kode']!=null  && !empty($data['detil']['273'])){
 				$rowData = DB::select('select * from bkt_01030203_rp2kp_siap where kode='.$data['kode']);
+				$data['detil_menu']='253';
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_prop'] = $rowData[0]->kode_prop;
 				$data['kode_kmw'] = $rowData[0]->kode_kmw;
@@ -268,7 +266,25 @@ class bk010306Controller extends Controller
 					$data['kode_korkot_list']=DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode_kota='.$rowData[0]->kode_kota.' and b.kode_kmw ='.$rowData[0]->kode_kmw);
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010306/create',$data);
-			}else if ($data['kode']!=null  && !empty($data['detil']['275'])){
+			}
+		}else{
+			return Redirect::to('/');
+		}
+	}
+
+	public function create(Request $request)
+	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==91)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			$data['username'] = $user->name;
+			$data['kode']=$request->input('kode');
+			if ($data['kode']!=null  && !empty($data['detil']['275'])){
 				$rowData = DB::select('select * from bkt_01030203_rp2kp_siap where kode='.$data['kode']);
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_prop'] = $rowData[0]->kode_prop;

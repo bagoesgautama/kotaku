@@ -62,7 +62,7 @@
                                     </select>
                                 </div>
                             </div>-->
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pembentukan</label>
                                 <div class="col-sm-6">
                                     <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
@@ -77,7 +77,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Dasar Pembentukan</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="dsr-pembentukan-input" name="dsr-pembentukan-input" class="form-control" value="{{$ds_hkm}}" maxlength="50" required>
@@ -86,7 +86,7 @@
                             <div class="form-group striped-col">
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Anggota POKJA</label></div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="kode">Laki-laki</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_p}}" maxlength="11" required min="0">
@@ -98,7 +98,7 @@
                                     <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_w}}" maxlength="11" required min="0">
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Unsur POKJA Pemerintah</label></div>
                             </div>
                             <div class="form-group striped-col" id="kl_label">
@@ -107,7 +107,7 @@
                                     <input type="number" id="upp-kementrian-input" name="upp-kementrian-input" class="form-control" placeholder="" value="{{$upp_kl}}" maxlength="11" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="kode">Dinas/Badan</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="upp-dinas-input" name="upp-dinas-input" class="form-control" placeholder="" value="{{$upp_dinas}}" maxlength="11" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
@@ -119,7 +119,7 @@
                                     <input type="number" id="upp-dpr-input" name="upp-dpr-input" class="form-control" placeholder="" value="{{$upp_dpr}}" maxlength="11" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Unsur POKJA Non Pemerintah</label></div>
                             </div>
                             <div class="form-group striped-col">
@@ -128,7 +128,7 @@
                                     <input type="number" id="upnp-lsm-input" name="upnp-lsm-input" class="form-control" placeholder="" value="{{$upn_lsm}}" maxlength="11" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="kode">Swasta/Badan Usaha</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="upnp-swasta-input" name="upnp-swasta-input" class="form-control" placeholder="" value="{{$unp_bu}}" maxlength="11" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
@@ -140,7 +140,7 @@
                                     <input type="number" id="upnp-praktisi-input" name="upnp-praktisi-input" class="form-control" placeholder="" value="{{$upn_praktisi}}" maxlength="11" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;"></label></div>
                             </div>
                             <div class="form-group striped-col">
@@ -149,6 +149,7 @@
                                     <input type="number" id="dana-ops-input" name="dana-ops-input" class="form-control" placeholder="Jumlah" value="{{$nilai_dana_ops}}" min="0">
                                 </div>
                             </div>
+<<<<<<< HEAD
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Kesekretariat</label>
                                 <div class="col-sm-6">
@@ -159,6 +160,9 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
+=======
+                            <div class="form-group ">
+>>>>>>> 508fe13305da513c5e839094295cea2212432b3c
                                 <label class="col-sm-3 control-label">File Rencana Kerja</label>
                                 <div class="col-sm-6">
                                     <input id="rencana-kerja-input" type="file" class="file" data-show-preview="false" name="rencana-kerja-input">
@@ -172,6 +176,15 @@
                                     <input type="text" id="ket-rencana-kerja-input" name="ket-rencana-kerja-input" class="form-control" placeholder="Ket. Rencana Kerja" value="{{$ket_rencana_kerja}}" maxlength="50">
                                 </div>
                             </div>
+							<div class="form-group">
+				                <label class="col-sm-3 control-label">Sekertariat</label>
+				                <div class="col-sm-6">
+				                    <select id="flag_sekretariat-input" name="flag_sekretariat-input" class="form-control" size="1">
+										<option value=0 {!! $flag_sekretariat===0 ? 'selected':'' !!}>Tidak</option>
+				                        <option value=1 {!! $flag_sekretariat===1 ? 'selected':'' !!}>Ya</option>
+				                    </select>
+				                </div>
+				            </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">File Dokumen Manual Input SIM</label>
                                 <div class="col-sm-6">
@@ -180,7 +193,7 @@
                                     <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-dokumen" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label">File Absensi</label>
                                 <div class="col-sm-6">
                                     <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input">
@@ -257,18 +270,20 @@
         var p = parseInt($('#q-laki-input').val());
         var w = parseInt($('#q-perempuan-input').val());
 
-        var kl = parseInt($('#upp-kementrian-input').val());
-        var dinas = parseInt($('#upp-dinas-input').val());
-        var dpr = parseInt($('#upp-dpr-input').val());
-        var lsm = parseInt($('#upnp-lsm-input').val());
-        var swasta = parseInt($('#upnp-swasta-input').val());
-        var prak = parseInt($('#upnp-praktisi-input').val());
+        var kl = parseInt($('#upp-kementrian-input').val())|| 0;
+        var dinas = parseInt($('#upp-dinas-input').val())|| 0;
+        var dpr = parseInt($('#upp-dpr-input').val())|| 0;
+        var lsm = parseInt($('#upnp-lsm-input').val())|| 0;
+        var swasta = parseInt($('#upnp-swasta-input').val())|| 0;
+        var prak = parseInt($('#upnp-praktisi-input').val())|| 0;
         var sum = p+w;
         var sum2 = kl+dinas+dpr+lsm+swasta+prak;
         var res = true;
         if(sum2>sum){
             res=false;
-        }
+        }else if(p==0 && w==0){
+			res=false;
+		}
         return res;
     };
       $(document).ready(function () {
@@ -318,6 +333,7 @@
                 form_data.append('diket-oleh-input', $('#diket-oleh-input').val());
                 form_data.append('tgl-diver-input', $('#tgl-diver-input').val());
                 form_data.append('diver-oleh-input', $('#diver-oleh-input').val());
+				form_data.append('flag_sekretariat-input', $('#flag_sekretariat-input').val());
               e.preventDefault();
               $.ajax({
                 type: 'post',

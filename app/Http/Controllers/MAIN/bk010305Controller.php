@@ -106,7 +106,7 @@ class bk010305Controller extends Controller
 				$edit =  $post->kode;
 				$delete = $post->kode;
 				//show
-				$url_show=url('/')."/main/perencanaan/penanganan/lokasi_profile/create?kode=".$edit."&show=true";
+				$url_show=url('/')."/main/perencanaan/penanganan/lokasi_profile/show?kode=".$edit;
 				$url_edit=url('/')."/main/perencanaan/penanganan/lokasi_profile/create?kode=".$edit;
 				$url_delete=url('/')."/main/perencanaan/penanganan/lokasi_profile/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode_pfl;

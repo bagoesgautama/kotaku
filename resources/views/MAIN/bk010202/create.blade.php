@@ -9,6 +9,7 @@
 <link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
+<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -22,7 +23,7 @@
             </li>
             <li class="next">
                 <a href="/main/persiapan/nasional/pokja/kegiatan">
-                    Persiapan / Nasional / Pokja / Kegiatan atau Monitoring
+                    Persiapan / Nasional / Pokja / Keberfungsian Pokja
                 </a>
             </li>
             <li class="next">
@@ -51,7 +52,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label">Jenis Sub kegiatan</label>
                                 <div class="col-sm-6">
                                     <select id="sub-kegiatan-input" name="sub-kegiatan-input" class="form-control" size="1">
@@ -63,13 +64,13 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
+                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required data-bv-callback="true" data-bv-callback-message="Tanggal kegiatan lebih kecil dari tanggal pembentukan" data-bv-callback-callback="check">
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50" required>
+                                    <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50" required >
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -84,6 +85,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Perempuan</label>
                                 <div class="col-sm-6">
+<<<<<<< HEAD
                                     <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required min="0">
                                 </div>
                             </div>
@@ -91,9 +93,25 @@
                                 <label class="col-sm-3 control-label" for="kode">Non Anggota</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q-non-input" name="q-non-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota}}" required min="0">
+=======
+                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" maxlength="11" required min="0" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk pria" data-bv-callback-callback="check">
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
+                                <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" maxlength="11" required min="0" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk perempuan" data-bv-callback-callback="check" >
+>>>>>>> 508fe13305da513c5e839094295cea2212432b3c
+                                </div>
+                            </div>
+							<div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="kode">Peserta Non Anggota Pokja</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="q_non_anggota-input" name="q_non_anggota-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota}}" maxlength="11" required min="0">
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label">File Dokumen</label>
                                 <div class="col-sm-6">
                                     <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
@@ -173,7 +191,40 @@
 @stop
 {{-- local scripts --}} @section('footer_scripts')
 <script>
+	function check(value, validator) {
+		var prop = {!! json_encode($kode_pokja_list) !!};
+		for(var i=0;i<prop.length;i++){
+			if(prop[i].kode==$('#select-kode-pokja-input').val()){
+				prop=prop[i];
+				break;
+			}
+		}
+		var p = parseInt($('#q-laki-input').val());
+		var w = parseInt($('#q-perempuan-input').val());
+
+		var kl = parseInt($('#upp-kementrian-input').val());
+		var dinas = parseInt($('#upp-dinas-input').val());
+		var dpr = parseInt($('#upp-dpr-input').val());
+		var lsm = parseInt($('#upnp-lsm-input').val());
+		var swasta = parseInt($('#upnp-swasta-input').val());
+		var prak = parseInt($('#upnp-praktisi-input').val());
+		var tgl=new Date($('#tgl-kegiatan-input').val());
+		var sum = p+w;
+		var sum2 = kl+dinas+dpr+lsm+swasta+prak;
+		var res = true;
+		if(sum2>sum){
+			res=false;
+		}else if(p==0 && w==0){
+			res=false;
+		}else if(prop.q_anggota_p<p || prop.q_anggota_w<w){
+			res=false;
+		}else if(new Date(prop.tgl_kegiatan)>tgl){
+			res=false;
+		}
+		return res;
+	};
       $(document).ready(function () {
+<<<<<<< HEAD
         $('#form').on('submit', function (e) {
             var file_dokumen = document.getElementById('file-dokumen-input').files[0];
             var file_absensi = document.getElementById('file-absensi-input').files[0];
@@ -216,6 +267,60 @@
             $("#submit").prop('disabled', false);
             }
           });
+=======
+		  $('#form').bootstrapValidator().on('success.form.bv', function(e) {
+		    $('#form').on('submit', function (e) {
+		        var file_dokumen = document.getElementById('file-dokumen-input').files[0];
+		        var file_absensi = document.getElementById('file-absensi-input').files[0];
+		        var form_data = new FormData();
+		        form_data.append('kode', $('#kode').val());
+		        form_data.append('file-dokumen-input', file_dokumen);
+		        form_data.append('file-absensi-input', file_absensi);
+		        form_data.append('uploaded-file-dokumen', $('#uploaded-file-dokumen').val());
+		        form_data.append('uploaded-file-absensi', $('#uploaded-file-absensi').val());
+		        form_data.append('kode-pokja-input', $('#select-kode-pokja-input').val());
+		        form_data.append('sub-kegiatan-input', $('#sub-kegiatan-input').val());
+		        form_data.append('lok-kegiatan-input', $('#lok-kegiatan-input').val());
+		        form_data.append('tgl-kegiatan-input', $('#tgl-kegiatan-input').val());
+		        form_data.append('q-laki-input', $('#q-laki-input').val());
+		        form_data.append('q-perempuan-input', $('#q-perempuan-input').val());
+				form_data.append('q_non_anggota-input', $('#q_non_anggota-input').val());
+		        form_data.append('tgl-diser-input', $('#tgl-diser-input').val());
+		        form_data.append('diser-oleh-input', $('#diser-oleh-input').val());
+		        form_data.append('tgl-diket-input', $('#tgl-diket-input').val());
+		        form_data.append('diket-oleh-input', $('#diket-oleh-input').val());
+		        form_data.append('tgl-diver-input', $('#tgl-diver-input').val());
+		        form_data.append('diver-oleh-input', $('#diver-oleh-input').val());
+		      e.preventDefault();
+		      $.ajax({
+		        type: 'post',
+		        processData: false,
+		        contentType: false,
+		        "url": "/main/persiapan/nasional/pokja/kegiatan/create",
+		        data: form_data,
+		        beforeSend: function (){
+		            $("#submit").prop('disabled', true);
+		        },
+		        success: function () {
+		        alert('From Submitted.');
+		        window.location.href = "/main/persiapan/nasional/pokja/kegiatan";
+		        },
+		        error: function (xhr, ajaxOptions, thrownError) {
+		        alert(xhr.status);
+		        alert(thrownError);
+		        $("#submit").prop('disabled', false);
+		        }
+		      });
+		    });
+		}).on('error.form.bv', function(e) {
+			$("#submit").prop('disabled', false);
+		});
+		$('#tgl-kegiatan-input')
+            .on('changeDate show', function(e) {
+                // Revalidate the date when user change it
+                $('#form').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
+                $("#submit").prop('disabled', false);
+>>>>>>> 508fe13305da513c5e839094295cea2212432b3c
         });
         $("#select-kode-pokja-input").select2({
             theme: "bootstrap",
@@ -245,5 +350,5 @@
 <script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
-
+<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
 @stop

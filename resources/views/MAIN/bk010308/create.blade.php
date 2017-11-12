@@ -415,7 +415,7 @@
                             <a href="/main/perencanaan/penanganan/pengamanan_dampak" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
-                            @if($show==false)
+                            @if ($detil_menu=='282' || $detil_menu=='283')
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                 Submit
                             </button>

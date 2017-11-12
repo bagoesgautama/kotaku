@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Monitoring POKJA @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Monitoring POKJA @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -32,7 +32,7 @@
                 Pokja
             </li>
             <li class="next">
-                Kegiatan atau Monitoring
+                Keberfungsian Pokja
             </li>
         </ul>
     </div>
@@ -56,15 +56,21 @@
                 <div class="table-responsive">
 					<table class="table table-striped" id="kegiatan">
 						<thead>
-                            <tr>
+							<tr>
                                 <th>Kode</th>
-                                <th>Pokja Nasional</th>
+                                <th>Tahun</th>
                                 <th>Jenis Sub Kegiatan</th>
                                 <th>Tanggal Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
+<<<<<<< HEAD
                                 <th>Jumlah Anggota Laki-laki</th>
                                 <th>Jumlah Anggota Perempuan</th>
                                 <th>Jumlah Non Anggota</th>
+=======
+								<th>Peserta Pria</th>
+								<th>Peserta Wanita</th>
+								<th>Peserta Non Anggota</th>
+>>>>>>> 508fe13305da513c5e839094295cea2212432b3c
                                 <th>option</th>
                             </tr>
                         </thead>
@@ -81,7 +87,6 @@
     $(document).ready(function () {
 		var table = $('#kegiatan').DataTable({
 	        // dom: 'Bflrtip',
-	        
 			"processing": true,
             "serverSide": true,
             "ajax":{
@@ -89,16 +94,21 @@
                      "dataType": "json",
                      "type": "POST"
                    },
-
             "columns": [
                 { "data": "kode" , name:"kode"},
-				{ "data": "kode_pokja" , name:"kode_pokja"},
-                { "data": "jenis_subkegiatan" , name:"jenis_subkegiatan"},
+				{ "data": "tahun" , name:"tahun"},
+                { "data": "jenis_subkegiatan_convert" , name:"jenis_subkegiatan_convert"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+<<<<<<< HEAD
                 { "data": "q_peserta_pf" , name:"q_peserta_pf"},
                 { "data": "q_peserta_wf" , name:"q_peserta_wf"},
                 { "data": "q_non_anggotaf" , name:"q_non_anggotaf"},
+=======
+                { "data": "q_peserta_p" , name:"q_peserta_p"},
+				{ "data": "q_peserta_w" , name:"q_peserta_w"},
+				{ "data": "q_non_anggota" , name:"q_non_anggota"},
+>>>>>>> 508fe13305da513c5e839094295cea2212432b3c
 				{ "data": "option" , name:"option",orderable:false}
             ],
             "order":[[0,"desc"]]

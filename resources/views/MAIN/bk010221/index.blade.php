@@ -34,25 +34,28 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010221 index</b>
+                    <b>Keberfungsian Forum</b>
                 </div>
                 @if( ! empty($detil['202']))
                 <div class="tools pull-right">
+                    <b>bk010221 index</b>
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/forum/keberfungsian/create">Create</a>
                 </div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users">
+                    <table class="table table-striped" id="users" width="1500px">
                         <thead>
                             <tr>
-                                <th>Kode Forum</th>
-                                <th>Kode Kegiatan</th>
+                                <th>Kode</th>
+                                <th>Jenis Forum</th>
+                                <th>Jenis Kegiatan</th>
                                 <th>Tanggal Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
                                 <th>Peserta Pria</th>
                                 <th>Peserta Wanita</th>
+                                <th>Jumlah Peserta</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -78,14 +81,17 @@
                    },
 
             "columns": [
-                { "data": "kode_forum" , name:"kode_forum"},
+                { "data": "kode" , name:"kode"},
+                { "data": "jenis_forum" , name:"jenis_forum"},
                 { "data": "kode_kegiatan" , name:"kode_kegiatan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
                 { "data": "q_peserta_p" , name:"q_peserta_p"},
                 { "data": "q_peserta_w" , name:"q_peserta_w"},
+                { "data": "jumlah_peserta" , name:"jumlah_peserta"},
                 { "data": "option" , name:"option"}
-            ]
+            ],
+            "order":[[0,"desc"]]
         });
 
         $('#users_filter input').unbind();

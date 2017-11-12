@@ -453,7 +453,7 @@
                             <a href="/main/perencanaan/kawasan/perencanaan" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
-                            @if($show==false)
+                            @if ($detil_menu=='290' || $detil_menu=='291')
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                 Submit
                             </button>

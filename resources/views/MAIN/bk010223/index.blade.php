@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - Kelembagaan @stop {{-- local styles --}}
+@extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - Kegiatan Kelembagaan @stop {{-- local styles --}}
 @section('header_styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -13,7 +13,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <section class="content-header">
-    <h1>Persiapan Kelurahan - Kelembagaan</h1>
+    <h1>Persiapan Kelurahan - Kegiatan Kelembagaan</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,7 +23,7 @@
             </li>
             <li class="next">
                 <a href="/main/persiapan/kelurahan/lembaga">
-                    Persiapan Kelurahan / Kelembagaan
+                    Persiapan Kelurahan / Kegiatan Kelembagaan
                 </a>
             </li>
         </ul>
@@ -35,33 +35,31 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
 				<div class="panel-title pull-left">
-                    <b>bk010223 index</b>
+                    <b>Kegiatan Kelembagaan</b>
                 </div>
                 @if( ! empty($detil['339']))
                 <div class="tools pull-right">
+                    <b>bk010223 index</b>
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/lembaga/create">Create</a>
                 </div>
 				@endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users" width="3000px">
+                    <table class="table table-striped" id="users" width="2000px">
                         <thead>
                             <tr>
-                                <th>Tahun</th>
+                                <th>Kode</th>
                                 <th>Kota</th>
-                                <th>Korkot</th>
                                 <th>Kecamatan</th>
-                                <th>KMW</th>
                                 <th>Kelurahan</th>
-                                <th>Faskel</th>
-                                <th>Kegiatan</th>
-                                <th>Detail Kegiatan</th>
-                                <th>Tanggal Kegiatan</th>
-                                <th>Lokasi Kegiatan</th>
-                                <th>Peserta Pria</th>
-                                <th>Peserta Wanita</th>
-                                <th>Peserta Miskin</th>
+                                <th>Tahun</th>
+                                <th>Nama Kegiatan</th>
+                                <th>Tanggal Pembentukan</th>
+                                <th>Lokasi</th>
+                                <th>Jumlah Peserta Laki-laki</th>
+                                <th>Jumlah Peserta Perempuan</th>
+                                <th>Jumlah Peserta Miskin/MBR</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -87,22 +85,20 @@
                    },
 
             "columns": [
-                { "data": "tahun" , name:"tahun"},
+                { "data": "kode" , name:"kode"},
                 { "data": "nama_kota" , name:"nama_kota"},
-                { "data": "nama_korkot" , name:"nama_korkot"},
                 { "data": "nama_kec" , name:"nama_kec"},
-                { "data": "nama_kmw" , name:"nama_kmw"},
                 { "data": "nama_kel" , name:"nama_kel"},
-                { "data": "nama_faskel" , name:"nama_faskel"},
+                { "data": "tahun" , name:"tahun"},
                 { "data": "nama_kegiatan" , name:"nama_kegiatan"},
-                { "data": "id_dtl_kegiatan" , name:"id_dtl_kegiatan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
                 { "data": "q_peserta_p" , name:"q_peserta_p"},
                 { "data": "q_peserta_w" , name:"q_peserta_w"},
                 { "data": "q_peserta_miskin" , name:"q_peserta_miskin"},
                 { "data": "option" , name:"option"}
-            ]
+            ],
+            "order":[[0,"desc"]]
         });
 
         $('#users_filter input').unbind();
