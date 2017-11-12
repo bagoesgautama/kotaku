@@ -347,6 +347,8 @@
         var kota = $('#select-kode_kota-input');
         var kecamatan = $('#select-kode_kec-input');
         var kelurahan = $('#select-kode_kel-input');
+        var korkot = $('#kode_korkot-input');
+        var faskel = $('#kode_faskel-input');
         var kegiatan = $('#select-id_kegiatan-input');
         var dtl_kegiatan = $('#select-id_dtl_kegiatan-input');
         var kota_id,kel_id,kec_id,kegiatan_id;
@@ -366,6 +368,17 @@
                         }
                     }
                 });
+                korkot.empty();
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/lembaga/select?korkot="+kota_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            korkot.val(data[0].kode_korkot);
+                        }
+                    }
+                });
             }
         });
         kecamatan.change(function(){
@@ -380,6 +393,23 @@
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
                             kelurahan.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+                        }
+                    }
+                });
+            }
+        });
+        kelurahan.change(function(){
+            kel_id=kelurahan.val();
+            console.log(kel_id)
+            if(kel_id!=undefined){
+                faskel.empty();
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/lembaga/select?faskel="+kel_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            faskel.val(data[0].kode_faskel);;
                         }
                     }
                 });
