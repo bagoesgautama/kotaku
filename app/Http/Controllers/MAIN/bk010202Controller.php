@@ -57,12 +57,17 @@ class bk010202Controller extends Controller
 			2 =>'jenis_subkegiatan',
 			3 =>'tgl_kegiatan',
 			4 =>'lok_kegiatan',
-			5 =>'created_time'
+			5 =>'q_peserta_pf',
+			6 =>'q_peserta_wf',
+			7 =>'q_non_anggotaf'
 		);
 		$query='
 			select * from (select 
 				a.*,
-				a.kode kode_f,  
+				a.kode kode_f,
+				a.q_peserta_p q_peserta_pf,
+				a.q_peserta_w q_peserta_wf,  
+				a.q_non_anggota q_non_anggotaf,
 				case when a.jenis_subkegiatan="2.2.3.3" then "Pertemuan Rutin" when a.jenis_subkegiatan="2.2.3.4" then "Monitoring" end jenis_subkegiatan_convert, 
 				a.tgl_kegiatan tgl_kegiatan_f, 
 				a.lok_kegiatan lok_kegiatan_f,
@@ -127,7 +132,9 @@ class bk010202Controller extends Controller
 				$nestedData['jenis_subkegiatan'] = $post->jenis_subkegiatan_convert;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan_f;
 				$nestedData['lok_kegiatan'] = $post->lok_kegiatan_f;
-				$nestedData['created_time'] = $post->created_time;
+				$nestedData['q_peserta_pf'] = $post->q_peserta_pf;
+				$nestedData['q_peserta_wf'] = $post->q_peserta_wf;
+				$nestedData['q_non_anggotaf'] = $post->q_non_anggotaf;
 
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
@@ -186,6 +193,7 @@ class bk010202Controller extends Controller
 				$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
 				$data['q_peserta_p'] = $rowData[0]->q_peserta_p;
 				$data['q_peserta_w'] = $rowData[0]->q_peserta_w;
+				$data['q_non_anggota'] = $rowData[0]->q_non_anggota;
 				$data['uri_img_document'] = $rowData[0]->uri_img_document;
 				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
 				$data['diser_tgl'] = $rowData[0]->diser_tgl;
@@ -229,6 +237,7 @@ class bk010202Controller extends Controller
 				$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
 				$data['q_peserta_p'] = $rowData[0]->q_peserta_p;
 				$data['q_peserta_w'] = $rowData[0]->q_peserta_w;
+				$data['q_non_anggota'] = $rowData[0]->q_non_anggota;
 				$data['uri_img_document'] = $rowData[0]->uri_img_document;
 				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
 				$data['diser_tgl'] = $rowData[0]->diser_tgl;
@@ -252,6 +261,7 @@ class bk010202Controller extends Controller
 				$data['lok_kegiatan'] = null;
 				$data['q_peserta_p'] = null;
 				$data['q_peserta_w'] = null;
+				$data['q_non_anggota'] = null;
 				$data['uri_img_document'] = null;
 				$data['uri_img_absensi'] = null;
 				$data['diser_tgl'] = null;
@@ -315,6 +325,7 @@ class bk010202Controller extends Controller
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
+				'q_non_anggota' => $request->input('q-non-input'),
 				'uri_img_document' => $url_dokumen,
 				'uri_img_absensi' => $url_absensi,
 				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
@@ -345,6 +356,7 @@ class bk010202Controller extends Controller
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
+				'q_non_anggota' => $request->input('q-non-input'),
 				'uri_img_document' => $url_dokumen,
 				'uri_img_absensi' => $url_absensi,
 				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),

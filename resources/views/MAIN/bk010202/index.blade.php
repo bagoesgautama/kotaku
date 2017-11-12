@@ -62,7 +62,9 @@
                                 <th>Jenis Sub Kegiatan</th>
                                 <th>Tanggal Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
-                                <th>Created Time</th>
+                                <th>Jumlah Anggota Laki-laki</th>
+                                <th>Jumlah Anggota Perempuan</th>
+                                <th>Jumlah Non Anggota</th>
                                 <th>option</th>
                             </tr>
                         </thead>
@@ -94,7 +96,9 @@
                 { "data": "jenis_subkegiatan" , name:"jenis_subkegiatan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
-                { "data": "created_time" , name:"created_time"},
+                { "data": "q_peserta_pf" , name:"q_peserta_pf"},
+                { "data": "q_peserta_wf" , name:"q_peserta_wf"},
+                { "data": "q_non_anggotaf" , name:"q_non_anggotaf"},
 				{ "data": "option" , name:"option",orderable:false}
             ],
             "order":[[0,"desc"]]

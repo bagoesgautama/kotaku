@@ -198,6 +198,7 @@ class bk010201Controller extends Controller
 				$data['unp_bu'] = $rowData[0]->unp_bu;
 				$data['upn_praktisi'] = $rowData[0]->upn_praktisi;
 				$data['nilai_dana_ops'] = $rowData[0]->nilai_dana_ops;
+				$data['flag_sekretariat'] = $rowData[0]->flag_sekretariat;
 				$data['url_rencana_kerja'] = $rowData[0]->url_rencana_kerja;
 				$data['ket_rencana_kerja'] = $rowData[0]->ket_rencana_kerja;
 				$data['uri_img_document'] = $rowData[0]->uri_img_document;
@@ -256,6 +257,7 @@ class bk010201Controller extends Controller
 				$data['unp_bu'] = $rowData[0]->unp_bu;
 				$data['upn_praktisi'] = $rowData[0]->upn_praktisi;
 				$data['nilai_dana_ops'] = $rowData[0]->nilai_dana_ops;
+				$data['flag_sekretariat'] = $rowData[0]->flag_sekretariat;
 				$data['url_rencana_kerja'] = $rowData[0]->url_rencana_kerja;
 				$data['ket_rencana_kerja'] = $rowData[0]->ket_rencana_kerja;
 				$data['uri_img_document'] = $rowData[0]->uri_img_document;
@@ -294,6 +296,7 @@ class bk010201Controller extends Controller
 				$data['unp_bu'] = 0;
 				$data['upn_praktisi'] = 0;
 				$data['nilai_dana_ops'] = 0;
+				$data['flag_sekretariat'] = null;
 				$data['url_rencana_kerja'] = null;
 				$data['ket_rencana_kerja'] = null;
 				$data['uri_img_document'] = null;
@@ -323,143 +326,153 @@ class bk010201Controller extends Controller
 
 	public function post_create(Request $request)
 	{
-		$file_rnckerja = $request->file('rencana-kerja-input');
-		$url_rnckerja = null;
-		$upload_rnckerja = false;
-		if($request->input('uploaded-file-rnckerja') != null && $file_rnckerja == null){
-			$url_rnckerja = $request->input('uploaded-file-rnckerja');
-			$upload_rnckerja = false;
-		}elseif($request->input('uploaded-file-rnckerja') != null && $file_rnckerja != null){
-			$url_rnckerja = $file_rnckerja->getClientOriginalName();
-			$upload_rnckerja = true;
-		}elseif($request->input('uploaded-file-rnckerja') == null && $file_rnckerja != null){
-			$url_rnckerja = $file_rnckerja->getClientOriginalName();
-			$upload_rnckerja = true;
-		}
-
-		$file_dokumen = $request->file('file-dokumen-input');
-		$url_dokumen = null;
-		$upload_dokumen = false;
-		if($request->input('uploaded-file-dokumen') != null && $file_dokumen == null){
-			$url_dokumen = $request->input('uploaded-file-dokumen');
-			$upload_dokumen = false;
-		}elseif($request->input('uploaded-file-dokumen') != null && $file_dokumen != null){
-			$url_dokumen = $file_dokumen->getClientOriginalName();
-			$upload_dokumen = true;
-		}elseif($request->input('uploaded-file-dokumen') == null && $file_dokumen != null){
-			$url_dokumen = $file_dokumen->getClientOriginalName();
-			$upload_dokumen = true;
-		}
-
-		$file_absensi = $request->file('file-absensi-input');
-		$url_absensi = null;
-		$upload_absensi = false;
-		if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
-			$url_absensi = $request->input('uploaded-file-absensi');
-			$upload_absensi = false;
-		}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
-			$url_absensi = $file_absensi->getClientOriginalName();
-			$upload_absensi = true;
-		}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
-			$url_absensi = $file_absensi->getClientOriginalName();
-			$upload_absensi = true;
-		}
-
-		if ($request->input('kode')!=null){
-			date_default_timezone_set('Asia/Jakarta');
-			DB::table('bkt_01020202_pokja')->where('kode', $request->input('kode'))
-			->update([
-				'tahun' => $request->input('tahun-input'), 
-				// 'kode_prop' => ($request->input('kode-prop-input')=='undefined' ? null:$request->input('kode-prop-input')), 
-				// 'kode_kmw' => ($request->input('kode-kmw-input')=='undefined' ? null:$request->input('kode-kmw-input')), 
-				// 'kode_faskel' => ($request->input('kode-faskel-input')=='undefined' ? null:$request->input('kode-faskel-input')), 
-				'jenis_kegiatan' => $request->input('jns-kegiatan-input'), 
-				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
-				'status_pokja' => $request->input('status-pokja-input'), 
-				'ds_hkm' => $request->input('dsr-pembentukan-input'),
-				'q_anggota_p' => $request->input('q-laki-input'),
-				'q_anggota_w' => $request->input('q-perempuan-input'),
-				'upp_kl' => $request->input('upp-kementrian-input'),
-				'upp_dinas' => $request->input('upp-dinas-input'),
-				'upp_dpr' => $request->input('upp-dpr-input'),
-				'upn_lsm' => $request->input('upnp-lsm-input'),
-				'unp_bu' => $request->input('upnp-swasta-input'),
-				'upn_praktisi' => $request->input('upnp-praktisi-input'),
-				'nilai_dana_ops' => $request->input('dana-ops-input'),
-				'url_rencana_kerja' => $url_rnckerja,
-				'ket_rencana_kerja' => $request->input('ket-rencana-kerja-input'),
-				'uri_img_document' => $url_dokumen,
-				'uri_img_absensi' => $url_absensi,
-				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				// 'diser_oleh' => $request->input('diser-oleh-input'),
-				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				// 'diket_oleh' => $request->input('diket-oleh-input'),
-				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				// 'diver_oleh' => $request->input('diver-oleh-input'), 
-				'updated_by' => Auth::user()->id, 
-				'updated_time' => date('Y-m-d H:i:s')
-				]);
-
-			if($upload_dokumen == true){
-				$file_dokumen->move(public_path('/uploads/persiapan/nasional/pokja/pembentukan'), $file_dokumen->getClientOriginalName());
-			}
-
-			if($upload_absensi == true){
-				$file_absensi->move(public_path('/uploads/persiapan/nasional/pokja/pembentukan'), $file_absensi->getClientOriginalName());
-			}
-
-			if($upload_rnckerja == true){
-				$file_rnckerja->move(public_path('/uploads/persiapan/nasional/pokja/pembentukan'), $file_rnckerja->getClientOriginalName());
-			}
-
-			$this->log_aktivitas('Update', 62);
-
+		$find = DB::select('select count(kode) as cnt from bkt_01020202_pokja where tahun='.$request->input('tahun-input').' and status_pokja='.$request->input('status-pokja-input'));
+		if($find[0]->cnt > 0){
+			header("HTTP/1.0 500 Tahun POKJA ".$request->input('tahun-input')." Tidak boleh memiliki status yang sama.");
+ 			exit();
 		}else{
-			DB::table('bkt_01020202_pokja')->insert([
-				'tahun' => $request->input('tahun-input'), 
-				// 'kode_prop' => ($request->input('kode-prop-input')=='undefined' ? null:$request->input('kode-prop-input')), 
-				// 'kode_kmw' => ($request->input('kode-kmw-input')=='undefined' ? null:$request->input('kode-kmw-input')), 
-				// 'kode_faskel' => ($request->input('kode-faskel-input')=='undefined' ? null:$request->input('kode-faskel-input')), 
-				'jenis_kegiatan' => $request->input('jns-kegiatan-input'), 
-				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
-				'status_pokja' => $request->input('status-pokja-input'), 
-				'ds_hkm' => $request->input('dsr-pembentukan-input'),
-				'q_anggota_p' => $request->input('q-laki-input'),
-				'q_anggota_w' => $request->input('q-perempuan-input'),
-				'upp_kl' => $request->input('upp-kementrian-input'),
-				'upp_dinas' => $request->input('upp-dinas-input'),
-				'upp_dpr' => $request->input('upp-dpr-input'),
-				'upn_lsm' => $request->input('upnp-lsm-input'),
-				'unp_bu' => $request->input('upnp-swasta-input'),
-				'upn_praktisi' => $request->input('upnp-praktisi-input'),
-				'nilai_dana_ops' => $request->input('dana-ops-input'),
-				'url_rencana_kerja' => $url_rnckerja,
-				'ket_rencana_kerja' => $request->input('ket-rencana-kerja-input'),
-				'uri_img_document' => $url_dokumen,
-				'uri_img_absensi' => $url_absensi,
-				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				// 'diser_oleh' => $request->input('diser-oleh-input'),
-				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				// 'diket_oleh' => $request->input('diket-oleh-input'),
-				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				// 'diver_oleh' => $request->input('diver-oleh-input'), 
-				'created_by' => Auth::user()->id
-       			]);
-
-			if($upload_dokumen == true){
-				$file_dokumen->move(public_path('/uploads/persiapan/nasional/pokja/pembentukan'), $file_dokumen->getClientOriginalName());
+			$file_rnckerja = $request->file('rencana-kerja-input');
+			$url_rnckerja = null;
+			$upload_rnckerja = false;
+			if($request->input('uploaded-file-rnckerja') != null && $file_rnckerja == null){
+				$url_rnckerja = $request->input('uploaded-file-rnckerja');
+				$upload_rnckerja = false;
+			}elseif($request->input('uploaded-file-rnckerja') != null && $file_rnckerja != null){
+				$url_rnckerja = $file_rnckerja->getClientOriginalName();
+				$upload_rnckerja = true;
+			}elseif($request->input('uploaded-file-rnckerja') == null && $file_rnckerja != null){
+				$url_rnckerja = $file_rnckerja->getClientOriginalName();
+				$upload_rnckerja = true;
 			}
 
-			if($upload_absensi == true){
-				$file_absensi->move(public_path('/uploads/persiapan/nasional/pokja/pembentukan'), $file_absensi->getClientOriginalName());
+			$file_dokumen = $request->file('file-dokumen-input');
+			$url_dokumen = null;
+			$upload_dokumen = false;
+			if($request->input('uploaded-file-dokumen') != null && $file_dokumen == null){
+				$url_dokumen = $request->input('uploaded-file-dokumen');
+				$upload_dokumen = false;
+			}elseif($request->input('uploaded-file-dokumen') != null && $file_dokumen != null){
+				$url_dokumen = $file_dokumen->getClientOriginalName();
+				$upload_dokumen = true;
+			}elseif($request->input('uploaded-file-dokumen') == null && $file_dokumen != null){
+				$url_dokumen = $file_dokumen->getClientOriginalName();
+				$upload_dokumen = true;
 			}
 
-			if($upload_rnckerja == true){
-				$file_rnckerja->move(public_path('/uploads/persiapan/nasional/pokja/pembentukan'), $file_rnckerja->getClientOriginalName());
+			$file_absensi = $request->file('file-absensi-input');
+			$url_absensi = null;
+			$upload_absensi = false;
+			if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
+				$url_absensi = $request->input('uploaded-file-absensi');
+				$upload_absensi = false;
+			}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
+				$url_absensi = $file_absensi->getClientOriginalName();
+				$upload_absensi = true;
+			}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
+				$url_absensi = $file_absensi->getClientOriginalName();
+				$upload_absensi = true;
 			}
 
-			$this->log_aktivitas('Create', 61);
+			if ($request->input('kode')!=null){
+				date_default_timezone_set('Asia/Jakarta');
+				DB::table('bkt_01020202_pokja')->where('kode', $request->input('kode'))
+				->update([
+					'tahun' => $request->input('tahun-input'), 
+					// 'kode_prop' => ($request->input('kode-prop-input')=='undefined' ? null:$request->input('kode-prop-input')), 
+					// 'kode_kmw' => ($request->input('kode-kmw-input')=='undefined' ? null:$request->input('kode-kmw-input')), 
+					// 'kode_faskel' => ($request->input('kode-faskel-input')=='undefined' ? null:$request->input('kode-faskel-input')), 
+					'jenis_kegiatan' => '2.1', 
+					'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
+					'status_pokja' => $request->input('status-pokja-input'), 
+					'ds_hkm' => $request->input('dsr-pembentukan-input'),
+					'q_anggota_p' => $request->input('q-laki-input'),
+					'q_anggota_w' => $request->input('q-perempuan-input'),
+					'upp_kl' => $request->input('upp-kementrian-input'),
+					'upp_dinas' => $request->input('upp-dinas-input'),
+					'upp_dpr' => $request->input('upp-dpr-input'),
+					'upn_lsm' => $request->input('upnp-lsm-input'),
+					'unp_bu' => $request->input('upnp-swasta-input'),
+					'upn_praktisi' => $request->input('upnp-praktisi-input'),
+					'nilai_dana_ops' => $request->input('dana-ops-input'),
+					'flag_sekretariat' => intval($request->input('flag_sekretariat')),
+					'url_rencana_kerja' => $url_rnckerja,
+					'ket_rencana_kerja' => $request->input('ket-rencana-kerja-input'),
+					'uri_img_document' => $url_dokumen,
+					'uri_img_absensi' => $url_absensi,
+					// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
+					// 'diser_oleh' => $request->input('diser-oleh-input'),
+					// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
+					// 'diket_oleh' => $request->input('diket-oleh-input'),
+					// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
+					// 'diver_oleh' => $request->input('diver-oleh-input'), 
+					'updated_by' => Auth::user()->id, 
+					'updated_time' => date('Y-m-d H:i:s')
+					]);
+
+				if($upload_dokumen == true){
+					$file_dokumen->move(public_path('/uploads/persiapan/nasional/pokja/pembentukan'), $file_dokumen->getClientOriginalName());
+				}
+
+				if($upload_absensi == true){
+					$file_absensi->move(public_path('/uploads/persiapan/nasional/pokja/pembentukan'), $file_absensi->getClientOriginalName());
+				}
+
+				if($upload_rnckerja == true){
+					$file_rnckerja->move(public_path('/uploads/persiapan/nasional/pokja/pembentukan'), $file_rnckerja->getClientOriginalName());
+				}
+
+				$this->log_aktivitas('Update', 62);
+
+			}else{
+				DB::table('bkt_01020202_pokja')->insert([
+					'tahun' => $request->input('tahun-input'), 
+					// 'kode_prop' => ($request->input('kode-prop-input')=='undefined' ? null:$request->input('kode-prop-input')), 
+					// 'kode_kmw' => ($request->input('kode-kmw-input')=='undefined' ? null:$request->input('kode-kmw-input')), 
+					// 'kode_faskel' => ($request->input('kode-faskel-input')=='undefined' ? null:$request->input('kode-faskel-input')), 
+					'jenis_kegiatan' => '2.1', 
+					'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
+					'status_pokja' => $request->input('status-pokja-input'), 
+					'ds_hkm' => $request->input('dsr-pembentukan-input'),
+					'q_anggota_p' => $request->input('q-laki-input'),
+					'q_anggota_w' => $request->input('q-perempuan-input'),
+					'upp_kl' => $request->input('upp-kementrian-input'),
+					'upp_dinas' => $request->input('upp-dinas-input'),
+					'upp_dpr' => $request->input('upp-dpr-input'),
+					'upn_lsm' => $request->input('upnp-lsm-input'),
+					'unp_bu' => $request->input('upnp-swasta-input'),
+					'upn_praktisi' => $request->input('upnp-praktisi-input'),
+					'nilai_dana_ops' => $request->input('dana-ops-input'),
+					'flag_sekretariat' => intval($request->input('flag_sekretariat')),
+					'url_rencana_kerja' => $url_rnckerja,
+					'ket_rencana_kerja' => $request->input('ket-rencana-kerja-input'),
+					'uri_img_document' => $url_dokumen,
+					'uri_img_absensi' => $url_absensi,
+					// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
+					// 'diser_oleh' => $request->input('diser-oleh-input'),
+					// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
+					// 'diket_oleh' => $request->input('diket-oleh-input'),
+					// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
+					// 'diver_oleh' => $request->input('diver-oleh-input'), 
+					'created_by' => Auth::user()->id
+	       			]);
+
+				if($upload_dokumen == true){
+					$file_dokumen->move(public_path('/uploads/persiapan/nasional/pokja/pembentukan'), $file_dokumen->getClientOriginalName());
+				}
+
+				if($upload_absensi == true){
+					$file_absensi->move(public_path('/uploads/persiapan/nasional/pokja/pembentukan'), $file_absensi->getClientOriginalName());
+				}
+
+				if($upload_rnckerja == true){
+					$file_rnckerja->move(public_path('/uploads/persiapan/nasional/pokja/pembentukan'), $file_rnckerja->getClientOriginalName());
+				}
+
+				$this->log_aktivitas('Create', 61);
+			}
 		}
+
+		
 	}
 
 	public function date_conversion($date)

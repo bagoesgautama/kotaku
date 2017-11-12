@@ -73,15 +73,24 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Cakupan Peserta</label></div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="kode">Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required>
+                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
+                                <label class="col-sm-3 control-label" for="kode">Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required>
+                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required min="0">
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="kode">Non Anggota</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="q-non-input" name="q-non-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota}}" required min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -180,6 +189,7 @@
             form_data.append('tgl-kegiatan-input', $('#tgl-kegiatan-input').val());
             form_data.append('q-laki-input', $('#q-laki-input').val());
             form_data.append('q-perempuan-input', $('#q-perempuan-input').val());
+            form_data.append('q-non-input', $('#q-non-input').val());
             form_data.append('tgl-diser-input', $('#tgl-diser-input').val());
             form_data.append('diser-oleh-input', $('#diser-oleh-input').val());
             form_data.append('tgl-diket-input', $('#tgl-diket-input').val());
