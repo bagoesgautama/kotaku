@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Pembentukan POKJA @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Pembentukan POKJA @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -57,12 +57,14 @@
                     <table class="table table-striped" id="pokja">
                         <thead>
                             <tr>
-                                <th>Kode</th>
-                                <th>Tahun</th>
+								<th>Kode</th>
+                                <th>Propinsi</th>
                                 <th>Kota</th>
-                                <th>Tanggal Pembentukan</th>
+                                <th>Tahun</th>
                                 <th>Status Pokja</th>
-                                <th>Created Time</th>
+                                <th>Tanggal Pembentukan</th>
+								<th>Anggota Pria</th>
+								<th>Anggota Wanita</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -79,7 +81,7 @@
     $(document).ready(function () {
         var table = $('#pokja').DataTable({
             // dom: 'Bflrtip',
-            
+
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -87,14 +89,15 @@
                      "dataType": "json",
                      "type": "POST"
                    },
-
             "columns": [
                 { "data": "kode" , name:"kode"},
-                { "data": "tahun" , name:"tahun"},
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
+                { "data": "nama_prop" , name:"nama_prop"},
+                { "data": "nama_kota" , name:"nama_kota"},
+                { "data": "tahun_pokja" , name:"tahun_pokja"},
                 { "data": "status_pokja" , name:"status_pokja"},
-                { "data": "created_time" , name:"created_time"},
+                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
+				{ "data": "q_anggota_p" , name:"q_anggota_p"},
+				{ "data": "q_anggota_w" , name:"q_anggota_w"},
                 { "data": "option" , name:"option",orderable:false}
             ],
             "order":[[0,"desc"]]
