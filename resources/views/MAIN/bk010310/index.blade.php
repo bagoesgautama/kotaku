@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Perencanaan - Investasi 5 Tahun @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Investasi 5 Tahun @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Perencanaan - Rencana Investasi 5 Tahun</h1>
+    <h1>MAIN Module</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,9 +23,13 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/perencanaan/kawasan/investasi">
-                    Perencanaan / Kawasan Prioritas / Rencana Investasi 5 Tahun
-                </a>
+                Perencanaan
+            </li>
+            <li class="next">
+                Kawasan Prioritas
+            </li>
+            <li class="next">
+                Rencana Investasi 5 Tahun
             </li>
         </ul>
     </div>
@@ -36,10 +40,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010310 index</b>
+                    <b>Rencana Investasi 5 Tahun</b>
                 </div>
                 @if( ! empty($detil['294']))
                 <div class="tools pull-right">
+                    <b>bk010310 index</b>
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/kawasan/investasi/create'}}">Create</a>
                 </div>
                 @endif

@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Perencanaan - Kawasan Prioritas @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Kawasan Prioritas @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Perencanaan Kawasan Prioritas</h1>
+    <h1>MAIN Module</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,12 +23,15 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/perencanaan/kawasan/perencanaan">
-                    Perencanaan / Kawasan Prioritas / Perencanaan Kawasan Prioritas
-                </a>
+                Perencanaan
+            </li>
+            <li class="next">
+                Kawasan Prioritas
+            </li>
+            <li class="next">
+                Perencanaan Kawasan Prioritas
             </li>
         </ul>
-    </div>
 </section>
 @stop {{-- Page content --}} @section('content')
 <div class="row">
