@@ -47,7 +47,7 @@
                                     <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}" maxlength="4" required>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <!--<div class="form-group ">
                                 <label class="col-sm-3 control-label">KMW</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" required>
@@ -57,8 +57,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-group striped-col">
+                            </div>-->
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label">Kota</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
@@ -71,7 +71,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <!--<div class="form-group ">
                                 <label class="col-sm-3 control-label">Kode Korkot</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
@@ -85,40 +85,20 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Kecamatan</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode-kec-input" name="kode-kec-input" class="form-control select2" size="1" required>
-                                        <option value>Please select</option>
-                                        @if ($kode_kec_list!=null)
-                                        @foreach ($kode_kec_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Jenis kegiatan</label>
                                 <div class="col-sm-6">
                                     <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1" required>
-                                        <!-- <option value="2.4.1" {!! $jenis_kegiatan=='2.4.1' ? 'selected':'' !!}>Sosialisasi Tingkat Kota</option> -->
                                         <option value="2.4.2" {!! $jenis_kegiatan=='2.4.2' ? 'selected':'' !!}>Relawan Kota</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
+                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pendataan</label>
                                 <div class="col-sm-6">
                                     <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Lokasi Kegiatan</label>
-                                <div class="col-sm-6">
-                                    <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50" required>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required>
@@ -130,7 +110,7 @@
                                     <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label">File Dokumen</label>
                                 <div class="col-sm-6">
                                     <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
@@ -190,9 +170,11 @@
                                     <a href="/main/persiapan/kota/kegiatan/relawan" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
+									@if ($detil_menu=='575' || $detil_menu=='576')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
+									@endif
                                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                         Reset
                                     </button>
@@ -227,12 +209,10 @@
             form_data.append('uploaded-file-absensi', $('#uploaded-file-absensi').val());
             form_data.append('tahun-input', $('#tahun-input').val());
             form_data.append('kode-kota-input', $('#select-kode-kota-input').val());
-            form_data.append('kode-kec-input', $('#select-kode-kec-input').val());
             form_data.append('kode-kmw-input', $('#select-kode-kmw-input').val());
             form_data.append('kode-korkot-input', $('#select-kode-korkot-input').val());
             form_data.append('jns-kegiatan-input', $('#jns-kegiatan-input').val());
             form_data.append('tgl-kegiatan-input', $('#tgl-kegiatan-input').val());
-            form_data.append('lok-kegiatan-input', $('#lok-kegiatan-input').val());
             form_data.append('q-laki-input', $('#q-laki-input').val());
             form_data.append('q-perempuan-input', $('#q-perempuan-input').val());
             form_data.append('tgl-diser-input', $('#tgl-diser-input').val());
@@ -270,10 +250,6 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
-        $("#select-kode-kec-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
         $("#select-kode-kmw-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
@@ -290,7 +266,6 @@
         var kmw = $('#select-kode-kmw-input');
         var kota = $('#select-kode-kota-input');
         var korkot = $('#select-kode-korkot-input');
-        var kec = $('#select-kode-kec-input');
         var kmw_id,kota_id,korkot_id,kec_id;
         var kode_kmw = {!! json_encode($kode_kmw) !!};
         var kode_kota = {!! json_encode($kode_kota) !!};
@@ -336,7 +311,7 @@
             }
         });
 
-        kota.change(function(){
+        /*kota.change(function(){
             kota_id=kota.val();
             if(kota_id!=null){
                 kec.empty();
@@ -352,9 +327,7 @@
                     }
                 });
             }
-        });
-
-
+        });*/
       });
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>

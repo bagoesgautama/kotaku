@@ -375,7 +375,7 @@
 							@if( ! empty($menu['54']))
 							<li {!! (Request::is( 'main/persiapan/kota/forum/bkm')||Request::is( 'main/persiapan/kota/forum/bkm/create') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/forum/bkm">
-				                    <span class="mm-text">BKM/LKM</span>
+				                    <span class="mm-text">FKA BKM/LKM</span>
 				                </a>
 						    </li>
 							@endif

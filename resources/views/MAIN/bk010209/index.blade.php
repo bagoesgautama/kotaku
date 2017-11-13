@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') BKM/LKM @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') BKM/LKM @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -57,13 +57,13 @@
                     <table class="table table-striped" id="kegiatan">
                         <thead>
                             <tr>
-                                <th>Kode</th>
-                                <th>Tahun</th>
+								<th>Kode</th>
                                 <th>Kota</th>
-                                <th>Jenis Kegiatan</th>
+								<th>Tahun</th>
                                 <th>Tanggal Kegiatan</th>
-                                <th>Lokasi Kegiatan</th>
-                                <th>Created Time</th>
+                                <th>Anggota Pria</th>
+                                <th>Anggota Wanita</th>
+								<th>Total Anggota</th>
                                 <th>option</th>
                             </tr>
                         </thead>
@@ -80,7 +80,7 @@
     $(document).ready(function () {
         var table = $('#kegiatan').DataTable({
             // dom: 'Bflrtip',
-            
+
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -88,15 +88,14 @@
                      "dataType": "json",
                      "type": "POST"
                    },
-
             "columns": [
                 { "data": "kode" , name:"kode"},
+				{ "data": "nama_kota" , name:"nama_kota"},
                 { "data": "tahun" , name:"tahun"},
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
-                { "data": "created_time" , name:"created_time"},
+                { "data": "tgl_kegiatan_bkm" , name:"tgl_kegiatan_bkm"},
+                { "data": "q_anggota_p" , name:"q_anggota_p"},
+                { "data": "q_anggota_w" , name:"q_anggota_w"},
+				{ "data": "total" , name:"total"},
                 { "data": "option" , name:"option",orderable:false}
             ],
             "order":[[0,"desc"]]
