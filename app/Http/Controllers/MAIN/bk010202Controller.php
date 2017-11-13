@@ -53,40 +53,19 @@ class bk010202Controller extends Controller
 	{
 		$columns = array(
 			0 =>'kode',
-<<<<<<< HEAD
 			1 =>'kode_pokja',
-			2 =>'jenis_subkegiatan',
+			2 =>'jenis_subkegiatan_convert',
 			3 =>'tgl_kegiatan',
 			4 =>'lok_kegiatan',
-			5 =>'q_peserta_pf',
-			6 =>'q_peserta_wf',
-			7 =>'q_non_anggotaf'
-=======
-			1 =>'tahun_pokja',
-			2 =>'jenis_subkegiatan_convert',
-			3 =>'tgl_kegiatan_f',
-			4 =>'lok_kegiatan_f',
 			5 =>'q_peserta_p',
 			6 =>'q_peserta_w',
-			7 =>'q_non_anggota',
-			8 =>'created_time'
->>>>>>> 508fe13305da513c5e839094295cea2212432b3c
+			7 =>'q_non_anggota'
 		);
 		$query='
 			select * from (select
 				a.*,
 				a.kode kode_f,
-<<<<<<< HEAD
-				a.q_peserta_p q_peserta_pf,
-				a.q_peserta_w q_peserta_wf,  
-				a.q_non_anggota q_non_anggotaf,
-				case when a.jenis_subkegiatan="2.2.3.3" then "Pertemuan Rutin" when a.jenis_subkegiatan="2.2.3.4" then "Monitoring" end jenis_subkegiatan_convert, 
-				a.tgl_kegiatan tgl_kegiatan_f, 
-=======
 				case when a.jenis_subkegiatan="2.2.3.3" then "Pertemuan Rutin" when a.jenis_subkegiatan="2.2.3.4" then "Monitoring" end jenis_subkegiatan_convert,
-				a.tgl_kegiatan tgl_kegiatan_f,
->>>>>>> 508fe13305da513c5e839094295cea2212432b3c
-				a.lok_kegiatan lok_kegiatan_f,
 				b.tahun tahun_pokja,
 				b.kode kode_pokja_n,
 				case when b.status_pokja=0 then "Pokja Lama" when b.status_pokja=1 then "Pokja Baru" end status_pokja_convert,
@@ -143,20 +122,14 @@ class bk010202Controller extends Controller
 				$url_show=url('/')."/main/persiapan/nasional/pokja/kegiatan/show?kode=".$edit;
 				$url_edit=url('/')."/main/persiapan/nasional/pokja/kegiatan/create?kode=".$edit;
 				$url_delete=url('/')."/main/persiapan/nasional/pokja/kegiatan/delete?kode=".$delete;
-				$nestedData['kode'] = $post->kode_f;
+				$nestedData['kode'] = $post->kode;
 				$nestedData['tahun'] = $post->tahun_pokja;
 				$nestedData['jenis_subkegiatan_convert'] = $post->jenis_subkegiatan_convert;
-				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan_f;
-				$nestedData['lok_kegiatan'] = $post->lok_kegiatan_f;
-<<<<<<< HEAD
-				$nestedData['q_peserta_pf'] = $post->q_peserta_pf;
-				$nestedData['q_peserta_wf'] = $post->q_peserta_wf;
-				$nestedData['q_non_anggotaf'] = $post->q_non_anggotaf;
-=======
+				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
+				$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
 				$nestedData['q_peserta_p'] = $post->q_peserta_p;
 				$nestedData['q_peserta_w'] = $post->q_peserta_w;
 				$nestedData['q_non_anggota'] = $post->q_non_anggota;
->>>>>>> 508fe13305da513c5e839094295cea2212432b3c
 
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
@@ -347,11 +320,8 @@ class bk010202Controller extends Controller
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
-<<<<<<< HEAD
 				'q_non_anggota' => $request->input('q-non-input'),
-=======
 				'q_non_anggota' => $request->input('q_non_anggota-input'),
->>>>>>> 508fe13305da513c5e839094295cea2212432b3c
 				'uri_img_document' => $url_dokumen,
 				'uri_img_absensi' => $url_absensi,
 				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
@@ -382,11 +352,8 @@ class bk010202Controller extends Controller
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
-<<<<<<< HEAD
 				'q_non_anggota' => $request->input('q-non-input'),
-=======
 				'q_non_anggota' => $request->input('q_non_anggota-input'),
->>>>>>> 508fe13305da513c5e839094295cea2212432b3c
 				'uri_img_document' => $url_dokumen,
 				'uri_img_absensi' => $url_absensi,
 				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),

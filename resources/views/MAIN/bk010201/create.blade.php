@@ -149,20 +149,7 @@
                                     <input type="number" id="dana-ops-input" name="dana-ops-input" class="form-control" placeholder="Jumlah" value="{{$nilai_dana_ops}}" min="0">
                                 </div>
                             </div>
-<<<<<<< HEAD
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Kesekretariat</label>
-                                <div class="col-sm-6">
-                                    <select id="flag_sekretariat" name="flag_sekretariat" class="form-control" size="1" required>
-                                        <option value="0" {!! $flag_sekretariat==0 ? 'selected':'' !!}>Tidak</option>
-                                        <option value="1" {!! $flag_sekretariat==1 ? 'selected':'' !!}>Ya</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-=======
-                            <div class="form-group ">
->>>>>>> 508fe13305da513c5e839094295cea2212432b3c
                                 <label class="col-sm-3 control-label">File Rencana Kerja</label>
                                 <div class="col-sm-6">
                                     <input id="rencana-kerja-input" type="file" class="file" data-show-preview="false" name="rencana-kerja-input">
@@ -313,7 +300,7 @@
                 // form_data.append('kode-prop-input', $('#kode-prop-input').val());
                 // form_data.append('kode-kmw-input', $('#select-kode-kmw-input').val());
                 // form_data.append('kode-faskel-input', $('#select-kode-faskel-input').val());
-                form_data.append('jns-kegiatan-input', $('#jns-kegiatan-input').val());
+                form_data.append('jns-kegiatan-input', '2.1');
                 form_data.append('tgl-kegiatan-input', $('#tgl-kegiatan-input').val());
                 form_data.append('status-pokja-input', $('#status-pokja-input').val());
                 form_data.append('dsr-pembentukan-input', $('#dsr-pembentukan-input').val());

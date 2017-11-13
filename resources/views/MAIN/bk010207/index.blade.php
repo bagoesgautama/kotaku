@@ -65,6 +65,7 @@
                                 <th>Lokasi Kegiatan</th>
                                 <th>Peserta Pria</th>
 								<th>Peserta Wanita</th>
+								<th>Peserta Non Anggota</th>
                                 <th>option</th>
                             </tr>
                         </thead>
@@ -81,7 +82,6 @@
     $(document).ready(function () {
         var table = $('#kegiatan').DataTable({
             // dom: 'Bflrtip',
-
             "processing": true,
             "serverSide": true,
             "ajax":{

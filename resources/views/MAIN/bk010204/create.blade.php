@@ -86,7 +86,7 @@
                                 </div>
                             </div>
 							<div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="kode">Hadirin Bukan Anggota Pokja</label>
+                                <label class="col-sm-3 control-label" for="kode">Peserta Non Anggota</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q_non_anggota-input" name="q_non_anggota-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota}}" maxlength="11" required min="0">
                                 </div>
@@ -151,7 +151,7 @@
                                     <a href="/main/persiapan/propinsi/pokja/kegiatan" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
-									@if ($detil_menu=='69' || $detil_menu=='70')
+									@if ($detil_menu=='74' || $detil_menu=='73')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>

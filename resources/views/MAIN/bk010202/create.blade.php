@@ -79,38 +79,21 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required min="0">
+                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk pria" data-bv-callback-callback="check" >
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Perempuan</label>
                                 <div class="col-sm-6">
-<<<<<<< HEAD
-                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required min="0">
+                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk perempuan" data-bv-callback-callback="check" >
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Non Anggota</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q-non-input" name="q-non-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota}}" required min="0">
-=======
-                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" maxlength="11" required min="0" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk pria" data-bv-callback-callback="check">
                                 </div>
                             </div>
-                            <div class="form-group ">
-                                <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
-                                <div class="col-sm-6">
-                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" maxlength="11" required min="0" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk perempuan" data-bv-callback-callback="check" >
->>>>>>> 508fe13305da513c5e839094295cea2212432b3c
-                                </div>
-                            </div>
-							<div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="kode">Peserta Non Anggota Pokja</label>
-                                <div class="col-sm-6">
-                                    <input type="number" id="q_non_anggota-input" name="q_non_anggota-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota}}" maxlength="11" required min="0">
-                                </div>
-                            </div>
-
                             <div class="form-group ">
                                 <label class="col-sm-3 control-label">File Dokumen</label>
                                 <div class="col-sm-6">
@@ -224,50 +207,12 @@
 		return res;
 	};
       $(document).ready(function () {
-<<<<<<< HEAD
-        $('#form').on('submit', function (e) {
-            var file_dokumen = document.getElementById('file-dokumen-input').files[0];
-            var file_absensi = document.getElementById('file-absensi-input').files[0];
-            var form_data = new FormData();
-            form_data.append('kode', $('#kode').val());
-            form_data.append('file-dokumen-input', file_dokumen);
-            form_data.append('file-absensi-input', file_absensi);
-            form_data.append('uploaded-file-dokumen', $('#uploaded-file-dokumen').val());
-            form_data.append('uploaded-file-absensi', $('#uploaded-file-absensi').val());
-            form_data.append('kode-pokja-input', $('#select-kode-pokja-input').val());
-            form_data.append('sub-kegiatan-input', $('#sub-kegiatan-input').val());
-            form_data.append('lok-kegiatan-input', $('#lok-kegiatan-input').val());
-            form_data.append('tgl-kegiatan-input', $('#tgl-kegiatan-input').val());
-            form_data.append('q-laki-input', $('#q-laki-input').val());
-            form_data.append('q-perempuan-input', $('#q-perempuan-input').val());
-            form_data.append('q-non-input', $('#q-non-input').val());
-            form_data.append('tgl-diser-input', $('#tgl-diser-input').val());
-            form_data.append('diser-oleh-input', $('#diser-oleh-input').val());
-            form_data.append('tgl-diket-input', $('#tgl-diket-input').val());
-            form_data.append('diket-oleh-input', $('#diket-oleh-input').val());
-            form_data.append('tgl-diver-input', $('#tgl-diver-input').val());
-            form_data.append('diver-oleh-input', $('#diver-oleh-input').val());
-          e.preventDefault();
-          $.ajax({
-            type: 'post',
-            processData: false,
-            contentType: false,
-            "url": "/main/persiapan/nasional/pokja/kegiatan/create",
-            data: form_data,
-            beforeSend: function (){
-                $("#submit").prop('disabled', true);
-            },
-            success: function () {
-            alert('From Submitted.');
-            window.location.href = "/main/persiapan/nasional/pokja/kegiatan";
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
-            $("#submit").prop('disabled', false);
-            }
-          });
-=======
+        $("#file-dokumen-input").fileinput({
+            showUpload: false
+        });
+        $("#file-absensi-input").fileinput({
+            showUpload: false
+        });
 		  $('#form').bootstrapValidator().on('success.form.bv', function(e) {
 		    $('#form').on('submit', function (e) {
 		        var file_dokumen = document.getElementById('file-dokumen-input').files[0];
@@ -320,18 +265,11 @@
                 // Revalidate the date when user change it
                 $('#form').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
                 $("#submit").prop('disabled', false);
->>>>>>> 508fe13305da513c5e839094295cea2212432b3c
         });
         $("#select-kode-pokja-input").select2({
             theme: "bootstrap",
             placeholder: "single select"
         });
-		$("#file-dokumen-input").fileinput({
-	        showUpload: false
-	    });
-		$("#file-absensi-input").fileinput({
-	        showUpload: false
-	    });
 		function enforce_maxlength(event) {
             var t = event.target;
             if (t.hasAttribute('maxlength')) {
