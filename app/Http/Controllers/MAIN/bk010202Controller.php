@@ -54,12 +54,12 @@ class bk010202Controller extends Controller
 		$columns = array(
 			0 =>'kode',
 			1 =>'kode_pokja',
-			2 =>'jenis_subkegiatan',
+			2 =>'jenis_subkegiatan_convert',
 			3 =>'tgl_kegiatan',
 			4 =>'lok_kegiatan',
-			5 =>'q_peserta_pf',
-			6 =>'q_peserta_wf',
-			7 =>'q_non_anggotaf'
+			5 =>'q_peserta_p',
+			6 =>'q_peserta_w',
+			7 =>'q_non_anggota'
 		);
 		$query='
 			select * from (select
@@ -128,9 +128,6 @@ class bk010202Controller extends Controller
 				$nestedData['jenis_subkegiatan_convert'] = $post->jenis_subkegiatan_convert;
 				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
 				$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
-				$nestedData['q_peserta_p'] = $post->q_peserta_p;
-				$nestedData['q_peserta_w'] = $post->q_peserta_w;
-				$nestedData['q_non_anggota'] = $post->q_non_anggota;
 				$nestedData['q_peserta_p'] = $post->q_peserta_p;
 				$nestedData['q_peserta_w'] = $post->q_peserta_w;
 				$nestedData['q_non_anggota'] = $post->q_non_anggota;
