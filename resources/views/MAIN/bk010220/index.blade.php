@@ -12,7 +12,7 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Persiapan Kelurahan - Forum Kolaborasi - Keanggotaan</h1>
+    <h1>MAIN Module</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -21,9 +21,13 @@
                 </a>
             </li>  
             <li class="next">
-                <a href="/main/persiapan/kelurahan/forum/keanggotaan">
-                    Persiapan Kelurahan / Forum Kolaborasi / Keanggotaan
-                </a>
+                Persiapan Kelurahan
+            </li>
+            <li class="next">
+                Forum Kolaborasi
+            </li>
+            <li class="next">
+                Keanggotaan
             </li>
         </ul>
     </div>

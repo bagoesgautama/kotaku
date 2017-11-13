@@ -374,8 +374,12 @@ class bk010220Controller extends Controller
 			$kec = DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$request->input('kec'));
 			echo json_encode($kec);
 		}
-		elseif(!empty($request->input('kel'))){
-			$kel = DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010104_kel b where a.kode_kel=b.kode and b.kode_kec='.$request->input('kel').' and a.kode_faskel='.$request->input('faskel'));
+		elseif(($request->input('kel'))!=null && ($request->input('faskel'))!=null) {
+			$kel_faskel = DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010104_kel b where a.kode_kel=b.kode and b.kode_kec='.$request->input('kel').' and a.kode_faskel='.$request->input('faskel'));
+			echo json_encode($kel_faskel);
+		}
+		elseif(($request->input('kel'))!=null && ($request->input('faskel'))==null) {
+			$kel = DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010104_kel b where a.kode_kel=b.kode and b.kode_kec='.$request->input('kel'));
 			echo json_encode($kel);
 		}
 		elseif(!empty($request->input('faskel'))){
@@ -391,44 +395,44 @@ class bk010220Controller extends Controller
 	public function post_create(Request $request)
 	{
 
-		$file_dok_rencana_kerja = $request->file('file-dok_rencana_kerja-input');
+		$file_dok_rencana_kerja = $request->file('uri_dok_rencana_kerja-input');
 		$uri_dok_rencana_kerja = null;
 		$upload_dok_rencana_kerja = false;
-		if($request->input('uploaded-file-dok_rencana_kerja') != null && $file_dok_rencana_kerja == null){
-			$uri_dok_rencana_kerja = $request->input('uploaded-file-dok_rencana_kerja');
+		if($request->input('uri_dok_rencana_kerja-file') != null && $file_dok_rencana_kerja == null){
+			$uri_dok_rencana_kerja = $request->input('uri_dok_rencana_kerja-file');
 			$upload_dok_rencana_kerja = false;
-		}elseif($request->input('uploaded-file-dok_rencana_kerja') != null && $file_dok_rencana_kerja != null){
+		}elseif($request->input('uri_dok_rencana_kerja-file') != null && $file_dok_rencana_kerja != null){
 			$uri_dok_rencana_kerja = $file_dok_rencana_kerja->getClientOriginalName();
 			$upload_dok_rencana_kerja = true;
-		}elseif($request->input('uploaded-file-dok_rencana_kerja') == null && $file_dok_rencana_kerja != null){
+		}elseif($request->input('uri_dok_rencana_kerja-file') == null && $file_dok_rencana_kerja != null){
 			$uri_dok_rencana_kerja = $file_dok_rencana_kerja->getClientOriginalName();
 			$upload_dok_rencana_kerja = true;
 		}
 
-		$file_document = $request->file('file-document-input');
+		$file_document = $request->file('uri_img_document-input');
 		$uri_document = null;
 		$upload_document = false;
-		if($request->input('uploaded-file-document') != null && $file_document == null){
-			$uri_document = $request->input('uploaded-file-document');
+		if($request->input('uri_img_document-file') != null && $file_document == null){
+			$uri_document = $request->input('uri_img_document-file');
 			$upload_document = false;
-		}elseif($request->input('uploaded-file-document') != null && $file_document != null){
+		}elseif($request->input('uri_img_document-file') != null && $file_document != null){
 			$uri_document = $file_document->getClientOriginalName();
 			$upload_document = true;
-		}elseif($request->input('uploaded-file-document') == null && $file_document != null){
+		}elseif($request->input('uri_img_document-file') == null && $file_document != null){
 			$uri_document = $file_document->getClientOriginalName();
 			$upload_document = true;
 		}
 
-		$file_absensi = $request->file('file-absensi-input');
+		$file_absensi = $request->file('uri_img_absensi-input');
 		$uri_absensi = null;
 		$upload_absensi = false;
-		if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
-			$uri_absensi = $request->input('uploaded-file-absensi');
+		if($request->input('uri_img_absensi-file') != null && $file_absensi == null){
+			$uri_absensi = $request->input('uri_img_absensi-file');
 			$upload_absensi = false;
-		}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
+		}elseif($request->input('uri_img_absensi-file') != null && $file_absensi != null){
 			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
-		}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
+		}elseif($request->input('uri_img_absensi-file') == null && $file_absensi != null){
 			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
 		}

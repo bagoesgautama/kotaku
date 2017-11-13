@@ -385,7 +385,7 @@ class bk010223Controller extends Controller
 					$data['kode_kec_list'] = null;
 					$data['kode_kel_list'] = null;
 				}
-				$data['kode_id_kegiatan_list']= DB::select('select id, nama from bkt_01010118_kegiatan_kel where status = 1');
+				$data['kode_id_kegiatan_list']= DB::select('select id, nama from bkt_01010118_kegiatan_kel where status = 1 and id<3');
 				$data['kode_id_dtl_kegiatan_list']= null;
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010223/create',$data);
