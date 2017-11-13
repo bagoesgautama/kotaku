@@ -100,15 +100,9 @@
                 { "data": "jenis_subkegiatan_convert" , name:"jenis_subkegiatan_convert"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
-<<<<<<< HEAD
-                { "data": "q_peserta_pf" , name:"q_peserta_pf"},
-                { "data": "q_peserta_wf" , name:"q_peserta_wf"},
-                { "data": "q_non_anggotaf" , name:"q_non_anggotaf"},
-=======
                 { "data": "q_peserta_p" , name:"q_peserta_p"},
 				{ "data": "q_peserta_w" , name:"q_peserta_w"},
 				{ "data": "q_non_anggota" , name:"q_non_anggota"},
->>>>>>> 508fe13305da513c5e839094295cea2212432b3c
 				{ "data": "option" , name:"option",orderable:false}
             ],
             "order":[[0,"desc"]]
