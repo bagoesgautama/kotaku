@@ -62,15 +62,9 @@
                                 <th>Jenis Sub Kegiatan</th>
                                 <th>Tanggal Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
-<<<<<<< HEAD
                                 <th>Jumlah Anggota Laki-laki</th>
                                 <th>Jumlah Anggota Perempuan</th>
                                 <th>Jumlah Non Anggota</th>
-=======
-								<th>Peserta Pria</th>
-								<th>Peserta Wanita</th>
-								<th>Peserta Non Anggota</th>
->>>>>>> 508fe13305da513c5e839094295cea2212432b3c
                                 <th>option</th>
                             </tr>
                         </thead>
