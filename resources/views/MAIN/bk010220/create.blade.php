@@ -1,5 +1,6 @@
  @extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - Forum Kolaborasi - Keanggotaan @stop {{-- local styles --}}
 @section('header_styles')
+
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
@@ -122,7 +123,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Unsur Non Pemerintah</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_anggota_non_pem-input" name="q_anggota_non_pem-input" class="form-control" placeholder="Anggota Non Pemerintah" value="{{$q_anggota_non_pem}}" maxlength="5"data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
+                                    <input type="text" id="q_anggota_non_pem-input" name="q_anggota_non_pem-input" class="form-control" placeholder="Anggota Non Pemerintah" value="{{$q_anggota_non_pem}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
                                 </div>
                             </div>
                             <div class="form-group">

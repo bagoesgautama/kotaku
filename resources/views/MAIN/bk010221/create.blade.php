@@ -1,13 +1,14 @@
 @extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - Forum Kolaborasi - Keberfungsian Forum @stop {{-- local styles --}}
 @section('header_styles')
 
+<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
+
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
 <link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
-
-<link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
+<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 
 @stop {{-- Page Header--}}
 @section('page-header')
@@ -39,7 +40,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                        <form id="form-validation" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group">
                                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Kode Forum</label>
@@ -100,21 +101,21 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">File Document</label>
                                 <div class="col-sm-6">
-                                    <input id="file-document-input" type="file" class="file" accept="image/*" name="file-document-input">
+                                    <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
                                     <br>
-                                    <img id="uri_img_document" alt="gallery" src="/uploads/perencanaan/kawasan/perencanaan/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
-                                    <input type="hidden" id="uploaded-file-document" name="uploaded-file-document" value="{{$uri_img_document}}">
-                                    <button type="button" class="btn btn-effect-ripple btn-danger" id="uploaded-file-document" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">delete</button>
+                                    <img id="uri_img_document" alt="gallery" src="/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="uri_img_document-file" name="uri_img_document-file" value="{{$uri_img_document}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">Delete</button>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">File Absensi</label>
                                 <div class="col-sm-6">
-                                    <input id="file-absensi-input" type="file" class="file" accept="image/*" name="file-absensi-input">
+                                    <input id="uri_img_absensi-input" type="file" class="file" accept="image/*" name="uri_img_absensi-input">
                                     <br>
-                                    <img id="uri_img_absensi" alt="gallery" src="/uploads/perencanaan/kawasan/perencanaan/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
-                                    <input type="hidden" id="uploaded-file-absensi" name="uploaded-file-absensi" value="{{$uri_img_absensi}}">
-                                    <button type="button" class="btn btn-effect-ripple btn-danger" id="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} onclick="test('uri_img_absensi')">delete</button>
+                                    <img id="uri_img_absensi" alt="gallery" src="/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="uri_img_absensi-file" name="uri_img_absensi-file" value="{{$uri_img_absensi}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} onclick="test('uri_img_absensi')">Delete</button>
                                 </div>
                             </div>
                             <!-- <div class="form-group ">
@@ -182,45 +183,24 @@
 @stop {{-- local scripts --}} @section('footer_scripts')
 <script>
     function test(id){
-    console.log(id)
-    var elem = document.getElementById(id);
-    elem.parentNode.removeChild(elem);
-    var elem2 = $('#'+id+'-file');
-    elem2.removeAttr('value');
-    return false;
-    }
-      $(document).ready(function () {
-	  	$("#file-dokumen-input").fileinput({
-	  		showUpload: false
-	  	});
-	  	$("#file-absensi-input").fileinput({
-	  		showUpload: false
-	  	});
-        $('#form').on('submit', function (e) {
-          e.preventDefault();
-          var form_data = new FormData(this);
-          $.ajax({
-            type: 'post',
-            processData: false,
-            contentType: false,
-            "url": "/main/persiapan/kelurahan/forum/keberfungsian/create",
-            data: form_data,
-            beforeSend: function (){
-                $("#submit").prop('disabled', true);
-            },
-            success: function () {
+            console.log(id)
+            var elem = document.getElementById(id);
+            elem.parentNode.removeChild(elem);
+            var elem2 = $('#'+id+'-file');
+            elem2.removeAttr('value');
+            return false;
+        }
 
-            alert('From Submitted.');
-            window.location.href = "/main/persiapan/kelurahan/forum/keberfungsian";
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-              alert(xhr.status);
-              alert(thrownError);
-              $("#submit").prop('disabled', false);
+    function enforce_maxlength(event) {
+        var t = event.target;
+        if (t.hasAttribute('maxlength')) {
+            t.value = t.value.slice(0, t.getAttribute('maxlength'));
             }
-          });
-        });
+        }
+    document.body.addEventListener('input', enforce_maxlength);
 
+    $(document).ready(function () {
+	  	
         $("#select-kode_forum-input").select2({
             theme: "bootstrap",
             placeholder: "Please select"
@@ -231,7 +211,35 @@
             placeholder: "Please Select"
         });
 
-        $("#file-document-input").fileinput({
+        $('#form-validation').bootstrapValidator().on('success.form.bv', function(e) {
+            $('#form-validation').on('submit', function (e) {
+                e.preventDefault();
+                var form_data = new FormData(this);
+                $.ajax({
+                    type: 'post',
+                    processData: false,
+                    contentType: false,
+                    "url": "/main/persiapan/kelurahan/forum/keberfungsian/create",
+                    data: form_data,
+                    beforeSend: function (){
+                        $("#submit").prop('disabled', true);
+                    },
+                    success: function () {
+                        alert('From Submitted.');
+                        window.location.href = "/main/persiapan/kelurahan/forum/keberfungsian";
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                        $("#submit").prop('disabled', false);
+                    }
+                });
+            });
+        }).on('error.form.bv', function(e) {
+        $("#submit").prop('disabled', false);
+        });
+
+        $("#uri_img_document-input").fileinput({
             previewFileType: "image",
             browseClass: "btn btn-success",
             browseLabel: " Pick Image",
@@ -241,7 +249,8 @@
             removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
             showUpload: false
         });
-        $("#file-absensi-input").fileinput({
+
+        $("#uri_img_absensi-input").fileinput({
             previewFileType: "image",
             browseClass: "btn btn-success",
             browseLabel: " Pick Image",
@@ -251,12 +260,15 @@
             removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
             showUpload: false
         });
-      });
+    });
 </script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_validations.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
 
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
 @stop

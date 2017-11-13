@@ -304,30 +304,30 @@ class bk010221Controller extends Controller
 
 	public function post_create(Request $request)
 	{
-		$file_document = $request->file('file-document-input');
+		$file_document = $request->file('uri_img_document-input');
 		$uri_document = null;
 		$upload_document = false;
-		if($request->input('uploaded-file-document') != null && $file_document == null){
-			$uri_document = $request->input('uploaded-file-document');
+		if($request->input('uri_img_document-file') != null && $file_document == null){
+			$uri_document = $request->input('uri_img_document-file');
 			$upload_document = false;
-		}elseif($request->input('uploaded-file-document') != null && $file_document != null){
+		}elseif($request->input('uri_img_document-file') != null && $file_document != null){
 			$uri_document = $file_document->getClientOriginalName();
 			$upload_document = true;
-		}elseif($request->input('uploaded-file-document') == null && $file_document != null){
+		}elseif($request->input('uri_img_document-file') == null && $file_document != null){
 			$uri_document = $file_document->getClientOriginalName();
 			$upload_document = true;
 		}
 
-		$file_absensi = $request->file('file-absensi-input');
+		$file_absensi = $request->file('uri_img_absensi-input');
 		$uri_absensi = null;
 		$upload_absensi = false;
-		if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
-			$uri_absensi = $request->input('uploaded-file-absensi');
+		if($request->input('uri_img_absensi-file') != null && $file_absensi == null){
+			$uri_absensi = $request->input('uri_img_absensi-file');
 			$upload_absensi = false;
-		}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
+		}elseif($request->input('uri_img_absensi-file') != null && $file_absensi != null){
 			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
-		}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
+		}elseif($request->input('uri_img_absensi-file') == null && $file_absensi != null){
 			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
 		}

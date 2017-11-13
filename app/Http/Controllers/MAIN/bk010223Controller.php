@@ -297,17 +297,37 @@ class bk010223Controller extends Controller
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
 				if(empty($user->kode_faskel) && empty($user->kode_korkot)){
-					$data['kode_kota_list']=DB::select('select b.kode, b.nama from bkt_01010110_kmw a, bkt_01010102_kota b where a.kode_prop=b.kode_prop and a.kode='.$rowData[0]->kode_kmw);
+					$data['kode_kota_list']=DB::select('select c.kode, c.nama
+														from bkt_02010111_user a 
+															left join bkt_01010112_kota_korkot b on a.kode_korkot=b.kode_korkot
+															left join bkt_01010102_kota c on b.kode_kota=c.kode
+														where a.id='.$user->id);
 					$data['kode_kec_list']=DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$rowData[0]->kode_kota);
 					$data['kode_kel_list']=DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$rowData[0]->kode_kec);
-				}else if(!empty($user->kode_faskel)){
-					$data['kode_kota_list']=DB::select('select kode, nama from bkt_01010102_kota where kode='.$rowData[0]->kode_kota);
-					$data['kode_kec_list']=DB::select('select kode, nama from bkt_01010103_kec where kode='.$rowData[0]->kode_kec);
-					$data['kode_kel_list']=DB::select('select kode, nama from bkt_01010104_kel where kode='.$rowData[0]->kode_kel);
-				}else if(empty($user->kode_faskel)){
-					$data['kode_kota_list']=DB::select('select b.kode, b.nama from bkt_01010110_kmw a, bkt_01010102_kota b where a.kode_prop=b.kode_prop and a.kode='.$rowData[0]->kode_kmw);
+				}elseif(empty($user->kode_faskel) && !empty($user->kode_korkot)){
+					$data['kode_kota_list']=DB::select('select c.kode, c.nama
+														from bkt_02010111_user a 
+															left join bkt_01010110_kmw b on a.kode_kmw=b.kode
+															left join bkt_01010102_kota c on b.kode_prop=c.kode_prop
+														where a.id='.$user->id);
 					$data['kode_kec_list']=DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$rowData[0]->kode_kota);
 					$data['kode_kel_list']=DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$rowData[0]->kode_kec);
+				}elseif(!empty($user->kode_faskel) && !empty($user->kode_korkot)){
+					$data['kode_kota_list']= DB::select('select c.kode, c.nama
+														from bkt_02010111_user a 
+															left join bkt_01010112_kota_korkot b on a.kode_korkot=b.kode_korkot
+															left join bkt_01010102_kota c on b.kode_kota=c.kode
+														where a.id='.$user->id);
+					$data['kode_kec_list']=DB::select('select distinct c.kode, c.nama
+														from bkt_02010111_user a 
+															left join bkt_01010114_kel_faskel b on a.kode_faskel=b.kode_faskel
+															left join bkt_01010103_kec c on b.kode_kec=c.kode
+														where a.id='.$user->id);
+					$data['kode_kel_list']=DB::select('select c.kode, c.nama 
+														from bkt_02010111_user a 
+														left join bkt_01010114_kel_faskel b on a.kode_faskel=b.kode_faskel
+														left join  bkt_01010104_kel c on b.kode_kel=c.kode
+														where a.id='.$user->id);
 				}
 				$data['kode_id_kegiatan_list'] = DB::select('select * from bkt_01010118_kegiatan_kel where status=1');
 				if(!empty($rowData[0]->id_kegiatan))
@@ -317,20 +337,10 @@ class bk010223Controller extends Controller
 			}else if($data['kode']==null && !empty($data['detil']['339'])){
 				$rowData = DB::select('select *, kode_kmp kode_kmp_real, kode_kmw kode_kmw_real, kode_korkot kode_korkot_real, kode_faskel kode_faskel_real from bkt_02010111_user where id='.$user['id']);
 				$data['detil_menu']='339';
-				$dataUser = DB::select('select a.*,
-											a.kode_kmp kode_kmp_real, 
-											a.kode_kmw kode_kmw_real, 
-											a.kode_korkot kode_korkot_real, 
-											a.kode_faskel kode_faskel_real,
-											c.kode kode_kec, 
-											c.nama nama_kec
-										from bkt_02010111_user a
-											left join bkt_01010104_kel b on a.wk_kd_kel=b.kode
-											left join bkt_01010103_kec c on b.kode_kec=c.kode
-										where a.id='.$user->id);
-				$data['kode_kmw'] = $dataUser[0]->kode_kmw_real;
-				$data['kode_korkot'] = $dataUser[0]->kode_korkot_real;
-				$data['kode_faskel'] = $dataUser[0]->kode_faskel_real;
+				$dataUser = DB::select('select * from bkt_02010111_user where id='.$user->id);
+				$data['kode_kmw'] = $dataUser[0]->kode_kmw;
+				$data['kode_korkot'] = $dataUser[0]->kode_korkot;
+				$data['kode_faskel'] = $dataUser[0]->kode_faskel;
 				$data['tahun'] = null;
 				$data['kode_kota'] = null;
 				$data['kode_kec'] = null;
@@ -354,37 +364,24 @@ class bk010223Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
-				if(empty($user->kode_faskel) && empty($user->kode_korkot)){
-					$data['kode_korkot'] = null;
-					$data['kode_faskel'] = null;
-					$data['kode_kota'] = null;
-					$data['kode_kec'] = null;
-					$data['kode_kel'] = null;
-					$data['kode_kota_list']=DB::select('select a.kode, a.nama from bkt_01010102_kota a, bkt_02010111_user b where a.kode_prop=b.wk_kd_prop and b.id='.$user->id);
-					$data['kode_kec_list'] = null;
-					$data['kode_kel_list'] = null;
-				}else if(!empty($user->kode_faskel)){
-					$data['kode_kota'] = $dataUser[0]->wk_kd_kota;
-					$data['kode_kec'] = $dataUser[0]->kode_kec;
-					$data['kode_kel'] = $dataUser[0]->wk_kd_kel;
-					$data['kode_kota_list']=DB::select('select a.kode, a.nama 
-														from bkt_01010102_kota a, bkt_01010104_kel b, bkt_01010103_kec c, bkt_02010111_user d 
-														where b.kode=d.wk_kd_kel and b.kode_kec=c.kode and c.kode_kota=a.kode and d.id='.$user->id);
-					$data['kode_kec_list']=DB::select('select a.kode, a.nama 
-														from bkt_01010103_kec a, bkt_01010104_kel b, bkt_02010111_user c 
-														where b.kode=c.wk_kd_kel and b.kode_kec=a.kode and c.id='.$user->id);
-					$data['kode_kel_list']=DB::select('select a.kode, a.nama 
-														from bkt_01010104_kel a, bkt_02010111_user b 
-														where a.kode=b.wk_kd_kel and b.id='.$user->id);
-				}else if(empty($user->kode_faskel)){
-					$data['kode_faskel'] = null;
-					$data['kode_kota'] = null;
-					$data['kode_kec'] = null;
-					$data['kode_kel'] = null;
-					$data['kode_kota_list']=DB::select('select a.kode, a.nama from bkt_01010102_kota a, bkt_02010111_user b, bkt_01010112_kota_korkot c where b.kode_korkot=c.kode_korkot and c.kode_kota=a.kode and b.id='.$user->id);
-					$data['kode_kec_list'] = null;
-					$data['kode_kel_list'] = null;
+				$data['kode_kota'] = null;
+				$data['kode_kec'] = null;
+				$data['kode_kel'] = null;
+				if ($data['kode_korkot']!=null){
+					$data['kode_kota_list']=DB::select('select c.kode, c.nama
+														from bkt_02010111_user a 
+															left join bkt_01010112_kota_korkot b on a.kode_korkot=b.kode_korkot
+															left join bkt_01010102_kota c on b.kode_kota=c.kode
+														where a.id='.$user->id);
+				}elseif($data['kode_korkot']==null){
+					$data['kode_kota_list']=DB::select('select c.kode, c.nama
+														from bkt_02010111_user a 
+															left join bkt_01010110_kmw b on a.kode_kmw=b.kode
+															left join bkt_01010102_kota c on b.kode_prop=c.kode_prop
+														where a.id='.$user->id);
 				}
+				$data['kode_kec_list'] = null;
+				$data['kode_kel_list'] = null;
 				$data['kode_id_kegiatan_list']= DB::select('select id, nama from bkt_01010118_kegiatan_kel where status = 1 and id<3');
 				$data['kode_id_dtl_kegiatan_list']= null;
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
@@ -399,15 +396,28 @@ class bk010223Controller extends Controller
 
 	public function select(Request $request)
 	{
-		if(!empty($request->input('kec'))){
+		if(($request->input('kec'))!=null && ($request->input('faskel'))!=null) {
+			$kec_faskel = DB::select('select distinct a.kode, a.nama
+										from bkt_01010103_kec a, bkt_01010114_kel_faskel b where a.kode=b.kode_kec and b.kode_faskel='.$request->input('faskel'));
+			echo json_encode($kec_faskel);
+		}
+		elseif(($request->input('kec'))!=null && ($request->input('faskel'))==null){
 			$kec = DB::select('select kode, nama from bkt_01010103_kec where kode_kota='.$request->input('kec'));
 			echo json_encode($kec);
 		}
-		if(!empty($request->input('kel'))){
-			$kel = DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$request->input('kel'));
+		elseif(($request->input('kel'))!=null && ($request->input('faskel'))!=null) {
+			$kel_faskel = DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010104_kel b where a.kode_kel=b.kode and b.kode_kec='.$request->input('kel').' and a.kode_faskel='.$request->input('faskel'));
+			echo json_encode($kel_faskel);
+		}
+		elseif(($request->input('kel'))!=null && ($request->input('faskel'))==null) {
+			$kel = DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010104_kel b where a.kode_kel=b.kode and b.kode_kec='.$request->input('kel'));
 			echo json_encode($kel);
 		}
-		if(!empty($request->input('korkot'))){
+		elseif(!empty($request->input('faskel'))){
+			$faskel = DB::select('select kode_faskel from bkt_01010114_kel_faskel where kode_kel='.$request->input('faskel'));
+			echo json_encode($faskel);
+		}
+		elseif(!empty($request->input('korkot'))){
 			$korkot = DB::select('select kode_korkot from bkt_01010112_kota_korkot where kode_kota='.$request->input('korkot'));
 			echo json_encode($korkot);
 		}
@@ -420,30 +430,30 @@ class bk010223Controller extends Controller
 	public function post_create(Request $request)
 	{
 
-		$file_document = $request->file('file-document-input');
+		$file_document = $request->file('uri_img_document-input');
 		$uri_document = null;
 		$upload_document = false;
-		if($request->input('uploaded-file-document') != null && $file_document == null){
-			$uri_document = $request->input('uploaded-file-document');
+		if($request->input('uri_img_document-file') != null && $file_document == null){
+			$uri_document = $request->input('uri_img_document-file');
 			$upload_document = false;
-		}elseif($request->input('uploaded-file-document') != null && $file_document != null){
+		}elseif($request->input('uri_img_document-file') != null && $file_document != null){
 			$uri_document = $file_document->getClientOriginalName();
 			$upload_document = true;
-		}elseif($request->input('uploaded-file-document') == null && $file_document != null){
+		}elseif($request->input('uri_img_document-file') == null && $file_document != null){
 			$uri_document = $file_document->getClientOriginalName();
 			$upload_document = true;
 		}
 
-		$file_absensi = $request->file('file-absensi-input');
+		$file_absensi = $request->file('uri_img_absensi-input');
 		$uri_absensi = null;
 		$upload_absensi = false;
-		if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
-			$uri_absensi = $request->input('uploaded-file-absensi');
+		if($request->input('uri_img_absensi-file') != null && $file_absensi == null){
+			$uri_absensi = $request->input('uri_img_absensi-file');
 			$upload_absensi = false;
-		}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
+		}elseif($request->input('uri_img_absensi-file') != null && $file_absensi != null){
 			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
-		}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
+		}elseif($request->input('uri_img_absensi-file') == null && $file_absensi != null){
 			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
 		}
