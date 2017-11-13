@@ -425,6 +425,7 @@ Route::get('/main/persiapan/kota/pokja/pembentukan/delete', 'MAIN\bk010206Contro
 
 Route::get('/main/persiapan/kota/pokja/kegiatan', 'MAIN\bk010207Controller@index');
 Route::post('/main/persiapan/kota/pokja/kegiatan', 'MAIN\bk010207Controller@post');
+Route::get('/main/persiapan/kota/pokja/kegiatan/show', 'MAIN\bk010207Controller@show');
 Route::get('/main/persiapan/kota/pokja/kegiatan/create', 'MAIN\bk010207Controller@create');
 Route::post('/main/persiapan/kota/pokja/kegiatan/create', 'MAIN\bk010207Controller@post_create');
 Route::get('/main/persiapan/kota/pokja/kegiatan/delete', 'MAIN\bk010207Controller@delete');
