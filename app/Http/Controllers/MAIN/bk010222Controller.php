@@ -32,7 +32,7 @@ class bk010222Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==68)
+				if($item->kode_menu==187)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
@@ -63,7 +63,7 @@ class bk010222Controller extends Controller
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		return view('/main/persiapan/kelurahan/pemilu_bkm',$data);
+		return view('/main/persiapan/kelurahan/pemilu_bkm/pemilu',$data);
 	}
 
 	public function Post(Request $request)
@@ -128,27 +128,27 @@ class bk010222Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. ' where (
-					b.nama like "%'.$search.'%" or 
+					b.nama like "%'.$search.'%" or
 					c.nama like "%'.$search.'%" or
-					d.nama like "%'.$search.'%" or 
+					d.nama like "%'.$search.'%" or
 					e.nama like "%'.$search.'%" or
 					f.nama like "%'.$search.'%" or
 					g.nama like "%'.$search.'%" or
-					a.jenis_kegiatan like "%'.$search.'%" or 
+					a.jenis_kegiatan like "%'.$search.'%" or
 					a.tgl_kegiatan like "%'.$search.'%" or
-					a.lok_kegiatan like "%'.$search.'%" or 
+					a.lok_kegiatan like "%'.$search.'%" or
 					a.tahun like "%'.$search.'%" )
 					order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
-					b.nama like "%'.$search.'%" or 
+					b.nama like "%'.$search.'%" or
 					c.nama like "%'.$search.'%" or
-					d.nama like "%'.$search.'%" or 
+					d.nama like "%'.$search.'%" or
 					e.nama like "%'.$search.'%" or
 					f.nama like "%'.$search.'%" or
 					g.nama like "%'.$search.'%" or
-					a.jenis_kegiatan like "%'.$search.'%" or 
+					a.jenis_kegiatan like "%'.$search.'%" or
 					a.tgl_kegiatan like "%'.$search.'%" or
-					a.lok_kegiatan like "%'.$search.'%" or 
+					a.lok_kegiatan like "%'.$search.'%" or
 					a.tahun like "%'.$search.'%"
 					)) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
@@ -162,8 +162,8 @@ class bk010222Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_edit=url('/')."/main/persiapan/kelurahan/pemilu_bkm/create?kode=".$show;
-				$url_delete=url('/')."/main/persiapan/kelurahan/pemilu_bkm/delete?kode=".$delete;
+				$url_edit=url('/')."/main/persiapan/kelurahan/pemilu_bkm/pemilu/create?kode=".$show;
+				$url_delete=url('/')."/main/persiapan/kelurahan/pemilu_bkm/pemilu/delete?kode=".$delete;
 				$nestedData['tahun'] = $post->tahun;
 				$nestedData['nama_kota'] = $post->nama_kota;
 				$nestedData['nama_korkot'] = $post->nama_korkot;
@@ -198,7 +198,7 @@ class bk010222Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==68)
+						if($item->kode_menu==187)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
@@ -256,7 +256,7 @@ class bk010222Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==68)
+				if($item->kode_menu==187)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 
@@ -363,7 +363,7 @@ class bk010222Controller extends Controller
 
 	public function post_create(Request $request)
 	{
-		
+
 		$file_document = $request->file('file-document-input');
 		$uri_document = null;
 		$upload_document = false;
@@ -426,11 +426,11 @@ class bk010222Controller extends Controller
 				]);
 
 			if($upload_document == true){
-				$file_document->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/pemilu_bkm'), $file_document->getClientOriginalName());
+				$file_document->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/pemilu_bkm/pemilu'), $file_document->getClientOriginalName());
 			}
 
 			if($upload_absensi == true){
-				$file_absensi->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/pemilu_bkm'), $file_absensi->getClientOriginalName());
+				$file_absensi->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/pemilu_bkm/pemilu'), $file_absensi->getClientOriginalName());
 			}
 
 			$this->log_aktivitas('Update', 184);
@@ -467,11 +467,11 @@ class bk010222Controller extends Controller
        			]);
 
 			if($upload_document == true){
-				$file_document->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/pemilu_bkm'), $file_document->getClientOriginalName());
+				$file_document->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/pemilu_bkm/pemilu'), $file_document->getClientOriginalName());
 			}
 
 			if($upload_absensi == true){
-				$file_absensi->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/pemilu_bkm'), $file_absensi->getClientOriginalName());
+				$file_absensi->move(public_path('/uploads/persiapan/kelurahan/forumkolaborasi/pemilu_bkm/pemilu'), $file_absensi->getClientOriginalName());
 			}
 
 			$this->log_aktivitas('Create', 183);
@@ -482,7 +482,7 @@ class bk010222Controller extends Controller
 	{
 		DB::table('bkt_01020214_pemilu_bkm')->where('kode', $request->input('kode'))->delete();
         $this->log_aktivitas('Delete', 185);
-        return Redirect::to('/main/persiapan/kelurahan/pemilu_bkm');
+        return Redirect::to('/main/persiapan/kelurahan/pemilu_bkm/pemilu');
     }
 
     public function date_conversion($date)
@@ -497,7 +497,7 @@ class bk010222Controller extends Controller
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
 				'kode_modul' => 5,
-				'kode_menu' => 68,
+				'kode_menu' => 187,
 				'kode_menu_detil' => $detil,
 				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas

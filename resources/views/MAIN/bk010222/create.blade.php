@@ -21,8 +21,8 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/persiapan/kelurahan/pemilu_bkm">
-                    Persiapan Kelurahan / Pemilihan Ulang BKM/LKM
+                <a href="/main/persiapan/kelurahan/pemilu_bkm/pemilu">
+                    Persiapan Kelurahan / Pemilihan Ulang BKM/LKM / Pemilu
                 </a>
             </li>
             <li class="next">
@@ -243,7 +243,7 @@
                             </div> -->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/main/persiapan/kelurahan/pemilu_bkm" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/persiapan/kelurahan/pemilu_bkm/pemilu" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -286,7 +286,7 @@
             type: 'post',
             processData: false,
             contentType: false,
-            "url": "/main/persiapan/kelurahan/pemilu_bkm/create",
+            "url": "/main/persiapan/kelurahan/pemilu_bkm/pemilu/create",
             data: form_data,
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
@@ -294,7 +294,7 @@
             success: function () {
 
             alert('From Submitted.');
-            window.location.href = "/main/persiapan/kelurahan/pemilu_bkm";
+            window.location.href = "/main/persiapan/kelurahan/pemilu_bkm/pemilu";
             },
             error: function (xhr, ajaxOptions, thrownError) {
               alert(xhr.status);
@@ -391,7 +391,7 @@
                 kota.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/pemilu_bkm/select?kmw="+kmw_id,
+                    "url": "/main/persiapan/kelurahan/pemilu_bkm/pemilu/select?kmw="+kmw_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -408,7 +408,7 @@
                 korkot.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/pemilu_bkm/select?kota="+kota_id,
+                    "url": "/main/persiapan/kelurahan/pemilu_bkm/pemilu/select?kota="+kota_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -420,7 +420,7 @@
                 kecamatan.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/pemilu_bkm/select?korkot="+kota_id,
+                    "url": "/main/persiapan/kelurahan/pemilu_bkm/pemilu/select?korkot="+kota_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -438,7 +438,7 @@
                 kelurahan.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/pemilu_bkm/select?kec="+kec_id,
+                    "url": "/main/persiapan/kelurahan/pemilu_bkm/pemilu/select?kec="+kec_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -455,7 +455,7 @@
                 faskel.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/pemilu_bkm/select?faskel="+kel_id,
+                    "url": "/main/persiapan/kelurahan/pemilu_bkm/pemilu/select?faskel="+kel_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){

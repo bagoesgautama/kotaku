@@ -538,13 +538,13 @@ Route::post('/main/persiapan/kelurahan/forum/keberfungsian/create', 'MAIN\bk0102
 Route::get('/main/persiapan/kelurahan/forum/keberfungsian/delete', 'MAIN\bk010221Controller@delete');
 Route::get('/main/persiapan/kelurahan/forum/keberfungsian/show', 'MAIN\bk010221Controller@show');
 
-Route::get('/main/persiapan/kelurahan/pemilu_bkm', 'MAIN\bk010222Controller@index');
-Route::post('/main/persiapan/kelurahan/pemilu_bkm', 'MAIN\bk010222Controller@post');
-Route::get('/main/persiapan/kelurahan/pemilu_bkm/create', 'MAIN\bk010222Controller@create');
-Route::post('/main/persiapan/kelurahan/pemilu_bkm/create', 'MAIN\bk010222Controller@post_create');
-Route::get('/main/persiapan/kelurahan/pemilu_bkm/delete', 'MAIN\bk010222Controller@delete');
-Route::get('/main/persiapan/kelurahan/pemilu_bkm/select', 'MAIN\bk010222Controller@select');
-Route::get('/main/persiapan/kelurahan/pemilu_bkm/show', 'MAIN\bk010222Controller@show');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/pemilu', 'MAIN\bk010222Controller@index');
+Route::post('/main/persiapan/kelurahan/pemilu_bkm/pemilu', 'MAIN\bk010222Controller@post');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/pemilu/create', 'MAIN\bk010222Controller@create');
+Route::post('/main/persiapan/kelurahan/pemilu_bkm/pemilu/create', 'MAIN\bk010222Controller@post_create');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/pemilu/delete', 'MAIN\bk010222Controller@delete');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/pemilu/select', 'MAIN\bk010222Controller@select');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/pemilu/show', 'MAIN\bk010222Controller@show');
 
 Route::get('/main/persiapan/kelurahan/lembaga', 'MAIN\bk010223Controller@index');
 Route::post('/main/persiapan/kelurahan/lembaga', 'MAIN\bk010223Controller@post');
