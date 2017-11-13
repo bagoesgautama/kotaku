@@ -440,6 +440,7 @@ Route::get('/main/persiapan/kota/kegiatan/sosialisasi/delete', 'MAIN\bk010208Con
 Route::get('/main/persiapan/kota/kegiatan/relawan', 'MAIN\bk010232Controller@index');
 Route::get('/main/persiapan/kota/kegiatan/relawan/select', 'MAIN\bk010232Controller@select');
 Route::post('/main/persiapan/kota/kegiatan/relawan', 'MAIN\bk010232Controller@post');
+Route::get('/main/persiapan/kota/kegiatan/relawan/show', 'MAIN\bk010232Controller@show');
 Route::get('/main/persiapan/kota/kegiatan/relawan/create', 'MAIN\bk010232Controller@create');
 Route::post('/main/persiapan/kota/kegiatan/relawan/create', 'MAIN\bk010232Controller@post_create');
 Route::get('/main/persiapan/kota/kegiatan/relawan/delete', 'MAIN\bk010232Controller@delete');
@@ -447,6 +448,7 @@ Route::get('/main/persiapan/kota/kegiatan/relawan/delete', 'MAIN\bk010232Control
 Route::get('/main/persiapan/kota/forum/bkm', 'MAIN\bk010209Controller@index');
 Route::get('/main/persiapan/kota/forum/bkm/select', 'MAIN\bk010209Controller@select');
 Route::post('/main/persiapan/kota/forum/bkm', 'MAIN\bk010209Controller@post');
+Route::get('/main/persiapan/kota/forum/bkm/show', 'MAIN\bk010209Controller@show');
 Route::get('/main/persiapan/kota/forum/bkm/create', 'MAIN\bk010209Controller@create');
 Route::post('/main/persiapan/kota/forum/bkm/create', 'MAIN\bk010209Controller@post_create');
 Route::get('/main/persiapan/kota/forum/bkm/delete', 'MAIN\bk010209Controller@delete');

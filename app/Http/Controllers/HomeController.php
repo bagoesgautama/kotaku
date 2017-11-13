@@ -41,10 +41,10 @@ class HomeController extends Controller
 			    return view('module',$data);
 			}
 			else {
-				return Redirect::to('/');
+				return Redirect::to('/logout');
 			}
 		}else{
-			return Redirect::to('/');
+			return Redirect::to('/logout');
 		}
     }
 
