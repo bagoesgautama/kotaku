@@ -44,9 +44,9 @@
                                 <label class="col-sm-3 control-label">Tahun</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                    <input type="hidden" id="kode_kmw-input" name="kode_kmw-input" value="{{ $kode_kmw }}">
-                                    <input type="hidden" id="kode_korkot-input" name="kode_korkot-input" value="{{ $kode_korkot }}">
-                                    <input type="hidden" id="kode_faskel-input" name="kode_faskel-input" value="{{ $kode_faskel }}">
+                                    <input type="text" id="kode_kmw-input" name="kode_kmw-input" value="{{ $kode_kmw }}">
+                                    <input type="text" id="kode_korkot-input" name="kode_korkot-input" value="{{ $kode_korkot }}">
+                                    <input type="text" id="kode_faskel-input" name="kode_faskel-input" value="{{ $kode_faskel }}">
                                     <input type="text" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}" maxlength="4">
                                 </div>
                             </div>
@@ -345,15 +345,18 @@
         var kelurahan = $('#select-kode_kel-input');
         var korkot = $('#kode_korkot-input');
         var faskel = $('#kode_faskel-input');
-        var kota_id,kec_id,kel_id;
+        var kota_id,kec_id,kel_id,faskel_id;
+        
+        
         kota.change(function(){
             kota_id=kota.val();
+            faskel_id=faskel.val();
             if(kota_id!=undefined){
                 kecamatan.empty();
                 kecamatan.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?kec="+kota_id,
+                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?kec="+kota_id+"&faskel="+faskel_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -364,25 +367,27 @@
                 korkot.empty();
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?korkot="+kota_id,
+                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?korkot="+korkot_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
-                            korkot.val(data[0].kode_korkot);
+                            korkot.val(data[0].kode_korkot);;
                         }
                     }
                 });
             }
         });
+        
         kecamatan.change(function(){
             kec_id=kecamatan.val();
+            faskel_id=faskel.val();
             console.log(kec_id)
             if(kec_id!=undefined){
                 kelurahan.empty();
                 kelurahan.append("<option value=undefined>Please select</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?kel="+kec_id,
+                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/select?kel="+kec_id+"&faskel="+faskel_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
