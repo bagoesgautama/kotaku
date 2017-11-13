@@ -36,7 +36,7 @@
                 </div>
                 @if( ! empty($detil['183']))
                 <div class="tools pull-right">
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/pemilu_bkm/create">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/pemilu_bkm/pemilu/create">Create</a>
                 </div>
                 @endif
             </div>
@@ -83,7 +83,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/kelurahan/pemilu_bkm",
+                     "url": "/main/persiapan/kelurahan/pemilu_bkm/pemilu",
                      "dataType": "json",
                      "type": "POST"
                    },

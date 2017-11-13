@@ -507,10 +507,41 @@
 					</li>
 					@endif
 					@if( ! empty($menu['68']))
-					<li {!! (Request::is( 'main/persiapan/kelurahan/pemilu_bkm')||Request::is( 'main/persiapan/kelurahan/pemilu_bkm/create') ? 'class="active"': "") !!}>
-						<a href="/main/persiapan/kelurahan/pemilu_bkm">
+					<li {!! (Request::is( 'main/persiapan/kelurahan/pemilu_bkm/*') ? 'class="active"': "") !!}>
+						<a href="javascript:void(0)">
 							<span class="mm-text">Pemilihan Ulang BKM/LKM</span>
+							<span class="fa arrow"></span>
 						</a>
+						<ul class="form-sub-submenu">
+							@if( ! empty($menu['185']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/pemilu_bkm/persiapan*') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/pemilu_bkm/persiapan">
+									<span class="mm-text">Persiapan Pemilu LKM/BKM</span>
+								</a>
+							</li>
+							@endif
+							@if( ! empty($menu['186']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/pemilu_bkm/seleksi*') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/pemilu_bkm/seleksi">
+									<span class="mm-text">Seleksi Utusan Tingkat Basis</span>
+								</a>
+							</li>
+							@endif
+							@if( ! empty($menu['187']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/pemilu_bkm/pemilu*') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/pemilu_bkm/pemilu">
+									<span class="mm-text">Pemilihan Ulang BKM/LKM</span>
+								</a>
+							</li>
+							@endif
+							@if( ! empty($menu['188']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/pemilu_bkm/data*') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/pemilu_bkm/data">
+									<span class="mm-text">Data BKM</span>
+								</a>
+							</li>
+							@endif
+						</ul>
 					</li>
 					@endif
 					@if( ! empty($menu['69']))
