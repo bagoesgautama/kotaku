@@ -258,6 +258,7 @@ class bk010308Controller extends Controller
 			$data['kode']=$request->input('kode');
 			if ($data['kode']!=null  && !empty($data['detil']['283'])){
 				$rowData = DB::select('select * from bkt_01030205_plan_amdal_sos where kode_parent='.$data['kode']);
+				$data['detil_menu']='283';
 				$data['kode_parent'] = $rowData[0]->kode_parent;
 				$data['lpt_l_hibah_gov'] = $rowData[0]->lpt_l_hibah_gov;
 				$data['lpt_l_hibah_masy'] = $rowData[0]->lpt_l_hibah_masy;
@@ -326,6 +327,7 @@ class bk010308Controller extends Controller
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010308/create',$data);
 			}else if ($data['kode']==null  && !empty($data['detil']['282'])){
+				$data['detil_menu']='282';
 				$data['kode_parent'] = null;
 				$data['lpt_l_hibah_gov'] = null;
 				$data['lpt_l_hibah_masy'] = null;

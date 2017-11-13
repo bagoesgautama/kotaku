@@ -259,6 +259,7 @@ class bk010301Controller extends Controller
 			$data['kode']=$request->input('kode');
 			if($data['kode']!=null  && !empty($data['detil']['255'])){
 				$rowData = DB::select('select * from bkt_01030201_plan_pmkm_kt where kode='.$data['kode']);
+				$data['detil_menu']='255';
 				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_kota'] = $rowData[0]->kode_kota;
 				$data['kode_kec'] = $rowData[0]->kode_kec;
@@ -292,6 +293,7 @@ class bk010301Controller extends Controller
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010301/create',$data);
 			}else if ($data['kode']==null  && !empty($data['detil']['254'])){
+				$data['detil_menu']='254';
 				$data['tahun'] = null;
 				$data['kode_kota'] = null;
 				$data['kode_kec'] = null;
