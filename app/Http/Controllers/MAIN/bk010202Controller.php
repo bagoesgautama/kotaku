@@ -66,7 +66,6 @@ class bk010202Controller extends Controller
 				a.*,
 				a.kode kode_f,
 				case when a.jenis_subkegiatan="2.2.3.3" then "Pertemuan Rutin" when a.jenis_subkegiatan="2.2.3.4" then "Monitoring" end jenis_subkegiatan_convert,
-				case when a.jenis_subkegiatan="2.2.3.3" then "Pertemuan Rutin" when a.jenis_subkegiatan="2.2.3.4" then "Monitoring" end jenis_subkegiatan_convert,
 				b.tahun tahun_pokja,
 				b.kode kode_pokja_n,
 				case when b.status_pokja=0 then "Pokja Lama" when b.status_pokja=1 then "Pokja Baru" end status_pokja_convert,
