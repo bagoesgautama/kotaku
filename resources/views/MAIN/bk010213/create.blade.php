@@ -199,9 +199,11 @@
                                     <a href="/main/persiapan/kota/forum/kolaborasi" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
+									@if ($detil_menu=='170' || $detil_menu=='169')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
+									@endif
                                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                         Reset
                                     </button>
