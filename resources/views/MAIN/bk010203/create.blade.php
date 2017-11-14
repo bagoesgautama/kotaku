@@ -250,7 +250,7 @@
                                     <a href="/main/persiapan/propinsi/pokja/pembentukan" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
-									@if ($detil_menu=='73' || $detil_menu=='74')
+									@if ($detil_menu=='69' || $detil_menu=='70')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
@@ -376,6 +376,10 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });*/
+        $("#tahun-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
         function enforce_maxlength(event) {
             var t = event.target;
             if (t.hasAttribute('maxlength')) {

@@ -58,14 +58,17 @@
                         <thead>
                             <tr>
                                 <th>Kode</th>
-                                <th>Propinsi</th>
                                 <th>Kota</th>
                                 <th>Kecamatan</th>
                                 <th>Kelurahan</th>
-                                <th>Pelatihan</th>
+                                <th>Tahun</th>
+                                <th>Jenis Pelatihan</th>
                                 <th>Tgl Kegiatan</th>
-                                <th>Lokasi Kegiatan</th>
-                                <th>Created Time</th>
+                                <th>Lokasi</th>
+                                <th>Peserta Laki-laki</th>
+                                <th>Peserta Perempuan</th>
+                                <th>Peserta Miskin/MBR</th>
+                                <th>Nilai Dana</th>
                                 <th>option</th>
                             </tr>
                         </thead>
@@ -93,14 +96,17 @@
 
             "columns": [
                 { "data": "kode" , name:"kode"},
-                { "data": "kode_prop" , name:"kode_prop"},
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_kec" , name:"kode_kec"},
                 { "data": "kode_kel" , name:"kode_kel"},
+                { "data": "tahun" , name:"tahun"},
                 { "data": "id_pelatihan" , name:"id_pelatihan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
-                { "data": "created_time" , name:"created_time"},
+                { "data": "q_peserta_p" , name:"q_peserta_p"},
+                { "data": "q_peserta_w" , name:"q_peserta_w"},
+                { "data": "q_peserta_mbr" , name:"q_peserta_mbr"},
+                { "data": "nilai_dana" , name:"nilai_dana"},
                 { "data": "option" , name:"option",orderable:false}
             ],
             "order":[[0,"desc"]]

@@ -289,7 +289,6 @@ class bk010201Controller extends Controller
 				$data['tgl_kegiatan'] = null;
 				$data['status_pokja'] = null;
 				$data['ds_hkm'] = null;
-				$data['upp_kl'] = 0;
 				$data['q_anggota_p'] = null;
 				$data['q_anggota_w'] = null;
 				$data['upp_kl'] = null;

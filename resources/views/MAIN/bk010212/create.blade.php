@@ -47,7 +47,7 @@
                                     <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}" required maxlength="4">
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label">Tingkat Forum</label>
                                 <div class="col-sm-6">
                                     <select id="tk-forum-input" name="tk-forum-input" class="form-control" size="1" required>
@@ -56,7 +56,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <!--<div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">KMW</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" required>
@@ -66,7 +66,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Kota</label>
                                 <div class="col-sm-6">
@@ -80,7 +80,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label">Korkot</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
@@ -106,28 +106,21 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <!--<div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Jenis kegiatan</label>
                                 <div class="col-sm-6">
                                     <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1" required>
-                                        <!-- <option value="2.4.3" {!! $jenis_kegiatan=='2.4.3' ? 'selected':'' !!}>LKM/BKM Kota</option> -->
                                         <option value="2.4.4" {!! $jenis_kegiatan=='2.4.4' ? 'selected':'' !!}>LKM/BKM Kecamatan</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
+                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pembentukan</label>
                                 <div class="col-sm-6">
                                     <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Lokasi Kegiatan</label>
-                                <div class="col-sm-6">
-                                    <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50" required>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_p}}" required>
@@ -139,7 +132,7 @@
                                     <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_w}}" required>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label">File Dokumen</label>
                                 <div class="col-sm-6">
                                     <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
@@ -199,9 +192,11 @@
                                     <a href="/main/persiapan/kota/forum/bkm" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
+									@if ($detil_menu=='163' || $detil_menu=='164')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
+									@endif
                                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                         Reset
                                     </button>

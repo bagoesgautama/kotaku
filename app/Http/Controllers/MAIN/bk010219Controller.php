@@ -295,26 +295,29 @@ class bk010219Controller extends Controller
 			if(!empty($data2['detil'])){
 				$columns = array(
 					0 =>'kode',
-					1 =>'kode_prop',
-					2 =>'kode_kota',
-					3 =>'kode_kec',
-					4 =>'kode_kel',
+					1 =>'kode_kota',
+					2 =>'kode_kec',
+					3 =>'kode_kel',
+					4 =>'tahun',
 					5 =>'id_pelatihan',
 					6 =>'tgl_kegiatan',
 					7 =>'lok_kegiatan',
-					8 =>'created_time'
+					8 =>'q_peserta_p',
+					9 =>'q_peserta_w',
+					10 =>'q_peserta_mbr',
+					11 =>'nilai_dana'
 				);
 				$query='
 					select * from (select 
 						a.*,
 						a.kode kode_pelmas, 
-						b.nama nama_prop, 
 						c.nama nama_kota, 
 						d.nama nama_kec, 
 						e.nama nama_kel, 
 						f.nama nama_korkot, 
 						g.nama nama_faskel, 
 						h.nama nama_pelatihan, 
+						a.tahun tahun_pelmas,
 						a.tgl_kegiatan tgl_kegiatan_pelmas, 
 						a.lok_kegiatan lok_kegiatan_pelmas
 					from bkt_01020211_pelmas_kel a
@@ -346,11 +349,11 @@ class bk010219Controller extends Controller
 					$search = $request->input('search.value');
 					$posts=DB::select($query. ' where (
 						b.kode_pelmas like "%'.$search.'%" or 
-						b.nama_prop like "%'.$search.'%" or 
 						b.nama_kota like "%'.$search.'%" or
 						b.nama_kec like "%'.$search.'%" or 
 						b.nama_kel like "%'.$search.'%" or
 						b.nama_pelatihan like "%'.$search.'%" or   
+						b.tahun_pelmas like "%'.$search.'%" or  
 						b.lok_kegiatan_pelmas like "%'.$search.'%" or
 						b.tgl_kegiatan_pelmas like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 					$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
@@ -359,7 +362,8 @@ class bk010219Controller extends Controller
 						b.nama_kota like "%'.$search.'%" or
 						b.nama_kec like "%'.$search.'%" or 
 						b.nama_kel like "%'.$search.'%" or
-						b.nama_pelatihan like "%'.$search.'%" or   
+						b.nama_pelatihan like "%'.$search.'%" or  
+						b.tahun_pelmas like "%'.$search.'%" or   
 						b.lok_kegiatan_pelmas like "%'.$search.'%" or
 						b.tgl_kegiatan_pelmas like "%'.$search.'%")) a');
 					$totalFiltered = $totalFiltered[0]->cnt;
@@ -377,15 +381,19 @@ class bk010219Controller extends Controller
 						$url_edit="/main/persiapan/kelurahan/pelatihan/create?kode=".$show;
 						$url_delete="/main/persiapan/kelurahan/pelatihan/delete?kode=".$delete;
 						$nestedData['kode'] = $post->kode_pelmas;
-						$nestedData['kode_prop'] = $post->nama_prop;
+						// $nestedData['kode_prop'] = $post->nama_prop;
 						$nestedData['kode_kota'] = $post->nama_kota;
 						$nestedData['kode_kec'] = $post->nama_kec;
 						$nestedData['kode_kel'] = $post->nama_kel;
 						$nestedData['kode_korkot'] = $post->nama_korkot;
 						$nestedData['kode_faskel'] = $post->nama_faskel;
+						$nestedData['tahun'] = $post->tahun_pelmas;
 						$nestedData['id_pelatihan'] = $post->nama_pelatihan;
 						$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan_pelmas;
 						$nestedData['lok_kegiatan'] = $post->lok_kegiatan_pelmas;
+						$nestedData['q_peserta_p'] = $post->q_peserta_p;
+						$nestedData['q_peserta_w'] = $post->q_peserta_w;
+						$nestedData['q_peserta_mbr'] = $post->q_peserta_mbr;
 						$nestedData['created_time'] = $post->created_time;
 						$nestedData['option'] = "";
 						if(!empty($data2['detil']['248']))

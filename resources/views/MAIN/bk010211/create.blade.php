@@ -44,30 +44,31 @@
                                 <label class="col-sm-3 control-label" for="kode">Jenis Forum</label>
                                 <div class="col-sm-6">
                                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                    <select id="jns-forum-input" name="jns-forum-input" class="form-control" size="1" required>
+                                    <select id="jns-forum-input" name="jns-forum-input" class="form-control select2" size="1" required>
+                                        <option value>Please Select</option>
                                         <option value="1" {!! $jns_forum=='1' ? 'selected':'' !!}>BKM/LKM Tingkat Kota</option>
                                         <option value="2" {!! $jns_forum=='2' ? 'selected':'' !!}>Kolaborasi Tingkat Kota</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group striped-col" id="bkm_label" {!! $jns_forum==1?'':'hidden'!!}>
                                 <label class="col-sm-3 control-label">Forum BKM</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-bkm-input" name="kode-bkm-input" class="form-control select2" size="1">
                                         <option value=null>Please Select</option>
                                         @foreach ($kode_bkm_list as $kbl)
-                                            <option value="{{$kbl->kode}}" {!! $kode_bkm==$kbl->kode ? 'selected':'' !!}>{{$kbl->tahun.'-'.$kbl->nama_kota." ".$kbl->nama_kec}}</option>
+                                            <option value="{{$kbl->kode}}" {!! $kode_bkm==$kbl->kode ? 'selected':'' !!}>{{$kbl->tahun.'-'.$kbl->nama_kota}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group striped-col" id="kolab_label" {!! $jns_forum==2?'':'hidden'!!}>
                                 <label class="col-sm-3 control-label">Forum Kolaborasi</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kolab-input" name="kode-kolab-input" class="form-control select2" size="1">
                                         <option value=null>Please Select</option>
                                         @foreach ($kode_kolab_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_kolab==$kkl->kode ? 'selected':'' !!}>{{$kkl->tahun.'-'.$kkl->nama_kota.' '.$kkl->nama_kec}}</option>
+                                            <option value="{{$kkl->kode}}" {!! $kode_kolab==$kkl->kode ? 'selected':'' !!}>{{$kkl->tahun.'-'.$kkl->nama_kota}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -96,19 +97,19 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}">
+                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}">
+                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Pemda</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-pemda-input" name="q-pemda-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_pemda}}">
+                                    <input type="number" id="q-pemda-input" name="q-pemda-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_pemda}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -171,9 +172,11 @@
                                     <a href="/main/persiapan/kota/forum/forum_f" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
+                                    @if ($detil_menu=='160' || $detil_menu=='161')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
+                                    @endif
                                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                         Reset
                                     </button>
@@ -243,11 +246,40 @@
         });
         $("#select-kode-bkm-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width: "100%"
         });
         $("#select-kode-kolab-input").select2({
             theme: "bootstrap",
-            placeholder: "Please Select"
+            placeholder: "Please Select",
+            width: "100%"
+        });
+        $("#jns-forum-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+
+        var jns_forum = $('#jns-forum-input');
+        var bkm_label = $('#bkm_label');
+        var kolab_label = $('#kolab_label');
+        var bkm = $('#select-kode-bkm-input');
+        var kolab = $('#select-kode-kolab-input');
+        var jns_forum_id;
+        var kode_bkm = {!! json_encode($kode_bkm) !!};
+        var kode_kolab = {!! json_encode($kode_kolab) !!};
+
+        jns_forum.change(function(){
+            jns_forum_id=jns_forum.val();
+            if(jns_forum_id!=null && jns_forum_id=='1'){
+                bkm_label.prop('hidden', false);
+                kolab_label.prop('hidden', true);
+                kolab.val(kode_kolab).trigger('change');
+            }else if(jns_forum_id!=null && jns_forum_id=='2'){
+                kolab_label.prop('hidden', false);
+                bkm_label.prop('hidden', true);
+                bkm.val(kode_bkm).trigger('change');
+            }    
         });
       });
 </script>

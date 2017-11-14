@@ -44,7 +44,13 @@
                                 <label class="col-sm-3 control-label" for="kode">Tahun</label>
                                 <div class="col-sm-6">
                                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                    <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}" maxlength="4" required>
+                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
+                                        @foreach($tahun_list as $list)
+                                            <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <!--<div class="form-group ">
@@ -101,13 +107,13 @@
                             <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required>
+                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required>
+                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required min="0">
                                 </div>
                             </div>
                             <div class="form-group ">
@@ -211,7 +217,7 @@
             form_data.append('kode-kota-input', $('#select-kode-kota-input').val());
             form_data.append('kode-kmw-input', $('#select-kode-kmw-input').val());
             form_data.append('kode-korkot-input', $('#select-kode-korkot-input').val());
-            form_data.append('jns-kegiatan-input', $('#jns-kegiatan-input').val());
+            form_data.append('jns-kegiatan-input', '2.4.2');
             form_data.append('tgl-kegiatan-input', $('#tgl-kegiatan-input').val());
             form_data.append('q-laki-input', $('#q-laki-input').val());
             form_data.append('q-perempuan-input', $('#q-perempuan-input').val());
@@ -254,6 +260,10 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
+        $("#tahun-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
 
         function enforce_maxlength(event) {
             var t = event.target;
@@ -267,49 +277,45 @@
         var kota = $('#select-kode-kota-input');
         var korkot = $('#select-kode-korkot-input');
         var kmw_id,kota_id,korkot_id,kec_id;
-        var kode_kmw = {!! json_encode($kode_kmw) !!};
-        var kode_kota = {!! json_encode($kode_kota) !!};
-        var kode_korkot = {!! json_encode($kode_korkot) !!};
-        var kode_kec = {!! json_encode($kode_kec) !!};
 
-        kmw.change(function(){
-            kmw_id=kmw.val();
-            if(kmw_id!=null){
-                kota.empty();
-                kota.append("<option value>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/relawan/select?kmw="+kmw_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
+        // kmw.change(function(){
+        //     kmw_id=kmw.val();
+        //     if(kmw_id!=null){
+        //         kota.empty();
+        //         kota.append("<option value>Please select</option>");
+        //         $.ajax({
+        //             type: 'get',
+        //             "url": "/main/persiapan/kota/kegiatan/relawan/select?kmw="+kmw_id,
+        //             success: function (data) {
+        //                 data=JSON.parse(data)
+        //                 for (var i=0;i<data.length;i++){
+        //                     kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+        //                 }
+        //             }
+        //         });
+        //     }
+        // });
 
-        kota.change(function(){
-            kota_id=kota.val();
-            kmw_id=kmw.val();
-            if(kota_id!=null){
-                korkot.empty();
-                korkot.append("<option value>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/relawan/select?kota_korkot="+kota_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
+        // kota.change(function(){
+        //     kota_id=kota.val();
+        //     kmw_id=kmw.val();
+        //     if(kota_id!=null){
+        //         korkot.empty();
+        //         korkot.append("<option value>Please select</option>");
+        //         $.ajax({
+        //             type: 'get',
+        //             "url": "/main/persiapan/kota/kegiatan/relawan/select?kota_korkot="+kota_id,
+        //             success: function (data) {
+        //                 data=JSON.parse(data)
+        //                 for (var i=0;i<data.length;i++){
+        //                     korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+        //                 }
+        //             }
+        //         });
 
 
-            }
-        });
+        //     }
+        // });
 
         /*kota.change(function(){
             kota_id=kota.val();

@@ -171,9 +171,11 @@
                                     <a href="/main/persiapan/kota/forum/forum_f" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
+									@if ($detil_menu=='172' || $detil_menu=='173')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
+									@endif
                                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                         Reset
                                     </button>

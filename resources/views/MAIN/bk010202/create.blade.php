@@ -229,7 +229,7 @@
 		        form_data.append('tgl-kegiatan-input', $('#tgl-kegiatan-input').val());
 		        form_data.append('q-laki-input', $('#q-laki-input').val());
 		        form_data.append('q-perempuan-input', $('#q-perempuan-input').val());
-				form_data.append('q_non_anggota-input', $('#q_non_anggota-input').val());
+				form_data.append('q-non-input', $('#q-non-input').val());
 		        form_data.append('tgl-diser-input', $('#tgl-diser-input').val());
 		        form_data.append('diser-oleh-input', $('#diser-oleh-input').val());
 		        form_data.append('tgl-diket-input', $('#tgl-diket-input').val());
