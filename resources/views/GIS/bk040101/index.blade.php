@@ -30,7 +30,7 @@
 @stop {{-- local scripts --}} @section('footer_scripts')
 <script>
 $(document).ready(function() {
-
+	var last_open;
 	var mapProp = {
 		center: new google.maps.LatLng(-2.600029, 118.015776),
 		zoom: 5,
@@ -94,6 +94,9 @@ $(document).ready(function() {
 			row +='<tr>'
 		}
 	    $('#info').html(row);*/
+		if(last_open!=undefined)
+			attr[last_open].infowindow.close();
+		last_open=event.feature.f.PROPINSI;
 		attr[event.feature.f.PROPINSI].infowindow.setPosition(event.latLng);
 		attr[event.feature.f.PROPINSI].infowindow.open(map)
 	});
