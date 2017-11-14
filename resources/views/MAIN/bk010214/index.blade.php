@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Keberfungsian Forum @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Keberfungsian Forum @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -54,14 +54,16 @@
                     <table class="table table-striped" id="kegiatan">
                         <thead>
                             <tr>
-                                <th>Kode</th>
+								<th>Kode</th>
                                 <th>Jenis Forum</th>
-                                <th>BKM</th>
-                                <th>Kolaborasi</th>
-                                <th>Kode Kegiatan</th>
+                                <th>Kecamatan</th>
+                                <th>Jenis Kegiatan</th>
                                 <th>Tanggal Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
-                                <th>Created Time</th>
+                                <th>Peserta Pria</th>
+								<th>Peserta Wanita</th>
+								<th>Peserta Pemda</th>
+								<th>Total Peserta</th>
                                 <th>option</th>
                             </tr>
                         </thead>
@@ -78,7 +80,7 @@
     $(document).ready(function () {
         var table = $('#kegiatan').DataTable({
             // dom: 'Bflrtip',
-            
+
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -86,16 +88,17 @@
                      "dataType": "json",
                      "type": "POST"
                    },
-
             "columns": [
                 { "data": "kode" , name:"kode"},
-                { "data": "jns_forum" , name:"jns_forum"},
-                { "data": "kode_bkm" , name:"kode_bkm"},
-                { "data": "kode_kolab" , name:"kode_kolab"},
-                { "data": "kode_kegiatan" , name:"kode_kegiatan"},
+                { "data": "jns_forum_convert" , name:"jns_forum_convert"},
+                { "data": "nama_kec" , name:"nama_kec"},
+                { "data": "kode_kegiatan_convert" , name:"kode_kegiatan_convert"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
-                { "data": "created_time" , name:"created_time"},
+                { "data": "q_peserta_p" , name:"q_peserta_p"},
+				{ "data": "q_peserta_w" , name:"q_peserta_w"},
+				{ "data": "q_peserta_pemda" , name:"q_peserta_pemda"},
+				{ "data": "total" , name:"total"},
                 { "data": "option" , name:"option",orderable:false}
             ],
             "order": [[0,"desc"]]
