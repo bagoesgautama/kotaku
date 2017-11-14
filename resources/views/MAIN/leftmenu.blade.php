@@ -409,7 +409,7 @@
 					@if( ! empty($menu['57']))
 					<li {!! (Request::is( 'main/persiapan/kecamatan/bkm')||Request::is( 'main/persiapan/kecamatan/bkm/create') ? 'class="active"': "") !!}>
 						<a href="/main/persiapan/kecamatan/bkm">
-							<span class="mm-text">Forum BKM/LKM</span>
+							<span class="mm-text">FKA BKM/LKM</span>
 						</a>
 					</li>
 					@endif

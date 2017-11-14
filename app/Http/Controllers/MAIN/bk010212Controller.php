@@ -186,10 +186,10 @@ class bk010212Controller extends Controller
 				'tk_forum' => $request->input('tk-forum-input'),
 				'kode_kota' => $request->input('kode-kota-input'),
 				'kode_kmw' => $request->input('kode-kmw-input'),
-				'kode_korkot' => $request->input('kode-korkot-input'), 
-				'kode_kec' => $request->input('kode-kec-input'),   
-				'jenis_kegiatan' => $request->input('jns-kegiatan-input'), 
-				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
+				'kode_korkot' => $request->input('kode-korkot-input'),
+				'kode_kec' => $request->input('kode-kec-input'),
+				'jenis_kegiatan' => $request->input('jns-kegiatan-input'),
+				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_anggota_p' => $request->input('q-laki-input'),
 				'q_anggota_w' => $request->input('q-perempuan-input'),
@@ -201,7 +201,7 @@ class bk010212Controller extends Controller
 				// 'diket_oleh' => $request->input('diket-oleh-input'),
 				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
 				// 'diver_oleh' => $request->input('diver-oleh-input'),
-				'updated_by' => Auth::user()->id, 
+				'updated_by' => Auth::user()->id,
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
 
@@ -221,10 +221,10 @@ class bk010212Controller extends Controller
 				'tk_forum' => $request->input('tk-forum-input'),
 				'kode_kota' => $request->input('kode-kota-input'),
 				'kode_kmw' => $request->input('kode-kmw-input'),
-				'kode_korkot' => $request->input('kode-korkot-input'), 
-				'kode_kec' => $request->input('kode-kec-input'),   
-				'jenis_kegiatan' => $request->input('jns-kegiatan-input'), 
-				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')), 
+				'kode_korkot' => $request->input('kode-korkot-input'),
+				'kode_kec' => $request->input('kode-kec-input'),
+				'jenis_kegiatan' => $request->input('jns-kegiatan-input'),
+				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_anggota_p' => $request->input('q-laki-input'),
 				'q_anggota_w' => $request->input('q-perempuan-input'),
@@ -261,23 +261,24 @@ class bk010212Controller extends Controller
 					$data2['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data2['detil'])){
+				    Kota | Kecamatan | Tahun | Tanggal Pembentukan | Jml Peserta L | Jml Peserta P | Total Peserta
 				$columns = array(
 					0 =>'kode',
-					1 =>'tahun',
-					2 =>'kode_kota',
-					3 =>'kode_kec',
-					4 =>'jenis_kegiatan',
-					5 =>'tgl_kegiatan',
-					6 =>'lok_kegiatan',
-					7 =>'created_time'
+					1 =>'nama_kota',
+					2 =>'kode_kec',
+					3 =>'tahun',
+					4 =>'tgl_kegiatan',
+					5 =>'q_anggota_p',
+					6 =>'q_anggota_w',
+					7 =>'total'
 				);
 				$query='
-					select * from (select 
+					select * from (select
 						a.*,
-						a.kode kode_bkm, 
-						case when a.tgl_kegiatan is null then "-" else a.tgl_kegiatan end tgl_kegiatan_bkm, 
+						a.kode kode_bkm,
+						case when a.tgl_kegiatan is null then "-" else a.tgl_kegiatan end tgl_kegiatan_bkm,
 						case when a.lok_kegiatan is null then "-" else a.lok_kegiatan end lok_kegiatan_bkm,
-						case when a.jenis_kegiatan="2.4.3" then " Forum LKM/BKM Kota" when a.jenis_kegiatan="2.4.4" then " Forum LKM/BKM Kecamatan" end jenis_kegiatan_convert, 
+						case when a.jenis_kegiatan="2.4.3" then " Forum LKM/BKM Kota" when a.jenis_kegiatan="2.4.4" then " Forum LKM/BKM Kecamatan" end jenis_kegiatan_convert,
 						a.tahun tahun_bkm,
 						b.nama nama_kota,
 						c.nama nama_korkot,
@@ -288,14 +289,14 @@ class bk010212Controller extends Controller
 						left join bkt_01010111_korkot c on a.kode_korkot = c.kode
 						left join bkt_01010103_kec d on a.kode_kec = d.kode
 						left join bkt_01010110_kmw e on a.kode_kmw = e.kode
-					where 
+					where
 						a.tk_forum = 2) b';
 				$totalData = DB::select('select count(1) cnt from bkt_01020207_bkm_kota a
 						left join bkt_01010102_kota b on a.kode_kota = b.kode
 						left join bkt_01010111_korkot c on a.kode_korkot = c.kode
 						left join bkt_01010103_kec d on a.kode_kec = d.kode
 						left join bkt_01010110_kmw e on a.kode_kmw = e.kode
-					where 
+					where
 						a.tk_forum = 2');
 				$totalFiltered = $totalData[0]->cnt;
 				$limit = $request->input('length');
@@ -309,19 +310,19 @@ class bk010212Controller extends Controller
 				else {
 					$search = $request->input('search.value');
 					$posts=DB::select($query. ' where (
-						b.kode_bkm like "%'.$search.'%" or 
-						b.tahun_bkm like "%'.$search.'%" or 
+						b.kode_bkm like "%'.$search.'%" or
+						b.tahun_bkm like "%'.$search.'%" or
 						b.nama_kota like "%'.$search.'%" or
-						b.nama_kec like "%'.$search.'%" or 
-						b.jenis_kegiatan_convert like "%'.$search.'%" or 
+						b.nama_kec like "%'.$search.'%" or
+						b.jenis_kegiatan_convert like "%'.$search.'%" or
 						b.tgl_kegiatan_bkm like "%'.$search.'%" or
 						b.lok_kegiatan_bkm like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 					$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
-						b.kode_bkm like "%'.$search.'%" or 
-						b.tahun_bkm like "%'.$search.'%" or 
+						b.kode_bkm like "%'.$search.'%" or
+						b.tahun_bkm like "%'.$search.'%" or
 						b.nama_kota like "%'.$search.'%" or
-						b.nama_kec like "%'.$search.'%" or 
-						b.jenis_kegiatan_convert like "%'.$search.'%" or 
+						b.nama_kec like "%'.$search.'%" or
+						b.jenis_kegiatan_convert like "%'.$search.'%" or
 						b.tgl_kegiatan_bkm like "%'.$search.'%" or
 						b.lok_kegiatan_bkm like "%'.$search.'%")) a');
 					$totalFiltered = $totalFiltered[0]->cnt;
@@ -349,7 +350,7 @@ class bk010212Controller extends Controller
 						$nestedData['lok_kegiatan'] = $post->lok_kegiatan_bkm;
 						$nestedData['created_time'] = $post->created_time;
 						$nestedData['option'] = "";
-						
+
 						if(!empty($data2['detil']['164']))
 							$nestedData['option'] =$nestedData['option']."&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 						if(!empty($data2['detil']['165']))
@@ -388,10 +389,10 @@ class bk010212Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
-				'kode_modul' => 5, 
-				'kode_menu' => 57,   
-				'kode_menu_detil' => $detil, 
-				'aktifitas' => $aktifitas, 
+				'kode_modul' => 5,
+				'kode_menu' => 57,
+				'kode_menu_detil' => $detil,
+				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas
        			]);
     }
