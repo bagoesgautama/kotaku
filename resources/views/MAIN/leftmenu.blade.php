@@ -400,28 +400,28 @@
 			</li>
 			@endif
 			@if( ! empty($menu['35']))
-			<li {!! (Request::is( 'main/persiapan/kecamatan/keberfungsian')||Request::is( 'main/persiapan/kecamatan/keberfungsian/create')||Request::is( 'main/persiapan/kecamatan/kolaborasi')||Request::is( 'main/persiapan/kecamatan/kolaborasi/create')||Request::is( 'main/persiapan/kecamatan/bkm')||Request::is( 'main/persiapan/kecamatan/bkm/create') ? 'class="active"': 'class=""') !!}>
+			<li {!! (Request::is( 'main/persiapan/kecamatan/keberfungsian')||Request::is( 'main/persiapan/kecamatan/keberfungsian/*')||Request::is( 'main/persiapan/kecamatan/kolaborasi')||Request::is( 'main/persiapan/kecamatan/kolaborasi/*')||Request::is( 'main/persiapan/kecamatan/bkm')||Request::is( 'main/persiapan/kecamatan/bkm/*') ? 'class="active"': 'class=""') !!}>
                 <a href="javascript:void(0)">
                     <span class="mm-text">Kecamatan</span>
                     <span class="fa arrow"></span>
                 </a>
 				<ul class="sub-menu form-submenu">
 					@if( ! empty($menu['57']))
-					<li {!! (Request::is( 'main/persiapan/kecamatan/bkm')||Request::is( 'main/persiapan/kecamatan/bkm/create') ? 'class="active"': "") !!}>
+					<li {!! (Request::is( 'main/persiapan/kecamatan/bkm')||Request::is( 'main/persiapan/kecamatan/bkm/*') ? 'class="active"': "") !!}>
 						<a href="/main/persiapan/kecamatan/bkm">
 							<span class="mm-text">FKA BKM/LKM</span>
 						</a>
 					</li>
 					@endif
 					@if( ! empty($menu['58']))
-					<li {!! (Request::is( 'main/persiapan/kecamatan/kolaborasi')||Request::is( 'main/persiapan/kecamatan/kolaborasi/create') ? 'class="active"': "") !!}>
+					<li {!! (Request::is( 'main/persiapan/kecamatan/kolaborasi')||Request::is( 'main/persiapan/kecamatan/kolaborasi/*') ? 'class="active"': "") !!}>
 						<a href="/main/persiapan/kecamatan/kolaborasi">
 							<span class="mm-text">Forum Kolaborasi</span>
 						</a>
 					</li>
 					@endif
 					@if( ! empty($menu['59']))
-					<li {!! (Request::is( 'main/persiapan/kecamatan/keberfungsian')||Request::is( 'main/persiapan/kecamatan/keberfungsian/create') ? 'class="active"': "") !!}>
+					<li {!! (Request::is( 'main/persiapan/kecamatan/keberfungsian')||Request::is( 'main/persiapan/kecamatan/keberfungsian/*') ? 'class="active"': "") !!}>
 						<a href="/main/persiapan/kecamatan/keberfungsian">
 							<span class="mm-text">Keberfungsian Forum</span>
 						</a>

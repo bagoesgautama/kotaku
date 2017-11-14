@@ -76,6 +76,8 @@ class bk010214Controller extends Controller
 						a.kode kode_f,
 						case when a.jns_forum=1 then "Forum BKM/LKM Tk Kota" when a.jns_forum=2 then "Forum Kolaborasi Tk Kota" end jns_forum_convert,
 						case when a.kode_kegiatan=0 then "Rapat Internal" when a.kode_kegiatan=1 then "Rapat Dengan Pemda" end kode_kegiatan_convert,
+						case when a.tgl_kegiatan is null then "-" else a.tgl_kegiatan end tgl_kegiatan_f,
+						case when a.lok_kegiatan is null then "-" else a.lok_kegiatan end lok_kegiatan_f,
 						b.tahun tahun_bkm,
 						c.tahun tahun_kolab,
 						d.nama nama_kota,
@@ -113,19 +115,13 @@ class bk010214Controller extends Controller
 				else {
 					$search = $request->input('search.value');
 					$posts=DB::select($query. ' where (
-						b.kode_f like "%'.$search.'%" or
-						b.tahun_bkm like "%'.$search.'%" or
-						b.tahun_kolab like "%'.$search.'%" or
-						b.nama_kota like "%'.$search.'%" or
+						b.jns_forum_convert like "%'.$search.'%" or
 						b.nama_kec like "%'.$search.'%" or
 						b.kode_kegiatan_convert like "%'.$search.'%" or
 						b.tgl_kegiatan_f like "%'.$search.'%" or
 						b.lok_kegiatan_f like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 					$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
-						b.kode_f like "%'.$search.'%" or
-						b.tahun_bkm like "%'.$search.'%" or
-						b.tahun_kolab like "%'.$search.'%" or
-						b.nama_kota like "%'.$search.'%" or
+						b.jns_forum_convert like "%'.$search.'%" or
 						b.nama_kec like "%'.$search.'%" or
 						b.kode_kegiatan_convert like "%'.$search.'%" or
 						b.tgl_kegiatan_f like "%'.$search.'%" or
@@ -146,8 +142,8 @@ class bk010214Controller extends Controller
 						$nestedData['kode'] = $post->kode;
 						$nestedData['jns_forum_convert'] = $post->jns_forum_convert;
 						$nestedData['kode_kegiatan_convert'] = $post->kode_kegiatan_convert;
-						$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan;
-						$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
+						$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan_f;
+						$nestedData['lok_kegiatan'] = $post->lok_kegiatan_f;
 						$nestedData['nama_kec'] = $post->nama_kec;
 						$nestedData['q_peserta_p'] = $post->q_peserta_p;
 						$nestedData['q_peserta_w'] = $post->q_peserta_w;
@@ -155,7 +151,7 @@ class bk010214Controller extends Controller
 						$nestedData['total'] = $post->total;
 						$nestedData['option'] = "";
 						if(!empty($data2['detil']['119']))
-							$nestedData['option'] =$nestedData['option']."&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
+							$nestedData['option'] =$nestedData['option']."<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
 						if(!empty($data2['detil']['173']))
 							$nestedData['option'] =$nestedData['option']."&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 						if(!empty($data2['detil']['174']))
@@ -382,7 +378,7 @@ class bk010214Controller extends Controller
 				'kode_bkm' => $request->input('kode-bkm-input')=='null'?null:$request->input('kode-bkm-input'),
 				'kode_kolab' => $request->input('kode-kolab-input')=='null'?null:$request->input('kode-kolab-input'),
 				'kode_kegiatan' => $request->input('kode-keg-input'),
-				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
+				'tgl_kegiatan' => $request->input('tgl-kegiatan-input')==null?null:$this->date_conversion($request->input('tgl-kegiatan-input')),
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
@@ -415,7 +411,7 @@ class bk010214Controller extends Controller
 				'kode_bkm' => $request->input('kode-bkm-input')=='null'?null:$request->input('kode-bkm-input'),
 				'kode_kolab' => $request->input('kode-kolab-input')=='null'?null:$request->input('kode-kolab-input'),
 				'kode_kegiatan' => $request->input('kode-keg-input'),
-				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
+				'tgl_kegiatan' => $request->input('tgl-kegiatan-input')==null?null:$this->date_conversion($request->input('tgl-kegiatan-input')),
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
