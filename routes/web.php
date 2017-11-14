@@ -554,6 +554,30 @@ Route::get('/main/persiapan/kelurahan/lembaga/delete', 'MAIN\bk010223Controller@
 Route::get('/main/persiapan/kelurahan/lembaga/select', 'MAIN\bk010223Controller@select');
 Route::get('/main/persiapan/kelurahan/lembaga/show', 'MAIN\bk010223Controller@show');
 
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/persiapan', 'MAIN\bk010233Controller@index');
+Route::post('/main/persiapan/kelurahan/pemilu_bkm/persiapan', 'MAIN\bk010233Controller@post');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/persiapan/create', 'MAIN\bk010233Controller@create');
+Route::post('/main/persiapan/kelurahan/pemilu_bkm/persiapan/create', 'MAIN\bk010233Controller@post_create');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/persiapan/delete', 'MAIN\bk010233Controller@delete');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/persiapan/select', 'MAIN\bk010233Controller@select');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/persiapan/show', 'MAIN\bk010233Controller@show');
+
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/seleksi', 'MAIN\bk010234Controller@index');
+Route::post('/main/persiapan/kelurahan/pemilu_bkm/seleksi', 'MAIN\bk010234Controller@post');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/seleksi/create', 'MAIN\bk010234Controller@create');
+Route::post('/main/persiapan/kelurahan/pemilu_bkm/seleksi/create', 'MAIN\bk010234Controller@post_create');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/seleksi/delete', 'MAIN\bk010234Controller@delete');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/seleksi/select', 'MAIN\bk010234Controller@select');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/seleksi/show', 'MAIN\bk010234Controller@show');
+
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/data', 'MAIN\bk010235Controller@index');
+Route::post('/main/persiapan/kelurahan/pemilu_bkm/data', 'MAIN\bk010235Controller@post');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/data/create', 'MAIN\bk010235Controller@create');
+Route::post('/main/persiapan/kelurahan/pemilu_bkm/data/create', 'MAIN\bk010235Controller@post_create');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/data/delete', 'MAIN\bk010235Controller@delete');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/data/select', 'MAIN\bk010235Controller@select');
+Route::get('/main/persiapan/kelurahan/pemilu_bkm/data/show', 'MAIN\bk010235Controller@show');
+
 //perencanaan
 Route::get('/main/perencanaan/penanganan/pembangunan_visi', 'MAIN\bk010301Controller@index');
 Route::get('/main/perencanaan/penanganan/pembangunan_visi/select', 'MAIN\bk010301Controller@select');
