@@ -270,28 +270,28 @@
 			</li>
 			@endif
 			@if( ! empty($menu['33']))
-			<li {!! (Request::is( 'main/persiapan/propinsi/pokja/pembentukan')||Request::is( 'main/persiapan/propinsi/pokja/pembentukan/create')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan/create')? 'class="active"': 'class=""') !!}>
+			<li {!! (Request::is( 'main/persiapan/propinsi/pokja/pembentukan')||Request::is( 'main/persiapan/propinsi/pokja/pembentukan/*')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan/*')? 'class="active"': 'class=""') !!}>
                 <a href="javascript:void(0)">
                     <span class="mm-text">Propinsi</span>
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="sub-menu form-submenu">
 					@if( ! empty($menu['38']))
-					<li {!! (Request::is( 'main/persiapan/propinsi/pokja/pembentukan')||Request::is( 'main/persiapan/propinsi/pokja/pembentukan/create')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan/create')? 'class="active"': "") !!}>
+					<li {!! (Request::is( 'main/persiapan/propinsi/pokja/pembentukan')||Request::is( 'main/persiapan/propinsi/pokja/pembentukan/*')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan/*')? 'class="active"': "") !!}>
 						<a href="javascript:void(0)">
 		                    <span class="mm-text">Kelompok Kerja (Pokja)</span>
 		                    <span class="fa arrow"></span>
 		                </a>
 						<ul class="form-sub-submenu">
 							@if( ! empty($menu['49']))
-							<li {!! (Request::is( 'main/persiapan/propinsi/pokja/pembentukan')||Request::is( 'main/persiapan/propinsi/pokja/pembentukan/create')? 'class="active"': "") !!}>
+							<li {!! (Request::is( 'main/persiapan/propinsi/pokja/pembentukan')||Request::is( 'main/persiapan/propinsi/pokja/pembentukan/*')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/propinsi/pokja/pembentukan">
 				                    <span class="mm-text">Pembentukan</span>
 				                </a>
 						    </li>
 							@endif
 							@if( ! empty($menu['50']))
-							<li {!! (Request::is( 'main/persiapan/propinsi/pokja/kegiatan')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan/create')? 'class="active"': "") !!}>
+							<li {!! (Request::is( 'main/persiapan/propinsi/pokja/kegiatan')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan/*')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/propinsi/pokja/kegiatan">
 				                    <span class="mm-text">Keberfungsian Pokja</span>
 				                </a>
@@ -304,35 +304,35 @@
 			</li>
 			@endif
 			@if( ! empty($menu['34']))
-			<li {!! (Request::is( 'main/persiapan/kota/kegiatan/*')||Request::is( 'main/persiapan/kota/forum/bkm')||Request::is( 'main/persiapan/kota/forum/bkm/create')||Request::is( 'main/persiapan/kota/forum/kolaborasi')||Request::is( 'main/persiapan/kota/forum/kolaborasi/create')||Request::is( 'main/persiapan/kota/forum/f_forum')||Request::is( 'main/persiapan/kota/forum/f_forum/create')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi/create')||Request::is( 'main/persiapan/kota/info')||Request::is( 'main/persiapan/kota/info/create')||Request::is( 'main/persiapan/kota/pokja/pembentukan')||Request::is( 'main/persiapan/kota/pokja/pembentukan/create')||Request::is( 'main/persiapan/kota/pokja/kegiatan')||Request::is( 'main/persiapan/kota/pokja/kegiatan/create') ? 'class="active"': 'class=""') !!}>
+			<li {!! (Request::is( 'main/persiapan/kota/kegiatan/*')||Request::is( 'main/persiapan/kota/forum/bkm')||Request::is( 'main/persiapan/kota/forum/bkm/*')||Request::is( 'main/persiapan/kota/forum/kolaborasi')||Request::is( 'main/persiapan/kota/forum/kolaborasi/*')||Request::is( 'main/persiapan/kota/forum/f_forum')||Request::is( 'main/persiapan/kota/forum/f_forum/*')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi/*')||Request::is( 'main/persiapan/kota/info')||Request::is( 'main/persiapan/kota/info/*')||Request::is( 'main/persiapan/kota/pokja/pembentukan')||Request::is( 'main/persiapan/kota/pokja/pembentukan/*')||Request::is( 'main/persiapan/kota/pokja/kegiatan')||Request::is( 'main/persiapan/kota/pokja/kegiatan/*') ? 'class="active"': 'class=""') !!}>
                 <a href="javascript:void(0)">
                     <span class="mm-text">Kota/Kabupaten</span>
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="sub-menu form-submenu">
 					@if( ! empty($menu['40']))
-					<li {!! (Request::is( 'main/persiapan/kota/info')||Request::is( 'main/persiapan/kota/info/create') ? 'class="active"': "") !!}>
+					<li {!! (Request::is( 'main/persiapan/kota/info')||Request::is( 'main/persiapan/kota/info/*') ? 'class="active"': "") !!}>
 						<a href="/main/persiapan/kota/info">
 							<span class="mm-text">Informasi Umum</span>
 						</a>
 					</li>
 					@endif
 					@if( ! empty($menu['39']))
-					<li {!! (Request::is( 'main/persiapan/kota/pokja/pembentukan')||Request::is( 'main/persiapan/kota/pokja/pembentukan/create')||Request::is( 'main/persiapan/kota/pokja/kegiatan')||Request::is( 'main/persiapan/kota/pokja/kegiatan/create')? 'class="active"': "") !!}>
+					<li {!! (Request::is( 'main/persiapan/kota/pokja/pembentukan')||Request::is( 'main/persiapan/kota/pokja/pembentukan/*')||Request::is( 'main/persiapan/kota/pokja/kegiatan')||Request::is( 'main/persiapan/kota/pokja/kegiatan/*')? 'class="active"': "") !!}>
 						<a href="javascript:void(0)">
 		                    <span class="mm-text">Kelompok Kerja (Pokja)</span>
 		                    <span class="fa arrow"></span>
 		                </a>
 						<ul class="form-sub-submenu">
 							@if( ! empty($menu['51']))
-							<li {!! (Request::is( 'main/persiapan/kota/pokja/pembentukan')||Request::is( 'main/persiapan/kota/pokja/pembentukan/create')? 'class="active"': "") !!}>
+							<li {!! (Request::is( 'main/persiapan/kota/pokja/pembentukan')||Request::is( 'main/persiapan/kota/pokja/pembentukan/*')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/pokja/pembentukan">
 				                    <span class="mm-text">Pembentukan</span>
 				                </a>
 						    </li>
 							@endif
 							@if( ! empty($menu['52']))
-							<li {!! (Request::is( 'main/persiapan/kota/pokja/kegiatan')||Request::is( 'main/persiapan/kota/pokja/kegiatan/create')? 'class="active"': "") !!}>
+							<li {!! (Request::is( 'main/persiapan/kota/pokja/kegiatan')||Request::is( 'main/persiapan/kota/pokja/kegiatan/*')? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/pokja/kegiatan">
 				                    <span class="mm-text">Keberfungsian Pokja</span>
 				                </a>
@@ -349,14 +349,14 @@
 		                </a>
 						<ul class="form-sub-submenu">
 							@if( ! empty($menu['53']))
-							<li {!! (Request::is( 'main/persiapan/kota/kegiatan/sosialisasi')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi/create') ? 'class="active"': "") !!}>
+							<li {!! (Request::is( 'main/persiapan/kota/kegiatan/sosialisasi')||Request::is( 'main/persiapan/kota/kegiatan/sosialisasi/*') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/kegiatan/sosialisasi">
 				                    <span class="mm-text">Sosialisasi</span>
 				                </a>
 						    </li>
 							@endif
 							@if( ! empty($menu['53']))
-							<li {!! (Request::is( 'main/persiapan/kota/kegiatan/relawan')||Request::is( 'main/persiapan/kota/kegiatan/relawan/create') ? 'class="active"': "") !!}>
+							<li {!! (Request::is( 'main/persiapan/kota/kegiatan/relawan')||Request::is( 'main/persiapan/kota/kegiatan/relawan/*') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/kegiatan/relawan">
 				                    <span class="mm-text">Relawan</span>
 				                </a>
@@ -366,28 +366,28 @@
 				    </li>
 					@endif
 					@if( ! empty($menu['42']))
-				    <li {!! (Request::is( 'main/persiapan/kota/forum/bkm')||Request::is( 'main/persiapan/kota/forum/bkm/create')||Request::is( 'main/persiapan/kota/forum/kolaborasi')||Request::is( 'main/persiapan/kota/forum/kolaborasi/create')||Request::is( 'main/persiapan/kota/forum/f_forum')||Request::is( 'main/persiapan/kota/forum/f_forum/create') ? 'class="active"': "") !!}>
+				    <li {!! (Request::is( 'main/persiapan/kota/forum/bkm')||Request::is( 'main/persiapan/kota/forum/bkm/*')||Request::is( 'main/persiapan/kota/forum/kolaborasi')||Request::is( 'main/persiapan/kota/forum/kolaborasi/*')||Request::is( 'main/persiapan/kota/forum/f_forum')||Request::is( 'main/persiapan/kota/forum/f_forum/*') ? 'class="active"': "") !!}>
 						<a href="javascript:void(0)">
 		                    <span class="mm-text">Forum Kota</span>
 		                    <span class="fa arrow"></span>
 		                </a>
 						<ul class="form-sub-submenu">
 							@if( ! empty($menu['54']))
-							<li {!! (Request::is( 'main/persiapan/kota/forum/bkm')||Request::is( 'main/persiapan/kota/forum/bkm/create') ? 'class="active"': "") !!}>
+							<li {!! (Request::is( 'main/persiapan/kota/forum/bkm')||Request::is( 'main/persiapan/kota/forum/bkm/*') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/forum/bkm">
 				                    <span class="mm-text">FKA BKM/LKM</span>
 				                </a>
 						    </li>
 							@endif
 							@if( ! empty($menu['55']))
-							<li {!! (Request::is( 'main/persiapan/kota/forum/kolaborasi')||Request::is( 'main/persiapan/kota/forum/kolaborasi/create') ? 'class="active"': "") !!}>
+							<li {!! (Request::is( 'main/persiapan/kota/forum/kolaborasi')||Request::is( 'main/persiapan/kota/forum/kolaborasi/*') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/forum/kolaborasi">
 				                    <span class="mm-text">Kolaborasi</span>
 				                </a>
 						    </li>
 							@endif
 							@if( ! empty($menu['56']))
-							<li {!! (Request::is( 'main/persiapan/kota/forum/f_forum')||Request::is( 'main/persiapan/kota/forum/f_forum/create') ? 'class="active"': "") !!}>
+							<li {!! (Request::is( 'main/persiapan/kota/forum/f_forum')||Request::is( 'main/persiapan/kota/forum/f_forum/*') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kota/forum/f_forum">
 				                    <span class="mm-text">Keberfungsian Forum</span>
 				                </a>

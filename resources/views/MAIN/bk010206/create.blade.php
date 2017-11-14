@@ -9,6 +9,7 @@
 <link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
+<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -44,7 +45,13 @@
                                 <label class="col-sm-3 control-label" for="kode">Tahun</label>
                                 <div class="col-sm-6">
                                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                    <input type="number" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}" maxlength="4" required>
+                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
+                                        @foreach($tahun_list as $list)
+                                            <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group ">
@@ -347,6 +354,10 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
+        $("#tahun-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
         function enforce_maxlength(event) {
             var t = event.target;
             if (t.hasAttribute('maxlength')) {
@@ -358,24 +369,24 @@
         var kota = $('#select-kode-kota-input');
         var kode_kota = {!! json_encode($kode_kota) !!};
 
-        kota.change(function(){
-            kota_id=kota.val();
-            kmw_id=kmw.val();
-            if(kota_id!=null){
-                korkot.empty();
-                korkot.append("<option value>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kota/pokja/pembentukan/select?kota_korkot="+kota_id+"&kmw_korkot="+kmw_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
+        // kota.change(function(){
+        //     kota_id=kota.val();
+        //     kmw_id=kmw.val();
+        //     if(kota_id!=null){
+        //         korkot.empty();
+        //         korkot.append("<option value>Please select</option>");
+        //         $.ajax({
+        //             type: 'get',
+        //             "url": "/main/persiapan/kota/pokja/pembentukan/select?kota_korkot="+kota_id+"&kmw_korkot="+kmw_id,
+        //             success: function (data) {
+        //                 data=JSON.parse(data)
+        //                 for (var i=0;i<data.length;i++){
+        //                     korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+        //                 }
+        //             }
+        //         });
+        //     }
+        // });
       });
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
