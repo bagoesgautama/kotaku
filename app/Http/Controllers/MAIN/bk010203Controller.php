@@ -69,17 +69,14 @@ class bk010203Controller extends Controller
 				case when a.status_pokja=0 then "Pokja Lama" when a.status_pokja=1 then "Pokja Baru" end status_pokja_convert,
 				case when a.jenis_kegiatan="2.1" then "Tingkat Nasional" when a.jenis_kegiatan="2.2" then "Tingkat Propinsi" end jenis_kegiatan_convert,
 				b.nama nama_prop,
-				c.nama nama_kmw,
-				d.nama nama_faskel
+				c.nama nama_kmw
 			from bkt_01020202_pokja a
 			 	left join bkt_01010101_prop b on a.kode_prop = b.kode
 			 	left join bkt_01010110_kmw c on a.kode_kmw = c.kode
-			 	left join bkt_01010113_faskel d on a.kode_faskel = d.kode
 			where a.jenis_kegiatan = "2.2") b';
 		$totalData = DB::select('select count(1) cnt from bkt_01020202_pokja a
 			 	left join bkt_01010101_prop b on a.kode_prop = b.kode
 			 	left join bkt_01010110_kmw c on a.kode_kmw = c.kode
-			 	left join bkt_01010113_faskel d on a.kode_faskel = d.kode
 			where a.jenis_kegiatan = "2.2"');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -130,7 +127,7 @@ class bk010203Controller extends Controller
 				}
 
 				$option = '';
-				if(!empty($detil['69'])){
+				if(!empty($detil['68'])){
 					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
 				}
 				if(!empty($detil['70'])){
@@ -325,6 +322,8 @@ class bk010203Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		$user = Auth::user();
+
 		$file_rnckerja = $request->file('rencana-kerja-input');
 		$url_rnckerja = null;
 		$upload_rnckerja = false;
@@ -372,9 +371,9 @@ class bk010203Controller extends Controller
 			DB::table('bkt_01020202_pokja')->where('kode', $request->input('kode'))
 			->update([
 				'tahun' => $request->input('tahun-input'),
-				'kode_prop' => $request->input('kode-prop-input'),
-				'kode_kmw' => $request->input('kode-kmw-input'),
-				'kode_faskel' => $request->input('kode-faskel-input'),
+				'kode_prop' => $user->wk_kd_prop!=null?$user->wk_kd_prop:null,
+				'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:null,
+				// 'kode_faskel' => $request->input('kode-faskel-input'),
 				'jenis_kegiatan' => $request->input('jns-kegiatan-input'),
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'status_pokja' => $request->input('status-pokja-input'),
@@ -420,9 +419,9 @@ class bk010203Controller extends Controller
 		}else{
 			DB::table('bkt_01020202_pokja')->insert([
 				'tahun' => $request->input('tahun-input'),
-				'kode_prop' => $request->input('kode-prop-input'),
-				'kode_kmw' => $request->input('kode-kmw-input'),
-				'kode_faskel' => $request->input('kode-faskel-input'),
+				'kode_prop' => $user->wk_kd_prop!=null?$user->wk_kd_prop:null,
+				'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:null,
+				// 'kode_faskel' => $request->input('kode-faskel-input'),
 				'jenis_kegiatan' => $request->input('jns-kegiatan-input'),
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'status_pokja' => $request->input('status-pokja-input'),

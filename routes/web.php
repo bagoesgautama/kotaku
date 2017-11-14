@@ -462,6 +462,7 @@ Route::post('/main/persiapan/kota/forum/kolaborasi/create', 'MAIN\bk010210Contro
 Route::get('/main/persiapan/kota/forum/kolaborasi/delete', 'MAIN\bk010210Controller@delete');
 
 Route::get('/main/persiapan/kota/forum/f_forum', 'MAIN\bk010211Controller@index');
+Route::get('/main/persiapan/kota/forum/f_forum/show', 'MAIN\bk010211Controller@show');
 Route::post('/main/persiapan/kota/forum/f_forum', 'MAIN\bk010211Controller@post');
 Route::get('/main/persiapan/kota/forum/f_forum/create', 'MAIN\bk010211Controller@create');
 Route::post('/main/persiapan/kota/forum/f_forum/create', 'MAIN\bk010211Controller@post_create');

@@ -188,6 +188,7 @@ class bk010209Controller extends Controller
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
+			$data['tahun_list'] = DB::select('select * from list_tahun');
 			if($data['kode']!=null && !empty($data['detil']['114'])){
 				$data['detil_menu']='114';
 				$rowData = DB::select('select * from bkt_01020207_bkm_kota where kode='.$data['kode']);
@@ -213,8 +214,13 @@ class bk010209Controller extends Controller
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
-				if(!empty($rowData[0]->kode_kmw))
-					$data['kode_kota_list']=DB::select('select b.kode, b.nama from bkt_01010110_kmw a, bkt_01010102_kota b where a.kode_prop=b.kode_prop and a.kode='.$rowData[0]->kode_kmw);
+				//level propinsi
+				if($user->kode_level==2 || $user->kode_level==0){
+					$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010102_kota b where b.kode_prop=a.kode and a.kode='.$user->wk_kd_prop);
+					//level kota
+				}else if($user->kode_level==3){
+					$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010102_kota b where b.kode=a.kode_kota and a.kode_korkot='.$user->kode_korkot);
+				}
 				if(!empty($rowData[0]->kode_kota))
 					$data['kode_korkot_list']=DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode_kota='.$rowData[0]->kode_kota);
 				// $data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
@@ -241,6 +247,7 @@ class bk010209Controller extends Controller
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
+			$data['tahun_list'] = DB::select('select * from list_tahun');
 			if($data['kode']!=null && !empty($data['detil']['155'])){
 				$data['detil_menu']='155';
 				$rowData = DB::select('select * from bkt_01020207_bkm_kota where kode='.$data['kode']);
@@ -266,8 +273,13 @@ class bk010209Controller extends Controller
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
-				if(!empty($rowData[0]->kode_kmw))
-					$data['kode_kota_list']=DB::select('select b.kode, b.nama from bkt_01010110_kmw a, bkt_01010102_kota b where a.kode_prop=b.kode_prop and a.kode='.$rowData[0]->kode_kmw);
+				//level propinsi
+				if($user->kode_level==2 || $user->kode_level==0){
+					$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010102_kota b where b.kode_prop=a.kode and a.kode='.$user->wk_kd_prop);
+					//level kota
+				}else if($user->kode_level==3){
+					$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010102_kota b where b.kode=a.kode_kota and a.kode_korkot='.$user->kode_korkot);
+				}
 				if(!empty($rowData[0]->kode_kota))
 					$data['kode_korkot_list']=DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010111_korkot b where a.kode_korkot=b.kode and a.kode_kota='.$rowData[0]->kode_kota);
 				// $data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
@@ -298,7 +310,13 @@ class bk010209Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
-				$data['kode_kota_list'] = null;
+				//level propinsi
+				if($user->kode_level==2 || $user->kode_level==0){
+					$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010102_kota b where b.kode_prop=a.kode and a.kode='.$user->wk_kd_prop);
+					//level kota
+				}else if($user->kode_level==3){
+					$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010102_kota b where b.kode=a.kode_kota and a.kode_korkot='.$user->kode_korkot);
+				}
 				$data['kode_korkot_list'] = null;
 				// $data['kode_kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
@@ -314,6 +332,7 @@ class bk010209Controller extends Controller
 
 	public function post_create(Request $request)
 	{
+		$user = Auth::user();
 		$file_dokumen = $request->file('file-dokumen-input');
 		$url_dokumen = null;
 		$upload_dokumen = false;
@@ -348,8 +367,8 @@ class bk010209Controller extends Controller
 			->update([
 				'tahun' => $request->input('tahun-input'),
 				'tk_forum' => $request->input('tk-forum-input'),
-				'kode_kota' => $request->input('kode-kota-input'),
-				'kode_kmw' => $request->input('kode-kmw-input'),
+				'kode_kmw' => $user->kode_kmw,
+				'kode_korkot' => $user->kode_korkot,
 				'kode_korkot' => $request->input('kode-korkot-input'),
 				// 'kode_kec' => $request->input('kode-kec-input'),
 				'jenis_kegiatan' => $request->input('jns-kegiatan-input'),
@@ -383,8 +402,8 @@ class bk010209Controller extends Controller
 				'tahun' => $request->input('tahun-input'),
 				'tk_forum' => $request->input('tk-forum-input'),
 				'kode_kota' => $request->input('kode-kota-input'),
-				'kode_kmw' => $request->input('kode-kmw-input'),
-				'kode_korkot' => $request->input('kode-korkot-input'),
+				'kode_kmw' => $user->kode_kmw,
+				'kode_korkot' => $user->kode_korkot,
 				// 'kode_kec' => $request->input('kode-kec-input'),
 				'jenis_kegiatan' => $request->input('jns-kegiatan-input'),
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),

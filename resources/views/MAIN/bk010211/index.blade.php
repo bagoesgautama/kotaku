@@ -95,7 +95,7 @@
                 { "data": "kode" , name:"kode"},
                 { "data": "jns_forum_convert" , name:"jns_forum_convert"},
                 { "data": "nama_kota" , name:"nama_kota"},
-                { "data": "kode_kegiatan" , name:"kode_kegiatan"},
+                { "data": "kode_kegiatan_convert" , name:"kode_kegiatan_convert"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
                 { "data": "q_peserta_p" , name:"q_peserta_p"},

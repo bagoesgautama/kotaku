@@ -108,11 +108,13 @@ class bk010211Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. ' where (
+				b.jns_forum_convert like "%'.$search.'%" or
 				b.nama_kota like "%'.$search.'%" or
 				b.kode_kegiatan_convert like "%'.$search.'%" or
 				b.tgl_kegiatan_f like "%'.$search.'%" or
 				b.lok_kegiatan_f like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
+				b.jns_forum_convert like "%'.$search.'%" or
 				b.nama_kota like "%'.$search.'%" or
 				b.kode_kegiatan_convert like "%'.$search.'%" or
 				b.tgl_kegiatan_f like "%'.$search.'%" or
@@ -153,7 +155,7 @@ class bk010211Controller extends Controller
 
 				$option = '';
 				if(!empty($detil['116'])){
-					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
+					$option .= "<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
 				}
 				if(!empty($detil['161'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
@@ -188,7 +190,7 @@ class bk010211Controller extends Controller
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			if($data['kode']!=null && !empty($data['detil']['161'])){
+			if($data['kode']!=null && !empty($data['detil']['116'])){
 				$data['detil_menu']='116';
 				$rowData = DB::select('select * from bkt_01020209_f_forum_kota where kode='.$data['kode']);
 				$data['jns_forum'] = $rowData[0]->jns_forum;
@@ -382,7 +384,7 @@ class bk010211Controller extends Controller
 				'kode_bkm' => $request->input('kode-bkm-input')=='null'?null:$request->input('kode-bkm-input'),
 				'kode_kolab' => $request->input('kode-kolab-input')=='null'?null:$request->input('kode-kolab-input'),
 				'kode_kegiatan' => $request->input('kode-keg-input'),
-				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
+				'tgl_kegiatan' => $request->input('tgl-kegiatan-input')==null?null:$this->date_conversion($request->input('tgl-kegiatan-input')),
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
@@ -415,7 +417,7 @@ class bk010211Controller extends Controller
 				'kode_bkm' => $request->input('kode-bkm-input')=='null'?null:$request->input('kode-bkm-input'),
 				'kode_kolab' => $request->input('kode-kolab-input')=='null'?null:$request->input('kode-kolab-input'),
 				'kode_kegiatan' => $request->input('kode-keg-input'),
-				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
+				'tgl_kegiatan' => $request->input('tgl-kegiatan-input')==null?null:$this->date_conversion($request->input('tgl-kegiatan-input')),
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
