@@ -51,7 +51,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col" id="bkm_label" hidden>
+                            <div class="form-group striped-col" id="bkm_label" {!! $jns_forum==1?'':'hidden'!!}>
                                 <label class="col-sm-3 control-label">Forum BKM</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-bkm-input" name="kode-bkm-input" class="form-control select2" size="1">
@@ -62,7 +62,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col" id="kolab_label" hidden>
+                            <div class="form-group striped-col" id="kolab_label" {!! $jns_forum==2?'':'hidden'!!}>
                                 <label class="col-sm-3 control-label">Forum Kolaborasi</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kolab-input" name="kode-kolab-input" class="form-control select2" size="1">
@@ -266,17 +266,19 @@
         var bkm = $('#select-kode-bkm-input');
         var kolab = $('#select-kode-kolab-input');
         var jns_forum_id;
+        var kode_bkm = {!! json_encode($kode_bkm) !!};
+        var kode_kolab = {!! json_encode($kode_kolab) !!};
 
         jns_forum.change(function(){
             jns_forum_id=jns_forum.val();
             if(jns_forum_id!=null && jns_forum_id=='1'){
                 bkm_label.prop('hidden', false);
                 kolab_label.prop('hidden', true);
-                kolab.val(null).trigger('change');
+                kolab.val(kode_kolab).trigger('change');
             }else if(jns_forum_id!=null && jns_forum_id=='2'){
                 kolab_label.prop('hidden', false);
                 bkm_label.prop('hidden', true);
-                bkm.val(null).trigger('change');
+                bkm.val(kode_bkm).trigger('change');
             }    
         });
       });
