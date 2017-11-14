@@ -472,6 +472,7 @@ Route::get('/main/persiapan/kota/forum/f_forum/delete', 'MAIN\bk010211Controller
 Route::get('/main/persiapan/kecamatan/bkm', 'MAIN\bk010212Controller@index');
 Route::get('/main/persiapan/kecamatan/bkm/select', 'MAIN\bk010212Controller@select');
 Route::post('/main/persiapan/kecamatan/bkm', 'MAIN\bk010212Controller@post');
+Route::get('/main/persiapan/kecamatan/bkm/show', 'MAIN\bk010212Controller@show');
 Route::get('/main/persiapan/kecamatan/bkm/create', 'MAIN\bk010212Controller@create');
 Route::post('/main/persiapan/kecamatan/bkm/create', 'MAIN\bk010212Controller@post_create');
 Route::get('/main/persiapan/kecamatan/bkm/delete', 'MAIN\bk010212Controller@delete');
