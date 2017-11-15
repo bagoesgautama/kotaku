@@ -54,18 +54,18 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="kegiatan">
+                    <table class="table table-striped" id="kegiatan" width="1500px">
                         <thead>
                             <tr>
                                 <th>Kode</th>
                                 <th>Kota</th>
                                 <th>Kecamatan</th>
                                 <th>Kelurahan</th>
-                                <th>Jenis Kegiatan</th>
-                                <th>Tgl Kegiatan</th>
-                                <th>Lokasi Kegiatan</th>
-                                <th>Created Time</th>
-                                <th>option</th>
+                                <th>Tgl Pendataan</th>
+                                <th>Anggota Laki-laki</th>
+                                <th>Anggota Perempuan</th>
+                                <th>Anggota Miskin/MBR</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -95,10 +95,10 @@
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_kec" , name:"kode_kec"},
                 { "data": "kode_kel" , name:"kode_kel"},
-                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
-                { "data": "created_time" , name:"created_time"},
+                { "data": "q_peserta_p" , name:"q_peserta_p"},
+                { "data": "q_peserta_w" , name:"q_peserta_w"},
+                { "data": "q_peserta_mbr" , name:"q_peserta_mbr"},
                 { "data": "option" , name:"option",orderable:false}
             ],
             "order":[[0,"desc"]]
