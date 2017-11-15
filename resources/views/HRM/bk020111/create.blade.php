@@ -79,7 +79,7 @@
                 </ul>
             </div>
             <div class="panel-body">
-                <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered" data-bv-excluded="disabled">
                 <div class="tab-content">
                     <div id="tab1" class="tab-pane fade active in">
                         <div class="panel " >
@@ -90,13 +90,13 @@
 						                <label class="col-sm-3 control-label">Username</label>
 						                <div class="col-sm-6">
 											<input type="text" class="form-control form-control-lg" id="username"
-		                                       name="username" placeholder="Username" required maxlength="50" value="{{$user_name}}">
+		                                       name="username" placeholder="Username" required maxlength="50" value="{{$user_name}}" data-bv-callback="true" data-bv-callback-message="Username sudah dipakai." data-bv-callback-callback="check_username">
 
-			                                @if ($errors->has('username'))
+			                                <!-- @if ($errors->has('username'))
 			                                    <span class="help-block">
 			                                        <strong>{{ $errors->first('username') }}</strong>
 			                                    </span>
-			                                @endif
+			                                @endif -->
 						                </div>
 						            </div>
 						            @if($kode==null)
@@ -106,24 +106,24 @@
 											<input type="password" class="form-control form-control-lg" id="password"
 		                                       name="password" placeholder="Password" required maxlength="255">
 
-			                                @if ($errors->has('password'))
+			                                <!-- @if ($errors->has('password'))
 			                                    <span class="help-block">
 			                                        <strong>{{ $errors->first('password') }}</strong>
 			                                    </span>
-			                                @endif
+			                                @endif -->
 						                </div>
 						            </div>
 						            @endif
 						            <div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">Email</label>
 						                <div class="col-sm-6">
-											<input id="email" type="email" class="form-control  form-control-lg" name="email" placeholder="E-mail" required maxlength="255" value="{{$email}}">
+											<input id="email" type="email" class="form-control  form-control-lg" name="email" placeholder="E-mail" required maxlength="255" value="{{$email}}" data-bv-callback="true" data-bv-callback-message="Email sudah dipakai." data-bv-callback-callback="check_email">
 
-			                                @if ($errors->has('email'))
+			                                <!-- @if ($errors->has('email'))
 			                                    <span class="help-block">
 			                                        <strong>{{ $errors->first('email') }}</strong>
 			                                    </span>
-			                                @endif
+			                                @endif -->
 						                </div>
 						            </div>
                                 </div>
@@ -138,11 +138,11 @@
 						                <label class="col-sm-3 control-label">First Name</label>
 						                <div class="col-sm-6">
 											<input type="text" class="form-control  form-control-lg" id="first_name" name="first_name" placeholder="First name" required maxlength="50" value="{{$nama_depan}}">
-			                                @if ($errors->has('first_name'))
+			                                <!-- @if ($errors->has('first_name'))
 			                                    <span class="help-block">
 			                                        <strong>{{ $errors->first('first_name') }}</strong>
 			                                    </span>
-			                                @endif
+			                                @endif -->
 						                </div>
 						            </div>
 						            <div class="form-group striped-col">
@@ -323,7 +323,7 @@
 						            <div class="form-group striped-col" id="tgl_spk_label" {!! $tgl_spk!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">Tgl. SPK</label>
 						                <div class="col-sm-6">
-						                	<input class="form-control" id="return_date" name="tgl_spk" placeholder="Tanggal SPK" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_spk}}" {!! $kode!=null ? 'disabled':'' !!}>
+						                	<input class="form-control" id="tgl_spk" name="tgl_spk" placeholder="Tanggal SPK" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_spk}}" {!! $kode!=null ? 'disabled':'' !!}>
 						                </div>
 						            </div>
 						            <div class="form-group striped-col" id="nama_bank_label" {!! $nama_bank!=null ? '':'hidden' !!}>
@@ -486,27 +486,79 @@
 <script type="text/javascript" src="{{asset('vendors/pnotify/js/pnotify.js')}}"></script>
 <script src="{{asset('js/custom_js/notifications.js')}}"></script>
 <script>
+	function check_username(value, validator) {
+        var registrasi_username = {!! json_encode($registrasi_list) !!};
+        var user_username = {!! json_encode($user_list) !!};
+        for(var i=0;i<registrasi_username.length;i++){
+            if(registrasi_username[i].user_name==$('#username').val()){
+                registrasi_username=registrasi_username[i];
+                break;
+            }
+        }
+        for(var i=0;i<user_username.length;i++){
+            if(user_username[i].user_name==$('#username').val()){
+                user_username=user_username[i];
+                break;
+            }
+        }
+        var username = $('#username').val();
+        var res = true;
+        if(registrasi_username.user_name==username){
+            res=false;
+        }else if(user_username.user_name==username){
+            res=false;
+        }
+        return res;
+    };
+    function check_email(value, validator) {
+        var registrasi_email = {!! json_encode($registrasi_list) !!};
+        var user_email = {!! json_encode($user_list) !!};
+        for(var i=0;i<user_email.length;i++){
+            if(user_email[i].email==$('#email').val()){
+                user_email=user_email[i];
+                break;
+            }
+        }
+        for(var i=0;i<registrasi_email.length;i++){
+            if(registrasi_email[i].email==$('#email').val()){
+                registrasi_email=registrasi_email[i];
+                break;
+            }
+        }
+        var email = $('#email').val();
+        var res = true;
+        if(user_email.email==email){
+            res=false;
+        }else if(registrasi_email.email==email){
+            res=false;
+        }
+        return res;
+    };
   $(document).ready(function () {
   	$('.ui-pnotify').remove();
-	$('#form').on('submit', function (e) {
-		e.preventDefault();
-		$.ajax({
-			type: 'post',
-			"url": "/hrm/management/registrasi_manual/create",
-			data: $('form').serialize(),
-			beforeSend: function (){
-			    $("#submit").prop('disabled', true);
-			},
-			success: function () {
+  	$('#form').bootstrapValidator().on('success.form.bv', function(e) {
+		$('#form').on('submit', function (e) {
+			e.preventDefault();
+			$.ajax({
+				type: 'post',
+				"url": "/hrm/management/registrasi_manual/create",
+				data: $('form').serialize(),
+				beforeSend: function (){
+				    $("#submit").prop('disabled', true);
+				},
+				success: function () {
 
-			alert('From Submitted.');
-			window.location.href = "/hrm/management/registrasi_manual";
-			},
-			error: function (xhr, ajaxOptions, thrownError) {
-			alert(xhr.status);
-			$("#submit").prop('disabled', false);
-			}
+				alert('From Submitted.');
+				window.location.href = "/hrm/management/registrasi_manual";
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+				alert(xhr.status);
+				$("#submit").prop('disabled', false);
+				}
+			});
 		});
+	}).on('error.form.bv', function(e) {
+        $("#submit").prop('disabled', false);
     });
 	$('#kode_level-input').select2({
             theme: "bootstrap",
@@ -604,6 +656,10 @@
         }
         document.body.addEventListener('input', enforce_maxlength);
 
+        var nama_bank = $('#nama_bank');
+        var no_rekening = $('#no_rekening');
+        var no_spk = $('#no_spk');
+        var tgl_spk = $('#tgl_spk');
         var level = $('#kode_level-input');
         var role = $('#kode_role-input');
         var kmp = $('#kode_kmp-input');
@@ -752,13 +808,13 @@
                                 $('#info_bank').show();
                                 $('#nama_bank_label').show();
                                 $('#no_rekening_label').show();
-                                if(data[0].flag_koordinator==1 && data[0].kode_level==2){
-                                	wkkorkot.empty();
+                                if(data[0].flag_koordinator==1 && data[0].flag_fasilitator==0 && data[0].kode_level==2){
+                                    wkkorkot.empty();
                                     $('#korkot_label').show();
                                     wkfaskel.empty();
                                     $('#faskel_label').hide();
-                                }else if(data[0].flag_koordinator==0 && data[0].flag_konsultan==1 && data[0].kode_level==2){
-                                	wkkorkot.empty();
+                                }else if(data[0].flag_fasilitator==1 && data[0].kode_level==2){
+                                    wkkorkot.empty();
                                     $('#korkot_label').show();
                                     wkfaskel.empty();
                                     $('#faskel_label').show();
@@ -869,6 +925,10 @@
                             $('#no_rekening_label').hide();
                             wkkmw.empty();
                             $('#kmw_label').hide();
+                            no_spk.val(null);
+                            tgl_spk.val(null);
+                            nama_bank.val(null);
+                            no_rekening.val(null);
                             }
                         }
                     }
@@ -894,10 +954,14 @@
             $('#kec_label').hide();
             wkkel.empty();
             $('#kel_label').hide();
+            no_spk.val(null);
             $('#no_spk_label').hide();
+            tgl_spk.val(null);
             $('#tgl_spk_label').hide();
             $('#info_bank').hide();
+            nama_bank.val(null);
             $('#nama_bank_label').hide();
+            no_rekening.val(null);
             $('#no_rekening_label').hide();
         });
 

@@ -337,6 +337,8 @@ class bk020111Controller extends Controller
 			}else{
 				$data['wk_kd_faskel_list'] = null;
 			}
+			$data['user_list'] = DB::select('select * from bkt_02010111_user');
+			$data['registrasi_list'] = DB::select('select * from bkt_02020201_registrasi');
 
 			return view('HRM/bk020111/create',$data);
 		}else if($data['kode']==null && !empty($data['detil']['567'])){
@@ -404,6 +406,8 @@ class bk020111Controller extends Controller
 			$data['wk_kd_korkot_list'] = null;
 			$data['wk_kd_kel_list'] = null;
 			$data['wk_kd_faskel_list'] = null;
+			$data['user_list'] = DB::select('select * from bkt_02010111_user');
+			$data['registrasi_list'] = DB::select('select * from bkt_02020201_registrasi');
 
 		return view('HRM/bk020111/create',$data);
 			}else {
