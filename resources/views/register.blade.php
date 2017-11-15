@@ -266,8 +266,7 @@
                             <div class="col-md-12" id="no_spk_label" hidden>
                                 <div class="form-group">
                                     <label for="no_hp" class="sr-only">No. SPK</label>
-                                    <input type="number" class="form-control  form-control-lg" id="no_spk" name="no_spk"
-                                           placeholder="No. SPK" maxlength="45">
+                                    <input type="number" class="form-control  form-control-lg" id="no_spk" name="no_spk" placeholder="No. SPK" maxlength="45">
                                 </div>
                             </div>
                             <div class="col-md-12" id="tgl_spk_label" hidden>

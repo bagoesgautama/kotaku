@@ -434,8 +434,12 @@ Route::get('/main/persiapan/kota/kegiatan/sosialisasi', 'MAIN\bk010208Controller
 Route::get('/main/persiapan/kota/kegiatan/sosialisasi/select', 'MAIN\bk010208Controller@select');
 Route::post('/main/persiapan/kota/kegiatan/sosialisasi', 'MAIN\bk010208Controller@post');
 Route::get('/main/persiapan/kota/kegiatan/sosialisasi/create', 'MAIN\bk010208Controller@create');
+Route::get('/main/persiapan/kota/kegiatan/sosialisasi/show', 'MAIN\bk010208Controller@show');
 Route::post('/main/persiapan/kota/kegiatan/sosialisasi/create', 'MAIN\bk010208Controller@post_create');
 Route::get('/main/persiapan/kota/kegiatan/sosialisasi/delete', 'MAIN\bk010208Controller@delete');
+
+Route::post('/main/persiapan/kota/kegiatan/sosialisasi/unsur', 'MAIN\bk010208Controller@post_unsur');
+
 
 Route::get('/main/persiapan/kota/kegiatan/relawan', 'MAIN\bk010232Controller@index');
 Route::get('/main/persiapan/kota/kegiatan/relawan/select', 'MAIN\bk010232Controller@select');
