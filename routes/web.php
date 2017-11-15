@@ -530,6 +530,7 @@ Route::post('/main/persiapan/kelurahan/pelatihan', 'MAIN\bk010219Controller@post
 Route::get('/main/persiapan/kelurahan/pelatihan/create', 'MAIN\bk010219Controller@create');
 Route::post('/main/persiapan/kelurahan/pelatihan/create', 'MAIN\bk010219Controller@post_create');
 Route::get('/main/persiapan/kelurahan/pelatihan/delete', 'MAIN\bk010219Controller@delete');
+Route::get('/main/persiapan/kelurahan/pelatihan/show', 'MAIN\bk010219Controller@show');
 
 Route::get('/main/persiapan/kelurahan/forum/keanggotaan', 'MAIN\bk010220Controller@index');
 Route::post('/main/persiapan/kelurahan/forum/keanggotaan', 'MAIN\bk010220Controller@post');
