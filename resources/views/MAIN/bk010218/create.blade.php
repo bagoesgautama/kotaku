@@ -38,14 +38,26 @@
                 <div class="row">
                     <div class="col-md-12">
                         <form id="form-validation" enctype="multipart/form-data" class="form-horizontal form-bordered">
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Kota</label>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="kode">Tahun</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                     <input type="hidden" id="jenis_kegiatan-input" name="jenis_kegiatan-input" value="2.5.1.5">
                                     <input type="hidden" id="kode_kmw-input" name="kode_kmw-input" value="{{ $kode_kmw }}">
                                     <input type="hidden" id="kode_korkot-input" name="kode_korkot-input" value="{{ $kode_korkot }}">
                                     <input type="hidden" id="kode_faskel-input" name="kode_faskel-input" value="{{ $kode_faskel }}">
+                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
+                                        @foreach($tahun_list as $list)
+                                            <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Kota</label>
+                                <div class="col-sm-6">
                                     <select id="select-kode_kota-input" name="select-kode_kota-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
                                         @if ($kode_kota_list!=null)
@@ -235,6 +247,11 @@
 
     $(document).ready(function () {
 
+        $("#tahun-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+        
         $("#select-kode_kota-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"

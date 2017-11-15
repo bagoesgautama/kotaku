@@ -190,6 +190,7 @@ class bk010218Controller extends Controller
 			if($data['kode']!=null && !empty($data['detil']['194'])){
 				$rowData = DB::select('select * from bkt_01020210_sos_rel_kel where kode='.$data['kode']);
 				$data['detil_menu']='194';
+				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_kota'] = $rowData[0]->kode_kota;
 				$data['kode_kec'] = $rowData[0]->kode_kec;
 				$data['kode_kel'] = $rowData[0]->kode_kel;
@@ -217,6 +218,7 @@ class bk010218Controller extends Controller
 				$data['kode_kota_list']=DB::select('select kode, nama from bkt_01010102_kota where kode='.$rowData[0]->kode_kota);
 				$data['kode_kec_list']=DB::select('select kode, nama from bkt_01010103_kec where kode='.$rowData[0]->kode_kec);
 				$data['kode_kel_list']=DB::select('select kode, nama from bkt_01010104_kel where kode='.$rowData[0]->kode_kel);
+				$data['tahun_list'] = DB::select('select tahun from list_tahun where tahun='.$rowData[0]->tahun);
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010218/create',$data);
 			}
@@ -237,9 +239,11 @@ class bk010218Controller extends Controller
 			}
 		    $data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
+			$data['tahun_list'] = DB::select('select * from list_tahun');
 			if($data['kode']!=null && !empty($data['detil']['196'])){
 				$rowData = DB::select('select * from bkt_01020210_sos_rel_kel where kode='.$data['kode']);
 				$data['detil_menu']='196';
+				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_kota'] = $rowData[0]->kode_kota;
 				$data['kode_kec'] = $rowData[0]->kode_kec;
 				$data['kode_kel'] = $rowData[0]->kode_kel;
@@ -308,6 +312,7 @@ class bk010218Controller extends Controller
 				$data['kode_kota'] = null;
 				$data['kode_kec'] = null;
 				$data['kode_kel'] = null;
+				$data['tahun'] = null;
 				$data['jenis_kegiatan'] = '2.5.1.5';
 				$data['tgl_kegiatan'] = null;
 				$data['lok_kegiatan'] = null;
@@ -421,6 +426,7 @@ class bk010218Controller extends Controller
 				'kode_kmw' => $request->input('kode_kmw-input'),  
 				'kode_korkot' => $request->input('kode_korkot-input'), 
 				'kode_faskel' => $request->input('kode_faskel-input'),   
+				'tahun' => $request->input('tahun-input'),
 				'jenis_kegiatan' => $request->input('jenis_kegiatan-input'), 
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'q_peserta_p' => $request->input('q-laki-input'),
@@ -455,7 +461,8 @@ class bk010218Controller extends Controller
 				'kode_kel' => $request->input('select-kode_kel-input'),
 				'kode_kmw' => $request->input('kode_kmw-input'),  
 				'kode_korkot' => $request->input('kode_korkot-input'), 
-				'kode_faskel' => $request->input('kode_faskel-input'),
+				'kode_faskel' => $request->input('kode_faskel-input'),   
+				'tahun' => $request->input('tahun-input'),
 				'jenis_kegiatan' => $request->input('jenis_kegiatan-input'), 
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'q_peserta_p' => $request->input('q-laki-input'),
