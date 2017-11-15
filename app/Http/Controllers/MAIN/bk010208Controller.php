@@ -101,7 +101,7 @@ class bk010208Controller extends Controller
 				a.lok_kegiatan lok_kegiatan_sos,
 				a.materi_narsum materi_narsum_sos,
 				a.hasil_kesepakatan hasil_kesepakatan_sos,
-				a.sumber_pembiayaan sumber_pembiayaan_sos,
+				case when a.sumber_pembiayaan="1" then "APBN" when a.sumber_pembiayaan="2" then "APBD" when a.sumber_pembiayaan="3" then "CSR" end sumber_pembiayaan_sos,
 				a.media media_sos,
 				b.nama nama_prop,
 				c.nama nama_kota,
@@ -227,7 +227,7 @@ class bk010208Controller extends Controller
 				1 =>'nama_unsur',
 				2 =>'jml_peserta'
 			);
-			$query= DB::select('
+			$query= '
 				select * from (select
 					a.*,
 					a.kode kode_peserta_sos,
@@ -237,7 +237,7 @@ class bk010208Controller extends Controller
 					left join bkt_01020216_sosialisasi b on a.kode_sosialisasi=b.kode
 					left join bkt_01010130_unsur c on a.kode_unsur=c.id
 				where
-					a.kode_sosialisasi='.$request->input('kode').') b');
+					a.kode_sosialisasi='.$request->input('kode').') b';
 			$totalData = DB::select('select count(1) cnt from bkt_01020217_pst_sos a
 					left join bkt_01020216_sosialisasi b on a.kode_sosialisasi=b.kode
 					left join bkt_01010130_unsur c on a.kode_unsur=c.id
@@ -304,6 +304,109 @@ class bk010208Controller extends Controller
 						);
 
 			echo json_encode($json_data);
+		}elseif($request->input('kode_sosialisasi')!=null)
+		{
+			$columns = array(
+				0 =>'id',
+				1 =>'nama_unsur',
+				2 =>'jml_peserta'
+			);
+
+			if($request->input('where')!=null){
+				$query='select * from bkt_01010130_unsur where '.$request->input('where');
+				$totalData = DB::select('select count(1) cnt from bkt_01010130_unsur where '.$request->input('where'));
+			}else{
+				$query='select * from bkt_01010130_unsur';
+				$totalData = DB::select('select count(1) cnt from bkt_01010130_unsur');
+			}
+			
+			$totalFiltered = $totalData[0]->cnt;
+			$limit = $request->input('length');
+			$start = $request->input('start');
+			$order = $columns[$request->input('order.0.column')];
+			$dir = $request->input('order.0.dir');
+			if(empty($request->input('search.value')))
+			{
+				$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			}
+			else {
+				$search = $request->input('search.value');
+				if($request->input('where')!=null){
+					$posts=DB::select($query. ' and (nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+					$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (nama like "%'.$search.'%")) a');
+				}else{
+					$posts=DB::select($query. ' where (nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+					$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (nama like "%'.$search.'%")) a');
+				}
+				$totalFiltered = $totalFiltered[0]->cnt;
+			}
+
+			$data = array();
+			if(!empty($posts))
+			{
+				foreach ($posts as $post)
+				{
+					$show =  $post->kode;
+					$nestedData['id'] = $post->nik;
+					$nestedData['nama_unsur'] = $post->nama;
+					$nestedData['jml_peserta'] = $post->kode_jenis_kelamin;
+
+					$user = Auth::user();
+			        $akses= $user->menu()->where('kode_apps', 1)->get();
+					if(count($akses) > 0){
+						foreach ($akses as $item) {
+							if($item->kode_menu==110)
+								$detil[$item->kode_menu_detil]='a';
+						}
+					}
+
+					$option = '';
+					if(!empty($detil['531'])){
+						$option .= "<input type='checkbox' name='check[]' id='check[]' value='$show'>";
+					}
+					$nestedData['option'] = $option;
+					$data[] = $nestedData;
+				}
+			}
+
+			$json_data = array(
+						"draw"            => intval($request->input('draw')),
+						"recordsTotal"    => intval($totalData[0]->cnt),
+						"recordsFiltered" => intval($totalFiltered),
+						"data"            => $data
+						);
+
+			echo json_encode($json_data);
+		}
+	}
+
+	public function unsur_create(Request $request)
+	{
+		$user = Auth::user();
+        $akses= $user->menu()->where('kode_apps', 1)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==53)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+			$data['username'] = $user->name;
+			$data['kode_sosialisasi']=$request->input('kode_sosialisasi');
+			if($data['kode_sosialisasi']!=null  && !empty($data['detil']['152'])){
+				$rowData=DB::select('select kode_unsur from bkt_01020217_pst_sos where kode_sosialisasi='.$request->input('kode_sosialisasi'));
+				$where='';
+				$count=0;
+				foreach ($rowData as $value) {
+					$count++;
+					if($count==1){
+						$where.=' id !='.$value->kode_unsur;
+					}else{
+						$where.=' and id !='.$value->kode_unsur;
+					}
+				}
+				$data['where'] = $where; 
+				return view('MAIN/bk010208/unsur',$data);
+			}
 		}
 	}
 

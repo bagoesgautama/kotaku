@@ -84,7 +84,7 @@
                                     </select>
                                 </div>
                             </div> -->
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label">Kota</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
@@ -117,7 +117,7 @@
                                     <input type="text" id="nama_kegiatan" name="nama_kegiatan" class="form-control" value="{{$nama_kegiatan}}" maxlength="100" required>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pelaksanaan</label>
                                 <div class="col-sm-6">
                                     <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
@@ -139,7 +139,7 @@
                                     </select>
                                 </div>
                             </div> -->
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Materi Narasumber</label>
                                 <div class="col-sm-6">
                                     <textarea style="resize: vertical" id="materi_narsum" name="materi_narsum" class="form-control" maxlength="1000" required>{{$materi_narsum}}</textarea>
@@ -163,10 +163,10 @@
                                     <textarea style="resize: vertical" id="media" name="media" class="form-control" maxlength="255" required>{{$media}}</textarea>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Hasil Kesepakatan</label>
                                 <div class="col-sm-6">
-                                    <textarea style="resize: vertical" id="hasil_kesepakatan" name="hasil_kesepakatan" class="form-control" maxlength="1000" required>{{$hasil_kesepakatan}}</textarea>
+                                    <textarea style="resize: vertical;height: 200px;" id="hasil_kesepakatan" name="hasil_kesepakatan" class="form-control" maxlength="1000" required>{{$hasil_kesepakatan}}</textarea>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -180,7 +180,7 @@
                                 </div>
                             </div>
                             
-                            <div class="form-group striped-col">
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label">File Dokumen</label>
                                 <div class="col-sm-6">
                                     <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">

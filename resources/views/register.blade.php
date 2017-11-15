@@ -11,11 +11,15 @@
     <!--page level css -->
     <link type="text/css" href="{{asset('vendors/themify/css/themify-icons.css')}}" rel="stylesheet"/>
     <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet">
-    <link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
+    <link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
     <link href="{{asset('css/login.css')}}" rel="stylesheet">
     <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
     <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('vendors/bootstrap-multiselect/css/bootstrap-multiselect.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('vendors/select2/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
     <!--end of page level css-->
 </head>
 
@@ -33,20 +37,19 @@
             </div> -->
             <div class="panel-body">
                 <div class="row">
-                    <form action="/registrasi" id="authentication" method="post" class="signup_validator">
+                    <form id="form" method="post" class="form-horizontal form-bordered">
                         {{ csrf_field() }}
                         <div class="col-md-6">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="username" class="sr-only">Username</label>
-                                    <input type="text" class="form-control form-control-lg" id="username"
-                                           name="username" placeholder="Username" required maxlength="50">
+                                    <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="Username" required maxlength="50" data-bv-callback="true" data-bv-callback-message="Username sudah dipakai." data-bv-callback-callback="check_username">
 
-                                    @if ($errors->has('username'))
+                                    <!-- @if ($errors->has('username'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('username') }}</strong>
                                         </span>
-                                    @endif
+                                    @endif -->
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -55,11 +58,11 @@
                                     <input type="password" class="form-control form-control-lg" id="password"
                                            name="password" placeholder="Password" required maxlength="255">
 
-                                    @if ($errors->has('password'))
+                                    <!-- @if ($errors->has('password'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('password') }}</strong>
                                         </span>
-                                    @endif
+                                    @endif -->
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -78,7 +81,7 @@
                                 <div class="form-group">
                                     <label for="last" class="sr-only">Last Name</label>
                                     <input type="text" class="form-control  form-control-lg" id="last" name="last_name"
-                                           placeholder="Last name" maxlength="50">
+                                           placeholder="Last name" maxlength="50" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -193,14 +196,13 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="email" class="sr-only"> E-mail</label>
-                                    <input id="email" type="email" class="form-control  form-control-lg" name="email" value="{{ old('email') }}" placeholder="E-mail" required maxlength="255">
+                                    <input id="email" type="email" class="form-control  form-control-lg" name="email" placeholder="E-mail" required maxlength="255" data-bv-callback="true" data-bv-callback-message="Email sudah dipakai." data-bv-callback-callback="check_email">
 
-                                    <!-- <input type="text" class="form-control  form-control-lg" id="email" name="email" placeholder="E-mail"> -->
-                                    @if ($errors->has('email'))
+                                    <!-- @if ($errors->has('email'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
-                                    @endif
+                                    @endif -->
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -272,7 +274,7 @@
                             <div class="col-md-12" id="tgl_spk_label" hidden>
                                 <div class="form-group">
                                     <label for="no_hp" class="sr-only">Tgl. SPK</label>
-                                    <input class="form-control" id="return_date" name="tgl_spk" placeholder="Tanggal SPK" data-provide="datepicker">
+                                    <input class="form-control" id="tgl_spk" name="tgl_spk" placeholder="Tanggal SPK" data-provide="datepicker">
                                 </div>
                             </div>
                             
@@ -368,7 +370,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="submit" value="Sign Up" class="btn btn-primary btn-block"/>
+                                    <input type="submit" id="submit" value="Sign Up" class="btn btn-primary btn-block"/>
                                 </div>
                                 <span class="sign-in">Already a member? <a href="login">Sign In</a></span>
                             </div>
@@ -397,10 +399,90 @@
 <script src="{{asset('vendors/select2/js/select2.js')}}"></script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}"></script>
 <script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/register.js')}}"></script>
 <!-- end of page level js -->
 <script>
+    function check_username(value, validator) {
+        var registrasi_username = {!! json_encode($registrasi_list) !!};
+        var user_username = {!! json_encode($user_list) !!};
+        for(var i=0;i<registrasi_username.length;i++){
+            if(registrasi_username[i].user_name==$('#username').val()){
+                registrasi_username=registrasi_username[i];
+                break;
+            }
+        }
+        for(var i=0;i<user_username.length;i++){
+            if(user_username[i].user_name==$('#username').val()){
+                user_username=user_username[i];
+                break;
+            }
+        }
+        var username = $('#username').val();
+        var res = true;
+        if(registrasi_username.user_name==username){
+            res=false;
+        }else if(user_username.user_name==username){
+            res=false;
+        }
+        return res;
+    };
+    function check_email(value, validator) {
+        var registrasi_email = {!! json_encode($registrasi_list) !!};
+        var user_email = {!! json_encode($user_list) !!};
+        for(var i=0;i<user_email.length;i++){
+            if(user_email[i].email==$('#email').val()){
+                user_email=user_email[i];
+                break;
+            }
+        }
+        for(var i=0;i<registrasi_email.length;i++){
+            if(registrasi_email[i].email==$('#email').val()){
+                registrasi_email=registrasi_email[i];
+                break;
+            }
+        }
+        var email = $('#email').val();
+        var res = true;
+        if(user_email.email==email){
+            res=false;
+        }else if(registrasi_email.email==email){
+            res=false;
+        }
+        return res;
+    };
     $(document).ready(function () {
+        $('#form').bootstrapValidator().on('success.form.bv', function(e) {
+            $('#form').on('submit', function (e) {
+                var form_data = new FormData(this);
+              e.preventDefault();
+              $.ajax({
+                type: 'post',
+                processData: false,
+                contentType: false,
+                "url": "/registrasi",
+                data: form_data,
+                beforeSend: function (){
+                    $("#submit").prop('disabled', true);
+                },
+                success: function () {
+                alert('From Submitted.');
+                window.location.href = "/main/persiapan/propinsi/pokja/kegiatan";
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+                $("#submit").prop('disabled', false);
+                }
+              });
+            });
+        }).on('error.form.bv', function(e) {
+            $("#submit").prop('disabled', false);
+        });
+
         $('#kode_level-input').select2({
             theme: "bootstrap",
             placeholder: "Role Level",
@@ -485,6 +567,10 @@
         }
         document.body.addEventListener('input', enforce_maxlength);
 
+        var nama_bank = $('#nama_bank');
+        var no_rekening = $('#no_rekening');
+        var no_spk = $('#no_spk');
+        var tgl_spk = $('#tgl_spk');
         var level = $('#kode_level-input');
         var role = $('#kode_role-input');
         var kmp = $('#kode_kmp-input');
@@ -750,6 +836,10 @@
                             $('#no_rekening_label').hide();
                             wkkmw.empty();
                             $('#kmw_label').hide();
+                            no_spk.val(null);
+                            tgl_spk.val(null);
+                            nama_bank.val(null);
+                            no_rekening.val(null);
                             }
                         }
                     }
@@ -775,10 +865,14 @@
             $('#kec_label').hide();
             wkkel.empty();
             $('#kel_label').hide();
+            no_spk.val(null);
             $('#no_spk_label').hide();
+            tgl_spk.val(null);
             $('#tgl_spk_label').hide();
             $('#info_bank').hide();
+            nama_bank.val(null);
             $('#nama_bank_label').hide();
+            no_rekening.val(null);
             $('#no_rekening_label').hide();
         });
 

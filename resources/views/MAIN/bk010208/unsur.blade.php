@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Realisasi Kegiatan Skala Kota Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Sosialisasi Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
@@ -32,12 +32,12 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/pelaksanaan/kota_bdi/realisasi_kegiatan/create?kode={{$kode_real_keg}}">
-                    Pelaksanaan / Realisasi Kegiatan Skala Kota (BDI/Non BDI) / Realisasi Kegiatan Skala Kota / Create
+                <a href="/main/persiapan/kota/kegiatan/sosialisasi/create?kode={{$kode_sosialisasi}}">
+                    Persiapan / Kota atau Kabupaten / Kegiatan / Sosialisasi / Create
                 </a>
             </li>
             <li class="next">
-                Penerima Manfaat
+                Unsur
             </li>
         </ul>
     </div>
@@ -49,29 +49,27 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>Daftar Penerima Manfaat</b>
+                    <b>Daftar Unsur Peserta</b>
                 </div>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
                     <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered" onkeypress="return event.keyCode != 13;">
-                    <input type="hidden" id="kode_real_keg" name="kode_real_keg" value="{{ $kode_real_keg }}">
+                    <input type="hidden" id="kode_sosialisasi" name="kode_sosialisasi" value="{{ $kode_sosialisasi }}">
                     <input type="hidden" id="where" name="where" value="{{ $where }}">
                     <table class="table table-striped" id="pokja3">
                         <thead>
                             <tr>
-                                <th>NIK</th>
-                                <th>Nama</th>
-                                <th>Alamat</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Created Time</th>
+                                <th>Kode</th>
+                                <th>Unsur</th>
+                                <th>Jml Peserta</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
                     </table>
                     <div class="form-group form-actions">
                         <div class="col-sm-9 col-sm-offset-3">
-                            <a href="/main/pelaksanaan/kota_bdi/realisasi_kegiatan/create?kode={{$kode_real_keg}}" type="button" class="btn btn-effect-ripple btn-danger">
+                            <a href="/main/persiapan/kota/kegiatan/sosialisasi/create?kode={{$kode_sosialisasi}}" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -118,7 +116,7 @@
 <script>
       $(document).ready(function () {
         $('.ui-pnotify').remove();
-        var kode_real_keg = $('#kode_real_keg').val();
+        var kode_sosialisasi = $('#kode_sosialisasi').val();
         var where = $('#where').val();
         var table = $('#pokja3').DataTable({
             // dom: 'Bflrtip',
@@ -126,21 +124,19 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat",
-                     "data":{kode_real_keg : kode_real_keg, where : where},
+                     "url": "/main/persiapan/kota/kegiatan/sosialisasi/unsur",
+                     "data":{kode_sosialisasi : kode_sosialisasi, where : where},
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-                { "data": "nik" , name:"nik"},
-                { "data": "nama" , name:"nama"},
-                { "data": "alamat" , name:"alamat"},
-                { "data": "kode_jenis_kelamin" , name:"kode_jenis_kelamin"},
-                { "data": "created_time" , name:"created_time"},
+                { "data": "id" , name:"id"},
+                { "data": "nama_unsur" , name:"nama_unsur"},
+                { "data": "jml_peserta" , name:"jml_peserta"},
                 { "data": "option" , name:"option",orderable:false}
             ],
-            "order":[[4,"desc"]]
+            "order": [[0,"desc"]]
         });
         $('#pokja3_filter input').unbind();
         $('#pokja3_filter input').bind('keyup', function(e) {
@@ -158,7 +154,7 @@
             type: 'post',
             processData: false,
             contentType: false,
-            "url": "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/pemanfaat/create",
+            "url": "/main/persiapan/kota/kegiatan/sosialisasi/unsur/create",
             data: form_data,
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
@@ -166,7 +162,7 @@
             success: function () {
 
             alert('From Submitted.');
-            window.location.href = "/main/pelaksanaan/kota_bdi/realisasi_kegiatan/create?kode="+kode_real_keg;
+            window.location.href = "/main/persiapan/kota/kegiatan/sosialisasi/create?kode="+kode_sosialisasi;
             },
             error: function (xhr, ajaxOptions, thrownError) {
               alert(xhr.status);

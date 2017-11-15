@@ -97,6 +97,8 @@ class RegisterController extends Controller
         $data['prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
         $data['kota_list'] = DB::select('select * from bkt_01010102_kota where status=1');
         $data['wk_kd_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1 and flag_cakupan_prog=1');
+        $data['registrasi_list'] = DB::select('select * from bkt_02020201_registrasi');
+        $data['user_list'] = DB::select('select * from bkt_02010111_user');
         // $data['kec_list'] = DB::select('select * from bkt_01010103_kec where status=1');
         // $data['kel_list'] = DB::select('select * from bkt_01010104_kel where status=1');
         return view('register', $data);

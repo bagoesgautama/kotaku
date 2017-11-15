@@ -139,7 +139,8 @@
                 { "data": "kode_jenis_kelamin" , name:"kode_jenis_kelamin"},
                 { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order":[[4,"desc"]]
         });
         $('#pokja3_filter input').unbind();
         $('#pokja3_filter input').bind('keyup', function(e) {
