@@ -54,19 +54,19 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="kegiatan">
+                    <table class="table table-striped" id="kegiatan" width="2000px">
                         <thead>
                             <tr>
                                 <th>Kode</th>
-                                <th>Kota</th>
-                                <th>Tgl Kegiatan</th>
-                                <th>Nama Kegiatan</th>
-                                <th>Unsur</th>
+                                <th>Kegiatan</th>
+                                <th>Tgl Pelaksanaan</th>
+                                <th>Tempat Pelaksanaan</th>
+                                <th>Peserta/unsur</th>
+                                <th>Narasumber/Unsur</th>
                                 <th>Materi Narasumber</th>
-                                <th>Nama Narasumber</th>
-                                <th>Lokasi Kegiatan</th>
-                                <th>Jml Peserta</th>
-                                <th>Created Time</th>
+                                <th>Pemberitaan Media</th>
+                                <th>Hasil Kesepakatan</th>
+                                <th>Sumber Pembiayaan</th>
                                 <th>option</th>
                             </tr>
                         </thead>
@@ -94,15 +94,15 @@
 
             "columns": [
                 { "data": "kode" , name:"kode"},
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "nama_kegiatan" , name:"nama_kegiatan"},
-                { "data": "nama_unsur" , name:"nama_unsur"},
-                { "data": "materi_narsum" , name:"materi_narsum"},
-                { "data": "nama_narsum" , name:"nama_narsum"},
-                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
-                { "data": "jml_peserta" , name:"jml_peserta"},
-                { "data": "created_time" , name:"created_time"},
+                { "data": "nama_kegiatan_sos" , name:"nama_kegiatan_sos"},
+                { "data": "tgl_kegiatan_sos" , name:"tgl_kegiatan_sos"},
+                { "data": "lok_kegiatan_sos" , name:"lok_kegiatan_sos"},
+                { "data": "peserta" , name:"peserta"},
+                { "data": "narasumber" , name:"narasumber"},
+                { "data": "materi" , name:"materi"},
+                { "data": "media" , name:"media"},
+                { "data": "hasil_kesepakatan" , name:"hasil_kesepakatan"},
+                { "data": "sumber_pembiayaan" , name:"sumber_pembiayaan"},
                 { "data": "option" , name:"option",orderable:false}
             ],
             "order":[[0,"desc"]]

@@ -134,10 +134,10 @@ class bk020111Controller extends Controller
 				case when a.flag_blacklist=0 then "Tidak" when a.flag_blacklist=1 then "Ya" end blacklist_convert
 			from bkt_02010111_user a
 			where 
-				a.jenis_registrasi=1) b';
+				a.status_registrasi=1) b';
 		$totalData = DB::select('select count(1) cnt from bkt_02010111_user a
 			where 
-				a.jenis_registrasi=1');
+				a.status_registrasi=1');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');

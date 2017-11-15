@@ -9,6 +9,16 @@
 <link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
+
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/colReorder.bootstrap.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/rowReorder.bootstrap.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/scroller.bootstrap.css')}}">
+<link href="{{asset('vendors/hover/css/hover-min.css')}}" rel="stylesheet">
+<link href="{{asset('css/buttons_sass.css')}}" rel="stylesheet">
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -43,12 +53,13 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Skala kegiatan</label>
                                 <div class="col-sm-6">
+                                    <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                     <select id="skala_kegiatan" name="skala_kegiatan" class="form-control" size="1" required>
                                         <option value="1" {!! $skala_kegiatan=='1' ? 'selected':'' !!}>Skala Kota/Kabupaten</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <!-- <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Propinsi</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
@@ -59,8 +70,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-group striped-col">
+                            </div> -->
+                            <!-- <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">KMW</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" required>
@@ -72,7 +83,7 @@
                                         @endif
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Kota</label>
                                 <div class="col-sm-6">
@@ -86,7 +97,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <!-- <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Korkot</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
@@ -98,7 +109,7 @@
                                         @endif
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
                             
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Nama Kegiatan</label>
@@ -107,7 +118,7 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
+                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pelaksanaan</label>
                                 <div class="col-sm-6">
                                     <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
                                 </div>
@@ -118,7 +129,7 @@
                                     <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50" required>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <!-- <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Unsur</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-unsur-input" name="kode-unsur-input" class="form-control select2" size="1" required>
@@ -127,14 +138,14 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Materi Narasumber</label>
                                 <div class="col-sm-6">
                                     <textarea style="resize: vertical" id="materi_narsum" name="materi_narsum" class="form-control" maxlength="1000" required>{{$materi_narsum}}</textarea>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <!-- <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Nama Narasumber</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="nama_narsum" name="nama_narsum" class="form-control" value="{{$nama_narsum}}" maxlength="100" required>
@@ -145,7 +156,7 @@
                                 <div class="col-sm-6">
                                     <input type="number" id="jml_peserta" name="jml_peserta" class="form-control" value="{{$jml_peserta}}" maxlength="11" required>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Media</label>
                                 <div class="col-sm-6">
@@ -229,9 +240,11 @@
                                     <a href="/main/persiapan/kota/kegiatan/sosialisasi" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
+                                    @if ($detil_menu=='152' || $detil_menu=='151')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
+                                    @endif
                                     <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                         Reset
                                     </button>
@@ -244,7 +257,71 @@
         </div>
     </div>
 </div>
-
+@if($kode!=null)
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel filterable">
+            <div class="panel-heading clearfix  ">
+                <div class="panel-title pull-left">
+                    <b>Daftar Unsur Peserta</b>
+                </div>
+                @if( ! empty($detil['152']))
+                <div class="tools pull-right">
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/kota/kegiatan/sosialisasi/unsur/create?kode_sosialisasi='.$kode}}">Create</a>
+                </div>
+                @endif
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="unsur">
+                        <thead>
+                            <tr>
+                                <th>Kode</th>
+                                <th>Unsur</th>
+                                <th>Jml Peserta</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+@if($kode!=null)
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel filterable">
+            <div class="panel-heading clearfix  ">
+                <div class="panel-title pull-left">
+                    <b>Daftar Narasumber</b>
+                </div>
+                @if( ! empty($detil['152']))
+                <div class="tools pull-right">
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/kota/kegiatan/sosialisasi/narsum/create?kode_sosialisasi='.$kode}}">Create</a>
+                </div>
+                @endif
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="narasumber">
+                        <thead>
+                            <tr>
+                                <th>Kode</th>
+                                <th>Unsur</th>
+                                <th>Narasumber</th>
+                                <th>Materi</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @stop
 {{-- local scripts --}} @section('footer_scripts')
 <script>
@@ -255,6 +332,39 @@
         $("#file-absensi-input").fileinput({
             showUpload: false
         });
+        $("#select-kode-kota-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
+        //unsur
+        var kode = $('#kode').val();
+        var table = $('#unsur').DataTable({
+
+            "processing": true,
+            "serverSide": true,
+            "ajax":{
+                     "url": "/main/persiapan/kota/kegiatan/sosialisasi/unsur",
+                     "data":{kode : kode},
+                     "dataType": "json",
+                     "type": "POST"
+                   },
+
+            "columns": [
+                { "data": "kode" , name:"kode"},
+                { "data": "nama_unsur" , name:"nama_unsur"},
+                { "data": "jml_peserta" , name:"jml_peserta"},
+                { "data": "option" , name:"option",orderable:false}
+            ],
+            "order": [[0,"desc"]]
+        });
+        $('#unsur_filter input').unbind();
+        $('#unsur_filter input').bind('keyup', function(e) {
+            if(e.keyCode == 13) {
+                table.search(this.value).draw();
+            }
+        })
+
         $('#form').on('submit', function (e) {
             var form_data = new FormData(this);
           e.preventDefault();
@@ -278,46 +388,42 @@
             }
           });
         });
-        $("#select-kode-prop-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-kota-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-kec-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-kel-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-kmw-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-korkot-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-faskel-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-unsur-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
+        // $("#select-kode-prop-input").select2({
+        //     theme: "bootstrap",
+        //     placeholder: "Please Select",
+        //     width:"100%"
+        // });
+        
+        // $("#select-kode-kec-input").select2({
+        //     theme: "bootstrap",
+        //     placeholder: "Please Select",
+        //     width:"100%"
+        // });
+        // $("#select-kode-kel-input").select2({
+        //     theme: "bootstrap",
+        //     placeholder: "Please Select",
+        //     width:"100%"
+        // });
+        // $("#select-kode-kmw-input").select2({
+        //     theme: "bootstrap",
+        //     placeholder: "Please Select",
+        //     width:"100%"
+        // });
+        // $("#select-kode-korkot-input").select2({
+        //     theme: "bootstrap",
+        //     placeholder: "Please Select",
+        //     width:"100%"
+        // });
+        // $("#select-kode-faskel-input").select2({
+        //     theme: "bootstrap",
+        //     placeholder: "Please Select",
+        //     width:"100%"
+        // });
+        // $("#select-kode-unsur-input").select2({
+        //     theme: "bootstrap",
+        //     placeholder: "Please Select",
+        //     width:"100%"
+        // });
 
         function enforce_maxlength(event) {
             var t = event.target;
@@ -336,116 +442,116 @@
         var faskel = $('#select-kode-faskel-input');
         var kmw_id,kota_id,korkot_id,kec_id,kel_id,faskel_id;
 
-        prop.change(function(){
-            prop_id=prop.val();
-            if(prop_id!=null){
-                kmw.empty();
-                kmw.append("<option value>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?prop="+prop_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kmw.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
+        // prop.change(function(){
+        //     prop_id=prop.val();
+        //     if(prop_id!=null){
+        //         kmw.empty();
+        //         kmw.append("<option value>Please select</option>");
+        //         $.ajax({
+        //             type: 'get',
+        //             "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?prop="+prop_id,
+        //             success: function (data) {
+        //                 data=JSON.parse(data)
+        //                 for (var i=0;i<data.length;i++){
+        //                     kmw.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+        //                 }
+        //             }
+        //         });
+        //     }
+        // });
 
-        kmw.change(function(){
-            kmw_id=kmw.val();
-            if(kmw_id!=null){
-                kota.empty();
-                kota.append("<option value>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kmw="+kmw_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
+        // kmw.change(function(){
+        //     kmw_id=kmw.val();
+        //     if(kmw_id!=null){
+        //         kota.empty();
+        //         kota.append("<option value>Please select</option>");
+        //         $.ajax({
+        //             type: 'get',
+        //             "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kmw="+kmw_id,
+        //             success: function (data) {
+        //                 data=JSON.parse(data)
+        //                 for (var i=0;i<data.length;i++){
+        //                     kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+        //                 }
+        //             }
+        //         });
+        //     }
+        // });
 
-        kota.change(function(){
-            kota_id=kota.val();
-            kmw_id=kmw.val();
-            if(kota_id!=null){
-                korkot.empty();
-                korkot.append("<option value>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kota_korkot="+kota_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
+        // kota.change(function(){
+        //     kota_id=kota.val();
+        //     kmw_id=kmw.val();
+        //     if(kota_id!=null){
+        //         korkot.empty();
+        //         korkot.append("<option value>Please select</option>");
+        //         $.ajax({
+        //             type: 'get',
+        //             "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kota_korkot="+kota_id,
+        //             success: function (data) {
+        //                 data=JSON.parse(data)
+        //                 for (var i=0;i<data.length;i++){
+        //                     korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+        //                 }
+        //             }
+        //         });
 
 
-            }
-        });
+        //     }
+        // });
 
-        kota.change(function(){
-            kota_id=kota.val();
-            if(kota_id!=null){
-                kec.empty();
-                kec.append("<option value>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kota_kec="+kota_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kec.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
+        // kota.change(function(){
+        //     kota_id=kota.val();
+        //     if(kota_id!=null){
+        //         kec.empty();
+        //         kec.append("<option value>Please select</option>");
+        //         $.ajax({
+        //             type: 'get',
+        //             "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kota_kec="+kota_id,
+        //             success: function (data) {
+        //                 data=JSON.parse(data)
+        //                 for (var i=0;i<data.length;i++){
+        //                     kec.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+        //                 }
+        //             }
+        //         });
+        //     }
+        // });
 
-        kec.change(function(){
-            kec_id=kec.val();
-            if(kec_id!=null){
-                kel.empty();
-                kel.append("<option value>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kec_kel="+kec_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
+        // kec.change(function(){
+        //     kec_id=kec.val();
+        //     if(kec_id!=null){
+        //         kel.empty();
+        //         kel.append("<option value>Please select</option>");
+        //         $.ajax({
+        //             type: 'get',
+        //             "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kec_kel="+kec_id,
+        //             success: function (data) {
+        //                 data=JSON.parse(data)
+        //                 for (var i=0;i<data.length;i++){
+        //                     kel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+        //                 }
+        //             }
+        //         });
+        //     }
+        // });
 
-        kel.change(function(){
-            kel_id=kel.val();
-            if(kel_id!=null){
-                faskel.empty();
-                faskel.append("<option value>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kel_faskel="+kel_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            faskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
+        // kel.change(function(){
+        //     kel_id=kel.val();
+        //     if(kel_id!=null){
+        //         faskel.empty();
+        //         faskel.append("<option value>Please select</option>");
+        //         $.ajax({
+        //             type: 'get',
+        //             "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kel_faskel="+kel_id,
+        //             success: function (data) {
+        //                 data=JSON.parse(data)
+        //                 for (var i=0;i<data.length;i++){
+        //                     faskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+        //                 }
+        //             }
+        //         });
+        //     }
+        // });
       });
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
@@ -457,4 +563,17 @@
 <script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
+
+<script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.bootstrap.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.buttons.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.colReorder.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.responsive.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.rowReorder.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.colVis.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.bootstrap.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.print.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.scroller.js')}}"></script>
 @stop

@@ -66,17 +66,16 @@ class RegistrasiController extends Controller
             'no_telp' => $request->input('no_telp'),
             'jenis_registrasi' => $request->input('kode-jr')
         ]);
-		$list=DB::select('select *
-		  from bkt_02010111_user
-		 where (kode_role, ifnull(kode_kmp,'x'), ifnull(kode_kmw,'x'), ifnull(wk_kd_prop,'x'),
-				ifnull(wk_kd_kota,'x'), ifnull(wk_kd_kel,'x'))
+		$list=DB::select('select * from bkt_02010111_user
+		 where (kode_role, ifnull(kode_kmp,"x"), ifnull(kode_kmw,"x"), ifnull(wk_kd_prop,"x"),
+				ifnull(wk_kd_kota,"x"), ifnull(wk_kd_kel,"x"))
 			in (
 				select x.kode_role_upper,
-					   case when x.kode_level_upper = 0 then 'x' else x.kode_kmp end kode_kmp,
-					   case when x.kode_level_upper = 0 then 'x' else x.kode_kmw end kode_kmw,
-					   case when x.kode_level_upper in (0,1) then 'x' else x.kode_prop end wk_kd_prop,
-					   case when x.kode_level_upper in (0,1,2) then 'x' else x.kode_kota end wk_kd_kota,
-					   case when x.kode_level_upper in (0,1,2,3) then 'x' else x.kode_kel end wk_kd_kel
+					   case when x.kode_level_upper = 0 then "x" else x.kode_kmp end kode_kmp,
+					   case when x.kode_level_upper = 0 then "x" else x.kode_kmw end kode_kmw,
+					   case when x.kode_level_upper in (0,1) then "x" else x.kode_prop end wk_kd_prop,
+					   case when x.kode_level_upper in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
+					   case when x.kode_level_upper in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
 				  from (
 						select a.kode_level, a.kode_role, b.kode_role_upper, a.kode_kmp, a.kode_kmw,
 							   a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota,
@@ -90,11 +89,11 @@ class RegistrasiController extends Controller
 						  left join bkt_01010113_faskel g on g.kode = a.kode_faskel
 						  left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
 						  left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
-						 where a.user_name = '.$request->input('username').'
+						 where a.user_name = "'.$request->input('username').'"
 					   ) x
 		       )');
 		if(!empty($list)){
-			$mail=new Array();
+			$mail=array();
 			foreach ($list as $post){
 				DB::table('bkt_02030205_pesan')->insert(
 					['kode_user' => $post->id,
@@ -106,7 +105,7 @@ class RegistrasiController extends Controller
 			Mail::raw('Harap verifikasi personil baru yang mendaftar '.$request->input('username'), function($message){
 				$message->from('kotakudemo@gmail.com', 'Sim HRM');
 				$message->to($mail);
-			})
+			});
 		}else{
 			DB::table('bkt_02030205_pesan')->insert(
 				['kode_user' => 1,
