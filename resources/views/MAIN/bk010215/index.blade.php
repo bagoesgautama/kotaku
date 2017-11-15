@@ -51,16 +51,22 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="kegiatan">
+                    <table class="table table-striped" id="kegiatan" width="3000px">
                         <thead>
                             <tr>
                                 <th>Kode</th>
-                                <th>Propinsi</th>
                                 <th>Kota</th>
                                 <th>Kecamatan</th>
                                 <th>Kelurahan</th>
-                                <th>Created Time</th>
-                                <th>option</th>
+                                <th>Dasar Hukum</th>
+                                <th>Jumlah Kawasan Kumuh</th>
+                                <th>Jumlah Kecamatan Kumuh</th>
+                                <th>Jumlah Kelurahan Kumuh</th>
+                                <th>Jumlah RT Kumuh</th>
+                                <th>Jumlah RT Non Kumuh</th>
+                                <th>Luas Kawasan Kumuh</th>
+                                <th>Luas RT Kumuh</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -87,11 +93,17 @@
 
             "columns": [
                 { "data": "kode" , name:"kode"},
-                { "data": "kode_prop" , name:"kode_prop"},
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "kode_kec" , name:"kode_kec"},
                 { "data": "kode_kel" , name:"kode_kel"},
-                { "data": "created_time" , name:"created_time"},
+                { "data": "km_ds_hkm" , name:"km_ds_hkm"},
+                { "data": "km_q_kw_kmh" , name:"km_q_kw_kmh"},
+                { "data": "km_q_kec_kmh" , name:"km_q_kec_kmh"},
+                { "data": "km_q_kel_kmh" , name:"km_q_kel_kmh"},
+                { "data": "km_q_rt_kmh" , name:"km_q_rt_kmh"},
+                { "data": "km_q_rt_non_kmh" , name:"km_q_rt_non_kmh"},
+                { "data": "lk_l_kw_kmh" , name:"lk_l_kw_kmh"},
+                { "data": "lk_l_rt_kmh" , name:"lk_l_rt_kmh"},
                 { "data": "option" , name:"option",orderable:false}
             ],
             "order":[[0,"desc"]]

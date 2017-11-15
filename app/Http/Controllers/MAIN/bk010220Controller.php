@@ -122,7 +122,7 @@ class bk010220Controller extends Controller
 				$delete = $post->kode;
 				//show
 				$url_show=url('/')."/main/persiapan/kelurahan/forum/keanggotaan/show?kode=".$edit;
-				$url_edit=url('/')."/main/persiapan/kelurahan/forum/keanggotaan/create?kode=".$show;
+				$url_edit=url('/')."/main/persiapan/kelurahan/forum/keanggotaan/create?kode=".$edit;
 				$url_delete=url('/')."/main/persiapan/kelurahan/forum/keanggotaan/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['nama_kota'] = $post->nama_kota;
@@ -313,6 +313,9 @@ class bk010220Controller extends Controller
 				$data['kode_kmw'] = $dataUser[0]->kode_kmw;
 				$data['kode_korkot'] = $dataUser[0]->kode_korkot;
 				$data['kode_faskel'] = $dataUser[0]->kode_faskel;
+				$data['kode_kota'] = null;
+				$data['kode_kec'] = null;
+				$data['kode_kel'] = null;
 				$data['tahun'] = null;
 				$data['jenis_kegiatan'] = null;
 				$data['tgl_kegiatan'] = null;
@@ -335,9 +338,6 @@ class bk010220Controller extends Controller
 				$data['created_by'] = null;
 				$data['updated_time'] = null;
 				$data['updated_by'] = null;
-				$data['kode_kota'] = null;
-				$data['kode_kec'] = null;
-				$data['kode_kel'] = null;
 				if ($data['kode_korkot']!=null){
 					$data['kode_kota_list']=DB::select('select c.kode, c.nama
 														from bkt_02010111_user a 
