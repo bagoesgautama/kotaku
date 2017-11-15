@@ -488,6 +488,7 @@ Route::get('/main/persiapan/kecamatan/kolaborasi/delete', 'MAIN\bk010213Controll
 Route::get('/main/persiapan/kecamatan/keberfungsian', 'MAIN\bk010214Controller@index');
 Route::post('/main/persiapan/kecamatan/keberfungsian', 'MAIN\bk010214Controller@post');
 Route::get('/main/persiapan/kecamatan/keberfungsian/create', 'MAIN\bk010214Controller@create');
+Route::get('/main/persiapan/kecamatan/keberfungsian/show', 'MAIN\bk010214Controller@show');
 Route::post('/main/persiapan/kecamatan/keberfungsian/create', 'MAIN\bk010214Controller@post_create');
 Route::get('/main/persiapan/kecamatan/keberfungsian/delete', 'MAIN\bk010214Controller@delete');
 

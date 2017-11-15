@@ -30,12 +30,8 @@ class RegistrasiController extends Controller
     {
         $date = strtotime($request->input('tgl_lahir'));
         $date_convert = date('Y-m-d', $date);
-<<<<<<< HEAD
-
-=======
         $date2 = strtotime($request->input('tgl_spk'));
         $date_convert2 = date('Y-m-d', $date2);
->>>>>>> f0979aa1cfbc86f37243dc1dbef3fca1ceb9439d
         DB::table('bkt_02020201_registrasi')->insert([
             'user_name' => $request->input('username'),
             'password' => Hash::make($request->input('password')),

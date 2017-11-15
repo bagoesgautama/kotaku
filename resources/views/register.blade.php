@@ -634,12 +634,12 @@
                                 $('#info_bank').show();
                                 $('#nama_bank_label').show();
                                 $('#no_rekening_label').show();
-                                if(data[0].flag_koordinator==1 && data[0].kode_level==2){
+                                if(data[0].flag_koordinator==1 && data[0].flag_fasilitator==0 && data[0].kode_level==2){
                                     wkkorkot.empty();
                                     $('#korkot_label').show();
                                     wkfaskel.empty();
                                     $('#faskel_label').hide();
-                                }else if(data[0].flag_koordinator==0 && data[0].flag_konsultan==1 && data[0].kode_level==2){
+                                }else if(data[0].flag_fasilitator==1 && data[0].kode_level==2){
                                     wkkorkot.empty();
                                     $('#korkot_label').show();
                                     wkfaskel.empty();
