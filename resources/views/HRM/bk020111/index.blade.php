@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Registrasi Manual
+@extends('HRM/default') {{-- Page title --}} @section('title') User List
 @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
@@ -27,7 +27,7 @@
                 Administrator
             </li>
             <li class="next">
-                Registrasi Manual
+                User List
             </li>
         </ul>
     </div>

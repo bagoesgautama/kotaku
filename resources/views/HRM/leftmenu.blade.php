@@ -69,7 +69,7 @@
 					@if( ! empty($menu['180']))
 						<li {!! (Request::is( 'hrm/management/registrasi_manual*')? 'class="active"': "") !!}>
 					        <a href="/hrm/management/registrasi_manual">
-					            <span class="mm-text ">Registrasi Manual</span>
+					            <span class="mm-text ">User List</span>
 					        </a>
 					    </li>
 					@endif

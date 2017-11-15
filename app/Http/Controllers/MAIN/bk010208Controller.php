@@ -82,15 +82,15 @@ class bk010208Controller extends Controller
 	{
 		$columns = array(
 			0 =>'kode',
-			1 =>'kode_kel',
-			2 =>'tgl_kegiatan',
-			3 =>'nama_kegiatan',
-			4 =>'nama_unsur',
-			5 =>'materi_narsum',
-			6 =>'nama_narsum',
-			7 =>'lok_kegiatan',
-			8 =>'jml_peserta',
-			9 =>'created_time'
+			1 =>'nama_kegiatan_sos',
+			2 =>'tgl_kegiatan_sos',
+			3 =>'lok_kegiatan_sos',
+			4 =>'peserta',
+			5 =>'narasumber',
+			6 =>'materi',
+			7 =>'media',
+			8 =>'hasil_kesepakatan',
+			9 =>'sumber_pembiayaan'
 		);
 		$query='
 			select * from (select
@@ -100,6 +100,9 @@ class bk010208Controller extends Controller
 				a.tgl_kegiatan tgl_kegiatan_sos,
 				a.lok_kegiatan lok_kegiatan_sos,
 				a.materi_narsum materi_narsum_sos,
+				a.hasil_kesepakatan hasil_kesepakatan_sos,
+				a.sumber_pembiayaan sumber_pembiayaan_sos,
+				a.media media_sos,
 				b.nama nama_prop,
 				c.nama nama_kota,
 				d.nama nama_kec,
@@ -150,21 +153,11 @@ class bk010208Controller extends Controller
 			$posts=DB::select($query. ' where (
 				b.kode_sos like "%'.$search.'%" or
 				b.nama_kegiatan_sos like "%'.$search.'%" or
-				b.tgl_kegiatan_sos like "%'.$search.'%" or
-				b.lok_kegiatan_sos like "%'.$search.'%" or
-				b.materi_narsum_sos like "%'.$search.'%" or
-				b.nama_kel like "%'.$search.'%" or
-				b.nama_unsur like "%'.$search.'%" or
-				b.nama_narsum_sos like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+				b.lok_kegiatan_sos like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
 				b.kode_sos like "%'.$search.'%" or
 				b.nama_kegiatan_sos like "%'.$search.'%" or
-				b.tgl_kegiatan_sos like "%'.$search.'%" or
-				b.lok_kegiatan_sos like "%'.$search.'%" or
-				b.materi_narsum_sos like "%'.$search.'%" or
-				b.nama_kel like "%'.$search.'%" or
-				b.nama_unsur like "%'.$search.'%" or
-				b.nama_narsum_sos like "%'.$search.'%")) a');
+				b.lok_kegiatan_sos like "%'.$search.'%")) a');
 			$totalFiltered = $totalFiltered[0]->cnt;
 		}
 
@@ -180,19 +173,15 @@ class bk010208Controller extends Controller
 				$url_edit=url('/')."/main/persiapan/kota/kegiatan/sosialisasi/create?kode=".$edit;
 				$url_delete=url('/')."/main/persiapan/kota/kegiatan/sosialisasi/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode_sos;
-				$nestedData['kode_prop'] = $post->nama_prop;
-				$nestedData['kode_kota'] = $post->nama_kota;
-				$nestedData['kode_kec'] = $post->nama_kec;
-				$nestedData['kode_kel'] = $post->nama_kel;
-				$nestedData['kode_kmw'] = $post->nama_kmw;
-				$nestedData['kode_korkot'] = $post->nama_korkot;
-				$nestedData['kode_faskel'] = $post->nama_faskel;
-				$nestedData['tgl_kegiatan'] = $post->tgl_kegiatan_sos;
-				$nestedData['nama_kegiatan'] = $post->nama_kegiatan_sos;
-				$nestedData['nama_unsur'] = $post->nama_unsur;
-				$nestedData['materi_narsum'] = $post->materi_narsum_sos;
-				$nestedData['nama_narsum'] = $post->nama_narsum_sos;
-				$nestedData['lok_kegiatan'] = $post->lok_kegiatan_sos;
+				$nestedData['tgl_kegiatan_sos'] = $post->tgl_kegiatan_sos;
+				$nestedData['nama_kegiatan_sos'] = $post->nama_kegiatan_sos;
+				$nestedData['peserta'] = $post->nama_unsur;
+				$nestedData['narasumber'] = $post->nama_narsum_sos;
+				$nestedData['materi'] = $post->materi_narsum_sos;
+				$nestedData['media'] = $post->media_sos;
+				$nestedData['hasil_kesepakatan'] = $post->hasil_kesepakatan_sos;
+				$nestedData['sumber_pembiayaan'] = $post->sumber_pembiayaan_sos;
+				$nestedData['lok_kegiatan_sos'] = $post->lok_kegiatan_sos;
 				$nestedData['jml_peserta'] = $post->jml_peserta_sos;
 				$nestedData['created_time'] = $post->created_time;
 
@@ -207,7 +196,7 @@ class bk010208Controller extends Controller
 
 				$option = '';
 				if(!empty($detil['113'])){
-					$option .= "&emsp;<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
+					$option .= "<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
 				}
 				if(!empty($detil['152'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
@@ -592,7 +581,7 @@ class bk010208Controller extends Controller
 
 	public function post_create(Request $request)
 	{
-    $user = Auth::user();
+    	$user = Auth::user();
 		$file_dokumen = $request->file('file-dokumen-input');
 		$url_dokumen = null;
 		$upload_dokumen = false;
@@ -625,7 +614,7 @@ class bk010208Controller extends Controller
 			date_default_timezone_set('Asia/Jakarta');
 			DB::table('bkt_01020216_sosialisasi')->where('kode', $request->input('kode'))
 			->update([
-				'kode_prop' => $request->input('kode-prop-input'),
+				'kode_prop' => $user->wk_kd_prop,
 				'kode_kota' => $request->input('kode-kota-input'),
 				'kode_kec' => $request->input('kode-kec-input'),
 				'kode_kel' => $request->input('kode-kel-input'),
@@ -676,7 +665,7 @@ class bk010208Controller extends Controller
 
 		}else{
 			$lastInsertId=DB::table('bkt_01020216_sosialisasi')->insertGetId([
-				'kode_prop' => $request->input('kode-prop-input'),
+				'kode_prop' => $user->wk_kd_prop,
 				'kode_kota' => $request->input('kode-kota-input'),
 				'kode_kec' => $request->input('kode-kec-input'),
 				'kode_kel' => $request->input('kode-kel-input'),

@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Registrasi Manual Form @stop {{-- local styles --}} @section('header_styles')
+@extends('HRM/default') {{-- Page title --}} @section('title') User List Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
@@ -25,7 +25,7 @@
             </li>
 			<li class="next">
 				<a href="/hrm/management/registrasi_manual">
-	                Administrator / Registrasi Manual
+	                Administrator / User List
 				</a>
             </li>
             <li class="next">

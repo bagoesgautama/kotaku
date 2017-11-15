@@ -53,6 +53,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Skala kegiatan</label>
                                 <div class="col-sm-6">
+                                    <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                     <select id="skala_kegiatan" name="skala_kegiatan" class="form-control" size="1" required>
                                         <option value="1" {!! $skala_kegiatan=='1' ? 'selected':'' !!}>Skala Kota/Kabupaten</option>
                                     </select>
@@ -339,7 +340,6 @@
         //unsur
         var kode = $('#kode').val();
         var table = $('#unsur').DataTable({
-            // dom: 'Bflrtip',
 
             "processing": true,
             "serverSide": true,
