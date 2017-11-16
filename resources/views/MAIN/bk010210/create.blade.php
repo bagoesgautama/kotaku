@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Kolaborasi Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Kolaborasi @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
@@ -42,6 +42,9 @@
                     <div class="col-md-12">
                         <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Forum</label></div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Tahun</label>
                                 <div class="col-sm-6">
                                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
@@ -54,7 +57,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group ">
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Tingkat Forum</label>
                                 <div class="col-sm-6">
                                     <select id="tk-forum-input" name="tk-forum-input" class="form-control" size="1" required>
@@ -74,7 +77,7 @@
                                     </select>
                                 </div>
                             </div>-->
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">Kota</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
@@ -108,29 +111,32 @@
                                     </select>
                                 </div>
                             </div>-->
-                            <div class="form-group ">
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pembentukan</label>
                                 <div class="col-sm-6">
                                     <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_p}}" required>
                                 </div>
                             </div>
-                            <div class="form-group ">
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_w}}" required min="0">
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Anggota BKM</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q-bkm-input" name="q-bkm-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_bkm}}" required min="0">
                                 </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
                             </div>
                             <div class="form-group ">
                                 <label class="col-sm-3 control-label">File Dokumen</label>
@@ -225,14 +231,48 @@
 		}
 		return res;
 	};
-      $(document).ready(function () {
-	  	$("#file-dokumen-input").fileinput({
+
+    function enforce_maxlength(event) {
+            var t = event.target;
+            if (t.hasAttribute('maxlength')) {
+                t.value = t.value.slice(0, t.getAttribute('maxlength'));
+            }
+        }
+        document.body.addEventListener('input', enforce_maxlength);
+    
+    $(document).ready(function () {
+	  	
+        $("#file-dokumen-input").fileinput({
 	        showUpload: false
 	    });
-		$("#file-absensi-input").fileinput({
+		
+        $("#file-absensi-input").fileinput({
   	        showUpload: false
   	    });
-		$('#form').bootstrapValidator().on('success.form.bv', function(e) {
+        
+        $('#tgl-kegiatan-input')
+            .on('changeDate show', function(e) {
+                // Revalidate the date when user change it
+                $('#form').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
+                $("#submit").prop('disabled', false);
+        });
+        
+        $("#select-kode-kota-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+        
+        $("#tahun-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+        
+        $("#tk-forum-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+		
+        $('#form').bootstrapValidator().on('success.form.bv', function(e) {
 	        $('#form').on('submit', function (e) {
 	            var file_dokumen = document.getElementById('file-dokumen-input').files[0];
 	            var file_absensi = document.getElementById('file-absensi-input').files[0];
@@ -283,28 +323,6 @@
 		}).on('error.form.bv', function(e) {
 			$("#submit").prop('disabled', false);
 		});
-		$('#tgl-kegiatan-input')
-			.on('changeDate show', function(e) {
-				// Revalidate the date when user change it
-				$('#form').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
-				$("#submit").prop('disabled', false);
-		});
-        $("#select-kode-kota-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-        $("#tahun-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
-        function enforce_maxlength(event) {
-            var t = event.target;
-            if (t.hasAttribute('maxlength')) {
-                t.value = t.value.slice(0, t.getAttribute('maxlength'));
-            }
-        }
-        document.body.addEventListener('input', enforce_maxlength);
 
         var kmw = $('#select-kode-kmw-input');
         var kota = $('#select-kode-kota-input');
@@ -349,7 +367,7 @@
 
         //     }
         // });
-      });
+    });
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>

@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - Forum Kolaborasi - Keberfungsian Forum @stop {{-- local styles --}}
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Keberfungsian Forum @stop {{-- local styles --}}
 @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
@@ -14,7 +14,7 @@
 @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Persiapan Kelurahan - Forum Kolaborasi - Keberfungsian Forum</h1>
+    <h1>MAIN Module</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -41,6 +41,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <form id="form-validation" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                            <div class="form-group striped-col">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Forum</label></div>
+                            </div>
                             <div class="form-group">
                                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Kode Forum</label>
@@ -99,6 +102,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
+                            </div>
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">File Document</label>
                                 <div class="col-sm-6">
                                     <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
@@ -108,7 +114,7 @@
                                     <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">Delete</button>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">File Absensi</label>
                                 <div class="col-sm-6">
                                     <input id="uri_img_absensi-input" type="file" class="file" accept="image/*" name="uri_img_absensi-input">

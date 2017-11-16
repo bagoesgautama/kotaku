@@ -63,10 +63,6 @@ class bk010220Controller extends Controller
 			5 =>'tgl_kegiatan',
 			6 =>'q_anggota_p',
 			7 =>'q_anggota_w',
-			8 =>'created_time',
-			9 =>'created_by',
-			10 =>'updated_time',
-			11 =>'updated_by'
 		);
 		$query='select a.*, b.nama nama_kota, c.nama nama_kec, d.nama nama_kel 
 				from bkt_01020212_forum_kel a
@@ -133,10 +129,6 @@ class bk010220Controller extends Controller
 				$nestedData['q_anggota_p'] = $post->q_anggota_p;
 				$nestedData['q_anggota_w'] = $post->q_anggota_w;
 				$nestedData['total_anggota'] = $post->q_anggota_p + $post->q_anggota_w;
-				$nestedData['created_time'] = $post->created_time;
-				$nestedData['created_by'] = $post->created_by;
-				$nestedData['updated_time'] = $post->updated_time;
-				$nestedData['updated_by'] = $post->updated_by;
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){
@@ -187,13 +179,13 @@ class bk010220Controller extends Controller
 			if($data['kode']!=null && !empty($data['detil']['198'])){
 				$rowData = DB::select('select * from bkt_01020212_forum_kel where kode='.$data['kode']);
 				$data['detil_menu']='198';
-				$data['tahun'] = $rowData[0]->tahun;
-				$data['kode_kota'] = $rowData[0]->kode_kota;
-				$data['kode_korkot'] = $rowData[0]->kode_korkot;
-				$data['kode_kec'] = $rowData[0]->kode_kec;
 				$data['kode_kmw'] = $rowData[0]->kode_kmw;
-				$data['kode_kel'] = $rowData[0]->kode_kel;
+				$data['kode_korkot'] = $rowData[0]->kode_korkot;
 				$data['kode_faskel'] = $rowData[0]->kode_faskel;
+				$data['kode_kota'] = $rowData[0]->kode_kota;
+				$data['kode_kec'] = $rowData[0]->kode_kec;
+				$data['kode_kel'] = $rowData[0]->kode_kel;
+				$data['tahun'] = $rowData[0]->tahun;
 				$data['jenis_kegiatan'] = $rowData[0]->jenis_kegiatan;
 				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
 				$data['q_anggota_p'] = $rowData[0]->q_anggota_p;
@@ -238,19 +230,18 @@ class bk010220Controller extends Controller
 			}
 
 			$data['username'] = '';
-			$data['test']=true;
 			$data['kode']=$request->input('kode');
-
+			$data['tahun_list'] = DB::select('select * from list_tahun');
 			if($data['kode']!=null && !empty($data['detil']['200'])){
 				$rowData = DB::select('select * from bkt_01020212_forum_kel where kode='.$data['kode']);
 				$data['detil_menu']='200';
-				$data['tahun'] = $rowData[0]->tahun;
 				$data['kode_kmw'] = $rowData[0]->kode_kmw;
 				$data['kode_korkot'] = $rowData[0]->kode_korkot;
 				$data['kode_faskel'] = $rowData[0]->kode_faskel;
 				$data['kode_kota'] = $rowData[0]->kode_kota;
 				$data['kode_kec'] = $rowData[0]->kode_kec;
 				$data['kode_kel'] = $rowData[0]->kode_kel;
+				$data['tahun'] = $rowData[0]->tahun;
 				$data['jenis_kegiatan'] = $rowData[0]->jenis_kegiatan;
 				$data['tgl_kegiatan'] = $rowData[0]->tgl_kegiatan;
 				$data['q_anggota_p'] = $rowData[0]->q_anggota_p;

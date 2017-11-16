@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Sosialisasi Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Kegiatan Sosialisasi @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
@@ -51,6 +51,9 @@
                     <div class="col-md-12">
                         <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Kegiatan</label></div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">Skala kegiatan</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
@@ -111,7 +114,7 @@
                                 </div>
                             </div> -->
                             
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Nama Kegiatan</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="nama_kegiatan" name="nama_kegiatan" class="form-control" value="{{$nama_kegiatan}}" maxlength="100" required>
@@ -123,7 +126,7 @@
                                     <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50" required>
@@ -157,7 +160,7 @@
                                     <input type="number" id="jml_peserta" name="jml_peserta" class="form-control" value="{{$jml_peserta}}" maxlength="11" required>
                                 </div>
                             </div> -->
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Media</label>
                                 <div class="col-sm-6">
                                     <textarea style="resize: vertical" id="media" name="media" class="form-control" maxlength="255" required>{{$media}}</textarea>
@@ -169,7 +172,7 @@
                                     <textarea style="resize: vertical" id="hasil_kesepakatan" name="hasil_kesepakatan" class="form-control" maxlength="1000" required>{{$hasil_kesepakatan}}</textarea>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">Sumber Pembiayaan</label>
                                 <div class="col-sm-6">
                                     <select id="sumber_pembiayaan" name="sumber_pembiayaan" class="form-control" size="1" required>
@@ -179,8 +182,10 @@
                                     </select>
                                 </div>
                             </div>
-                            
                             <div class="form-group striped-col">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">File Dokumen</label>
                                 <div class="col-sm-6">
                                     <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
@@ -388,17 +393,17 @@
             }
           });
         });
-        // $("#select-kode-prop-input").select2({
-        //     theme: "bootstrap",
-        //     placeholder: "Please Select",
-        //     width:"100%"
-        // });
+        $("#skala_kegiatan").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
         
-        // $("#select-kode-kec-input").select2({
-        //     theme: "bootstrap",
-        //     placeholder: "Please Select",
-        //     width:"100%"
-        // });
+        $("#sumber_pembiayaan").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
         // $("#select-kode-kel-input").select2({
         //     theme: "bootstrap",
         //     placeholder: "Please Select",

@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - Pemilihan Ulang BKM/LKM - Persiapan Pemilu BKM/LKM @stop {{-- local styles --}}
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Persiapan Pemilu BKM/LKM @stop {{-- local styles --}}
 @section('header_styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -43,13 +43,13 @@
                 @if( ! empty($detil['580']))
                 <div class="tools pull-right">
                     <b>bk010233 index</b>
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/forum/keanggotaan/create">Create</a>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/pemilu_bkm/persiapan/create">Create</a>
                 </div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="users" width="1500px">
+                    <table class="table table-striped" id="users" width="2000px">
                         <thead>
                             <tr>
                                 <th>Kode</th>
@@ -57,10 +57,11 @@
                                 <th>Kecamatan</th>
                                 <th>Kelurahan</th>
                                 <th>Tahun</th>
-                                <th>Tanggal Pembentukan</th>
-                                <th>Jumlah Anggota Laki-laki</th>
-                                <th>Jumlah Anggota Perempuan</th>
-                                <th>Total Peserta</th>
+                                <th>Tanggal Kegiatan</th>
+                                <th>Lokasi Kegiatan</th>
+                                <th>Jumlah Peserta Laki-laki</th>
+                                <th>Jumlah Peserta Perempuan</th>
+                                <th>Jumlah Peserta Miskin/MBR</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -80,7 +81,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/kelurahan/forum/keanggotaan",
+                     "url": "/main/persiapan/kelurahan/pemilu_bkm/persiapan",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -92,9 +93,10 @@
                 { "data": "nama_kel" , name:"nama_kel"},
                 { "data": "tahun" , name:"tahun"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "q_anggota_p" , name:"q_anggota_p"},
-                { "data": "q_anggota_w" , name:"q_anggota_w"},
-                { "data": "total_anggota" , name:"total_anggota"},
+                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+                { "data": "q_peserta_p" , name:"q_peserta_p"},
+                { "data": "q_peserta_w" , name:"q_peserta_w"},
+                { "data": "q_peserta_mbr" , name:"q_peserta_mbr"},
                 { "data": "option" , name:"option"}
             ],
             "order":[[0,"desc"]]

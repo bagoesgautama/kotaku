@@ -1,4 +1,4 @@
- @extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - Forum Kolaborasi - Keanggotaan @stop {{-- local styles --}}
+ @extends('MAIN/default') {{-- Page title --}} @section('title') Main - Keanggotaan @stop {{-- local styles --}}
 @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
@@ -41,6 +41,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <form id="form-validation" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                            <div class="form-group striped-col">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Forum</label></div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Tahun</label>
                                 <div class="col-sm-6">
@@ -48,7 +51,13 @@
                                     <input type="hidden" id="kode_kmw-input" name="kode_kmw-input" value="{{ $kode_kmw }}">
                                     <input type="hidden" id="kode_korkot-input" name="kode_korkot-input" value="{{ $kode_korkot }}">
                                     <input type="hidden" id="kode_faskel-input" name="kode_faskel-input" value="{{ $kode_faskel }}">
-                                    <input type="text" id="tahun-input" name="tahun-input" class="form-control" placeholder="Tahun" value="{{$tahun}}" maxlength="4">
+                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
+                                        @foreach($tahun_list as $list)
+                                            <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -127,6 +136,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-3 control-label">Nilai Dana Operasional</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="nilai_dana_ops-input" name="nilai_dana_ops-input" class="form-control" placeholder="Jumlah Dana Operasional" value="{{$nilai_dana_ops}}" maxlength="30">
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">Dokumen Rencana Kerja</label>
                                 <div class="col-sm-6">
                                     <input id="uri_dok_rencana_kerja-input" type="file" class="file" accept="image/*" name="uri_dok_rencana_kerja-input">
@@ -137,12 +155,6 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Nilai Dana Operasional</label>
-                                <div class="col-sm-6">
-                                    <input type="number" id="nilai_dana_ops-input" name="nilai_dana_ops-input" class="form-control" placeholder="Jumlah Dana Operasional" value="{{$nilai_dana_ops}}" maxlength="30">
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label class="col-sm-3 control-label">File Document</label>
                                 <div class="col-sm-6">
                                     <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
@@ -152,7 +164,7 @@
                                     <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">Delete</button>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">File Absensi</label>
                                 <div class="col-sm-6">
                                     <input id="uri_img_absensi-input" type="file" class="file" accept="image/*" name="uri_img_absensi-input">
@@ -277,53 +289,6 @@
 
     $(document).ready(function () {
 
-        $("#select-kode_kota-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
-        $("#select-kode_kel-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
-        $("#select-kode_kec-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-
-        $("#select-jenis_kegiatan-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-        $('#form-validation').bootstrapValidator().on('success.form.bv', function(e) {
-            $('#form-validation').on('submit', function (e) {
-                e.preventDefault();
-                var form_data = new FormData(this);
-                $.ajax({
-                    type: 'post',
-                    processData: false,
-                    contentType: false,
-                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/create",
-                    data: form_data,
-                    beforeSend: function (){
-                        $("#submit").prop('disabled', true);
-                    },
-                    success: function () {
-                        alert('From Submitted.');
-                        window.location.href = "/main/persiapan/kelurahan/forum/keanggotaan";
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status);
-                        alert(thrownError);
-                        $("#submit").prop('disabled', false);
-                    }
-                });
-            });
-        }).on('error.form.bv', function(e) {
-        $("#submit").prop('disabled', false);
-        });
-
         $("#uri_dok_rencana_kerja-input").fileinput({
             previewFileType: "image",
             browseClass: "btn btn-success",
@@ -355,6 +320,59 @@
             removeLabel: "Delete",
             removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
             showUpload: false
+        });
+        
+        $("#tahun-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+
+        $("#select-kode_kota-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+
+        $("#select-kode_kel-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+
+        $("#select-kode_kec-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+
+        $("#select-jenis_kegiatan-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
+
+        $('#form-validation').bootstrapValidator().on('success.form.bv', function(e) {
+            $('#form-validation').on('submit', function (e) {
+                e.preventDefault();
+                var form_data = new FormData(this);
+                $.ajax({
+                    type: 'post',
+                    processData: false,
+                    contentType: false,
+                    "url": "/main/persiapan/kelurahan/forum/keanggotaan/create",
+                    data: form_data,
+                    beforeSend: function (){
+                        $("#submit").prop('disabled', true);
+                    },
+                    success: function () {
+                        alert('From Submitted.');
+                        window.location.href = "/main/persiapan/kelurahan/forum/keanggotaan";
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                        $("#submit").prop('disabled', false);
+                    }
+                });
+            });
+        }).on('error.form.bv', function(e) {
+        $("#submit").prop('disabled', false);
         });
         
         var kota = $('#select-kode_kota-input');

@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - Pemilihan Ulang BKM/LKM @stop {{-- local styles --}}
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Pemilihan Ulang BKM/LKM @stop {{-- local styles --}}
 @section('header_styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -12,7 +12,7 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Persiapan Kelurahan - Pemilihan Ulang BKM/LKM</h1>
+    <h1>MAIN Module</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -45,25 +45,19 @@
                     <table class="table table-striped" id="users" width="3000px">
                         <thead>
                             <tr>
-                                <th>Tahun</th>
+                                <th>Kode</th>
                                 <th>Kota</th>
-                                <th>Korkot</th>
                                 <th>Kecamatan</th>
-                                <th>KMW</th>
                                 <th>Kelurahan</th>
-                                <th>Faskel</th>
-                                <th>Tanggal</th>
+                                <th>Tahun</th>
+                                <th>Tanggal Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
-                                <th>Peserta Pria</th>
-                                <th>Peserta Wanita</th>
-                                <th>Peserta MBR</th>
-                                <th>Utusan Pria</th>
-                                <th>Utusan Wanita</th>
-                                <th>Terpilih Pria</th>
-                                <th>Terpilih Wanita</th>
-                                <th>Terpilih MBR</th>
-                                <th>Created Time</th>
-                                <th>Created By</th>
+                                <th>Jumlah Peserta Laki-laki</th>
+                                <th>Jumlah Peserta Perempuan</th>
+                                <th>Jumlah Peserta Miskin/MBR</th>
+                                <th>Jumlah Anggota Laki-laki</th>
+                                <th>Jumlah Anggota Perempuan</th>
+                                <th>Jumlah Anggota Miskin/MBR</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -89,27 +83,22 @@
                    },
 
             "columns": [
-                { "data": "tahun" , name:"tahun"},
+                { "data": "kode" , name:"kode"},
                 { "data": "nama_kota" , name:"nama_kota"},
-                { "data": "nama_korkot" , name:"nama_korkot"},
                 { "data": "nama_kec" , name:"nama_kec"},
-                { "data": "nama_kmw" , name:"nama_kmw"},
                 { "data": "nama_kel" , name:"nama_kel"},
-                { "data": "nama_faskel" , name:"nama_faskel"},
+                { "data": "tahun" , name:"tahun"},
                 { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
                 { "data": "q_peserta_p" , name:"q_peserta_p"},
                 { "data": "q_peserta_w" , name:"q_peserta_w"},
                 { "data": "q_peserta_mbr" , name:"q_peserta_mbr"},
-                { "data": "q_utusan_p" , name:"q_peserta_mbr"},
-                { "data": "q_utusan_w" , name:"q_utusan_w"},
                 { "data": "q_terpilih_p" , name:"q_terpilih_p"},
                 { "data": "q_terpilih_w" , name:"q_terpilih_w"},
                 { "data": "q_terpilih_mbr" , name:"q_terpilih_mbr"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "created_by" , name:"created_by"},
                 { "data": "option" , name:"option"}
-            ]
+            ],
+            "order":[[0,"desc"]]
         });
 
         $('#users_filter input').unbind();

@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Sosialisasi Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Kegiatan Sosialisasi @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
@@ -40,6 +40,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                            <div class="form-group striped-col">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Kegiatan</label></div>
+                            </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Skala kegiatan</label>
                                 <div class="col-sm-6">
@@ -206,7 +209,9 @@
                                     </select>
                                 </div>
                             </div>
-                            
+                            <div class="form-group striped-col">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
+                            </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">File Dokumen</label>
                                 <div class="col-sm-6">
@@ -285,13 +290,83 @@
 @stop
 {{-- local scripts --}} @section('footer_scripts')
 <script>
-      $(document).ready(function () {
+    function enforce_maxlength(event) {
+            var t = event.target;
+            if (t.hasAttribute('maxlength')) {
+                t.value = t.value.slice(0, t.getAttribute('maxlength'));
+            }
+        }
+        document.body.addEventListener('input', enforce_maxlength);
+
+    $(document).ready(function () {
 	  	$("#file-dokumen-input").fileinput({
 	        showUpload: false
 	    });
-  		$("#file-absensi-input").fileinput({
+  		
+        $("#file-absensi-input").fileinput({
   	        showUpload: false
   	    });
+        
+        $("#select-kode-prop-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
+        
+        $("#select-kode-kota-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
+        
+        $("#select-kode-kec-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
+        
+        $("#select-kode-kel-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
+        
+        $("#select-kode-kmw-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
+        
+        $("#select-kode-korkot-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
+        
+        $("#select-kode-faskel-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
+        
+        $("#select-kode-unsur-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
+        
+        $("#skala_kegiatan").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
+        
+        $("#sumber_pembiayaan").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
+
         $('#form').on('submit', function (e) {
             var form_data = new FormData(this);
           e.preventDefault();
@@ -315,54 +390,6 @@
             }
           });
         });
-        $("#select-kode-prop-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-kota-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-kec-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-kel-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-kmw-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-korkot-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-faskel-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-unsur-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-
-        function enforce_maxlength(event) {
-            var t = event.target;
-            if (t.hasAttribute('maxlength')) {
-                t.value = t.value.slice(0, t.getAttribute('maxlength'));
-            }
-        }
-        document.body.addEventListener('input', enforce_maxlength);
 
         var prop = $('#select-kode-prop-input');
         var kmw = $('#select-kode-kmw-input');

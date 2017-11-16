@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Monitoring Pokja Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - kegiatan/Monitoring Pokja @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
@@ -23,7 +23,7 @@
             </li>
             <li class="next">
                 <a href="/main/persiapan/nasional/pokja/kegiatan">
-                    Persiapan / Nasional / Pokja / Keberfungsian Pokja
+                    Persiapan / Nasional / Pokja / Kegitan/Monitoring Pokja
                 </a>
             </li>
             <li class="next">
@@ -42,6 +42,9 @@
                     <div class="col-md-12">
                         <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Pokja</label></div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">Pokja Nasional</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
@@ -52,7 +55,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group ">
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Jenis Sub kegiatan</label>
                                 <div class="col-sm-6">
                                     <select id="sub-kegiatan-input" name="sub-kegiatan-input" class="form-control" size="1">
@@ -61,19 +64,19 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
                                 <div class="col-sm-6">
                                     <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required data-bv-callback="true" data-bv-callback-message="Tanggal kegiatan lebih kecil dari tanggal pembentukan" data-bv-callback-callback="check">
                                 </div>
                             </div>
-                            <div class="form-group ">
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50" required >
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Cakupan Peserta</label></div>
                             </div>
                             <div class="form-group striped-col">
@@ -82,7 +85,7 @@
                                     <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk pria" data-bv-callback-callback="check" >
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Perempuan</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk perempuan" data-bv-callback-callback="check" >
@@ -94,7 +97,10 @@
                                     <input type="number" id="q-non-input" name="q-non-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota}}" required min="0">
                                 </div>
                             </div>
-                            <div class="form-group ">
+                            <div class="form-group">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
+                            </div>
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">File Dokumen</label>
                                 <div class="col-sm-6">
                                     <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
@@ -102,7 +108,7 @@
                                     <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-dokumen" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">File Absensi</label>
                                 <div class="col-sm-6">
                                     <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input">
@@ -206,14 +212,43 @@
 		}
 		return res;
 	};
-      $(document).ready(function () {
+
+    function enforce_maxlength(event) {
+            var t = event.target;
+            if (t.hasAttribute('maxlength')) {
+                t.value = t.value.slice(0, t.getAttribute('maxlength'));
+            }
+        }
+        document.body.addEventListener('input', enforce_maxlength);
+
+    $(document).ready(function () {
+        
         $("#file-dokumen-input").fileinput({
             showUpload: false
         });
+
         $("#file-absensi-input").fileinput({
             showUpload: false
         });
-		  $('#form').bootstrapValidator().on('success.form.bv', function(e) {
+
+        $('#tgl-kegiatan-input')
+            .on('changeDate show', function(e) {
+                // Revalidate the date when user change it
+                $('#form').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
+                $("#submit").prop('disabled', false);
+        });
+
+        $("#select-kode-pokja-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+
+        $("#sub-kegiatan-input").select2({
+            theme: "bootstrap",
+            placeholder: "single select"
+        });
+
+		$('#form').bootstrapValidator().on('success.form.bv', function(e) {
 		    $('#form').on('submit', function (e) {
 		        var file_dokumen = document.getElementById('file-dokumen-input').files[0];
 		        var file_absensi = document.getElementById('file-absensi-input').files[0];
@@ -260,24 +295,7 @@
 		}).on('error.form.bv', function(e) {
 			$("#submit").prop('disabled', false);
 		});
-		$('#tgl-kegiatan-input')
-            .on('changeDate show', function(e) {
-                // Revalidate the date when user change it
-                $('#form').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
-                $("#submit").prop('disabled', false);
-        });
-        $("#select-kode-pokja-input").select2({
-            theme: "bootstrap",
-            placeholder: "single select"
-        });
-		function enforce_maxlength(event) {
-            var t = event.target;
-            if (t.hasAttribute('maxlength')) {
-                t.value = t.value.slice(0, t.getAttribute('maxlength'));
-            }
-        }
-        document.body.addEventListener('input', enforce_maxlength);
-      });
+    });
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>

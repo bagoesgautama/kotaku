@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Keberfungsian Forum Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Keberfungsian Forum @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
@@ -41,6 +41,9 @@
                     <div class="col-md-12">
                         <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Forum</label></div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Jenis Forum</label>
                                 <div class="col-sm-6">
                                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
@@ -73,7 +76,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">Kode kegiatan</label>
                                 <div class="col-sm-6">
                                     <select id="kode-keg-input" name="kode-keg-input" class="form-control" size="1" required>
@@ -88,7 +91,7 @@
                                     <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}">
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50">
@@ -100,7 +103,7 @@
                                     <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" min="0">
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" min="0">
@@ -112,6 +115,9 @@
                                     <input type="number" id="q-pemda-input" name="q-pemda-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_pemda}}" min="0">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
+                            </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">File Dokumen</label>
                                 <div class="col-sm-6">
@@ -120,7 +126,7 @@
                                     <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-dokumen" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">File Absensi</label>
                                 <div class="col-sm-6">
                                     <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input">
@@ -192,13 +198,39 @@
 @stop
 {{-- local scripts --}} @section('footer_scripts')
 <script>
-      $(document).ready(function () {
+    $(document).ready(function () {
 	  	$("#file-dokumen-input").fileinput({
   	        showUpload: false
   	    });
-		$("#file-absensi-input").fileinput({
+		
+        $("#file-absensi-input").fileinput({
 	        showUpload: false
 	    });
+        
+        $("#select-kode-bkm-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+        
+        $("#select-kode-kolab-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+        
+        $("#jns-forum-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+        
+        $("#kode-keg-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+        
         $('#form').on('submit', function (e) {
             var file_dokumen = document.getElementById('file-dokumen-input').files[0];
             var file_absensi = document.getElementById('file-absensi-input').files[0];
@@ -244,21 +276,6 @@
             }
           });
         });
-        $("#select-kode-bkm-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width: "100%"
-        });
-        $("#select-kode-kolab-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width: "100%"
-        });
-        $("#jns-forum-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width: "100%"
-        });
 
         var jns_forum = $('#jns-forum-input');
         var bkm_label = $('#bkm_label');
@@ -281,7 +298,7 @@
                 bkm.val(kode_bkm).trigger('change');
             }    
         });
-      });
+    });
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>

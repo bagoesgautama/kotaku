@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Persiapan Kelurahan - Pembentukan/Penguatan TIPP @stop {{-- local styles --}}
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Pembentukan/Penguatan TIPP @stop {{-- local styles --}}
 @section('header_styles')
 <link href="{{asset('vendors/bootstrap-multiselect/css/bootstrap-multiselect.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">

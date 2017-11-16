@@ -1,5 +1,5 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Sub Komponen Kegiatan @stop {{-- local styles --}} @section('header_styles')
-
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Seleksi Utusan Tingkat Basis @stop {{-- local styles --}}
+@section('header_styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/colReorder.bootstrap.css')}}" />
@@ -9,21 +9,22 @@
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/scroller.bootstrap.css')}}">
 <link href="{{asset('vendors/hover/css/hover-min.css')}}" rel="stylesheet">
 <link href="{{asset('css/buttons_sass.css')}}" rel="stylesheet">
-
 @stop {{-- Page Header--}} @section('page-header')
-
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Detil Sub Komponen Kegiatan</h1>
+    <h1>MAIN Module</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
                 <a href="/main">
-                    <i class="fa fa-fw fa-home"></i> MAIN
+                    <i class="fa fa-fw fa-home"></i> PERSIAPAN KELURAHAN
                 </a>
             </li>
             <li class="next">
-                Master Data / Data Master / Detil Sub Komponen Kegiatan
+                Pemilihan Ulang BKM/LKM
+            </li>
+            <li class="next">
+                Seleksi Utusan Tingkat Basis
             </li>
         </ul>
     </div>
@@ -34,25 +35,34 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010120 Index</b>
+                    <b>bk010234 index</b>
                 </div>
-                @if( ! empty($detil['438']))
+                @if( ! empty($detil['584']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_master/det_komp_keg/create">Create</a>
-				</div>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/pemilu_bkm/seleksi/create">Create</a>
+                </div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users">
-						<thead>
+                    <table class="table table-striped" id="users" width="3000px">
+                        <thead>
                             <tr>
-                                <th>id</th>
-								<th>subkomponen</th>
-								<th>Kode Detil Subkomponen</th>
-								<th>Nama</th>
-								<th>Status</th>
-								<th>Option</th>
+                                <th>Kode</th>
+                                <th>Kota</th>
+                                <th>Kecamatan</th>
+                                <th>Kelurahan</th>
+                                <th>Tahun</th>
+                                <th>RT</th>
+                                <th>Tanggal Kegiatan</th>
+                                <th>Lokasi Kegiatan</th>
+                                <th>Jumlah Peserta Laki-laki</th>
+                                <th>Jumlah Peserta Perempuan</th>
+                                <th>Jumlah Peserta Miskin/MBR</th>
+                                <th>Jumlah Utusan Laki-laki</th>
+                                <th>Jumlah Utusan Perempuan</th>
+                                <th>Jumlah Utusan Miskin/MBR</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -61,44 +71,49 @@
         </div>
     </div>
 </div>
-<!-- /.modal ends here -->@stop {{-- local scripts --}} @section('footer_scripts')
 
+@stop {{-- local scripts --}} @section('footer_scripts')
 <script>
     $(document).ready(function () {
-		var table = $('#users').DataTable({
-	        // dom: 'Bflrtip',
+        var table = $('#users').DataTable({
+            // dom: 'Bflrtip',
 
-			"processing": true,
+            "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/data_master/det_komp_keg",
+                     "url": "/main/persiapan/kelurahan/pemilu_bkm/seleksi",
                      "dataType": "json",
                      "type": "POST"
                    },
-            success: function(data) {
-                 alert('success')
-              },
-              error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
-              },
+
             "columns": [
-				{ "data": "id" , name:"id"},
-				{ "data": "subkomponen" , name:"subkomponen"},
-				{ "data": "kode_dtl_subkomponen" , name:"kode_dtl_subkomponen"},
-				{ "data": "detil" , name:"detil"},
-				{ "data": "status" , name:"status"},
-                { "data": "option" , name:"option",orderable:false}
+                { "data": "kode" , name:"kode"},
+                { "data": "nama_kota" , name:"nama_kota"},
+                { "data": "nama_kec" , name:"nama_kec"},
+                { "data": "nama_kel" , name:"nama_kel"},
+                { "data": "tahun" , name:"tahun"},
+                { "data": "nama_rt" , name:"nama_rt"},
+                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
+                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+                { "data": "q_utusan_p" , name:"q_utusan_p"},
+                { "data": "q_utusan_w" , name:"q_utusan_w"},
+                { "data": "q_utusan_mbr" , name:"q_utusan_mbr"},
+                { "data": "q_terpilih_p" , name:"q_terpilih_p"},
+                { "data": "q_terpilih_w" , name:"q_terpilih_w"},
+                { "data": "q_terpilih_mbr" , name:"q_terpilih_mbr"},
+                { "data": "option" , name:"option"}
             ],
-			"order": [[ 0, "desc" ]]
-	    });
+            "order":[[0,"desc"]]
+        });
+
         $('#users_filter input').unbind();
         $('#users_filter input').bind('keyup', function(e) {
-        if(e.keyCode == 13) {
-            table.search(this.value).draw();
-        }
-    })
-});
+            if(e.keyCode == 13) {
+                table.search(this.value).draw();
+            }
+        });
+
+    });
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>

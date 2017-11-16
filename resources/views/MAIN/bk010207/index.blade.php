@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Monitoring POKJA @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Kegiatan/Monitoring POKJA @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -32,7 +32,7 @@
                 Pokja
             </li>
             <li class="next">
-                Kegiatan atau Monitoring
+                Kegiatan/Monitoring
             </li>
         </ul>
     </div>
@@ -54,7 +54,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="kegiatan">
+                    <table class="table table-striped" id="kegiatan" width="2000px">
                         <thead>
                             <tr>
 								<th>Kode</th>

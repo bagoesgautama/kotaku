@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Informasi Umum Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Informasi Umum @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 
@@ -76,10 +76,10 @@
                                         <label class="col-sm-3 control-label">Kota</label>
                                         <div class="col-sm-6">
                                             <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                            <input type="text" id="kode_kmw-input" name="kode_kmw-input" value="{{ $kode_kmw }}">
-                                            <input type="text" id="kode_korkot-input" name="kode_korkot-input" value="{{ $kode_korkot }}">
-                                            <input type="text" id="kode_faskel-input" name="kode_faskel-input" value="{{ $kode_faskel }}">
-                                            <input type="text" id="kode_prop-input" name="kode_prop-input" value="{{ $kode_prop }}">
+                                            <input type="hidden" id="kode_kmw-input" name="kode_kmw-input" value="{{ $kode_kmw }}">
+                                            <input type="hidden" id="kode_korkot-input" name="kode_korkot-input" value="{{ $kode_korkot }}">
+                                            <input type="hidden" id="kode_faskel-input" name="kode_faskel-input" value="{{ $kode_faskel }}">
+                                            <input type="hidden" id="kode_prop-input" name="kode_prop-input" value="{{ $kode_prop }}">
                                             <select id="select-kode_kota-input" name="select-kode_kota-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
                                                 @if ($kode_kota_list!=null)
