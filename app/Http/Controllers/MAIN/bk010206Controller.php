@@ -224,17 +224,7 @@ class bk010206Controller extends Controller
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
 				$data['flag_sekretariat'] = $rowData[0]->flag_sekretariat;
-				//level propinsi
-				if($user->kode_level==2 || $user->kode_level==0){
-					if($user->kode_korkot!=null){
-						$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010102_kota b where b.kode=a.kode_kota and a.kode_korkot='.$user->kode_korkot);
-					}else{
-						$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010102_kota b where b.kode_prop=a.kode and a.kode='.$user->wk_kd_prop);
-					}
-					//level kota
-				}else if($user->kode_level==3){
-					$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010102_kota b where b.kode=a.kode_kota and a.kode_korkot='.$user->kode_korkot);
-				}
+				$data['kode_kota_list']=DB::select('select kode, nama from bkt_01010102_kota where kode='.$rowData[0]->kode_kota);
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010206/create',$data);
 			}else{
@@ -294,14 +284,17 @@ class bk010206Controller extends Controller
 				$data['flag_sekretariat'] = $rowData[0]->flag_sekretariat;
 				//level propinsi
 				if($user->kode_level==2 || $user->kode_level==0){
-					if($user->kode_korkot!=null){
+					if($user->kode_faskel!=null && $user->kode_korkot!=null){
+						$data['kode_kota_list'] = DB::select('select distinct b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010102_kota b where b.kode=a.kode_kota and a.kode_faskel='.$user->kode_faskel);
+					}else if($user->kode_faskel==null && $user->kode_korkot!=null){
 						$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010102_kota b where b.kode=a.kode_kota and a.kode_korkot='.$user->kode_korkot);
 					}else{
 						$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010102_kota b where b.kode_prop=a.kode and a.kode='.$user->wk_kd_prop);
 					}
+					
 					//level kota
 				}else if($user->kode_level==3){
-					$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010102_kota b where b.kode=a.kode_kota and a.kode_korkot='.$user->kode_korkot);
+					$data['kode_kota_list'] = DB::select('select kode, nama from bkt_01010102_kota where kode='.$user->wk_kd_kota);
 				}
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010206/create',$data);
@@ -340,14 +333,17 @@ class bk010206Controller extends Controller
 				$data['kode_kmw_list'] = DB::select('select * from bkt_01010110_kmw');
 				//level propinsi
 				if($user->kode_level==2 || $user->kode_level==0){
-					if($user->kode_korkot!=null){
+					if($user->kode_faskel!=null && $user->kode_korkot!=null){
+						$data['kode_kota_list'] = DB::select('select distinct b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010102_kota b where b.kode=a.kode_kota and a.kode_faskel='.$user->kode_faskel);
+					}else if($user->kode_faskel==null && $user->kode_korkot!=null){
 						$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010102_kota b where b.kode=a.kode_kota and a.kode_korkot='.$user->kode_korkot);
 					}else{
 						$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010102_kota b where b.kode_prop=a.kode and a.kode='.$user->wk_kd_prop);
 					}
+					
 					//level kota
 				}else if($user->kode_level==3){
-					$data['kode_kota_list'] = DB::select('select b.kode, b.nama from bkt_01010112_kota_korkot a, bkt_01010102_kota b where b.kode=a.kode_kota and a.kode_korkot='.$user->kode_korkot);
+					$data['kode_kota_list'] = DB::select('select kode, nama from bkt_01010102_kota where kode='.$user->wk_kd_kota);
 				}
 				$data['kode_korkot_list'] = null;
 				$data['kode_faskel_list'] = null;
@@ -406,15 +402,26 @@ class bk010206Controller extends Controller
 			$url_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
 		}
+		//kalau tidak punya korkot && punya wk_kd_kota
+		if($user->wk_kd_kota != null){
+			$kota_korkot = DB::select('select kode from bkt_01010112_kota_korkot where kode_kota='.$user->wk_kd_kota);
+		}else{
+			$kota_korkot = DB::select('select kode from bkt_01010112_kota_korkot where kode_kota='.$request->input('kode-kota-input'));
+		}
+
+		//kalau tidak punya kmw && punya wk_kd_prop
+		if($user->wk_kd_kota != null){
+			$prop_kmw = DB::select('select kode from bkt_01010110_kmw where kode_prop='.$user->wk_kd_prop);
+		}
 
 		if ($request->input('kode')!=null){
 			date_default_timezone_set('Asia/Jakarta');
 			DB::table('bkt_01020204_pokja_kota')->where('kode', $request->input('kode'))
 			->update([
 				'tahun' => $request->input('tahun-input'),
-				'kode_kmw' => $user->kode_kmw,
+				'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:$prop_kmw[0]->kode,
 				'kode_kota' => $request->input('kode-kota-input'),
-				'kode_korkot' => $user->kode_korkot,
+				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'status_pokja' => $request->input('status-pokja-input'),
 				'ds_hkm' => $request->input('dsr-pembentukan-input'),
@@ -459,9 +466,9 @@ class bk010206Controller extends Controller
 		}else{
 			DB::table('bkt_01020204_pokja_kota')->insert([
 				'tahun' => $request->input('tahun-input'),
-				'kode_kmw' => $user->kode_kmw,
+				'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:$prop_kmw[0]->kode,
 				'kode_kota' => $request->input('kode-kota-input'),
-				'kode_korkot' => $user->kode_korkot,
+				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'status_pokja' => $request->input('status-pokja-input'),
 				'ds_hkm' => $request->input('dsr-pembentukan-input'),

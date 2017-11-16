@@ -57,7 +57,7 @@ class bk020111Controller extends Controller
             echo json_encode($role);
         }
         if($request->input('role_flag_koor')){
-            $role = DB::select('select a.kode, a.nama, a.flag_koordinator, a.kode_level, b.flag_konsultan from bkt_02010102_role a, bkt_02010116_tipe_role b where a.tipe_role=b.kode and a.kode='.$request->input('role_flag_koor'));
+            $role = DB::select('select a.kode, a.nama, a.flag_koordinator, a.kode_level, a.flag_fasilitator, b.flag_konsultan from bkt_02010102_role a, bkt_02010116_tipe_role b where a.tipe_role=b.kode and a.kode='.$request->input('role_flag_koor'));
             echo json_encode($role);
         }
         if($request->input('prop')){
@@ -337,6 +337,8 @@ class bk020111Controller extends Controller
 			}else{
 				$data['wk_kd_faskel_list'] = null;
 			}
+			$data['user_list'] = DB::select('select * from bkt_02010111_user');
+			$data['registrasi_list'] = DB::select('select * from bkt_02020201_registrasi');
 
 			return view('HRM/bk020111/create',$data);
 		}else if($data['kode']==null && !empty($data['detil']['567'])){
@@ -404,6 +406,8 @@ class bk020111Controller extends Controller
 			$data['wk_kd_korkot_list'] = null;
 			$data['wk_kd_kel_list'] = null;
 			$data['wk_kd_faskel_list'] = null;
+			$data['user_list'] = DB::select('select * from bkt_02010111_user');
+			$data['registrasi_list'] = DB::select('select * from bkt_02020201_registrasi');
 
 		return view('HRM/bk020111/create',$data);
 			}else {

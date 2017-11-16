@@ -407,6 +407,22 @@ Route::get('/main/persiapan/propinsi/pokja/kegiatan/show', 'MAIN\bk010204Control
 Route::post('/main/persiapan/propinsi/pokja/kegiatan/create', 'MAIN\bk010204Controller@post_create');
 Route::get('/main/persiapan/propinsi/pokja/kegiatan/delete', 'MAIN\bk010204Controller@delete');
 
+Route::get('/main/persiapan/propinsi/sosialisasi', 'MAIN\bk010236Controller@index');
+Route::get('/main/persiapan/propinsi/sosialisasi/select', 'MAIN\bk010236Controller@select');
+Route::post('/main/persiapan/propinsi/sosialisasi', 'MAIN\bk010236Controller@post');
+Route::get('/main/persiapan/propinsi/sosialisasi/create', 'MAIN\bk010236Controller@create');
+Route::get('/main/persiapan/propinsi/sosialisasi/show', 'MAIN\bk010236Controller@show');
+Route::post('/main/persiapan/propinsi/sosialisasi/create', 'MAIN\bk010236Controller@post_create');
+Route::get('/main/persiapan/propinsi/sosialisasi/delete', 'MAIN\bk010236Controller@delete');
+//unsur
+Route::post('/main/persiapan/propinsi/sosialisasi/unsur', 'MAIN\bk010236Controller@post_unsur');
+Route::post('/main/persiapan/propinsi/sosialisasi/unsur/create', 'MAIN\bk010236Controller@post_unsur_create');
+Route::get('/main/persiapan/propinsi/sosialisasi/unsur/delete', 'MAIN\bk010236Controller@unsur_delete');
+//narasumber
+Route::post('/main/persiapan/propinsi/sosialisasi/narsum', 'MAIN\bk010236Controller@post_narsum');
+Route::post('/main/persiapan/propinsi/sosialisasi/narsum/create', 'MAIN\bk010236Controller@post_narsum_create');
+Route::get('/main/persiapan/propinsi/sosialisasi/narsum/delete', 'MAIN\bk010236Controller@narsum_delete');
+
 //kota
 Route::get('/main/persiapan/kota/info', 'MAIN\bk010205Controller@index');
 Route::post('/main/persiapan/kota/info', 'MAIN\bk010205Controller@post');
@@ -437,9 +453,14 @@ Route::get('/main/persiapan/kota/kegiatan/sosialisasi/create', 'MAIN\bk010208Con
 Route::get('/main/persiapan/kota/kegiatan/sosialisasi/show', 'MAIN\bk010208Controller@show');
 Route::post('/main/persiapan/kota/kegiatan/sosialisasi/create', 'MAIN\bk010208Controller@post_create');
 Route::get('/main/persiapan/kota/kegiatan/sosialisasi/delete', 'MAIN\bk010208Controller@delete');
-
+//unsur
 Route::post('/main/persiapan/kota/kegiatan/sosialisasi/unsur', 'MAIN\bk010208Controller@post_unsur');
-
+Route::post('/main/persiapan/kota/kegiatan/sosialisasi/unsur/create', 'MAIN\bk010208Controller@post_unsur_create');
+Route::get('/main/persiapan/kota/kegiatan/sosialisasi/unsur/delete', 'MAIN\bk010208Controller@unsur_delete');
+//narasumber
+Route::post('/main/persiapan/kota/kegiatan/sosialisasi/narsum', 'MAIN\bk010208Controller@post_narsum');
+Route::post('/main/persiapan/kota/kegiatan/sosialisasi/narsum/create', 'MAIN\bk010208Controller@post_narsum_create');
+Route::get('/main/persiapan/kota/kegiatan/sosialisasi/narsum/delete', 'MAIN\bk010208Controller@narsum_delete');
 
 Route::get('/main/persiapan/kota/kegiatan/relawan', 'MAIN\bk010232Controller@index');
 Route::get('/main/persiapan/kota/kegiatan/relawan/select', 'MAIN\bk010232Controller@select');
@@ -511,6 +532,7 @@ Route::post('/main/persiapan/kelurahan/sosialisasi', 'MAIN\bk010216Controller@po
 Route::get('/main/persiapan/kelurahan/sosialisasi/create', 'MAIN\bk010216Controller@create');
 Route::post('/main/persiapan/kelurahan/sosialisasi/create', 'MAIN\bk010216Controller@post_create');
 Route::get('/main/persiapan/kelurahan/sosialisasi/delete', 'MAIN\bk010216Controller@delete');
+Route::get('/main/persiapan/kelurahan/sosialisasi/show', 'MAIN\bk010216Controller@show');
 
 Route::get('/main/persiapan/kelurahan/relawan', 'MAIN\bk010217Controller@index');
 Route::get('/main/persiapan/kelurahan/relawan/select', 'MAIN\bk010217Controller@select');

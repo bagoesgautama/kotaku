@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
 
-class bk010208Controller extends Controller
+class bk010236Controller extends Controller
 {
     /**
      * Create a new controller instance.
@@ -32,14 +32,14 @@ class bk010208Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==53)
+				if($item->kode_menu==192)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
 
-				$this->log_aktivitas('View', 113);
-				return view('MAIN/bk010208/index',$data);
+				$this->log_aktivitas('View', 595);
+				return view('MAIN/bk010236/index',$data);
 			}
 			else {
 				return Redirect::to('/');
@@ -119,7 +119,7 @@ class bk010208Controller extends Controller
 			 	left join bkt_01010113_faskel g on a.kode_faskel = g.kode
 			 	left join bkt_01010110_kmw h on a.kode_faskel = h.kode
 			where
-			a.skala_kegiatan=1) b';
+			a.skala_kegiatan=2) b';
 		$totalData = DB::select('select count(1) cnt from bkt_01020216_sosialisasi a
 			 	left join bkt_01010101_prop b on a.kode_prop = b.kode
 			 	left join bkt_01010102_kota c on a.kode_kota = c.kode
@@ -129,7 +129,7 @@ class bk010208Controller extends Controller
 			 	left join bkt_01010113_faskel g on a.kode_faskel = g.kode
 			 	left join bkt_01010110_kmw h on a.kode_faskel = h.kode
 			where
-			a.skala_kegiatan=1');
+			a.skala_kegiatan=2');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -160,9 +160,9 @@ class bk010208Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_show="/main/persiapan/kota/kegiatan/sosialisasi/show?kode=".$edit;
-				$url_edit=url('/')."/main/persiapan/kota/kegiatan/sosialisasi/create?kode=".$edit;
-				$url_delete=url('/')."/main/persiapan/kota/kegiatan/sosialisasi/delete?kode=".$delete;
+				$url_show="/main/persiapan/propinsi/sosialisasi/show?kode=".$edit;
+				$url_edit=url('/')."/main/persiapan/propinsi/sosialisasi/create?kode=".$edit;
+				$url_delete=url('/')."/main/persiapan/propinsi/sosialisasi/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode_sos;
 				$nestedData['tgl_kegiatan_sos'] = $post->tgl_kegiatan_sos;
 				$nestedData['nama_kegiatan_sos'] = $post->nama_kegiatan_sos;
@@ -215,7 +215,7 @@ class bk010208Controller extends Controller
 						$unsur_narsum.=$value->nama_narsum.', '.$value->nama;
 						$materi_narsum.=$value->materi_narsum;
 					}else{
-						$unsur_narsum.='; '.$value->nama_narsum.','.$value->nama;
+						$unsur_narsum.='; '.$value->nama_narsum.', '.$value->nama;
 						$materi_narsum.='; '.$value->materi_narsum;
 					}
 				}
@@ -231,19 +231,19 @@ class bk010208Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==53)
+						if($item->kode_menu==192)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
 
 				$option = '';
-				if(!empty($detil['113'])){
+				if(!empty($detil['595'])){
 					$option .= "<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
 				}
-				if(!empty($detil['152'])){
+				if(!empty($detil['597'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['153'])){
+				if(!empty($detil['598'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				}
 				$nestedData['option'] = $option;
@@ -313,7 +313,7 @@ class bk010208Controller extends Controller
 					$edit =  $post->kode_peserta_sos;
 					$delete = $post->kode_peserta_sos;
 					// $url_edit=url('/')."/main/persiapan/kota/kegiatan/sosialisasi/unsur/create?kode=".$edit;
-					$url_delete=url('/')."/main/persiapan/kota/kegiatan/sosialisasi/unsur/delete?kode=".$delete."&kode_sosialisasi=".$post->kode_sos;
+					$url_delete=url('/')."/main/persiapan/propinsi/sosialisasi/unsur/delete?kode=".$delete."&kode_sosialisasi=".$post->kode_sos;
 					$nestedData['kode'] = $post->kode_peserta_sos;
 					$nestedData['nama_unsur'] = $post->nama_unsur;
 					$nestedData['jml_peserta'] = $post->jml_peserta_sos;
@@ -322,7 +322,7 @@ class bk010208Controller extends Controller
 			        $akses= $user->menu()->where('kode_apps', 1)->get();
 					if(count($akses) > 0){
 						foreach ($akses as $item) {
-							if($item->kode_menu==53)
+							if($item->kode_menu==192)
 								$detil[$item->kode_menu_detil]='a';
 						}
 					}
@@ -331,7 +331,7 @@ class bk010208Controller extends Controller
 					// if(!empty($detil['152']) && $request->input('detil_menu') == '152'){
 					// 	$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 					// }
-					if(!empty($detil['152']) && $request->input('detil_menu') == '152'){
+					if(!empty($detil['597']) && $request->input('detil_menu') == '597'){
 						$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 					}
 					$nestedData['option'] = $option;
@@ -406,7 +406,7 @@ class bk010208Controller extends Controller
 					$edit =  $post->kode_narsum_sos;
 					$delete = $post->kode_narsum_sos;
 					// $url_edit=url('/')."/main/persiapan/kota/kegiatan/sosialisasi/unsur/create?kode=".$edit;
-					$url_delete=url('/')."/main/persiapan/kota/kegiatan/sosialisasi/narsum/delete?kode=".$delete."&kode_sosialisasi=".$post->kode_sos;
+					$url_delete=url('/')."/main/persiapan/propinsi/sosialisasi/narsum/delete?kode=".$delete."&kode_sosialisasi=".$post->kode_sos;
 					$nestedData['kode'] = $post->kode_narsum_sos;
 					$nestedData['nama_unsur'] = $post->nama_unsur;
 					$nestedData['nama_narsum'] = $post->nama_narsum_sos;
@@ -416,7 +416,7 @@ class bk010208Controller extends Controller
 			        $akses= $user->menu()->where('kode_apps', 1)->get();
 					if(count($akses) > 0){
 						foreach ($akses as $item) {
-							if($item->kode_menu==53)
+							if($item->kode_menu==192)
 								$detil[$item->kode_menu_detil]='a';
 						}
 					}
@@ -425,7 +425,7 @@ class bk010208Controller extends Controller
 					// if(!empty($detil['152']) && $request->input('detil_menu') == '152'){
 					// 	$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 					// }
-					if(!empty($detil['152']) && $request->input('detil_menu') == '152'){
+					if(!empty($detil['597']) && $request->input('detil_menu') == '597'){
 						$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 					}
 					$nestedData['option'] = $option;
@@ -451,13 +451,13 @@ class bk010208Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==53)
+				if($item->kode_menu==192)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			if($data['kode']!=null && !empty($data['detil']['113'])){
-				$data['detil_menu']='113';
+			if($data['kode']!=null && !empty($data['detil']['595'])){
+				$data['detil_menu']='595';
 				$rowData = DB::select('
 					select
 						a.*,
@@ -568,7 +568,7 @@ class bk010208Controller extends Controller
 				// }
 				$data['kode_unsur_n_list'] =DB::select('select * from bkt_01010130_unsur where status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
-				return view('MAIN/bk010208/create',$data);
+				return view('MAIN/bk010236/create',$data);
 			}
 		}else{
 			return Redirect::to('/');
@@ -583,13 +583,13 @@ class bk010208Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==53)
+				if($item->kode_menu==192)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			if($data['kode']!=null && !empty($data['detil']['152'])){
-				$data['detil_menu']='152';
+			if($data['kode']!=null && !empty($data['detil']['597'])){
+				$data['detil_menu']='597';
 				$rowData = DB::select('
 					select
 						a.*,
@@ -699,9 +699,9 @@ class bk010208Controller extends Controller
 				$data['kode_unsur_n_list'] =DB::select('select * from bkt_01010130_unsur where status=1');
 
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
-				return view('MAIN/bk010208/create',$data);
-			}else if($data['kode']==null && !empty($data['detil']['151'])){
-				$data['detil_menu']='151';
+				return view('MAIN/bk010236/create',$data);
+			}else if($data['kode']==null && !empty($data['detil']['596'])){
+				$data['detil_menu']='596';
 				$data['kode_prop'] = null;
 				$data['kode_kota'] = null;
 				$data['kode_kec'] = null;
@@ -709,7 +709,7 @@ class bk010208Controller extends Controller
 				$data['kode_kmw'] = null;
 				$data['kode_korkot'] = null;
 				$data['kode_faskel'] = null;
-				$data['skala_kegiatan'] = 1;
+				$data['skala_kegiatan'] = 2;
 				$data['nama_kegiatan'] = null;
 				$data['tgl_kegiatan'] = null;
 				$data['lok_kegiatan'] = null;
@@ -755,7 +755,7 @@ class bk010208Controller extends Controller
 				$data['kode_unsur_list'] =DB::select('select * from bkt_01010130_unsur where status=1');
 				$data['kode_unsur_n_list'] =DB::select('select * from bkt_01010130_unsur where status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
-				return view('MAIN/bk010208/create',$data);
+				return view('MAIN/bk010236/create',$data);
 			}else{
 				return Redirect::to('/');
 			}
@@ -774,8 +774,8 @@ class bk010208Controller extends Controller
 				'jml_peserta' => $request->input('jml_peserta')
        			]);
 
-			$this->log_aktivitas('Update Peserta/Unsur', 152);
-			return Redirect::to('/main/persiapan/kota/kegiatan/sosialisasi/create?kode='.$request->input('kode'));
+			$this->log_aktivitas('Update Peserta/Unsur', 597);
+			return Redirect::to('/main/persiapan/propinsi/sosialisasi/create?kode='.$request->input('kode'));
 		}
 	}
 
@@ -789,8 +789,8 @@ class bk010208Controller extends Controller
 				'materi_narsum' => $request->input('materi_narsum')
        			]);
 
-			$this->log_aktivitas('Update Narasumber/Unsur', 152);
-			return Redirect::to('/main/persiapan/kota/kegiatan/sosialisasi/create?kode='.$request->input('kode'));
+			$this->log_aktivitas('Update Narasumber/Unsur', 597);
+			return Redirect::to('/main/persiapan/propinsi/sosialisasi/create?kode='.$request->input('kode'));
 		}
 	}
 
@@ -825,8 +825,6 @@ class bk010208Controller extends Controller
 			$upload_absensi = true;
 		}
 
-		$kota_korkot = DB::select('select kode from bkt_01010112_kota_korkot where kode_kota='.$user->wk_kd_kota);
-
 		if ($request->input('kode')!=null){
 			date_default_timezone_set('Asia/Jakarta');
 			DB::table('bkt_01020216_sosialisasi')->where('kode', $request->input('kode'))
@@ -836,7 +834,7 @@ class bk010208Controller extends Controller
 				'kode_kec' => $request->input('kode-kec-input'),
 				'kode_kel' => $request->input('kode-kel-input'),
 				'kode_kmw' => $user->kode_kmw,
-				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
+				'kode_korkot' => $user->kode_korkot,
 				'kode_faskel' => $request->input('kode-faskel-input'),
 				'skala_kegiatan' => $request->input('skala_kegiatan'),
 				'nama_kegiatan' => $request->input('nama_kegiatan'),
@@ -878,7 +876,7 @@ class bk010208Controller extends Controller
 			// 	'jml_peserta' => $request->input('jml_peserta')
    //     			]);
 
-			$this->log_aktivitas('Update', 152);
+			$this->log_aktivitas('Update', 597);
 
 		}else{
 			$lastInsertId=DB::table('bkt_01020216_sosialisasi')->insertGetId([
@@ -887,7 +885,7 @@ class bk010208Controller extends Controller
 				'kode_kec' => $request->input('kode-kec-input'),
 				'kode_kel' => $request->input('kode-kel-input'),
         		'kode_kmw' => $user->kode_kmw,
-				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
+				'kode_korkot' => $user->kode_korkot,
 				'kode_faskel' => $request->input('kode-faskel-input'),
 				'skala_kegiatan' => $request->input('skala_kegiatan'),
 				'nama_kegiatan' => $request->input('nama_kegiatan'),
@@ -928,7 +926,7 @@ class bk010208Controller extends Controller
 			// 	'jml_peserta' => $request->input('jml_peserta')
    //     			]);
 
-			$this->log_aktivitas('Create', 151);
+			$this->log_aktivitas('Create', 596);
 		}
 	}
 
@@ -943,22 +941,22 @@ class bk010208Controller extends Controller
 		DB::table('bkt_01020218_narsum_sos')->where('kode_sosialisasi', $request->input('kode'))->delete();
 		DB::table('bkt_01020217_pst_sos')->where('kode_sosialisasi', $request->input('kode'))->delete();
 		DB::table('bkt_01020216_sosialisasi')->where('kode', $request->input('kode'))->delete();
-		$this->log_aktivitas('Delete', 153);
-        return Redirect::to('/main/persiapan/kota/kegiatan/sosialisasi');
+		$this->log_aktivitas('Delete', 598);
+        return Redirect::to('/main/persiapan/propinsi/sosialisasi');
     }
 
     public function unsur_delete(Request $request)
 	{
 		DB::table('bkt_01020217_pst_sos')->where('kode', $request->input('kode'))->delete();
-		$this->log_aktivitas('Update Peserta/Unsur', 152);
-        return Redirect::to('/main/persiapan/kota/kegiatan/sosialisasi/create?kode='.$request->input('kode_sosialisasi'));
+		$this->log_aktivitas('Update Peserta/Unsur', 597);
+        return Redirect::to('/main/persiapan/propinsi/sosialisasi/create?kode='.$request->input('kode_sosialisasi'));
     }
 
     public function narsum_delete(Request $request)
 	{
 		DB::table('bkt_01020218_narsum_sos')->where('kode', $request->input('kode'))->delete();
-		$this->log_aktivitas('Update Narasumber/Unsur', 152);
-        return Redirect::to('/main/persiapan/kota/kegiatan/sosialisasi/create?kode='.$request->input('kode_sosialisasi'));
+		$this->log_aktivitas('Update Narasumber/Unsur', 597);
+        return Redirect::to('/main/persiapan/propinsi/sosialisasi/create?kode='.$request->input('kode_sosialisasi'));
     }
 
     public function log_aktivitas($aktifitas, $detil)
@@ -967,7 +965,7 @@ class bk010208Controller extends Controller
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 1,
 				'kode_modul' => 5,
-				'kode_menu' => 53,
+				'kode_menu' => 192,
 				'kode_menu_detil' => $detil,
 				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas

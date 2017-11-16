@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Kegiatan Sosialisasi @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Sosialisasi Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
@@ -31,8 +31,8 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/persiapan/kota/kegiatan/sosialisasi">
-                    Persiapan / Kota atau Kabupaten / Kegiatan / Sosialisasi
+                <a href="/main/persiapan/propinsi/sosialisasi">
+                    Persiapan / Propinsi / Sosialisasi
                 </a>
             </li>
             <li class="next">
@@ -51,15 +51,12 @@
                     <div class="col-md-12">
                         <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
-                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Kegiatan</label></div>
-                            </div>
-                            <div class="form-group">
                                 <label class="col-sm-3 control-label">Skala kegiatan</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                     <input type="hidden" id="detil_menu" name="detil_menu" value="{{ $detil_menu }}">
                                     <select id="skala_kegiatan" name="skala_kegiatan" class="form-control" size="1" required>
-                                        <option value="1" {!! $skala_kegiatan=='1' ? 'selected':'' !!}>Skala Kota/Kabupaten</option>
+                                        <option value="2" {!! $skala_kegiatan=='2' ? 'selected':'' !!}>Skala Propinsi</option>
                                     </select>
                                 </div>
                             </div>
@@ -88,7 +85,7 @@
                                     </select>
                                 </div>
                             </div> -->
-                            <div class="form-group ">
+                            <!-- <div class="form-group ">
                                 <label class="col-sm-3 control-label">Kota</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
@@ -100,22 +97,9 @@
                                         @endif
                                     </select>
                                 </div>
-                            </div>
-                            <!-- <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Korkot</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
-                                        <option value>Please select</option>
-                                        @if ($kode_korkot_list!=null)
-                                        @foreach ($kode_korkot_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
                             </div> -->
                             
-                            <div class="form-group">
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Nama Kegiatan</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="nama_kegiatan" name="nama_kegiatan" class="form-control" value="{{$nama_kegiatan}}" maxlength="100" required>
@@ -127,41 +111,14 @@
                                     <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Pelaksanaan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50" required>
                                 </div>
                             </div>
-                            <!-- <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="kode">Unsur</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode-unsur-input" name="kode-unsur-input" class="form-control select2" size="1" required>
-                                        @foreach ($kode_unsur_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $kode_unsur==$kul->id ? 'selected':'' !!}>{{$kul->nama}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div> -->
+                            
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Materi Narasumber</label>
-                                <div class="col-sm-6">
-                                    <textarea style="resize: vertical" id="materi_narsum" name="materi_narsum" class="form-control" maxlength="1000" required>{{$materi_narsum}}</textarea>
-                                </div>
-                            </div>
-                            <!-- <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Nama Narasumber</label>
-                                <div class="col-sm-6">
-                                    <input type="text" id="nama_narsum" name="nama_narsum" class="form-control" value="{{$nama_narsum}}" maxlength="100" required>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Jumlah Peserta</label>
-                                <div class="col-sm-6">
-                                    <input type="number" id="jml_peserta" name="jml_peserta" class="form-control" value="{{$jml_peserta}}" maxlength="11" required>
-                                </div>
-                            </div> -->
-                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Media</label>
                                 <div class="col-sm-6">
                                     <textarea style="resize: vertical" id="media" name="media" class="form-control" maxlength="255" required>{{$media}}</textarea>
@@ -173,7 +130,7 @@
                                     <textarea style="resize: vertical;height: 200px;" id="hasil_kesepakatan" name="hasil_kesepakatan" class="form-control" maxlength="1000" required>{{$hasil_kesepakatan}}</textarea>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Sumber Pembiayaan</label>
                                 <div class="col-sm-6">
                                     <select id="sumber_pembiayaan" name="sumber_pembiayaan" class="form-control" size="1" required>
@@ -183,10 +140,8 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
-                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
-                            </div>
-                            <div class="form-group">
+                            
+                            <div class="form-group ">
                                 <label class="col-sm-3 control-label">File Dokumen</label>
                                 <div class="col-sm-6">
                                     <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
@@ -243,10 +198,10 @@
                             </div> -->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/main/persiapan/kota/kegiatan/sosialisasi" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/persiapan/propinsi/sosialisasi" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
-                                    @if ($detil_menu=='152' || $detil_menu=='151')
+                                    @if ($detil_menu=='597' || $detil_menu=='596')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
@@ -271,14 +226,14 @@
                 <div class="panel-title pull-left">
                     <b>Daftar Unsur Peserta</b>
                 </div>
-                @if( ! empty($detil['152']) && $detil_menu=='152')
+                @if( ! empty($detil['597']) && $detil_menu=='597')
                 <!-- <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/kota/kegiatan/sosialisasi/unsur/create?kode_sosialisasi='.$kode}}">Create</a>
                 </div> -->
                 <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#form_modal">Tambah</button>
                 <div id="form_modal" class="modal fade animated" role="dialog">
                     <div class="modal-dialog">
-                        <form action="/main/persiapan/kota/kegiatan/sosialisasi/unsur/create" enctype="multipart/form-data" class="form-horizontal form-bordered" method="post">
+                        <form action="/main/persiapan/propinsi/sosialisasi/unsur/create" enctype="multipart/form-data" class="form-horizontal form-bordered" method="post">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -349,14 +304,14 @@
                 <div class="panel-title pull-left">
                     <b>Daftar Narasumber</b>
                 </div>
-                @if( ! empty($detil['152']) && $detil_menu=='152')
+                @if( ! empty($detil['597']) && $detil_menu=='597')
                 <!-- <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/kota/kegiatan/sosialisasi/narsum/create?kode_sosialisasi='.$kode}}">Create</a>
                 </div> -->
                 <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#form_modal_narsum">Tambah</button>
                 <div id="form_modal_narsum" class="modal fade animated" role="dialog">
                     <div class="modal-dialog">
-                        <form action="/main/persiapan/kota/kegiatan/sosialisasi/narsum/create" enctype="multipart/form-data" class="form-horizontal form-bordered" method="post">
+                        <form action="/main/persiapan/propinsi/sosialisasi/narsum/create" enctype="multipart/form-data" class="form-horizontal form-bordered" method="post">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -451,7 +406,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/kota/kegiatan/sosialisasi/unsur",
+                     "url": "/main/persiapan/propinsi/sosialisasi/unsur",
                      "data":{kode : kode,detil_menu : detil_menu},
                      "dataType": "json",
                      "type": "POST"
@@ -480,7 +435,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/kota/kegiatan/sosialisasi/narsum",
+                     "url": "/main/persiapan/propinsi/sosialisasi/narsum",
                      "data":{kode : kode,detil_menu : detil_menu},
                      "dataType": "json",
                      "type": "POST"
@@ -509,14 +464,14 @@
             type: 'post',
             processData: false,
             contentType: false,
-            "url": "/main/persiapan/kota/kegiatan/sosialisasi/create",
+            "url": "/main/persiapan/propinsi/sosialisasi/create",
             data: form_data,
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
             },
             success: function () {
             alert('From Submitted.');
-            window.location.href = "/main/persiapan/kota/kegiatan/sosialisasi";
+            window.location.href = "/main/persiapan/propinsi/sosialisasi";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -525,17 +480,17 @@
             }
           });
         });
-        $("#skala_kegiatan").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
+        // $("#select-kode-prop-input").select2({
+        //     theme: "bootstrap",
+        //     placeholder: "Please Select",
+        //     width:"100%"
+        // });
         
-        $("#sumber_pembiayaan").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
+        // $("#select-kode-kec-input").select2({
+        //     theme: "bootstrap",
+        //     placeholder: "Please Select",
+        //     width:"100%"
+        // });
         // $("#select-kode-kel-input").select2({
         //     theme: "bootstrap",
         //     placeholder: "Please Select",
