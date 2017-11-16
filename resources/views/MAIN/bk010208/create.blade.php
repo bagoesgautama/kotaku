@@ -54,6 +54,7 @@
                                 <label class="col-sm-3 control-label">Skala kegiatan</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
+                                    <input type="hidden" id="detil_menu" name="detil_menu" value="{{ $detil_menu }}">
                                     <select id="skala_kegiatan" name="skala_kegiatan" class="form-control" size="1" required>
                                         <option value="1" {!! $skala_kegiatan=='1' ? 'selected':'' !!}>Skala Kota/Kabupaten</option>
                                     </select>
@@ -129,16 +130,7 @@
                                     <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50" required>
                                 </div>
                             </div>
-                            <!-- <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="kode">Unsur</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode-unsur-input" name="kode-unsur-input" class="form-control select2" size="1" required>
-                                        @foreach ($kode_unsur_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $kode_unsur==$kul->id ? 'selected':'' !!}>{{$kul->nama}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div> -->
+                            
                             <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Materi Narasumber</label>
                                 <div class="col-sm-6">
@@ -149,12 +141,6 @@
                                 <label class="col-sm-3 control-label" for="example-text-input1">Nama Narasumber</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="nama_narsum" name="nama_narsum" class="form-control" value="{{$nama_narsum}}" maxlength="100" required>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Jumlah Peserta</label>
-                                <div class="col-sm-6">
-                                    <input type="number" id="jml_peserta" name="jml_peserta" class="form-control" value="{{$jml_peserta}}" maxlength="11" required>
                                 </div>
                             </div> -->
                             <div class="form-group striped-col">
@@ -265,9 +251,55 @@
                 <div class="panel-title pull-left">
                     <b>Daftar Unsur Peserta</b>
                 </div>
-                @if( ! empty($detil['152']))
-                <div class="tools pull-right">
+                @if( ! empty($detil['152']) && $detil_menu=='152')
+                <!-- <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/kota/kegiatan/sosialisasi/unsur/create?kode_sosialisasi='.$kode}}">Create</a>
+                </div> -->
+                <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#form_modal">Tambah</button>
+                <div id="form_modal" class="modal fade animated" role="dialog">
+                    <div class="modal-dialog">
+                        <form action="/main/persiapan/kota/kegiatan/sosialisasi/unsur/create" enctype="multipart/form-data" class="form-horizontal form-bordered" method="post">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Daftar Unsur</h4>
+                            </div>
+                            <form role="form">
+                                <div class="modal-body">
+                                    <div class="row m-t-10">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <label class="sr-only" for="first-name">Unsur</label>
+                                                <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
+                                                <select id="select-kode-unsur-input" name="kode-unsur-input" class="form-control select2" size="1" required>
+                                                    <option value>Please select</option>
+                                                    @if ($kode_unsur_list!=null)
+                                                    @foreach ($kode_unsur_list as $kkl)
+                                                        <option value="{{$kkl->id}}">{{$kkl->nama}}</option>
+                                                    @endforeach
+                                                    @endif
+                                                </select>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                    <div class="row m-t-10">
+                                        <div class="col-md-12">
+                                            <div class="input-group" style="width: 100%">
+                                                <label class="sr-only" for="last-name">Jmulah Peserta</label>
+                                                <input type="number" id="jml_peserta" name="jml_peserta" class="form-control" maxlength="11" required min="1" placeholder="Jumlah Peserta" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Close
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 @endif
             </div>
@@ -339,13 +371,14 @@
         });
         //unsur
         var kode = $('#kode').val();
+        var detil_menu = $('#detil_menu').val();
         var table = $('#unsur').DataTable({
 
             "processing": true,
             "serverSide": true,
             "ajax":{
                      "url": "/main/persiapan/kota/kegiatan/sosialisasi/unsur",
-                     "data":{kode : kode},
+                     "data":{kode : kode,detil_menu : detil_menu},
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -419,11 +452,12 @@
         //     placeholder: "Please Select",
         //     width:"100%"
         // });
-        // $("#select-kode-unsur-input").select2({
-        //     theme: "bootstrap",
-        //     placeholder: "Please Select",
-        //     width:"100%"
-        // });
+        $("#select-kode-unsur-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
+
 
         function enforce_maxlength(event) {
             var t = event.target;
@@ -547,7 +581,7 @@
         //                 data=JSON.parse(data)
         //                 for (var i=0;i<data.length;i++){
         //                     faskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-        //                 }
+        //                 }s
         //             }
         //         });
         //     }

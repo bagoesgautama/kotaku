@@ -109,10 +109,7 @@ class bk010208Controller extends Controller
 				e.nama nama_kel,
 				f.nama nama_korkot,
 				g.nama nama_faskel,
-				h.nama nama_kmw,
-				k.nama nama_unsur,
-				i.nama_narsum nama_narsum_sos,
-				j.jml_peserta jml_peserta_sos
+				h.nama nama_kmw
 			from bkt_01020216_sosialisasi a
 			 	left join bkt_01010101_prop b on a.kode_prop = b.kode
 			 	left join bkt_01010102_kota c on a.kode_kota = c.kode
@@ -121,9 +118,6 @@ class bk010208Controller extends Controller
 			 	left join bkt_01010111_korkot f on a.kode_korkot = f.kode
 			 	left join bkt_01010113_faskel g on a.kode_faskel = g.kode
 			 	left join bkt_01010110_kmw h on a.kode_faskel = h.kode
-			 	left join bkt_01020218_narsum_sos i on i.kode_sosialisasi = a.kode
-			 	left join bkt_01020217_pst_sos j on j.kode_sosialisasi = a.kode
-			 	left join bkt_01010130_unsur k on (i.kode_unsur = k.id or j.kode_unsur = k.id)
 			where
 			a.skala_kegiatan=1) b';
 		$totalData = DB::select('select count(1) cnt from bkt_01020216_sosialisasi a
@@ -134,9 +128,6 @@ class bk010208Controller extends Controller
 			 	left join bkt_01010111_korkot f on a.kode_korkot = f.kode
 			 	left join bkt_01010113_faskel g on a.kode_faskel = g.kode
 			 	left join bkt_01010110_kmw h on a.kode_faskel = h.kode
-			 	left join bkt_01020218_narsum_sos i on i.kode_sosialisasi = a.kode
-			 	left join bkt_01020217_pst_sos j on j.kode_sosialisasi = a.kode
-			 	left join bkt_01010130_unsur k on (i.kode_unsur = k.id or j.kode_unsur = k.id)
 			where
 			a.skala_kegiatan=1');
 		$totalFiltered = $totalData[0]->cnt;
@@ -175,14 +166,42 @@ class bk010208Controller extends Controller
 				$nestedData['kode'] = $post->kode_sos;
 				$nestedData['tgl_kegiatan_sos'] = $post->tgl_kegiatan_sos;
 				$nestedData['nama_kegiatan_sos'] = $post->nama_kegiatan_sos;
-				$nestedData['peserta'] = $post->nama_unsur;
-				$nestedData['narasumber'] = $post->nama_narsum_sos;
-				$nestedData['materi'] = $post->materi_narsum_sos;
+				$peserta = 'Kegiatan ini diikuti oleh ';
+				$unsur_peserta = '';
+				$count=0;
+				$unsur = DB::select('
+					select 
+						b.nama, 
+						a.jml_peserta 
+					from bkt_01020217_pst_sos a 
+						left join bkt_01010130_unsur b on b.id=a.kode_unsur
+					where
+						a.kode_sosialisasi='.$post->kode_sos);
+				$jml_peserta_sum = DB::select('
+					select  
+						sum(a.jml_peserta) sum
+					from bkt_01020217_pst_sos a 
+						left join bkt_01010130_unsur b on b.id=a.kode_unsur
+					where
+						a.kode_sosialisasi='.$post->kode_sos);
+				foreach($unsur as $value){
+					$count++;
+					if($count==1){
+						$unsur_peserta.=$value->jml_peserta.' '.$value->nama;
+					}else{
+						$unsur_peserta.=', '.$value->jml_peserta.' '.$value->nama;
+						if($count==count($unsur)){
+							$unsur_peserta.=' sehingga total peserta '.$jml_peserta_sum[0]->sum.' orang.';
+						}
+					}
+				}
+				$nestedData['peserta'] = $peserta.$unsur_peserta;
+				$nestedData['narasumber'] = '';
+				$nestedData['materi'] = '';
 				$nestedData['media'] = $post->media_sos;
 				$nestedData['hasil_kesepakatan'] = $post->hasil_kesepakatan_sos;
 				$nestedData['sumber_pembiayaan'] = $post->sumber_pembiayaan_sos;
 				$nestedData['lok_kegiatan_sos'] = $post->lok_kegiatan_sos;
-				$nestedData['jml_peserta'] = $post->jml_peserta_sos;
 				$nestedData['created_time'] = $post->created_time;
 
 				$user = Auth::user();
@@ -221,7 +240,7 @@ class bk010208Controller extends Controller
 
 	public function Post_unsur(Request $request)
 	{
-		if($request->input('kode')!=null){
+		if($request->input('kode')!=null && $request->input('detil_menu')!=null){
 			$columns = array(
 				0 =>'kode',
 				1 =>'nama_unsur',
@@ -230,6 +249,7 @@ class bk010208Controller extends Controller
 			$query= '
 				select * from (select
 					a.*,
+					a.kode_sosialisasi kode_sos,
 					a.kode kode_peserta_sos,
 					a.jml_peserta jml_peserta_sos,
 					c.nama nama_unsur
@@ -269,8 +289,8 @@ class bk010208Controller extends Controller
 					$show =  $post->kode_peserta_sos;
 					$edit =  $post->kode_peserta_sos;
 					$delete = $post->kode_peserta_sos;
-					$url_edit=url('/')."/main/persiapan/kota/kegiatan/sosialisasi/unsur/create?kode=".$edit;
-					$url_delete=url('/')."/main/persiapan/kota/kegiatan/sosialisasi/unsur/delete?kode=".$delete;
+					// $url_edit=url('/')."/main/persiapan/kota/kegiatan/sosialisasi/unsur/create?kode=".$edit;
+					$url_delete=url('/')."/main/persiapan/kota/kegiatan/sosialisasi/unsur/delete?kode=".$delete."&kode_sosialisasi=".$post->kode_sos;
 					$nestedData['kode'] = $post->kode_peserta_sos;
 					$nestedData['nama_unsur'] = $post->nama_unsur;
 					$nestedData['jml_peserta'] = $post->jml_peserta_sos;
@@ -285,10 +305,10 @@ class bk010208Controller extends Controller
 					}
 
 					$option = '';
-					if(!empty($detil['152'])){
-						$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
-					}
-					if(!empty($detil['152'])){
+					// if(!empty($detil['152']) && $request->input('detil_menu') == '152'){
+					// 	$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
+					// }
+					if(!empty($detil['152']) && $request->input('detil_menu') == '152'){
 						$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 					}
 					$nestedData['option'] = $option;
@@ -304,109 +324,6 @@ class bk010208Controller extends Controller
 						);
 
 			echo json_encode($json_data);
-		}elseif($request->input('kode_sosialisasi')!=null)
-		{
-			$columns = array(
-				0 =>'id',
-				1 =>'nama_unsur',
-				2 =>'jml_peserta'
-			);
-
-			if($request->input('where')!=null){
-				$query='select * from bkt_01010130_unsur where '.$request->input('where');
-				$totalData = DB::select('select count(1) cnt from bkt_01010130_unsur where '.$request->input('where'));
-			}else{
-				$query='select * from bkt_01010130_unsur';
-				$totalData = DB::select('select count(1) cnt from bkt_01010130_unsur');
-			}
-			
-			$totalFiltered = $totalData[0]->cnt;
-			$limit = $request->input('length');
-			$start = $request->input('start');
-			$order = $columns[$request->input('order.0.column')];
-			$dir = $request->input('order.0.dir');
-			if(empty($request->input('search.value')))
-			{
-				$posts=DB::select($query .' order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			}
-			else {
-				$search = $request->input('search.value');
-				if($request->input('where')!=null){
-					$posts=DB::select($query. ' and (nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-					$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and (nama like "%'.$search.'%")) a');
-				}else{
-					$posts=DB::select($query. ' where (nama like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-					$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (nama like "%'.$search.'%")) a');
-				}
-				$totalFiltered = $totalFiltered[0]->cnt;
-			}
-
-			$data = array();
-			if(!empty($posts))
-			{
-				foreach ($posts as $post)
-				{
-					$show =  $post->kode;
-					$nestedData['id'] = $post->nik;
-					$nestedData['nama_unsur'] = $post->nama;
-					$nestedData['jml_peserta'] = $post->kode_jenis_kelamin;
-
-					$user = Auth::user();
-			        $akses= $user->menu()->where('kode_apps', 1)->get();
-					if(count($akses) > 0){
-						foreach ($akses as $item) {
-							if($item->kode_menu==110)
-								$detil[$item->kode_menu_detil]='a';
-						}
-					}
-
-					$option = '';
-					if(!empty($detil['531'])){
-						$option .= "<input type='checkbox' name='check[]' id='check[]' value='$show'>";
-					}
-					$nestedData['option'] = $option;
-					$data[] = $nestedData;
-				}
-			}
-
-			$json_data = array(
-						"draw"            => intval($request->input('draw')),
-						"recordsTotal"    => intval($totalData[0]->cnt),
-						"recordsFiltered" => intval($totalFiltered),
-						"data"            => $data
-						);
-
-			echo json_encode($json_data);
-		}
-	}
-
-	public function unsur_create(Request $request)
-	{
-		$user = Auth::user();
-        $akses= $user->menu()->where('kode_apps', 1)->get();
-		if(count($akses) > 0){
-			foreach ($akses as $item) {
-				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==53)
-					$data['detil'][$item->kode_menu_detil]='a';
-			}
-			$data['username'] = $user->name;
-			$data['kode_sosialisasi']=$request->input('kode_sosialisasi');
-			if($data['kode_sosialisasi']!=null  && !empty($data['detil']['152'])){
-				$rowData=DB::select('select kode_unsur from bkt_01020217_pst_sos where kode_sosialisasi='.$request->input('kode_sosialisasi'));
-				$where='';
-				$count=0;
-				foreach ($rowData as $value) {
-					$count++;
-					if($count==1){
-						$where.=' id !='.$value->kode_unsur;
-					}else{
-						$where.=' and id !='.$value->kode_unsur;
-					}
-				}
-				$data['where'] = $where; 
-				return view('MAIN/bk010208/unsur',$data);
-			}
 		}
 	}
 
@@ -473,7 +390,7 @@ class bk010208Controller extends Controller
 				$data['hasil_kesepakatan'] = $rowData[0]->hasil_kesepakatan;
 				$data['sumber_pembiayaan'] = $rowData[0]->sumber_pembiayaan;
 				$data['nama_narsum'] = $rowData[0]->nama_narsum_sos;
-				$data['jml_peserta'] = $rowData[0]->jml_peserta_sos;
+				// $data['jml_peserta'] = $rowData[0]->jml_peserta_sos;
 				$data['kode_unsur'] = $rowData[0]->kode_unsur_narsum_sos==$rowData[0]->kode_unsur_pst_sos?$rowData[0]->kode_unsur_narsum_sos:null;
 				$data['uri_img_document'] = $rowData[0]->uri_img_document;
 				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
@@ -509,7 +426,22 @@ class bk010208Controller extends Controller
 					$data['kode_faskel_list']=DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010113_faskel b where a.kode_faskel=b.kode and a.kode_kel='.$rowData[0]->kode_kel);
 				if(!empty($rowData[0]->kode_kec))
 					$data['kode_kel_list']=DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$rowData[0]->kode_kec);
-				$data['kode_unsur_list'] =DB::select('select * from bkt_01010130_unsur where status=1');;
+				$rowData2=DB::select('select kode_unsur from bkt_01020217_pst_sos where kode_sosialisasi='.$request->input('kode'));
+				$where='';
+				$count=0;
+				foreach ($rowData2 as $value) {
+					$count++;
+					if($count==1){
+						$where.=' id !='.$value->kode_unsur;
+					}else{
+						$where.=' and id !='.$value->kode_unsur;
+					}
+				}
+				if($where!=null){
+					$data['kode_unsur_list']=DB::select('select * from bkt_01010130_unsur where '.$where.' and status=1');
+				}else{
+					$data['kode_unsur_list'] =DB::select('select * from bkt_01010130_unsur where status=1');
+				}
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010208/create',$data);
 			}
@@ -582,7 +514,7 @@ class bk010208Controller extends Controller
 				$data['hasil_kesepakatan'] = $rowData[0]->hasil_kesepakatan;
 				$data['sumber_pembiayaan'] = $rowData[0]->sumber_pembiayaan;
 				$data['nama_narsum'] = $rowData[0]->nama_narsum_sos;
-				$data['jml_peserta'] = $rowData[0]->jml_peserta_sos;
+				// $data['jml_peserta'] = $rowData[0]->jml_peserta_sos;
 				$data['kode_unsur'] = $rowData[0]->kode_unsur_narsum_sos==$rowData[0]->kode_unsur_pst_sos?$rowData[0]->kode_unsur_narsum_sos:null;
 				$data['uri_img_document'] = $rowData[0]->uri_img_document;
 				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
@@ -618,7 +550,24 @@ class bk010208Controller extends Controller
 					$data['kode_faskel_list']=DB::select('select b.kode, b.nama from bkt_01010114_kel_faskel a, bkt_01010113_faskel b where a.kode_faskel=b.kode and a.kode_kel='.$rowData[0]->kode_kel);
 				if(!empty($rowData[0]->kode_kec))
 					$data['kode_kel_list']=DB::select('select kode, nama from bkt_01010104_kel where kode_kec='.$rowData[0]->kode_kec);
-				$data['kode_unsur_list'] =DB::select('select * from bkt_01010130_unsur where status=1');;
+
+				$rowData2=DB::select('select kode_unsur from bkt_01020217_pst_sos where kode_sosialisasi='.$request->input('kode'));
+				$where='';
+				$count=0;
+				foreach ($rowData2 as $value) {
+					$count++;
+					if($count==1){
+						$where.=' id !='.$value->kode_unsur;
+					}else{
+						$where.=' and id !='.$value->kode_unsur;
+					}
+				}
+				if($where!=null){
+					$data['kode_unsur_list']=DB::select('select * from bkt_01010130_unsur where '.$where.' and status=1');
+				}else{
+					$data['kode_unsur_list'] =DB::select('select * from bkt_01010130_unsur where status=1');
+				}
+
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010208/create',$data);
 			}else if($data['kode']==null && !empty($data['detil']['151'])){
@@ -680,6 +629,20 @@ class bk010208Controller extends Controller
 			return Redirect::to('/');
 		}
 
+	}
+
+	public function post_unsur_create(Request $request)
+	{
+		if($request->input('kode')!=null){
+			DB::table('bkt_01020217_pst_sos')->insert([
+				'kode_sosialisasi' => $request->input('kode'),
+				'kode_unsur' => $request->input('kode-unsur-input'),
+				'jml_peserta' => $request->input('jml_peserta')
+       			]);
+
+			$this->log_aktivitas('Update Peserta/Unsur', 152);
+			return Redirect::to('/main/persiapan/kota/kegiatan/sosialisasi/create?kode='.$request->input('kode'));
+		}
 	}
 
 	public function post_create(Request $request)
@@ -831,6 +794,14 @@ class bk010208Controller extends Controller
 		DB::table('bkt_01020216_sosialisasi')->where('kode', $request->input('kode'))->delete();
 		$this->log_aktivitas('Delete', 153);
         return Redirect::to('/main/persiapan/kota/kegiatan/sosialisasi');
+    }
+
+    public function unsur_delete(Request $request)
+	{
+		// DB::table('bkt_01020218_narsum_sos')->where('kode_sosialisasi', $request->input('kode'))->delete();
+		DB::table('bkt_01020217_pst_sos')->where('kode', $request->input('kode'))->delete();
+		$this->log_aktivitas('Update Peserta/Unsur', 152);
+        return Redirect::to('/main/persiapan/kota/kegiatan/sosialisasi/create?kode='.$request->input('kode_sos'));
     }
 
     public function log_aktivitas($aktifitas, $detil)
