@@ -26,13 +26,10 @@
                 Persiapan
             </li>
             <li class="next">
-                Kelurahan
+                Propinsi
             </li>
             <li class="next">
-                Kegiatan Kelurahan
-            </li>
-            <li class="next">
-                Kegiatan Sosialisasi
+                Sosialisasi
             </li>
         </ul>
     </div>
@@ -43,30 +40,31 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>Kegiatan Sosialisasi</b>
+                    <b>Sosialisasi</b>
                 </div>
-                @if( ! empty($detil['187']))
+                @if( ! empty($detil['596']))
                 <div class="tools pull-right">
-                    <b>bk010216 index</b>
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/kelurahan/sosialisasi/create' }}">Create</a>
+                    <b>bk010236 index</b>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/propinsi/sosialisasi/create' }}">Create</a>
                 </div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="kegiatan">
+                    <table class="table table-striped" id="kegiatan" width="2200px">
                         <thead>
                             <tr>
                                 <th>Kode</th>
-                                <th>Kota</th>
-                                <th>Kecamatan</th>
-                                <th>Kelurahan</th>
-                                <th>Nama Kegiatan</th>
-                                <th>Tgl Kegiatan</th>
-                                <th>Jumlah Peserta Laki-laki</th>
-                                <th>Jumlah Peserta Perempuan</th>
-                                <th>Jumlah Peserta Miskin/MBR</th>
-                                <th>Option</th>
+                                <th>Kegiatan</th>
+                                <th>Tgl Pelaksanaan</th>
+                                <th>Tempat Pelaksanaan</th>
+                                <th>Peserta/unsur</th>
+                                <th>Narasumber/Unsur</th>
+                                <th>Materi Narasumber</th>
+                                <th>Pemberitaan Media</th>
+                                <th>Hasil Kesepakatan</th>
+                                <th>Sumber Pembiayaan</th>
+                                <th>option</th>
                             </tr>
                         </thead>
                     </table>
@@ -86,21 +84,22 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/kelurahan/sosialisasi",
+                     "url": "/main/persiapan/propinsi/sosialisasi",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
                 { "data": "kode" , name:"kode"},
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "kode_kec" , name:"kode_kec"},
-                { "data": "kode_kel" , name:"kode_kel"},
-                { "data": "jenis_kegiatan_convert" , name:"jenis_kegiatan_convert"},
-                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
-                { "data": "q_peserta_p" , name:"q_peserta_p"},
-                { "data": "q_peserta_w" , name:"q_peserta_w"},
-                { "data": "q_peserta_mbr" , name:"q_peserta_mbr"},
+                { "data": "nama_kegiatan_sos" , name:"nama_kegiatan_sos"},
+                { "data": "tgl_kegiatan_sos" , name:"tgl_kegiatan_sos"},
+                { "data": "lok_kegiatan_sos" , name:"lok_kegiatan_sos"},
+                { "data": "peserta" , name:"peserta"},
+                { "data": "narasumber" , name:"narasumber"},
+                { "data": "materi" , name:"materi"},
+                { "data": "media" , name:"media"},
+                { "data": "hasil_kesepakatan" , name:"hasil_kesepakatan"},
+                { "data": "sumber_pembiayaan" , name:"sumber_pembiayaan"},
                 { "data": "option" , name:"option",orderable:false}
             ],
             "order":[[0,"desc"]]

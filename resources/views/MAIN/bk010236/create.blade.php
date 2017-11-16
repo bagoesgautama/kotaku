@@ -31,8 +31,8 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/persiapan/kota/kegiatan/sosialisasi">
-                    Persiapan / Kota atau Kabupaten / Kegiatan / Sosialisasi
+                <a href="/main/persiapan/propinsi/sosialisasi">
+                    Persiapan / Propinsi / Sosialisasi
                 </a>
             </li>
             <li class="next">
@@ -56,7 +56,7 @@
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                     <input type="hidden" id="detil_menu" name="detil_menu" value="{{ $detil_menu }}">
                                     <select id="skala_kegiatan" name="skala_kegiatan" class="form-control" size="1" required>
-                                        <option value="1" {!! $skala_kegiatan=='1' ? 'selected':'' !!}>Skala Kota/Kabupaten</option>
+                                        <option value="2" {!! $skala_kegiatan=='2' ? 'selected':'' !!}>Skala Propinsi</option>
                                     </select>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                     </select>
                                 </div>
                             </div> -->
-                            <div class="form-group ">
+                            <!-- <div class="form-group ">
                                 <label class="col-sm-3 control-label">Kota</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
@@ -93,19 +93,6 @@
                                         @if ($kode_kota_list!=null)
                                         @foreach ($kode_kota_list as $kkl)
                                             <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Korkot</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
-                                        <option value>Please select</option>
-                                        @if ($kode_korkot_list!=null)
-                                        @foreach ($kode_korkot_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
                                         @endif
                                     </select>
@@ -211,10 +198,10 @@
                             </div> -->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/main/persiapan/kota/kegiatan/sosialisasi" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/persiapan/propinsi/sosialisasi" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
-                                    @if ($detil_menu=='152' || $detil_menu=='151')
+                                    @if ($detil_menu=='597' || $detil_menu=='596')
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
@@ -239,14 +226,14 @@
                 <div class="panel-title pull-left">
                     <b>Daftar Unsur Peserta</b>
                 </div>
-                @if( ! empty($detil['152']) && $detil_menu=='152')
+                @if( ! empty($detil['597']) && $detil_menu=='597')
                 <!-- <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/kota/kegiatan/sosialisasi/unsur/create?kode_sosialisasi='.$kode}}">Create</a>
                 </div> -->
                 <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#form_modal">Tambah</button>
                 <div id="form_modal" class="modal fade animated" role="dialog">
                     <div class="modal-dialog">
-                        <form action="/main/persiapan/kota/kegiatan/sosialisasi/unsur/create" enctype="multipart/form-data" class="form-horizontal form-bordered" method="post">
+                        <form action="/main/persiapan/propinsi/sosialisasi/unsur/create" enctype="multipart/form-data" class="form-horizontal form-bordered" method="post">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -317,14 +304,14 @@
                 <div class="panel-title pull-left">
                     <b>Daftar Narasumber</b>
                 </div>
-                @if( ! empty($detil['152']) && $detil_menu=='152')
+                @if( ! empty($detil['597']) && $detil_menu=='597')
                 <!-- <div class="tools pull-right">
                     <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/persiapan/kota/kegiatan/sosialisasi/narsum/create?kode_sosialisasi='.$kode}}">Create</a>
                 </div> -->
                 <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#form_modal_narsum">Tambah</button>
                 <div id="form_modal_narsum" class="modal fade animated" role="dialog">
                     <div class="modal-dialog">
-                        <form action="/main/persiapan/kota/kegiatan/sosialisasi/narsum/create" enctype="multipart/form-data" class="form-horizontal form-bordered" method="post">
+                        <form action="/main/persiapan/propinsi/sosialisasi/narsum/create" enctype="multipart/form-data" class="form-horizontal form-bordered" method="post">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -419,7 +406,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/kota/kegiatan/sosialisasi/unsur",
+                     "url": "/main/persiapan/propinsi/sosialisasi/unsur",
                      "data":{kode : kode,detil_menu : detil_menu},
                      "dataType": "json",
                      "type": "POST"
@@ -448,7 +435,7 @@
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/persiapan/kota/kegiatan/sosialisasi/narsum",
+                     "url": "/main/persiapan/propinsi/sosialisasi/narsum",
                      "data":{kode : kode,detil_menu : detil_menu},
                      "dataType": "json",
                      "type": "POST"
@@ -477,14 +464,14 @@
             type: 'post',
             processData: false,
             contentType: false,
-            "url": "/main/persiapan/kota/kegiatan/sosialisasi/create",
+            "url": "/main/persiapan/propinsi/sosialisasi/create",
             data: form_data,
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
             },
             success: function () {
             alert('From Submitted.');
-            window.location.href = "/main/persiapan/kota/kegiatan/sosialisasi";
+            window.location.href = "/main/persiapan/propinsi/sosialisasi";
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

@@ -270,7 +270,7 @@
 			</li>
 			@endif
 			@if( ! empty($menu['33']))
-			<li {!! (Request::is( 'main/persiapan/propinsi/pokja/pembentukan')||Request::is( 'main/persiapan/propinsi/pokja/pembentukan/*')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan/*')? 'class="active"': 'class=""') !!}>
+			<li {!! (Request::is( 'main/persiapan/propinsi/pokja/pembentukan')||Request::is( 'main/persiapan/propinsi/pokja/pembentukan/*')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan')||Request::is( 'main/persiapan/propinsi/pokja/kegiatan/*')||Request::is( 'main/persiapan/propinsi/sosialisasi')||Request::is( 'main/persiapan/propinsi/sosialisasi/*')? 'class="active"': 'class=""') !!}>
                 <a href="javascript:void(0)">
                     <span class="mm-text">Propinsi</span>
                     <span class="fa arrow"></span>
@@ -298,6 +298,13 @@
 						    </li>
 							@endif
 						</ul>
+						@if( ! empty($menu['192']))
+						<li {!! (Request::is( 'main/persiapan/propinsi/sosialisasi')||Request::is( 'main/persiapan/propinsi/sosialisasi/*')? 'class="active"': "") !!}>
+							<a href="/main/persiapan/propinsi/sosialisasi">
+			                    <span class="mm-text">Sosialisasi</span>
+			                </a>
+					    </li>
+						@endif
 				    </li>
 					@endif
 				</ul>
