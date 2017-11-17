@@ -52,6 +52,7 @@
                                 <th>Nama</th>
 								<th>Jumlah Anggota</th>
 								<th>Jumlah Anggota Wanita</th>
+                                <th>Jumlah Anggota MBR</th>
 								<th>Status</th>
 								<th>Option</th>
                             </tr>
@@ -89,6 +90,7 @@
 				{ "data": "nama" , name:"nama"},
 				{ "data": "jml_anggt" , name:"jml_anggt"},
 				{ "data": "jml_anggt_w" , name:"jml_anggt_w"},
+                { "data": "jml_anggt_mbr" , name:"jml_anggt_mbr"},
 				{ "data": "status" , name:"status"},
                 { "data": "option" , name:"option",orderable:false}
             ],
