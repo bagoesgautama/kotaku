@@ -94,13 +94,13 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_p}}" required data-bv-callback="true" data-bv-callback-message="anggota pembentuk pria & wanita tidak boleh 0" data-bv-callback-callback="check" min="0">
+                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_p}}" data-bv-callback="true" data-bv-callback-message="anggota pembentuk pria & wanita tidak boleh 0" data-bv-callback-callback="check" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_w}}" required data-bv-callback="true" data-bv-callback-message="anggota pembentuk pria & wanita tidak boleh 0" data-bv-callback-callback="check" min="0">
+                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_w}}" required data-bv-callback="true" data-bv-callback-message="anggota pembentuk pria & wanita tidak boleh 0" data-bv-callback-callback="check" min="0" required>
                                 </div>
                             </div>
 							<div class="form-group striped-col">
@@ -109,13 +109,13 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">OPD</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="upp-opd-input" name="upp-opd-input" class="form-control" placeholder="" value="{{$upp_opd}}">
+                                    <input type="number" id="upp-opd-input" name="upp-opd-input" class="form-control" placeholder="" value="{{$upp_opd}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">DPRD</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="upp-dprd-input" name="upp-dprd-input" class="form-control" placeholder="" value="{{$upp_dprd}}">
+                                    <input type="number" id="upp-dprd-input" name="upp-dprd-input" class="form-control" placeholder="" value="{{$upp_dprd}}" min="0">
                                 </div>
                             </div>
 							<div class="form-group">
@@ -124,31 +124,31 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">BKM/LKM</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="upnp-bkm-input" name="upnp-bkm-input" class="form-control" placeholder="" value="{{$upn_bkm}}">
+                                    <input type="number" id="upnp-bkm-input" name="upnp-bkm-input" class="form-control" placeholder="" value="{{$upn_bkm}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">LSM/Pemerhati Permukiman</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="upnp-lsm-input" name="upnp-lsm-input" class="form-control" placeholder="" value="{{$upn_lsm}}">
+                                    <input type="number" id="upnp-lsm-input" name="upnp-lsm-input" class="form-control" placeholder="" value="{{$upn_lsm}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Swasta/Badan Usaha</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="upnp-swasta-input" name="upnp-swasta-input" class="form-control" placeholder="" value="{{$unp_bu}}">
+                                    <input type="number" id="upnp-swasta-input" name="upnp-swasta-input" class="form-control" placeholder="" value="{{$unp_bu}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Praktisi/Profesional/Perguruan Tinggi</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="upnp-praktisi-input" name="upnp-praktisi-input" class="form-control" placeholder="" value="{{$upn_praktisi}}">
+                                    <input type="number" id="upnp-praktisi-input" name="upnp-praktisi-input" class="form-control" placeholder="" value="{{$upn_praktisi}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Nilai Dana Operasional</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="dana-ops-input" name="dana-ops-input" class="form-control" placeholder="Jumlah" value="{{$nilai_dana_ops}}">
+                                    <input type="number" id="dana-ops-input" name="dana-ops-input" class="form-control" placeholder="Jumlah" value="{{$nilai_dana_ops}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group">

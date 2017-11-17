@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                Managemen Personil / User / Peringatan
+                Managemen Personil / Peringatan
             </li>
         </ul>
     </div>
@@ -36,12 +36,10 @@
                 <div class="panel-title pull-left">
                     <b>Peringatan Index</b>
                 </div>
-				<div class="tools pull-right">
-					<b>bk020307 Index</b>
-				</div>
-                @if( ! empty($detil['554']))
+                @if( ! empty($detil['714']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management/peringatan/create">Create</a>
+					<b>bk020307 Index</b>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management_personil/peringatan/create">Create</a>
 				</div>
                 @endif
             </div>
@@ -73,7 +71,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/management/peringatan",
+                     "url": "/hrm/management_personil/peringatan",
                      "dataType": "json",
                      "type": "POST"
                    },

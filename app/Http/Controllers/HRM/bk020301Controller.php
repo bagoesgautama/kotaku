@@ -31,12 +31,12 @@ class bk020301Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==162)
+				if($item->kode_menu==230)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
-				$this->log_aktivitas('View', 545);
+				$this->log_aktivitas('View', 729);
 				return view('HRM/bk020301/index',$data);
 			}
 			else {
@@ -96,7 +96,7 @@ class bk020301Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==162)
+						if($item->kode_menu==230)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
@@ -132,7 +132,7 @@ class bk020301Controller extends Controller
 	public function delete(Request $request)
 	{
 		DB::table('bkt_02030205_pesan')->where('kode', $request->input('kode'))->update(['status' => 3,'tgl_pesan_dihapus' =>date('Y-m-d H:i:s')]);
-        $this->log_aktivitas('Delete', 545);
+        $this->log_aktivitas('Delete', 732);
         return Redirect::to('/hrm/profil/pesan');
     }
 
@@ -141,8 +141,8 @@ class bk020301Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 			'kode_user' => Auth::user()->id,
 			'kode_apps' => 2,
-			'kode_modul' => 14,
-			'kode_menu' => 162,
+			'kode_modul' => 13,
+			'kode_menu' => 230,
 			'kode_menu_detil' => $detil,
 			'aktifitas' => $aktifitas,
 			'deskripsi' => $aktifitas

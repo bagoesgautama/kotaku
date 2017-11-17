@@ -66,7 +66,7 @@
                                 <th>Peserta Pria</th>
 								<th>Peserta Wanita</th>
 								<th>Peserta Non Anggota</th>
-                                <th>option</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>

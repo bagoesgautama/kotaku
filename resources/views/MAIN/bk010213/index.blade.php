@@ -51,7 +51,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="kegiatan">
+                    <table class="table table-striped" id="kegiatan" width="1500px">
                         <thead>
                             <tr>
 								<th>Kode</th>
@@ -63,7 +63,7 @@
                                 <th>Peserta Wanita</th>
 								<th>Peserta BKM</th>
 								<th>Total Peserta</th>
-                                <th>option</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>

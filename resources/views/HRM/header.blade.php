@@ -68,7 +68,7 @@
     				</li>`);
     			}
     		}
-    		msg.append('<li class="dropdown-footer"><a href="/hrm/management/pesan">View All messages</a></li>');
+    		msg.append('<li class="dropdown-footer"><a href="/hrm/profil/pesan">View All messages</a></li>');
 
 			if(user.uri_img_profile!=null){
 				header.append(`<li class="dropdown user user-menu">
@@ -88,13 +88,13 @@
 						</li>
 						<!-- Menu Body -->
 						<li class="p-t-3">
-							<a href="/hrm/profil/user/profil">
+							<a href="/hrm/profil/user">
 								<i class="fa fa-fw ti-user"></i> My Profile
 							</a>
 						</li>
 						<li role="presentation"></li>
 						<li>
-							<a href="/hrm/profil/user/password">
+							<a href="/hrm/profil/password">
 								<i class="fa fa-fw ti-settings"></i> Change Password
 							</a>
 						</li>
@@ -125,13 +125,13 @@
 						</li>
 						<!-- Menu Body -->
 						<li class="p-t-3">
-							<a href="/hrm/profil/user/profil">
+							<a href="/hrm/profil/user">
 								<i class="fa fa-fw ti-user"></i> My Profile
 							</a>
 						</li>
 						<li role="presentation"></li>
 						<li>
-							<a href="/hrm/profil/user/password">
+							<a href="/hrm/profil/password">
 								<i class="fa fa-fw ti-settings"></i> Change Password
 							</a>
 						</li>

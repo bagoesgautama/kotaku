@@ -51,9 +51,9 @@
                                     <input type="hidden" id="kode_kmw-input" name="kode_kmw-input" value="{{ $kode_kmw }}">
                                     <input type="hidden" id="kode_korkot-input" name="kode_korkot-input" value="{{ $kode_korkot }}">
                                     <input type="hidden" id="kode_faskel-input" name="kode_faskel-input" value="{{ $kode_faskel }}">
-                                    <input type="hidden" id="utusan_p" name="kode" value="{{ $utusan_p }}">
-                                    <input type="hidden" id="utusan_w" name="kode" value="{{ $utusan_w }}">
-                                    <input type="hidden" id="utusan_mbr" name="kode" value="{{ $utusan_mbr }}">
+                                    <input type="text" id="utusan_p" name="kode" value="{{ $utusan_p }}">
+                                    <input type="text" id="utusan_w" name="kode" value="{{ $utusan_w }}">
+                                    <input type="text" id="utusan_mbr" name="kode" value="{{ $utusan_mbr }}">
                                     <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required>
                                         <option value>Please select</option>
                                         @foreach($tahun_list as $list)
@@ -216,11 +216,21 @@
         var res = true;
         if(peserta_p>utusan_p){
             res=false;
-        }else if(peserta_w>utusan_w){
+
+        }
+        if(peserta_w>utusan_w){
             res=false;
-        }else if(sum_peserta_2>sum_peserta && peserta_mbr>utusan_mbr){
+        }
+
+        if(sum_peserta_2>sum_peserta){
             res=false;
-        }else if(peserta_p==0 && peserta_w==0){
+        }
+
+        if(peserta_mbr>utusan_mbr){
+            res=false;
+        }
+        
+        if(peserta_p==0 && peserta_w==0){
             res=false;
         } 
         return res;
@@ -247,7 +257,9 @@
 
         if(sum_terpilih_2>sum_terpilih){
             res=false;
-        }else if(terpilih_p==0 && terpilih_w==0){
+        }
+
+        if(terpilih_p==0 && terpilih_w==0){
             res=false;
         }
         return res;

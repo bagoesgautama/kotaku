@@ -36,10 +36,10 @@
                 <div class="panel-title pull-left">
                     <b>Sertifikasi Pelatihan</b>
                 </div>
-                @if( ! empty($detil['534']))
+                @if( ! empty($detil['626']))
                 <div class="tools pull-right">
                     <b>bk020303 Index</b>
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/profil/user/pelatihan/create">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/profil/pelatihan/create">Create</a>
 				</div>
                 @endif
             </div>
@@ -69,7 +69,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/profil/user/pelatihan",
+                     "url": "/hrm/profil/pelatihan",
                      "dataType": "json",
                      "type": "POST"
                    },

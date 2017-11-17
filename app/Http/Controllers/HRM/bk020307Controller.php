@@ -32,7 +32,7 @@ class bk020307Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==173)
+				if($item->kode_menu==206)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 		}else{
@@ -69,8 +69,8 @@ class bk020307Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 			'kode_user' => Auth::user()->id,
 			'kode_apps' => 2,
-			'kode_modul' => 14,
-			'kode_menu' => 176,
+			'kode_modul' => 16,
+			'kode_menu' => 206,
 			'kode_menu_detil' => $detil,
 			'aktifitas' => $aktifitas,
 			'deskripsi' => $aktifitas

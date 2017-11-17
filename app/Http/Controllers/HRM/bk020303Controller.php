@@ -31,12 +31,12 @@ class bk020303Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==169)
+				if($item->kode_menu==201)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
-				$this->log_aktivitas('View', 533);
+				$this->log_aktivitas('View', 625);
 				return view('HRM/bk020303/index',$data);
 			}
 			else {
@@ -80,8 +80,8 @@ class bk020303Controller extends Controller
 			foreach ($posts as $post)
 			{
 				$edit =  $post->kode;
-				$url_edit="/hrm/profil/user/pelatihan/create?kode=".$edit;
-				$url_delete="/hrm/profil/user/pelatihan/delete?kode=".$edit;
+				$url_edit="/hrm/profil/pelatihan/create?kode=".$edit;
+				$url_delete="/hrm/profil/pelatihan/delete?kode=".$edit;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['tgl_pelatihan'] = $post->tgl_pelatihan;
 				$nestedData['nama'] = $post->nama;
@@ -90,16 +90,15 @@ class bk020303Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==169)
+						if($item->kode_menu==201)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
-
 				$option = '';
-				if(!empty($detil['535'])){
+				if(!empty($detil['627'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['536'])){
+				if(!empty($detil['628'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				}
 				$nestedData['option'] = $option;
@@ -124,12 +123,12 @@ class bk020303Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==169)
+				if($item->kode_menu==201)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			if($data['kode']!=null && !empty($data['detil']['535'])){
+			if($data['kode']!=null && !empty($data['detil']['627'])){
 				$rowData = DB::select('select * from bkt_02030202_pelatihan where kode='.$data['kode']);
 				$data['nama'] = $rowData[0]->nama;
 				$data['deskripsi'] = $rowData[0]->deskripsi;
@@ -143,7 +142,7 @@ class bk020303Controller extends Controller
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
 				return view('HRM/bk020303/create',$data);
-			}else if($data['kode']==null && !empty($data['detil']['534'])){
+			}else if($data['kode']==null && !empty($data['detil']['626'])){
 				$data['nama'] = null;
 				$data['deskripsi'] = null;
 				$data['tgl_pelatihan'] = null;
@@ -220,7 +219,7 @@ class bk020303Controller extends Controller
 			if($upload3 == true){
 				$file3->move(public_path('/uploads/pelatihan'), $user->id."_".$file3->getClientOriginalName());
 			}
-			$this->log_aktivitas('Update', 535);
+			$this->log_aktivitas('Update', 627);
 
 		}else{
 			DB::table('bkt_02030202_pelatihan')->insert(
@@ -243,15 +242,15 @@ class bk020303Controller extends Controller
 			if($upload3 == true){
 				$file3->move(public_path('/uploads/pelatihan'), $user->id."_".$file3->getClientOriginalName());
 			}
-			$this->log_aktivitas('Create', 534);
+			$this->log_aktivitas('Create', 626);
 		}
 	}
 
 	public function delete(Request $request)
 	{
 		DB::table('bkt_02030202_pelatihan')->where('kode', $request->input('kode'))->delete();
-        $this->log_aktivitas('Delete', 536);
-        return Redirect::to('/hrm/profil/user/pelatihan');
+        $this->log_aktivitas('Delete', 628);
+        return Redirect::to('/hrm/profil/pelatihan');
     }
 
     public function log_aktivitas($aktifitas, $detil)
@@ -259,8 +258,8 @@ class bk020303Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 			'kode_user' => Auth::user()->id,
 			'kode_apps' => 2,
-			'kode_modul' => 14,
-			'kode_menu' => 169,
+			'kode_modul' => 16,
+			'kode_menu' => 201,
 			'kode_menu_detil' => $detil,
 			'aktifitas' => $aktifitas,
 			'deskripsi' => $aktifitas

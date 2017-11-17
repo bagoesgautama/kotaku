@@ -73,7 +73,7 @@ class HomeController extends Controller
 	public function inbox()
 	{
 		$data['user'] = Auth::user();
-		$data['pesan'] = DB::select('select a.kode,a.text_pesan,a.tgl_pesan_masuk,concat(b.nama_depan," ",b.nama_belakang) nama from bkt_02030205_pesan a,bkt_02010111_user b where a.kode_user='.$data['user']->id.' and a.kode_user_pengirim=b.id and status=0 order by a.kode desc');
+		$data['pesan'] = DB::select('select a.kode,a.text_pesan,a.tgl_pesan_masuk,concat(b.nama_depan," ",b.nama_belakang) nama from bkt_02030205_pesan a left join bkt_02010111_user b on a.kode_user_pengirim=b.id where a.kode_user='.$data['user']->id.' and status=0 order by a.kode desc');
 		echo json_encode($data);
 	}
 

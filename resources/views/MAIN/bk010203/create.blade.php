@@ -57,38 +57,6 @@
 									</select>
                                 </div>
                             </div>
-                            <!--<div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Propinsi</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode-prop-input" name="kode-prop-input" class="form-control select2" size="1" required>
-                                        <option value>Please select</option>
-                                        @foreach ($kode_prop_list as $kpl)
-                                            <option value="{{$kpl->kode}}" {!! $kode_prop==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">KMW</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" required>
-                                        <option value>Please select</option>
-                                        @if ($kode_kmw_list!=null)
-                                        @foreach ($kode_kmw_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Jenis Kegiatan</label>
-                                <div class="col-sm-6">
-                                    <select id="jns-kegiatan-input" name="jns-kegiatan-input" class="form-control" size="1" required>
-                                        <option value="2.2" {!! $jenis_kegiatan=='2.2' ? 'selected':'' !!}>Tingkat Propinsi</option>
-                                    </select>
-                                </div>
-                            </div>-->
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pembentukan</label>
                                 <div class="col-sm-6">
@@ -113,13 +81,13 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_p}}" maxlength="11" required data-bv-callback="true" data-bv-callback-message="anggota pembentuk pria & wanita tidak boleh 0" data-bv-callback-callback="check" min="0">
+                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_p}}" maxlength="11" data-bv-callback="true" data-bv-callback-message="anggota pembentuk pria & wanita tidak boleh 0" data-bv-callback-callback="check" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_w}}" maxlength="11" required data-bv-callback="true" data-bv-callback-message="anggota pembentuk pria & wanita tidak boleh 0" data-bv-callback-callback="check" min="0">
+                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_w}}" maxlength="11" data-bv-callback="true" data-bv-callback-message="anggota pembentuk pria & wanita tidak boleh 0" data-bv-callback-callback="check" min="0" required>
                                 </div>
                             </div>
 							<div class="form-group">
@@ -167,7 +135,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Nilai Dana Operasional</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="dana-ops-input" name="dana-ops-input" class="form-control" placeholder="Jumlah" value="{{$nilai_dana_ops}}">
+                                    <input type="number" id="dana-ops-input" name="dana-ops-input" class="form-control" placeholder="Jumlah" value="{{$nilai_dana_ops}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">

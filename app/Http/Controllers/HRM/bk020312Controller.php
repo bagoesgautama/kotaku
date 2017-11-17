@@ -32,7 +32,7 @@ class bk020312Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==179)
+				if($item->kode_menu==199)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 		}else{
@@ -71,7 +71,7 @@ class bk020312Controller extends Controller
 		if($upload3 == true){
 			$file3->move(public_path('/uploads/profil'), $user->id."_".$file3->getClientOriginalName());
 		}
-		$this->log_aktivitas('Update Profil', 552);
+		$this->log_aktivitas('Update Profil', 619);
 		echo "true";
 	}
 
@@ -80,8 +80,8 @@ class bk020312Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 			'kode_user' => Auth::user()->id,
 			'kode_apps' => 2,
-			'kode_modul' => 14,
-			'kode_menu' => 179,
+			'kode_modul' => 16,
+			'kode_menu' => 199,
 			'kode_menu_detil' => $detil,
 			'aktifitas' => $aktifitas,
 			'deskripsi' => $aktifitas

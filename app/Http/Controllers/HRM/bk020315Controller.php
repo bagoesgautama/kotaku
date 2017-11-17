@@ -31,12 +31,12 @@ class bk020315Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==167)
+				if($item->kode_menu==227)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
-				$this->log_aktivitas('View', 561);
+				$this->log_aktivitas('View', 717);
 				return view('HRM/bk020315/index',$data);
 			}
 			else {
@@ -102,8 +102,8 @@ class bk020315Controller extends Controller
 				else
 					$nestedData['sanksi'] = 'Blacklist';
 				$edit =  $post->kode;
-				$url_edit="/hrm/management/sidang/create?kode=".$edit;
-				$url_delete="/hrm/management/sidang/delete?kode=".$edit;
+				$url_edit="/hrm/management_personil/sidang/create?kode=".$edit;
+				$url_delete="/hrm/management_personil/sidang/delete?kode=".$edit;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['user'] = $post->user;
 				$nestedData['tgl_sidang'] = $post->tgl_sidang;
@@ -111,16 +111,16 @@ class bk020315Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==167)
+						if($item->kode_menu==227)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
 
 				$option = '';
-				if(!empty($detil['563'])){
+				if(!empty($detil['719'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['564']) && empty($nestedData['verifikator']) && $user->id !=$post->kode_personil){
+				if(!empty($detil['720']) && empty($nestedData['verifikator']) && $user->id !=$post->kode_personil){
 					$option .= "&emsp;<a href='#' title='Delete' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				}
 				$nestedData['option'] = $option;
@@ -145,7 +145,7 @@ class bk020315Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==167)
+				if($item->kode_menu==227)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['username'] = $user->name;
@@ -157,7 +157,7 @@ class bk020315Controller extends Controller
 				$data['user_list']=DB::select('select id,user_name from bkt_02010111_user where status_personil=2 and
 				id in (select id from bkt_02010111_user where kode_role=(select kode from bkt_02010102_role where kode_role_upper='.$user->kode_role.'))');
 			}
-			if($data['kode']!=null && !empty($data['detil']['563'])){
+			if($data['kode']!=null && !empty($data['detil']['719'])){
 				$rowData = DB::select('select * from bkt_02030209_hsl_sidang_ke where kode='.$data['kode']);
 				$data['kode_personil'] = $rowData[0]->kode_personil;
 				$data['tgl_sidang'] = $rowData[0]->tgl_sidang;
@@ -170,7 +170,7 @@ class bk020315Controller extends Controller
 				$data['diver_tgl'] = $rowData[0]->diver_tgl;
 				$data['diver_oleh'] = $rowData[0]->diver_oleh;
 				return view('HRM/bk020315/create',$data);
-			}else if($data['kode']==null && !empty($data['detil']['562'])){
+			}else if($data['kode']==null && !empty($data['detil']['718'])){
 				$data['kode_personil'] = null;
 				$data['tgl_sidang'] = null;
 				$data['summary_sdg'] = null;
@@ -248,7 +248,7 @@ class bk020315Controller extends Controller
 			if($upload3 == true){
 				$file3->move(public_path('/uploads/sidang'), $user->id."_".$file3->getClientOriginalName());
 			}
-			$this->log_aktivitas('Update', 563);
+			$this->log_aktivitas('Update', 719);
 
 		}else{
 			DB::table('bkt_02030209_hsl_sidang_ke')->insert(
@@ -273,7 +273,7 @@ class bk020315Controller extends Controller
 			if($upload3 == true){
 				$file3->move(public_path('/uploads/sidang'), $user->id."_".$file3->getClientOriginalName());
 			}
-			$this->log_aktivitas('Create', 562);
+			$this->log_aktivitas('Create', 718);
 		}
 		DB::table('bkt_02030205_pesan')->insert(
 			['kode_user' => $request->input('kode_personil-input'),
@@ -287,8 +287,8 @@ class bk020315Controller extends Controller
 	public function delete(Request $request)
 	{
 		DB::table('bkt_02030209_hsl_sidang_ke')->where('kode', $request->input('kode'))->delete();
-        $this->log_aktivitas('Delete', 564);
-        return Redirect::to('/hrm/management/sidang');
+        $this->log_aktivitas('Delete', 720);
+        return Redirect::to('/hrm/management_personil/sidang');
     }
 
     public function log_aktivitas($aktifitas, $detil)
@@ -297,7 +297,7 @@ class bk020315Controller extends Controller
 			'kode_user' => Auth::user()->id,
 			'kode_apps' => 2,
 			'kode_modul' => 14,
-			'kode_menu' => 167,
+			'kode_menu' => 227,
 			'kode_menu_detil' => $detil,
 			'aktifitas' => $aktifitas,
 			'deskripsi' => $aktifitas

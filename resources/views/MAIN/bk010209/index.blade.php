@@ -64,7 +64,7 @@
                                 <th>Anggota Pria</th>
                                 <th>Anggota Wanita</th>
 								<th>Total Anggota</th>
-                                <th>option</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
