@@ -119,7 +119,7 @@ function test(id){
 			type: 'post',
 			processData: false,
             contentType: false,
-			"url": "/hrm/profil/user/profil",
+			"url": "/hrm/profil/user",
 			data: form_data,
 			beforeSend: function (){
 			    $("#submit").prop('disabled', true);
@@ -127,7 +127,7 @@ function test(id){
 			success: function (e) {
 				if(e=="true"){
 					alert("profil berhasil diganti");
-					window.location.href = "/hrm/profil/user/profil";
+					window.location.href = "/hrm/profil/user";
 				}else{
 					alert(e);
 					$("#submit").prop('disabled', false);

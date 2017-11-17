@@ -31,12 +31,12 @@ class bk020308Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==174)
+				if($item->kode_menu==226)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
-				$this->log_aktivitas('View', 546);
+				$this->log_aktivitas('View', 713);
 				return view('HRM/bk020308/index',$data);
 			}
 			else {
@@ -78,26 +78,26 @@ class bk020308Controller extends Controller
 			(select u.id
 		    from bkt_02010111_user u,
 		       (select kode_level from bkt_02010111_user where id = "'.$user->id.'") r
-		    where (u.kode_role, 
-				case when r.kode_level = 0 then "x" else u.kode_kmp end, 
-				case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
+		    where (u.kode_role,
+				case when r.kode_level = 0 then "x" else u.kode_kmp end,
+				case when r.kode_level in (0,1) then "x" else u.kode_kmw end,
 				case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
 				case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
 				case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
 				)
 		    in (
-				select 
+				select
 				x.kode_role_lower,
-				   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
-				   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
+				   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp,
+				   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw,
 				   case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
 				   case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
 				   case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
 			  	from (
-					select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
-						   a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
+					select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw,
+						   a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota,
 						   ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
-					  from bkt_02010111_user a 
+					  from bkt_02010111_user a
 					  join bkt_02010102_role b on a.kode_role = b.kode
 					  join bkt_02010101_role_level c on b.kode_level = c.kode
 					  left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
@@ -107,7 +107,7 @@ class bk020308Controller extends Controller
 					  left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
 					  left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
 					 where a.id = "'.$user->id.'"
-				   ) x 
+				   ) x
 				))';
 			$totalData = DB::select('select count(1) cnt from bkt_02010111_user a,bkt_02010102_role b,bkt_02010101_role_level c
 				where a.kode_role=b.kode
@@ -117,26 +117,26 @@ class bk020308Controller extends Controller
 			(select u.id
 		    from bkt_02010111_user u,
 		       (select kode_level from bkt_02010111_user where id = "'.$user->id.'") r
-		    where (u.kode_role, 
-				case when r.kode_level = 0 then "x" else u.kode_kmp end, 
-				case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
+		    where (u.kode_role,
+				case when r.kode_level = 0 then "x" else u.kode_kmp end,
+				case when r.kode_level in (0,1) then "x" else u.kode_kmw end,
 				case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
 				case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
 				case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
 				)
 		    in (
-				select 
+				select
 				x.kode_role_lower,
-				   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
-				   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
+				   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp,
+				   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw,
 				   case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
 				   case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
 				   case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
 			  	from (
-					select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
-						   a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
+					select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw,
+						   a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota,
 						   ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
-					  from bkt_02010111_user a 
+					  from bkt_02010111_user a
 					  join bkt_02010102_role b on a.kode_role = b.kode
 					  join bkt_02010101_role_level c on b.kode_level = c.kode
 					  left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
@@ -146,7 +146,7 @@ class bk020308Controller extends Controller
 					  left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
 					  left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
 					 where a.id = "'.$user->id.'"
-				   ) x 
+				   ) x
 				))');
 		}
 
@@ -170,7 +170,7 @@ class bk020308Controller extends Controller
 			foreach ($posts as $post)
 			{
 				$edit =  $post->id;
-				$url_edit="/hrm/management/user/blacklist/create?id=".$edit;
+				$url_edit="/hrm/management_personil/blacklist/create?id=".$edit;
 				$nestedData['id'] = $post->id;
 				$nestedData['user_name'] = $post->user_name;
 				$nestedData['nama_depan'] = $post->nama_depan;
@@ -183,15 +183,15 @@ class bk020308Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==174)
+						if($item->kode_menu==226)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
 
 				$option = '';
-				//if(!empty($detil['535'])){
+				if(!empty($detil['715'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='Blacklist' ><span class='fa fa-fw fa-edit'></span></a>";
-				//}
+				}
 				//if(!empty($detil['536'])){
 					//$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				//}
@@ -217,12 +217,12 @@ class bk020308Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==174)
+				if($item->kode_menu==226)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['username'] = $user->name;
 			$data['id']=$request->input('id');
-			if($data['id']!=null && !empty($data['detil']['546'])){
+			if($data['id']!=null && !empty($data['detil']['715'])){
 				$rowData = DB::select('select * from bkt_02010111_user where id='.$data['id']);
 				$data['user_name'] = $rowData[0]->user_name;
 				$data['nama_depan'] = $rowData[0]->nama_depan;
@@ -263,7 +263,7 @@ class bk020308Controller extends Controller
 					'blacklist_by' => null
 					]);
 			}
-			$this->log_aktivitas('Update', 546);
+			$this->log_aktivitas('Update', 715);
 		}
 	}
 
@@ -273,7 +273,7 @@ class bk020308Controller extends Controller
 			'kode_user' => Auth::user()->id,
 			'kode_apps' => 2,
 			'kode_modul' => 14,
-			'kode_menu' => 174,
+			'kode_menu' => 226,
 			'kode_menu_detil' => $detil,
 			'aktifitas' => $aktifitas,
 			'deskripsi' => $aktifitas

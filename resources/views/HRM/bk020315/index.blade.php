@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                Managemen Personil / User / Sidang etik
+                Managemen Personil / Sidang etik
             </li>
         </ul>
     </div>
@@ -36,12 +36,10 @@
                 <div class="panel-title pull-left">
                     <b>Sidang Etik Index</b>
                 </div>
-				<div class="tools pull-right">
-					<b>bk020307 Index</b>
-				</div>
-                @if( ! empty($detil['562']))
+                @if( ! empty($detil['718']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management/sidang/create">Create</a>
+					<b>bk020307 Index</b>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management_personil/sidang/create">Create</a>
 				</div>
                 @endif
             </div>
@@ -72,7 +70,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/management/sidang",
+                     "url": "/hrm/management_personil/sidang",
                      "dataType": "json",
                      "type": "POST"
                    },

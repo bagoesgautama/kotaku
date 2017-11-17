@@ -16,7 +16,7 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/hrm/management/evaluasi">
+				<a href="/hrm/management_diri/evaluasi">
 	                Managemen Personil / User / Evaluasi
 				</a>
             </li>
@@ -80,7 +80,7 @@
 							</div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/hrm/management/peringatan" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/hrm/management_diri/peringatan" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
 									@if( $id!=$kode_personil)
@@ -118,14 +118,14 @@
 			type: 'post',
 			processData: false,
             contentType: false,
-			"url": "/hrm/management/evaluasi/create",
+			"url": "/hrm/management_diri/evaluasi/create",
 			data: form_data,
 			beforeSend: function (){
 			    $("#submit").prop('disabled', true);
 			},
 			success: function () {
 				alert('From Submitted.');
-				window.location.href = "/hrm/management/evaluasi";
+				window.location.href = "/hrm/management_diri/evaluasi";
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);

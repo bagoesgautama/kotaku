@@ -109,7 +109,7 @@
 			modul_id=modul.val();
 		    $.ajax({
 		        type: "GET",
-		        url: "/hrm/admin/role_akses/show",
+		        url: "/hrm/admin/manajemen_role/show",
 		        data: {
 		            modul: modul.val(),
 		            role: role.val()
@@ -168,7 +168,7 @@
 			if(data.length>0){
 				$.ajax({
 			        type: "post",
-			        url: "/hrm/admin/role_akses",
+			        url: "/hrm/admin/manajemen_role",
 					data: JSON.stringify(data),
 					beforeSend: function(){
 						$("#imgSpinner1").show();

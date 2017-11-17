@@ -31,12 +31,12 @@ class bk020314Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==166)
+				if($item->kode_menu==211)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
-				$this->log_aktivitas('View', 557);
+				$this->log_aktivitas('View', 661);
 				return view('HRM/bk020314/index',$data);
 			}
 			else {
@@ -67,30 +67,30 @@ class bk020314Controller extends Controller
 		}else{
 			$query='select a.*,b.user_name verifikator,c.user_name user
 				from bkt_02030208_eval_kerja a left join bkt_02010111_user b on a.diver_oleh=b.id,bkt_02010111_user c
-				where a.kode_personil=c.id 
+				where a.kode_personil=c.id
 				and c.id in (
 							select u.id
 								from bkt_02010111_user u,
 								    (select kode_level from bkt_02010111_user where user_name = "'.$user->user_name.'") r
-								where (u.kode_role, 
-									case when r.kode_level = 0 then "x" else u.kode_kmp end, 
-									case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
+								where (u.kode_role,
+									case when r.kode_level = 0 then "x" else u.kode_kmp end,
+									case when r.kode_level in (0,1) then "x" else u.kode_kmw end,
 									case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
 									case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
 									case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
 									)
 								in (
 									select x.kode_role_lower,
-									   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
-									   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
+									   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp,
+									   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw,
 									   case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
 									   case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
 									   case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
 									from (
-										select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
-											a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
+										select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw,
+											a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota,
 												   ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
-										from bkt_02010111_user a 
+										from bkt_02010111_user a
 											join bkt_02010102_role b on a.kode_role = b.kode
 											join bkt_02010101_role_level c on b.kode_level = c.kode
 											left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
@@ -100,34 +100,34 @@ class bk020314Controller extends Controller
 											left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
 											left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
 										where a.user_name = "'.$user->user_name.'"
-										) x 
+										) x
 									))';
-			$totalData = DB::select('select count(1) cnt from bkt_02030208_eval_kerja a 
+			$totalData = DB::select('select count(1) cnt from bkt_02030208_eval_kerja a
 										left join bkt_02010111_user b on a.diver_oleh=b.id,bkt_02010111_user c
-									where a.kode_personil=c.id 
+									where a.kode_personil=c.id
 									and c.id in (
 												select u.id
 													from bkt_02010111_user u,
 													    (select kode_level from bkt_02010111_user where user_name = "'.$user->user_name.'") r
-													where (u.kode_role, 
-														case when r.kode_level = 0 then "x" else u.kode_kmp end, 
-														case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
+													where (u.kode_role,
+														case when r.kode_level = 0 then "x" else u.kode_kmp end,
+														case when r.kode_level in (0,1) then "x" else u.kode_kmw end,
 														case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
 														case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
 														case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
 														)
 													in (
 														select x.kode_role_lower,
-														   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
-														   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
+														   case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp,
+														   case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw,
 														   case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
 														   case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
 														   case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
 														from (
-															select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
-																a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
+															select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw,
+																a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota,
 																	   ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
-															from bkt_02010111_user a 
+															from bkt_02010111_user a
 																join bkt_02010102_role b on a.kode_role = b.kode
 																join bkt_02010101_role_level c on b.kode_level = c.kode
 																left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
@@ -137,7 +137,7 @@ class bk020314Controller extends Controller
 																left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
 																left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
 															where a.user_name = "'.$user->user_name.'"
-															) x 
+															) x
 														))');
 		}
 		$totalFiltered = $totalData[0]->cnt;
@@ -174,8 +174,8 @@ class bk020314Controller extends Controller
 				}
 
 				$edit =  $post->kode;
-				$url_edit="/hrm/management/evaluasi/create?kode=".$edit;
-				$url_delete="/hrm/management/evaluasi/delete?kode=".$edit;
+				$url_edit="/hrm/management_diri/evaluasi/create?kode=".$edit;
+				$url_delete="/hrm/management_diri/evaluasi/delete?kode=".$edit;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['user'] = $post->user;
 				$nestedData['period_akhir'] = $post->period_akhir;
@@ -185,16 +185,16 @@ class bk020314Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==166)
+						if($item->kode_menu==211)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
 
 				$option = '';
-				if(!empty($detil['559'])){
+				if(!empty($detil['663'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['560']) && empty($nestedData['diver_oleh']) && $user->id !=$post->kode_personil){
+				if(!empty($detil['664']) && empty($nestedData['diver_oleh']) && $user->id !=$post->kode_personil){
 					$option .= "&emsp;<a href='#' title='Delete' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				}
 				$nestedData['option'] = $option;
@@ -219,7 +219,7 @@ class bk020314Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==166)
+				if($item->kode_menu==211)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['username'] = $user->name;
@@ -231,7 +231,7 @@ class bk020314Controller extends Controller
 				$data['user_list']=DB::select('select id,user_name from bkt_02010111_user where status_personil=2 and
 				id in (select id from bkt_02010111_user where kode_role=(select kode from bkt_02010102_role where kode_role_upper='.$user->kode_role.'))');
 			}
-			if($data['kode']!=null && !empty($data['detil']['559'])){
+			if($data['kode']!=null && !empty($data['detil']['663'])){
 				$rowData = DB::select('select * from bkt_02030208_eval_kerja where kode='.$data['kode']);
 				$data['periode_awal'] = $rowData[0]->periode_awal;
 				$data['period_akhir'] = $rowData[0]->period_akhir;
@@ -241,7 +241,7 @@ class bk020314Controller extends Controller
 				$data['diver_tgl'] = $rowData[0]->diver_tgl;
 				$data['diver_oleh'] = $rowData[0]->diver_oleh;
 				return view('HRM/bk020314/create',$data);
-			}else if($data['kode']==null && !empty($data['detil']['558'])){
+			}else if($data['kode']==null && !empty($data['detil']['662'])){
 				$data['periode_awal'] = null;
 				$data['period_akhir'] = null;
 				$data['kode_personil'] = null;
@@ -275,7 +275,7 @@ class bk020314Controller extends Controller
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
-			$this->log_aktivitas('Update', 559);
+			$this->log_aktivitas('Update', 663);
 
 		}else{
 			DB::table('bkt_02030208_eval_kerja')->insert(
@@ -288,7 +288,7 @@ class bk020314Controller extends Controller
 				'diver_oleh' => $request->input('diver_oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
-			$this->log_aktivitas('Create', 558);
+			$this->log_aktivitas('Create', 662);
 		}
 		DB::table('bkt_02030205_pesan')->insert(
 			['kode_user' => $request->input('kode_personil-input'),
@@ -302,8 +302,8 @@ class bk020314Controller extends Controller
 	public function delete(Request $request)
 	{
 		DB::table('bkt_02030208_eval_kerja')->where('kode', $request->input('kode'))->delete();
-        $this->log_aktivitas('Delete', 560);
-        return Redirect::to('/hrm/management/evaluasi');
+        $this->log_aktivitas('Delete', 664);
+        return Redirect::to('/hrm/management_diri/evaluasi');
     }
 
     public function log_aktivitas($aktifitas, $detil)
@@ -311,8 +311,8 @@ class bk020314Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 			'kode_user' => Auth::user()->id,
 			'kode_apps' => 2,
-			'kode_modul' => 14,
-			'kode_menu' => 166,
+			'kode_modul' => 13,
+			'kode_menu' => 211,
 			'kode_menu_detil' => $detil,
 			'aktifitas' => $aktifitas,
 			'deskripsi' => $aktifitas

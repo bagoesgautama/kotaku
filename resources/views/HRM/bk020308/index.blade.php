@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                Managemen User / Blacklist
+                Managemen Personil / Blacklist
             </li>
         </ul>
     </div>
@@ -37,7 +37,7 @@
                     <b>Blacklist Index</b>
                 </div>
 				<div class="tools pull-right">
-					<b>bk020307 Index</b>
+					<b>bk020308 Index</b>
 				</div>
             </div>
             <div class="panel-body">
@@ -68,7 +68,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-	             "url": "/hrm/management/user/blacklist",
+	             "url": "/hrm/management_personil/blacklist",
 	             "dataType": "json",
 	             "type": "POST"
 	           },

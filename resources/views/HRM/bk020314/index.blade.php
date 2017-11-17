@@ -36,12 +36,10 @@
                 <div class="panel-title pull-left">
                     <b>Evaluasi Index</b>
                 </div>
-				<div class="tools pull-right">
-					<b>bk020307 Index</b>
-				</div>
-                @if( ! empty($detil['558']))
+				@if( ! empty($detil['662']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management/evaluasi/create">Create</a>
+					<b>bk020307 Index</b>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management_diri/evaluasi/create">Create</a>
 				</div>
                 @endif
             </div>
@@ -73,7 +71,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/management/evaluasi",
+                     "url": "/hrm/management_diri/evaluasi",
                      "dataType": "json",
                      "type": "POST"
                    },
