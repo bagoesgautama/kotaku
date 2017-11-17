@@ -75,12 +75,20 @@ class LoginController extends Controller
 				'password' => $request->input('password')
 			);
 			if (Auth::attempt(['user_name'=> $request->input('email'), 'password' => $request->input('password')])){
-				DB::table('bkt_02030210_log_login')->insert(['kode_user' => Auth::user()->id,'dt_login'  => new \DateTime,'alamat_ip'=> $request->ip()]);
-			    return Redirect::to('');
+				$user=Auth::user();
+				if($user->status_personil==2){
+					DB::table('bkt_02030210_log_login')->insert(['kode_user' => $user->id,'dt_login'  => new \DateTime,'alamat_ip'=> $request->ip()]);
+				    return Redirect::to('');
+				}else
+					return Redirect::to('logout');
 			}
 			elseif (Auth::attempt(['email'=> $request->input('email'), 'password' => $request->input('password')])) {
-				DB::table('bkt_02030210_log_login')->insert(['kode_user' => Auth::user()->id,'dt_login'  => new \DateTime,'alamat_ip'=> $request->ip()]);
-			    return Redirect::to('');
+				$user=Auth::user();
+				if($user->status_personil==2){
+					DB::table('bkt_02030210_log_login')->insert(['kode_user' => $user->id,'dt_login'  => new \DateTime,'alamat_ip'=> $request->ip()]);
+				    return Redirect::to('');
+				}else
+					return Redirect::to('logout');
 			}
 			else
 			{

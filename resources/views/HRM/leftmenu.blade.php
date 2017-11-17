@@ -27,9 +27,16 @@
 			        </a>
 			    </li>
 			@endif
-			@if( ! empty($menu['159']))
+			@if( ! empty($menu['231']))
+				<li {!! (Request::is( 'hrm/admin/manajemen_user*')? 'class="active"': "") !!}>
+			        <a href="/hrm/admin/manajemen_user">
+			            <span class="mm-text ">Manajemen User</span>
+			        </a>
+			    </li>
+			@endif
+			@if( ! empty($menu['232']))
 			<li {!! (Request::is( 'hrm/admin/activity_log')? 'class="active"': "") !!}>
-		        <a href="/hrm/activity_log">
+		        <a href="/hrm/admin/activity_log">
 		            <span class="mm-text ">Web Activity Log</span>
 		        </a>
 			</li>
@@ -69,13 +76,6 @@
 			<li {!! (Request::is( 'hrm/profil/penghargaan*')? 'class="active"': "") !!}>
 				<a href="/hrm/profil/penghargaan">
 					<span class="mm-text ">Data Piagam Penghargaan</span>
-				</a>
-			</li>
-			@endif
-			@if( ! empty($menu['203']))
-			<li {!! (Request::is( 'hrm/profil/penghargaan*')? 'class="active"': "") !!}>
-				<a href="/hrm/profil/penghargaan">
-					<span class="mm-text ">Pengalaman Kerja KOTAKU</span>
 				</a>
 			</li>
 			@endif
@@ -125,22 +125,22 @@
 			</li>
 			@endif
 			@if( ! empty($menu['209']))
-			<li {!! (Request::is( 'hrm/profil/user/profil*')? 'class="active"': "") !!}>
-				<a href="/hrm/profil/user/profil">
+			<li {!! (Request::is( 'hrm/management_diri/mutasi*')? 'class="active"': "") !!}>
+				<a href="/hrm/management_diri/mutasi">
 					<span class="mm-text ">Mutasi Diri</span>
 				</a>
 			</li>
 			@endif
 			@if( ! empty($menu['210']))
-			<li {!! (Request::is( 'hrm/profil/user/profil*')? 'class="active"': "") !!}>
-				<a href="/hrm/profil/user/profil">
+			<li {!! (Request::is( 'hrm/management_diri/demosi*')? 'class="active"': "") !!}>
+				<a href="/hrm/management_diri/demosi">
 					<span class="mm-text ">Demosi Diri</span>
 				</a>
 			</li>
 			@endif
 			@if( ! empty($menu['229']))
-			<li {!! (Request::is( 'hrm/profil/user/profil*')? 'class="active"': "") !!}>
-				<a href="/hrm/profil/user/profil">
+			<li {!! (Request::is( 'hrm/management_diri/promosi*')? 'class="active"': "") !!}>
+				<a href="/hrm/management_diri/promosi">
 					<span class="mm-text ">Promosi Diri</span>
 				</a>
 			</li>

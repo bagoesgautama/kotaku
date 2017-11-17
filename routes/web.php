@@ -60,14 +60,36 @@ Route::get('/inbox', 'HomeController@inbox');
  */
 Route::get('/hrm', 'HomeController@hrm');
 
-//activity log
-Route::get('/hrm/activity_log', 'HRM\bk020201Controller@index');
-Route::post('hrm/activity_log', 'HRM\bk020201Controller@post');
-Route::get('/hrm/activity_log/create', 'HRM\bk020201Controller@create');
-Route::post('/hrm/activity_log/create', 'HRM\bk020201Controller@post_create');
-Route::get('/hrm/activity_log/delete', 'HRM\bk020201Controller@delete');
-
 //management
+Route::get('/hrm/admin/role', 'HRM\bk020102Controller@index');
+Route::post('hrm/admin/role', 'HRM\bk020102Controller@post');
+Route::get('/hrm/admin/role/create', 'HRM\bk020102Controller@create');
+Route::post('/hrm/admin/role/create', 'HRM\bk020102Controller@post_create');
+Route::get('/hrm/admin/role/delete', 'HRM\bk020102Controller@delete');
+
+Route::get('/hrm/admin/role_level', 'HRM\bk020101Controller@index');
+Route::post('hrm/admin/role_level', 'HRM\bk020101Controller@post');
+Route::get('/hrm/admin/role_level/create', 'HRM\bk020101Controller@create');
+Route::post('/hrm/admin/role_level/create', 'HRM\bk020101Controller@post_create');
+Route::get('/hrm/admin/role_level/delete', 'HRM\bk020101Controller@delete');
+
+Route::get('/hrm/admin/manajemen_role', 'HRM\bk020109Controller@index');
+Route::get('/hrm/admin/manajemen_role/show', 'HRM\bk020109Controller@show');
+Route::post('/hrm/admin/manajemen_role', 'HRM\bk020109Controller@post');
+
+Route::get('/hrm/admin/manajemen_user', 'HRM\bk020111Controller@index');
+Route::get('/hrm/admin/manajemen_user/select', 'HRM\bk020111Controller@select');
+Route::post('hrm/admin/manajemen_user', 'HRM\bk020111Controller@post');
+Route::get('/hrm/admin/manajemen_user/create', 'HRM\bk020111Controller@create');
+Route::post('/hrm/admin/manajemen_user/create', 'HRM\bk020111Controller@post_create');
+Route::get('/hrm/admin/manajemen_user/delete', 'HRM\bk020111Controller@delete');
+
+Route::get('/hrm/admin/activity_log', 'HRM\bk020201Controller@index');
+Route::post('hrm/admin/activity_log', 'HRM\bk020201Controller@post');
+Route::get('/hrm/admin/activity_log/create', 'HRM\bk020201Controller@create');
+Route::post('/hrm/admin/activity_log/create', 'HRM\bk020201Controller@post_create');
+Route::get('/hrm/admin/activity_log/delete', 'HRM\bk020201Controller@delete');
+
 Route::get('/hrm/management_diri/aktivasi', 'HRM\bk020302Controller@index');
 Route::post('/hrm/management_diri/aktivasi', 'HRM\bk020302Controller@post');
 
@@ -108,13 +130,6 @@ Route::post('/hrm/profil/user/perubahan/reject', 'HRM\bk020306Controller@reject'
 Route::get('/hrm/profil/password', 'HRM\bk020307Controller@index');
 Route::post('hrm/profil/password', 'HRM\bk020307Controller@post');
 
-Route::get('/hrm/management/registrasi_manual', 'HRM\bk020111Controller@index');
-Route::get('/hrm/management/registrasi_manual/select', 'HRM\bk020111Controller@select');
-Route::post('hrm/management/registrasi_manual', 'HRM\bk020111Controller@post');
-Route::get('/hrm/management/registrasi_manual/create', 'HRM\bk020111Controller@create');
-Route::post('/hrm/management/registrasi_manual/create', 'HRM\bk020111Controller@post_create');
-Route::get('/hrm/management/registrasi_manual/delete', 'HRM\bk020111Controller@delete');
-
 Route::get('/hrm/management_personil/persetujuan/pendaftaran', 'HRM\bk020316Controller@index');
 Route::post('hrm/management_personil/persetujuan/pendaftaran', 'HRM\bk020316Controller@post');
 Route::get('/hrm/management_personil/persetujuan/pendaftaran/create', 'HRM\bk020316Controller@create');
@@ -151,6 +166,24 @@ Route::get('/hrm/management_personil/peringatan/create', 'HRM\bk020313Controller
 Route::post('/hrm/management_personil/peringatan/create', 'HRM\bk020313Controller@post_create');
 Route::get('/hrm/management_personil/peringatan/delete', 'HRM\bk020313Controller@delete');
 
+Route::get('/hrm/management_diri/mutasi', 'HRM\bk020202Controller@index');
+Route::post('hrm/management_diri/mutasi', 'HRM\bk020202Controller@post');
+Route::get('/hrm/management_diri/mutasi/create', 'HRM\bk020202Controller@create');
+Route::post('/hrm/management_diri/mutasi/create', 'HRM\bk020202Controller@post_create');
+Route::get('/hrm/management_diri/mutasi/delete', 'HRM\bk020202Controller@delete');
+
+Route::get('/hrm/management_diri/demosi', 'HRM\bk020203Controller@index');
+Route::post('hrm/management_diri/demosi', 'HRM\bk020203Controller@post');
+Route::get('/hrm/management_diri/demosi/create', 'HRM\bk020203Controller@create');
+Route::post('/hrm/management_diri/demosi/create', 'HRM\bk020203Controller@post_create');
+Route::get('/hrm/management_diri/demosi/delete', 'HRM\bk020203Controller@delete');
+
+Route::get('/hrm/management_diri/promosi', 'HRM\bk020204Controller@index');
+Route::post('hrm/management_diri/promosi', 'HRM\bk020204Controller@post');
+Route::get('/hrm/management_diri/promosi/create', 'HRM\bk020204Controller@create');
+Route::post('/hrm/management_diri/promosi/create', 'HRM\bk020204Controller@post_create');
+Route::get('/hrm/management_diri/promosi/delete', 'HRM\bk020204Controller@delete');
+
 Route::get('/hrm/management_diri/evaluasi', 'HRM\bk020314Controller@index');
 Route::post('hrm/management_diri/evaluasi', 'HRM\bk020314Controller@post');
 Route::get('/hrm/management_diri/evaluasi/create', 'HRM\bk020314Controller@create');
@@ -165,35 +198,6 @@ Route::get('/hrm/management_personil/sidang/delete', 'HRM\bk020315Controller@del
 
 Route::get('/hrm/report/realisasi_kuota_personil/kmp', 'HRM\bk020401Controller@index');
 Route::post('hrm/report/realisasi_kuota_personil/kmp', 'HRM\bk020401Controller@post');
-
-//get html form data
-Route::get('/hrm/admin/role', 'HRM\bk020102Controller@index');
-//get data for datatable
-Route::post('hrm/admin/role', 'HRM\bk020102Controller@post');
-//get html for form CRUD
-Route::get('/hrm/admin/role/create', 'HRM\bk020102Controller@create');
-//insert or update data
-Route::post('/hrm/admin/role/create', 'HRM\bk020102Controller@post_create');
-//delete data
-Route::get('/hrm/admin/role/delete', 'HRM\bk020102Controller@delete');
-
-//role_level form CRUD
-//get html form data
-Route::get('/hrm/admin/role_level', 'HRM\bk020101Controller@index');
-//get data for datatable
-Route::post('hrm/admin/role_level', 'HRM\bk020101Controller@post');
-//get html for form CRUD
-Route::get('/hrm/admin/role_level/create', 'HRM\bk020101Controller@create');
-//insert or update data
-Route::post('/hrm/admin/role_level/create', 'HRM\bk020101Controller@post_create');
-//delete data
-Route::get('/hrm/admin/role_level/delete', 'HRM\bk020101Controller@delete');
-
-//role akses form CRUD
-Route::get('/hrm/admin/manajemen_role', 'HRM\bk020109Controller@index');
-Route::get('/hrm/admin/manajemen_role/show', 'HRM\bk020109Controller@show');
-Route::post('/hrm/admin/manajemen_role', 'HRM\bk020109Controller@post');
-
 
 /**
  *
