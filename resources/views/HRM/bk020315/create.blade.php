@@ -17,8 +17,8 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/hrm/management/sidang">
-	                Managemen Personil / User / Sidang Etik
+				<a href="/hrm/management_personil/sidang">
+	                Managemen Personil / Sidang Etik
 				</a>
             </li>
             <li class="next">
@@ -112,7 +112,7 @@
 				            </div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/hrm/management/sidang" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/hrm/management_personil/sidang" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
 									@if( $id!=$kode_personil)
@@ -151,14 +151,14 @@
 			type: 'post',
 			processData: false,
             contentType: false,
-			"url": "/hrm/management/sidang/create",
+			"url": "/hrm/management_personil/sidang/create",
 			data: form_data,
 			beforeSend: function (){
 			    $("#submit").prop('disabled', true);
 			},
 			success: function () {
 				alert('From Submitted.');
-				window.location.href = "/hrm/management/sidang";
+				window.location.href = "/hrm/management_personil/sidang";
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);

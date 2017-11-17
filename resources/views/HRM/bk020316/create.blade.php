@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/hrm/management/persetujuan">
+                <a href="/hrm/management_personil/persetujuan/pendaftaran">
                     Manajemen Personil / Persetujuan Pendaftaran Personil
                 </a>
             </li>
@@ -360,7 +360,7 @@
                     <button type="submit" id="tolak" class="btn btn-effect-ripple btn-danger">
                         Tolak
                     </button>
-                    <a href="/hrm/management/persetujuan" type="button" class="btn btn-effect-ripple btn-default reset_btn2">
+                    <a href="/hrm/management_personil/persetujuan/pendaftaran" type="button" class="btn btn-effect-ripple btn-default reset_btn2">
                         Cancel
                     </a>
                 </div>
@@ -387,11 +387,11 @@
       e.preventDefault();
       $.ajax({
         type: 'post',
-        "url": "/hrm/management/persetujuan/create",
+        "url": "/hrm/management_personil/persetujuan/pendaftaran/create",
         data: $('form').serialize(),
         success: function () {
         alert('Success !!!');
-        window.location.href = "/hrm/management/persetujuan";
+        window.location.href = "/hrm/management_personil/persetujuan/pendaftaran";
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -406,11 +406,11 @@
       e.preventDefault();
       $.ajax({
         type: 'post',
-        "url": "/hrm/management/persetujuan/tolak",
+        "url": "/hrm/management_personil/persetujuan/pendaftaran/tolak",
         data: $('form').serialize(),
         success: function () {
         alert('Success !!!');
-        window.location.href = "/hrm/management/persetujuan";
+        window.location.href = "/hrm/management_personil/persetujuan/pendaftaran";
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -419,7 +419,7 @@
         });
       });
     });
-        
+
 
         $("#select-wk_kd_prop-input").select2({
             theme: "bootstrap",

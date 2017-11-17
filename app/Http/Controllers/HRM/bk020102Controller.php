@@ -32,7 +32,7 @@ class bk020102Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==9)
+				if($item->kode_menu==196)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
@@ -42,7 +42,7 @@ class bk020102Controller extends Controller
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
 
-				$this->log_aktivitas('View', 15);
+				$this->log_aktivitas('View', 609);
 				return view('HRM/bk020102/index',$data);
 			}
 			else {
@@ -117,16 +117,16 @@ class bk020102Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==9)
+						if($item->kode_menu==196)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
 
 				$option = '';
-				if(!empty($detil['17'])){
+				if(!empty($detil['611'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['18'])){
+				if(!empty($detil['612'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				}
 				$nestedData['option'] = $option;
@@ -152,7 +152,7 @@ class bk020102Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==9)
+				if($item->kode_menu==196)
 					$data['detil'][$item->kode_menu_detil]='a';
 		}
 
@@ -164,7 +164,7 @@ class bk020102Controller extends Controller
 		$kode_level = DB::select('select kode, nama from bkt_02010101_role_level where status=1');
 		$data['kode_level_list'] = $kode_level;
 
-		if($data['kode']!=null && !empty($data['detil']['17'])){
+		if($data['kode']!=null && !empty($data['detil']['611'])){
 			$rowData = DB::select('select * from bkt_02010102_role where kode='.$data['kode']);
 			$data['nama'] = $rowData[0]->nama;
 			$data['deskripsi'] = $rowData[0]->deskripsi;
@@ -175,7 +175,7 @@ class bk020102Controller extends Controller
 			$data['updated_time'] = $rowData[0]->updated_time;
 			$data['updated_by'] = $rowData[0]->updated_by;
 			return view('HRM/bk020102/create',$data);
-		}else if($data['kode']==null && !empty($data['detil']['16'])){
+		}else if($data['kode']==null && !empty($data['detil']['610'])){
 			$data['nama'] = null;
 			$data['deskripsi'] = null;
 			$data['status'] = null;
@@ -206,7 +206,7 @@ class bk020102Controller extends Controller
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
-		$this->log_aktivitas('Update', 17);
+		$this->log_aktivitas('Update', 611);
 		}else{
 			DB::table('bkt_02010102_role')->insert(
        			['nama' => $request->input('example-text-input'),
@@ -215,7 +215,7 @@ class bk020102Controller extends Controller
        			'kode_level' => $request->input('example-select-level'),
        			'created_by' => Auth::user()->id
        			]);
-		$this->log_aktivitas('Create', 16);
+		$this->log_aktivitas('Create', 610);
 		}
 	}
 
@@ -226,7 +226,7 @@ class bk020102Controller extends Controller
 				'updated_time' => date('Y-m-d H:i:s'),
 				'updated_by' => Auth::user()->id
 				]);
-        $this->log_aktivitas('Delete', 18);
+        $this->log_aktivitas('Delete', 612);
         return Redirect::to('/hrm/admin/role');
     }
 
@@ -236,7 +236,7 @@ class bk020102Controller extends Controller
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 2,
 				'kode_modul' => 4,
-				'kode_menu' => 9,
+				'kode_menu' => 196,
 				'kode_menu_detil' => $detil,
 				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas

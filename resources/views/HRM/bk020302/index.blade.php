@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Change Password @stop {{-- local styles --}} @section('header_styles')
+@extends('HRM/default') {{-- Page title --}} @section('title') Aktivasi Diri @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
@@ -7,7 +7,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Change Password</h1>
+    <h1>Aktivasi Diri</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -16,7 +16,7 @@
                 </a>
             </li>
             <li class="next">
-                Managemen Personil / Change Password
+                Managemen Personil / Aktivasi Diri
             </li>
         </ul>
     </div>
@@ -27,10 +27,10 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>Change Password</b>
+                    <b>Aktivasi Diri</b>
                 </div>
 				<div class="tools pull-right">
-					<b>bk020307 Index</b>
+					<b>bk020302 Index</b>
 				</div>
             </div>
             <div class="panel-body">
@@ -76,7 +76,7 @@
 		e.preventDefault();
 		$.ajax({
 			type: 'post',
-			"url": "/hrm/profil/user/password",
+			"url": "/hrm/management_diri/aktivasi",
 			data: $('form').serialize(),
 			beforeSend: function (){
 			    $("#submit").prop('disabled', true);
@@ -84,7 +84,7 @@
 			success: function (e) {
 				if(e=="true"){
 					alert("Password berhasil diganti");
-					window.location.href = "/hrm/profil/user/password";
+					window.location.href = "/hrm/management_diri/aktivasi";
 				}else{
 					alert(e);
 					$("#submit").prop('disabled', false);

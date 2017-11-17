@@ -17,7 +17,7 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/hrm/management/peringatan">
+				<a href="/hrm/management_personil/peringatan">
 	                Managemen Personil / User / Peringatan
 				</a>
             </li>
@@ -98,7 +98,7 @@
 				            </div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/hrm/management/peringatan" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/hrm/management_personil/peringatan" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
 									@if( $id!=$kode_user))
@@ -137,14 +137,14 @@
 			type: 'post',
 			processData: false,
             contentType: false,
-			"url": "/hrm/management/peringatan/create",
+			"url": "/hrm/management_personil/peringatan/create",
 			data: form_data,
 			beforeSend: function (){
 			    $("#submit").prop('disabled', true);
 			},
 			success: function () {
 				alert('From Submitted.');
-				window.location.href = "/hrm/management/peringatan";
+				window.location.href = "/hrm/management_personil/peringatan";
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);

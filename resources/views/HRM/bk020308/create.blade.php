@@ -13,8 +13,8 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/hrm/management/user/blacklist">
-	                Managemen User / Blacklist
+				<a href="/hrm/management_personil/blacklist">
+	                Managemen Personil / Blacklist
 				</a>
             </li>
             <li class="next">
@@ -80,7 +80,7 @@
 							</div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/hrm/management/user/blacklist" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/hrm/management_personil/blacklist" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -106,14 +106,14 @@
 		e.preventDefault();
 		$.ajax({
 			type: 'post',
-			"url": "/hrm/management/user/blacklist/create",
+			"url": "/hrm/management_personil/blacklist/create",
 			data: $('form').serialize(),
 			beforeSend: function (){
 			    $("#submit").prop('disabled', true);
 			},
 			success: function () {
 				alert('From Submitted.');
-				window.location.href = "/hrm/management/user/blacklist";
+				window.location.href = "/hrm/management_personil/blacklist";
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);

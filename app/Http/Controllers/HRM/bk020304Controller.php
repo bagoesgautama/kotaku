@@ -31,12 +31,12 @@ class bk020304Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==170)
+				if($item->kode_menu==200)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
-				$this->log_aktivitas('View', 537);
+				$this->log_aktivitas('View', 621);
 				return view('HRM/bk020304/index',$data);
 			}
 			else {
@@ -82,8 +82,8 @@ class bk020304Controller extends Controller
 			foreach ($posts as $post)
 			{
 				$edit =  $post->kode;
-				$url_edit="/hrm/profil/user/pendidikan/create?kode=".$edit;
-				$url_delete="/hrm/profil/user/pendidikan/delete?kode=".$edit;
+				$url_edit="/hrm/profil/pendidikan/create?kode=".$edit;
+				$url_delete="/hrm/profil/pendidikan/delete?kode=".$edit;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['nama_lembaga'] = $post->nama_lembaga;
 				$nestedData['fakultas'] = $post->fakultas;
@@ -94,16 +94,16 @@ class bk020304Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==170)
+						if($item->kode_menu==200)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
 
 				$option = '';
-				if(!empty($detil['539'])){
+				if(!empty($detil['623'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
-				if(!empty($detil['540'])){
+				if(!empty($detil['624'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				}
 				$nestedData['option'] = $option;
@@ -128,12 +128,12 @@ class bk020304Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==170)
+				if($item->kode_menu==200)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
-			if($data['kode']!=null && !empty($data['detil']['539'])){
+			if($data['kode']!=null && !empty($data['detil']['623'])){
 				$rowData = DB::select('select * from bkt_02010110_pendidikan where kode='.$data['kode']);
 				$data['nama_lembaga'] = $rowData[0]->nama_lembaga;
 				$data['fakultas'] = $rowData[0]->fakultas;
@@ -150,7 +150,7 @@ class bk020304Controller extends Controller
 				$data['updated_time'] = $rowData[0]->updated_time;
 				$data['updated_by'] = $rowData[0]->updated_by;
 				return view('HRM/bk020304/create',$data);
-			}else if($data['kode']==null && !empty($data['detil']['540'])){
+			}else if($data['kode']==null && !empty($data['detil']['622'])){
 				$data['nama_lembaga'] = null;
 				$data['fakultas'] = null;
 				$data['bidang_studi'] = null;
@@ -233,7 +233,7 @@ class bk020304Controller extends Controller
 			if($upload3 == true){
 				$file3->move(public_path('/uploads/pendidikan'), $user->id."_".$file3->getClientOriginalName());
 			}
-			$this->log_aktivitas('Update', 539);
+			$this->log_aktivitas('Update', 623);
 
 		}else{
 			DB::table('bkt_02010110_pendidikan')->insert(
@@ -259,15 +259,15 @@ class bk020304Controller extends Controller
 			if($upload3 == true){
 				$file3->move(public_path('/uploads/pendidikan'), $user->id."_".$file3->getClientOriginalName());
 			}
-			$this->log_aktivitas('Create', 538);
+			$this->log_aktivitas('Create', 622);
 		}
 	}
 
 	public function delete(Request $request)
 	{
 		DB::table('bkt_02010110_pendidikan')->where('kode', $request->input('kode'))->delete();
-        $this->log_aktivitas('Delete', 540);
-        return Redirect::to('/hrm/profil/user/pendidikan');
+        $this->log_aktivitas('Delete', 624);
+        return Redirect::to('/hrm/profil/pendidikan');
     }
 
     public function log_aktivitas($aktifitas, $detil)
@@ -275,8 +275,8 @@ class bk020304Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 			'kode_user' => Auth::user()->id,
 			'kode_apps' => 2,
-			'kode_modul' => 14,
-			'kode_menu' => 170,
+			'kode_modul' => 16,
+			'kode_menu' => 200,
 			'kode_menu_detil' => $detil,
 			'aktifitas' => $aktifitas,
 			'deskripsi' => $aktifitas

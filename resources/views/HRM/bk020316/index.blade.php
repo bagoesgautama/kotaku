@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Manajemen Personil - Persetujuan Pendaftaran Personil @stop {{-- local styles --}} @section('header_styles') 
+@extends('HRM/default') {{-- Page title --}} @section('title') Manajemen Personil - Persetujuan Pendaftaran Personil @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -23,9 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/hrm/management/persetujuan">
-                    Manajemen Personil / Persetujuan Pendaftaran Personil
-                </a>
+                Manajemen Personil / Persetujuan Pendaftaran Personil
             </li>
         </ul>
     </div>
@@ -72,11 +70,11 @@
     $(document).ready(function () {
         var table = $('#users').DataTable({
             // dom: 'Bflrtip',
-            
+
             "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/management/persetujuan",
+                     "url": "/hrm/management_personil/persetujuan/pendaftaran",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -90,7 +88,7 @@
                 { "data": "jenis_reg" , name:"jenis_reg"},
                 { "data": "status_reg" , name:"status_reg"},
                 { "data": "created_time" , name:"created_time"}
-                
+
             ],
         });
         $('#users_filter input').unbind();

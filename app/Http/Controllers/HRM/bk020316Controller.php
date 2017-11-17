@@ -31,7 +31,7 @@ class bk020316Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==182)
+				if($item->kode_menu==214)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
@@ -41,7 +41,7 @@ class bk020316Controller extends Controller
 					where b.kode_apps=c.kode');
 				$data['role'] = DB::select('select * from bkt_02010102_role where status=1');
 
-				$this->log_aktivitas('View', 570);
+				$this->log_aktivitas('View', 665);
 				return view('HRM/bk020316/index',$data);
 			}
 			else {
@@ -66,11 +66,11 @@ class bk020316Controller extends Controller
 		);
 		if($user->kode_role==35){
 			$query='
-				select * from (select 
+				select * from (select
 					*,
 					user_name user_name_real,
 					nama_depan nama_depan_real,
-					nama_belakang nama_belakang_real, 
+					nama_belakang nama_belakang_real,
 					case
 						when kode_jenis_kelamin = "P" then "Pria"
 						when kode_jenis_kelamin = "W" then "Wanita"
@@ -90,45 +90,45 @@ class bk020316Controller extends Controller
 		}else{
 			$query='select * from (
 								select *,
-									user_name user_name_real, 
-									nama_depan nama_depan_real, 
-									nama_belakang nama_belakang_real, 
-									case 
-										when kode_jenis_kelamin = "P" then "Pria" 
-										when kode_jenis_kelamin = "W" then "Wanita" 
-									end jenis_kel, 
-									case 
-										when jenis_registrasi = "0" then "Mandiri" 
-										when jenis_registrasi = "1" then "Manual" 
-									end jenis_reg, 
-									case 
-										when status_registrasi = "0" then "Belum Diverifikasi" 
+									user_name user_name_real,
+									nama_depan nama_depan_real,
+									nama_belakang nama_belakang_real,
+									case
+										when kode_jenis_kelamin = "P" then "Pria"
+										when kode_jenis_kelamin = "W" then "Wanita"
+									end jenis_kel,
+									case
+										when jenis_registrasi = "0" then "Mandiri"
+										when jenis_registrasi = "1" then "Manual"
+									end jenis_reg,
+									case
+										when status_registrasi = "0" then "Belum Diverifikasi"
 									end status_reg
 								from bkt_02020201_registrasi
-								where status_registrasi=0 and kode 
+								where status_registrasi=0 and kode
 									in (
 										select u.kode
 					  						from bkt_02020201_registrasi u,
 					      					 (select kode_level from bkt_02010111_user where user_name = "'.$user->user_name.'") r
-					 					where (u.kode_role, 
-											case when r.kode_level = 0 then "x" else u.kode_kmp end, 
-											case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
+					 					where (u.kode_role,
+											case when r.kode_level = 0 then "x" else u.kode_kmp end,
+											case when r.kode_level in (0,1) then "x" else u.kode_kmw end,
 											case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
 											case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
 											case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
 										)
 					    				in (
 											select x.kode_role_lower,
-								  				case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
-								   				case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
+								  				case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp,
+								   				case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw,
 								   				case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
 								   				case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
 								   				case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
 							  				from (
-												select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
-										   				a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
+												select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw,
+										   				a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota,
 										  				 ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
-									  			from bkt_02010111_user a 
+									  			from bkt_02010111_user a
 									  			join bkt_02010102_role b on a.kode_role = b.kode
 									  			join bkt_02010101_role_level c on b.kode_level = c.kode
 									  			left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
@@ -138,51 +138,51 @@ class bk020316Controller extends Controller
 									  			left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
 									  			left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
 									 		where a.user_name = "'.$user->user_name.'"
-								  				 ) x 
+								  				 ) x
 											)
 										)
 									 ) b ';
 			$totalData = DB::select('select count(1) cnt from (
 								select *,
-									user_name user_name_real, 
-									nama_depan nama_depan_real, 
-									nama_belakang nama_belakang_real, 
-									case 
-										when kode_jenis_kelamin = "P" then "Pria" 
-										when kode_jenis_kelamin = "W" then "Wanita" 
-									end jenis_kel, 
-									case 
-										when jenis_registrasi = "0" then "Mandiri" 
-										when jenis_registrasi = "1" then "Manual" 
-									end jenis_reg, 
-									case 
-										when status_registrasi = "0" then "Belum Diverifikasi" 
+									user_name user_name_real,
+									nama_depan nama_depan_real,
+									nama_belakang nama_belakang_real,
+									case
+										when kode_jenis_kelamin = "P" then "Pria"
+										when kode_jenis_kelamin = "W" then "Wanita"
+									end jenis_kel,
+									case
+										when jenis_registrasi = "0" then "Mandiri"
+										when jenis_registrasi = "1" then "Manual"
+									end jenis_reg,
+									case
+										when status_registrasi = "0" then "Belum Diverifikasi"
 									end status_reg
 								from bkt_02020201_registrasi
-								where status_registrasi=0 and kode 
+								where status_registrasi=0 and kode
 									in (
 										select u.kode
 					  						from bkt_02020201_registrasi u,
 					      					 (select kode_level from bkt_02010111_user where user_name = "'.$user->user_name.'") r
-					 					where (u.kode_role, 
-											case when r.kode_level = 0 then "x" else u.kode_kmp end, 
-											case when r.kode_level in (0,1) then "x" else u.kode_kmw end, 
+					 					where (u.kode_role,
+											case when r.kode_level = 0 then "x" else u.kode_kmp end,
+											case when r.kode_level in (0,1) then "x" else u.kode_kmw end,
 											case when r.kode_level in (0,1) then "x" else u.wk_kd_prop end,
 											case when r.kode_level in (0,1,2) then "x" else u.wk_kd_kota end,
 											case when r.kode_level in (0,1,2,3) then "x" else u.wk_kd_kel end
 										)
 					    				in (
 											select x.kode_role_lower,
-								  				case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp, 
-								   				case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw, 
+								  				case when x.kode_level = 0 then "x" else x.kode_kmp end kode_kmp,
+								   				case when x.kode_level in (0,1) then "x" else x.kode_kmw end kode_kmw,
 								   				case when x.kode_level in (0,1) then "x" else x.kode_prop end wk_kd_prop,
 								   				case when x.kode_level in (0,1,2) then "x" else x.kode_kota end wk_kd_kota,
 								   				case when x.kode_level in (0,1,2,3) then "x" else x.kode_kel end wk_kd_kel
 							  				from (
-												select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw, 
-										   				a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota, 
+												select b.kode_level, a.kode_role, e.kode kode_role_lower, a.kode_kmp, a.kode_kmw,
+										   				a.kode_korkot, a.kode_faskel, d.kode kode_prop, ifnull(a.wk_kd_kota, h.kode_kota) kode_kota,
 										  				 ifnull(a.wk_kd_kel, i.kode_kel) kode_kel, e.kode_level kode_level_lower
-									  			from bkt_02010111_user a 
+									  			from bkt_02010111_user a
 									  			join bkt_02010102_role b on a.kode_role = b.kode
 									  			join bkt_02010101_role_level c on b.kode_level = c.kode
 									  			left join bkt_01010101_prop d on a.wk_kd_prop = d.kode
@@ -192,7 +192,7 @@ class bk020316Controller extends Controller
 									  			left join bkt_01010112_kota_korkot h on h.kode_korkot = f.kode
 									  			left join bkt_01010114_kel_faskel i on i.kode_faskel = g.kode
 									 		where a.user_name = "'.$user->user_name.'"
-								  				 ) x 
+								  				 ) x
 											)
 										)
 									 ) b ');
@@ -210,19 +210,19 @@ class bk020316Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' where (b.user_name_real like "%'.$search.'%" or 
+			$posts=DB::select($query. ' where (b.user_name_real like "%'.$search.'%" or
 												b.nama_depan_real like "%'.$search.'%" or
 												b.nama_belakang_real like "%'.$search.'%" or
 												b.jenis_kel like "%'.$search.'%" or
-												b.jenis_reg like "%'.$search.'%" or 
-												b.status_reg like "%'.$search.'%") 
+												b.jenis_reg like "%'.$search.'%" or
+												b.status_reg like "%'.$search.'%")
 										order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query.' 
-										where (b.user_name_real like "%'.$search.'%" or 
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query.'
+										where (b.user_name_real like "%'.$search.'%" or
 												b.nama_depan_real like "%'.$search.'%" or
 												b.nama_belakang_real like "%'.$search.'%" or
 												b.jenis_kel like "%'.$search.'%" or
-												b.jenis_reg like "%'.$search.'%" or 
+												b.jenis_reg like "%'.$search.'%" or
 												b.status_reg like "%'.$search.'%")
 										) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
@@ -238,8 +238,8 @@ class bk020316Controller extends Controller
 				$delete = $post->kode;
 				$jns_sumber_dana = null;
 
-				$url_edit=url('/')."/hrm/management/persetujuan/create?kode=".$edit;
-				$url_delete=url('/')."/hrm/management/persetujuan/delete?kode=".$delete;
+				$url_edit="/hrm/management_personil/persetujuan/pendaftaran/create?kode=".$edit;
+				$url_delete="/hrm/management_personil/persetujuan/pendaftaran/delete?kode=".$delete;
 				$nestedData['user_name'] = $post->user_name;
 				$nestedData['nama_depan'] = $post->nama_depan;
 				$nestedData['nama_belakang'] = $post->nama_belakang;
@@ -252,13 +252,13 @@ class bk020316Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==182)
+						if($item->kode_menu==214)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
 
 				$option = '';
-				if(!empty($detil[571])){
+				if(!empty($detil[667])){
 					$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
 				$nestedData['option'] = $option;
@@ -283,7 +283,7 @@ class bk020316Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==182)
+				if($item->kode_menu==214)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['username'] = $user->name;
@@ -348,9 +348,9 @@ class bk020316Controller extends Controller
 																when a.kode_jenis_kelamin = "W" then "Wanita"
 															end nama_kelamin
 														   from bkt_02020201_registrasi a
-														   		left join bkt_01010108_kmp b on a.kode_kmp=b.kode 
+														   		left join bkt_01010108_kmp b on a.kode_kmp=b.kode
 														   		left join bkt_01010110_kmw c on a.kode_kmw=c.kode
-																left join bkt_01010102_kota d on a.kode_kota=d.kode 
+																left join bkt_01010102_kota d on a.kode_kota=d.kode
 																left join bkt_01010111_korkot e on a.kode_korkot=e.kode
 																left join bkt_01010103_kec f on a.kode_kec=f.kode
 																left join bkt_01010104_kel g on a.kode_kel=g.kode
@@ -420,8 +420,8 @@ class bk020316Controller extends Controller
 				'updated_by' => Auth::user()->id,
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
-			$this->log_aktivitas('Update', 571);
-		
+			$this->log_aktivitas('Update', 667);
+
 	}
 
 	public function post_tolak(Request $request)
@@ -432,8 +432,8 @@ class bk020316Controller extends Controller
 				'updated_by' => Auth::user()->id,
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
-			$this->log_aktivitas('Update', 571);
-		
+			$this->log_aktivitas('Update', 667);
+
 	}
 
 	public function date_conversion($date)
@@ -448,7 +448,7 @@ class bk020316Controller extends Controller
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 2,
 				'kode_modul' => 14,
-				'kode_menu' => 182,
+				'kode_menu' => 214,
 				'kode_menu_detil' => $detil,
 				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas

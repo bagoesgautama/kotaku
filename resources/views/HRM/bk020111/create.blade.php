@@ -19,7 +19,7 @@
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-                <a href="/qs">
+                <a href="/hrm">
                     <i class="fa fa-fw fa-home"></i> HRM
                 </a>
             </li>
@@ -152,7 +152,7 @@
 		                                       placeholder="Last name" maxlength="50" value="{{$nama_belakang}}">
 						                </div>
 						            </div>
-						            
+
 						            <div class="form-group striped-col">
 						                <label class="col-sm-3 control-label">Alamat</label>
 						                <div class="col-sm-6">
@@ -217,7 +217,7 @@
 		                                       placeholder="kodepos" maxlength="5" value="{{$kodepos}}">
 						                </div>
 	                                </div>
-	                                
+
 	                            </div>
                             </div>
                         </div>
@@ -378,7 +378,7 @@
 			                                </select>
 						                </div>
 						            </div>
-						            
+
 						            <div class="form-group striped-col" id="kota_label" {!! $wk_kd_kota!=null ? '':'hidden' !!}>
 						                <label class="col-sm-3 control-label">Kota</label>
 						                <div class="col-sm-6">
@@ -445,7 +445,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="form-group form-actions">
                         <div class="col-sm-9 col-sm-offset-3">
                             <a href="/hrm/management/registrasi_manual" type="button" class="btn btn-effect-ripple btn-danger">
@@ -461,7 +461,7 @@
                             @endif
                         </div>
                     </div>
-                    
+
                 </div>
             	</form>
             </div>
@@ -899,7 +899,7 @@
                                     $('#kel_label').show();
 
                                 }else{
-                                    
+
                                     $('#wil_kerja_label').hide();
                                     wkprop.val(null).trigger('change');
                                     $('#prov_label').hide();
