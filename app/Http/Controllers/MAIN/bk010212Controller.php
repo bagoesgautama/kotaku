@@ -376,6 +376,18 @@ class bk010212Controller extends Controller
 			$upload_absensi = true;
 		}
 
+		//kalau tidak punya korkot && punya wk_kd_kota
+		if($user->wk_kd_kota != null){
+			$kota_korkot = DB::select('select kode from bkt_01010112_kota_korkot where kode_kota='.$user->wk_kd_kota);
+		}else{
+			$kota_korkot = DB::select('select kode from bkt_01010112_kota_korkot where kode_kota='.$request->input('kode-kota-input'));
+		}
+
+		//kalau tidak punya kmw && punya wk_kd_prop
+		if($user->wk_kd_kota != null){
+			$prop_kmw = DB::select('select kode from bkt_01010110_kmw where kode_prop='.$user->wk_kd_prop);
+		}
+
 		if ($request->input('kode')!=null){
 			date_default_timezone_set('Asia/Jakarta');
 			DB::table('bkt_01020207_bkm_kota')->where('kode', $request->input('kode'))
@@ -383,8 +395,8 @@ class bk010212Controller extends Controller
 				'tahun' => $request->input('tahun-input'),
 				'tk_forum' => $request->input('tk-forum-input'),
 				'kode_kota' => $request->input('kode-kota-input'),
-				'kode_kmw' => $user->kode_kmw,
-				'kode_korkot' => $user->kode_korkot,
+				'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:$prop_kmw[0]->kode,
+				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
 				'kode_kec' => $request->input('kode-kec-input'),
 				'jenis_kegiatan' => $request->input('jns-kegiatan-input'),
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
@@ -417,8 +429,8 @@ class bk010212Controller extends Controller
 				'tahun' => $request->input('tahun-input'),
 				'tk_forum' => $request->input('tk-forum-input'),
 				'kode_kota' => $request->input('kode-kota-input'),
-				'kode_kmw' => $user->kode_kmw,
-				'kode_korkot' => $user->kode_korkot,
+				'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:$prop_kmw[0]->kode,
+				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
 				'kode_kec' => $request->input('kode-kec-input'),
 				'jenis_kegiatan' => $request->input('jns-kegiatan-input'),
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),

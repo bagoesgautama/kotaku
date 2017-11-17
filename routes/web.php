@@ -351,6 +351,11 @@ Route::get('/main/data_master/bkm/create', 'MAIN\bk010124Controller@create');
 Route::post('/main/data_master/bkm/create', 'MAIN\bk010124Controller@post_create');
 Route::get('/main/data_master/bkm/delete', 'MAIN\bk010124Controller@delete');
 
+Route::get('/main/data_master/bkm/anggota', 'MAIN\bk010124Controller@anggota_index');
+Route::post('/main/data_master/bkm/anggota', 'MAIN\bk010124Controller@anggota_post');
+Route::get('/main/data_master/bkm/anggota/create', 'MAIN\bk010124Controller@anggota_create');
+Route::post('/main/data_master/bkm/anggota/create', 'MAIN\bk010124Controller@anggota_post_create');
+
 Route::get('/main/data_master/ksm', 'MAIN\bk010125Controller@index');
 Route::post('/main/data_master/ksm', 'MAIN\bk010125Controller@post');
 Route::get('/main/data_master/ksm/create', 'MAIN\bk010125Controller@create');

@@ -369,7 +369,7 @@ class bk010219Controller extends Controller
 					}
 					$data['kode_kec_list'] = null;
 					$data['kode_kel_list'] = null;
-					$data['kode_pelatihan_list'] = DB::select('select * from bkt_01010117_pelatihan_kel where status=1');
+					$data['kode_pelatihan_list'] = null;
 					$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 					return view('MAIN/bk010219/create',$data);
 				}else {
@@ -406,6 +406,17 @@ class bk010219Controller extends Controller
 		elseif(!empty($request->input('korkot'))){
 			$korkot = DB::select('select kode_korkot from bkt_01010112_kota_korkot where kode_kota='.$request->input('korkot'));
 			echo json_encode($korkot);
+		}
+
+		if(!empty($request->input('latih')) && $request->input('latih')==1){
+			$latih = DB::select('select id, nama from bkt_01010117_pelatihan_kel where flag_pencegahan=1');
+			echo json_encode($latih);
+		}elseif (!empty($request->input('latih')) && $request->input('latih')==2){
+			$latih = DB::select('select id, nama from bkt_01010117_pelatihan_kel where flag_peningkatan=1');
+			echo json_encode($latih);
+		}elseif (!empty($request->input('latih')) && $request->input('latih')==3){
+			$latih = DB::select('select id, nama from bkt_01010117_pelatihan_kel where flag_peningkatan_ppmk_baru=1');
+			echo json_encode($latih);
 		}
 	}
 

@@ -97,19 +97,19 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Peserta OPD</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-opd-input" name="q-opd-input" class="form-control" placeholder="Jumlah" value="{{$q_opd}}">
+                                    <input type="number" id="q-opd-input" name="q-opd-input" class="form-control" placeholder="Jumlah" value="{{$q_opd}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Peserta Perempuan dari OPD</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-opd-w-input" name="q-opd-w-input" class="form-control" placeholder="Jumlah" value="{{$q_opd_w}}">
+                                    <input type="number" id="q-opd-w-input" name="q-opd-w-input" class="form-control" placeholder="Jumlah" value="{{$q_opd_w}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Peserta Pokja Propinsi</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-pokja-prop-input" name="q-pokja-prop-input" class="form-control" placeholder="Jumlah" value="{{$q_pokja_prop}}">
+                                    <input type="number" id="q-pokja-prop-input" name="q-pokja-prop-input" class="form-control" placeholder="Jumlah" value="{{$q_pokja_prop}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -131,45 +131,6 @@
                                     <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!}>{{$uri_img_absensi}}</button>
                                 </div>
                             </div>
-                            <!-- <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diser-input" name="tgl-diser-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}" required>
-                                </div>
-                                <div class="col-sm-3">
-                                    <select id="diser-oleh-input" name="diser-oleh-input" class="form-control" size="1" required>
-                                        @foreach ($kode_user_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $diser_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diketahui & Diketahui Oleh</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diket-input" name="tgl-diket-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}" required>
-                                </div>
-                                <div class="col-sm-3">
-                                    <select id="diket-oleh-input" name="diket-oleh-input" class="form-control" size="1" required>
-                                        @foreach ($kode_user_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $diket_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diverifikasi & Diverifikasi Oleh</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diver-input" name="tgl-diver-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}" required>
-                                </div>
-                                <div class="col-sm-3">
-                                    <select id="diver-oleh-input" name="diver-oleh-input" class="form-control" size="1" required>
-                                        @foreach ($kode_user_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $diver_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div> -->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <a href="/main/persiapan/kota/pokja/kegiatan" type="button" class="btn btn-effect-ripple btn-danger">

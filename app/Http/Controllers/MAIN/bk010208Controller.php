@@ -825,7 +825,17 @@ class bk010208Controller extends Controller
 			$upload_absensi = true;
 		}
 
-		$kota_korkot = DB::select('select kode from bkt_01010112_kota_korkot where kode_kota='.$user->wk_kd_kota);
+		//kalau tidak punya korkot && punya wk_kd_kota
+		if($user->wk_kd_kota != null){
+			$kota_korkot = DB::select('select kode from bkt_01010112_kota_korkot where kode_kota='.$user->wk_kd_kota);
+		}else{
+			$kota_korkot = DB::select('select kode from bkt_01010112_kota_korkot where kode_kota='.$request->input('kode-kota-input'));
+		}
+
+		//kalau tidak punya kmw && punya wk_kd_prop
+		if($user->wk_kd_kota != null){
+			$prop_kmw = DB::select('select kode from bkt_01010110_kmw where kode_prop='.$user->wk_kd_prop);
+		}
 
 		if ($request->input('kode')!=null){
 			date_default_timezone_set('Asia/Jakarta');
@@ -835,7 +845,7 @@ class bk010208Controller extends Controller
 				'kode_kota' => $request->input('kode-kota-input'),
 				'kode_kec' => $request->input('kode-kec-input'),
 				'kode_kel' => $request->input('kode-kel-input'),
-				'kode_kmw' => $user->kode_kmw,
+				'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:$prop_kmw[0]->kode,
 				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
 				'kode_faskel' => $request->input('kode-faskel-input'),
 				'skala_kegiatan' => $request->input('skala_kegiatan'),
@@ -886,7 +896,7 @@ class bk010208Controller extends Controller
 				'kode_kota' => $request->input('kode-kota-input'),
 				'kode_kec' => $request->input('kode-kec-input'),
 				'kode_kel' => $request->input('kode-kel-input'),
-        		'kode_kmw' => $user->kode_kmw,
+        		'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:$prop_kmw[0]->kode,
 				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
 				'kode_faskel' => $request->input('kode-faskel-input'),
 				'skala_kegiatan' => $request->input('skala_kegiatan'),
