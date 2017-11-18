@@ -180,8 +180,8 @@ class bk010124Controller extends Controller
 			{
 				$show =  $post->kode;
 				$delete = $post->kode;
-				$url_edit="/main/data_master/bkm/anggota/create?id=".$show;
-				$url_delete="/main/data_master/bkm/anggota/delete?id=".$delete;
+				$url_edit="/main/data_master/bkm/anggota/create?kode_anggota=".$show;
+				$url_delete="/main/data_master/bkm/anggota/delete?kode_anggota=".$delete;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['kode_bkm'] = $post->kode_bkm;
 				$nestedData['nama'] = $post->nama_anggota;
@@ -299,58 +299,81 @@ class bk010124Controller extends Controller
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			$data['username'] = $user->name;
-			$data['id']=$request->input('id');
-			$data['kode_kota_list'] =[];
-			$data['kode_kec_list'] =[];
-			$data['kode_kel_list'] =[];
-			$data['kode_prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
-			if($data['id']!=null && !empty($data['detil']['455'])){
-				$data['detil_menu']='455';
-				$rowData = DB::select('select a.*,b.kode_prop from bkt_01010125_bkm a,bkt_01010102_kota b where a.kode_kota=b.kode and a.id='.$data['id']);
-				$data['kode_kota'] = $rowData[0]->kode_kota;
-				$data['kode_kec'] = $rowData[0]->kode_kec;
-				$data['kode_kel'] = $rowData[0]->kode_kel;
+			
+			$data['kode_pendidikan_list'] = DB::select('select * from bkt_01010135_tkt_pendidikan where status=1');
+			$data['kode_pekerjaan_list'] = DB::select('select * from bkt_01010134_pekerjaan where status=1');
+			if($data['kode_bkm']!=null && !empty($data['detil']['455'])){
+				$data['kode_bkm']=$request->input('kode_bkm');
+				$data['nama'] = null;
+				$data['jenis_kelamin'] = null;
+				$data['status_sosial'] = null;
+				$data['umur'] = null;
+				$data['kode_pendidikan'] = null;
+				$data['kode_pekerjaan'] = null;
+				$data['jml_dukungan'] = null;
+				$data['status'] = null;
+				// $data['kode_bkm'] = $rowData[0]->kode_bkm;
+				// $data['nama'] = $rowData[0]->nama;
+				// $data['jenis_kelamin'] = $rowData[0]->jenis_kelamin;
+				// $data['status_sosial'] = $rowData[0]->status_sosial;
+				// $data['umur'] = $rowData[0]->umur;
+				// $data['kode_pendidikan'] = $rowData[0]->kode_pendidikan;
+				// $data['kode_pekerjaan'] = $rowData[0]->kode_pekerjaan;
+				// $data['jml_dukungan'] = $rowData[0]->jml_dukungan;
+				// $data['status'] = $rowData[0]->status;
+				return view('MAIN/bk010124/anggota',$data);
+			}if($data['kode_anggota']!=null && !empty($data['detil']['455'])){
 				$data['kode_bkm'] = $rowData[0]->kode_bkm;
 				$data['nama'] = $rowData[0]->nama;
-				$data['nama_koordinator'] = $rowData[0]->nama_koordinator;
-				$data['alamat'] = $rowData[0]->alamat;
-				$data['keterangan'] = $rowData[0]->keterangan;
-				$data['tgl_pembentukan'] = $rowData[0]->tgl_pembentukan;
-				$data['no_telp'] = $rowData[0]->no_telp;
-				$data['tgl_pengesahan_notaris'] = $rowData[0]->tgl_pengesahan_notaris;
-				$data['nama_notaris'] = $rowData[0]->nama_notaris;
-				$data['nama_bank'] = $rowData[0]->nama_bank;
-				$data['no_rek_bank'] = $rowData[0]->no_rek_bank;
+				$data['jenis_kelamin'] = $rowData[0]->jenis_kelamin;
+				$data['status_sosial'] = $rowData[0]->status_sosial;
+				$data['umur'] = $rowData[0]->umur;
+				$data['kode_pendidikan'] = $rowData[0]->kode_pendidikan;
+				$data['kode_pekerjaan'] = $rowData[0]->kode_pekerjaan;
+				$data['jml_dukungan'] = $rowData[0]->jml_dukungan;
 				$data['status'] = $rowData[0]->status;
-				$data['kode_prop']=$rowData[0]->kode_prop;
-				$data['kode_kota_list'] =DB::select('select kode, nama from bkt_01010102_kota where status=1 and kode_prop='.$data['kode_prop']);
-				$data['kode_kec_list'] =DB::select('select kode, nama from bkt_01010103_kec where status=1 and kode_kota='.$data['kode_kota']);
-				$data['kode_kel_list'] =DB::select('select kode, nama from bkt_01010104_kel where status=1 and kode_kec='.$data['kode_kec']);
-				return view('MAIN/bk010124/create',$data);
-			}else if($data['id']==null && !empty($data['detil']['454'])){
-				$data['detil_menu']='454';
-				$data['kode_kota'] = null;
-				$data['kode_prop'] = null;
-				$data['kode_kec'] = null;
-				$data['kode_kel'] = null;
-				$data['kode_bkm'] = null;
-				$data['nama'] = null;
-				$data['nama_koordinator'] = null;
-				$data['alamat'] = null;
-				$data['keterangan'] = null;
-				$data['tgl_pembentukan'] = null;
-				$data['no_telp'] = null;
-				$data['tgl_pengesahan_notaris'] = null;
-				$data['nama_notaris'] = null;
-				$data['nama_bank'] = null;
-				$data['no_rek_bank'] = null;
-				$data['status'] = null;
-				return view('MAIN/bk010124/create',$data);
+				return view('MAIN/bk010124/anggota',$data);
 			}else {
 				return Redirect::to('/');
 			}
 		}else{
 			return Redirect::to('/');
+		}
+	}
+
+	public function anggota_post_create(Request $request)
+	{
+		date_default_timezone_set('Asia/Jakarta');
+		if ($request->input('id-input')!=null){
+			DB::table('bkt_01010133_anggt_bkm')->where('kode', $request->input('kode_bkm'))
+			->update([
+				'nama' => $request->input('nama'),
+				'jenis_kelamin' => $request->input('jenis_kelamin'),
+				'status_sosial' => $request->input('status_sosial'),
+				'umur' => $request->input('umur'),
+				'kode_pendidikan' => $request->input('kode-pendidikan-input'),
+				'kode_pekerjaan' => $request->input('kode-pekerjaan-input'),
+				'jml_dukungan' => $request->input('jml_dukungan'),
+				'status' => $request->input('status'),
+				'updated_time' => date('Y-m-d H:i:s'),
+				'updated_by' => Auth::user()->id
+				]);
+			$this->log_aktivitas('Update Anggota BKM', 455);
+
+		}else{
+			DB::table('bkt_01010133_anggt_bkm')->insert(
+       			['kode_bkm' => $request->input('kode_bkm'),
+       			'nama' => $request->input('nama'),
+				'jenis_kelamin' => $request->input('jenis_kelamin'),
+				'status_sosial' => $request->input('status_sosial'),
+				'umur' => $request->input('umur'),
+				'kode_pendidikan' => $request->input('kode-pendidikan-input'),
+				'kode_pekerjaan' => $request->input('kode-pekerjaan-input'),
+				'jml_dukungan' => $request->input('jml_dukungan'),
+				'status' => $request->input('status'),
+				'created_by' => Auth::user()->id
+       			]);
+			$this->log_aktivitas('Create Anggota BKM', 455);
 		}
 	}
 
