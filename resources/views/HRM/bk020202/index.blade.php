@@ -1,5 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Manajemen User
-@stop {{-- local styles --}} @section('header_styles')
+@extends('HRM/default') {{-- Page title --}} @section('title') Mutasi @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -15,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>MAIN Module</h1>
+    <h1>Mutasi</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -24,10 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                Administrator
-            </li>
-            <li class="next">
-                Manajemen User
+                Managemen Diri / Mutasi
             </li>
         </ul>
     </div>
@@ -38,29 +34,28 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>Manajemen User</b>
+                    <b>Mutasi</b>
                 </div>
-                @if( ! empty($detil['734']))
+                @if( ! empty($detil['654']))
                 <div class="tools pull-right">
-                    <b>bk020111 index</b>
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/hrm/admin/manajemen_user/create'}}">Create</a>
+                    <b>bk020202 Index</b>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management_diri/mutasi/create">Create</a>
 				</div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="pokja">
+					<table class="table table-striped" id="users">
 						<thead>
                             <tr>
-                                <th>id</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Nama</th>
-                                <th>Status Personil</th>
-                                <th>Status Aktif</th>
-                                <th>Blacklist</th>
-                                <th>Created Time</th>
-                                <th>Option</th>
+								<th>ID</th>
+								<th>Nama Depan</th>
+								<th>Nama Belakang</th>
+								<th>Perubahan</th>
+								<th>Role Lama</th>
+								<th>Role Baru</th>
+								<th>Divalidasi Oleh</th>
+								<th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -69,37 +64,39 @@
         </div>
     </div>
 </div>
-
 <!-- /.modal ends here -->@stop {{-- local scripts --}} @section('footer_scripts')
 
 <script>
     $(document).ready(function () {
-		var table = $('#pokja').DataTable({
-	        // dom: 'Bflrtip',
-
+		var table = $('#users').DataTable({
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/admin/manajemen_user",
+                     "url": "/hrm/management_diri/mutasi",
                      "dataType": "json",
                      "type": "POST"
                    },
-
-            "columns": [
-                { "data": "id" , name:"id"},
-				{ "data": "user_name" , name:"user_name"},
-                { "data": "email" , name:"email"},
-                { "data": "nama_depan" , name:"nama_depan"},
-                { "data": "status_personil" , name:"status_personil"},
-                { "data": "status_aktif" , name:"status_aktif"},
-                { "data": "flag_blacklist" , name:"flag_blacklist"},
-                { "data": "created_time" , name:"created_time"},
+            success: function(data) {
+                 alert('success')
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+              },
+			  "columns": [
+				{ "data": "kode" , name:"kode"},
+				{ "data": "nama_depan" , name:"nama_depan"},
+				{ "data": "nama_belakang" , name:"nama_belakang"},
+				{ "data": "perubahan" , name:"perubahan"},
+				{ "data": "role_lama" , name:"role_lama"},
+				{ "data": "role_baru" , name:"role_baru"},
+				{ "data": "divalidasi_oleh" , name:"divalidasi_oleh"},
 				{ "data": "option" , name:"option",orderable:false}
             ],
-            "order":[[0,"desc"]]
+			"order": [[ 0, "desc" ]]
 	    });
-        $('#pokja_filter input').unbind();
-        $('#pokja_filter input').bind('keyup', function(e) {
+        $('#users_filter input').unbind();
+        $('#users_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
             table.search(this.value).draw();
         }

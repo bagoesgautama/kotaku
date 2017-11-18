@@ -404,7 +404,7 @@ class bk020316Controller extends Controller
 				'no_rekening' => $request->input('no_rekening-input'),
 				'status_registrasi' => '1',
 				'status_personil' => '1',
-				'jenis_registrasi' => $request->input('select-jenis_registrasi-input'),
+				'jenis_registrasi' => 0,
 				'validation_note' => $request->input('validation_note-input'),
 				'validated_by' => Auth::user()->id,
 				'validated_time' => date('Y-m-d H:i:s'),

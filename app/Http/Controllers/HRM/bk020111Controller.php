@@ -33,13 +33,13 @@ class bk020111Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==180)
+				if($item->kode_menu==231)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 			if(!empty($data['detil'])){
 			    $data['username'] = $user->name;
 
-				$this->log_aktivitas('View', 566);
+				$this->log_aktivitas('View', 733);
 				return view('HRM/bk020111/index',$data);
 			}
 			else {
@@ -123,7 +123,7 @@ class bk020111Controller extends Controller
 			7 =>'created_time'
 		);
 		$query='
-			select * from (select 
+			select * from (select
 				a.*,
 				a.id as id_u,
 				a.user_name as user_name_u,
@@ -133,10 +133,10 @@ class bk020111Controller extends Controller
 				case when a.status_aktif=0 then "Belum Reaktivasi" when a.status_aktif=1 then " Aktif Kontrak" end status_aktif_convert,
 				case when a.flag_blacklist=0 then "Tidak" when a.flag_blacklist=1 then "Ya" end blacklist_convert
 			from bkt_02010111_user a
-			where 
+			where
 				a.status_registrasi=1) b';
 		$totalData = DB::select('select count(1) cnt from bkt_02010111_user a
-			where 
+			where
 				a.status_registrasi=1');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -150,7 +150,7 @@ class bk020111Controller extends Controller
 		else {
 			$search = $request->input('search.value');
 			$posts=DB::select($query. ' where (
-				b.id_u like "%'.$search.'%" or 
+				b.id_u like "%'.$search.'%" or
 				b.user_name_u like "%'.$search.'%" or
 				b.email_u like "%'.$search.'%" or
 				b.nama_depan_u like "%'.$search.'%" or
@@ -158,7 +158,7 @@ class bk020111Controller extends Controller
 				b.status_aktif_convert like "%'.$search.'%" or
 				b.blacklist_convert like "%'.$search.'%") order by '.$order.' '.$dir.' limit '.$start.','.$limit);
 			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' where (
-				b.id_u like "%'.$search.'%" or 
+				b.id_u like "%'.$search.'%" or
 				b.user_name_u like "%'.$search.'%" or
 				b.email_u like "%'.$search.'%" or
 				b.nama_depan_u like "%'.$search.'%" or
@@ -176,8 +176,8 @@ class bk020111Controller extends Controller
 				$show =  $post->id;
 				$edit =  $post->id;
 				$delete = $post->id;
-				$url_edit=url('/')."/hrm/management/registrasi_manual/create?kode=".$show;
-				$url_delete=url('/')."/hrm/management/registrasi_manual/delete?kode=".$delete;
+				$url_edit=url('/')."/hrm/admin/manajemen_user/create?kode=".$show;
+				$url_delete=url('/')."/hrm/admin/manajemen_user/delete?kode=".$delete;
 				$nestedData['id'] = $post->id;
 				$nestedData['user_name'] = $post->user_name;
 				$nestedData['email'] = $post->email;
@@ -190,13 +190,13 @@ class bk020111Controller extends Controller
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
-						if($item->kode_menu==180)
+						if($item->kode_menu==231)
 							$detil[$item->kode_menu_detil]='a';
 					}
 				}
 
 				$option = '';
-				if(!empty($detil['568'])){
+				if(!empty($detil['735'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
 				// if(!empty($detil['569'])){
@@ -225,15 +225,15 @@ class bk020111Controller extends Controller
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
-				if($item->kode_menu==180)
+				if($item->kode_menu==231)
 					$data['detil'][$item->kode_menu_detil]='a';
 		}
 
 		$data['username'] = '';
 		$data['test']=true;
 		$data['kode']=$request->input('kode');
-		
-		if($data['kode']!=null && !empty($data['detil']['568'])){
+
+		if($data['kode']!=null && !empty($data['detil']['735'])){
 			$rowData = DB::select('select * from bkt_02010111_user where id='.$data['kode']);
 			$data['user_name'] = $rowData[0]->user_name;
 			$data['password'] = $rowData[0]->password;
@@ -288,7 +288,7 @@ class bk020111Controller extends Controller
 			$data['level_list']=DB::select('select * from bkt_02010101_role_level where status=1');
 			if(!empty($rowData[0]->kode_level) || strlen($rowData[0]->kode_level)>0)
 				$data['role_list']=DB::select('select kode, nama, flag_koordinator from bkt_02010102_role where kode_level='.$rowData[0]->kode_level);
-			
+
 			$data['prop_list'] = DB::select('select * from bkt_01010101_prop where status=1');
 			if(!empty($rowData[0]->kode_prop)){
 				$data['kota_list'] = DB::select('select b.kode, b.nama from bkt_01010101_prop a, bkt_01010102_kota b where b.kode_prop=a.kode and b.kode_prop='.$rowData[0]->kode_prop);
@@ -341,7 +341,7 @@ class bk020111Controller extends Controller
 			$data['registrasi_list'] = DB::select('select * from bkt_02020201_registrasi');
 
 			return view('HRM/bk020111/create',$data);
-		}else if($data['kode']==null && !empty($data['detil']['567'])){
+		}else if($data['kode']==null && !empty($data['detil']['734'])){
 			$data['user_name'] = null;
 			$data['password'] = null;
 			$data['nama_depan'] = null;
@@ -422,9 +422,9 @@ class bk020111Controller extends Controller
 	{
 		date_default_timezone_set('Asia/Jakarta');
 		DB::table('bkt_02010111_user')->insert([
-            'user_name' => $request->input('username'), 
-            'password' => Hash::make($request->input('password')), 
-            'nama_depan' => $request->input('first_name'), 
+            'user_name' => $request->input('username'),
+            'password' => Hash::make($request->input('password')),
+            'nama_depan' => $request->input('first_name'),
             'nama_belakang' => $request->input('last_name'),
             'nik' => $request->input('nik'),
             'no_npwp' => $request->input('no_npwp'),
@@ -461,7 +461,7 @@ class bk020111Controller extends Controller
             'created_by' => Auth::user()->id
         ]);
 
-		$this->log_aktivitas('Create', 567);
+		$this->log_aktivitas('Create', 734);
 	}
 
 	public function date_conversion($date)
@@ -486,8 +486,8 @@ class bk020111Controller extends Controller
     	DB::table('bkt_02030201_log_aktivitas')->insert([
 				'kode_user' => Auth::user()->id,
 				'kode_apps' => 2,
-				'kode_modul' => 14,
-				'kode_menu' => 180,
+				'kode_modul' => 4,
+				'kode_menu' => 231,
 				'kode_menu_detil' => $detil,
 				'aktifitas' => $aktifitas,
 				'deskripsi' => $aktifitas

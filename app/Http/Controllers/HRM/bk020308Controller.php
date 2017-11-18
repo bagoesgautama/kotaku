@@ -252,7 +252,8 @@ class bk020308Controller extends Controller
 					'flag_blacklist' => (int)$request->input('flag_blacklist-input'),
 					'blacklist_notes' => $request->input('blacklist_notes-input'),
 					'blacklist_dt' => date('Y-m-d H:i:s'),
-					'blacklist_by' => Auth::user()->id
+					'blacklist_by' => Auth::user()->id,
+					'status_personil'=> 0
 					]);
 			}else{
 				DB::table('bkt_02010111_user')->where('id', $request->input('id'))
@@ -260,7 +261,8 @@ class bk020308Controller extends Controller
 					'flag_blacklist' => (int)$request->input('flag_blacklist-input'),
 					'blacklist_notes' => $request->input('blacklist_notes-input'),
 					'blacklist_dt' => null,
-					'blacklist_by' => null
+					'blacklist_by' => null,
+					'status_personil'=> 2
 					]);
 			}
 			$this->log_aktivitas('Update', 715);
