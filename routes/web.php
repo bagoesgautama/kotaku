@@ -86,9 +86,6 @@ Route::get('/hrm/admin/manajemen_user/delete', 'HRM\bk020111Controller@delete');
 
 Route::get('/hrm/admin/activity_log', 'HRM\bk020201Controller@index');
 Route::post('hrm/admin/activity_log', 'HRM\bk020201Controller@post');
-Route::get('/hrm/admin/activity_log/create', 'HRM\bk020201Controller@create');
-Route::post('/hrm/admin/activity_log/create', 'HRM\bk020201Controller@post_create');
-Route::get('/hrm/admin/activity_log/delete', 'HRM\bk020201Controller@delete');
 
 Route::get('/hrm/management_diri/aktivasi', 'HRM\bk020302Controller@index');
 Route::post('/hrm/management_diri/aktivasi', 'HRM\bk020302Controller@post');
@@ -136,6 +133,54 @@ Route::get('/hrm/management_personil/persetujuan/pendaftaran/create', 'HRM\bk020
 Route::post('/hrm/management_personil/persetujuan/pendaftaran/create', 'HRM\bk020316Controller@post_create');
 Route::post('/hrm/management_personil/persetujuan/pendaftaran/tolak', 'HRM\bk020316Controller@post_tolak');
 Route::get('/hrm/management_personil/persetujuan/pendaftaran/delete', 'HRM\bk020316Controller@delete');
+
+Route::get('/hrm/management_personil/persetujuan/mutasi', 'HRM\bk020317Controller@index');
+Route::post('hrm/management_personil/persetujuan/mutasi', 'HRM\bk020317Controller@post');
+Route::get('/hrm/management_personil/persetujuan/mutasi/create', 'HRM\bk020317Controller@create');
+Route::post('/hrm/management_personil/persetujuan/mutasi/approve', 'HRM\bk020317Controller@approve');
+Route::post('/hrm/management_personil/persetujuan/mutasi/reject', 'HRM\bk020317Controller@reject');
+
+Route::get('/hrm/management_personil/persetujuan/demosi', 'HRM\bk020318Controller@index');
+Route::post('hrm/management_personil/persetujuan/demosi', 'HRM\bk020318Controller@post');
+Route::get('/hrm/management_personil/persetujuan/demosi/create', 'HRM\bk020318Controller@create');
+Route::post('/hrm/management_personil/persetujuan/demosi/approve', 'HRM\bk020318Controller@approve');
+Route::post('/hrm/management_personil/persetujuan/demosi/reject', 'HRM\bk020318Controller@reject');
+
+Route::get('/hrm/management_personil/persetujuan/promosi', 'HRM\bk020319Controller@index');
+Route::post('hrm/management_personil/persetujuan/promosi', 'HRM\bk020319Controller@post');
+Route::get('/hrm/management_personil/persetujuan/promosi/create', 'HRM\bk020319Controller@create');
+Route::post('/hrm/management_personil/persetujuan/promosi/approve', 'HRM\bk020398Controller@approve');
+Route::post('/hrm/management_personil/persetujuan/promosi/reject', 'HRM\bk020319Controller@reject');
+
+Route::get('/hrm/management_personil/persetujuan/evaluasi', 'HRM\bk020320Controller@index');
+Route::post('hrm/management_personil/persetujuan/evaluasi', 'HRM\bk020320Controller@post');
+Route::get('/hrm/management_personil/persetujuan/evaluasi/create', 'HRM\bk020320Controller@create');
+Route::post('/hrm/management_personil/persetujuan/evaluasi/create', 'HRM\bk020320Controller@post_create');
+Route::get('/hrm/management_personil/persetujuan/evaluasi/delete', 'HRM\bk020320Controller@delete');
+
+Route::get('/hrm/management_personil/mutasi', 'HRM\bk020321Controller@index');
+Route::post('hrm/management_personil/mutasi', 'HRM\bk020321Controller@post');
+Route::get('/hrm/management_personil/mutasi/create', 'HRM\bk020321Controller@create');
+Route::post('/hrm/management_personil/mutasi/create', 'HRM\bk020321Controller@post_create');
+Route::get('/hrm/management_personil/mutasi/delete', 'HRM\bk020321Controller@delete');
+Route::post('/hrm/management_personil/mutasi/approve', 'HRM\bk020321Controller@approve');
+Route::post('/hrm/management_personil/mutasi/reject', 'HRM\bk020321Controller@reject');
+
+Route::get('/hrm/management_personil/demosi', 'HRM\bk020322Controller@index');
+Route::post('hrm/management_personil/demosi', 'HRM\bk020322Controller@post');
+Route::get('/hrm/management_personil/demosi/create', 'HRM\bk020322Controller@create');
+Route::post('/hrm/management_personil/demosi/create', 'HRM\bk020322Controller@post_create');
+Route::get('/hrm/management_personil/demosi/delete', 'HRM\bk020322Controller@delete');
+Route::post('/hrm/management_personil/demosi/approve', 'HRM\bk020322Controller@approve');
+Route::post('/hrm/management_personil/demosi/reject', 'HRM\bk020322Controller@reject');
+
+Route::get('/hrm/management_personil/promosi', 'HRM\bk020323Controller@index');
+Route::post('hrm/management_personil/promosi', 'HRM\bk020323Controller@post');
+Route::get('/hrm/management_personil/promosi/create', 'HRM\bk020323Controller@create');
+Route::post('/hrm/management_personil/promosi/create', 'HRM\bk020323Controller@post_create');
+Route::get('/hrm/management_personil/promosi/delete', 'HRM\bk020323Controller@delete');
+Route::post('/hrm/management_personil/promosi/approve', 'HRM\bk020323Controller@approve');
+Route::post('/hrm/management_personil/promosi/reject', 'HRM\bk020323Controller@reject');
 
 Route::get('/hrm/management_personil/blacklist', 'HRM\bk020308Controller@index');
 Route::post('/hrm/management_personil/blacklist', 'HRM\bk020308Controller@post');

@@ -84,8 +84,8 @@ $(document).ready(function() {
 	})
 
 
-	map.data.addListener('mouseover', function(event) {
-		/*var data_detil=attr[event.feature.f.PROPINSI]
+	/*map.data.addListener('mouseover', function(event) {
+		var data_detil=attr[event.feature.f.PROPINSI]
     	var row = '';
 		for(var key in data_detil){
 			row += '<tr>';
@@ -94,15 +94,16 @@ $(document).ready(function() {
 			row +='<tr>'
 		}
 	    $('#info').html(row);*/
+	map.data.addListener('click', function(event) {
 		if(last_open!=undefined)
 			attr[last_open].infowindow.close();
 		last_open=event.feature.f.PROPINSI;
 		attr[event.feature.f.PROPINSI].infowindow.setPosition(event.latLng);
 		attr[event.feature.f.PROPINSI].infowindow.open(map)
 	});
-	map.data.addListener('click', function(event) {
+	/*map.data.addListener('click', function(event) {
 		window.location.href = '/gis/map-kota?id='+attr[event.feature.f.PROPINSI].kode;
-	});
+	});*/
 	//alert(JSON.stringify(prop));
 });
 </script>

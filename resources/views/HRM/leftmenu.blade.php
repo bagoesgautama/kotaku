@@ -177,22 +177,22 @@
 					</li>
 					@endif
 					@if( ! empty($menu['215']))
-					<li {!! (Request::is( 'hrm/profil/user/profil*')? 'class="active"': "") !!}>
-						<a href="/hrm/profil/user/profil">
+					<li {!! (Request::is( 'hrm/management_personil/persetujuan/mutasi*')? 'class="active"': "") !!}>
+						<a href="/hrm/management_personil/persetujuan/mutasi">
 							<span class="mm-text ">Persetujuan Mutasi</span>
 						</a>
 					</li>
 					@endif
 					@if( ! empty($menu['216']))
-					<li {!! (Request::is( 'hrm/profil/user/profil*')? 'class="active"': "") !!}>
-						<a href="/hrm/profil/user/profil">
+					<li {!! (Request::is( 'hrm/management_personil/persetujuan/demosi*')? 'class="active"': "") !!}>
+						<a href="/hrm/management_personil/persetujuan/demosi">
 							<span class="mm-text ">Persetujuan Demosi</span>
 						</a>
 					</li>
 					@endif
 					@if( ! empty($menu['217']))
-					<li {!! (Request::is( 'hrm/profil/user/profil*')? 'class="active"': "") !!}>
-						<a href="/hrm/profil/user/profil">
+					<li {!! (Request::is( 'hrm/management_personil/persetujuan/promosi*')? 'class="active"': "") !!}>
+						<a href="/hrm/management_personil/persetujuan/promosi">
 							<span class="mm-text ">Persetujuan Promosi</span>
 						</a>
 					</li>
@@ -205,8 +205,8 @@
 					</li>
 					@endif
 					@if( ! empty($menu['219']))
-					<li {!! (Request::is( 'hrm/profil/user/profil*')? 'class="active"': "") !!}>
-						<a href="/hrm/profil/user/profil">
+					<li {!! (Request::is( 'hrm/management_personil/persetujuan/evaluasi*')? 'class="active"': "") !!}>
+						<a href="/hrm/management_personil/persetujuan/evaluasi">
 							<span class="mm-text ">Persetujuan Evaluasi Kinerja</span>
 						</a>
 					</li>
@@ -222,22 +222,22 @@
 			</li>
 			@endif
 			@if( ! empty($menu['221']))
-			<li {!! (Request::is( 'hrm/profil/user/profil*')? 'class="active"': "") !!}>
-				<a href="/hrm/profil/user/profil">
+			<li {!! (Request::is( 'hrm/management_personil/mutasi*')? 'class="active"': "") !!}>
+				<a href="/hrm/management_personil/mutasi">
 					<span class="mm-text ">Mengatur Mutasi Personil</span>
 				</a>
 			</li>
 			@endif
 			@if( ! empty($menu['222']))
-			<li {!! (Request::is( 'hrm/profil/user/profil*')? 'class="active"': "") !!}>
-				<a href="/hrm/profil/user/profil">
+			<li {!! (Request::is( 'hrm/management_personil/demosi*')? 'class="active"': "") !!}>
+				<a href="/hrm/management_personil/demosi">
 					<span class="mm-text ">Mengatur Demosi Personil</span>
 				</a>
 			</li>
 			@endif
 			@if( ! empty($menu['223']))
-			<li {!! (Request::is( 'hrm/profil/user/profil*')? 'class="active"': "") !!}>
-				<a href="/hrm/profil/user/profil">
+			<li {!! (Request::is( 'hrm/management_personil/promosi*')? 'class="active"': "") !!}>
+				<a href="/hrm/management_personil/promosi">
 					<span class="mm-text ">Mengatur Promosi Personil</span>
 				</a>
 			</li>

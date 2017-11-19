@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Evaluasi Form @stop {{-- local styles --}} @section('header_styles')
+@extends('HRM/default') {{-- Page title --}} @section('title') Persetujuan Evaluasi Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
@@ -7,7 +7,7 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Evaluasi</h1>
+    <h1>Persetujuan Evaluasi</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -16,8 +16,8 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/hrm/management_diri/evaluasi">
-	                Managemen Personil / User / Evaluasi
+				<a href="/hrm/management_diri/persetujuan/evaluasi">
+	                Managemen Personil / Persetujuan / Evaluasi
 				</a>
             </li>
             <li class="next">
@@ -39,7 +39,7 @@
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">User </label>
 				                <div class="col-sm-6">
-									<select id="kode_personil-input" name="kode_personil-input" class="form-control" size="1" required>
+									<select id="kode_personil-input" name="kode_personil-input" class="form-control" size="1" disabled >
 										<option value>Please Select</option>
 										@foreach ($user_list as $kpl)
 				                            <option value="{{$kpl->id}}" {!! $kode_personil==$kpl->id ? 'selected':'' !!}>{{$kpl->user_name}}</option>
@@ -50,14 +50,14 @@
 							<div class="form-group ">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Periode Awal</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="periode_awal-input" name="periode_awal-input" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$periode_awal}}" required>
+                                    <input class="form-control" id="periode_awal-input" name="periode_awal-input" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$periode_awal}}" disabled>
                                 </div>
                             </div>
 
 							<div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Periode Akhir</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="period_akhir-input" name="period_akhir-input" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$period_akhir}}" required>
+                                    <input class="form-control" id="period_akhir-input" name="period_akhir-input" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$period_akhir}}" disabled>
                                 </div>
                             </div>
 							<div class="form-group ">
@@ -80,7 +80,7 @@
 							</div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/hrm/management_diri/evaluasi" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/hrm/management_personil/persetujuan/evaluasi" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
 									@if( $id!=$kode_personil)
@@ -118,14 +118,14 @@
 			type: 'post',
 			processData: false,
             contentType: false,
-			"url": "/hrm/management_diri/evaluasi/create",
+			"url": "/hrm/management_personil/persetujuan/evaluasi/create",
 			data: form_data,
 			beforeSend: function (){
 			    $("#submit").prop('disabled', true);
 			},
 			success: function () {
 				alert('From Submitted.');
-				window.location.href = "/hrm/management_diri/evaluasi";
+				window.location.href = "/hrm/management_personil/persetujuan/evaluasi";
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 			alert(xhr.status);

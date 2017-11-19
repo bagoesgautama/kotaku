@@ -9,7 +9,7 @@
             Map</a>
         </li>
 		<li class="active">
-            {{$propinsi}}
+            Kota
         </li>
     </ol>
 </section>
@@ -34,10 +34,11 @@
 @stop {{-- local scripts --}} @section('footer_scripts')
 <script>
 $(document).ready(function() {
-
+	var last_open;
 	var mapProp = {
-		center: new google.maps.LatLng({!! json_encode($latitude) !!}, {!! json_encode($longitude) !!}),
-		zoom: 7,
+		//zoom: 7,
+		center: new google.maps.LatLng(-2.600029, 118.015776),
+		zoom: 5,
 		//scrollwheel: false,
 		//disableDoubleClickZoom: true,
 		zoomControl: true,
@@ -58,6 +59,19 @@ $(document).ready(function() {
 	for(var i=0;i<prop.length;i++){
 		map.data.loadGeoJson('/uploads/kota/'+prop[i].url_border_area);
 		attr[prop[i].nama]=prop[i]
+		attr[prop[i].nama].infowindow = new google.maps.InfoWindow({});
+		console.log(prop[i])
+		var contentString = '<div id="content">'+
+			'<div id="siteNotice">'+
+			'</div>'+
+			'<div id="bodyContent">'
+			+`
+			<p><b>Nama :`+prop[i].nama+` </b></br>
+			<p><b>Luas :`+prop[i].luas_wil+` </b></br>
+			<p><b>Latitude :`+prop[i].latitude+` </b></br>
+			<p><b>Longitude :`+prop[i].longitude+` </b></br>
+			<p><b>Cakupan Program :`+prop[i].flag_cakupan_prog+` </b></br></p>`
+		attr[prop[i].nama].infowindow.setContent(contentString);
 	}
 
 	map.data.setStyle(function(feature) {
@@ -73,7 +87,7 @@ $(document).ready(function() {
 			  });
 		}
 	})
-	map.data.addListener('mouseover', function(event) {
+	/*map.data.addListener('mouseover', function(event) {
 	  	var data_detil=attr[event.feature.f.KOTA]
     	var row = '';
 		for(var key in data_detil){
@@ -86,6 +100,13 @@ $(document).ready(function() {
 	});
 	map.data.addListener('click', function(event) {
 		window.location.href = '/gis/map-kecamatan?id='+attr[event.feature.f.KOTA].kode;
+	});*/
+	map.data.addListener('click', function(event) {
+		if(last_open!=undefined)
+			attr[last_open].infowindow.close();
+		last_open=event.feature.f.KOTA;
+		attr[event.feature.f.KOTA].infowindow.setPosition(event.latLng);
+		attr[event.feature.f.KOTA].infowindow.open(map)
 	});
 });
 </script>
