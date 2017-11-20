@@ -302,34 +302,6 @@
             width: "100%"
         });
 
-        $('#form-validation').bootstrapValidator().on('success.form.bv', function(e) {
-            $('#form-validation').on('submit', function (e) {
-                e.preventDefault();
-                var form_data = new FormData(this);
-                $.ajax({
-                    type: 'post',
-                    processData: false,
-                    contentType: false,
-                    "url": "/main/persiapan/nasional/pokja/pembentukan/create",
-                    data: form_data,
-                    beforeSend: function (){
-                        $("#submit").prop('disabled', true);
-                    },
-                    success: function () {
-                        alert('From Submitted.');
-                        window.location.href = "/main/persiapan/nasional/pokja/pembentukan";
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status);
-                        alert(thrownError);
-                        $("#submit").prop('disabled', false);
-                    }
-                });
-            });
-        }).on('error.form.bv', function(e) {
-        $("#submit").prop('disabled', false);
-        });
-        
         $("#url_rencana_kerja-input").fileinput({
             previewFileType: "image",
             browseClass: "btn btn-success",
@@ -361,6 +333,34 @@
             removeLabel: "Delete",
             removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
             showUpload: false
+        });
+
+        $('#form-validation').bootstrapValidator().on('success.form.bv', function(e) {
+            $('#form-validation').on('submit', function (e) {
+                e.preventDefault();
+                var form_data = new FormData(this);
+                $.ajax({
+                    type: 'post',
+                    processData: false,
+                    contentType: false,
+                    "url": "/main/persiapan/nasional/pokja/pembentukan/create",
+                    data: form_data,
+                    beforeSend: function (){
+                        $("#submit").prop('disabled', true);
+                    },
+                    success: function () {
+                        alert('From Submitted.');
+                        window.location.href = "/main/persiapan/nasional/pokja/pembentukan";
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                        $("#submit").prop('disabled', false);
+                    }
+                });
+            });
+        }).on('error.form.bv', function(e) {
+        $("#submit").prop('disabled', false);
         });
     });
 </script>

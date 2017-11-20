@@ -181,7 +181,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">File Document</label>
+                                <label class="col-sm-3 control-label">Format Input Manual SIM</label>
                                 <div class="col-sm-6">
                                     <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
                                     <br>
