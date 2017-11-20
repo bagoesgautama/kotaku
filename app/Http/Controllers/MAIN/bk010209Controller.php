@@ -386,7 +386,7 @@ class bk010209Controller extends Controller
 			DB::table('bkt_01020207_bkm_kota')->where('kode', $request->input('kode'))
 			->update([
 				'tahun' => $request->input('tahun-input'),
-				'tk_forum' => $request->input('tk-forum-input'),
+				'tk_forum' => 1,
 				'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:$prop_kmw[0]->kode,
 				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
 				// 'kode_korkot' => $request->input('kode-korkot-input'),
@@ -420,7 +420,7 @@ class bk010209Controller extends Controller
 		}else{
 			DB::table('bkt_01020207_bkm_kota')->insert([
 				'tahun' => $request->input('tahun-input'),
-				'tk_forum' => $request->input('tk-forum-input'),
+				'tk_forum' => 1,
 				'kode_kota' => $request->input('kode-kota-input'),
 				'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:$prop_kmw[0]->kode,
 				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,

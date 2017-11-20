@@ -54,8 +54,12 @@
                                     <input type="text" id="utusan_p" name="kode" value="{{ $utusan_p }}">
                                     <input type="text" id="utusan_w" name="kode" value="{{ $utusan_w }}">
                                     <input type="text" id="utusan_mbr" name="kode" value="{{ $utusan_mbr }}">
+<<<<<<< HEAD
                                     <input type="text" id="tgl_kegiatan" name="kode" value="{{ $tgl_kegiatan }}">
                                     <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="tahun">
+=======
+                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="check">
+>>>>>>> 0f3acfd29d5bd29ce8af09bdbda31988c1acd711
                                         <option value>Please select</option>
                                         @foreach($tahun_list as $list)
                                             <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
@@ -205,6 +209,8 @@
 @stop {{-- local scripts --}} @section('footer_scripts')
 <script>
     function check(value, validator) {
+        var yearNow = (new Date()).getFullYear();
+        var thn = parseInt($('#tahun-input').val());
         var peserta_p = parseInt($('#q_peserta_p-input').val());
         var peserta_w = parseInt($('#q_peserta_w-input').val());
         var utusan_p = parseInt($('#utusan_p').val());
@@ -234,6 +240,11 @@
         if(peserta_p==0 && peserta_w==0){
             res=false;
         } 
+
+        if(thn>yearNow){
+            res=false;
+        }
+        
         return res;
     };
     function tahun(value, validator) {
