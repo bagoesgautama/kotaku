@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Sub Komponen Kegiatan @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Data BKM @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                Master Data / Data Master / Detil Sub Komponen Kegiatan
+                Persiapan / Kelurahan / Pemilihan Ulang BKM/LKM / Data BKM
             </li>
         </ul>
     </div>
@@ -34,25 +34,29 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>bk010120 Index</b>
+                    <b>Data BKM</b>
                 </div>
-                @if( ! empty($detil['438']))
                 <div class="tools pull-right">
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/data_master/det_komp_keg/create">Create</a>
+                     <b>bk010235 Index</b>
+					<!-- <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/main/persiapan/kelurahan/pemilu_bkm/data/create">Create</a> -->
 				</div>
-                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
 					<table class="table table-striped" id="users">
 						<thead>
                             <tr>
-                                <th>id</th>
-								<th>subkomponen</th>
-								<th>Kode Detil Subkomponen</th>
-								<th>Nama</th>
-								<th>Status</th>
-								<th>Option</th>
+                                <th>Kode</th>
+                                <th>Kota</th>
+                                <th>Kecamatan</th>
+                                <th>Kelurahan</th>
+                                <th>Tahun</th>
+                                <th>Tanggal Kegiatan</th>
+                                <th>Lokasi Kegiatan</th>
+                                <th>Jumlah Anggota Laki-laki</th>
+                                <th>Jumlah Anggota Perempuan</th>
+                                <th>Jumlah Anggota Miskin/MBR</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -71,7 +75,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/data_master/det_komp_keg",
+                     "url": "/main/persiapan/kelurahan/pemilu_bkm/data",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -83,11 +87,16 @@
                 alert(thrownError);
               },
             "columns": [
-				{ "data": "id" , name:"id"},
-				{ "data": "subkomponen" , name:"subkomponen"},
-				{ "data": "kode_dtl_subkomponen" , name:"kode_dtl_subkomponen"},
-				{ "data": "detil" , name:"detil"},
-				{ "data": "status" , name:"status"},
+				{ "data": "kode" , name:"kode"},
+                { "data": "nama_kota" , name:"nama_kota"},
+                { "data": "nama_kec" , name:"nama_kec"},
+                { "data": "nama_kel" , name:"nama_kel"},
+                { "data": "tahun" , name:"tahun"},
+                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
+                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+                { "data": "q_terpilih_p" , name:"q_terpilih_p"},
+                { "data": "q_terpilih_w" , name:"q_terpilih_w"},
+                { "data": "q_terpilih_mbr" , name:"q_terpilih_mbr"},
                 { "data": "option" , name:"option",orderable:false}
             ],
 			"order": [[ 0, "desc" ]]
