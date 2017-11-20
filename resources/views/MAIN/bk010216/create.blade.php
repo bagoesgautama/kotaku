@@ -49,7 +49,7 @@
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                     <input type="hidden" id="jenis_kegiatan-input" name="jenis_kegiatan-input" value="2.5.1">
-                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required>
+                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="check">
                                         <option value>Please select</option>
                                         @foreach($tahun_list as $list)
                                             <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
@@ -219,6 +219,12 @@
         if(sum2>sum){
             res=false;
         }else if(p==0 && w==0){
+            res=false;
+        }
+        var thn = parseInt($('#tahun-input').val());
+        var yearNow = (new Date()).getFullYear();
+        var res = true;
+        if(thn>yearNow){
             res=false;
         }
         return res;

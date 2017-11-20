@@ -47,7 +47,7 @@
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                     <input type="hidden" id="kode_korkot-input" name="kode_korkot-input" value="{{ $kode_korkot }}">
                                     <input type="hidden" id="kode_faskel-input" name="kode_faskel-input" value="{{ $kode_faskel }}">
-                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required>
+                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="check">
                                         <option value>Please select</option>
                                         @foreach($tahun_list as $list)
                                             <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
@@ -238,6 +238,12 @@
         }else if(p==0 && w==0){
             res=false;
         }
+        var thn = parseInt($('#tahun-input').val());
+        var yearNow = (new Date()).getFullYear();
+        var res = true;
+        if(thn>yearNow){
+            res=false;
+        }
         return res;
     };
 
@@ -299,7 +305,12 @@
             theme: "bootstrap",
             placeholder: "single select"
         });
-
+        $('#tgl-kegiatan-input')
+            .on('changeDate show', function(e) {
+                // Revalidate the date when user change it
+                $('#form-validation').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
+                $("#submit").prop('disabled', false);
+        });
         $('#form-validation').bootstrapValidator().on('success.form.bv', function(e) {
             $('#form-validation').on('submit', function (e) {
                 e.preventDefault();
