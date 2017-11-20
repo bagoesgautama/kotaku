@@ -54,12 +54,8 @@
                                     <input type="text" id="utusan_p" name="kode" value="{{ $utusan_p }}">
                                     <input type="text" id="utusan_w" name="kode" value="{{ $utusan_w }}">
                                     <input type="text" id="utusan_mbr" name="kode" value="{{ $utusan_mbr }}">
-<<<<<<< HEAD
                                     <input type="text" id="tgl_kegiatan" name="kode" value="{{ $tgl_kegiatan }}">
                                     <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="tahun">
-=======
-                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="check">
->>>>>>> 0f3acfd29d5bd29ce8af09bdbda31988c1acd711
                                         <option value>Please select</option>
                                         @foreach($tahun_list as $list)
                                             <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}

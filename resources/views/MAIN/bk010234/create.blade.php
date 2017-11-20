@@ -271,11 +271,11 @@
 
         if(terpilih_p>utusan_p){
             res=false;
-        }else if(terpilih_w>utusan_w){
+        if(terpilih_w>utusan_w){
             res=false;
-        }else if(sum_terpilih_2>sum_terpilih){
+        if(sum_terpilih_2>sum_terpilih){
             res=false;
-        }else if(terpilih_p==0 && terpilih_w==0){
+        if(terpilih_p==0 && terpilih_w==0){
             res=false;
         }
         var thn = parseInt($('#tahun-input').val());
