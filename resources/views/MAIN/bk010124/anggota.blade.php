@@ -55,7 +55,8 @@
                                 <label class="col-sm-3 control-label">Nama</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode_bkm" name="kode_bkm" value="{{ $kode_bkm }}">
-                                    <input type="text" id="nama" name="nama" class="form-control" maxlength="100" placeholder="Nama" >
+                                    <input type="hidden" id="kode_anggota" name="kode_anggota" value="{{ $kode_anggota }}">
+                                    <input type="text" id="nama" name="nama" class="form-control" maxlength="100" placeholder="Nama" value="{{$nama}}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -63,8 +64,8 @@
                                 <div class="col-sm-6">
                                     <select id="jenis_kelamin" name="jenis_kelamin" class="form-control" size="1">
                                         <option value>Please Select</option>
-                                        <option value="L">Laki-laki</option>
-                                        <option value="P">Perempuan</option>
+                                        <option value="L" {!! $jenis_kelamin=='L'?'selected':'' !!}>Laki-laki</option>
+                                        <option value="P" {!! $jenis_kelamin=='P'?'selected':'' !!}>Perempuan</option>
                                     </select>
                                 </div>
                             </div>
@@ -72,16 +73,16 @@
                                 <label class="col-sm-3 control-label">Status Sosial</label>
                                 <div class="col-sm-6">
                                     <select id="status_sosial" name="status_sosial" class="form-control" size="1">
-                                        <option value>Please Select</option>
-                                        <option value="0">Miskin dan Rentan</option>
-                                        <option value="1">Non Miskin</option>
+                                        <option value {!! $status_sosial==null?'selected':'' !!}>Please Select</option>
+                                        <option value="0" {!! $status_sosial=='0'?'selected':'' !!}>Miskin dan Rentan</option>
+                                        <option value="1" {!! $status_sosial=='1'?'selected':'' !!}>Non Miskin</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Umur</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="umur" name="umur" class="form-control" maxlength="3" required min="1" placeholder="Umur" >
+                                    <input type="number" id="umur" name="umur" class="form-control" maxlength="3" required min="1" placeholder="Umur" value="{{$umur}}">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -90,18 +91,7 @@
                                     <select id="select-kode-pendidikan-input" name="kode-pendidikan-input" class="form-control select2" size="1">
                                         <option value>Please select</option>
                                         @foreach ($kode_pendidikan_list as $kkl)
-                                            <option value="{{$kkl->kode}}">{{$kkl->nama}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Pendidikan</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode-pekerjaan-input" name="kode-pekerjaan-input" class="form-control select2" size="1">
-                                        <option value>Please select</option>
-                                        @foreach ($kode_pekerjaan_list as $kkl)
-                                            <option value="{{$kkl->kode}}">{{$kkl->nama}}</option>
+                                            <option value="{{$kkl->kode}}" {!! $kode_pendidikan==$kkl->kode?'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -112,7 +102,7 @@
                                     <select id="select-kode-pekerjaan-input" name="kode-pekerjaan-input" class="form-control select2" size="1">
                                         <option value>Please select</option>
                                         @foreach ($kode_pekerjaan_list as $kkl)
-                                            <option value="{{$kkl->kode}}">{{$kkl->nama}}</option>
+                                            <option value="{{$kkl->kode}}" {!! $kode_pekerjaan==$kkl->kode?'selected':'' !!}>{{$kkl->nama}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -120,16 +110,16 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Jumlah Pendukung</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="jml_dukungan" name="jml_dukungan" class="form-control" maxlength="6" required min="0" placeholder="Jumlah Pendukung" >
+                                    <input type="number" id="jml_dukungan" name="jml_dukungan" class="form-control" maxlength="6" required min="0" placeholder="Jumlah Pendukung" value="{{$jml_dukungan}}">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Status</label>
                                 <div class="col-sm-6">
                                     <select id="status" name="status" class="form-control" size="1">
-                                        <option value="0">Tidak Aktif</option>
-                                        <option value="1">Aktif</option>
-                                        <option value="2">Sudah Dihapus</option>
+                                        <option value="0" {!! $status=='0'?'selected':'' !!}>Tidak Aktif</option>
+                                        <option value="1" {!! $status=='1'?'selected':'' !!}>Aktif</option>
+                                        <option value="2" {!! $status=='2'?'selected':'' !!}>Sudah Dihapus</option>
                                     </select>
                                 </div>
                             </div>

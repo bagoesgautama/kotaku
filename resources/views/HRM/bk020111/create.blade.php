@@ -451,14 +451,12 @@
                             <a href="/hrm/admin/manajemen_user" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
-                            @if ($kode==null)
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                 Submit
                             </button>
                             <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                 Reset
                             </button>
-                            @endif
                         </div>
                     </div>
 
