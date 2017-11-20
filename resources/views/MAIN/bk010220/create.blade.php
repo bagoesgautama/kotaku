@@ -1,4 +1,4 @@
- @extends('MAIN/default') {{-- Page title --}} @section('title') Main - Keanggotaan @stop {{-- local styles --}}
+ @extends('MAIN/default') {{-- Page title --}} @section('title') Main - Data BKM/LKM @stop {{-- local styles --}}
 @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
@@ -47,133 +47,10 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Tahun</label>
                                 <div class="col-sm-6">
-                                    <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                    <input type="hidden" id="kode_kmw-input" name="kode_kmw-input" value="{{ $kode_kmw }}">
-                                    <input type="hidden" id="kode_korkot-input" name="kode_korkot-input" value="{{ $kode_korkot }}">
-                                    <input type="hidden" id="kode_faskel-input" name="kode_faskel-input" value="{{ $kode_faskel }}">
-                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="tahun">
-                                        <option value>Please select</option>
-                                        @foreach($tahun_list as $list)
-                                            <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input31">Kota</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode_kota-input" class="form-control select2" name="select-kode_kota-input" required>
-                                        <option value="">Please Select</option>
-                                        @if ($kode_kota_list!=null)
-                                        @foreach ($kode_kota_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Kecamatan</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode_kec-input" class="form-control select2" name="select-kode_kec-input" required>
-                                        <option value="">Please Select</option>
-                                        @if ($kode_kec_list!=null)
-                                        @foreach ($kode_kec_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Kelurahan</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode_kel-input" class="form-control select2" name="select-kode_kel-input" required>
-                                        <option value="">Please Select</option>
-                                        @if ($kode_kel_list!=null)
-                                        @foreach ($kode_kel_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_kel==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pembentukan</label>
-                                <div class="col-sm-6">
-                                    <input class="form-control" id="tgl_kegiatan-input" name="tgl_kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required data-bv-callback="true" data-bv-callback-message="Tanggal melebihi current date." data-bv-callback-callback="tgl">
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Anggota Laki-laki</label>
-                                <div class="col-sm-6">
-                                    <input type="text" id="q_anggota_p-input" name="q_anggota_p-input" class="form-control" placeholder="Anggota Pria" value="{{$q_anggota_p}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Anggota Perempuan</label>
-                                <div class="col-sm-6">
-                                    <input type="text" id="q_anggota_w-input" name="q_anggota_w-input" class="form-control" placeholder="Anggota Wanita" value="{{$q_anggota_w}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0" required>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Unsur Pemerintah Desa</label>
-                                <div class="col-sm-6">
-                                    <input type="text" id="q_anggota_pem_desa-input" name="q_anggota_pem_desa-input" class="form-control" placeholder="Anggota Desa" value="{{$q_anggota_pem_desa}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Unsur Pemerintah BPD</label>
-                                <div class="col-sm-6">
-                                    <input type="text" id="q_anggota_pem_bpd-input" name="q_anggota_pem_bpd-input" class="form-control" placeholder="Anggota BPD" value="{{$q_anggota_pem_bpd}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0" required>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Unsur Non Pemerintah</label>
-                                <div class="col-sm-6">
-                                    <input type="text" id="q_anggota_non_pem-input" name="q_anggota_non_pem-input" class="form-control" placeholder="Anggota Non Pemerintah" value="{{$q_anggota_non_pem}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Nilai Dana Operasional</label>
-                                <div class="col-sm-6">
-                                    <input type="number" id="nilai_dana_ops-input" name="nilai_dana_ops-input" class="form-control" placeholder="Jumlah Dana Operasional" value="{{$nilai_dana_ops}}" maxlength="30" min="0" step="0.1" required>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Dokumen Rencana Kerja</label>
-                                <div class="col-sm-6">
-                                    <input id="uri_dok_rencana_kerja-input" type="file" class="file" accept="image/*" name="uri_dok_rencana_kerja-input">
-                                    <br>
-                                    <img id="uri_dok_rencana_kerja" alt="gallery" src="/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan/{{$uri_dok_rencana_kerja}}" {!! $uri_dok_rencana_kerja==null ? 'style="display:none"':'style="width:150px"' !!} >
-                                    <input type="hidden" id="uri_dok_rencana_kerja-file" name="uri_dok_rencana_kerja-file" value="{{$uri_dok_rencana_kerja}}">
-                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_dok_rencana_kerja==null ? 'style="display:none"':'' !!} onclick="test('uri_dok_rencana_kerja')">Delete</button>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Format Input Manual SIM</label>
-                                <div class="col-sm-6">
-                                    <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
-                                    <br>
-                                    <img id="uri_img_document" alt="gallery" src="/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
-                                    <input type="hidden" id="uri_img_document-file" name="uri_img_document-file" value="{{$uri_img_document}}">
-                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">Delete</button>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">File Absensi</label>
-                                <div class="col-sm-6">
-                                    <input id="uri_img_absensi-input" type="file" class="file" accept="image/*" name="uri_img_absensi-input">
-                                    <br>
-                                    <img id="uri_img_absensi" alt="gallery" src="/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
-                                    <input type="hidden" id="uri_img_absensi-file" name="uri_img_absensi-file" value="{{$uri_img_absensi}}">
-                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} onclick="test('uri_img_absensi')">Delete</button>
-                                </div>
-                            </div>
+                            
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <a href="/main/persiapan/kelurahan/forum/keanggotaan" type="button" class="btn btn-effect-ripple btn-danger">
