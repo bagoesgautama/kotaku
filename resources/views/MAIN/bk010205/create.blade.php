@@ -55,16 +55,11 @@
                     </li>
                     <li>
                         <a href="#tab4" data-toggle="tab">
-                                        Data Kawasan Kumuh
-                                    </a>
-                    </li>
-                    <li>
-                        <a href="#tab3" data-toggle="tab">
                                         Luas Kawasan Kumuh
                                     </a>
                     </li>
                     <li>
-                        <a href="#tab3" data-toggle="tab">
+                        <a href="#tab5" data-toggle="tab">
                                         Cakupan Penduduk di Kawasan Kumuh
                                     </a>
                     </li>
@@ -205,13 +200,13 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Luas Kawasan Kumuh (Ha)</label>
                                         <div class="col-sm-6">
-                                            <input type="text" id="lk-l-kw-kmh" name="lk-l-kw-kmh" class="form-control" value="{{$lk_l_kw_kmh}}" min="0">
+                                            <input type="text" id="lk-l-kw-kmh" name="lk-l-kw-kmh" class="form-control" value="{{$lk_l_kw_kmh}}" min="0" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Luas RT Kumuh Pada Tingkat RT Pada Tahun Berjalan (Ha)</label>
                                         <div class="col-sm-6">
-                                            <input type="text" id="lk-l-rt-kmh" name="lk-l-rt-kmh" class="form-control" value="{{$lk_l_rt_kmh}}" min="0">
+                                            <input type="text" id="lk-l-rt-kmh" name="lk-l-rt-kmh" class="form-control" value="{{$lk_l_rt_kmh}}" min="0" readonly>
                                         </div>
                                     </div>
                                 </div>
