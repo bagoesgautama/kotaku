@@ -165,25 +165,31 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">File Rencana Kerja</label>
                                 <div class="col-sm-6">
-                                    <input id="rencana-kerja-input" type="file" class="file" data-show-preview="false" name="rencana-kerja-input">
+                                    <input id="url_rencana_kerja-input" type="file" class="file" accept="image/*" name="url_rencana_kerja-input">
                                     <br>
-                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-rnckerja" value="{{$url_rencana_kerja}}" {!! $url_rencana_kerja==null ? 'style="display:none"':'' !!}>{{$url_rencana_kerja}}</button>
+                                    <img id="url_rencana_kerja" alt="gallery" src="/uploads/persiapan/nasional/pokja/pembentukan/{{$url_rencana_kerja}}" {!! $url_rencana_kerja==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="url_rencana_kerja-file" name="url_rencana_kerja-file" value="{{$url_rencana_kerja}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $url_rencana_kerja==null ? 'style="display:none"':'' !!} onclick="test('url_rencana_kerja')">Delete</button>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">File Dokumen Manual Input SIM</label>
+                                <label class="col-sm-3 control-label">Format Input Manual SIM</label>
                                 <div class="col-sm-6">
-                                    <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
+                                    <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
                                     <br>
-                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-dokumen" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
+                                    <img id="uri_img_document" alt="gallery" src="/uploads/persiapan/nasional/pokja/pembentukan/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="uri_img_document-file" name="uri_img_document-file" value="{{$uri_img_document}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">Delete</button>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">File Absensi</label>
                                 <div class="col-sm-6">
-                                    <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input">
+                                    <input id="uri_img_absensi-input" type="file" class="file" accept="image/*" name="uri_img_absensi-input">
                                     <br>
-                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!}>{{$uri_img_absensi}}</button>
+                                    <img id="uri_img_absensi" alt="gallery" src="/uploads/persiapan/nasional/pokja/pembentukan/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="uri_img_absensi-file" name="uri_img_absensi-file" value="{{$uri_img_absensi}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} onclick="test('uri_img_absensi')">Delete</button>
                                 </div>
                             </div>
                             <div class="form-group form-actions">
@@ -244,8 +250,6 @@
             $('#upnp-lsm-input').val(0);
             $('#upnp-swasta-input').val(0);
             $('#upnp-praktisi-input').val(0);
-            // $('#kl_label').removeClass('has-error');
-            // $('.help-block').hide();
         });
         w.change(function(){
             $('#upp-kementrian-input').val(0);
@@ -265,18 +269,6 @@
         document.body.addEventListener('input', enforce_maxlength); 
     
     $(document).ready(function () {
-		
-        $("#rencana-kerja-input").fileinput({
-  			showUpload: false
-  		});
-  		
-        $("#file-dokumen-input").fileinput({
-  			showUpload: false
-  		});
-  		
-        $("#file-absensi-input").fileinput({
-  			showUpload: false
-  		});
 
         $('#tgl-kegiatan-input')
             .on('changeDate show', function(e) {
@@ -305,66 +297,63 @@
 
         $('#form-validation').bootstrapValidator().on('success.form.bv', function(e) {
             $('#form-validation').on('submit', function (e) {
-                var file_dokumen = document.getElementById('file-dokumen-input').files[0];
-                var file_absensi = document.getElementById('file-absensi-input').files[0];
-                var file_rnckerja = document.getElementById('rencana-kerja-input').files[0];
-                var form_data = new FormData();
-                form_data.append('kode', $('#kode').val());
-                form_data.append('file-dokumen-input', file_dokumen);
-                form_data.append('file-absensi-input', file_absensi);
-                form_data.append('rencana-kerja-input', file_rnckerja);
-                form_data.append('uploaded-file-dokumen', $('#uploaded-file-dokumen').val());
-                form_data.append('uploaded-file-absensi', $('#uploaded-file-absensi').val());
-                form_data.append('uploaded-file-rnckerja', $('#uploaded-file-rnckerja').val());
-                form_data.append('tahun-input', $('#tahun-input').val());
-                // form_data.append('kode-prop-input', $('#kode-prop-input').val());
-                // form_data.append('kode-kmw-input', $('#select-kode-kmw-input').val());
-                // form_data.append('kode-faskel-input', $('#select-kode-faskel-input').val());
-                form_data.append('jns-kegiatan-input', '2.1');
-                form_data.append('tgl-kegiatan-input', $('#tgl-kegiatan-input').val());
-                form_data.append('status-pokja-input', $('#status-pokja-input').val());
-                form_data.append('dsr-pembentukan-input', $('#dsr-pembentukan-input').val());
-                form_data.append('q-laki-input', $('#q-laki-input').val());
-                form_data.append('q-perempuan-input', $('#q-perempuan-input').val());
-                form_data.append('upp-kementrian-input', $('#upp-kementrian-input').val());
-                form_data.append('upp-dinas-input', $('#upp-dinas-input').val());
-                form_data.append('upp-dpr-input', $('#upp-dpr-input').val());
-                form_data.append('upnp-lsm-input', $('#upnp-lsm-input').val());
-                form_data.append('upnp-swasta-input', $('#upnp-swasta-input').val());
-                form_data.append('upnp-praktisi-input', $('#upnp-praktisi-input').val());
-                form_data.append('dana-ops-input', $('#dana-ops-input').val());
-                form_data.append('ket-rencana-kerja-input', $('#ket-rencana-kerja-input').val());
-                form_data.append('tgl-diser-input', $('#tgl-diser-input').val());
-                form_data.append('diser-oleh-input', $('#diser-oleh-input').val());
-                form_data.append('tgl-diket-input', $('#tgl-diket-input').val());
-                form_data.append('diket-oleh-input', $('#diket-oleh-input').val());
-                form_data.append('tgl-diver-input', $('#tgl-diver-input').val());
-                form_data.append('diver-oleh-input', $('#diver-oleh-input').val());
-				form_data.append('flag_sekretariat-input', $('#flag_sekretariat-input').val());
-              e.preventDefault();
-              $.ajax({
-                type: 'post',
-                processData: false,
-                contentType: false,
-                "url": "/main/persiapan/nasional/pokja/pembentukan/create",
-                data: form_data,
-                beforeSend: function (){
-                    $("#submit").prop('disabled', true);
-                },
-                success: function () {
-
-                alert('From Submitted.');
-                window.location.href = "/main/persiapan/nasional/pokja/pembentukan";
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                  alert(xhr.status);
-                  alert(thrownError);
-                  $("#submit").prop('disabled', false);
-                }
-              });
+                e.preventDefault();
+                var form_data = new FormData(this);
+                $.ajax({
+                    type: 'post',
+                    processData: false,
+                    contentType: false,
+                    "url": "/main/persiapan/nasional/pokja/pembentukan/create",
+                    data: form_data,
+                    beforeSend: function (){
+                        $("#submit").prop('disabled', true);
+                    },
+                    success: function () {
+                        alert('From Submitted.');
+                        window.location.href = "/main/persiapan/nasional/pokja/pembentukan";
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                        $("#submit").prop('disabled', false);
+                    }
+                });
             });
         }).on('error.form.bv', function(e) {
-            $("#submit").prop('disabled', false);
+        $("#submit").prop('disabled', false);
+        });
+        
+        $("#url_rencana_kerja-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
+
+        $("#uri_img_document-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
+
+        $("#uri_img_absensi-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
         });
     });
 </script>
