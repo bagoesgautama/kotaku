@@ -65,7 +65,7 @@
                                 <th>Jumlah Anggota Laki-laki</th>
                                 <th>Jumlah Anggota Perempuan</th>
                                 <th>Jumlah Non Anggota</th>
-                                <th>option</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>

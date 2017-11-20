@@ -140,13 +140,13 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Jumlah Anggota Terpilih Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_terpilih_p-input" name="q_terpilih_p-input" class="form-control" placeholder="Terpilih Pria" value="{{$q_terpilih_p}}" maxlength="5" min="0" required>
+                                    <input type="text" id="q_terpilih_p-input" name="q_terpilih_p-input" class="form-control" placeholder="Terpilih Pria" value="{{$q_terpilih_p}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota terpilih laki-laki & perempuan" data-bv-callback-callback="check2" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Jumlah Anggota Terpilih Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_terpilih_w-input" name="q_terpilih_w-input" class="form-control" placeholder="Terpilih Wanita" value="{{$q_terpilih_w}}" maxlength="5" min="0" required>
+                                    <input type="text" id="q_terpilih_w-input" name="q_terpilih_w-input" class="form-control" placeholder="Terpilih Wanita" value="{{$q_terpilih_w}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota terpilih laki-laki & perempuan" data-bv-callback-callback="check2" maxlength="5" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -219,30 +219,25 @@
         var res = true;
         if(peserta_p>utusan_p){
             res=false;
-
         }
         if(peserta_w>utusan_w){
             res=false;
         }
-
         if(sum_peserta_2>sum_peserta){
             res=false;
         }
-
         if(peserta_mbr>utusan_mbr){
             res=false;
         }
-        
         if(peserta_p==0 && peserta_w==0){
             res=false;
         } 
-
         if(thn>yearNow){
             res=false;
         }
-        
         return res;
     };
+    
     function tahun(value, validator) {
         var yearNow = (new Date()).getFullYear();
         var thn = parseInt($('#tahun-input').val());
@@ -276,6 +271,9 @@
     function check2(value, validator) {
         var terpilih_p = parseInt($('#q_terpilih_p-input').val());
         var terpilih_w = parseInt($('#q_terpilih_w-input').val());
+        var peserta_p = parseInt($('#q_peserta_p-input').val());
+        var peserta_w = parseInt($('#q_peserta_w-input').val());
+        var peserta_mbr = parseInt($('#q_peserta_mbr-input').val());
 
         var terpilih_mbr = parseInt($('#q_terpilih_mbr-input').val())|| 0;
         var sum_terpilih = terpilih_p + terpilih_w;
@@ -285,9 +283,25 @@
         if(sum_terpilih_2>sum_terpilih){
             res=false;
         }
-
         if(terpilih_p==0 && terpilih_w==0){
             res=false;
+        }
+        if(terpilih_p>peserta_p){
+            res=false;
+        }
+        if(terpilih_w>peserta_w){
+            res=false;
+        }
+        if(terpilih_mbr>peserta_mbr){
+            res=false;
+        }
+        if(sum_terpilih<9 || sum_terpilih>13 || sum_terpilih%2==0){
+            res=false;
+            console.log('aa')
+        }
+        if(sum_terpilih_2<9 || sum_terpilih_2>13 || sum_terpilih_2%2==0){
+            res=false;
+            console.log('bb')
         }
         return res;
     };

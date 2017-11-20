@@ -312,7 +312,6 @@ class bk010236Controller extends Controller
 					$show =  $post->kode_peserta_sos;
 					$edit =  $post->kode_peserta_sos;
 					$delete = $post->kode_peserta_sos;
-					// $url_edit=url('/')."/main/persiapan/kota/kegiatan/sosialisasi/unsur/create?kode=".$edit;
 					$url_delete=url('/')."/main/persiapan/propinsi/sosialisasi/unsur/delete?kode=".$delete."&kode_sosialisasi=".$post->kode_sos;
 					$nestedData['kode'] = $post->kode_peserta_sos;
 					$nestedData['nama_unsur'] = $post->nama_unsur;
@@ -328,9 +327,6 @@ class bk010236Controller extends Controller
 					}
 
 					$option = '';
-					// if(!empty($detil['152']) && $request->input('detil_menu') == '152'){
-					// 	$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
-					// }
 					if(!empty($detil['597']) && $request->input('detil_menu') == '597'){
 						$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 					}
@@ -422,9 +418,6 @@ class bk010236Controller extends Controller
 					}
 
 					$option = '';
-					// if(!empty($detil['152']) && $request->input('detil_menu') == '152'){
-					// 	$option .= "&emsp;<a href='{$url_edit}' title='EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
-					// }
 					if(!empty($detil['597']) && $request->input('detil_menu') == '597'){
 						$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 					}
@@ -507,7 +500,6 @@ class bk010236Controller extends Controller
 				$data['hasil_kesepakatan'] = $rowData[0]->hasil_kesepakatan;
 				$data['sumber_pembiayaan'] = $rowData[0]->sumber_pembiayaan;
 				$data['nama_narsum'] = $rowData[0]->nama_narsum_sos;
-				// $data['jml_peserta'] = $rowData[0]->jml_peserta_sos;
 				$data['kode_unsur'] = $rowData[0]->kode_unsur_narsum_sos==$rowData[0]->kode_unsur_pst_sos?$rowData[0]->kode_unsur_narsum_sos:null;
 				$data['uri_img_document'] = $rowData[0]->uri_img_document;
 				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
@@ -549,23 +541,6 @@ class bk010236Controller extends Controller
 				}else{
 					$data['kode_unsur_list'] =DB::select('select * from bkt_01010130_unsur where status=1');
 				}
-
-				// $rowData3=DB::select('select kode_unsur from bkt_01020218_narsum_sos where kode_sosialisasi='.$request->input('kode'));
-				// $where='';
-				// $count=0;
-				// foreach ($rowData3 as $value) {
-				// 	$count++;
-				// 	if($count==1){
-				// 		$where.=' id !='.$value->kode_unsur;
-				// 	}else{
-				// 		$where.=' and id !='.$value->kode_unsur;
-				// 	}
-				// }
-				// if($where!=null){
-				// 	$data['kode_unsur_n_list']=DB::select('select * from bkt_01010130_unsur where '.$where.' and status=1');
-				// }else{
-				// 	$data['kode_unsur_n_list'] =DB::select('select * from bkt_01010130_unsur where status=1');
-				// }
 				$data['kode_unsur_n_list'] =DB::select('select * from bkt_01010130_unsur where status=1');
 				$data['kode_user_list'] = DB::select('select * from bkt_02010111_user');
 				return view('MAIN/bk010236/create',$data);
@@ -797,31 +772,31 @@ class bk010236Controller extends Controller
 	public function post_create(Request $request)
 	{
     	$user = Auth::user();
-		$file_dokumen = $request->file('file-dokumen-input');
-		$url_dokumen = null;
-		$upload_dokumen = false;
-		if($request->input('uploaded-file-dokumen') != null && $file_dokumen == null){
-			$url_dokumen = $request->input('uploaded-file-dokumen');
-			$upload_dokumen = false;
-		}elseif($request->input('uploaded-file-dokumen') != null && $file_dokumen != null){
-			$url_dokumen = $file_dokumen->getClientOriginalName();
-			$upload_dokumen = true;
-		}elseif($request->input('uploaded-file-dokumen') == null && $file_dokumen != null){
-			$url_dokumen = $file_dokumen->getClientOriginalName();
-			$upload_dokumen = true;
+		$file_document = $request->file('uri_img_document-input');
+		$uri_document = null;
+		$upload_document = false;
+		if($request->input('uri_img_document-file') != null && $file_document == null){
+			$uri_document = $request->input('uri_img_document-file');
+			$upload_document = false;
+		}elseif($request->input('uri_img_document-file') != null && $file_document != null){
+			$uri_document = $file_document->getClientOriginalName();
+			$upload_document = true;
+		}elseif($request->input('uri_img_document-file') == null && $file_document != null){
+			$uri_document = $file_document->getClientOriginalName();
+			$upload_document = true;
 		}
 
-		$file_absensi = $request->file('file-absensi-input');
-		$url_absensi = null;
+		$file_absensi = $request->file('uri_img_absensi-input');
+		$uri_absensi = null;
 		$upload_absensi = false;
-		if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
-			$url_absensi = $request->input('uploaded-file-absensi');
+		if($request->input('uri_img_absensi-file') != null && $file_absensi == null){
+			$uri_absensi = $request->input('uri_img_absensi-file');
 			$upload_absensi = false;
-		}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
-			$url_absensi = $file_absensi->getClientOriginalName();
+		}elseif($request->input('uri_img_absensi-file') != null && $file_absensi != null){
+			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
-		}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
-			$url_absensi = $file_absensi->getClientOriginalName();
+		}elseif($request->input('uri_img_absensi-file') == null && $file_absensi != null){
+			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
 		}
 
@@ -836,7 +811,7 @@ class bk010236Controller extends Controller
 				'kode_kmw' => $user->kode_kmw,
 				'kode_korkot' => $user->kode_korkot,
 				'kode_faskel' => $request->input('kode-faskel-input'),
-				'skala_kegiatan' => $request->input('skala_kegiatan'),
+				'skala_kegiatan' => 2,
 				'nama_kegiatan' => $request->input('nama_kegiatan'),
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
@@ -844,38 +819,19 @@ class bk010236Controller extends Controller
 				'media' => $request->input('media'),
 				'hasil_kesepakatan' => $request->input('hasil_kesepakatan'),
 				'sumber_pembiayaan' => $request->input('sumber_pembiayaan'),
-				'uri_img_document' => $url_dokumen,
-				'uri_img_absensi' => $url_absensi,
-				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				// 'diser_oleh' => $request->input('diser-oleh-input'),
-				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				// 'diket_oleh' => $request->input('diket-oleh-input'),
-				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				// 'diver_oleh' => $request->input('diver-oleh-input'),
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $uri_absensi,
 				'updated_by' => Auth::user()->id,
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
 
-			if($upload_dokumen == true){
-				$file_dokumen->move(public_path('/uploads/persiapan/kota/kegiatan/sosialisasi'), $file_dokumen->getClientOriginalName());
+			if($upload_document == true){
+				$file_document->move(public_path('/uploads/persiapan/kota/kegiatan/sosialisasi'), $file_document->getClientOriginalName());
 			}
 
 			if($upload_absensi == true){
 				$file_absensi->move(public_path('/uploads/persiapan/kota/kegiatan/sosialisasi'), $file_absensi->getClientOriginalName());
 			}
-
-			// DB::table('bkt_01020218_narsum_sos')->where('kode_sosialisasi', $request->input('kode'))
-			// ->update([
-			// 	'kode_unsur' => $request->input('kode-unsur-input'),
-			// 	'nama_narsum' => $request->input('nama_narsum')
-   //     			]);
-
-			// DB::table('bkt_01020217_pst_sos')->where('kode_sosialisasi', $request->input('kode'))
-			// ->update([
-			// 	'kode_unsur' => $request->input('kode-unsur-input'),
-			// 	'jml_peserta' => $request->input('jml_peserta')
-   //     			]);
-
 			$this->log_aktivitas('Update', 597);
 
 		}else{
@@ -887,7 +843,7 @@ class bk010236Controller extends Controller
         		'kode_kmw' => $user->kode_kmw,
 				'kode_korkot' => $user->kode_korkot,
 				'kode_faskel' => $request->input('kode-faskel-input'),
-				'skala_kegiatan' => $request->input('skala_kegiatan'),
+				'skala_kegiatan' => 2,
 				'nama_kegiatan' => $request->input('nama_kegiatan'),
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
@@ -895,37 +851,18 @@ class bk010236Controller extends Controller
 				'media' => $request->input('media'),
 				'hasil_kesepakatan' => $request->input('hasil_kesepakatan'),
 				'sumber_pembiayaan' => $request->input('sumber_pembiayaan'),
-				'uri_img_document' => $url_dokumen,
-				'uri_img_absensi' => $url_absensi,
-				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				// 'diser_oleh' => $request->input('diser-oleh-input'),
-				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				// 'diket_oleh' => $request->input('diket-oleh-input'),
-				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				// 'diver_oleh' => $request->input('diver-oleh-input'),
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $uri_absensi,
 				'created_by' => Auth::user()->id
        			]);
 
-			if($upload_dokumen == true){
-				$file_dokumen->move(public_path('/uploads/persiapan/kota/kegiatan/sosialisasi'), $file_dokumen->getClientOriginalName());
+			if($upload_document == true){
+				$file_document->move(public_path('/uploads/persiapan/kota/kegiatan/sosialisasi'), $file_document->getClientOriginalName());
 			}
 
 			if($upload_absensi == true){
 				$file_absensi->move(public_path('/uploads/persiapan/kota/kegiatan/sosialisasi'), $file_absensi->getClientOriginalName());
 			}
-
-			// DB::table('bkt_01020218_narsum_sos')->insert([
-			// 	'kode_sosialisasi' => $lastInsertId,
-			// 	'kode_unsur' => $request->input('kode-unsur-input'),
-			// 	'nama_narsum' => $request->input('nama_narsum')
-   //     			]);
-
-			// DB::table('bkt_01020217_pst_sos')->insert([
-			// 	'kode_sosialisasi' => $lastInsertId,
-			// 	'kode_unsur' => $request->input('kode-unsur-input'),
-			// 	'jml_peserta' => $request->input('jml_peserta')
-   //     			]);
-
 			$this->log_aktivitas('Create', 596);
 		}
 	}

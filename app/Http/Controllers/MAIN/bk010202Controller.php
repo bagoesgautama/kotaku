@@ -59,7 +59,8 @@ class bk010202Controller extends Controller
 			4 =>'lok_kegiatan',
 			5 =>'q_peserta_p',
 			6 =>'q_peserta_w',
-			7 =>'q_non_anggota'
+			7 =>'q_non_anggota_p',
+			8 =>'q_non_anggota_w'
 		);
 		$query='
 			select * from (select
@@ -129,7 +130,7 @@ class bk010202Controller extends Controller
 				$nestedData['lok_kegiatan'] = $post->lok_kegiatan;
 				$nestedData['q_peserta_p'] = $post->q_peserta_p;
 				$nestedData['q_peserta_w'] = $post->q_peserta_w;
-				$nestedData['q_non_anggota'] = $post->q_non_anggota;
+				$nestedData['q_non_anggota'] = $post->q_non_anggota_p+$post->q_non_anggota_w;
 
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 1)->get();
@@ -188,7 +189,8 @@ class bk010202Controller extends Controller
 				$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
 				$data['q_peserta_p'] = $rowData[0]->q_peserta_p;
 				$data['q_peserta_w'] = $rowData[0]->q_peserta_w;
-				$data['q_non_anggota'] = $rowData[0]->q_non_anggota;
+				$data['q_non_anggota_p'] = $rowData[0]->q_non_anggota_p;
+				$data['q_non_anggota_w'] = $rowData[0]->q_non_anggota_w;
 				$data['uri_img_document'] = $rowData[0]->uri_img_document;
 				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
 				$data['diser_tgl'] = $rowData[0]->diser_tgl;
@@ -233,7 +235,8 @@ class bk010202Controller extends Controller
 				$data['lok_kegiatan'] = $rowData[0]->lok_kegiatan;
 				$data['q_peserta_p'] = $rowData[0]->q_peserta_p;
 				$data['q_peserta_w'] = $rowData[0]->q_peserta_w;
-				$data['q_non_anggota'] = $rowData[0]->q_non_anggota;
+				$data['q_non_anggota_p'] = $rowData[0]->q_non_anggota_p;
+				$data['q_non_anggota_w'] = $rowData[0]->q_non_anggota_w;
 				$data['uri_img_document'] = $rowData[0]->uri_img_document;
 				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
 				$data['diser_tgl'] = $rowData[0]->diser_tgl;
@@ -256,7 +259,8 @@ class bk010202Controller extends Controller
 				$data['lok_kegiatan'] = null;
 				$data['q_peserta_p'] = null;
 				$data['q_peserta_w'] = null;
-				$data['q_non_anggota'] = null;
+				$data['q_non_anggota_p'] = null;
+				$data['q_non_anggota_w'] = null;
 				$data['uri_img_document'] = null;
 				$data['uri_img_absensi'] = null;
 				$data['diser_tgl'] = null;
@@ -318,7 +322,9 @@ class bk010202Controller extends Controller
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
-				'q_non_anggota' => $request->input('q-non-input'),
+				'q_non_anggota_p' => $request->input('q-non-p-input'),
+				'q_non_anggota_w' => $request->input('q-non-w-input'),
+				'uri_img_document' => $uri_document,
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
 				'updated_by' => Auth::user()->id,
@@ -343,7 +349,8 @@ class bk010202Controller extends Controller
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
-				'q_non_anggota' => $request->input('q-non-input'),
+				'q_non_anggota_p' => $request->input('q-non-p-input'),
+				'q_non_anggota_w' => $request->input('q-non-w-input'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
 				'created_by' => Auth::user()->id

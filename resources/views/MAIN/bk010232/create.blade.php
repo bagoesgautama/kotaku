@@ -40,7 +40,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                        <form id="form-validation" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Relawan</label></div>
                             </div>
@@ -91,20 +91,24 @@
                             <div class="form-group striped-col">
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
                             </div>
-                            <div class="form-group ">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">Format Input Manual SIM</label>
                                 <div class="col-sm-6">
-                                    <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
+                                    <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
                                     <br>
-                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-dokumen" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
+                                    <img id="uri_img_document" alt="gallery" src="/uploads/persiapan/kota/kegiatan/relawan/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="uri_img_document-file" name="uri_img_document-file" value="{{$uri_img_document}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">Delete</button>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">File Absensi</label>
                                 <div class="col-sm-6">
-                                    <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input">
+                                    <input id="uri_img_absensi-input" type="file" class="file" accept="image/*" name="uri_img_absensi-input">
                                     <br>
-                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!}>{{$uri_img_absensi}}</button>
+                                    <img id="uri_img_absensi" alt="gallery" src="/uploads/persiapan/kota/kegiatan/relawan/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="uri_img_absensi-file" name="uri_img_absensi-file" value="{{$uri_img_absensi}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} onclick="test('uri_img_absensi')">Delete</button>
                                 </div>
                             </div>
                             <div class="form-group form-actions">
@@ -153,154 +157,83 @@
         }
         return res;
     };
-      $(document).ready(function () {
-	  	$("#file-dokumen-input").fileinput({
-	        showUpload: false
-	    });
-		$("#file-absensi-input").fileinput({
-  	        showUpload: false
-  	    });
-        $('#tgl-kegiatan-input')
-            .on('changeDate show', function(e) {
-                // Revalidate the date when user change it
-                $('#form').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
-                $("#submit").prop('disabled', false);
-        });
-        $('#form').bootstrapValidator().on('success.form.bv', function(e) {
-            $('#form').on('submit', function (e) {
-                var file_dokumen = document.getElementById('file-dokumen-input').files[0];
-                var file_absensi = document.getElementById('file-absensi-input').files[0];
-                var form_data = new FormData();
-                form_data.append('kode', $('#kode').val());
-                form_data.append('file-dokumen-input', file_dokumen);
-                form_data.append('file-absensi-input', file_absensi);
-                form_data.append('uploaded-file-dokumen', $('#uploaded-file-dokumen').val());
-                form_data.append('uploaded-file-absensi', $('#uploaded-file-absensi').val());
-                form_data.append('tahun-input', $('#tahun-input').val());
-                form_data.append('kode-kota-input', $('#select-kode-kota-input').val());
-                form_data.append('kode-kmw-input', $('#select-kode-kmw-input').val());
-                form_data.append('kode-korkot-input', $('#select-kode-korkot-input').val());
-                form_data.append('jns-kegiatan-input', '2.4.2');
-                form_data.append('tgl-kegiatan-input', $('#tgl-kegiatan-input').val());
-                form_data.append('q-laki-input', $('#q-laki-input').val());
-                form_data.append('q-perempuan-input', $('#q-perempuan-input').val());
-                form_data.append('tgl-diser-input', $('#tgl-diser-input').val());
-                form_data.append('diser-oleh-input', $('#diser-oleh-input').val());
-                form_data.append('tgl-diket-input', $('#tgl-diket-input').val());
-                form_data.append('diket-oleh-input', $('#diket-oleh-input').val());
-                form_data.append('tgl-diver-input', $('#tgl-diver-input').val());
-                form_data.append('diver-oleh-input', $('#diver-oleh-input').val());
-              e.preventDefault();
-              $.ajax({
-                type: 'post',
-                processData: false,
-                contentType: false,
-                "url": "/main/persiapan/kota/kegiatan/relawan/create",
-                data: form_data,
-                beforeSend: function (){
-                    $("#submit").prop('disabled', true);
-                },
-                success: function () {
-                alert('From Submitted.');
-                window.location.href = "/main/persiapan/kota/kegiatan/relawan";
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
-                $("#submit").prop('disabled', false);
-                }
-              });
-            });
-        }).on('error.form.bv', function(e) {
-            $("#submit").prop('disabled', false);
-        });
-        $("#select-kode-kota-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-        $("#select-kode-korkot-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-        $("#select-kode-kmw-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-        $("#tahun-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
 
-        function enforce_maxlength(event) {
+    function enforce_maxlength(event) {
             var t = event.target;
             if (t.hasAttribute('maxlength')) {
                 t.value = t.value.slice(0, t.getAttribute('maxlength'));
             }
         }
-        document.body.addEventListener('input', enforce_maxlength);
 
-        var kmw = $('#select-kode-kmw-input');
-        var kota = $('#select-kode-kota-input');
-        var korkot = $('#select-kode-korkot-input');
-        var kmw_id,kota_id,korkot_id,kec_id;
+    $(document).ready(function () {
+	  	
+        $('#tgl-kegiatan-input')
+            .on('changeDate show', function(e) {
+                // Revalidate the date when user change it
+                $('#form-validation').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
+                $("#submit").prop('disabled', false);
+        });
 
-        // kmw.change(function(){
-        //     kmw_id=kmw.val();
-        //     if(kmw_id!=null){
-        //         kota.empty();
-        //         kota.append("<option value>Please select</option>");
-        //         $.ajax({
-        //             type: 'get',
-        //             "url": "/main/persiapan/kota/kegiatan/relawan/select?kmw="+kmw_id,
-        //             success: function (data) {
-        //                 data=JSON.parse(data)
-        //                 for (var i=0;i<data.length;i++){
-        //                     kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-        //                 }
-        //             }
-        //         });
-        //     }
-        // });
+        $("#select-kode-kota-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
 
-        // kota.change(function(){
-        //     kota_id=kota.val();
-        //     kmw_id=kmw.val();
-        //     if(kota_id!=null){
-        //         korkot.empty();
-        //         korkot.append("<option value>Please select</option>");
-        //         $.ajax({
-        //             type: 'get',
-        //             "url": "/main/persiapan/kota/kegiatan/relawan/select?kota_korkot="+kota_id,
-        //             success: function (data) {
-        //                 data=JSON.parse(data)
-        //                 for (var i=0;i<data.length;i++){
-        //                     korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-        //                 }
-        //             }
-        //         });
+        $("#tahun-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select"
+        });
 
+        $("#uri_img_document-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
 
-        //     }
-        // });
+        $("#uri_img_absensi-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
 
-        /*kota.change(function(){
-            kota_id=kota.val();
-            if(kota_id!=null){
-                kec.empty();
-                kec.append("<option value>Please select</option>");
+        $('#form-validation').bootstrapValidator().on('success.form.bv', function(e) {
+            $('#form-validation').on('submit', function (e) {
+                e.preventDefault();
+                var form_data = new FormData(this);
                 $.ajax({
-                    type: 'get',
-                    "url": "/main/persiapan/kota/kegiatan/relawan/select?kota_kec="+kota_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kec.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
+                    type: 'post',
+                    processData: false,
+                    contentType: false,
+                    "url": "/main/persiapan/kota/kegiatan/relawan/create",
+                    data: form_data,
+                    beforeSend: function (){
+                        $("#submit").prop('disabled', true);
+                    },
+                    success: function () {
+                        alert('From Submitted.');
+                        window.location.href = "/main/persiapan/kota/kegiatan/relawan";
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                        $("#submit").prop('disabled', false);
                     }
                 });
-            }
-        });*/
-      });
+            });
+        }).on('error.form.bv', function(e) {
+        $("#submit").prop('disabled', false);
+        });
+    });
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>

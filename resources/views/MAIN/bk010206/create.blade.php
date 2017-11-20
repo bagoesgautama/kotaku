@@ -40,7 +40,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                        <form id="form-validation" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data POKJA</label></div>
                             </div>
@@ -94,13 +94,13 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_p}}" data-bv-callback="true" data-bv-callback-message="anggota pembentuk pria & wanita tidak boleh 0" data-bv-callback-callback="check" min="0" required>
+                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_p}}" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_w}}" required data-bv-callback="true" data-bv-callback-message="anggota pembentuk pria & wanita tidak boleh 0" data-bv-callback-callback="check" min="0" required>
+                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_w}}" min="0" required>
                                 </div>
                             </div>
 							<div class="form-group striped-col">
@@ -109,13 +109,13 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">OPD</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="upp-opd-input" name="upp-opd-input" class="form-control" placeholder="" value="{{$upp_opd}}" min="0">
+                                    <input type="number" id="upp-opd-input" name="upp-opd-input" class="form-control" placeholder="" value="{{$upp_opd}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">DPRD</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="upp-dprd-input" name="upp-dprd-input" class="form-control" placeholder="" value="{{$upp_dprd}}" min="0">
+                                    <input type="number" id="upp-dprd-input" name="upp-dprd-input" class="form-control" placeholder="" value="{{$upp_dprd}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
                                 </div>
                             </div>
 							<div class="form-group">
@@ -124,37 +124,37 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">BKM/LKM</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="upnp-bkm-input" name="upnp-bkm-input" class="form-control" placeholder="" value="{{$upn_bkm}}" min="0">
+                                    <input type="number" id="upnp-bkm-input" name="upnp-bkm-input" class="form-control" placeholder="" value="{{$upn_bkm}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">LSM/Pemerhati Permukiman</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="upnp-lsm-input" name="upnp-lsm-input" class="form-control" placeholder="" value="{{$upn_lsm}}" min="0">
+                                    <input type="number" id="upnp-lsm-input" name="upnp-lsm-input" class="form-control" placeholder="" value="{{$upn_lsm}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Swasta/Badan Usaha</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="upnp-swasta-input" name="upnp-swasta-input" class="form-control" placeholder="" value="{{$unp_bu}}" min="0">
+                                    <input type="number" id="upnp-swasta-input" name="upnp-swasta-input" class="form-control" placeholder="" value="{{$unp_bu}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Praktisi/Profesional/Perguruan Tinggi</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="upnp-praktisi-input" name="upnp-praktisi-input" class="form-control" placeholder="" value="{{$upn_praktisi}}" min="0">
+                                    <input type="number" id="upnp-praktisi-input" name="upnp-praktisi-input" class="form-control" placeholder="" value="{{$upn_praktisi}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Nilai Dana Operasional</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="dana-ops-input" name="dana-ops-input" class="form-control" placeholder="Jumlah" value="{{$nilai_dana_ops}}" min="0">
+                                    <input type="number" id="dana-ops-input" name="dana-ops-input" class="form-control" placeholder="Jumlah" value="{{$nilai_dana_ops}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check" min="0">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Keterangan Rencana Kerja</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="ket-rencana-kerja-input" name="ket-rencana-kerja-input" class="form-control" placeholder="Ket. Rencana Kerja" value="{{$ket_rencana_kerja}}">
+                                    <textarea id="ket-rencana-kerja-input" name="ket-rencana-kerja-input" rows="7" class="form-control resize_vertical" placeholder="Lokasi" maxlength="50" required>{{ $ket_rencana_kerja }}</textarea>
                                 </div>
                             </div>
 							<div class="form-group striped-col">
@@ -172,66 +172,33 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">File Rencana Kerja</label>
                                 <div class="col-sm-6">
-                                    <input id="rencana-kerja-input" type="file" class="file" data-show-preview="false" name="rencana-kerja-input">
+                                    <input id="url_rencana_kerja-input" type="file" class="file" accept="image/*" name="url_rencana_kerja-input">
                                     <br>
-                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-rnckerja" value="{{$url_rencana_kerja}}" {!! $url_rencana_kerja==null ? 'style="display:none"':'' !!}>{{$url_rencana_kerja}}</button>
+                                    <img id="url_rencana_kerja" alt="gallery" src="/uploads/persiapan/kota/pokja/pembentukan/{{$url_rencana_kerja}}" {!! $url_rencana_kerja==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="url_rencana_kerja-file" name="url_rencana_kerja-file" value="{{$url_rencana_kerja}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $url_rencana_kerja==null ? 'style="display:none"':'' !!} onclick="test('url_rencana_kerja')">Delete</button>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Format Input Manual SIM</label>
                                 <div class="col-sm-6">
-                                    <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
+                                    <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
                                     <br>
-                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-dokumen" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
+                                    <img id="uri_img_document" alt="gallery" src="/uploads/persiapan/kota/pokja/pembentukan/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="uri_img_document-file" name="uri_img_document-file" value="{{$uri_img_document}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">Delete</button>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">File Absensi</label>
                                 <div class="col-sm-6">
-                                    <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input">
+                                    <input id="uri_img_absensi-input" type="file" class="file" accept="image/*" name="uri_img_absensi-input">
                                     <br>
-                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!}>{{$uri_img_absensi}}</button>
+                                    <img id="uri_img_absensi" alt="gallery" src="/uploads/persiapan/kota/pokja/pembentukan/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="uri_img_absensi-file" name="uri_img_absensi-file" value="{{$uri_img_absensi}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} onclick="test('uri_img_absensi')">Delete</button>
                                 </div>
                             </div>
-                            <!-- <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diser-input" name="tgl-diser-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}" required>
-                                </div>
-                                <div class="col-sm-3">
-                                    <select id="diser-oleh-input" name="diser-oleh-input" class="form-control" size="1" required>
-                                        @foreach ($kode_user_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $diser_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diketahui & Diketahui Oleh</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diket-input" name="tgl-diket-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}" required>
-                                </div>
-                                <div class="col-sm-3">
-                                    <select id="diket-oleh-input" name="diket-oleh-input" class="form-control" size="1" required>
-                                        @foreach ($kode_user_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $diket_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diverifikasi & Diverifikasi Oleh</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diver-input" name="tgl-diver-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}" required>
-                                </div>
-                                <div class="col-sm-3">
-                                    <select id="diver-oleh-input" name="diver-oleh-input" class="form-control" size="1" required>
-                                        @foreach ($kode_user_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $diver_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div> -->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <a href="/main/persiapan/kota/pokja/pembentukan" type="button" class="btn btn-effect-ripple btn-danger">
@@ -261,14 +228,14 @@
 		var p = parseInt($('#q-laki-input').val());
 		var w = parseInt($('#q-perempuan-input').val());
 
-		var kl = parseInt($('#upp-kementrian-input').val())|| 0;
-		var dinas = parseInt($('#upp-dinas-input').val())|| 0;
-		var dpr = parseInt($('#upp-dpr-input').val())|| 0;
+		var opd = parseInt($('#upp-opd-input').val())|| 0;
+		var dprd = parseInt($('#upp-dprd-input').val())|| 0;
+		var bkm = parseInt($('#upnp-bkm-input').val())|| 0;
 		var lsm = parseInt($('#upnp-lsm-input').val())|| 0;
 		var swasta = parseInt($('#upnp-swasta-input').val())|| 0;
 		var prak = parseInt($('#upnp-praktisi-input').val())|| 0;
 		var sum = p+w;
-		var sum2 = kl+dinas+dpr+lsm+swasta+prak;
+		var sum2 = opd+dprd+bkm+lsm+swasta+prak;
 		var res = true;
 		if(sum2>sum){
 			res=false;
@@ -308,22 +275,11 @@
         document.body.addEventListener('input', enforce_maxlength);
 
     $(document).ready(function () {
-	  	$("#file-dokumen-input").fileinput({
-	        showUpload: false
-	    });
-
-		$("#file-absensi-input").fileinput({
-  	        showUpload: false
-  	    });
-		
-        $("#rencana-kerja-input").fileinput({
-  	        showUpload: false
-  	    });
         
         $('#tgl-kegiatan-input')
             .on('changeDate show', function(e) {
                 // Revalidate the date when user change it
-                $('#form').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
+                $('#form-validation').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
                 $("#submit").prop('disabled', false);
         });
         
@@ -347,92 +303,67 @@
             placeholder: "Please Select"
         });
 		
-        $('#form').bootstrapValidator().on('success.form.bv', function(e) {
-	        $('#form').on('submit', function (e) {
-	            var file_dokumen = document.getElementById('file-dokumen-input').files[0];
-	            var file_absensi = document.getElementById('file-absensi-input').files[0];
-	            var file_rnckerja = document.getElementById('rencana-kerja-input').files[0];
-	            var form_data = new FormData();
-	            form_data.append('kode', $('#kode').val());
-	            form_data.append('file-dokumen-input', file_dokumen);
-	            form_data.append('file-absensi-input', file_absensi);
-	            form_data.append('rencana-kerja-input', file_rnckerja);
-	            form_data.append('uploaded-file-dokumen', $('#uploaded-file-dokumen').val());
-	            form_data.append('uploaded-file-absensi', $('#uploaded-file-absensi').val());
-	            form_data.append('uploaded-file-rnckerja', $('#uploaded-file-rnckerja').val());
-	            form_data.append('tahun-input', $('#tahun-input').val());
-	            form_data.append('kode-kota-input', $('#select-kode-kota-input').val());
-	            form_data.append('kode-kmw-input', $('#select-kode-kmw-input').val());
-	            form_data.append('kode-korkot-input', $('#select-kode-korkot-input').val());
-	            form_data.append('kode-faskel-input', $('#select-kode-faskel-input').val());
-	            form_data.append('jns-kegiatan-input', $('#jns-kegiatan-input').val());
-	            form_data.append('tgl-kegiatan-input', $('#tgl-kegiatan-input').val());
-	            form_data.append('status-pokja-input', $('#status-pokja-input').val());
-	            form_data.append('dsr-pembentukan-input', $('#dsr-pembentukan-input').val());
-	            form_data.append('q-laki-input', $('#q-laki-input').val());
-	            form_data.append('q-perempuan-input', $('#q-perempuan-input').val());
-	            form_data.append('upp-opd-input', $('#upp-opd-input').val());
-	            form_data.append('upp-dprd-input', $('#upp-dprd-input').val());
-	            form_data.append('upnp-bkm-input', $('#upnp-bkm-input').val());
-	            form_data.append('upnp-lsm-input', $('#upnp-lsm-input').val());
-	            form_data.append('upnp-swasta-input', $('#upnp-swasta-input').val());
-	            form_data.append('upnp-praktisi-input', $('#upnp-praktisi-input').val());
-	            form_data.append('dana-ops-input', $('#dana-ops-input').val());
-	            form_data.append('ket-rencana-kerja-input', $('#ket-rencana-kerja-input').val());
-	            form_data.append('tgl-diser-input', $('#tgl-diser-input').val());
-	            form_data.append('diser-oleh-input', $('#diser-oleh-input').val());
-	            form_data.append('tgl-diket-input', $('#tgl-diket-input').val());
-	            form_data.append('diket-oleh-input', $('#diket-oleh-input').val());
-	            form_data.append('tgl-diver-input', $('#tgl-diver-input').val());
-	            form_data.append('diver-oleh-input', $('#diver-oleh-input').val());
-				form_data.append('flag_sekretariat-input', $('#flag_sekretariat-input').val());
-	          e.preventDefault();
-	          $.ajax({
-	            type: 'post',
-	            processData: false,
-	            contentType: false,
-	            "url": "/main/persiapan/kota/pokja/pembentukan/create",
-	            data: form_data,
-	            beforeSend: function (){
-	                $("#submit").prop('disabled', true);
-	            },
-	            success: function () {
-	            alert('From Submitted.');
-	            window.location.href = "/main/persiapan/kota/pokja/pembentukan";
-	            },
-	            error: function (xhr, ajaxOptions, thrownError) {
-	            alert(xhr.status);
-	            alert(thrownError);
-	            $("#submit").prop('disabled', false);
-	            }
-	          });
-	        });
-		}).on('error.form.bv', function(e) {
-			$("#submit").prop('disabled', false);
-		});
+        $("#url_rencana_kerja-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
 
-        var kota = $('#select-kode-kota-input');
-        var kode_kota = {!! json_encode($kode_kota) !!};
+        $("#uri_img_document-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
 
-        // kota.change(function(){
-        //     kota_id=kota.val();
-        //     kmw_id=kmw.val();
-        //     if(kota_id!=null){
-        //         korkot.empty();
-        //         korkot.append("<option value>Please select</option>");
-        //         $.ajax({
-        //             type: 'get',
-        //             "url": "/main/persiapan/kota/pokja/pembentukan/select?kota_korkot="+kota_id+"&kmw_korkot="+kmw_id,
-        //             success: function (data) {
-        //                 data=JSON.parse(data)
-        //                 for (var i=0;i<data.length;i++){
-        //                     korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-        //                 }
-        //             }
-        //         });
-        //     }
-        // });
-      });
+        $("#uri_img_absensi-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
+
+        $('#form-validation').bootstrapValidator().on('success.form.bv', function(e) {
+            $('#form-validation').on('submit', function (e) {
+                e.preventDefault();
+                var form_data = new FormData(this);
+                $.ajax({
+                    type: 'post',
+                    processData: false,
+                    contentType: false,
+                    "url": "/main/persiapan/kota/pokja/pembentukan/create",
+                    data: form_data,
+                    beforeSend: function (){
+                        $("#submit").prop('disabled', true);
+                    },
+                    success: function () {
+                        alert('From Submitted.');
+                        window.location.href = "/main/persiapan/kota/pokja/pembentukan";
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                        $("#submit").prop('disabled', false);
+                    }
+                });
+            });
+        }).on('error.form.bv', function(e) {
+        $("#submit").prop('disabled', false);
+        });
+    });
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>

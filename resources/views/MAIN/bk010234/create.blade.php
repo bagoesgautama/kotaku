@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">RT</label>
+                                <label class="col-sm-3 control-label" for="example-text-input1">Tingkat Basis</label>
                                 <div class="col-sm-6">
                                     <select id="select-id_rt-input" class="form-control select2" name="select-id_rt-input" required>
                                         <option value="">Please Select</option>
@@ -263,6 +263,7 @@
         var utusan_w = parseInt($('#q_utusan_w-input').val());
         var terpilih_p = parseInt($('#q_terpilih_p-input').val());
         var terpilih_w = parseInt($('#q_terpilih_w-input').val());
+        var utusan_mbr = parseInt($('#q_utusan_mbr-input').val());
 
         var terpilih_mbr = parseInt($('#q_terpilih_mbr-input').val())|| 0;
         var sum_terpilih = terpilih_p + terpilih_w;
@@ -276,6 +277,12 @@
         }else if(sum_terpilih_2>sum_terpilih){
             res=false;
         }else if(terpilih_p==0 && terpilih_w==0){
+            res=false;
+        }else if(terpilih_p>utusan_p){
+            res=false;
+        }else if(terpilih_w>utusan_w){
+            res=false;
+        }else if(terpilih_mbr>utusan_mbr){
             res=false;
         }
         return res;

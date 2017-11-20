@@ -52,83 +52,37 @@
                     <div class="col-md-12">
                         <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Skala kegiatan</label>
-                                <div class="col-sm-6">
-                                    <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                    <input type="hidden" id="detil_menu" name="detil_menu" value="{{ $detil_menu }}">
-                                    <select id="skala_kegiatan" name="skala_kegiatan" class="form-control" size="1" required>
-                                        <option value="2" {!! $skala_kegiatan=='2' ? 'selected':'' !!}>Skala Propinsi</option>
-                                    </select>
-                                </div>
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Sosialisasi</label></div>
                             </div>
-                            <!-- <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Propinsi</label>
-                                <div class="col-sm-6">
-                                    <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                    <select id="select-kode-prop-input" name="kode-prop-input" class="form-control select2" size="1" required>
-                                        <option value>Please select</option>
-                                        @foreach ($kode_prop_list as $kpl)
-                                            <option value="{{$kpl->kode}}" {!! $kode_prop==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div> -->
-                            <!-- <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">KMW</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode-kmw-input" name="kode-kmw-input" class="form-control select2" size="1" required>
-                                        <option value>Please select</option>
-                                        @if ($kode_kmw_list!=null)
-                                        @foreach ($kode_kmw_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_kmw==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div> -->
-                            <!-- <div class="form-group ">
-                                <label class="col-sm-3 control-label">Kota</label>
-                                <div class="col-sm-6">
-                                    <select id="select-kode-kota-input" name="kode-kota-input" class="form-control select2" size="1" required>
-                                        <option value>Please select</option>
-                                        @if ($kode_kota_list!=null)
-                                        @foreach ($kode_kota_list as $kkl)
-                                            <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div> -->
-                            
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Nama Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="nama_kegiatan" name="nama_kegiatan" class="form-control" value="{{$nama_kegiatan}}" maxlength="100" required>
-                                </div>
-                            </div>
-                            <div class="form-group ">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pelaksanaan</label>
-                                <div class="col-sm-6">
-                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Pelaksanaan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required data-bv-callback="true" data-bv-callback-message="Tanggal melebihi current date." data-bv-callback-callback="check">
+                                    <input type="text" id="nama_kegiatan" name="nama_kegiatan" class="form-control" placeholder="Nama Kegiatan" value="{{$nama_kegiatan}}" maxlength="100" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pelaksanaan</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Klik Untuk Pilih Tanggal" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required data-bv-callback="true" data-bv-callback-message="Tanggal melebihi current date." data-bv-callback-callback="check">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50" required>
+                                    <textarea id="lok-kegiatan-input" name="lok-kegiatan-input" rows="7" class="form-control resize_vertical" placeholder="Lokasi" maxlength="50" required>{{ $lok_kegiatan }}</textarea>
                                 </div>
                             </div>
                             
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Media</label>
                                 <div class="col-sm-6">
-                                    <textarea style="resize: vertical" id="media" name="media" class="form-control" maxlength="255" required>{{$media}}</textarea>
+                                    <textarea style="resize: vertical" id="media" name="media" class="form-control" placeholder="Media" maxlength="255" required>{{$media}}</textarea>
                                 </div>
                             </div>
-                            <div class="form-group ">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Hasil Kesepakatan</label>
                                 <div class="col-sm-6">
-                                    <textarea style="resize: vertical;height: 200px;" id="hasil_kesepakatan" name="hasil_kesepakatan" class="form-control" maxlength="1000" required>{{$hasil_kesepakatan}}</textarea>
+                                    <textarea style="resize: vertical;height: 200px;" id="hasil_kesepakatan" name="hasil_kesepakatan" class="form-control" placeholder="Hasil Kesepakatan" maxlength="1000" required>{{$hasil_kesepakatan}}</textarea>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -141,62 +95,29 @@
                                     </select>
                                 </div>
                             </div>
-                            
-                            <div class="form-group ">
+                            <div class="form-group">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
+                            </div>
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Format Input Manual SIM</label>
                                 <div class="col-sm-6">
-                                    <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
+                                    <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
                                     <br>
-                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-dokumen" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!}>{{$uri_img_document}}</button>
+                                    <img id="uri_img_document" alt="gallery" src="/uploads/persiapan/kota/kegiatan/sosialisasi/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="uri_img_document-file" name="uri_img_document-file" value="{{$uri_img_document}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">Delete</button>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">File Absensi</label>
                                 <div class="col-sm-6">
-                                    <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input">
+                                    <input id="uri_img_absensi-input" type="file" class="file" accept="image/*" name="uri_img_absensi-input">
                                     <br>
-                                    <button type="button" class="btn btn-warning btn-modify" id="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!}>{{$uri_img_absensi}}</button>
+                                    <img id="uri_img_absensi" alt="gallery" src="/uploads/persiapan/kota/kegiatan/sosialisasi/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="uri_img_absensi-file" name="uri_img_absensi-file" value="{{$uri_img_absensi}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} onclick="test('uri_img_absensi')">Delete</button>
                                 </div>
                             </div>
-                            <!-- <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diser-input" name="tgl-diser-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}" required>
-                                </div>
-                                <div class="col-sm-3">
-                                    <select id="diser-oleh-input" name="diser-oleh-input" class="form-control" size="1" required>
-                                        @foreach ($kode_user_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $diser_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diketahui & Diketahui Oleh</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diket-input" name="tgl-diket-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}" required>
-                                </div>
-                                <div class="col-sm-3">
-                                    <select id="diket-oleh-input" name="diket-oleh-input" class="form-control" size="1" required>
-                                        @foreach ($kode_user_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $diket_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diverifikasi & Diverifikasi Oleh</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" id="tgl-diver-input" name="tgl-diver-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}" required>
-                                </div>
-                                <div class="col-sm-3">
-                                    <select id="diver-oleh-input" name="diver-oleh-input" class="form-control" size="1" required>
-                                        @foreach ($kode_user_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $diver_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div> -->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <a href="/main/persiapan/propinsi/sosialisasi" type="button" class="btn btn-effect-ripple btn-danger">
@@ -395,24 +316,70 @@
         }
         return res;
     };
-      $(document).ready(function () {
-        $("#file-dokumen-input").fileinput({
-            showUpload: false
+
+    function enforce_maxlength(event) {
+            var t = event.target;
+            if (t.hasAttribute('maxlength')) {
+                t.value = t.value.slice(0, t.getAttribute('maxlength'));
+            }
+        }
+        document.body.addEventListener('input', enforce_maxlength);
+      
+    $(document).ready(function () {
+        
+        $("#sumber_pembiayaan").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
         });
-        $("#file-absensi-input").fileinput({
-            showUpload: false
+
+        $("#select-kode-unsur-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
         });
+        
+        $("#select-kode-unsur-n-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width:"100%"
+        });
+
         $("#select-kode-kota-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select",
             width:"100%"
         });
+
+        $("#uri_img_document-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
+
+        $("#uri_img_absensi-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
+
         $('#tgl-kegiatan-input')
             .on('changeDate show', function(e) {
                 // Revalidate the date when user change it
                 $('#form').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
                 $("#submit").prop('disabled', false);
         });
+
         //unsur
         var kode = $('#kode').val();
         var detil_menu = $('#detil_menu').val();
@@ -498,177 +465,7 @@
         }).on('error.form.bv', function(e) {
             $("#submit").prop('disabled', false);
         });
-        // $("#select-kode-prop-input").select2({
-        //     theme: "bootstrap",
-        //     placeholder: "Please Select",
-        //     width:"100%"
-        // });
-        
-        // $("#select-kode-kec-input").select2({
-        //     theme: "bootstrap",
-        //     placeholder: "Please Select",
-        //     width:"100%"
-        // });
-        // $("#select-kode-kel-input").select2({
-        //     theme: "bootstrap",
-        //     placeholder: "Please Select",
-        //     width:"100%"
-        // });
-        // $("#select-kode-kmw-input").select2({
-        //     theme: "bootstrap",
-        //     placeholder: "Please Select",
-        //     width:"100%"
-        // });
-        // $("#select-kode-korkot-input").select2({
-        //     theme: "bootstrap",
-        //     placeholder: "Please Select",
-        //     width:"100%"
-        // });
-        // $("#select-kode-faskel-input").select2({
-        //     theme: "bootstrap",
-        //     placeholder: "Please Select",
-        //     width:"100%"
-        // });
-        $("#select-kode-unsur-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-        $("#select-kode-unsur-n-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width:"100%"
-        });
-
-
-        function enforce_maxlength(event) {
-            var t = event.target;
-            if (t.hasAttribute('maxlength')) {
-                t.value = t.value.slice(0, t.getAttribute('maxlength'));
-            }
-        }
-        document.body.addEventListener('input', enforce_maxlength);
-
-        var prop = $('#select-kode-prop-input');
-        var kmw = $('#select-kode-kmw-input');
-        var kota = $('#select-kode-kota-input');
-        var korkot = $('#select-kode-korkot-input');
-        var kec = $('#select-kode-kec-input');
-        var kel = $('#select-kode-kel-input');
-        var faskel = $('#select-kode-faskel-input');
-        var kmw_id,kota_id,korkot_id,kec_id,kel_id,faskel_id;
-
-        // prop.change(function(){
-        //     prop_id=prop.val();
-        //     if(prop_id!=null){
-        //         kmw.empty();
-        //         kmw.append("<option value>Please select</option>");
-        //         $.ajax({
-        //             type: 'get',
-        //             "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?prop="+prop_id,
-        //             success: function (data) {
-        //                 data=JSON.parse(data)
-        //                 for (var i=0;i<data.length;i++){
-        //                     kmw.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-        //                 }
-        //             }
-        //         });
-        //     }
-        // });
-
-        // kmw.change(function(){
-        //     kmw_id=kmw.val();
-        //     if(kmw_id!=null){
-        //         kota.empty();
-        //         kota.append("<option value>Please select</option>");
-        //         $.ajax({
-        //             type: 'get',
-        //             "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kmw="+kmw_id,
-        //             success: function (data) {
-        //                 data=JSON.parse(data)
-        //                 for (var i=0;i<data.length;i++){
-        //                     kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-        //                 }
-        //             }
-        //         });
-        //     }
-        // });
-
-        // kota.change(function(){
-        //     kota_id=kota.val();
-        //     kmw_id=kmw.val();
-        //     if(kota_id!=null){
-        //         korkot.empty();
-        //         korkot.append("<option value>Please select</option>");
-        //         $.ajax({
-        //             type: 'get',
-        //             "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kota_korkot="+kota_id,
-        //             success: function (data) {
-        //                 data=JSON.parse(data)
-        //                 for (var i=0;i<data.length;i++){
-        //                     korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-        //                 }
-        //             }
-        //         });
-
-
-        //     }
-        // });
-
-        // kota.change(function(){
-        //     kota_id=kota.val();
-        //     if(kota_id!=null){
-        //         kec.empty();
-        //         kec.append("<option value>Please select</option>");
-        //         $.ajax({
-        //             type: 'get',
-        //             "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kota_kec="+kota_id,
-        //             success: function (data) {
-        //                 data=JSON.parse(data)
-        //                 for (var i=0;i<data.length;i++){
-        //                     kec.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-        //                 }
-        //             }
-        //         });
-        //     }
-        // });
-
-        // kec.change(function(){
-        //     kec_id=kec.val();
-        //     if(kec_id!=null){
-        //         kel.empty();
-        //         kel.append("<option value>Please select</option>");
-        //         $.ajax({
-        //             type: 'get',
-        //             "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kec_kel="+kec_id,
-        //             success: function (data) {
-        //                 data=JSON.parse(data)
-        //                 for (var i=0;i<data.length;i++){
-        //                     kel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-        //                 }
-        //             }
-        //         });
-        //     }
-        // });
-
-        // kel.change(function(){
-        //     kel_id=kel.val();
-        //     if(kel_id!=null){
-        //         faskel.empty();
-        //         faskel.append("<option value>Please select</option>");
-        //         $.ajax({
-        //             type: 'get',
-        //             "url": "/main/persiapan/kota/kegiatan/sosialisasi/select?kel_faskel="+kel_id,
-        //             success: function (data) {
-        //                 data=JSON.parse(data)
-        //                 for (var i=0;i<data.length;i++){
-        //                     faskel.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-        //                 }s
-        //             }
-        //         });
-        //     }
-        // });
-      });
+    });
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>

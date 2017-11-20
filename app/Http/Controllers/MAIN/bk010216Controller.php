@@ -295,6 +295,12 @@ class bk010216Controller extends Controller
 			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
 		}
+		//kalau tidak punya korkot && punya wk_kd_kota
+		if($user->wk_kd_kota != null){
+			$kota_korkot = DB::select('select kode from bkt_01010112_kota_korkot where kode_kota='.$user->wk_kd_kota);
+		}else{
+			$kota_korkot = DB::select('select kode from bkt_01010112_kota_korkot where kode_kota='.$request->input('kode-kota-input'));
+		}
 
 		//kalau tidak punya korkot && punya wk_kd_kota
 		if($user->wk_kd_kota != null){
@@ -333,12 +339,6 @@ class bk010216Controller extends Controller
 				'q_peserta_mbr' => $request->input('q-mbr-input'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
-				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				// 'diser_oleh' => $request->input('diser-oleh-input'),
-				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				// 'diket_oleh' => $request->input('diket-oleh-input'),
-				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				// 'diver_oleh' => $request->input('diver-oleh-input'),
 				'updated_by' => Auth::user()->id, 
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
@@ -369,12 +369,6 @@ class bk010216Controller extends Controller
 				'q_peserta_mbr' => $request->input('q-mbr-input'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
-				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				// 'diser_oleh' => $request->input('diser-oleh-input'),
-				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				// 'diket_oleh' => $request->input('diket-oleh-input'),
-				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				// 'diver_oleh' => $request->input('diver-oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
 

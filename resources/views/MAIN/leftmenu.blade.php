@@ -190,7 +190,7 @@
 					@if( ! empty($menu['142']))
 					<li {!! (Request::is( 'main/data_master/bkm')||Request::is( 'main/data_master/bkm/*')? 'class="active"': "") !!}>
 						<a href="/main/data_master/bkm">
-							<span class="mm-text">Badan Keswadayaan Mandiri (BKM)</span>
+							<span class="mm-text">Badan Keswadayaan Masyarakat (BKM)</span>
 						</a>
 					</li>
 					@endif

@@ -797,31 +797,31 @@ class bk010208Controller extends Controller
 	public function post_create(Request $request)
 	{
     	$user = Auth::user();
-		$file_dokumen = $request->file('file-dokumen-input');
-		$url_dokumen = null;
-		$upload_dokumen = false;
-		if($request->input('uploaded-file-dokumen') != null && $file_dokumen == null){
-			$url_dokumen = $request->input('uploaded-file-dokumen');
-			$upload_dokumen = false;
-		}elseif($request->input('uploaded-file-dokumen') != null && $file_dokumen != null){
-			$url_dokumen = $file_dokumen->getClientOriginalName();
-			$upload_dokumen = true;
-		}elseif($request->input('uploaded-file-dokumen') == null && $file_dokumen != null){
-			$url_dokumen = $file_dokumen->getClientOriginalName();
-			$upload_dokumen = true;
+		$file_document = $request->file('uri_img_document-input');
+		$uri_document = null;
+		$upload_document = false;
+		if($request->input('uri_img_document-file') != null && $file_document == null){
+			$uri_document = $request->input('uri_img_document-file');
+			$upload_document = false;
+		}elseif($request->input('uri_img_document-file') != null && $file_document != null){
+			$uri_document = $file_document->getClientOriginalName();
+			$upload_document = true;
+		}elseif($request->input('uri_img_document-file') == null && $file_document != null){
+			$uri_document = $file_document->getClientOriginalName();
+			$upload_document = true;
 		}
 
-		$file_absensi = $request->file('file-absensi-input');
-		$url_absensi = null;
+		$file_absensi = $request->file('uri_img_absensi-input');
+		$uri_absensi = null;
 		$upload_absensi = false;
-		if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
-			$url_absensi = $request->input('uploaded-file-absensi');
+		if($request->input('uri_img_absensi-file') != null && $file_absensi == null){
+			$uri_absensi = $request->input('uri_img_absensi-file');
 			$upload_absensi = false;
-		}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
-			$url_absensi = $file_absensi->getClientOriginalName();
+		}elseif($request->input('uri_img_absensi-file') != null && $file_absensi != null){
+			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
-		}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
-			$url_absensi = $file_absensi->getClientOriginalName();
+		}elseif($request->input('uri_img_absensi-file') == null && $file_absensi != null){
+			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
 		}
 
@@ -848,7 +848,7 @@ class bk010208Controller extends Controller
 				'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:$prop_kmw[0]->kode,
 				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
 				'kode_faskel' => $request->input('kode-faskel-input'),
-				'skala_kegiatan' => $request->input('skala_kegiatan'),
+				'skala_kegiatan' => 1,
 				'nama_kegiatan' => $request->input('nama_kegiatan'),
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
@@ -856,38 +856,19 @@ class bk010208Controller extends Controller
 				'media' => $request->input('media'),
 				'hasil_kesepakatan' => $request->input('hasil_kesepakatan'),
 				'sumber_pembiayaan' => $request->input('sumber_pembiayaan'),
-				'uri_img_document' => $url_dokumen,
-				'uri_img_absensi' => $url_absensi,
-				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				// 'diser_oleh' => $request->input('diser-oleh-input'),
-				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				// 'diket_oleh' => $request->input('diket-oleh-input'),
-				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				// 'diver_oleh' => $request->input('diver-oleh-input'),
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $uri_absensi,
 				'updated_by' => Auth::user()->id,
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
 
-			if($upload_dokumen == true){
-				$file_dokumen->move(public_path('/uploads/persiapan/kota/kegiatan/sosialisasi'), $file_dokumen->getClientOriginalName());
+			if($upload_document == true){
+				$file_document->move(public_path('/uploads/persiapan/kota/kegiatan/sosialisasi'), $file_document->getClientOriginalName());
 			}
 
 			if($upload_absensi == true){
 				$file_absensi->move(public_path('/uploads/persiapan/kota/kegiatan/sosialisasi'), $file_absensi->getClientOriginalName());
 			}
-
-			// DB::table('bkt_01020218_narsum_sos')->where('kode_sosialisasi', $request->input('kode'))
-			// ->update([
-			// 	'kode_unsur' => $request->input('kode-unsur-input'),
-			// 	'nama_narsum' => $request->input('nama_narsum')
-   //     			]);
-
-			// DB::table('bkt_01020217_pst_sos')->where('kode_sosialisasi', $request->input('kode'))
-			// ->update([
-			// 	'kode_unsur' => $request->input('kode-unsur-input'),
-			// 	'jml_peserta' => $request->input('jml_peserta')
-   //     			]);
-
 			$this->log_aktivitas('Update', 152);
 
 		}else{
@@ -899,7 +880,7 @@ class bk010208Controller extends Controller
         		'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:$prop_kmw[0]->kode,
 				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
 				'kode_faskel' => $request->input('kode-faskel-input'),
-				'skala_kegiatan' => $request->input('skala_kegiatan'),
+				'skala_kegiatan' => 1,
 				'nama_kegiatan' => $request->input('nama_kegiatan'),
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'lok_kegiatan' => $request->input('lok-kegiatan-input'),
@@ -907,37 +888,18 @@ class bk010208Controller extends Controller
 				'media' => $request->input('media'),
 				'hasil_kesepakatan' => $request->input('hasil_kesepakatan'),
 				'sumber_pembiayaan' => $request->input('sumber_pembiayaan'),
-				'uri_img_document' => $url_dokumen,
-				'uri_img_absensi' => $url_absensi,
-				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				// 'diser_oleh' => $request->input('diser-oleh-input'),
-				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				// 'diket_oleh' => $request->input('diket-oleh-input'),
-				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				// 'diver_oleh' => $request->input('diver-oleh-input'),
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $uri_absensi,
 				'created_by' => Auth::user()->id
        			]);
 
-			if($upload_dokumen == true){
-				$file_dokumen->move(public_path('/uploads/persiapan/kota/kegiatan/sosialisasi'), $file_dokumen->getClientOriginalName());
+			if($upload_document == true){
+				$file_document->move(public_path('/uploads/persiapan/kota/kegiatan/sosialisasi'), $file_document->getClientOriginalName());
 			}
 
 			if($upload_absensi == true){
 				$file_absensi->move(public_path('/uploads/persiapan/kota/kegiatan/sosialisasi'), $file_absensi->getClientOriginalName());
 			}
-
-			// DB::table('bkt_01020218_narsum_sos')->insert([
-			// 	'kode_sosialisasi' => $lastInsertId,
-			// 	'kode_unsur' => $request->input('kode-unsur-input'),
-			// 	'nama_narsum' => $request->input('nama_narsum')
-   //     			]);
-
-			// DB::table('bkt_01020217_pst_sos')->insert([
-			// 	'kode_sosialisasi' => $lastInsertId,
-			// 	'kode_unsur' => $request->input('kode-unsur-input'),
-			// 	'jml_peserta' => $request->input('jml_peserta')
-   //     			]);
-
 			$this->log_aktivitas('Create', 151);
 		}
 	}

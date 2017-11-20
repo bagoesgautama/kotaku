@@ -40,7 +40,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                        <form id="form-validation" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Pokja</label></div>
                             </div>
@@ -68,40 +68,46 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required data-bv-callback="true" data-bv-callback-message="Tanggal kegiatan lebih kecil dari tanggal pembentukan" data-bv-callback-callback="check" required>
+                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Klik Untuk Pilih Tanggal" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required data-bv-callback="true" data-bv-callback-message="Tanggal kegiatan yang dipilih tidak boleh kurang dari tanggal pembentukan atau melebihi tanggal hari ini" data-bv-callback-callback="check" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50" required >
+                                    <textarea id="lok-kegiatan-input" name="lok-kegiatan-input" rows="7" class="form-control resize_vertical" placeholder="Lokasi Kegiatan" maxlength="50" required>{{ $lok_kegiatan }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Cakupan Peserta</label></div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="kode">Laki-laki</label>
+                                <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk pria" data-bv-callback-callback="check" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="kode">Perempuan</label>
+                                <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
                                     <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk perempuan" data-bv-callback-callback="check" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="kode">Non Anggota</label>
+                                <label class="col-sm-3 control-label" for="kode">Non Anggota Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-non-input" name="q-non-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota}}" min="0" required>
+                                    <input type="number" id="q-non-p-input" name="q-non-p-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota_p}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
+                                <label class="col-sm-3 control-label" for="kode">Non Anggota Perempuan</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="q-non-w-input" name="q-non-w-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota_w}}" min="0">
+                                </div>
                             </div>
                             <div class="form-group striped-col">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">Format Input Manual SIM</label>
                                 <div class="col-sm-6">
                                     <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
@@ -111,7 +117,7 @@
                                     <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">Delete</button>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">File Absensi</label>
                                 <div class="col-sm-6">
                                     <input id="uri_img_absensi-input" type="file" class="file" accept="image/*" name="uri_img_absensi-input">
@@ -167,6 +173,7 @@
 		var sum = p+w;
 		var sum2 = kl+dinas+dpr+lsm+swasta+prak;
 		var res = true;
+
 		if(sum2>sum){
 			res=false;
 		}else if(p==0 && w==0){
@@ -192,18 +199,18 @@
         $('#tgl-kegiatan-input')
             .on('changeDate show', function(e) {
                 // Revalidate the date when user change it
-                $('#form').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
+                $('#form-validation').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
                 $("#submit").prop('disabled', false);
         });
 
         $("#select-kode-pokja-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
 
         $("#sub-kegiatan-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
 
         $("#uri_img_document-input").fileinput({

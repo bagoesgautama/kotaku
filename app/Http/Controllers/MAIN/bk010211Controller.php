@@ -348,31 +348,31 @@ class bk010211Controller extends Controller
 
 	public function post_create(Request $request)
 	{
-		$file_dokumen = $request->file('file-dokumen-input');
-		$url_dokumen = null;
-		$upload_dokumen = false;
-		if($request->input('uploaded-file-dokumen') != null && $file_dokumen == null){
-			$url_dokumen = $request->input('uploaded-file-dokumen');
-			$upload_dokumen = false;
-		}elseif($request->input('uploaded-file-dokumen') != null && $file_dokumen != null){
-			$url_dokumen = $file_dokumen->getClientOriginalName();
-			$upload_dokumen = true;
-		}elseif($request->input('uploaded-file-dokumen') == null && $file_dokumen != null){
-			$url_dokumen = $file_dokumen->getClientOriginalName();
-			$upload_dokumen = true;
+		$file_document = $request->file('uri_img_document-input');
+		$uri_document = null;
+		$upload_document = false;
+		if($request->input('uri_img_document-file') != null && $file_document == null){
+			$uri_document = $request->input('uri_img_document-file');
+			$upload_document = false;
+		}elseif($request->input('uri_img_document-file') != null && $file_document != null){
+			$uri_document = $file_document->getClientOriginalName();
+			$upload_document = true;
+		}elseif($request->input('uri_img_document-file') == null && $file_document != null){
+			$uri_document = $file_document->getClientOriginalName();
+			$upload_document = true;
 		}
 
-		$file_absensi = $request->file('file-absensi-input');
-		$url_absensi = null;
+		$file_absensi = $request->file('uri_img_absensi-input');
+		$uri_absensi = null;
 		$upload_absensi = false;
-		if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
-			$url_absensi = $request->input('uploaded-file-absensi');
+		if($request->input('uri_img_absensi-file') != null && $file_absensi == null){
+			$uri_absensi = $request->input('uri_img_absensi-file');
 			$upload_absensi = false;
-		}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
-			$url_absensi = $file_absensi->getClientOriginalName();
+		}elseif($request->input('uri_img_absensi-file') != null && $file_absensi != null){
+			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
-		}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
-			$url_absensi = $file_absensi->getClientOriginalName();
+		}elseif($request->input('uri_img_absensi-file') == null && $file_absensi != null){
+			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
 		}
 
@@ -389,26 +389,19 @@ class bk010211Controller extends Controller
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
 				'q_peserta_pemda' => $request->input('q-pemda-input'),
-				'uri_img_document' => $url_dokumen,
-				'uri_img_absensi' => $url_absensi,
-				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				// 'diser_oleh' => $request->input('diser-oleh-input'),
-				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				// 'diket_oleh' => $request->input('diket-oleh-input'),
-				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				// 'diver_oleh' => $request->input('diver-oleh-input'),
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $uri_absensi,
 				'updated_by' => Auth::user()->id,
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
 
-			if($upload_dokumen == true){
-				$file_dokumen->move(public_path('/uploads/persiapan/kota/forum/keberfungsian'), $file_dokumen->getClientOriginalName());
+			if($upload_document == true){
+				$file_document->move(public_path('/uploads/persiapan/kota/forum/keberfungsian'), $file_document->getClientOriginalName());
 			}
 
 			if($upload_absensi == true){
 				$file_absensi->move(public_path('/uploads/persiapan/kota/forum/keberfungsian'), $file_absensi->getClientOriginalName());
 			}
-
 			$this->log_aktivitas('Update', 161);
 
 		}else{
@@ -422,25 +415,18 @@ class bk010211Controller extends Controller
 				'q_peserta_p' => $request->input('q-laki-input'),
 				'q_peserta_w' => $request->input('q-perempuan-input'),
 				'q_peserta_pemda' => $request->input('q-pemda-input'),
-				'uri_img_document' => $url_dokumen,
-				'uri_img_absensi' => $url_absensi,
-				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				// 'diser_oleh' => $request->input('diser-oleh-input'),
-				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				// 'diket_oleh' => $request->input('diket-oleh-input'),
-				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				// 'diver_oleh' => $request->input('diver-oleh-input'),
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $uri_absensi,
 				'created_by' => Auth::user()->id
        			]);
 
-			if($upload_dokumen == true){
-				$file_dokumen->move(public_path('/uploads/persiapan/kota/forum/keberfungsian'), $file_dokumen->getClientOriginalName());
+			if($upload_document == true){
+				$file_document->move(public_path('/uploads/persiapan/kota/forum/keberfungsian'), $file_document->getClientOriginalName());
 			}
 
 			if($upload_absensi == true){
 				$file_absensi->move(public_path('/uploads/persiapan/kota/forum/keberfungsian'), $file_absensi->getClientOriginalName());
 			}
-
 			$this->log_aktivitas('Create', 160);
 		}
 	}

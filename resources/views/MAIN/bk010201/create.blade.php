@@ -147,7 +147,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Keterangan Rencana Kerja</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="ket-rencana-kerja-input" name="ket-rencana-kerja-input" class="form-control" placeholder="Ket. Rencana Kerja" value="{{$ket_rencana_kerja}}" maxlength="50">
+                                    <textarea id="ket-rencana-kerja-input" name="ket-rencana-kerja-input" rows="7" class="form-control resize_vertical" placeholder="Lokasi" maxlength="50" required>{{ $ket_rencana_kerja }}</textarea>
                                 </div>
                             </div>
 							<div class="form-group">

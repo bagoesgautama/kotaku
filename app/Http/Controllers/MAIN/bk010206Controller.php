@@ -361,45 +361,45 @@ class bk010206Controller extends Controller
 	public function post_create(Request $request)
 	{
 		$user = Auth::user();
-		$file_rnckerja = $request->file('rencana-kerja-input');
-		$url_rnckerja = null;
-		$upload_rnckerja = false;
-		if($request->input('uploaded-file-rnckerja') != null && $file_rnckerja == null){
-			$url_rnckerja = $request->input('uploaded-file-rnckerja');
-			$upload_rnckerja = false;
-		}elseif($request->input('uploaded-file-rnckerja') != null && $file_rnckerja != null){
-			$url_rnckerja = $file_rnckerja->getClientOriginalName();
-			$upload_rnckerja = true;
-		}elseif($request->input('uploaded-file-rnckerja') == null && $file_rnckerja != null){
-			$url_rnckerja = $file_rnckerja->getClientOriginalName();
-			$upload_rnckerja = true;
+		$file_dok_rencana_kerja = $request->file('url_rencana_kerja-input');
+		$url_rencana_kerja = null;
+		$upload_dok_rencana_kerja = false;
+		if($request->input('url_rencana_kerja-file') != null && $file_dok_rencana_kerja == null){
+			$url_rencana_kerja = $request->input('url_rencana_kerja-file');
+			$upload_dok_rencana_kerja = false;
+		}elseif($request->input('url_rencana_kerja-file') != null && $file_dok_rencana_kerja != null){
+			$url_rencana_kerja = $file_dok_rencana_kerja->getClientOriginalName();
+			$upload_dok_rencana_kerja = true;
+		}elseif($request->input('url_rencana_kerja-file') == null && $file_dok_rencana_kerja != null){
+			$url_rencana_kerja = $file_dok_rencana_kerja->getClientOriginalName();
+			$upload_dok_rencana_kerja = true;
 		}
 
-		$file_dokumen = $request->file('file-dokumen-input');
-		$url_dokumen = null;
-		$upload_dokumen = false;
-		if($request->input('uploaded-file-dokumen') != null && $file_dokumen == null){
-			$url_dokumen = $request->input('uploaded-file-dokumen');
-			$upload_dokumen = false;
-		}elseif($request->input('uploaded-file-dokumen') != null && $file_dokumen != null){
-			$url_dokumen = $file_dokumen->getClientOriginalName();
-			$upload_dokumen = true;
-		}elseif($request->input('uploaded-file-dokumen') == null && $file_dokumen != null){
-			$url_dokumen = $file_dokumen->getClientOriginalName();
-			$upload_dokumen = true;
+		$file_document = $request->file('uri_img_document-input');
+		$uri_document = null;
+		$upload_document = false;
+		if($request->input('uri_img_document-file') != null && $file_document == null){
+			$uri_document = $request->input('uri_img_document-file');
+			$upload_document = false;
+		}elseif($request->input('uri_img_document-file') != null && $file_document != null){
+			$uri_document = $file_document->getClientOriginalName();
+			$upload_document = true;
+		}elseif($request->input('uri_img_document-file') == null && $file_document != null){
+			$uri_document = $file_document->getClientOriginalName();
+			$upload_document = true;
 		}
 
-		$file_absensi = $request->file('file-absensi-input');
-		$url_absensi = null;
+		$file_absensi = $request->file('uri_img_absensi-input');
+		$uri_absensi = null;
 		$upload_absensi = false;
-		if($request->input('uploaded-file-absensi') != null && $file_absensi == null){
-			$url_absensi = $request->input('uploaded-file-absensi');
+		if($request->input('uri_img_absensi-file') != null && $file_absensi == null){
+			$uri_absensi = $request->input('uri_img_absensi-file');
 			$upload_absensi = false;
-		}elseif($request->input('uploaded-file-absensi') != null && $file_absensi != null){
-			$url_absensi = $file_absensi->getClientOriginalName();
+		}elseif($request->input('uri_img_absensi-file') != null && $file_absensi != null){
+			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
-		}elseif($request->input('uploaded-file-absensi') == null && $file_absensi != null){
-			$url_absensi = $file_absensi->getClientOriginalName();
+		}elseif($request->input('uri_img_absensi-file') == null && $file_absensi != null){
+			$uri_absensi = $file_absensi->getClientOriginalName();
 			$upload_absensi = true;
 		}
 		//kalau tidak punya korkot && punya wk_kd_kota
@@ -434,10 +434,10 @@ class bk010206Controller extends Controller
 				'unp_bu' => $request->input('upnp-swasta-input'),
 				'upn_praktisi' => $request->input('upnp-praktisi-input'),
 				'nilai_dana_ops' => $request->input('dana-ops-input'),
-				'url_rencana_kerja' => $url_rnckerja,
+				'url_rencana_kerja' => $url_rencana_kerja,
 				'ket_rencana_kerja' => $request->input('ket-rencana-kerja-input'),
-				'uri_img_document' => $url_dokumen,
-				'uri_img_absensi' => $url_absensi,
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $uri_absensi,
 				'flag_sekretariat' => (int)$request->input('flag_sekretariat-input'),
 				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
 				// 'diser_oleh' => $request->input('diser-oleh-input'),
@@ -449,20 +449,18 @@ class bk010206Controller extends Controller
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
 
-			if($upload_dokumen == true){
-				$file_dokumen->move(public_path('/uploads/persiapan/kota/pokja/pembentukan'), $file_dokumen->getClientOriginalName());
+			if($upload_dok_rencana_kerja == true){
+				$file_dok_rencana_kerja->move(public_path('/uploads/persiapan/kota/pokja/pembentukan'), $file_dok_rencana_kerja->getClientOriginalName());
+			}
+
+			if($upload_document == true){
+				$file_document->move(public_path('/uploads/persiapan/kota/pokja/pembentukan'), $file_document->getClientOriginalName());
 			}
 
 			if($upload_absensi == true){
 				$file_absensi->move(public_path('/uploads/persiapan/kota/pokja/pembentukan'), $file_absensi->getClientOriginalName());
 			}
-
-			if($upload_rnckerja == true){
-				$file_rnckerja->move(public_path('/uploads/persiapan/kota/pokja/pembentukan'), $file_rnckerja->getClientOriginalName());
-			}
-
 			$this->log_aktivitas('Update', 78);
-
 		}else{
 			DB::table('bkt_01020204_pokja_kota')->insert([
 				'tahun' => $request->input('tahun-input'),
@@ -481,10 +479,10 @@ class bk010206Controller extends Controller
 				'unp_bu' => $request->input('upnp-swasta-input'),
 				'upn_praktisi' => $request->input('upnp-praktisi-input'),
 				'nilai_dana_ops' => $request->input('dana-ops-input'),
-				'url_rencana_kerja' => $url_rnckerja,
+				'url_rencana_kerja' => $url_rencana_kerja,
 				'ket_rencana_kerja' => $request->input('ket-rencana-kerja-input'),
-				'uri_img_document' => $url_dokumen,
-				'uri_img_absensi' => $url_absensi,
+				'uri_img_document' => $uri_document,
+				'uri_img_absensi' => $uri_absensi,
 				'flag_sekretariat' => (int)$request->input('flag_sekretariat-input'),
 				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
 				// 'diser_oleh' => $request->input('diser-oleh-input'),
@@ -495,18 +493,17 @@ class bk010206Controller extends Controller
 				'created_by' => Auth::user()->id
        			]);
 
-			if($upload_dokumen == true){
-				$file_dokumen->move(public_path('/uploads/persiapan/kota/pokja/pembentukan'), $file_dokumen->getClientOriginalName());
+			if($upload_dok_rencana_kerja == true){
+				$file_dok_rencana_kerja->move(public_path('/uploads/persiapan/kota/pokja/pembentukan'), $file_dok_rencana_kerja->getClientOriginalName());
+			}
+
+			if($upload_document == true){
+				$file_document->move(public_path('/uploads/persiapan/kota/pokja/pembentukan'), $file_document->getClientOriginalName());
 			}
 
 			if($upload_absensi == true){
 				$file_absensi->move(public_path('/uploads/persiapan/kota/pokja/pembentukan'), $file_absensi->getClientOriginalName());
 			}
-
-			if($upload_rnckerja == true){
-				$file_rnckerja->move(public_path('/uploads/persiapan/kota/pokja/pembentukan'), $file_rnckerja->getClientOriginalName());
-			}
-
 			$this->log_aktivitas('Create', 77);
 		}
 	}

@@ -64,7 +64,7 @@
                                 <th>Pemberitaan Media</th>
                                 <th>Hasil Kesepakatan</th>
                                 <th>Sumber Pembiayaan</th>
-                                <th>option</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
