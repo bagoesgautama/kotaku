@@ -275,15 +275,7 @@
             res=false;
         }else if(sum_terpilih_2>sum_terpilih){
             res=false;
-<<<<<<< HEAD
-<<<<<<< HEAD
-        if(terpilih_p==0 && terpilih_w==0){
-=======
         }else if(terpilih_p==0 && terpilih_w==0){
->>>>>>> 4975ac2520e1a536f24928380cede254facc1188
-=======
-        }else if(terpilih_p==0 && terpilih_w==0){
->>>>>>> 4975ac2520e1a536f24928380cede254facc1188
             res=false;
         }
         return res;
