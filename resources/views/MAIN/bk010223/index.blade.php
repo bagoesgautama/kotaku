@@ -107,7 +107,6 @@
 				table.search(this.value).draw();
 			}
 		});
-
     });
 </script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>

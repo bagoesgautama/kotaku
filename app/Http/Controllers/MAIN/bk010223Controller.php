@@ -264,9 +264,8 @@ class bk010223Controller extends Controller
 			}
 
 			$data['username'] = '';
-			$data['test']=true;
 			$data['kode']=$request->input('kode');
-
+			$data['tahun_list'] = DB::select('select * from list_tahun');
 			if($data['kode']!=null && !empty($data['detil']['340'])){
 				$rowData = DB::select('select * from bkt_01020215_lembaga_kel where kode='.$data['kode']);
 				$data['detil_menu']='340';

@@ -76,7 +76,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Kecamatan</label>
                                 <div class="col-sm-6">
-                                    <select id="select-kode_kec-input" class="form-control select2" name="select-kode_kec-input">
+                                    <select id="select-kode_kec-input" class="form-control select2" name="select-kode_kec-input" required>
                                         <option value="">Please Select</option>
                                         @if ($kode_kec_list!=null)
                                         @foreach ($kode_kec_list as $kkl)
@@ -89,7 +89,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Kelurahan</label>
                                 <div class="col-sm-6">
-                                    <select id="select-kode_kel-input" class="form-control select2" name="select-kode_kel-input">
+                                    <select id="select-kode_kel-input" class="form-control select2" name="select-kode_kel-input" required>
                                         <option value="">Please Select</option>
                                         @if ($kode_kel_list!=null)
                                         @foreach ($kode_kel_list as $kkl)
@@ -118,19 +118,19 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Jumlah Peserta Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_peserta_p-input" name="q_peserta_p-input" class="form-control" placeholder="Peserta Pria" value="{{$q_peserta_p}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total peserta laki-laki & perempuan" data-bv-callback-callback="check" min="0">
+                                    <input type="text" id="q_peserta_p-input" name="q_peserta_p-input" class="form-control" placeholder="Peserta Pria" value="{{$q_peserta_p}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total peserta laki-laki & perempuan" data-bv-callback-callback="check" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Jumlah Peserta Permpuan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_peserta_w-input" name="q_peserta_w-input" class="form-control" placeholder="Peserta Wanita" value="{{$q_peserta_w}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total peserta laki-laki & perempuan" data-bv-callback-callback="check" min="0">
+                                    <input type="text" id="q_peserta_w-input" name="q_peserta_w-input" class="form-control" placeholder="Peserta Wanita" value="{{$q_peserta_w}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total peserta laki-laki & perempuan" data-bv-callback-callback="check" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Jumlah Peserta Miskin/MBR</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_peserta_mbr-input" name="q_peserta_mbr-input" class="form-control" placeholder="Peserta MBR" value="{{$q_peserta_mbr}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total Peserta laki-laki & perempuan" data-bv-callback-callback="check" min="0">
+                                    <input type="text" id="q_peserta_mbr-input" name="q_peserta_mbr-input" class="form-control" placeholder="Peserta MBR" value="{{$q_peserta_mbr}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total Peserta laki-laki & perempuan" data-bv-callback-callback="check" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -227,6 +227,13 @@
 
     $(document).ready(function () {
 
+        $('#tgl_kegiatan-input')
+            .on('changeDate show', function(e) {
+                // Revalidate the date when user change it
+                $('#form-validation').bootstrapValidator('revalidateField', 'tgl_kegiatan-input');
+                $("#submit").prop('disabled', false);
+        });
+            
         $("#tahun-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
