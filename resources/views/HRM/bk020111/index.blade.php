@@ -1,5 +1,5 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') User List
-@stop {{-- local styles --}} @section('header_styles') 
+@extends('HRM/default') {{-- Page title --}} @section('title') Manajemen User
+@stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -27,7 +27,7 @@
                 Administrator
             </li>
             <li class="next">
-                User List
+                Manajemen User
             </li>
         </ul>
     </div>
@@ -38,12 +38,12 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>Registrasi Manual</b>
+                    <b>Manajemen User</b>
                 </div>
-                @if( ! empty($detil['567']))
+                @if( ! empty($detil['734']))
                 <div class="tools pull-right">
                     <b>bk020111 index</b>
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/hrm/management/registrasi_manual/create'}}">Create</a>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/hrm/admin/manajemen_user/create'}}">Create</a>
 				</div>
                 @endif
             </div>
@@ -76,11 +76,11 @@
     $(document).ready(function () {
 		var table = $('#pokja').DataTable({
 	        // dom: 'Bflrtip',
-	        
+
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/management/registrasi_manual",
+                     "url": "/hrm/admin/manajemen_user",
                      "dataType": "json",
                      "type": "POST"
                    },

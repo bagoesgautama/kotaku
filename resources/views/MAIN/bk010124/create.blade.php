@@ -221,7 +221,6 @@
 							                        <thead>
 							                            <tr>
 							                                <th>Kode</th>
-							                                <th>BKM</th>
 							                                <th>Nama Anggota</th>
 							                                <th>Jenis Kelamin</th>
 							                                <th>Status Sosial</th>
@@ -262,7 +261,6 @@
 	                   },
 	            "columns": [
 					{ "data": "kode" , name:"kode"},
-					{ "data": "kode_bkm" , name:"kode_bkm"},
 					{ "data": "nama" , name:"nama"},
 					{ "data": "jenis_kelamin" , name:"jenis_kelamin"},
 					{ "data": "status_sosial" , name:"status_sosial"},

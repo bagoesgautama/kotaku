@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Realisasi Kontrak Paket Pekerjaan dari Kontraktor Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Badan Keswadayaan Mandiri (BKM) Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
@@ -32,12 +32,12 @@
                 </a>
             </li>
             <li class="next">
-                <a href="/main/pelaksanaan/kota_bdi/realisasi_kontrak/create?kode={{$kode_real_ktrk}}">
-                    Pelaksanaan / Realisasi Kegiatan Skala Kota (BDI/Non BDI) / Realisasi Kontrak Paket Pekerjaan dari Kontraktor / Create
+                <a href="/main/data_master/bkm/create?id={{$kode_bkm}}">
+                    Master Data / Data Master / Badan Keswadayaan Mandiri (BKM) / Create
                 </a>
             </li>
             <li class="next">
-                Penerima Manfaat
+                Peserta BKM
             </li>
         </ul>
     </div>
@@ -50,10 +50,90 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="form-validation" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col ">
-                                <label class="col-sm-3 control-label">Nama Koordinator</label>
+                                <label class="col-sm-3 control-label">Nama</label>
                                 <div class="col-sm-6">
+                                    <input type="hidden" id="kode_bkm" name="kode_bkm" value="{{ $kode_bkm }}">
+                                    <input type="hidden" id="kode_anggota" name="kode_anggota" value="{{ $kode_anggota }}">
+                                    <input type="text" id="nama" name="nama" class="form-control" maxlength="100" placeholder="Nama" value="{{$nama}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Jenis Kelamin</label>
+                                <div class="col-sm-6">
+                                    <select id="jenis_kelamin" name="jenis_kelamin" class="form-control" size="1">
+                                        <option value>Please Select</option>
+                                        <option value="L" {!! $jenis_kelamin=='L'?'selected':'' !!}>Laki-laki</option>
+                                        <option value="P" {!! $jenis_kelamin=='P'?'selected':'' !!}>Perempuan</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Status Sosial</label>
+                                <div class="col-sm-6">
+                                    <select id="status_sosial" name="status_sosial" class="form-control" size="1">
+                                        <option value {!! $status_sosial==null?'selected':'' !!}>Please Select</option>
+                                        <option value="0" {!! $status_sosial=='0'?'selected':'' !!}>Miskin dan Rentan</option>
+                                        <option value="1" {!! $status_sosial=='1'?'selected':'' !!}>Non Miskin</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Umur</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="umur" name="umur" class="form-control" maxlength="3" required min="1" placeholder="Umur" value="{{$umur}}">
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Pendidikan</label>
+                                <div class="col-sm-6">
+                                    <select id="select-kode-pendidikan-input" name="kode-pendidikan-input" class="form-control select2" size="1">
+                                        <option value>Please select</option>
+                                        @foreach ($kode_pendidikan_list as $kkl)
+                                            <option value="{{$kkl->kode}}" {!! $kode_pendidikan==$kkl->kode?'selected':'' !!}>{{$kkl->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Pekerjaan</label>
+                                <div class="col-sm-6">
+                                    <select id="select-kode-pekerjaan-input" name="kode-pekerjaan-input" class="form-control select2" size="1">
+                                        <option value>Please select</option>
+                                        @foreach ($kode_pekerjaan_list as $kkl)
+                                            <option value="{{$kkl->kode}}" {!! $kode_pekerjaan==$kkl->kode?'selected':'' !!}>{{$kkl->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Jumlah Pendukung</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="jml_dukungan" name="jml_dukungan" class="form-control" maxlength="6" required min="0" placeholder="Jumlah Pendukung" value="{{$jml_dukungan}}">
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Status</label>
+                                <div class="col-sm-6">
+                                    <select id="status" name="status" class="form-control" size="1">
+                                        <option value="0" {!! $status=='0'?'selected':'' !!}>Tidak Aktif</option>
+                                        <option value="1" {!! $status=='1'?'selected':'' !!}>Aktif</option>
+                                        <option value="2" {!! $status=='2'?'selected':'' !!}>Sudah Dihapus</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group form-actions">
+                                <div class="col-sm-9 col-sm-offset-3">
+                                    <a href="/main/data_master/bkm/create?id={{$kode_bkm}}" type="button" class="btn btn-effect-ripple btn-danger">
+                                        Cancel
+                                    </a>
+                                    <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
+                                        Submit
+                                    </button>
+                                    <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
+                                        Reset
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -63,89 +143,6 @@
         </div>
     </div>
 </div>
-<!-- <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#form_modal">Tambah</button>
-                                                <div id="form_modal" class="modal fade animated" role="dialog">
-                                                    <div class="modal-dialog">
-                                                        <form action="/main/data_master/bkm/anggota" enctype="multipart/form-data" class="form-horizontal form-bordered" method="post">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                <h4 class="modal-title">Tambah Anggota BKM</h4>
-                                                            </div>
-                                                            <form role="form">
-                                                                <div class="modal-body">
-                                                                    <div class="row m-t-10">
-                                                                        <div class="col-md-12">
-                                                                            <div class="input-group">
-                                                                                <label class="sr-only" for="first-name">Nama</label>
-                                                                                <input type="hidden" id="kode" name="kode" value="{{ $id }}">
-                                                                                <input type="text" id="nama" name="nama" class="form-control" maxlength="100" required placeholder="Nama" >
-                                                                            </div>  
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row m-t-10">
-                                                                        <div class="col-md-12">
-                                                                            <div class="input-group" style="width: 100%">
-                                                                                <select id="sumber_pembiayaan" name="sumber_pembiayaan" class="form-control" size="1" required>
-                                                                                    <option value="L">Laki-laki</option>
-                                                                                    <option value="P">Perempuan</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row m-t-10">
-                                                                        <div class="col-md-12">
-                                                                            <div class="input-group" style="width: 100%">
-                                                                                <label class="sr-only" for="last-name">Umur</label>
-                                                                                <input type="number" id="umur" name="umur" class="form-control" maxlength="3" required min="1" placeholder="Umur" >
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row m-t-10">
-                                                                        <div class="col-md-12">
-                                                                            <div class="input-group" style="width: 100%">
-                                                                                <label class="sr-only" for="last-name">Pendidikan</label>
-                                                                                <select id="select-kode-pendidikan-input" name="kode-pendidikan-input" class="form-control select2" size="1">
-                                                                                    <option value>Please select</option>
-                                                                                    @foreach ($kode_pendidikan_list as $kkl)
-                                                                                        <option value="{{$kkl->kode}}">{{$kkl->nama}}</option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row m-t-10">
-                                                                        <div class="col-md-12">
-                                                                            <div class="input-group" style="width: 100%">
-                                                                                <label class="sr-only" for="last-name">Pekerjaan</label>
-                                                                                <select id="select-kode-pekerjaan-input" name="kode-pekerjaan-input" class="form-control select2" size="1">
-                                                                                    <option value>Please select</option>
-                                                                                    @foreach ($kode_pekerjaan_list as $kkl)
-                                                                                        <option value="{{$kkl->kode}}">{{$kkl->nama}}</option>
-                                                                                    @endforeach
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row m-t-10">
-                                                                        <div class="col-md-12">
-                                                                            <div class="input-group" style="width: 100%">
-                                                                                <label class="sr-only" for="last-name">Jumlah Peserta</label>
-                                                                                <input type="number" id="jml_peserta" name="jml_peserta" class="form-control" maxlength="11" required min="1" placeholder="Jumlah Peserta" >
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                                                                        Close
-                                                                    </button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
 @stop
 {{-- local scripts --}} @section('footer_scripts')
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
@@ -176,55 +173,35 @@
 <script>
       $(document).ready(function () {
         $('.ui-pnotify').remove();
-        var kode_real_ktrk = $('#kode_real_ktrk').val();
-        var where = $('#where').val();
-        var table = $('#pokja3').DataTable({
-            // dom: 'Bflrtip',
+        var kode_bkm = $('#kode_bkm').val();
 
-            "processing": true,
-            "serverSide": true,
-            "ajax":{
-                     "url": "/main/pelaksanaan/kota_bdi/realisasi_kontrak/pemanfaat",
-                     "data":{kode_real_ktrk : kode_real_ktrk, where : where},
-                     "dataType": "json",
-                     "type": "POST"
-                   },
-
-            "columns": [
-                { "data": "nik" , name:"nik"},
-                { "data": "nama" , name:"nama"},
-                { "data": "alamat" , name:"alamat"},
-                { "data": "kode_jenis_kelamin" , name:"kode_jenis_kelamin"},
-                { "data": "created_time" , name:"created_time"},
-                { "data": "option" , name:"option",orderable:false}
-            ],
-            "order":[[4,"desc"]]
+        $("#select-kode-pendidikan-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
         });
-        $('#pokja3_filter input').unbind();
-        $('#pokja3_filter input').bind('keyup', function(e) {
-            if(e.keyCode == 13) {
-                table.search(this.value).draw();
-            }
-        })
+        $("#select-kode-pekerjaan-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
 
         $('#form').on('submit', function (e) {
             e.preventDefault();
             var form_data = new FormData(this);
-
-
           $.ajax({
             type: 'post',
             processData: false,
             contentType: false,
-            "url": "/main/pelaksanaan/kota_bdi/realisasi_kontrak/pemanfaat/create",
+            "url": "/main/data_master/bkm/anggota/create",
             data: form_data,
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
             },
             success: function () {
 
-            alert('From Submitted.');
-            window.location.href = "/main/pelaksanaan/kota_bdi/realisasi_kontrak/create?kode="+kode_real_ktrk;
+            // alert('From Submitted.');
+            window.location.href = "/main/data_master/bkm/create?id="+kode_bkm;
             },
             error: function (xhr, ajaxOptions, thrownError) {
               alert(xhr.status);

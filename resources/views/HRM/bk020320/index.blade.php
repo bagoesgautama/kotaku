@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Evaluasi @stop {{-- local styles --}} @section('header_styles')
+@extends('HRM/default') {{-- Page title --}} @section('title') Persetujuan Evaluasi @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Evaluasi</h1>
+    <h1>Persetujuan Evaluasi</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                Managemen Personil / User / Evaluasi
+                Managemen Personil / Persetujuan / Evaluasi
             </li>
         </ul>
     </div>
@@ -34,12 +34,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>Evaluasi Index</b>
+                    <b>Persetujuan Evaluasi Index</b>
                 </div>
 				@if( ! empty($detil['662']))
                 <div class="tools pull-right">
-					<b>bk020314 Index</b>
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management_diri/evaluasi/create">Create</a>
+					<b>bk020320 Index</b>
 				</div>
                 @endif
             </div>
@@ -71,7 +70,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/management_diri/evaluasi",
+                     "url": "/hrm/management_personil/persetujuan/evaluasi",
                      "dataType": "json",
                      "type": "POST"
                    },

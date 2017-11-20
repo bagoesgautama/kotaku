@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') User List Form @stop {{-- local styles --}} @section('header_styles')
+@extends('HRM/default') {{-- Page title --}} @section('title') ManajemenUser Form @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css">
@@ -15,7 +15,7 @@
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Registrasi Manual</h1>
+    <h1>Manajemen User</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -24,8 +24,8 @@
                 </a>
             </li>
 			<li class="next">
-				<a href="/hrm/management/registrasi_manual">
-	                Administrator / User List
+				<a href="/hrm/admin/manajemen_user">
+	                Administrator / Manajemen User
 				</a>
             </li>
             <li class="next">
@@ -448,17 +448,15 @@
 
                     <div class="form-group form-actions">
                         <div class="col-sm-9 col-sm-offset-3">
-                            <a href="/hrm/management/registrasi_manual" type="button" class="btn btn-effect-ripple btn-danger">
+                            <a href="/hrm/admin/manajemen_user" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
-                            @if ($kode==null)
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                 Submit
                             </button>
                             <button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                 Reset
                             </button>
-                            @endif
                         </div>
                     </div>
 
@@ -541,7 +539,7 @@
 			e.preventDefault();
 			$.ajax({
 				type: 'post',
-				"url": "/hrm/management/registrasi_manual/create",
+				"url": "/hrm/admin/manajemen_user/create",
 				data: $('form').serialize(),
 				beforeSend: function (){
 				    $("#submit").prop('disabled', true);
@@ -549,7 +547,7 @@
 				success: function () {
 
 				alert('From Submitted.');
-				window.location.href = "/hrm/management/registrasi_manual";
+				window.location.href = "/hrm/admin/manajemen_user";
 				},
 				error: function (xhr, ajaxOptions, thrownError) {
 				alert(xhr.status);
@@ -683,7 +681,7 @@
                 role.append("<option value>Role</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/hrm/management/registrasi_manual/select?level="+level_id,
+                    "url": "/hrm/admin/manajemen_user/select?level="+level_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -700,7 +698,7 @@
             if(role_id!=null && level_id!=null){
                 $.ajax({
                     type: 'get',
-                    "url": "/hrm/management/registrasi_manual/select?role_flag_koor="+role_id,
+                    "url": "/hrm/admin/manajemen_user/select?role_flag_koor="+role_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         if(data!=null){
@@ -897,9 +895,7 @@
                                     $('#kec_label').show();
                                     wkkel.empty();
                                     $('#kel_label').show();
-
                                 }else{
-
                                     $('#wil_kerja_label').hide();
                                     wkprop.val(null).trigger('change');
                                     $('#prov_label').hide();
@@ -972,7 +968,7 @@
                 kota.append("<option value>Kota</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/hrm/management/registrasi_manual/select?prop="+prop_id,
+                    "url": "/hrm/admin/manajemen_user/select?prop="+prop_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -990,7 +986,7 @@
                 kec.append("<option value>Kota</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/hrm/management/registrasi_manual/select?kota="+kota_id,
+                    "url": "/hrm/admin/manajemen_user/select?kota="+kota_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -1008,7 +1004,7 @@
                 kel.append("<option value>Kota</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/hrm/management/registrasi_manual/select?kec="+kec_id,
+                    "url": "/hrm/admin/manajemen_user/select?kec="+kec_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -1028,7 +1024,7 @@
                 wkkota.append("<option value>WK Kota</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/hrm/management/registrasi_manual/select?wk_kd_prop_kota="+wkprop_id,
+                    "url": "/hrm/admin/manajemen_user/select?wk_kd_prop_kota="+wkprop_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -1042,12 +1038,11 @@
         kmp.change(function(){
             kmp_id=kmp.val();
             if(kmp_id!=null){
-
                 wkkmw.empty();
                 wkkmw.append("<option value>WK KMW</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/hrm/management/registrasi_manual/select?wk_kd_kmp_kmw="+kmp_id,
+                    "url": "/hrm/admin/manajemen_user/select?wk_kd_kmp_kmw="+kmp_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -1065,7 +1060,7 @@
                 wkprop.append("<option value>WK Provinsi</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/hrm/management/registrasi_manual/select?wk_kd_kmw_prop="+wkkmw_id,
+                    "url": "/hrm/admin/manajemen_user/select?wk_kd_kmw_prop="+wkkmw_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -1078,7 +1073,7 @@
                 wkkorkot.append("<option value>WK Korkot</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/hrm/management/registrasi_manual/select?wk_kd_kmw_korkot="+wkkmw_id,
+                    "url": "/hrm/admin/manajemen_user/select?wk_kd_kmw_korkot="+wkkmw_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -1091,7 +1086,7 @@
                 wkfaskel.append("<option value>WK Faskel</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/hrm/management/registrasi_manual/select?wk_kd_kmw_faskel="+wkkmw_id,
+                    "url": "/hrm/admin/manajemen_user/select?wk_kd_kmw_faskel="+wkkmw_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -1109,7 +1104,7 @@
                 wkkec.append("<option value>Kota</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/hrm/management/registrasi_manual/select?wk_kd_kota_kec="+wkkota_id,
+                    "url": "/hrm/admin/manajemen_user/select?wk_kd_kota_kec="+wkkota_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -1127,7 +1122,7 @@
                 wkkel.append("<option value>Kota</option>");
                 $.ajax({
                     type: 'get',
-                    "url": "/hrm/management/registrasi_manual/select?wk_kd_kec_kel="+wkkec_id,
+                    "url": "/hrm/admin/manajemen_user/select?wk_kd_kec_kel="+wkkec_id,
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
@@ -1140,5 +1135,4 @@
 
   });
 </script>
-
 @stop

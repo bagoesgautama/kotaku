@@ -46,11 +46,12 @@ class bk040101Controller extends Controller
 			$user = Auth::user();
 			$data['username'] = Auth::user()->name;
 		}
-		$rowData = DB::select('select * from bkt_01010101_prop where status=1 and kode='.$id);
+		/*$rowData = DB::select('select * from bkt_01010101_prop where status=1 and kode='.$id);
 		$data['propinsi']=$rowData[0]->nama;
 		$data['longitude']=$rowData[0]->longitude;
 		$data['latitude']=$rowData[0]->latitude;
-		$rowData = DB::select('select * from bkt_01010102_kota where status=1 and url_border_area is not null and kode_prop='.$id);
+		$rowData = DB::select('select * from bkt_01010102_kota where status=1 and url_border_area is not null and kode_prop='.$id);*/
+		$rowData = DB::select('select * from bkt_01010102_kota where status=1 and url_border_area is not null');
 		$data['prop']=$rowData;
 		return view('GIS/bk040101/kota',$data);
     }
