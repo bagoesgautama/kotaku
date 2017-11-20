@@ -271,17 +271,15 @@
 
         if(terpilih_p>utusan_p){
             res=false;
-        if(terpilih_w>utusan_w){
+        }else if(terpilih_w>utusan_w){
             res=false;
-        if(sum_terpilih_2>sum_terpilih){
+        }else if(sum_terpilih_2>sum_terpilih){
             res=false;
+<<<<<<< HEAD
         if(terpilih_p==0 && terpilih_w==0){
-            res=false;
-        }
-        var thn = parseInt($('#tahun-input').val());
-        var yearNow = (new Date()).getFullYear();
-        var res = true;
-        if(thn>yearNow){
+=======
+        }else if(terpilih_p==0 && terpilih_w==0){
+>>>>>>> 4975ac2520e1a536f24928380cede254facc1188
             res=false;
         }
         return res;
