@@ -55,7 +55,7 @@
                     </li>
                     <li>
                         <a href="#tab4" data-toggle="tab">
-                                        Luas Kawasan Kumuh
+                                        Kawasan Kumuh
                                     </a>
                     </li>
                     <li>
@@ -198,13 +198,19 @@
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Dasar Hukum</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="km-ds-hkm" name="km-ds-hkm" class="form-control" value="{{$km_ds_hkm}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Luas Kawasan Kumuh (Ha)</label>
                                         <div class="col-sm-6">
                                             <input type="text" id="lk-l-kw-kmh" name="lk-l-kw-kmh" class="form-control" value="{{$lk_l_kw_kmh}}" min="0" readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Luas RT Kumuh Pada Tingkat RT Pada Tahun Berjalan (Ha)</label>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Luas RT Kumuh Pada Tahun Berjalan (Ha)</label>
                                         <div class="col-sm-6">
                                             <input type="text" id="lk-l-rt-kmh" name="lk-l-rt-kmh" class="form-control" value="{{$lk_l_rt_kmh}}" min="0" readonly>
                                         </div>
@@ -218,39 +224,33 @@
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Dasar Hukum</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" id="km-ds-hkm" name="km-ds-hkm" class="form-control" value="{{$km_ds_hkm}}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Jumlah Kawasan Pemukiman Kumuh</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="km-q-kw-kmh" name="km-q-kw-kmh" class="form-control" value="{{$km_q_kw_kmh}}" readonly>
+                                            <input type="number" id="km-q-kw-kmh" name="km-q-kw-kmh" class="form-control" value="{{$km_q_kw_kmh}}">
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Jumlah Kecamatan Yang Memiliki Kawasan Kumuh</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="km-q-kec-kmh" name="km-q-kec-kmh" class="form-control" value="{{$km_q_kec_kmh}}" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Jumlah Kelurahan Yang Termasuk Kawasan Kumuh</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="km-q-kel-kmh" name="km-q-kel-kmh" class="form-control" value="{{$km_q_kel_kmh}}" readonly>
+                                            <input type="number" id="km-q-kec-kmh" name="km-q-kec-kmh" class="form-control" value="{{$km_q_kec_kmh}}">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Jumlah RT Kumuh</label>
+                                        <label class="col-sm-3 control-label">Jumlah Kelurahan Yang Termasuk Kawasan Kumuh</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="km-q-rt-kmh" name="km-q-rt-kmh" class="form-control" value="{{$km_q_rt_kmh}}" readonly>
+                                            <input type="number" id="km-q-kel-kmh" name="km-q-kel-kmh" class="form-control" value="{{$km_q_kel_kmh}}">
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-sm-3 control-label">Jumlah RT Kumuh</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="km-q-rt-kmh" name="km-q-rt-kmh" class="form-control" value="{{$km_q_rt_kmh}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Jumlah RT Non Kumuh</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="km-q-rt-non-kmh" name="km-q-rt-non-kmh" class="form-control" value="{{$km_q_rt_non_kmh}}" readonly>
+                                            <input type="number" id="km-q-rt-non-kmh" name="km-q-rt-non-kmh" class="form-control" value="{{$km_q_rt_non_kmh}}">
                                         </div>
                                     </div>
                                 </div>
