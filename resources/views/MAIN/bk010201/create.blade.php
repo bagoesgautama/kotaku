@@ -48,7 +48,7 @@
                                 <label class="col-sm-3 control-label" for="kode">Tahun</label>
                                 <div class="col-sm-6">
                                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required>
+                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="check">
                                         <option value>Please select</option>
                                         @foreach($tahun_list as $list)
                                             <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
@@ -213,6 +213,8 @@
 {{-- local scripts --}} @section('footer_scripts')
 <script>
     function check(value, validator) {
+        var yearNow = (new Date()).getFullYear();
+        var thn = parseInt($('#tahun-input').val());
         var p = parseInt($('#q-laki-input').val());
         var w = parseInt($('#q-perempuan-input').val());
 
@@ -230,6 +232,11 @@
         }else if(p==0 && w==0){
 			res=false;
 		}
+
+        if(thn>yearNow){
+            res=false;
+        }
+
         return res;
     };
 
