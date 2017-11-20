@@ -69,6 +69,7 @@
                                         @endif
                                     </select>
                                 </div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pembentukan</label>
                                 <div class="col-sm-6">
@@ -143,7 +144,7 @@
         return res;
     };
 
-      $(document).ready(function () {
+    $(document).ready(function () {
         $("#select-kode-kota-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
@@ -157,10 +158,6 @@
             placeholder: "Please Select"
         });
         $("#tahun-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select"
-        });
-        $("#tk-forum-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"
         });
@@ -239,46 +236,7 @@
         var kota = $('#select-kode-kota-input');
         var korkot = $('#select-kode-korkot-input');
         var kmw_id,kota_id,korkot_id;
-
-        // kmw.change(function(){
-        //     kmw_id=kmw.val();
-        //     if(kmw_id!=null){
-        //         kota.empty();
-        //         kota.append("<option value>Please select</option>");
-        //         $.ajax({
-        //             type: 'get',
-        //             "url": "/main/persiapan/kota/forum/bkm/select?kmw="+kmw_id,
-        //             success: function (data) {
-        //                 data=JSON.parse(data)
-        //                 for (var i=0;i<data.length;i++){
-        //                     kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-        //                 }
-        //             }
-        //         });
-        //     }
-        // });
-
-        // kota.change(function(){
-        //     kota_id=kota.val();
-        //     kmw_id=kmw.val();
-        //     if(kota_id!=null){
-        //         korkot.empty();
-        //         korkot.append("<option value>Please select</option>");
-        //         $.ajax({
-        //             type: 'get',
-        //             "url": "/main/persiapan/kota/forum/bkm/select?kota_korkot="+kota_id,
-        //             success: function (data) {
-        //                 data=JSON.parse(data)
-        //                 for (var i=0;i<data.length;i++){
-        //                     korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-        //                 }
-        //             }
-        //         });
-
-
-        //     }
-        // });
-      });
+    });
 </script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>

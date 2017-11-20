@@ -127,7 +127,7 @@
                                     <div class="form-group">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Cakupan Wilayah</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <!-- <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Jumlah Propinsi</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="cw-q-prop" name="cw-q-prop" class="form-control" value="{{$cw_q_prop}}" min="0">
@@ -144,7 +144,7 @@
                                         <div class="col-sm-6">
                                             <input type="number" id="ca-q-kec" name="ca-q-kec" class="form-control" value="{{$ca_q_kec}}" min="0">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Jumlah Kelurahan</label>
                                         <div class="col-sm-6">
@@ -172,25 +172,25 @@
                                     <div class="form-group">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Luas Wilayah</label></div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <!-- <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Luas Wilayah Administratif (Ha)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="lw-l-wil-adm" name="lw-l-wil-adm" class="form-control" value="{{$lw_l_wil_adm}}" min="0">
                                         </div>
-                                    </div>
-                                    <div class="form-group">
+                                    </div> -->
+                                    <!-- <div class="form-group">
                                         <label class="col-sm-3 control-label">Luas Wilayah Administratif (Ha) Kota/Kab.</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="lw-l-wil-adm-kota" name="lw-l-wil-adm-kota" class="form-control" value="{{$lw_l_wil_adm_kota}}" min="0">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Luas Wilayah Administratif (Ha) Kelurahan.</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="lw-l-wil-adm-kel" name="lw-l-wil-adm-kel" class="form-control" value="{{$lw_l_wil_adm_kel}}" min="0">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="col-sm-3 control-label">Luas Permukiman (Ha)</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="lw-l-pmkm" name="lw-l-pmkm" class="form-control" value="{{$lw_l_pmkm}}" min="0">
@@ -201,7 +201,7 @@
                                         <div class="col-sm-6">
                                             <input type="number" id="lw-l-pmkm-kota" name="lw-l-pmkm-kota" class="form-control" value="{{$lw_l_pmkm_kota}}" min="0">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Luas Permukiman (Ha) Kelurahan.</label>
                                         <div class="col-sm-6">
@@ -264,7 +264,7 @@
                                     <div class="form-group striped-col">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Kawasan Kumuh (Kota/Kab)</label></div>
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="col-sm-3 control-label">Dasar Hukum</label>
                                         <div class="col-sm-6">
                                             <input type="text" id="km-ds-hkm" name="km-ds-hkm" class="form-control" value="{{$km_ds_hkm}}" maxlength="50">
@@ -281,7 +281,7 @@
                                         <div class="col-sm-6">
                                             <input type="number" id="km-q-kec-kmh" name="km-q-kec-kmh" class="form-control" value="{{$km_q_kec_kmh}}" min="0">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Jumlah Kelurahan Yang Termasuk Kawasan Kumuh</label>
                                         <div class="col-sm-6">
@@ -300,7 +300,7 @@
                                             <input type="number" id="km-q-rt-non-kmh" name="km-q-rt-non-kmh" class="form-control" value="{{$km_q_rt_non_kmh}}" min="0">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Luas Kawasan Kumuh (Kota/Kab)</label></div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -359,7 +359,7 @@
                                         <div class="col-sm-6">
                                             <input type="number" id="cpk-t-pdk-thn" name="cpk-t-pdk-thn" class="form-control" value="{{$cpk_t_pdk_thn}}" min="0">
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
