@@ -79,7 +79,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Kecamatan</label>
                                 <div class="col-sm-6">
-                                    <select id="select-kode_kec-input" class="form-control select2" name="select-kode_kec-input">
+                                    <select id="select-kode_kec-input" class="form-control select2" name="select-kode_kec-input" required>
                                         <option value="">Please Select</option>
                                         @if ($kode_kec_list!=null)
                                         @foreach ($kode_kec_list as $kkl)
@@ -92,7 +92,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Kelurahan</label>
                                 <div class="col-sm-6">
-                                    <select id="select-kode_kel-input" class="form-control select2" name="select-kode_kel-input">
+                                    <select id="select-kode_kel-input" class="form-control select2" name="select-kode_kel-input" required>
                                         <option value="">Please Select</option>
                                         @if ($kode_kel_list!=null)
                                         @foreach ($kode_kel_list as $kkl)
@@ -109,7 +109,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="tgl_kegiatan-input" name="tgl_kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}">
+                                    <input class="form-control" id="tgl_kegiatan-input" name="tgl_kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -121,37 +121,37 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Jumlah Peserta Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_peserta_p-input" name="q_peserta_p-input" class="form-control" placeholder="Peserta Pria" value="{{$q_peserta_p}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total utusan laki-laki pada seleksi tingkat basis" data-bv-callback-callback="check" min="0">
+                                    <input type="text" id="q_peserta_p-input" name="q_peserta_p-input" class="form-control" placeholder="Peserta Pria" value="{{$q_peserta_p}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total utusan laki-laki pada seleksi tingkat basis" data-bv-callback-callback="check" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Jumlah Peserta Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_peserta_w-input" name="q_peserta_w-input" class="form-control" placeholder="Peserta Wanita" value="{{$q_peserta_w}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total utusan laki-laki pada seleksi tingkat basis" data-bv-callback-callback="check" min="0">
+                                    <input type="text" id="q_peserta_w-input" name="q_peserta_w-input" class="form-control" placeholder="Peserta Wanita" value="{{$q_peserta_w}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total utusan laki-laki pada seleksi tingkat basis" data-bv-callback-callback="check" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Jumlah Peserta Miskin/MBR</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_peserta_mbr-input" name="q_peserta_mbr-input" class="form-control" placeholder="Peserta MBR" value="{{$q_peserta_mbr}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total peserta laki-laki & perempuan" data-bv-callback-callback="check" min="0">
+                                    <input type="text" id="q_peserta_mbr-input" name="q_peserta_mbr-input" class="form-control" placeholder="Peserta MBR" value="{{$q_peserta_mbr}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total peserta laki-laki & perempuan" data-bv-callback-callback="check" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Jumlah Anggota Terpilih Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_terpilih_p-input" name="q_terpilih_p-input" class="form-control" placeholder="Terpilih Pria" value="{{$q_terpilih_p}}" maxlength="5" min="0">
+                                    <input type="text" id="q_terpilih_p-input" name="q_terpilih_p-input" class="form-control" placeholder="Terpilih Pria" value="{{$q_terpilih_p}}" maxlength="5" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Jumlah Anggota Terpilih Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_terpilih_w-input" name="q_terpilih_w-input" class="form-control" placeholder="Terpilih Wanita" value="{{$q_terpilih_w}}" maxlength="5" min="0">
+                                    <input type="text" id="q_terpilih_w-input" name="q_terpilih_w-input" class="form-control" placeholder="Terpilih Wanita" value="{{$q_terpilih_w}}" maxlength="5" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Jumlah Anggota Terpilih Miskin/MBR</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_terpilih_mbr-input" name="q_terpilih_mbr-input" class="form-control" placeholder="Terpilih MBR" value="{{$q_terpilih_mbr}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota terpilih laki-laki & perempuan" data-bv-callback-callback="check2" min="0">
+                                    <input type="text" id="q_terpilih_mbr-input" name="q_terpilih_mbr-input" class="form-control" placeholder="Terpilih MBR" value="{{$q_terpilih_mbr}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota terpilih laki-laki & perempuan" data-bv-callback-callback="check2" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -159,7 +159,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">File Document</label>
+                                <label class="col-sm-3 control-label">Format Input Manual SIM</label>
                                 <div class="col-sm-6">
                                     <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
                                     <br>
@@ -294,6 +294,13 @@
 
     $(document).ready(function () {
 
+        $('#tgl_kegiatan-input')
+            .on('changeDate show', function(e) {
+                // Revalidate the date when user change it
+                $('#form-validation').bootstrapValidator('revalidateField', 'tgl_kegiatan-input');
+                $("#submit").prop('disabled', false);
+        });
+            
         $("#tahun-input").select2({
             theme: "bootstrap",
             placeholder: "Please Select"

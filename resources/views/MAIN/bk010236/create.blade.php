@@ -142,7 +142,7 @@
                             </div>
                             
                             <div class="form-group ">
-                                <label class="col-sm-3 control-label">File Dokumen</label>
+                                <label class="col-sm-3 control-label">Format Input Manual SIM</label>
                                 <div class="col-sm-6">
                                     <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
                                     <br>

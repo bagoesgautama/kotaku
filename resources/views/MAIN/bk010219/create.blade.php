@@ -152,13 +152,13 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Pembiayaan Pelatihan BDI</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="rp-bdi-input" name="rp-bdi-input" class="form-control" placeholder="Jumlah" value="{{$rp_dana_bdi}}" step="0.1">
+                                    <input type="number" id="rp-bdi-input" name="rp-bdi-input" class="form-control" placeholder="Jumlah" value="{{$rp_dana_bdi}}" min="0" step="0.1">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Pembiayaan Pelatihan Swadaya</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="rp-swadaya-input" name="rp-swadaya-input" class="form-control" placeholder="Jumlah" value="{{$rp_dana_swadaya}}" step="0.1">
+                                    <input type="number" id="rp-swadaya-input" name="rp-swadaya-input" class="form-control" placeholder="Jumlah" value="{{$rp_dana_swadaya}}" min="0" step="0.1">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -181,7 +181,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">File Document</label>
+                                <label class="col-sm-3 control-label">Format Input Manual SIM</label>
                                 <div class="col-sm-6">
                                     <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
                                     <br>
@@ -275,6 +275,13 @@
     document.body.addEventListener('input', enforce_maxlength);
 
     $(document).ready(function () {
+
+        $('#tgl-kegiatan-input')
+            .on('changeDate show', function(e) {
+                // Revalidate the date when user change it
+                $('#form-validation').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
+                $("#submit").prop('disabled', false);
+        });
 
         $("#tahun-input").select2({
             theme: "bootstrap",

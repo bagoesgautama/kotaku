@@ -48,7 +48,7 @@
                                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                 <label class="col-sm-3 control-label" for="example-text-input31">Kode Forum</label>
                                 <div class="col-sm-6">
-                                    <select id="select-kode_forum-input" class="form-control select2" name="select-kode_forum-input">
+                                    <select id="select-kode_forum-input" class="form-control select2" name="select-kode_forum-input" required>
                                         <option value="">Please Select</option>
                                         @foreach($kode_forum_list as $list)
                                             <option value="{{ $list->kode_forum }}" @if($list->kode_forum==$kode_forum) selected="selected" @endif >{{ $list->kode_forum.' - '.$list->nama_kota.' - '.$list->nama_kel}}
@@ -60,7 +60,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <select id="select-kode_kegiatan-input" name="select-kode_kegiatan-input" class="form-control" size="1">
+                                    <select id="select-kode_kegiatan-input" name="select-kode_kegiatan-input" class="form-control" size="1" required>
                                         <option value="">Please Select</option>
                                         <option value="2.6.1.2.3"
                                             @if($kode_kegiatan=='2.6.1.2.3')
@@ -80,32 +80,32 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="tgl_kegiatan-input" name="tgl_kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}">
+                                    <input class="form-control" id="tgl_kegiatan-input" name="tgl_kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="lok_kegiatan-input" name="lok_kegiatan-input" class="form-control" placeholder="Lokasi Kegiatan" value="{{$lok_kegiatan}}" maxlength="50">
+                                    <input type="text" id="lok_kegiatan-input" name="lok_kegiatan-input" class="form-control" placeholder="Lokasi Kegiatan" value="{{$lok_kegiatan}}" maxlength="50" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Peserta Pria</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_peserta_p-input" name="q_peserta_p-input" class="form-control" placeholder="Anggota Pria" value="{{$q_peserta_p}}" maxlength="5">
+                                    <input type="text" id="q_peserta_p-input" name="q_peserta_p-input" class="form-control" placeholder="Anggota Pria" value="{{$q_peserta_p}}" maxlength="5" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Peserta Wanita</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_peserta_w-input" name="q_peserta_w-input" class="form-control" placeholder="Anggota Wanita" value="{{$q_peserta_w}}" maxlength="5">
+                                    <input type="text" id="q_peserta_w-input" name="q_peserta_w-input" class="form-control" placeholder="Anggota Wanita" value="{{$q_peserta_w}}" maxlength="5" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">File Document</label>
+                                <label class="col-sm-3 control-label">Format Input Manual SIM</label>
                                 <div class="col-sm-6">
                                     <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
                                     <br>
@@ -124,45 +124,6 @@
                                     <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} onclick="test('uri_img_absensi')">Delete</button>
                                 </div>
                             </div>
-                            <!-- <div class="form-group ">
-                             <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diserahkan & Diserahkan Oleh</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" id="diser_tgl-input" name="diser_tgl-input" placeholder="Tanggal Diserahkan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diser_tgl}}">
-                                </div>
-                                <div class="col-sm-3">
-                                    <select id="diser_oleh-input" name="diser_oleh-input" class="form-control" size="1">
-                                        @foreach ($kode_user_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $diser_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diketahui & Diketahui Oleh</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" id="diket_tgl-input" name="diket_tgl-input" placeholder="Tanggal Diketahui" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diket_tgl}}">
-                                </div>
-                                <div class="col-sm-3">
-                                    <select id="diket_oleh-input" name="diket_oleh-input" class="form-control" size="1">
-                                        @foreach ($kode_user_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $diket_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Diverifikasi & Diverifikasi Oleh</label>
-                                <div class="col-sm-3">
-                                    <input class="form-control" id="diver_tgl-input" name="diver_tgl-input" placeholder="Tanggal Diverifikasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$diver_tgl}}">
-                                </div>
-                                <div class="col-sm-3">
-                                    <select id="diver_oleh-input" name="diver_oleh-input" class="form-control" size="1">
-                                        @foreach ($kode_user_list as $kul)
-                                            <option value="{{$kul->id}}" {!! $diver_oleh==$kul->id ? 'selected':'' !!}>{{$kul->nama_depan}} {{$kul->nama_belakang}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div> -->
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <a href="/main/persiapan/kelurahan/forum/keberfungsian" type="button" class="btn btn-effect-ripple btn-danger">
@@ -188,6 +149,32 @@
 
 @stop {{-- local scripts --}} @section('footer_scripts')
 <script>
+    function check(value, validator) {
+        var p = parseInt($('#q_peserta_p-input').val());
+        var w = parseInt($('#q_peserta_w-input').val());
+
+        var mbr = parseInt($('#q_peserta_mbr-input').val())|| 0;
+        var sum = p+w;
+        var sum2 = mbr;
+        var res = true;
+        if(sum2>sum){
+            res=false;
+        }else if(p==0 && w==0){
+            res=false;
+        }
+        return res;
+    };
+
+    var p = $('#q_peserta_p-input');
+    var w = $('#q_peserta_w-input');
+
+        p.change(function(){
+            $('#q_peserta_mbr-input').val(0);
+        });
+        w.change(function(){
+            $('#q_peserta_mbr-input').val(0);
+        });
+        
     function test(id){
             console.log(id)
             var elem = document.getElementById(id);
@@ -207,6 +194,13 @@
 
     $(document).ready(function () {
 	  	
+        $('#tgl_kegiatan-input')
+            .on('changeDate show', function(e) {
+                // Revalidate the date when user change it
+                $('#form-validation').bootstrapValidator('revalidateField', 'tgl_kegiatan-input');
+                $("#submit").prop('disabled', false);
+        });
+
         $("#select-kode_forum-input").select2({
             theme: "bootstrap",
             placeholder: "Please select"

@@ -164,7 +164,7 @@
                                 </div>
                             </div>
                             <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">File Document</label>
+                                <label class="col-sm-3 control-label">Format Input Manual SIM</label>
                                 <div class="col-sm-6">
                                     <input id="file-document-input" type="file" class="file" data-show-preview="false" name="file-document-input">
                                     <br>
