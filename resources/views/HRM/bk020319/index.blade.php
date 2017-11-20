@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Evaluasi @stop {{-- local styles --}} @section('header_styles')
+@extends('HRM/default') {{-- Page title --}} @section('title') Persetujuan Promosi @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,7 +14,7 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Evaluasi</h1>
+    <h1>Persetujuan Promosi</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="next">
-                Managemen Personil / User / Evaluasi
+                Managemen Personil / Persetujuan / Promosi
             </li>
         </ul>
     </div>
@@ -34,14 +34,11 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>Evaluasi Index</b>
+                    <b>Persetujuan Promosi</b>
                 </div>
-				@if( ! empty($detil['662']))
                 <div class="tools pull-right">
-					<b>bk020314 Index</b>
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/management_diri/evaluasi/create">Create</a>
+                    <b>bk020319 Index</b>
 				</div>
-                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -49,11 +46,12 @@
 						<thead>
                             <tr>
 								<th>ID</th>
-								<th>User</th>
-								<th>Periode</th>
-								<th>Hasil Evaluasi</th>
-								<th>Verifikator</th>
-								<th>Tanggal di verifikasi</th>
+								<th>Nama Depan</th>
+								<th>Nama Belakang</th>
+								<th>Perubahan</th>
+								<th>Role Lama</th>
+								<th>Role Baru</th>
+								<th>Divalidasi Oleh</th>
 								<th>Option</th>
                             </tr>
                         </thead>
@@ -71,7 +69,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/management_diri/evaluasi",
+                     "url": "/hrm/management_personil/persetujuan/promosi",
                      "dataType": "json",
                      "type": "POST"
                    },
@@ -84,11 +82,12 @@
               },
 			  "columns": [
 				{ "data": "kode" , name:"kode"},
-				{ "data": "user" , name:"user"},
-				{ "data": "period_akhir" , name:"period_akhir"},
-				{ "data": "hasil_eval" , name:"hasil_eval"},
-				{ "data": "diver_oleh" , name:"diver_oleh"},
-				{ "data": "diver_tgl" , name:"diver_tgl"},
+				{ "data": "nama_depan" , name:"nama_depan"},
+				{ "data": "nama_belakang" , name:"nama_belakang"},
+				{ "data": "perubahan" , name:"perubahan"},
+				{ "data": "role_lama" , name:"role_lama"},
+				{ "data": "role_baru" , name:"role_baru"},
+				{ "data": "divalidasi_oleh" , name:"divalidasi_oleh"},
 				{ "data": "option" , name:"option",orderable:false}
             ],
 			"order": [[ 0, "desc" ]]

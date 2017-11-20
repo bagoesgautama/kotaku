@@ -67,7 +67,7 @@
 			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/activity_log",
+                     "url": "/hrm/admin/activity_log",
                      "dataType": "json",
                      "type": "POST"
                    },
