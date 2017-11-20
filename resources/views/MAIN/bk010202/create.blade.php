@@ -49,6 +49,7 @@
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                     <select id="select-kode-pokja-input" name="kode-pokja-input" class="form-control select2" size="1" required>
+                                        <option value>Please Select</option>
                                         @foreach ($kode_pokja_list as $kpl)
                                             <option value="{{$kpl->kode}}" {!! $kode_pokja==$kpl->kode ? 'selected':'' !!}>{{$kpl->kode.'-'.$kpl->tahun.'-'.$kpl->status_pokja_convert}}</option>
                                         @endforeach

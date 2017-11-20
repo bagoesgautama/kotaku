@@ -54,7 +54,8 @@
                                     <input type="text" id="utusan_p" name="kode" value="{{ $utusan_p }}">
                                     <input type="text" id="utusan_w" name="kode" value="{{ $utusan_w }}">
                                     <input type="text" id="utusan_mbr" name="kode" value="{{ $utusan_mbr }}">
-                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required>
+                                    <input type="text" id="tgl_kegiatan" name="kode" value="{{ $tgl_kegiatan }}">
+                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="tahun">
                                         <option value>Please select</option>
                                         @foreach($tahun_list as $list)
                                             <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
@@ -109,7 +110,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="tgl_kegiatan-input" name="tgl_kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
+                                    <input class="form-control" id="tgl_kegiatan-input" name="tgl_kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required >
                                 </div>
                             </div>
                             <div class="form-group">
@@ -233,6 +234,25 @@
         if(peserta_p==0 && peserta_w==0){
             res=false;
         } 
+        return res;
+    };
+    function tahun(value, validator) {
+        var yearNow = (new Date()).getFullYear();
+        var thn = parseInt($('#tahun-input').val());
+        
+        var res = true;
+        if(thn>yearNow){
+            res=false;
+        }
+        return res;
+    };
+
+    function tgl(value, validator) {
+        var res = true;
+        var tgl_kegiatan = new Date($('#tgl_kegiatan-input').val());
+        if(tgl_kegiatan>new Date()){
+            res=false;
+        }
         return res;
     };
 

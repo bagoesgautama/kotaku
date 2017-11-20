@@ -9,6 +9,7 @@
 <link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
+<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -108,7 +109,7 @@
                             <div class="form-group ">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pelaksanaan</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Pelaksanaan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
+                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Pelaksanaan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required data-bv-callback="true" data-bv-callback-message="Tanggal melebihi current date." data-bv-callback-callback="check">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -386,6 +387,14 @@
 @stop
 {{-- local scripts --}} @section('footer_scripts')
 <script>
+    function check(value, validator) {
+        var res = true;
+        var tgl_kegiatan = new Date($('#tgl-kegiatan-input').val());
+        if(tgl_kegiatan>new Date()){
+            res=false;
+        }
+        return res;
+    };
       $(document).ready(function () {
         $("#file-dokumen-input").fileinput({
             showUpload: false
@@ -397,6 +406,12 @@
             theme: "bootstrap",
             placeholder: "Please Select",
             width:"100%"
+        });
+        $('#tgl-kegiatan-input')
+            .on('changeDate show', function(e) {
+                // Revalidate the date when user change it
+                $('#form').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
+                $("#submit").prop('disabled', false);
         });
         //unsur
         var kode = $('#kode').val();
@@ -456,29 +471,32 @@
                 table.search(this.value).draw();
             }
         })
-
-        $('#form').on('submit', function (e) {
-            var form_data = new FormData(this);
-          e.preventDefault();
-          $.ajax({
-            type: 'post',
-            processData: false,
-            contentType: false,
-            "url": "/main/persiapan/propinsi/sosialisasi/create",
-            data: form_data,
-            beforeSend: function (){
-                $("#submit").prop('disabled', true);
-            },
-            success: function () {
-            alert('From Submitted.');
-            window.location.href = "/main/persiapan/propinsi/sosialisasi";
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
+        $('#form').bootstrapValidator().on('success.form.bv', function(e) {
+            $('#form').on('submit', function (e) {
+                var form_data = new FormData(this);
+              e.preventDefault();
+              $.ajax({
+                type: 'post',
+                processData: false,
+                contentType: false,
+                "url": "/main/persiapan/propinsi/sosialisasi/create",
+                data: form_data,
+                beforeSend: function (){
+                    $("#submit").prop('disabled', true);
+                },
+                success: function () {
+                alert('From Submitted.');
+                window.location.href = "/main/persiapan/propinsi/sosialisasi";
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+                $("#submit").prop('disabled', false);
+                }
+              });
+            });
+        }).on('error.form.bv', function(e) {
             $("#submit").prop('disabled', false);
-            }
-          });
         });
         // $("#select-kode-prop-input").select2({
         //     theme: "bootstrap",
@@ -661,6 +679,7 @@
 <script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
 
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>

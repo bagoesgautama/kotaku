@@ -80,7 +80,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="tgl_kegiatan-input" name="tgl_kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
+                                    <input class="form-control" id="tgl_kegiatan-input" name="tgl_kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required data-bv-callback="true" data-bv-callback-message="Tanggal melebihi current date." data-bv-callback-callback="tgl">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -160,6 +160,14 @@
         if(sum2>sum){
             res=false;
         }else if(p==0 && w==0){
+            res=false;
+        }
+        return res;
+    };
+    function tgl(value, validator) {
+        var res = true;
+        var tgl_kegiatan = new Date($('#tgl_kegiatan-input').val());
+        if(tgl_kegiatan>new Date()){
             res=false;
         }
         return res;

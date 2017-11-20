@@ -51,7 +51,7 @@
                                     <input type="hidden" id="kode_kmw-input" name="kode_kmw-input" value="{{ $kode_kmw }}">
                                     <input type="hidden" id="kode_korkot-input" name="kode_korkot-input" value="{{ $kode_korkot }}">
                                     <input type="hidden" id="kode_faskel-input" name="kode_faskel-input" value="{{ $kode_faskel }}">
-                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="check">
+                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="tahun">
                                         <option value>Please select</option>
                                         @foreach($tahun_list as $list)
                                             <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
@@ -102,7 +102,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pembentukan</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="tgl_kegiatan-input" name="tgl_kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
+                                    <input class="form-control" id="tgl_kegiatan-input" name="tgl_kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required data-bv-callback="true" data-bv-callback-message="Tanggal melebihi current date." data-bv-callback-callback="tgl">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -214,10 +214,23 @@
         }else if(p==0 && w==0){
             res=false;
         }
-        var thn = parseInt($('#tahun-input').val());
+        return res;
+    };
+    function tahun(value, validator) {
         var yearNow = (new Date()).getFullYear();
+        var thn = parseInt($('#tahun-input').val());
+        
         var res = true;
         if(thn>yearNow){
+            res=false;
+        }
+        return res;
+    };
+
+    function tgl(value, validator) {
+        var res = true;
+        var tgl_kegiatan = new Date($('#tgl-kegiatan-input').val());
+        if(tgl_kegiatan>new Date()){
             res=false;
         }
         return res;
