@@ -125,7 +125,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="lok_kegiatan-input" name="lok_kegiatan-input" class="form-control" placeholder="Lokasi Kegiatan" value="{{$lok_kegiatan}}" maxlength="50">
+                                    <input type="text" id="lok_kegiatan-input" name="lok_kegiatan-input" class="form-control" placeholder="Lokasi Kegiatan" value="{{$lok_kegiatan}}" maxlength="50" required>
                                 </div>
                             </div>
                             <div class="form-group">
