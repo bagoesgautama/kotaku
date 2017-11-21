@@ -108,7 +108,7 @@
 							<div class="panel panel-widget">
 					            <div class="panel-body bg-primary text-center careers-item">
 					                <div>
-					                    <i class="fa-5x fa fa-bar-chart-o hover-rotate text-white">Slum Profile</i>
+					                    <i class="fa-5x fa fa-bar-chart-o hover-rotate text-white">Profile</i>
 					                </div>
 					            </div>
 					        </div>
