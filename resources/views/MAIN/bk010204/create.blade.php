@@ -79,13 +79,13 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk pria" data-bv-callback-callback="check" min="0" required>
+                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk pria" data-bv-callback-callback="laki" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk perempuan" data-bv-callback-callback="check" min="0" required>
+                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk perempuan" data-bv-callback-callback="perempuan" min="0" required>
                                 </div>
                             </div>
 							<div class="form-group">
@@ -148,36 +148,40 @@
 @stop
 {{-- local scripts --}} @section('footer_scripts')
 <script>
-	function check(value, validator) {
-		var prop = {!! json_encode($kode_pokja_list) !!};
-		for(var i=0;i<prop.length;i++){
-			if(prop[i].kode==$('#select-kode-pokja-input').val()){
-				prop=prop[i];
-				break;
-			}
-		}
-		var p = parseInt($('#q-laki-input').val());
-		var w = parseInt($('#q-perempuan-input').val());
+	function laki(value, validator) {
+        var prop = {!! json_encode($kode_pokja_list) !!};
+        for(var i=0;i<prop.length;i++){
+            if(prop[i].kode==$('#select-kode-pokja-input').val()){
+                prop=prop[i];
+                break;
+            }
+        }
+        var p = parseInt($('#q-laki-input').val());
+        var w = parseInt($('#q-perempuan-input').val());
+        var res = true;
 
-		var kl = parseInt($('#upp-kementrian-input').val());
-		var dinas = parseInt($('#upp-dinas-input').val());
-		var dpr = parseInt($('#upp-dpr-input').val());
-		var lsm = parseInt($('#upnp-lsm-input').val());
-		var swasta = parseInt($('#upnp-swasta-input').val());
-		var prak = parseInt($('#upnp-praktisi-input').val());
-		var tgl=new Date($('#tgl-kegiatan-input').val());
-		var sum = p+w;
-		var sum2 = kl+dinas+dpr+lsm+swasta+prak;
-		var res = true;
-		if(sum2>sum){
-			res=false;
-		}else if(p==0 && w==0){
-			res=false;
-		}else if(prop.q_anggota_p<p || prop.q_anggota_w<w){
-			res=false;
-		}
-		return res;
-	};
+        if(prop.q_anggota_p<p){
+            res=false;
+        }
+        return res;
+    };
+    function perempuan(value, validator) {
+        var prop = {!! json_encode($kode_pokja_list) !!};
+        for(var i=0;i<prop.length;i++){
+            if(prop[i].kode==$('#select-kode-pokja-input').val()){
+                prop=prop[i];
+                break;
+            }
+        }
+        var p = parseInt($('#q-laki-input').val());
+        var w = parseInt($('#q-perempuan-input').val());
+        var res = true;
+
+        if(prop.q_anggota_w<w){
+            res=false;
+        }
+        return res;
+    };
 
     function tgl(value, validator) {
         var prop = {!! json_encode($kode_pokja_list) !!};

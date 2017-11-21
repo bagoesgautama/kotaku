@@ -89,7 +89,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" data-bv-callback="true" data-bv-callback-message="Tanggal melebihi current date." data-bv-callback-callback="tgl">
+                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" data-bv-callback="true" data-bv-callback-message="Tanggal lebih kecil dari BKM/Forum Kolaborasi yang dipilih atau melebihi tanggal sekarang." data-bv-callback-callback="tgl">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -101,13 +101,13 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" min="0">
+                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" min="0" data-bv-callback="true" data-bv-callback-message="Jumlah peserta melebihi dari peserta BKM/Forum Kolaborasi yang dipilih." data-bv-callback-callback="laki">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" min="0">
+                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" min="0" data-bv-callback="true" data-bv-callback-message="Jumlah peserta melebihi dari peserta BKM/Forum Kolaborasi yang dipilih." data-bv-callback-callback="perempuan">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -180,12 +180,107 @@
 
         return res;
     };
+    function laki(value, validator) {
+        var bkm = {!! json_encode($kode_bkm_list) !!};
+        for(var i=0;i<bkm.length;i++){
+            if(bkm[i].kode==$('#select-kode-bkm-input').val()){
+                bkm=bkm[i];
+                break;
+            }
+        }
+        var kolab = {!! json_encode($kode_kolab_list) !!};
+        for(var i=0;i<kolab.length;i++){
+            if(kolab[i].kode==$('#select-kode-kolab-input').val()){
+                kolab=kolab[i];
+                break;
+            }
+        }
+        
+        var p = parseInt($('#q-laki-input').val());
+        var w = parseInt($('#q-perempuan-input').val());
+
+        var pemda = parseInt($('#q-pemda-input').val())|| 0;
+        var sum = p+w;
+        var res = true;
+        if(document.getElementById("bkm_label").style.visibility = "visible"){
+            if(bkm.q_anggota_p<p){
+                res=false;
+            }
+        }else if(document.getElementById("kolab_label").style.visibility = "visible"){
+            if(kolab.q_anggota_p<p){
+                res=false;
+            }
+        }
+
+        return res;
+    };
+    function perempuan(value, validator) {
+        var bkm = {!! json_encode($kode_bkm_list) !!};
+        for(var i=0;i<bkm.length;i++){
+            if(bkm[i].kode==$('#select-kode-bkm-input').val()){
+                bkm=bkm[i];
+                break;
+            }
+        }
+        var kolab = {!! json_encode($kode_kolab_list) !!};
+        for(var i=0;i<kolab.length;i++){
+            if(kolab[i].kode==$('#select-kode-kolab-input').val()){
+                kolab=kolab[i];
+                break;
+            }
+        }
+        
+        var p = parseInt($('#q-laki-input').val());
+        var w = parseInt($('#q-perempuan-input').val());
+
+        var pemda = parseInt($('#q-pemda-input').val())|| 0;
+        var sum = p+w;
+        var res = true;
+        if(document.getElementById("bkm_label").style.visibility = "visible"){
+            if(bkm.q_anggota_w<w){
+                res=false;
+            }
+        }else if(document.getElementById("kolab_label").style.visibility = "visible"){
+            if(kolab.q_anggota_w<w){
+                res=false;
+            }
+        }
+
+        return res;
+    };
 
     function tgl(value, validator) {
+        var bkm = {!! json_encode($kode_bkm_list) !!};
+        for(var i=0;i<bkm.length;i++){
+            if(bkm[i].kode==$('#select-kode-bkm-input').val()){
+                bkm=bkm[i];
+                break;
+            }
+        }
+        var kolab = {!! json_encode($kode_kolab_list) !!};
+        for(var i=0;i<kolab.length;i++){
+            if(kolab[i].kode==$('#select-kode-kolab-input').val()){
+                kolab=kolab[i];
+                break;
+            }
+        }
+
+
+
         var res = true;
         var tgl_kegiatan = new Date($('#tgl-kegiatan-input').val());
         if(tgl_kegiatan>new Date()){
             res=false;
+        }
+        if(document.getElementById("bkm_label").style.visibility = "visible"){
+            if(new Date(bkm.tgl_kegiatan)>tgl_kegiatan){
+                res=false;
+            }
+        }
+        if(document.getElementById("kolab_label").style.visibility = "visible"){
+            if(new Date(kolab.tgl_kegiatan)>tgl_kegiatan){
+                res=false;
+            }
         }
         return res;
     };

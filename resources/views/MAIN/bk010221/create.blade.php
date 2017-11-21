@@ -92,13 +92,13 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Peserta Pria</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_peserta_p-input" name="q_peserta_p-input" class="form-control" placeholder="Anggota Pria" value="{{$q_peserta_p}}" maxlength="5" min="0" required>
+                                    <input type="text" id="q_peserta_p-input" name="q_peserta_p-input" class="form-control" placeholder="Anggota Pria" value="{{$q_peserta_p}}" maxlength="5" min="0" required data-bv-callback="true" data-bv-callback-message="Jumlah peserta melebihi dari peserta BKM/Forum Kolaborasi yang dipilih." data-bv-callback-callback="laki">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Peserta Wanita</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_peserta_w-input" name="q_peserta_w-input" class="form-control" placeholder="Anggota Wanita" value="{{$q_peserta_w}}" maxlength="5" min="0" required>
+                                    <input type="text" id="q_peserta_w-input" name="q_peserta_w-input" class="form-control" placeholder="Anggota Wanita" value="{{$q_peserta_w}}" maxlength="5" min="0" required data-bv-callback="true" data-bv-callback-message="Jumlah peserta melebihi dari peserta BKM/Forum Kolaborasi yang dipilih." data-bv-callback-callback="perempuan">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -149,25 +149,63 @@
 
 @stop {{-- local scripts --}} @section('footer_scripts')
 <script>
-    function check(value, validator) {
+    function laki(value, validator) {
+        var forum = {!! json_encode($kode_forum_list) !!};
+        for(var i=0;i<forum.length;i++){
+            if(forum[i].kode_forum==$('#select-kode_forum-input').val()){
+                forum=forum[i];
+                break;
+            }
+        }
+        
         var p = parseInt($('#q_peserta_p-input').val());
         var w = parseInt($('#q_peserta_w-input').val());
 
-        var mbr = parseInt($('#q_peserta_mbr-input').val())|| 0;
         var sum = p+w;
-        var sum2 = mbr;
         var res = true;
-        if(sum2>sum){
-            res=false;
-        }else if(p==0 && w==0){
+
+        if(forum.q_anggota_p<p){
             res=false;
         }
+        
+
+        return res;
+    };
+    function perempuan(value, validator) {
+        var forum = {!! json_encode($kode_forum_list) !!};
+        for(var i=0;i<forum.length;i++){
+            if(forum[i].kode_forum==$('#select-kode_forum-input').val()){
+                forum=forum[i];
+                break;
+            }
+        }
+        
+        var p = parseInt($('#q_peserta_p-input').val());
+        var w = parseInt($('#q_peserta_w-input').val());
+
+        var sum = p+w;
+        var res = true;
+
+        if(forum.q_anggota_w<w){
+            res=false;
+        }
+
         return res;
     };
     function tgl(value, validator) {
+        var forum = {!! json_encode($kode_forum_list) !!};
+        for(var i=0;i<forum.length;i++){
+            if(forum[i].kode_forum==$('#select-kode_forum-input').val()){
+                forum=forum[i];
+                break;
+            }
+        }
+
         var res = true;
         var tgl_kegiatan = new Date($('#tgl_kegiatan-input').val());
         if(tgl_kegiatan>new Date()){
+            res=false;
+        }else if(new Date(forum.tgl_kegiatan)>tgl_kegiatan){
             res=false;
         }
         return res;
