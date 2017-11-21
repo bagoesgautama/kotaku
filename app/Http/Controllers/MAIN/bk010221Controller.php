@@ -239,7 +239,7 @@ class bk010221Controller extends Controller
 			$rowData = DB::select('select * from bkt_01020213_f_forum_kel where kode='.$data['kode']);
 			$data['detil_menu']='204';
 			$data['kode_forum'] = $rowData[0]->kode_forum;
-			$data['kode_forum_list'] = DB::select('select a.kode kode_forum, 
+			$data['kode_forum_list'] = DB::select('select a.*, a.kode kode_forum, 
 															b.nama nama_kota, b.kode, 
 															c.nama nama_kel, c.kode 
 													from bkt_01020212_forum_kel a, bkt_01010102_kota b, 
@@ -268,7 +268,7 @@ class bk010221Controller extends Controller
 		}else if($data['kode']==null && !empty($data['detil']['203'])){
 			$data['detil_menu']='203';
 			$data['kode_forum'] = null;
-			$data['kode_forum_list'] = DB::select('select a.kode kode_forum, 
+			$data['kode_forum_list'] = DB::select('select a.*, a.kode kode_forum, 
 															b.nama nama_kota, b.kode, 
 															c.nama nama_kel, c.kode 
 										from bkt_01020212_forum_kel a, 

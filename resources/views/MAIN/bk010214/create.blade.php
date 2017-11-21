@@ -101,13 +101,13 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" data-bv-callback="true" data-bv-callback-message="Jumlah peserta melebihi dari peserta BKM/Forum Kolaborasi yang dipilih." data-bv-callback-callback="check">
+                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" data-bv-callback="true" data-bv-callback-message="Jumlah peserta melebihi dari peserta BKM/Forum Kolaborasi yang dipilih." data-bv-callback-callback="laki">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" data-bv-callback="true" data-bv-callback-message="Jumlah peserta melebihi dari peserta BKM/Forum Kolaborasi yang dipilih." data-bv-callback-callback="check">
+                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" data-bv-callback="true" data-bv-callback-message="Jumlah peserta melebihi dari peserta BKM/Forum Kolaborasi yang dipilih." data-bv-callback-callback="perempuan">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -161,6 +161,22 @@
 {{-- local scripts --}} @section('footer_scripts')
 <script>
     function check(value, validator) {
+        
+        var p = parseInt($('#q-laki-input').val());
+        var w = parseInt($('#q-perempuan-input').val());
+
+        var pemda = parseInt($('#q-pemda-input').val())|| 0;
+        var sum = p+w;
+        var res = true;
+        if(pemda>sum){
+            res=false;
+        }else if(p==0 && w==0){
+            res=false;
+        }
+
+        return res;
+    };
+    function laki(value, validator) {
         var bkm = {!! json_encode($kode_bkm_list) !!};
         for(var i=0;i<bkm.length;i++){
             if(bkm[i].kode==$('#select-kode-bkm-input').val()){
@@ -182,23 +198,46 @@
         var pemda = parseInt($('#q-pemda-input').val())|| 0;
         var sum = p+w;
         var res = true;
-        if(pemda>sum){
-            res=false;
-        }else if(p==0 && w==0){
-            res=false;
-        }
-
         if(document.getElementById("bkm_label").style.visibility = "visible"){
             if(bkm.q_anggota_p<p){
                 res=false;
-            }else if(bkm.q_anggota_w<w){
+            }
+        }else if(document.getElementById("kolab_label").style.visibility = "visible"){
+            if(kolab.q_anggota_p<p){
                 res=false;
             }
         }
-        if(document.getElementById("kolab_label").style.visibility = "visible"){
-            if(kolab.q_anggota_p<p){
+
+        return res;
+    };
+    function perempuan(value, validator) {
+        var bkm = {!! json_encode($kode_bkm_list) !!};
+        for(var i=0;i<bkm.length;i++){
+            if(bkm[i].kode==$('#select-kode-bkm-input').val()){
+                bkm=bkm[i];
+                break;
+            }
+        }
+        var kolab = {!! json_encode($kode_kolab_list) !!};
+        for(var i=0;i<kolab.length;i++){
+            if(kolab[i].kode==$('#select-kode-kolab-input').val()){
+                kolab=kolab[i];
+                break;
+            }
+        }
+        
+        var p = parseInt($('#q-laki-input').val());
+        var w = parseInt($('#q-perempuan-input').val());
+
+        var pemda = parseInt($('#q-pemda-input').val())|| 0;
+        var sum = p+w;
+        var res = true;
+        if(document.getElementById("bkm_label").style.visibility = "visible"){
+            if(bkm.q_anggota_w<w){
                 res=false;
-            }else if(kolab.q_anggota_w<w){
+            }
+        }else if(document.getElementById("kolab_label").style.visibility = "visible"){
+            if(kolab.q_anggota_w<w){
                 res=false;
             }
         }
