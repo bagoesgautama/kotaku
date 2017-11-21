@@ -70,6 +70,8 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Nama Kegiatan</label>
                                 <div class="col-sm-6">
+                                    <input type="text" id="kode" name="kode" value="{{$kode}}" hidden>
+                                    <input type="text" id="detil_menu" name="detil_menu" value="{{$detil_menu}}" hidden>
                                     <input type="text" id="nama_kegiatan" name="nama_kegiatan" class="form-control" placeholder="Nama Kegiatan" value="{{$nama_kegiatan}}" maxlength="100" required>
                                 </div>
                             </div>
@@ -463,9 +465,9 @@
             beforeSend: function (){
                 $("#submit").prop('disabled', true);
             },
-            success: function () {
+            success: function (data) {
             alert('From Submitted.');
-            window.location.href = "/main/persiapan/kota/kegiatan/sosialisasi";
+            window.location.href = "/main/persiapan/kota/kegiatan/sosialisasi/create?kode="+data;
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

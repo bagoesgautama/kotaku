@@ -863,6 +863,7 @@ class bk010236Controller extends Controller
 			if($upload_absensi == true){
 				$file_absensi->move(public_path('/uploads/persiapan/kota/kegiatan/sosialisasi'), $file_absensi->getClientOriginalName());
 			}
+			echo($lastInsertId);
 			$this->log_aktivitas('Create', 596);
 		}
 	}
