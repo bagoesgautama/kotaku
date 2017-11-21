@@ -89,7 +89,7 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" data-bv-callback="true" data-bv-callback-message="Tanggal lebih kecil daro BKM/Forum Kolaborasi yang dipilih atau melebihi tanggal sekarang." data-bv-callback-callback="tgl">
+                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" data-bv-callback="true" data-bv-callback-message="Tanggal lebih kecil dari BKM/Forum Kolaborasi yang dipilih atau melebihi tanggal sekarang." data-bv-callback-callback="tgl">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -186,13 +186,16 @@
             res=false;
         }else if(p==0 && w==0){
             res=false;
-        }else if(document.getElementById("bkm_label").style.visibility = "visible"){
+        }
+
+        if(document.getElementById("bkm_label").style.visibility = "visible"){
             if(bkm.q_anggota_p<p){
                 res=false;
             }else if(bkm.q_anggota_w<w){
                 res=false;
             }
-        }else if(document.getElementById("kolab_label").style.visibility = "visible"){
+        }
+        if(document.getElementById("kolab_label").style.visibility = "visible"){
             if(kolab.q_anggota_p<p){
                 res=false;
             }else if(kolab.q_anggota_w<w){
@@ -225,11 +228,13 @@
         var tgl_kegiatan = new Date($('#tgl-kegiatan-input').val());
         if(tgl_kegiatan>new Date()){
             res=false;
-        }else if(document.getElementById("bkm_label").style.visibility = "visible"){
+        }
+        if(document.getElementById("bkm_label").style.visibility = "visible"){
             if(new Date(bkm.tgl_kegiatan)>tgl_kegiatan){
                 res=false;
             }
-        }else if(document.getElementById("kolab_label").style.visibility = "visible"){
+        }
+        if(document.getElementById("kolab_label").style.visibility = "visible"){
             if(new Date(kolab.tgl_kegiatan)>tgl_kegiatan){
                 res=false;
             }
