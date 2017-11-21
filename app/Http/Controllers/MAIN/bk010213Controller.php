@@ -391,7 +391,7 @@ class bk010213Controller extends Controller
 			DB::table('bkt_01020208_kolab_kota')->where('kode', $request->input('kode'))
 			->update([
 				'tahun' => $request->input('tahun-input'),
-				'tk_forum' => $request->input('tk-forum-input'),
+				'tk_forum' => 2,
 				'kode_kota' => $request->input('kode-kota-input'),
 				'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:$prop_kmw[0]->kode,
 				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
@@ -403,12 +403,6 @@ class bk010213Controller extends Controller
 				'q_anggota_bkm' => $request->input('q-bkm-input'),
 				'uri_img_document' => $url_dokumen,
 				'uri_img_absensi' => $url_absensi,
-				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				// 'diser_oleh' => $request->input('diser-oleh-input'),
-				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				// 'diket_oleh' => $request->input('diket-oleh-input'),
-				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				// 'diver_oleh' => $request->input('diver-oleh-input'),
 				'updated_by' => Auth::user()->id,
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
@@ -426,7 +420,7 @@ class bk010213Controller extends Controller
 		}else{
 			DB::table('bkt_01020208_kolab_kota')->insert([
 				'tahun' => $request->input('tahun-input'),
-				'tk_forum' => $request->input('tk-forum-input'),
+				'tk_forum' => 2,
 				'kode_kota' => $request->input('kode-kota-input'),
 				'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:$prop_kmw[0]->kode,
 				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
@@ -438,12 +432,6 @@ class bk010213Controller extends Controller
 				'q_anggota_bkm' => $request->input('q-bkm-input'),
 				'uri_img_document' => $url_dokumen,
 				'uri_img_absensi' => $url_absensi,
-				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				// 'diser_oleh' => $request->input('diser-oleh-input'),
-				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				// 'diket_oleh' => $request->input('diket-oleh-input'),
-				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				// 'diver_oleh' => $request->input('diver-oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
 

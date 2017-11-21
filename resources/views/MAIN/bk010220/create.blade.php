@@ -10,8 +10,7 @@
 <link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 <link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 
-@stop {{-- Page Header--}}
-@section('page-header')
+@stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>MAIN Module</h1>
@@ -45,12 +44,141 @@
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Forum</label></div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Tahun</label>
+                                <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
+                                <input type="hidden" id="kode_kmw-input" name="kode_kmw-input" value="{{ $kode_kmw }}">
+                                <input type="hidden" id="kode_korkot-input" name="kode_korkot-input" value="{{ $kode_korkot }}">
+                                <input type="hidden" id="kode_faskel-input" name="kode_faskel-input" value="{{ $kode_faskel }}">
+                                <label class="col-sm-3 control-label" for="kode">Tahun</label>
                                 <div class="col-sm-6">
-                                    
+                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="tahun">
+                                        <option value>Please select</option>
+                                        @foreach($tahun_list as $list)
+                                            <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-                            
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Kota</label>
+                                <div class="col-sm-6">
+                                    <select id="select-kode_kota-input" name="select-kode_kota-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
+                                        @if ($kode_kota_list!=null)
+                                        @foreach ($kode_kota_list as $kkl)
+                                            <option value="{{$kkl->kode}}" {!! $kode_kota==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Kecamatan</label>
+                                <div class="col-sm-6">
+                                    <select id="select-kode_kec-input" name="select-kode_kec-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
+                                        @if ($kode_kec_list!=null)
+                                        @foreach ($kode_kec_list as $kkl)
+                                            <option value="{{$kkl->kode}}" {!! $kode_kec==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Kelurahan</label>
+                                <div class="col-sm-6">
+                                    <select id="select-kode_kel-input" name="select-kode_kel-input" class="form-control select2" size="1" required>
+                                        <option value>Please select</option>
+                                        @if ($kode_kel_list!=null)
+                                        @foreach ($kode_kel_list as $kkl)
+                                            <option value="{{$kkl->kode}}" {!! $kode_kel==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Pembentukan</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required data-bv-callback="true" data-bv-callback-message="Tanggal melebihi current date." data-bv-callback-callback="tgl">
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="kode">Nilai Dana Operasional</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="nilai_dana_ops-input" name="nilai_dana_ops-input" class="form-control" placeholder="Jumlah" value="{{$nilai_dana_ops}}" min="0">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Anggota</label></div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="q_anggota_p-input" name="q_anggota_p-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_p}}" required data-bv-callback="true" data-bv-callback-message="pria & wanita tidak boleh 0" data-bv-callback-callback="check" min="0" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="q_anggota_w-input" name="q_anggota_w-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_w}}" required data-bv-callback="true" data-bv-callback-message="pria & wanita tidak boleh 0" data-bv-callback-callback="check" min="0" required>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Unsur Anggota</label></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="kode">Kepala dan Aparat Kelurahan/Desa</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="q_anggota_pem_desa-input" name="q_anggota_pem_desa-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_pem_desa}}" required data-bv-callback="true" data-bv-callback-message="Jumlah Anggota melebihi total pria & wanita" data-bv-callback-callback="check" min="0">
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label" for="kode">Lembaga Kelurahan</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="q_anggota_pem_bpd-input" name="q_anggota_pem_bpd-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_pem_bpd}}" required data-bv-callback="true" data-bv-callback-message="Jumlah Anggota melebihi total pria & wanita" data-bv-callback-callback="check" min="0">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="kode">Non Pemerintah</label>
+                                <div class="col-sm-6">
+                                    <input type="number" id="q_anggota_non_pem-input" name="q_anggota_non_pem-input" class="form-control" placeholder="Jumlah" value="{{$q_anggota_non_pem}}" required data-bv-callback="true" data-bv-callback-message="Jumlah Anggota melebihi total pria & wanita" data-bv-callback-callback="check" min="0">
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Tambahan</label></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">File Rencana Kerja</label>
+                                <div class="col-sm-6">
+                                    <input id="uri_dok_rencana_kerja-input" type="file" class="file" accept="image/*" name="uri_dok_rencana_kerja-input">
+                                    <br>
+                                    <img id="uri_dok_rencana_kerja" alt="gallery" src="/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan/{{$uri_dok_rencana_kerja}}" {!! $uri_dok_rencana_kerja==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="uri_dok_rencana_kerja-file" name="uri_dok_rencana_kerja-file" value="{{$uri_dok_rencana_kerja}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_dok_rencana_kerja==null ? 'style="display:none"':'' !!} onclick="test('uri_dok_rencana_kerja')">Delete</button>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
+                                <label class="col-sm-3 control-label">Format Input Manual SIM</label>
+                                <div class="col-sm-6">
+                                    <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
+                                    <br>
+                                    <img id="uri_img_document" alt="gallery" src="/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="uri_img_document-file" name="uri_img_document-file" value="{{$uri_img_document}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">Delete</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">File Absensi</label>
+                                <div class="col-sm-6">
+                                    <input id="uri_img_absensi-input" type="file" class="file" accept="image/*" name="uri_img_absensi-input">
+                                    <br>
+                                    <img id="uri_img_absensi" alt="gallery" src="/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <input type="hidden" id="uri_img_absensi-file" name="uri_img_absensi-file" value="{{$uri_img_absensi}}">
+                                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} onclick="test('uri_img_absensi')">Delete</button>
+                                </div>
+                            </div>
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <a href="/main/persiapan/kelurahan/forum/keanggotaan" type="button" class="btn btn-effect-ripple btn-danger">
@@ -142,7 +270,7 @@
             t.value = t.value.slice(0, t.getAttribute('maxlength'));
             }
         }
-    document.body.addEventListener('input', enforce_maxlength);
+        document.body.addEventListener('input', enforce_maxlength);
 
     $(document).ready(function () {
 
@@ -210,12 +338,14 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
+
         $('#tgl-kegiatan-input')
             .on('changeDate show', function(e) {
                 // Revalidate the date when user change it
                 $('#form-validation').bootstrapValidator('revalidateField', 'tgl_kegiatan-input');
                 $("#submit").prop('disabled', false);
         });
+
         $('#form-validation').bootstrapValidator().on('success.form.bv', function(e) {
             $('#form-validation').on('submit', function (e) {
                 e.preventDefault();

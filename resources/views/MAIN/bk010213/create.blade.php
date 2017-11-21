@@ -57,15 +57,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
-                                <label class="col-sm-3 control-label">Tingkat Forum</label>
-                                <div class="col-sm-6">
-                                    <select id="tk-forum-input" name="tk-forum-input" class="form-control" size="1" required>
-                                        <!-- <option value="1" {!! $tk_forum=='1' ? 'selected':'' !!}>Kota</option> -->
-                                        <option value="2" {!! $tk_forum=='2' ? 'selected':'' !!}>Kecamatan</option>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Kota</label>
                                 <div class="col-sm-6">
