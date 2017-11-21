@@ -49,6 +49,7 @@
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                     <select id="select-kode-pokja-kota-input" name="kode-pokja-kota-input" class="form-control select2" size="1" required>
+                                        <option value>Please Select</option>
                                         @foreach ($kode_pokja_kota_list as $kpkl)
                                             <option value="{{$kpkl->kode}}" {!! $kode_pokja_kota==$kpkl->kode ? 'selected':'' !!}>{{$kpkl->tahun.'-'.$kpkl->nama_kota.'-'.$kpkl->status_pokja_convert}}</option>
                                         @endforeach
@@ -67,7 +68,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required>
+                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required data-bv-callback="true" data-bv-callback-message="Tanggal kegiatan lebih kecil dari tanggal pembentukan" data-bv-callback-callback="tgl">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -193,11 +194,26 @@
 			res=false;
 		}else if(prop.q_anggota_p<p || prop.q_anggota_w<w){
 			res=false;
-		}else if(new Date(prop.tgl_kegiatan)>tgl){
-			res=false;
 		}
 		return res;
 	};
+    function tgl(value, validator) {
+        var prop = {!! json_encode($kode_pokja_kota_list) !!};
+        for(var i=0;i<prop.length;i++){
+            if(prop[i].kode==$('#select-kode-pokja-input').val()){
+                prop=prop[i];
+                break;
+            }
+        }
+        var res = true;
+        var tgl_kegiatan = new Date($('#tgl-kegiatan-input').val());
+        if(tgl_kegiatan>new Date()){
+            res=false;
+        }else if(new Date(prop.tgl_kegiatan)>tgl_kegiatan){
+            res=false;
+        }
+        return res;
+    };
     
     function enforce_maxlength(event) {
             var t = event.target;
@@ -226,12 +242,12 @@
         
         $("#select-kode-pokja-kota-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
 
         $("#sub-kegiatan-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
 
         $("#uri_img_document-input").fileinput({

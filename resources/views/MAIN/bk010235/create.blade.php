@@ -180,6 +180,7 @@
         var kode_bkm = $('#kode_bkm').val();
         var kode = $('#kode').val();
         var detil_menu = $('#detil_menu').val();
+        var tahun_pemilu = $('#tahun').val();
         var table = $('#anggota').DataTable({
             // dom: 'Bflrtip',
 
@@ -188,7 +189,7 @@
             "ajax":{
                      "url": "/main/persiapan/kelurahan/pemilu_bkm/data/anggota",
                      "dataType": "json",
-                     "data": {kode_bkm : kode_bkm, kode : kode,detil_menu : detil_menu},
+                     "data": {kode_bkm : kode_bkm, kode : kode,detil_menu : detil_menu,tahun_pemilu : tahun_pemilu},
                      "type": "POST"
                    },
             "columns": [

@@ -68,7 +68,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Klik Untuk Pilih Tanggal" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required data-bv-callback="true" data-bv-callback-message="Tanggal kegiatan yang dipilih tidak boleh kurang dari tanggal pembentukan atau melebihi tanggal hari ini" data-bv-callback-callback="check" required>
+                                    <input class="form-control" id="tgl-kegiatan-input" name="tgl-kegiatan-input" placeholder="Klik Untuk Pilih Tanggal" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_kegiatan}}" required data-bv-callback="true" data-bv-callback-message="Tanggal kegiatan yang dipilih tidak boleh kurang dari tanggal pembentukan atau melebihi tanggal hari ini" data-bv-callback-callback="tgl" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -180,11 +180,27 @@
 			res=false;
 		}else if(prop.q_anggota_p<p || prop.q_anggota_w<w){
 			res=false;
-		}else if(new Date(prop.tgl_kegiatan)>tgl){
-			res=false;
 		}
 		return res;
 	};
+
+    function tgl(value, validator) {
+        var prop = {!! json_encode($kode_pokja_list) !!};
+        for(var i=0;i<prop.length;i++){
+            if(prop[i].kode==$('#select-kode-pokja-input').val()){
+                prop=prop[i];
+                break;
+            }
+        }
+        var res = true;
+        var tgl_kegiatan = new Date($('#tgl-kegiatan-input').val());
+        if(tgl_kegiatan>new Date()){
+            res=false;
+        }else if(new Date(prop.tgl_kegiatan)>tgl_kegiatan){
+            res=false;
+        }
+        return res;
+    };
 
     function enforce_maxlength(event) {
             var t = event.target;
