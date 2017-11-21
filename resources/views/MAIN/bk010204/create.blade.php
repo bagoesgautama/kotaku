@@ -91,13 +91,13 @@
 							<div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Non Anggota Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q_non_anggota_p-input" name="q_non_anggota_p-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota_p}}" maxlength="11" min="0" required>
+                                    <input type="number" id="q_non_anggota_p-input" name="q_non_anggota_p-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota_p}}" maxlength="11" min="0">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Peserta Non Anggota Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q_non_anggota_w-input" name="q_non_anggota_w-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota_w}}" maxlength="11" min="0" required>
+                                    <input type="number" id="q_non_anggota_w-input" name="q_non_anggota_w-input" class="form-control" placeholder="Jumlah" value="{{$q_non_anggota_w}}" maxlength="11" min="0">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -200,6 +200,15 @@
         }
         return res;
     };
+
+    function test(id){
+            console.log(id)
+            var elem = document.getElementById(id);
+            elem.parentNode.removeChild(elem);
+            var elem2 = $('#'+id+'-file');
+            elem2.removeAttr('value');
+            return false;
+        }
 
     function enforce_maxlength(event) {
             var t = event.target;

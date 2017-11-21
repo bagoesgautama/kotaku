@@ -135,7 +135,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Nilai Dana Operasional</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="dana-ops-input" name="dana-ops-input" class="form-control" placeholder="Jumlah" value="{{$nilai_dana_ops}}" min="0">
+                                    <input type="number" id="dana-ops-input" name="dana-ops-input" class="form-control" placeholder="Jumlah" value="{{$nilai_dana_ops}}" min="0" step="0.1">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -161,7 +161,7 @@
                                 <div class="col-sm-6">
                                     <input id="url_rencana_kerja-input" type="file" class="file" accept="image/*" name="url_rencana_kerja-input">
                                     <br>
-                                    <img id="url_rencana_kerja" alt="gallery" src="/uploads/persiapan/nasional/pokja/pembentukan/{{$url_rencana_kerja}}" {!! $url_rencana_kerja==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <img id="url_rencana_kerja" alt="gallery" src="/uploads/persiapan/propinsi/pokja/pembentukan/{{$url_rencana_kerja}}" {!! $url_rencana_kerja==null ? 'style="display:none"':'style="width:150px"' !!} >
                                     <input type="hidden" id="url_rencana_kerja-file" name="url_rencana_kerja-file" value="{{$url_rencana_kerja}}">
                                     <button type="button" class="btn btn-effect-ripple btn-danger" {!! $url_rencana_kerja==null ? 'style="display:none"':'' !!} onclick="test('url_rencana_kerja')">Delete</button>
                                 </div>
@@ -171,7 +171,7 @@
                                 <div class="col-sm-6">
                                     <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
                                     <br>
-                                    <img id="uri_img_document" alt="gallery" src="/uploads/persiapan/nasional/pokja/monitoring/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <img id="uri_img_document" alt="gallery" src="/uploads/persiapan/propinsi/pokja/pembentukan/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
                                     <input type="hidden" id="uri_img_document-file" name="uri_img_document-file" value="{{$uri_img_document}}">
                                     <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">Delete</button>
                                 </div>
@@ -181,7 +181,7 @@
                                 <div class="col-sm-6">
                                     <input id="uri_img_absensi-input" type="file" class="file" accept="image/*" name="uri_img_absensi-input">
                                     <br>
-                                    <img id="uri_img_absensi" alt="gallery" src="/uploads/persiapan/nasional/pokja/monitoring/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                    <img id="uri_img_absensi" alt="gallery" src="/uploads/persiapan/propinsi/pokja/pembentukan/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
                                     <input type="hidden" id="uri_img_absensi-file" name="uri_img_absensi-file" value="{{$uri_img_absensi}}">
                                     <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} onclick="test('uri_img_absensi')">Delete</button>
                                 </div>
@@ -253,6 +253,15 @@
         }
         return res;
     };
+
+    function test(id){
+            console.log(id)
+            var elem = document.getElementById(id);
+            elem.parentNode.removeChild(elem);
+            var elem2 = $('#'+id+'-file');
+            elem2.removeAttr('value');
+            return false;
+        }
 
     function enforce_maxlength(event) {
             var t = event.target;
