@@ -164,7 +164,7 @@
         var sum = p+w;
         var res = true;
 
-        if(bkm.q_anggota_p<p){
+        if(forum.q_anggota_p<p){
             res=false;
         }
         
@@ -186,7 +186,7 @@
         var sum = p+w;
         var res = true;
 
-        if(bkm.q_anggota_w<w){
+        if(forum.q_anggota_w<w){
             res=false;
         }
 
