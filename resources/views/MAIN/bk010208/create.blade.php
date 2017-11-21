@@ -322,6 +322,15 @@
 @stop
 {{-- local scripts --}} @section('footer_scripts')
 <script>
+    function test(id){
+            console.log(id)
+            var elem = document.getElementById(id);
+            elem.parentNode.removeChild(elem);
+            var elem2 = $('#'+id+'-file');
+            elem2.removeAttr('value');
+            return false;
+        }
+    
     function enforce_maxlength(event) {
             var t = event.target;
             if (t.hasAttribute('maxlength')) {

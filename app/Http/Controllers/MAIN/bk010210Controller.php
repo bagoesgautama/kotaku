@@ -75,13 +75,13 @@ class bk010210Controller extends Controller
 				left join bkt_01010103_kec d on a.kode_kec = d.kode
 				left join bkt_01010110_kmw e on a.kode_kmw = e.kode
 			where
-				a.tk_forum = 1) b';
+				a.tk_forum = 1 and a.jenis_kegiatan = "2.4.5") b';
 		$totalData = DB::select('select count(1) cnt from bkt_01020208_kolab_kota a
 				left join bkt_01010102_kota b on a.kode_kota = b.kode
 				left join bkt_01010111_korkot c on a.kode_korkot = c.kode
 				left join bkt_01010110_kmw e on a.kode_kmw = e.kode
 			where
-				a.tk_forum = 1');
+				a.tk_forum = 1 and a.jenis_kegiatan = "2.4.5"');
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
 		$start = $request->input('start');
@@ -388,7 +388,7 @@ class bk010210Controller extends Controller
 				'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:$prop_kmw[0]->kode,
 				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
 				// 'kode_kec' => $request->input('kode-kec-input'),
-				'jenis_kegiatan' => $request->input('jns-kegiatan-input'),
+				'jenis_kegiatan' => "2.4.5",
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'q_anggota_p' => $request->input('q-laki-input'),
 				'q_anggota_w' => $request->input('q-perempuan-input'),
@@ -417,7 +417,7 @@ class bk010210Controller extends Controller
 				'kode_kmw' => $user->kode_kmw!=null?$user->kode_kmw:$prop_kmw[0]->kode,
 				'kode_korkot' => $user->kode_korkot!=null?$user->kode_korkot:$kota_korkot[0]->kode,
 				// 'kode_kec' => $request->input('kode-kec-input'),
-				'jenis_kegiatan' => $request->input('jns-kegiatan-input'),
+				'jenis_kegiatan' => "2.4.5",
 				'tgl_kegiatan' => $this->date_conversion($request->input('tgl-kegiatan-input')),
 				'q_anggota_p' => $request->input('q-laki-input'),
 				'q_anggota_w' => $request->input('q-perempuan-input'),

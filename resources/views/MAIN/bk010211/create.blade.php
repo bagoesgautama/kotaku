@@ -164,6 +164,23 @@
 @stop
 {{-- local scripts --}} @section('footer_scripts')
 <script>
+    function test(id){
+            console.log(id)
+            var elem = document.getElementById(id);
+            elem.parentNode.removeChild(elem);
+            var elem2 = $('#'+id+'-file');
+            elem2.removeAttr('value');
+            return false;
+        }
+
+    function enforce_maxlength(event) {
+            var t = event.target;
+            if (t.hasAttribute('maxlength')) {
+                t.value = t.value.slice(0, t.getAttribute('maxlength'));
+            }
+        }
+        document.body.addEventListener('input', enforce_maxlength);
+        
     function check(value, validator) {
         
         var p = parseInt($('#q-laki-input').val());
@@ -180,6 +197,7 @@
 
         return res;
     };
+
     function laki(value, validator) {
         var bkm = {!! json_encode($kode_bkm_list) !!};
         for(var i=0;i<bkm.length;i++){
@@ -265,8 +283,6 @@
             }
         }
 
-
-
         var res = true;
         var tgl_kegiatan = new Date($('#tgl-kegiatan-input').val());
         if(tgl_kegiatan>new Date()){
@@ -284,6 +300,7 @@
         }
         return res;
     };
+
     $(document).ready(function () {
         
 	  	$("#file-dokumen-input").fileinput({
