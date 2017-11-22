@@ -318,12 +318,12 @@
 
         $("#select-id-pelatihan-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
 
         $("#select-status_kumuh-input").select2({
             theme: "bootstrap",
-            placeholder: "single select"
+            placeholder: "Please Select"
         });
         $('#tgl-kegiatan-input')
             .on('changeDate show', function(e) {

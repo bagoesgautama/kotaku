@@ -159,15 +159,17 @@ class bk010235Controller extends Controller
 				}
 
 				$option = '';
+				$tambah_anggota = '';
 				if(!empty($detil['587'])){
 					$option .= "<a href='{$url_show}' title='SHOW' ><span class='fa fa-fw fa-search'></span></a>";
 				}
 				if(!empty($detil['589'])){
-					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
+					$tambah_anggota .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
 				}
 				// if(!empty($detil['590'])){
 				// 	$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
 				// }
+				$nestedData['tambah_anggota'] = $tambah_anggota;
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
@@ -205,13 +207,13 @@ class bk010235Controller extends Controller
 				left join bkt_01010135_tkt_pendidikan b on b.kode=a.kode_pendidikan
 				left join bkt_01010134_pekerjaan c on c.kode=a.kode_pekerjaan
 			where 
-				a.status=1 and
+				a.status!=2 and
 				a.kode_bkm='.$request->input('kode_bkm').') b';
 		$totalData = DB::select('select count(1) cnt from bkt_01010133_anggt_bkm a
 				left join bkt_01010135_tkt_pendidikan b on b.kode=a.kode_pendidikan
 				left join bkt_01010134_pekerjaan c on c.kode=a.kode_pekerjaan
 			where 
-				a.status=1 and
+				a.status!=2 and
 				a.kode_bkm='.$request->input('kode_bkm'));
 		$totalFiltered = $totalData[0]->cnt;
 		$limit = $request->input('length');
@@ -237,7 +239,7 @@ class bk010235Controller extends Controller
 				$show =  $post->kode;
 				$delete = $post->kode;
 				$url_edit="/main/persiapan/kelurahan/pemilu_bkm/data/anggota/create?kode_anggota=".$show.'&kode='.$request->input('kode');
-				$url_delete="/main/persiapan/kelurahan/pemilu_bkm/data/anggota/delete?kode_anggota=".$delete.'&kode_pemilu='.$request->input('kode');
+				$url_delete="/main/persiapan/kelurahan/pemilu_bkm/data/anggota/delete?kode_anggota=".$delete.'&kode_bkm='.$post->kode_bkm.'&kode_pemilu='.$request->input('kode_pemilu');
 				$nestedData['kode'] = $post->kode;
 				// $nestedData['kode_bkm'] = $post->kode_bkm;
 				$nestedData['nama'] = $post->nama_anggota;
@@ -438,6 +440,11 @@ class bk010235Controller extends Controller
 			$data['kode_anggota']=$request->input('kode_anggota');
 			$data['kode_pendidikan_list'] = DB::select('select * from bkt_01010135_tkt_pendidikan where status=1');
 			$data['kode_pekerjaan_list'] = DB::select('select * from bkt_01010134_pekerjaan where status=1');
+
+			$data['pemilu_bkm'] = DB::select('select * from bkt_01020214_pemilu_bkm where kode='.$request->input('kode'));
+			$data['anggota_pemilu_bkm_p'] = DB::select('select count(kode) cnt from bkt_01010133_anggt_bkm where kode_pemilu_bkm='.$request->input('kode').' and jenis_kelamin="L" and status!=2');
+			$data['anggota_pemilu_bkm_w'] = DB::select('select count(kode) cnt from bkt_01010133_anggt_bkm where kode_pemilu_bkm='.$request->input('kode').' and jenis_kelamin="P" and status!=2');
+			$data['anggota_pemilu_bkm_mbr'] = DB::select('select count(kode) cnt from bkt_01010133_anggt_bkm where kode_pemilu_bkm='.$request->input('kode').' and status_sosial=0 and status!=2');
 			if($data['kode_bkm']!=null && !empty($data['detil']['589'])){
 				
 				$data['nama'] = null;
@@ -499,10 +506,12 @@ class bk010235Controller extends Controller
 
 		}else{
 			DB::table('bkt_01010133_anggt_bkm')->insert(
-       			['kode_bkm' => $request->input('kode_bkm'),
+       			[
+       			'kode_bkm' => $request->input('kode_bkm'),
+       			'kode_pemilu_bkm' => $request->input('kode'),
        			'nama' => $request->input('nama'),
 				'jenis_kelamin' => $request->input('jenis_kelamin'),
-				'status_sosial' => $request->input('status_sosial'),
+				'status_sosial' => 1,
 				'umur' => $request->input('umur'),
 				'kode_pendidikan' => $request->input('kode-pendidikan-input'),
 				'kode_pekerjaan' => $request->input('kode-pekerjaan-input'),
@@ -514,41 +523,41 @@ class bk010235Controller extends Controller
 			$this->log_aktivitas('Create Anggota BKM', 589);
 		}
 
-		// $total_anggota_p=DB::select('select count(kode) as cnt from bkt_01010133_anggt_bkm where jenis_kelamin="L" and status=1 and kode_bkm='.$request->input('kode_bkm'));
-		// $total_anggota_w=DB::select('select count(kode) as cnt from bkt_01010133_anggt_bkm where jenis_kelamin="P" and status=1 and kode_bkm='.$request->input('kode_bkm'));
-		// $total_anggota_mbr=DB::select('select count(kode) as cnt from bkt_01010133_anggt_bkm where status_sosial=0 and status=1 and kode_bkm='.$request->input('kode_bkm'));
+		$total_anggota_p=DB::select('select count(kode) as cnt from bkt_01010133_anggt_bkm where jenis_kelamin="L" and status!=2 and kode_bkm='.$request->input('kode_bkm'));
+		$total_anggota_w=DB::select('select count(kode) as cnt from bkt_01010133_anggt_bkm where jenis_kelamin="P" and status!=2 and kode_bkm='.$request->input('kode_bkm'));
+		$total_anggota_mbr=DB::select('select count(kode) as cnt from bkt_01010133_anggt_bkm where status_sosial=0 and status!=2 and kode_bkm='.$request->input('kode_bkm'));
 
-		// DB::table('bkt_01010125_bkm')->where('id', $request->input('kode_bkm'))
-		// ->update([
-		// 	'jml_anggt' => $total_anggota_p[0]->cnt,
-		// 	'jml_anggt_w' => $total_anggota_w[0]->cnt,
-		// 	'jml_anggt_mbr' => $total_anggota_mbr[0]->cnt,
-		// 	'updated_by' => Auth::user()->id,
-		// 	'updated_time' => date('Y-m-d H:i:s')
-		// 	]);
+		DB::table('bkt_01010125_bkm')->where('id', $request->input('kode_bkm'))
+		->update([
+			'jml_anggt' => $total_anggota_p[0]->cnt,
+			'jml_anggt_w' => $total_anggota_w[0]->cnt,
+			'jml_anggt_mbr' => $total_anggota_mbr[0]->cnt,
+			'updated_by' => Auth::user()->id,
+			'updated_time' => date('Y-m-d H:i:s')
+			]);
 	}
 
 	public function anggota_delete(Request $request)
 	{
-		// DB::beginTransaction();
+		DB::beginTransaction();
 		DB::table('bkt_01010133_anggt_bkm')->where('kode', $request->input('kode_anggota'))->update(['status' => 2]);
-		// DB::commit();
+		DB::commit();
 
-		// $total_anggota_p=DB::select('select count(kode) as cnt from bkt_01010133_anggt_bkm where jenis_kelamin="L" and status=1 and kode_bkm='.$request->input('kode_bkm'));
-		// $total_anggota_w=DB::select('select count(kode) as cnt from bkt_01010133_anggt_bkm where jenis_kelamin="P" and status=1 and kode_bkm='.$request->input('kode_bkm'));
-		// $total_anggota_mbr=DB::select('select count(kode) as cnt from bkt_01010133_anggt_bkm where status_sosial=0 and status=1 and kode_bkm='.$request->input('kode_bkm'));
+		$total_anggota_p=DB::select('select count(kode) as cnt from bkt_01010133_anggt_bkm where jenis_kelamin="L" and status!=2 and kode_bkm='.$request->input('kode_bkm').' and kode!='.$request->input('kode_anggota'));
+		$total_anggota_w=DB::select('select count(kode) as cnt from bkt_01010133_anggt_bkm where jenis_kelamin="P" and status!=2 and kode_bkm='.$request->input('kode_bkm').' and kode!='.$request->input('kode_anggota'));
+		$total_anggota_mbr=DB::select('select count(kode) as cnt from bkt_01010133_anggt_bkm where status_sosial=0 and status!=2 and kode_bkm='.$request->input('kode_bkm').' and kode!='.$request->input('kode_anggota'));
 
-		// if($request->input('kode_bkm')!=null){
-		// 	date_default_timezone_set('Asia/Jakarta');
-		// 	DB::table('bkt_01010125_bkm')->where('id', $request->input('kode_bkm'))
-		// 	->update([
-		// 		'jml_anggt' => $total_anggota_p[0]->cnt,
-		// 		'jml_anggt_w' => $total_anggota_w[0]->cnt,
-		// 		'jml_anggt_mbr' => $total_anggota_mbr[0]->cnt,
-		// 		'updated_by' => Auth::user()->id,
-		// 		'updated_time' => date('Y-m-d H:i:s')
-		// 		]);
-		// }
+		if($request->input('kode_bkm')!=null){
+			date_default_timezone_set('Asia/Jakarta');
+			DB::table('bkt_01010125_bkm')->where('id', $request->input('kode_bkm'))
+			->update([
+				'jml_anggt' => $total_anggota_p[0]->cnt,
+				'jml_anggt_w' => $total_anggota_w[0]->cnt,
+				'jml_anggt_mbr' => $total_anggota_mbr[0]->cnt,
+				'updated_by' => Auth::user()->id,
+				'updated_time' => date('Y-m-d H:i:s')
+				]);
+		}
         $this->log_aktivitas('Update Anggota BKM', 589);
         return Redirect::to('/main/persiapan/kelurahan/pemilu_bkm/data/create?kode='.$request->input('kode_pemilu'));
     }

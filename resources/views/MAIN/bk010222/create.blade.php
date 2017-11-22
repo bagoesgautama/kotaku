@@ -122,31 +122,31 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Jumlah Peserta Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_peserta_p-input" name="q_peserta_p-input" class="form-control" placeholder="Peserta Pria" value="{{$q_peserta_p}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total utusan laki-laki pada seleksi tingkat basis" data-bv-callback-callback="check" min="0" readonly>
+                                    <input type="text" id="q_peserta_p-input" name="q_peserta_p-input" class="form-control" placeholder="Peserta Pria" value="{{$q_peserta_p}}" maxlength="5" min="0" readonly>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Jumlah Peserta Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_peserta_w-input" name="q_peserta_w-input" class="form-control" placeholder="Peserta Wanita" value="{{$q_peserta_w}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total utusan laki-laki pada seleksi tingkat basis" data-bv-callback-callback="check" min="0" readonly>
+                                    <input type="text" id="q_peserta_w-input" name="q_peserta_w-input" class="form-control" placeholder="Peserta Wanita" value="{{$q_peserta_w}}" maxlength="5" min="0" readonly>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Jumlah Peserta Miskin/MBR</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_peserta_mbr-input" name="q_peserta_mbr-input" class="form-control" placeholder="Peserta MBR" value="{{$q_peserta_mbr}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total peserta laki-laki & perempuan" data-bv-callback-callback="check" min="0" readonly>
+                                    <input type="text" id="q_peserta_mbr-input" name="q_peserta_mbr-input" class="form-control" placeholder="Peserta MBR" value="{{$q_peserta_mbr}}" maxlength="5" min="0" readonly>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Jumlah Anggota Terpilih Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_terpilih_p-input" name="q_terpilih_p-input" class="form-control" placeholder="Terpilih Pria" value="{{$q_terpilih_p}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota terpilih laki-laki & perempuan" data-bv-callback-callback="check2" min="0" required>
+                                    <input type="text" id="q_terpilih_p-input" name="q_terpilih_p-input" class="form-control" placeholder="Terpilih Pria" value="{{$q_terpilih_p}}" maxlength="5" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota terpilih laki-laki & perempuan" data-bv-callback-callback="laki_terpilih" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Jumlah Anggota Terpilih Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="q_terpilih_w-input" name="q_terpilih_w-input" class="form-control" placeholder="Terpilih Wanita" value="{{$q_terpilih_w}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota terpilih laki-laki & perempuan" data-bv-callback-callback="check2" maxlength="5" min="0" required>
+                                    <input type="text" id="q_terpilih_w-input" name="q_terpilih_w-input" class="form-control" placeholder="Terpilih Wanita" value="{{$q_terpilih_w}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota terpilih laki-laki & perempuan" data-bv-callback-callback="perempuan_terpilih" maxlength="5" min="0" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -286,16 +286,51 @@
         if(terpilih_p==0 && terpilih_w==0){
             res=false;
         }
-        if(terpilih_p>peserta_p){
-            res=false;
-        }
-        if(terpilih_w>peserta_w){
-            res=false;
-        }
         if(terpilih_mbr>peserta_mbr){
             res=false;
         }
-        if(sum_terpilih<9 || sum_terpilih>13 || sum_terpilih%2==0){
+        return res;
+        console.log()
+    };
+    function laki_terpilih(value, validator) {
+        var terpilih_p = parseInt($('#q_terpilih_p-input').val());
+        var terpilih_w = parseInt($('#q_terpilih_w-input').val());
+        var peserta_p = parseInt($('#q_peserta_p-input').val());
+        var peserta_w = parseInt($('#q_peserta_w-input').val());
+        var peserta_mbr = parseInt($('#q_peserta_mbr-input').val());
+
+        var terpilih_mbr = parseInt($('#q_terpilih_mbr-input').val())|| 0;
+        var sum_terpilih = terpilih_p + terpilih_w;
+        var sum_terpilih_2 = terpilih_mbr;
+        var res = true;
+
+        if(terpilih_p==0){
+            res=false;
+        }else if(terpilih_p>peserta_p){
+            res=false;
+        }else if(sum_terpilih<9 || sum_terpilih>13 || sum_terpilih%2==0){
+            res=false;
+        }
+        return res;
+        console.log()
+    };
+    function perempuan_terpilih(value, validator) {
+        var terpilih_p = parseInt($('#q_terpilih_p-input').val());
+        var terpilih_w = parseInt($('#q_terpilih_w-input').val());
+        var peserta_p = parseInt($('#q_peserta_p-input').val());
+        var peserta_w = parseInt($('#q_peserta_w-input').val());
+        var peserta_mbr = parseInt($('#q_peserta_mbr-input').val());
+
+        var terpilih_mbr = parseInt($('#q_terpilih_mbr-input').val())|| 0;
+        var sum_terpilih = terpilih_p + terpilih_w;
+        var sum_terpilih_2 = terpilih_mbr;
+        var res = true;
+
+        if(terpilih_w==0){
+            res=false;
+        }else if(terpilih_w>peserta_w){
+            res=false;
+        }else if(sum_terpilih<9 || sum_terpilih>13 || sum_terpilih%2==0){
             res=false;
         }
         return res;

@@ -168,6 +168,16 @@
         }
         return res;
     };
+
+    function test(id){
+            console.log(id)
+            var elem = document.getElementById(id);
+            elem.parentNode.removeChild(elem);
+            var elem2 = $('#'+id+'-file');
+            elem2.removeAttr('value');
+            return false;
+        }
+
     function enforce_maxlength(event) {
             var t = event.target;
             if (t.hasAttribute('maxlength')) {
@@ -255,15 +265,9 @@
         $("#submit").prop('disabled', false);
         });
         
-        var kmw = $('#select-kode-kmw-input');
         var kota = $('#select-kode-kota-input');
-        var korkot = $('#select-kode-korkot-input');
         var kec = $('#select-kode-kec-input');
-        var kmw_id,kota_id,korkot_id,kec_id;
-        var kode_kmw = {!! json_encode($kode_kmw) !!};
-        var kode_kota = {!! json_encode($kode_kota) !!};
-        var kode_korkot = {!! json_encode($kode_korkot) !!};
-        var kode_kec = {!! json_encode($kode_kec) !!};
+        var kota_id;
 
         kota.change(function(){
             kota_id=kota.val();

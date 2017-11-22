@@ -36,8 +36,6 @@ class bk020302Controller extends Controller
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
 
-		}else{
-			return Redirect::to('/');
 		}
 		$data['username'] = $user->name;
 		$query='select Date_Format(tgl_aktivasi ,"%m"),Date_Format(curdate(),"%m"),DATEDIFF(DATE_FORMAT(now(),"%Y-%m-%d"),DATE_FORMAT(NOW() ,"%Y-%m-01")) from bkt_02010111_user';
