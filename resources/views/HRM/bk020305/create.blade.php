@@ -48,19 +48,30 @@
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Instansi</label>
-				                <div class="col-sm-6">
-				                    <input type="text" id="instansi-input" name="instansi-input" class="form-control" value="{{$instansi}}"/>
-				                </div>
-				            </div>
-							<div class="form-group ">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Penghargaan</label>
                                 <div class="col-sm-6">
                                     <input class="form-control" id="tgl_penghargaan-input" name="tgl_penghargaan-input" placeholder="Tanggal Penghargaan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_penghargaan}}" >
                                 </div>
                             </div>
+							<div class="form-group ">
+								<label class="col-sm-3 control-label">Penyelenggara</label>
+								<div class="col-sm-3">
+									<label class="radio-inline">
+										<input type="radio" id="flag_kotaku" name="flag_kotaku" value="1" {!! $flag_kotaku===1 ? 'checked':'checked' !!}> Kotaku</label>
+								</div>
+								<div class="col-sm-3">
+									<label class="radio-inline">
+										<input type="radio" id="flag_kotaku" name="flag_kotaku" value="0" {!! $flag_kotaku===0 ? 'checked':''!!}> Luar Kotaku</label>
+								</div>
+							</div>
 							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Image 1</label>
+								<label class="col-sm-3 control-label">Instansi</label>
+								<div class="col-sm-6">
+									<input type="text" id="instansi-input" name="instansi-input" class="form-control" value="{{$instansi}}"/>
+								</div>
+							</div>
+							<div class="form-group">
+				                <label class="col-sm-3 control-label">Scan Piagam Penghargaan Hal. Depan</label>
 				                <div class="col-sm-6">
 									<input id="uri_img_sertifikat1-input" type="file" class="file" accept="image/*" name="uri_img_sertifikat1-input">
 				                    <br>
@@ -69,8 +80,8 @@
 				                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_sertifikat1==null ? 'style="display:none"':'' !!} onclick="test('uri_img_sertifikat1')">delete</button>
 				                </div>
 				            </div>
-							<div class="form-group ">
-				                <label class="col-sm-3 control-label">Image 2</label>
+							<div class="form-group striped-col">
+				                <label class="col-sm-3 control-label">Scan Piagam Penghargaan Hal. Belakang</label>
 				                <div class="col-sm-6">
 				                    <input id="uri_img_sertifikat2-input" type="file" class="file" accept="image/*" name="uri_img_sertifikat2-input">
 				                    <br>
@@ -79,8 +90,8 @@
 				                    <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_sertifikat2==null ? 'style="display:none"':'' !!} onclick="test('uri_img_sertifikat2')">Delete</button>
 				                </div>
 				            </div>
-							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Image 3</label>
+							<div class="form-group ">
+				                <label class="col-sm-3 control-label">Lain-lain</label>
 				                <div class="col-sm-6">
 				                    <input id="uri_img_sertifikat3-input" type="file" class="file" accept="image/*" name="uri_img_sertifikat3-input">
 				                    <br>
