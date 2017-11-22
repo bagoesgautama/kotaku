@@ -34,17 +34,10 @@ class bk020303Controller extends Controller
 				if($item->kode_menu==201)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
-			if(!empty($data['detil'])){
-			    $data['username'] = $user->name;
-				$this->log_aktivitas('View', 625);
-				return view('HRM/bk020303/index',$data);
-			}
-			else {
-				return Redirect::to('/');
-			}
-		}else{
-			return Redirect::to('/');
 		}
+		$data['username'] = $user->name;
+		$this->log_aktivitas('View', 625);
+		return view('HRM/bk020303/index',$data);
     }
 
 	public function Post(Request $request)
@@ -86,21 +79,21 @@ class bk020303Controller extends Controller
 				$nestedData['tgl_pelatihan'] = $post->tgl_pelatihan;
 				$nestedData['nama'] = $post->nama;
 				$nestedData['instansi'] = $post->instansi;
-				$user = Auth::user();
+				/*$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
 						if($item->kode_menu==201)
 							$detil[$item->kode_menu_detil]='a';
 					}
-				}
+				}*/
 				$option = '';
-				if(!empty($detil['627'])){
+				//if(!empty($detil['627'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
-				}
-				if(!empty($detil['628'])){
+				//}
+				//if(!empty($detil['628'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}
+				//}
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
@@ -119,7 +112,35 @@ class bk020303Controller extends Controller
 	public function create(Request $request)
 	{
 		$user = Auth::user();
-        $akses= $user->menu()->where('kode_apps', 2)->get();
+		if($data['kode']!=null && !empty($data['detil']['627'])){
+			$rowData = DB::select('select * from bkt_02030202_pelatihan where kode='.$data['kode']);
+			$data['nama'] = $rowData[0]->nama;
+			$data['deskripsi'] = $rowData[0]->deskripsi;
+			$data['tgl_pelatihan'] = $rowData[0]->tgl_pelatihan;
+			$data['instansi'] = $rowData[0]->instansi;
+			$data['uri_img_sertifikat1'] = $rowData[0]->uri_img_sertifikat1;
+			$data['uri_img_sertifikat2'] = $rowData[0]->uri_img_sertifikat2;
+			$data['url_img_sertifikat3'] = $rowData[0]->url_img_sertifikat3;
+			$data['created_time'] = $rowData[0]->created_time;
+			$data['created_by'] = $rowData[0]->created_by;
+			$data['updated_time'] = $rowData[0]->updated_time;
+			$data['updated_by'] = $rowData[0]->updated_by;
+			return view('HRM/bk020303/create',$data);
+		}else if($data['kode']==null && !empty($data['detil']['626'])){
+			$data['nama'] = null;
+			$data['deskripsi'] = null;
+			$data['tgl_pelatihan'] = null;
+			$data['instansi'] = null;
+			$data['uri_img_sertifikat1'] = null;
+			$data['uri_img_sertifikat2'] = null;
+			$data['url_img_sertifikat3'] = null;
+			$data['created_time'] = null;
+			$data['created_by'] = null;
+			$data['updated_time'] = null;
+			$data['updated_by'] = null;
+			return view('HRM/bk020303/create',$data);
+		}
+        /*$akses= $user->menu()->where('kode_apps', 2)->get();
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
@@ -160,7 +181,7 @@ class bk020303Controller extends Controller
 			}
 		}else{
 			return Redirect::to('/');
-		}
+		}*/
 	}
 
 	public function post_create(Request $request)

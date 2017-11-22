@@ -24,7 +24,6 @@
     <div class="row">
         <div class="col-md-12 ">
 			<div class="row">
-				@if( ! empty($apps['2']))
 				<div class="col-md-4 ">
 				    <div class="panel-body">
 						<a href='hrm'>
@@ -38,7 +37,6 @@
 						</a>
 		            </div>
 				</div>
-				@endif
 				@if( ! empty($apps['1']))
 				<div class="col-md-4 ">
 				    <div class="panel-body">
