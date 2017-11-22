@@ -51,6 +51,7 @@
 								<th>ID</th>
 								<th>Nama</th>
 								<th>Tanggal Pelatihan</th>
+								<th>Penyelenggara</th>
                                 <th>Instansi</th>
 								<th>Option</th>
                             </tr>
@@ -84,6 +85,7 @@
 				{ "data": "kode" , name:"kode"},
 				{ "data": "nama" , name:"nama"},
 				{ "data": "tgl_pelatihan" , name:"tgl_pelatihan"},
+				{ "data": "flag_kotaku" , name:"flag_kotaku", render:function(data){ return data === 1 ? 'Kotaku' : 'Luar Kotaku' }},
 				{ "data": "instansi" , name:"instansi"},
 				{ "data": "option" , name:"option",orderable:false}
             ],

@@ -1,4 +1,4 @@
-@extends('HRM/default') {{-- Page title --}} @section('title') Penghargaan @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Media Sosialisasi @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -14,16 +14,25 @@
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>Penghargaan</h1>
+    <h1>MAIN Module</h1>
     <div class="bs-example">
         <ul class="breadcrumb">
             <li class="next">
-                <a href="/hrm">
-                    <i class="fa fa-fw fa-home"></i> HRM
+                <a href="/main">
+                    <i class="fa fa-fw fa-home"></i> MAIN
                 </a>
             </li>
             <li class="next">
-                Managemen Personil / User / Penghargaan
+                Persiapan
+            </li>
+            <li class="next">
+                Kelurahan
+            </li>
+            <li class="next">
+                Kegiatan Kelurahan
+            </li>
+            <li class="next">
+                Media Sosialisasi
             </li>
         </ul>
     </div>
@@ -34,26 +43,34 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>Penghargaan</b>
+                    <b>Media Sosialisasi</b>
                 </div>
-				@if( ! empty($detil['630']))
+                @if( ! empty($detil['742']))
                 <div class="tools pull-right">
-					<b>bk020305 Index</b>
-					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="/hrm/profil/penghargaan/create">Create</a>
-				</div>
+                    <b>bk010237 index</b>
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/kelurahan/media_sosialisasi/create' }}">Create</a>
+                </div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-					<table class="table table-striped" id="users">
-						<thead>
+                    <table class="table table-striped" id="kegiatan" width="3000px">
+                        <thead>
                             <tr>
-								<th>ID</th>
-								<th>Nama </th>
-                                <th>Tanggal Penghargaan</th>
-                                <th>Penyelenggara</th>
-								<th>Instansi</th>
-								<th>Option</th>
+                                <th>Kode</th>
+                                <th>Kota</th>
+                                <th>Kecamatan</th>
+                                <th>Kelurahan</th>
+                                <th>Tahun</th>
+                                <th>Media Warga</th>
+                                <th>Frekuensi</th>
+                                <th>Satuan</th>
+                                <th>Informasi</th>
+                                <th>Sasaran</th>
+                                <th>Keterangan</th>
+                                <th>Sumber Dana</th>
+                                <th>Nilai Dana</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -62,37 +79,42 @@
         </div>
     </div>
 </div>
+
 <!-- /.modal ends here -->@stop {{-- local scripts --}} @section('footer_scripts')
 
 <script>
     $(document).ready(function () {
-		var table = $('#users').DataTable({
-			"processing": true,
+        var table = $('#kegiatan').DataTable({
+            // dom: 'Bflrtip',
+            
+            "processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/hrm/profil/penghargaan",
+                     "url": "/main/persiapan/kelurahan/media_sosialisasi",
                      "dataType": "json",
                      "type": "POST"
                    },
-            success: function(data) {
-                 alert('success')
-              },
-              error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
-              },
-			  "columns": [
-				{ "data": "kode" , name:"kode"},
-				{ "data": "nama" , name:"nama"},
-				{ "data": "tgl_penghargaan" , name:"tgl_penghargaan"},
-                { "data": "flag_kotaku" , name:"flag_kotaku", render:function(data){ return data === 1 ? 'Kotaku' : 'Luar Kotaku' }},
-                { "data": "instansi" , name:"instansi"},
-				{ "data": "option" , name:"option",orderable:false}
+
+            "columns": [
+                { "data": "kode" , name:"kode"},
+                { "data": "kode_kota" , name:"kode_kota"},
+                { "data": "kode_kec" , name:"kode_kec"},
+                { "data": "kode_kel" , name:"kode_kel"},
+                { "data": "tahun" , name:"tahun"},
+                { "data": "kode_jns_media" , name:"kode_jns_media"},
+                { "data": "volume" , name:"volume"},
+                { "data": "satuan" , name:"satuan"},
+                { "data": "informasi" , name:"informasi"},
+                { "data": "sasaran" , name:"sasaran"},
+                { "data": "keterangan" , name:"keterangan"},
+                { "data": "kode_sumber_dana" , name:"kode_sumber_dana"},
+                { "data": "nilai_dana" , name:"nilai_dana"},
+                { "data": "option" , name:"option",orderable:false}
             ],
-			"order": [[ 0, "desc" ]]
-	    });
-        $('#users_filter input').unbind();
-        $('#users_filter input').bind('keyup', function(e) {
+            "order":[[0,"desc"]]
+        });
+        $('#kegiatan_filter input').unbind();
+        $('#kegiatan_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
             table.search(this.value).draw();
         }

@@ -601,6 +601,14 @@ Route::post('/main/persiapan/kelurahan/agen_sosialisasi/create', 'MAIN\bk010218C
 Route::get('/main/persiapan/kelurahan/agen_sosialisasi/delete', 'MAIN\bk010218Controller@delete');
 Route::get('/main/persiapan/kelurahan/agen_sosialisasi/show', 'MAIN\bk010218Controller@show');
 
+Route::get('/main/persiapan/kelurahan/media_sosialisasi', 'MAIN\bk010237Controller@index');
+Route::get('/main/persiapan/kelurahan/media_sosialisasi/select', 'MAIN\bk010237Controller@select');
+Route::post('/main/persiapan/kelurahan/media_sosialisasi', 'MAIN\bk010237Controller@post');
+Route::get('/main/persiapan/kelurahan/media_sosialisasi/create', 'MAIN\bk010237Controller@create');
+Route::post('/main/persiapan/kelurahan/media_sosialisasi/create', 'MAIN\bk010237Controller@post_create');
+Route::get('/main/persiapan/kelurahan/media_sosialisasi/delete', 'MAIN\bk010237Controller@delete');
+Route::get('/main/persiapan/kelurahan/media_sosialisasi/show', 'MAIN\bk010237Controller@show');
+
 Route::get('/main/persiapan/kelurahan/pelatihan', 'MAIN\bk010219Controller@index');
 Route::get('/main/persiapan/kelurahan/pelatihan/select', 'MAIN\bk010219Controller@select');
 Route::post('/main/persiapan/kelurahan/pelatihan', 'MAIN\bk010219Controller@post');

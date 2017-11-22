@@ -128,6 +128,7 @@ class bk020304Controller extends Controller
 		}
 		$data['username'] = $user->name;
 		$data['kode']=$request->input('kode');
+		$data['tingkatan'] = ['D3', 'D4', 'S1', 'S2', 'S3'];
 		if($data['kode']!=null && !empty($data['detil']['623'])){
 			$rowData = DB::select('select * from bkt_02010110_pendidikan where kode='.$data['kode']);
 			$data['nama_lembaga'] = $rowData[0]->nama_lembaga;
