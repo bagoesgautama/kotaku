@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Informasi Umum @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Informasi Umum Kota @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -26,7 +26,7 @@
                 Persiapan
             </li>
             <li class="next">
-                Kota atau Kabupaten
+                Kota
             </li>
             <li class="next">
                 Informasi Umum
@@ -42,24 +42,24 @@
                 <div class="panel-title pull-left">
                     <b>Informasi Umum</b>
                 </div>
+                @if(!empty($detil['749']))
                 <div class="tools pull-right">
                     <b>bk010205 index</b>
-                    <!-- <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/kota/info/create' }}">Create</a> -->
+                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{ '/main/persiapan/kota/info/create' }}">Create</a>
                 </div>
+                @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table table-striped" id="kegiatan" width="1500px">
                         <thead>
                             <tr>
+                                <th>Kode</th>
                                 <th>Kota</th>
-								<th>Dasar Hukum</th>
-								<th>Jumlah Kawasan Kumuh</th>
-								<th>Jumlah Kecamatan Kumuh</th>
-								<th>Jumlah Kelurahan Kumuh</th>
-								<th>Jumlah RT Kumuh</th>
-								<th>Jumlah RT Non Kumuh</th>
-                                <th>option</th>
+                                <th>Dasar Hukum</th>
+                                <th>Luas Kawasan Kumuh</th>
+                                <th>Luas RT Kumuh</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                     </table>
@@ -75,7 +75,7 @@
     $(document).ready(function () {
         var table = $('#kegiatan').DataTable({
             // dom: 'Bflrtip',
-
+            
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -83,16 +83,16 @@
                      "dataType": "json",
                      "type": "POST"
                    },
+
             "columns": [
-                { "data": "nama" , name:"nama"},
-				{ "data": "km_ds_hkm" , name:"km_ds_hkm"},
-				{ "data": "km_q_kw_kmh" , name:"km_q_kw_kmh"},
-				{ "data": "km_q_kec_kmh" , name:"km_q_kec_kmh"},
-				{ "data": "km_q_kel_kmh" , name:"km_q_kel_kmh"},
-				{ "data": "km_q_rt_kmh" , name:"km_q_rt_kmh"},
-				{ "data": "km_q_rt_non_kmh" , name:"km_q_rt_non_kmh"},
+                { "data": "kode" , name:"kode"},
+                { "data": "kode_kota" , name:"kode_kota"},
+                { "data": "km_ds_hkm" , name:"km_ds_hkm"},
+                { "data": "lk_l_kw_kmh" , name:"lk_l_kw_kmh"},
+                { "data": "lk_l_rt_kmh" , name:"lk_l_rt_kmh"},
                 { "data": "option" , name:"option",orderable:false}
-            ]
+            ],
+            "order":[[0,"desc"]]
         });
         $('#kegiatan_filter input').unbind();
         $('#kegiatan_filter input').bind('keyup', function(e) {

@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Informasi Umum @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Informasi Umum Kelurahan @stop {{-- local styles --}} @section('header_styles')
 
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 
@@ -60,18 +60,13 @@
                     </li>
                     <li>
                         <a href="#tab5" data-toggle="tab">
-                                        Cakupan Penduduk di Kawasan Kumuh
-                                    </a>
-                    </li>
-                    <li>
-                        <a href="#tab6" data-toggle="tab">
                                         Data Tambahan
                                     </a>
                     </li>
                 </ul>
             </div>
             <div class="panel-body">
-                <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                <form id="form-validation" enctype="multipart/form-data" class="form-horizontal form-bordered">
                 <div class="tab-content">
                     <div id="tab1" class="tab-pane fade active in">
                         <div class="panel " >
@@ -83,6 +78,11 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Kota</label>
                                         <div class="col-sm-6">
+                                            <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
+                                            <input type="hidden" id="kode_kmw-input" name="kode_kmw-input" value="{{ $kode_kmw }}">
+                                            <input type="hidden" id="kode_korkot-input" name="kode_korkot-input" value="{{ $kode_korkot }}">
+                                            <input type="hidden" id="kode_faskel-input" name="kode_faskel-input" value="{{ $kode_faskel }}">
+                                            <input type="hidden" id="kode_prop-input" name="kode_prop-input" value="{{ $kode_prop }}">
                                             <select id="select-kode_kota-input" name="select-kode_kota-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
                                                 @if ($kode_kota_list!=null)
@@ -145,13 +145,13 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Luas Wilayah Administratif (Ha) Desa/Kelurahan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="lw_l_wil_adm-input" name="lw_l_wil_adm-input" class="form-control" value="{{$lw_l_wil_adm}}">
+                                            <input type="number" id="lw_l_wil_adm_kel-input" name="lw_l_wil_adm_kel-input" class="form-control" value="{{$lw_l_wil_adm_kel}}" min="0" step="0.1">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Luas Permukiman (Ha) Desa/Kelurahan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="lw_l_pmkm-input" name="lw_l_pmkm-input" class="form-control" value="{{$lw_l_pmkm}}">
+                                            <input type="number" id="lw_l_pmkm_kel-input" name="lw_l_pmkm_kel-input" class="form-control" value="{{$lw_l_pmkm_kel}}" min="0" step="0.1">
                                         </div>
                                     </div>
                                 </div>
@@ -213,32 +213,6 @@
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Dasar Hukum</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" id="km_ds_hkm-input" name="km_ds_hkm-input" class="form-control" value="{{$km_ds_hkm}}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Luas Kawasan Kumuh (Ha)</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" id="lk_l_kw_kmh-input" name="lk_l_kw_kmh-input" class="form-control" value="{{$lk_l_kw_kmh}}" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Luas RT Kumuh Pada Tahun Berjalan (Ha)</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" id="lk_l_rt_kmh-input" name="lk_l_rt_kmh-input" class="form-control" value="{{$lk_l_rt_kmh}}" min="0">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab5" class="tab-pane fade">
-                        <div class="panel " >
-                            <div class="panel-body border">
-                                <div class="row">
-                                    <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Jumlah RT Kumuh</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="km_q_rt_kmh-input" name="km_q_rt_kmh-input" class="form-control" value="{{$km_q_rt_kmh}}" readonly>
@@ -254,7 +228,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="tab6" class="tab-pane fade">
+                    <div id="tab5" class="tab-pane fade">
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
@@ -402,7 +376,7 @@
         var kk_miskin = $('#cp_q_kk_miskin-input');
         var rt_kmh = $('#km_q_rt_kmh-input');
         var rt_non_kmh = $('#km_q_rt_non_kmh-input');
-        var kota_id,kec_id,kel_id;
+        var kota_id,kec_id,kel_id,faskel_id;
         
         kota.change(function(){
             korkot.empty();
@@ -493,7 +467,7 @@
                             kk_mbr.val(data[0].sum_kk_mbr);
                             kk_miskin.val(data[0].sum_kk_miskin);
                             rt_kmh.val(data[0].sum_rt_kmh);
-                            rt_non_kmh.val(data[0].sum_rt_non_kmh);
+                            rt_non_kmh.val(data[0].sum_rw-data[0].sum_rt_kmh);
                         }
                     }
                 });

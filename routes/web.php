@@ -477,6 +477,7 @@ Route::get('/main/persiapan/propinsi/sosialisasi/narsum/delete', 'MAIN\bk010236C
 //kota
 Route::get('/main/persiapan/kota/info', 'MAIN\bk010205Controller@index');
 Route::post('/main/persiapan/kota/info', 'MAIN\bk010205Controller@post');
+Route::get('/main/persiapan/kota/info/select', 'MAIN\bk010205Controller@select');
 Route::get('/main/persiapan/kota/info/show', 'MAIN\bk010205Controller@show');
 Route::get('/main/persiapan/kota/info/create', 'MAIN\bk010205Controller@create');
 Route::post('/main/persiapan/kota/info/create', 'MAIN\bk010205Controller@post_create');
