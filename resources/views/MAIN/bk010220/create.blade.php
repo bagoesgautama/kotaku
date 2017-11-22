@@ -306,13 +306,6 @@
             removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
             showUpload: false
         });
-        
-        $('#tgl_kegiatan-input')
-            .on('changeDate show', function(e) {
-                // Revalidate the date when user change it
-                $('#form-validation').bootstrapValidator('revalidateField', 'tgl_kegiatan-input');
-                $("#submit").prop('disabled', false);
-        });
 
         $("#tahun-input").select2({
             theme: "bootstrap",
@@ -342,7 +335,7 @@
         $('#tgl-kegiatan-input')
             .on('changeDate show', function(e) {
                 // Revalidate the date when user change it
-                $('#form-validation').bootstrapValidator('revalidateField', 'tgl_kegiatan-input');
+                $('#form-validation').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
                 $("#submit").prop('disabled', false);
         });
 

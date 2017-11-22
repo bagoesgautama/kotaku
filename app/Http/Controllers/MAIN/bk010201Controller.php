@@ -176,6 +176,7 @@ class bk010201Controller extends Controller
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
 			$data['tahun_list'] = DB::select('select * from list_tahun');
+			$data['pokja_nasional_list'] = DB::select('select * from bkt_01020202_pokja where jenis_kegiatan="2.1"');
 
 			if($data['kode']!=null  && !empty($data['detil']['60'])){
 				$rowData = DB::select('select * from bkt_01020202_pokja where kode='.$data['kode']);
@@ -238,6 +239,7 @@ class bk010201Controller extends Controller
 			$data['username'] = $user->name;
 			$data['kode']=$request->input('kode');
 			$data['tahun_list'] = DB::select('select * from list_tahun');
+			$data['pokja_nasional_list'] = DB::select('select * from bkt_01020202_pokja where jenis_kegiatan="2.1"');
 			if($data['kode']!=null  && !empty($data['detil']['62'])){
 				$rowData = DB::select('select * from bkt_01020202_pokja where kode='.$data['kode']);
 				$data['detil_menu']='62';
