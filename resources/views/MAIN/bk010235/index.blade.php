@@ -46,6 +46,7 @@
 					<table class="table table-striped" id="users">
 						<thead>
                             <tr>
+                                <th>Tambah Anggota</th>
                                 <th>Kode</th>
                                 <th>Kota</th>
                                 <th>Kecamatan</th>
@@ -87,6 +88,7 @@
                 alert(thrownError);
               },
             "columns": [
+                { "data": "tambah_anggota" , name:"tambah_anggota",orderable:false},
 				{ "data": "kode" , name:"kode"},
                 { "data": "nama_kota" , name:"nama_kota"},
                 { "data": "nama_kec" , name:"nama_kec"},
@@ -99,7 +101,7 @@
                 { "data": "q_terpilih_mbr" , name:"q_terpilih_mbr"},
                 { "data": "option" , name:"option",orderable:false}
             ],
-			"order": [[ 0, "desc" ]]
+			"order": [[ 1, "desc" ]]
 	    });
         $('#users_filter input').unbind();
         $('#users_filter input').bind('keyup', function(e) {

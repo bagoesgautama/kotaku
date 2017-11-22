@@ -104,13 +104,13 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Peserta OPD Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-opd-input" name="q-opd-input" class="form-control" placeholder="Jumlah" value="{{$q_opd}}" min="0">
+                                    <input type="number" id="q-opd-input" name="q-opd-input" class="form-control" placeholder="Jumlah" value="{{$q_opd}}" min="0" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total OPD." data-bv-callback-callback="opd">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Peserta OPD Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-opd-w-input" name="q-opd-w-input" class="form-control" placeholder="Jumlah" value="{{$q_opd_w}}" min="0">
+                                    <input type="number" id="q-opd-w-input" name="q-opd-w-input" class="form-control" placeholder="Jumlah" value="{{$q_opd_w}}" min="0" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total OPD." data-bv-callback-callback="opd">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -198,6 +198,24 @@
         var res = true;
 
         if(kota.q_anggota_w<w){
+            res=false;
+        }
+        return res;
+    };
+    function opd(value, validator) {
+        var kota = {!! json_encode($kode_pokja_kota_list) !!};
+        for(var i=0;i<kota.length;i++){
+            if(kota[i].kode==$('#select-kode-pokja-kota-input').val()){
+                kota=kota[i];
+                break;
+            }
+        }
+        var p = parseInt($('#q-opd-input').val())|| 0;
+        var w = parseInt($('#q-opd-w-input').val())|| 0;
+        var tot = p+w;
+        var res = true;
+
+        if(kota.upp_opd<tot){
             res=false;
         }
         return res;

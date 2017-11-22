@@ -66,9 +66,10 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Status Pokja</label>
                                 <div class="col-sm-6">
-                                    <select id="status-pokja-input" name="status-pokja-input" class="form-control" size="1" required>
-                                        <option value="0" {!! $status_pokja==0 ? 'selected':'' !!}>Lama</option>
-                                        <option value="1" {!! $status_pokja==1 ? 'selected':'' !!}>Baru</option>
+                                    <select id="status-pokja-input" name="status-pokja-input" class="form-control" size="1" required data-bv-callback="true" data-bv-callback-message="1 tahun tidak boleh terdapat > 1 POKJA dengan status yang sama." data-bv-callback-callback="status">
+                                        <option value>Please Select</option>
+                                        <option value="0" {!! $status_pokja=='0' ? 'selected':'' !!}>Lama</option>
+                                        <option value="1" {!! $status_pokja=='1' ? 'selected':'' !!}>Baru</option>
                                     </select>
                                 </div>
                             </div>
@@ -278,27 +279,46 @@
         }
         return res;
     };
+    function status(value, validator) {
+        var pokja = {!! json_encode($pokja_nasional_list) !!};
+        var check = false;
+        for(var i=0;i<pokja.length;i++){
+            if(pokja[i].tahun==parseInt($('#tahun-input').val()) && pokja[i].status_pokja==$('#status-pokja-input').val()){
+                check=true;
+                break;
+            }
+        }
+        var res = true;
+        if(check){
+            res=false;
+        }
+        return res;
+    };
 
-
+    var thn = $('#tahun-input');
     var p = $('#q-laki-input');
     var w = $('#q-perempuan-input'); 
 
+    thn.change(function(){
+        $('#status-pokja-input').val(null).trigger('change');
+    });
+
     p.change(function(){
-            $('#upp-kementrian-input').val(0);
-            $('#upp-dinas-input').val(0);
-            $('#upp-dpr-input').val(0);
-            $('#upnp-lsm-input').val(0);
-            $('#upnp-swasta-input').val(0);
-            $('#upnp-praktisi-input').val(0);
-        });
-        w.change(function(){
-            $('#upp-kementrian-input').val(0);
-            $('#upp-dinas-input').val(0);
-            $('#upp-dpr-input').val(0);
-            $('#upnp-lsm-input').val(0);
-            $('#upnp-swasta-input').val(0);
-            $('#upnp-praktisi-input').val(0);
-        });
+        $('#upp-kementrian-input').val(0);
+        $('#upp-dinas-input').val(0);
+        $('#upp-dpr-input').val(0);
+        $('#upnp-lsm-input').val(0);
+        $('#upnp-swasta-input').val(0);
+        $('#upnp-praktisi-input').val(0);
+    });
+    w.change(function(){
+        $('#upp-kementrian-input').val(0);
+        $('#upp-dinas-input').val(0);
+        $('#upp-dpr-input').val(0);
+        $('#upnp-lsm-input').val(0);
+        $('#upnp-swasta-input').val(0);
+        $('#upnp-praktisi-input').val(0);
+    });
     
     $(document).ready(function () {
 
