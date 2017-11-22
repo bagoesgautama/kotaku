@@ -141,7 +141,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Nilai Dana Operasional</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="dana-ops-input" name="dana-ops-input" class="form-control" placeholder="Jumlah" value="{{$nilai_dana_ops}}" min="0">
+                                    <input type="number" id="dana-ops-input" name="dana-ops-input" class="form-control" placeholder="Jumlah" value="{{$nilai_dana_ops}}" min="0" step="0.1">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
@@ -242,6 +242,23 @@
         return res;
     };
 
+    function test(id){
+            console.log(id)
+            var elem = document.getElementById(id);
+            elem.parentNode.removeChild(elem);
+            var elem2 = $('#'+id+'-file');
+            elem2.removeAttr('value');
+            return false;
+        }
+
+    function enforce_maxlength(event) {
+            var t = event.target;
+            if (t.hasAttribute('maxlength')) {
+                t.value = t.value.slice(0, t.getAttribute('maxlength'));
+            }
+        }
+        document.body.addEventListener('input', enforce_maxlength); 
+
     function tahun(value, validator) {
         var yearNow = (new Date()).getFullYear();
         var thn = parseInt($('#tahun-input').val());
@@ -282,14 +299,6 @@
             $('#upnp-swasta-input').val(0);
             $('#upnp-praktisi-input').val(0);
         });
-
-    function enforce_maxlength(event) {
-            var t = event.target;
-            if (t.hasAttribute('maxlength')) {
-                t.value = t.value.slice(0, t.getAttribute('maxlength'));
-            }
-        }
-        document.body.addEventListener('input', enforce_maxlength); 
     
     $(document).ready(function () {
 

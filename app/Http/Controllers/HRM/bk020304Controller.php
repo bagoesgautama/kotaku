@@ -27,24 +27,17 @@ class bk020304Controller extends Controller
     public function index()
     {
         $user = Auth::user();
-        $akses= $user->menu()->where('kode_apps', 2)->get();
+		$akses= $user->menu()->where('kode_apps', 2)->get();
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
 				if($item->kode_menu==200)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
-			if(!empty($data['detil'])){
-			    $data['username'] = $user->name;
-				$this->log_aktivitas('View', 621);
-				return view('HRM/bk020304/index',$data);
-			}
-			else {
-				return Redirect::to('/');
-			}
-		}else{
-			return Redirect::to('/');
 		}
+		$data['username'] = $user->name;
+		$this->log_aktivitas('View', 621);
+		return view('HRM/bk020304/index',$data);
     }
 
 	public function Post(Request $request)
@@ -90,22 +83,22 @@ class bk020304Controller extends Controller
 				$nestedData['bidang_studi'] = $post->bidang_studi;
 				$nestedData['thn_masuk'] = $post->thn_masuk;
 				$nestedData['thn_lulus'] = $post->thn_lulus;
-				$user = Auth::user();
+				/*$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
 						if($item->kode_menu==200)
 							$detil[$item->kode_menu_detil]='a';
 					}
-				}
+				}*/
 
 				$option = '';
-				if(!empty($detil['623'])){
+				//if(!empty($detil['623'])){
 					$option .= "&emsp;<a href='{$url_edit}' title='VIEW/EDIT' ><span class='fa fa-fw fa-edit'></span></a>";
-				}
-				if(!empty($detil['624'])){
+				//}
+				//if(!empty($detil['624'])){
 					$option .= "&emsp;<a href='#' onclick='delete_func(\"{$url_delete}\");'><span class='fa fa-fw fa-trash-o'></span></a>";
-				}
+				//}
 				$nestedData['option'] = $option;
 				$data[] = $nestedData;
 			}
@@ -125,7 +118,51 @@ class bk020304Controller extends Controller
 	public function create(Request $request)
 	{
 		$user = Auth::user();
-        $akses= $user->menu()->where('kode_apps', 2)->get();
+		$akses= $user->menu()->where('kode_apps', 2)->get();
+		if(count($akses) > 0){
+			foreach ($akses as $item) {
+				$data['menu'][$item->kode_menu] =  'a' ;
+				if($item->kode_menu==200)
+					$data['detil'][$item->kode_menu_detil]='a';
+			}
+		}
+		$data['username'] = $user->name;
+		$data['kode']=$request->input('kode');
+		if($data['kode']!=null && !empty($data['detil']['623'])){
+			$rowData = DB::select('select * from bkt_02010110_pendidikan where kode='.$data['kode']);
+			$data['nama_lembaga'] = $rowData[0]->nama_lembaga;
+			$data['fakultas'] = $rowData[0]->fakultas;
+			$data['bidang_studi'] = $rowData[0]->bidang_studi;
+			$data['tingkat'] = $rowData[0]->tingkat;
+			$data['thn_masuk'] = $rowData[0]->thn_masuk;
+			$data['thn_lulus'] = $rowData[0]->thn_lulus;
+			$data['deskripsi'] = $rowData[0]->deskripsi;
+			$data['uri_img_dok1'] = $rowData[0]->uri_img_dok1;
+			$data['uri_img_dok2'] = $rowData[0]->uri_img_dok2;
+			$data['uri_img_dok3'] = $rowData[0]->uri_img_dok3;
+			$data['created_time'] = $rowData[0]->created_time;
+			$data['created_by'] = $rowData[0]->created_by;
+			$data['updated_time'] = $rowData[0]->updated_time;
+			$data['updated_by'] = $rowData[0]->updated_by;
+			return view('HRM/bk020304/create',$data);
+		}else if($data['kode']==null && !empty($data['detil']['622'])){
+			$data['nama_lembaga'] = null;
+			$data['fakultas'] = null;
+			$data['bidang_studi'] = null;
+			$data['tingkat'] = null;
+			$data['thn_masuk'] = null;
+			$data['thn_lulus'] = null;
+			$data['deskripsi'] = null;
+			$data['uri_img_dok1'] = null;
+			$data['uri_img_dok2'] = null;
+			$data['uri_img_dok3'] = null;
+			$data['created_time'] = null;
+			$data['created_by'] = null;
+			$data['updated_time'] = null;
+			$data['updated_by'] = null;
+			return view('HRM/bk020304/create',$data);
+		}
+        /*$akses= $user->menu()->where('kode_apps', 2)->get();
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
@@ -173,7 +210,7 @@ class bk020304Controller extends Controller
 			}
 		}else{
 			return Redirect::to('/');
-		}
+		}*/
 	}
 
 	public function post_create(Request $request)

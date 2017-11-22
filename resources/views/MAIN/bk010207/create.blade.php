@@ -80,13 +80,13 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required>
+                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" required min="0" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk pria" data-bv-callback-callback="laki">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required>
+                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" required min="0" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota pembentuk pria" data-bv-callback-callback="perempuan">
                                 </div>
                             </div>
 							<div class="form-group">
@@ -167,41 +167,46 @@
 @stop
 {{-- local scripts --}} @section('footer_scripts')
 <script>
-	function check(value, validator) {
-		var prop = {!! json_encode($kode_pokja_kota_list) !!};
-		for(var i=0;i<prop.length;i++){
-			if(prop[i].kode==$('#select-kode-pokja-input').val()){
-				prop=prop[i];
-				break;
-			}
-		}
-		var p = parseInt($('#q-laki-input').val());
-		var w = parseInt($('#q-perempuan-input').val());
+	
+    function laki(value, validator) {
+        var kota = {!! json_encode($kode_pokja_kota_list) !!};
+        for(var i=0;i<kota.length;i++){
+            if(kota[i].kode==$('#select-kode-pokja-kota-input').val()){
+                kota=kota[i];
+                break;
+            }
+        }
+        var p = parseInt($('#q-laki-input').val());
+        var w = parseInt($('#q-perempuan-input').val());
+        var res = true;
 
-		var kl = parseInt($('#upp-kementrian-input').val());
-		var dinas = parseInt($('#upp-dinas-input').val());
-		var dpr = parseInt($('#upp-dpr-input').val());
-		var lsm = parseInt($('#upnp-lsm-input').val());
-		var swasta = parseInt($('#upnp-swasta-input').val());
-		var prak = parseInt($('#upnp-praktisi-input').val());
-		var tgl=new Date($('#tgl-kegiatan-input').val());
-		var sum = p+w;
-		var sum2 = kl+dinas+dpr+lsm+swasta+prak;
-		var res = true;
-		if(sum2>sum){
-			res=false;
-		}else if(p==0 && w==0){
-			res=false;
-		}else if(prop.q_anggota_p<p || prop.q_anggota_w<w){
-			res=false;
-		}
-		return res;
-	};
+        if(kota.q_anggota_p<p){
+            res=false;
+        }
+        return res;
+    };
+    function perempuan(value, validator) {
+        var kota = {!! json_encode($kode_pokja_kota_list) !!};
+        for(var i=0;i<kota.length;i++){
+            if(kota[i].kode==$('#select-kode-pokja-kota-input').val()){
+                kota=kota[i];
+                break;
+            }
+        }
+        var p = parseInt($('#q-laki-input').val());
+        var w = parseInt($('#q-perempuan-input').val());
+        var res = true;
+
+        if(kota.q_anggota_w<w){
+            res=false;
+        }
+        return res;
+    };
     function tgl(value, validator) {
-        var prop = {!! json_encode($kode_pokja_kota_list) !!};
-        for(var i=0;i<prop.length;i++){
-            if(prop[i].kode==$('#select-kode-pokja-input').val()){
-                prop=prop[i];
+        var kota = {!! json_encode($kode_pokja_kota_list) !!};
+        for(var i=0;i<kota.length;i++){
+            if(kota[i].kode==$('#select-kode-pokja-kota-input').val()){
+                kota=kota[i];
                 break;
             }
         }
@@ -209,11 +214,20 @@
         var tgl_kegiatan = new Date($('#tgl-kegiatan-input').val());
         if(tgl_kegiatan>new Date()){
             res=false;
-        }else if(new Date(prop.tgl_kegiatan)>tgl_kegiatan){
+        }else if(new Date(kota.tgl_kegiatan)>tgl_kegiatan){
             res=false;
         }
         return res;
     };
+
+    function test(id){
+            console.log(id)
+            var elem = document.getElementById(id);
+            elem.parentNode.removeChild(elem);
+            var elem2 = $('#'+id+'-file');
+            elem2.removeAttr('value');
+            return false;
+        }
     
     function enforce_maxlength(event) {
             var t = event.target;
@@ -297,7 +311,7 @@
                 });
             });
         }).on('error.form.bv', function(e) {
-        $("#submit").prop('disabled', false);
+            $("#submit").prop('disabled', false);
         });
     });
 </script>

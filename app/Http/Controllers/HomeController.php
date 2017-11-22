@@ -27,25 +27,25 @@ class HomeController extends Controller
     public function index()
     {
 		$akses= Auth::user()->menu()->get();
+		$data['apps']='';
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['apps'][$item->kode_apps] =  'a' ;
 				//if($item->kode_menu==10)
 					//$data['detil'][$item->kode_menu_detil]='a';
 			}
-			if(!empty($data['apps'])){
-				/*Mail::raw('Text to e-mail', function($message){
+			/*if(!empty($data['apps'])){
+				Mail::raw('Text to e-mail', function($message){
 					$message->from('kotakudemo@gmail.com', 'Sim');
     				$message->to('ricky.yuliadi@gmail.com')->cc('ricky@alutechno.io');
-				})*/;
+				});
 			    return view('module',$data);
 			}
 			else {
 				return Redirect::to('/logout');
-			}
-		}else{
-			return Redirect::to('/logout');
+			}*/
 		}
+		return view('module',$data);
     }
 
 	public function hrm()
@@ -58,16 +58,9 @@ class HomeController extends Controller
 				//if($item->kode_menu==10)
 					//$data['detil'][$item->kode_menu_detil]='a';
 			}
-			if(!empty($data['menu'])){
-			    $data['username'] = $user->name;
-				return view('HRM/main/index',$data);
-			}
-			else {
-				return Redirect::to('/');
-			}
-		}else{
-			return Redirect::to('/');
 		}
+		$data['username'] = $user->name;
+		return view('HRM/main/index',$data);
 	}
 
 	public function inbox()
