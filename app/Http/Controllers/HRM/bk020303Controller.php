@@ -54,7 +54,8 @@ class bk020303Controller extends Controller
 			0 =>'kode',
 			1 =>'nama',
 			2 =>'tgl_pelatihan',
-			3 =>'instansi'
+			3 =>'flag_kotaku',
+			4 =>'instansi'
 		);
 		$query='select * from bkt_02030202_pelatihan where kode_user='.$user->id;
 		$totalData = DB::select('select count(1) cnt from bkt_02030202_pelatihan where kode_user='.$user->id);
@@ -69,8 +70,8 @@ class bk020303Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and d.nama like "%'.$search.'%"  order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and d.nama like "%'.$search.'%" ) a');
+			$posts=DB::select($query. ' and CONCAT(kode, nama, instansi, tgl_pelatihan) like "%'.$search.'%"  order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and CONCAT(kode, nama, instansi, tgl_pelatihan) like "%'.$search.'%" ) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
@@ -85,6 +86,7 @@ class bk020303Controller extends Controller
 				$nestedData['kode'] = $post->kode;
 				$nestedData['tgl_pelatihan'] = $post->tgl_pelatihan;
 				$nestedData['nama'] = $post->nama;
+				$nestedData['flag_kotaku'] = $post->flag_kotaku;
 				$nestedData['instansi'] = $post->instansi;
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
@@ -133,6 +135,7 @@ class bk020303Controller extends Controller
 				$data['nama'] = $rowData[0]->nama;
 				$data['deskripsi'] = $rowData[0]->deskripsi;
 				$data['tgl_pelatihan'] = $rowData[0]->tgl_pelatihan;
+                $data['flag_kotaku'] = $rowData[0]->flag_kotaku;
 				$data['instansi'] = $rowData[0]->instansi;
 				$data['uri_img_sertifikat1'] = $rowData[0]->uri_img_sertifikat1;
 				$data['uri_img_sertifikat2'] = $rowData[0]->uri_img_sertifikat2;
@@ -146,6 +149,7 @@ class bk020303Controller extends Controller
 				$data['nama'] = null;
 				$data['deskripsi'] = null;
 				$data['tgl_pelatihan'] = null;
+				$data['flag_kotaku'] = null;
 				$data['instansi'] = null;
 				$data['uri_img_sertifikat1'] = null;
 				$data['uri_img_sertifikat2'] = null;
@@ -197,11 +201,13 @@ class bk020303Controller extends Controller
 			$upload3 = true;
 		}
 		date_default_timezone_set('Asia/Jakarta');
+
 		if ($request->input('kode')!=null){
 			DB::table('bkt_02030202_pelatihan')->where('kode', $request->input('kode'))
 			->update(['nama' => $request->input('nama-input'),
 				'deskripsi' => $request->input('deskripsi-input'),
 				'tgl_pelatihan' => $request->input('tgl_pelatihan-input'),
+				'flag_kotaku' => DB::raw($request->input('flag_kotaku')),
 				'instansi' => $request->input('instansi-input'),
 				'uri_img_sertifikat1' => $url,
 				'uri_img_sertifikat2' => $url2,
@@ -226,6 +232,7 @@ class bk020303Controller extends Controller
        			['nama' => $request->input('nama-input'),
 				'deskripsi' => $request->input('deskripsi-input'),
 				'tgl_pelatihan' => $request->input('tgl_pelatihan-input'),
+                'flag_kotaku' => DB::raw($request->input('flag_kotaku')),
 				'instansi' => $request->input('instansi-input'),
 				'uri_img_sertifikat1' => $url,
 				'uri_img_sertifikat2' => $url2,

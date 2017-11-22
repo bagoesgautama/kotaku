@@ -53,8 +53,9 @@ class bk020305Controller extends Controller
 		$columns = array(
 			0 =>'kode',
 			1 =>'nama',
-			2 =>'instansi',
-			3 =>'tgl_penghargaan'
+			2 =>'tgl_penghargaan',
+            3 =>'flag_kotaku',
+            4 =>'instansi'
 		);
 		$query='select * from bkt_02030203_penghargaan where kode_user='.$user->id;
 		$totalData = DB::select('select count(1) cnt from bkt_02030203_penghargaan where kode_user='.$user->id);
@@ -69,8 +70,8 @@ class bk020305Controller extends Controller
 		}
 		else {
 			$search = $request->input('search.value');
-			$posts=DB::select($query. ' and d.nama like "%'.$search.'%"  order by '.$order.' '.$dir.' limit '.$start.','.$limit);
-			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and d.nama like "%'.$search.'%" ) a');
+			$posts=DB::select($query. ' and CONCAT(kode, nama, instansi, tgl_penghargaan) like "%'.$search.'%"  order by '.$order.' '.$dir.' limit '.$start.','.$limit);
+			$totalFiltered=DB::select('select count(1) cnt from ('.$query. ' and CONCAT(kode, nama, instansi, tgl_penghargaan) like "%'.$search.'%" ) a');
 			$totalFiltered=$totalFiltered[0]->cnt;
 		}
 
@@ -86,6 +87,7 @@ class bk020305Controller extends Controller
 				$nestedData['nama'] = $post->nama;
 				$nestedData['instansi'] = $post->instansi;
 				$nestedData['tgl_penghargaan'] = $post->tgl_penghargaan;
+				$nestedData['flag_kotaku'] = $post->flag_kotaku;
 				$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
@@ -133,6 +135,7 @@ class bk020305Controller extends Controller
 				$rowData = DB::select('select * from bkt_02030203_penghargaan where kode='.$data['kode']);
 				$data['nama'] = $rowData[0]->nama;
 				$data['tgl_penghargaan'] = $rowData[0]->tgl_penghargaan;
+                $data['flag_kotaku'] = $rowData[0]->flag_kotaku;
 				$data['instansi'] = $rowData[0]->instansi;
 				$data['deskripsi'] = $rowData[0]->deskripsi;
 				$data['uri_img_sertifikat1'] = $rowData[0]->uri_img_sertifikat1;
@@ -146,6 +149,7 @@ class bk020305Controller extends Controller
 			}else if($data['kode']==null && !empty($data['detil']['630'])){
 				$data['nama'] = null;
 				$data['tgl_penghargaan'] = null;
+                $data['flag_kotaku'] = null;
 				$data['instansi'] = null;
 				$data['deskripsi'] = null;
 				$data['uri_img_sertifikat1'] = null;
@@ -203,6 +207,7 @@ class bk020305Controller extends Controller
 			->update(['nama' => $request->input('nama-input'),
 				'deskripsi' => $request->input('deskripsi-input'),
 				'tgl_penghargaan' => $request->input('tgl_penghargaan-input'),
+                'flag_kotaku' => DB::raw($request->input('flag_kotaku')),
 				'instansi' => $request->input('instansi-input'),
 				'uri_img_sertifikat1' => $url,
 				'uri_img_sertifikat2' => $url2,
@@ -227,6 +232,7 @@ class bk020305Controller extends Controller
        			['nama' => $request->input('nama-input'),
 				'deskripsi' => $request->input('deskripsi-input'),
 				'tgl_penghargaan' => $request->input('tgl_penghargaan-input'),
+                'flag_kotaku' => DB::raw($request->input('flag_kotaku')),
 				'instansi' => $request->input('instansi-input'),
 				'uri_img_sertifikat1' => $url,
 				'uri_img_sertifikat2' => $url2,
