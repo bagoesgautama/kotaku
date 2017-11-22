@@ -169,6 +169,7 @@
 		}
 		return res;
 	};
+    
     function tahun(value, validator) {
         var yearNow = (new Date()).getFullYear();
         var thn = parseInt($('#tahun-input').val());

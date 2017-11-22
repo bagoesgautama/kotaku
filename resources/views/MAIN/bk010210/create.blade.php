@@ -40,7 +40,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                        <form id="form-validation" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Forum</label></div>
                             </div>
@@ -153,9 +153,19 @@
 		}else if(p==0 && w==0){
 			res=false;
 		}
-
 		return res;
 	};
+
+    var p = $('#q-laki-input');
+    var w = $('#q-perempuan-input'); 
+
+    p.change(function(){
+        $('#q-bkm-input').val(0);
+    });
+    w.change(function(){
+        $('#q-bkm-input').val(0);
+    });
+
     function tahun(value, validator) {
         var yearNow = (new Date()).getFullYear();
         var thn = parseInt($('#tahun-input').val());
@@ -175,16 +185,6 @@
         }
         return res;
     };
-
-    var p = $('#q-laki-input');
-    var w = $('#q-perempuan-input'); 
-
-    p.change(function(){
-        $('#q-bkm-input').val(0);
-    });
-    w.change(function(){
-        $('#q-bkm-input').val(0);
-    });
 
     function test(id){
             console.log(id)
@@ -208,7 +208,7 @@
         $('#tgl-kegiatan-input')
             .on('changeDate show', function(e) {
                 // Revalidate the date when user change it
-                $('#form').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
+                $('#form-validation').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
                 $("#submit").prop('disabled', false);
         });
         

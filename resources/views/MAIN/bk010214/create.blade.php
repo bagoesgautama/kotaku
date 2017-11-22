@@ -95,7 +95,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="example-text-input1">Lokasi Kegiatan</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="lok-kegiatan-input" name="lok-kegiatan-input" class="form-control" value="{{$lok_kegiatan}}" maxlength="50">
+                                    <textarea id="lok-kegiatan-input" name="lok-kegiatan-input" rows="7" class="form-control resize_vertical" placeholder="Lokasi" maxlength="50" required>{{ $lok_kegiatan }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group striped-col">

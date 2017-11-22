@@ -479,6 +479,13 @@
 								</a>
 							</li>
 							@endif
+							@if( ! empty($menu['236']))
+							<li {!! (Request::is( 'main/persiapan/kelurahan/media_sosialisasi')||Request::is( 'main/persiapan/kelurahan/media_sosialisasi/create') ? 'class="active"': "") !!}>
+								<a href="/main/persiapan/kelurahan/media_sosialisasi">
+									<span class="mm-text">Media Sosialisasi</span>
+								</a>
+							</li>
+							@endif
 							@if( ! empty($menu['65']))
 							<li {!! (Request::is( 'main/persiapan/kelurahan/pelatihan')||Request::is( 'main/persiapan/kelurahan/pelatihan/create') ? 'class="active"': "") !!}>
 								<a href="/main/persiapan/kelurahan/pelatihan">
