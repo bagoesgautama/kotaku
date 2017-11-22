@@ -42,6 +42,19 @@
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Kelurahan</label></div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-3 control-label" for="kode">Tahun</label>
+                                <div class="col-sm-6">
+                                <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
+                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="tahun">
+                                        <option value>Please select</option>
+                                        @foreach($tahun_list as $list)
+                                            <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Kota</label>
                                 <div class="col-sm-6">
                                     <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
@@ -59,7 +72,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
+                            <div class="form-group">
                                 <label class="col-sm-3 control-label">Kecamatan</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode_kec-input" name="select-kode_kec-input" class="form-control select2" size="1" required>
@@ -72,7 +85,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Kelurahan</label>
                                 <div class="col-sm-6">
                                     <select id="select-kode_kel-input" name="select-kode_kel-input" class="form-control select2" size="1" required>
@@ -85,21 +98,8 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group striped-col">
-                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Media</label></div>
-                            </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="kode">Tahun</label>
-                                <div class="col-sm-6">
-                                <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                    <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="tahun">
-                                        <option value>Please select</option>
-                                        @foreach($tahun_list as $list)
-                                            <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Media</label></div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Jenis Media</label>

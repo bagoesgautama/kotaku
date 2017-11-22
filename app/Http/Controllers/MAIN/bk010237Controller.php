@@ -128,9 +128,9 @@ class bk010237Controller extends Controller
 				$edit =  $post->kode;
 				$delete = $post->kode;
 				//show
-				$url_show=url('/')."/main/persiapan/kelurahan/media_sosialisasi/show?kode=".$edit;
-				$url_edit=url('/')."/main/persiapan/kelurahan/media_sosialisasi/create?kode=".$edit;
-				$url_delete=url('/')."/main/persiapan/kelurahan/media_sosialisasi/delete?kode=".$delete;
+				$url_show="/main/persiapan/kelurahan/media_sosialisasi/show?kode=".$edit;
+				$url_edit="/main/persiapan/kelurahan/media_sosialisasi/create?kode=".$edit;
+				$url_delete="/main/persiapan/kelurahan/media_sosialisasi/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['kode_kota'] = $post->nama_kota;
 				$nestedData['kode_kec'] = $post->nama_kec;

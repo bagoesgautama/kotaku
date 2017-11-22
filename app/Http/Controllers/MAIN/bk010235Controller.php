@@ -136,8 +136,8 @@ class bk010235Controller extends Controller
 				$edit =  $post->kode;
 				$delete = $post->kode;
 				//show
-				$url_show=url('/')."/main/persiapan/kelurahan/pemilu_bkm/data/show?kode=".$edit;
-				$url_edit=url('/')."/main/persiapan/kelurahan/pemilu_bkm/data/create?kode=".$show;
+				$url_show="/main/persiapan/kelurahan/pemilu_bkm/data/show?kode=".$edit;
+				$url_edit="/main/persiapan/kelurahan/pemilu_bkm/data/create?kode=".$show;
 				// $url_delete=url('/')."/main/persiapan/kelurahan/pemilu_bkm/data/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['tahun'] = $post->tahun;

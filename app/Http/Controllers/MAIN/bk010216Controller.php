@@ -472,7 +472,7 @@ class bk010216Controller extends Controller
 						$show =  $post->kode;
 						$edit =  $post->kode;
 						$delete = $post->kode;
-						$url_show=url('/')."/main/persiapan/kelurahan/sosialisasi/show?kode=".$edit;
+						$url_show="/main/persiapan/kelurahan/sosialisasi/show?kode=".$edit;
 						$url_edit="/main/persiapan/kelurahan/sosialisasi/create?kode=".$show;
 						$url_delete="/main/persiapan/kelurahan/sosialisasi/delete?kode=".$delete;
 						$nestedData['kode'] = $post->kode_sos;

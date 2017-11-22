@@ -81,8 +81,8 @@ class bk010125Controller extends Controller
 			foreach ($posts as $post)
 			{
 				$edit =  $post->id;
-				$url_edit=url('/')."/main/data_master/ksm/create?id=".$edit;
-				$url_delete=url('/')."/main/data_master/ksm/delete?id=".$edit;
+				$url_edit="/main/data_master/ksm/create?id=".$edit;
+				$url_delete="/main/data_master/ksm/delete?id=".$edit;
 				$nestedData['id'] = $post->id;
 				$nestedData['kode_ksm'] = $post->kode_ksm;
 				$nestedData['nama'] = $post->nama;

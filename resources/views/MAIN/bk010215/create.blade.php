@@ -40,41 +40,49 @@
                 <ul class="nav nav-tabs ">
                     <li class="active">
                         <a href="#tab1" data-toggle="tab">
-                                        Data Umum
+                                        Cakupan Administrasi
                                     </a>
                     </li>
                     <li>
                         <a href="#tab2" data-toggle="tab">
-                                        Data Wilayah
+                                         Luas Wilayah
                                     </a>
                     </li>
                     <li>
                         <a href="#tab3" data-toggle="tab">
-                                        Data Kawasan Kumuh
+                                         Cakupan Penduduk
                                     </a>
                     </li>
                     <li>
                         <a href="#tab4" data-toggle="tab">
+                                        Kawasan Kumuh
+                                    </a>
+                    </li>
+                    <li>
+                        <a href="#tab5" data-toggle="tab">
+                                        Cakupan Penduduk di Kawasan Kumuh
+                                    </a>
+                    </li>
+                    <li>
+                        <a href="#tab6" data-toggle="tab">
                                         Data Tambahan
                                     </a>
                     </li>
                 </ul>
             </div>
             <div class="panel-body">
-                <form id="form-validation" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
                 <div class="tab-content">
                     <div id="tab1" class="tab-pane fade active in">
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group striped-col">
+                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Pilih Kota</label></div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Kota</label>
                                         <div class="col-sm-6">
-                                            <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                            <input type="hidden" id="kode_kmw-input" name="kode_kmw-input" value="{{ $kode_kmw }}">
-                                            <input type="hidden" id="kode_korkot-input" name="kode_korkot-input" value="{{ $kode_korkot }}">
-                                            <input type="hidden" id="kode_faskel-input" name="kode_faskel-input" value="{{ $kode_faskel }}">
-                                            <input type="hidden" id="kode_prop-input" name="kode_prop-input" value="{{ $kode_prop }}">
                                             <select id="select-kode_kota-input" name="select-kode_kota-input" class="form-control select2" size="1" required>
                                                 <option value>Please select</option>
                                                 @if ($kode_kota_list!=null)
@@ -85,7 +93,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Kecamatan</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode_kec-input" name="select-kode_kec-input" class="form-control select2" size="1" required>
@@ -98,7 +106,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Kelurahan</label>
                                         <div class="col-sm-6">
                                             <select id="select-kode_kel-input" name="select-kode_kel-input" class="form-control select2" size="1" required>
@@ -111,135 +119,142 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab2" class="tab-pane fade ">
-                        <div class="panel " >
-                            <div class="panel-body border">
-                                <div class="row">
                                     <div class="form-group striped-col">
-                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Cakupan Wilayah</label></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Jumlah Kelurahan</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="ca-q-kel" name="ca-q-kel" class="form-control" value="{{$ca_q_kel}}" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Jumlah Dusun</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="ca-q-dusun" name="ca-q-dusun" class="form-control" value="{{$ca_q_dusun}}" min="0">
-                                        </div>
+                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Cakupan Administrasi</label></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Jumlah RW</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="ca-q-rw" name="ca-q-rw" class="form-control" value="{{$ca_q_rw}}" min="0">
+                                            <input type="number" id="ca_q_rw-input" name="ca_q_rw-input" class="form-control" value="{{$ca_q_rw}}" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Jumlah RT</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="ca-q-rt" name="ca-q-rt" class="form-control" value="{{$ca_q_rt}}" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Luas Wilayah</label></div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Luas Wilayah Administratif (Ha) Kelurahan.</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="lw-l-wil-adm-kel" name="lw-l-wil-adm-kel" class="form-control" value="{{$lw_l_wil_adm_kel}}" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Luas Permukiman (Ha) Kelurahan.</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="lw-l-pmkm-kel" name="lw-l-pmkm-kel" class="form-control" value="{{$lw_l_pmkm_kel}}" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Cakupan Penduduk</label></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Jumlah Penduduk</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="cp-q-pdk" name="cp-q-pdk" class="form-control" value="{{$cp_q_pdk}}" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Jumlah Penduduk Perempuan</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="cp-q-pdk-w" name="cp-q-pdk-w" class="form-control" value="{{$cp_q_pdk_w}}" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Jumlah Kepala Keluarga</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="cp-q-kk" name="cp-q-kk" class="form-control" value="{{$cp_q_kk}}" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Jumlah Kepala Rumah Tangga MBR (baseline)</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="cp-q-kk-mbr" name="cp-q-kk-mbr" class="form-control" value="{{$cp_q_kk_mbr}}" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Jumlah Kepala Keluarga Miskin (PPLS/40% termiskin ver BPS)</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="cp-q-kk-miskin" name="cp-q-kk-miskin" class="form-control" value="{{$cp_q_kk_miskin}}" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Kepadatan Penduduk Rata-rata</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="cp-r-pdt-kpdk" name="cp-r-pdt-kpdk" class="form-control" value="{{$cp_r_pdt_kpdk}}" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Angka Pertumbuhan Penduduk Pertahun</label>
-                                        <div class="col-sm-6">
-                                            <input type="number" id="cp-t-pdk-thn" name="cp-t-pdk-thn" class="form-control" value="{{$cp_t_pdk_thn}}" min="0">
+                                            <input type="number" id="ca_q_rt-input" name="ca_q_rt-input" class="form-control" value="{{$ca_q_rt}}" readonly>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div id="tab3" class="tab-pane fade ">
+                    <div id="tab2" class="tab-pane fade">
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group striped-col">
-                                        <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Kawasan Kumuh (Kota/Kab)</label></div>
+                                        <label class="col-sm-3 control-label">Luas Wilayah Administratif (Ha) Desa/Kelurahan</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="lw_l_wil_adm-input" name="lw_l_wil_adm-input" class="form-control" value="{{$lw_l_wil_adm}}">
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Jumlah Kelurahan Yang Termasuk Kawasan Kumuh</label>
+                                        <label class="col-sm-3 control-label">Luas Permukiman (Ha) Desa/Kelurahan</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="km-q-kel-kmh" name="km-q-kel-kmh" class="form-control" value="{{$km_q_kel_kmh}}" min="0">
+                                            <input type="number" id="lw_l_pmkm-input" name="lw_l_pmkm-input" class="form-control" value="{{$lw_l_pmkm}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab3" class="tab-pane fade">
+                        <div class="panel " >
+                            <div class="panel-body border">
+                                <div class="row">
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Jumlah Penduduk</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="cp_q_pdk-input" name="cp_q_pdk-input" class="form-control" value="{{$cp_q_pdk}}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Jumlah Penduduk Perempuan</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="cp_q_pdk_w-input" name="cp_q_pdk_w-input" class="form-control" value="{{$cp_q_pdk_w}}" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Jumlah Kepala Keluarga</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="cp_q_kk-input" name="cp_q_kk-input" class="form-control" value="{{$cp_q_kk}}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Jumlah Kepala Rumah Tangga MBR (baseline)</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="cp_q_kk_mbr-input" name="cp_q_kk_mbr-input" class="form-control" value="{{$cp_q_kk_mbr}}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Jumlah Kepala Keluarga Miskin (PPLS/40% termiskin ver BPS)</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="cp_q_kk_miskin-input" name="cp_q_kk_miskin-input" class="form-control" value="{{$cp_q_kk_miskin}}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Kepadatan Penduduk Rata-rata</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="cp_r_pdt_kpdk-input" name="cp_r_pdt_kpdk-input" class="form-control" value="{{$cp_r_pdt_kpdk}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Angka Pertumbuhan Penduduk Pertahun</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" id="cp_t_pdk_thn-input" name="cp_t_pdk_thn-input" class="form-control" value="{{$cp_t_pdk_thn}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab4" class="tab-pane fade">
+                        <div class="panel " >
+                            <div class="panel-body border">
+                                <div class="row">
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Dasar Hukum</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="km_ds_hkm-input" name="km_ds_hkm-input" class="form-control" value="{{$km_ds_hkm}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Luas Kawasan Kumuh (Ha)</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="lk_l_kw_kmh-input" name="lk_l_kw_kmh-input" class="form-control" value="{{$lk_l_kw_kmh}}" min="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-group striped-col">
+                                        <label class="col-sm-3 control-label">Luas RT Kumuh Pada Tahun Berjalan (Ha)</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" id="lk_l_rt_kmh-input" name="lk_l_rt_kmh-input" class="form-control" value="{{$lk_l_rt_kmh}}" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab5" class="tab-pane fade">
+                        <div class="panel " >
+                            <div class="panel-body border">
+                                <div class="row">
+                                    <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">Jumlah RT Kumuh</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="km-q-rt-kmh" name="km-q-rt-kmh" class="form-control" value="{{$km_q_rt_kmh}}" min="0">
+                                            <input type="number" id="km_q_rt_kmh-input" name="km_q_rt_kmh-input" class="form-control" value="{{$km_q_rt_kmh}}" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Jumlah RT Non Kumuh</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="km-q-rt-non-kmh" name="km-q-rt-non-kmh" class="form-control" value="{{$km_q_rt_non_kmh}}" min="0">
+                                            <input type="number" id="km_q_rt_non_kmh-input" name="km_q_rt_non_kmh-input" class="form-control" value="{{$km_q_rt_non_kmh}}" readonly>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div id="tab4" class="tab-pane fade ">
+                    <div id="tab6" class="tab-pane fade">
                         <div class="panel " >
                             <div class="panel-body border">
                                 <div class="row">
@@ -248,7 +263,7 @@
                                         <div class="col-sm-6">
                                             <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
                                             <br>
-                                            <img id="uri_img_document" alt="gallery" src="/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                            <img id="uri_img_document" alt="gallery" src="/uploads/persiapan/kelurahan/informasi/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
                                             <input type="hidden" id="uri_img_document-file" name="uri_img_document-file" value="{{$uri_img_document}}">
                                             <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">Delete</button>
                                         </div>
@@ -258,7 +273,7 @@
                                         <div class="col-sm-6">
                                             <input id="uri_img_absensi-input" type="file" class="file" accept="image/*" name="uri_img_absensi-input">
                                             <br>
-                                            <img id="uri_img_absensi" alt="gallery" src="/uploads/persiapan/kelurahan/forumkolaborasi/keanggotaan/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                            <img id="uri_img_absensi" alt="gallery" src="/uploads/persiapan/kelurahan/informasi/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
                                             <input type="hidden" id="uri_img_absensi-file" name="uri_img_absensi-file" value="{{$uri_img_absensi}}">
                                             <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} onclick="test('uri_img_absensi')">Delete</button>
                                         </div>
@@ -325,6 +340,28 @@
             placeholder: "Please Select"
         });
 
+        $("#uri_img_document-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
+
+        $("#uri_img_absensi-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
+
         $('#form-validation').bootstrapValidator().on('success.form.bv', function(e) {
             $('#form-validation').on('submit', function (e) {
                 e.preventDefault();
@@ -351,34 +388,21 @@
             });
         });
 
-        $("#uri_img_document-input").fileinput({
-            previewFileType: "image",
-            browseClass: "btn btn-success",
-            browseLabel: " Pick Image",
-            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
-            removeClass: "btn btn-danger",
-            removeLabel: "Delete",
-            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
-            showUpload: false
-        });
-
-        $("#uri_img_absensi-input").fileinput({
-            previewFileType: "image",
-            browseClass: "btn btn-success",
-            browseLabel: " Pick Image",
-            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
-            removeClass: "btn btn-danger",
-            removeLabel: "Delete",
-            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
-            showUpload: false
-        });
-
         var kota = $('#select-kode_kota-input');
         var kecamatan = $('#select-kode_kec-input');
         var kelurahan = $('#select-kode_kel-input');
         var korkot = $('#kode_korkot-input');
         var faskel = $('#kode_faskel-input');
-        var kota_id,kec_id,kel_id,faskel_id;
+        var rw = $('#ca_q_rw-input');
+        var rt = $('#ca_q_rt-input');
+        var penduduk = $('#cp_q_pdk-input');
+        var penduduk_wanita = $('#cp_q_pdk_w-input');
+        var kk = $('#cp_q_kk-input');
+        var kk_mbr = $('#cp_q_kk_mbr-input');
+        var kk_miskin = $('#cp_q_kk_miskin-input');
+        var rt_kmh = $('#km_q_rt_kmh-input');
+        var rt_non_kmh = $('#km_q_rt_non_kmh-input');
+        var kota_id,kec_id,kel_id;
         
         kota.change(function(){
             korkot.empty();
@@ -406,7 +430,7 @@
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
-                            korkot.val(data[0].kode_korkot);;
+                            korkot.val(data[0].kode_korkot);
                         }
                     }
                 });
@@ -442,7 +466,34 @@
                     success: function (data) {
                         data=JSON.parse(data)
                         for (var i=0;i<data.length;i++){
-                            faskel.val(data[0].kode_faskel);;
+                            faskel.val(data[0].kode_faskel);
+                        }
+                    }
+                });
+                rw.empty();
+                rt.empty();
+                penduduk.empty();
+                penduduk_wanita.empty();
+                kk.empty();
+                kk_mbr.empty();
+                kk_miskin.empty();
+                rt_kmh.empty();
+                rt_non_kmh.empty();
+                $.ajax({
+                    type: 'get',
+                    "url": "/main/persiapan/kelurahan/info/select?data_kel="+kel_id,
+                    success: function (data) {
+                        data=JSON.parse(data)
+                        for (var i=0;i<data.length;i++){
+                            rw.val(data[0].sum_rw);
+                            rt.val(data[0].sum_rt);                            
+                            penduduk.val(data[0].sum_penduduk);
+                            penduduk_wanita.val(data[0].sum_penduduk_wanita);
+                            kk.val(data[0].sum_kk);
+                            kk_mbr.val(data[0].sum_kk_mbr);
+                            kk_miskin.val(data[0].sum_kk_miskin);
+                            rt_kmh.val(data[0].sum_rt_kmh);
+                            rt_non_kmh.val(data[0].sum_rt_non_kmh);
                         }
                     }
                 });

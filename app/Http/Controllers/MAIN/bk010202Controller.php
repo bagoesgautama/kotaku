@@ -120,9 +120,9 @@ class bk010202Controller extends Controller
 				$edit =  $post->kode;
 				$delete = $post->kode;
 
-				$url_show=url('/')."/main/persiapan/nasional/pokja/kegiatan/show?kode=".$edit;
-				$url_edit=url('/')."/main/persiapan/nasional/pokja/kegiatan/create?kode=".$edit;
-				$url_delete=url('/')."/main/persiapan/nasional/pokja/kegiatan/delete?kode=".$delete;
+				$url_show="/main/persiapan/nasional/pokja/kegiatan/show?kode=".$edit;
+				$url_edit="/main/persiapan/nasional/pokja/kegiatan/create?kode=".$edit;
+				$url_delete="/main/persiapan/nasional/pokja/kegiatan/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['tahun'] = $post->tahun_pokja;
 				$nestedData['jenis_subkegiatan_convert'] = $post->jenis_subkegiatan_convert;

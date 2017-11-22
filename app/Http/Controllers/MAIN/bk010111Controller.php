@@ -135,8 +135,8 @@ class bk010111Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_edit=url('/')."/main/korkot/create?kode=".$show;
-				$url_delete=url('/')."/main/korkot/delete?kode=".$delete;
+				$url_edit="/main/korkot/create?kode=".$show;
+				$url_delete="/main/korkot/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['nama_kmw'] = $post->nama_kmw;
 				$nestedData['nama'] = $post->nama;

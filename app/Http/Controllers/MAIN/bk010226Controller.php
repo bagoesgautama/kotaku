@@ -120,8 +120,8 @@ class bk010226Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_edit=url('/')."/main/persiapan/kelurahan/lembaga/ksm/ppmk/create?kode=".$show;
-				$url_delete=url('/')."/main/persiapan/kelurahan/lembaga/ksm/ppmk/delete?kode=".$delete;
+				$url_edit="/main/persiapan/kelurahan/lembaga/ksm/ppmk/create?kode=".$show;
+				$url_delete="/main/persiapan/kelurahan/lembaga/ksm/ppmk/delete?kode=".$delete;
 				$nestedData['tahun'] = $post->tahun;
 				$nestedData['nama_kota'] = $post->nama_kota;
 				$nestedData['nama_korkot'] = $post->nama_korkot;

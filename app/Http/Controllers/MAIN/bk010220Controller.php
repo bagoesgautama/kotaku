@@ -113,9 +113,9 @@ class bk010220Controller extends Controller
 				$edit =  $post->kode;
 				$delete = $post->kode;
 				//show
-				$url_show=url('/')."/main/persiapan/kelurahan/forum/keanggotaan/show?kode=".$edit;
-				$url_edit=url('/')."/main/persiapan/kelurahan/forum/keanggotaan/create?kode=".$edit;
-				$url_delete=url('/')."/main/persiapan/kelurahan/forum/keanggotaan/delete?kode=".$delete;
+				$url_show="/main/persiapan/kelurahan/forum/keanggotaan/show?kode=".$edit;
+				$url_edit="/main/persiapan/kelurahan/forum/keanggotaan/create?kode=".$edit;
+				$url_delete="/main/persiapan/kelurahan/forum/keanggotaan/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['nama_kota'] = $post->nama_kota;
 				$nestedData['nama_kec'] = $post->nama_kec;

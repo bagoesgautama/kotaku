@@ -129,8 +129,8 @@ class bk010114Controller extends Controller
 				$show =  $post->kode;
 				$edit =  $post->kode;
 				$delete = $post->kode;
-				$url_edit=url('/')."/main/kel_faskel/create?kode=".$show;
-				$url_delete=url('/')."/main/kel_faskel/delete?kode=".$delete;
+				$url_edit="/main/kel_faskel/create?kode=".$show;
+				$url_delete="/main/kel_faskel/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode;
 				$nestedData['kode_kmp_slum_prog'] = $post->kode_kmp_slum_prog;
 				$nestedData['nama_prop'] = $post->nama_prop;

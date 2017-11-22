@@ -126,9 +126,9 @@ class bk010215Controller extends Controller
 				$edit =  $post->kode;
 				$delete = $post->kode;
 				//show
-				$url_show=url('/')."/main/persiapan/kelurahan/info/show?kode=".$edit;
-				$url_edit=url('/')."/main/persiapan/kelurahan/info/create?kode=".$show;
-				$url_delete=url('/')."/main/persiapan/kelurahan/info/delete?kode=".$delete;
+				$url_show="/main/persiapan/kelurahan/info/show?kode=".$edit;
+				$url_edit="/main/persiapan/kelurahan/info/create?kode=".$show;
+				$url_delete="/main/persiapan/kelurahan/info/delete?kode=".$delete;
 				$nestedData['kode'] = $post->kode_info;
 				$nestedData['kode_kota'] = $post->nama_kota;
 				$nestedData['kode_kec'] = $post->nama_kec;
@@ -235,12 +235,6 @@ class bk010215Controller extends Controller
 				$data['cpk_t_pdk_thn'] = $rowData[0]->cpk_t_pdk_thn;
 				$data['uri_img_document'] = $rowData[0]->uri_img_document;
 				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
-				$data['diser_tgl'] = $rowData[0]->diser_tgl;
-				$data['diser_oleh'] = $rowData[0]->diser_oleh;
-				$data['diket_tgl'] = $rowData[0]->diket_tgl;
-				$data['diket_oleh'] = $rowData[0]->diket_oleh;
-				$data['diver_tgl'] = $rowData[0]->diver_tgl;
-				$data['diver_oleh'] = $rowData[0]->diver_oleh;
 				$data['created_time'] = $rowData[0]->created_time;
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
@@ -315,12 +309,6 @@ class bk010215Controller extends Controller
 				$data['cpk_t_pdk_thn'] = $rowData[0]->cpk_t_pdk_thn;
 				$data['uri_img_document'] = $rowData[0]->uri_img_document;
 				$data['uri_img_absensi'] = $rowData[0]->uri_img_absensi;
-				$data['diser_tgl'] = $rowData[0]->diser_tgl;
-				$data['diser_oleh'] = $rowData[0]->diser_oleh;
-				$data['diket_tgl'] = $rowData[0]->diket_tgl;
-				$data['diket_oleh'] = $rowData[0]->diket_oleh;
-				$data['diver_tgl'] = $rowData[0]->diver_tgl;
-				$data['diver_oleh'] = $rowData[0]->diver_oleh;
 				$data['created_time'] = $rowData[0]->created_time;
 				$data['created_by'] = $rowData[0]->created_by;
 				$data['updated_time'] = $rowData[0]->updated_time;
@@ -469,6 +457,10 @@ class bk010215Controller extends Controller
 			$korkot = DB::select('select kode_korkot from bkt_01010112_kota_korkot where kode_kota='.$request->input('korkot'));
 			echo json_encode($korkot);
 		}
+		elseif(!empty($request->input('data_kel'))){
+			$data_kel = DB::select('select kode_korkot from bkt_01010112_kota_korkot where kode_kota='.$request->input('data_kel'));
+			echo json_encode($data_kel);
+		}
 	}
 
 	public function post_create(Request $request)
@@ -549,12 +541,6 @@ class bk010215Controller extends Controller
 				'cpk_t_pdk_thn' => $request->input('cpk-t-pdk-thn'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
-				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				// 'diser_oleh' => $request->input('diser-oleh-input'),
-				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				// 'diket_oleh' => $request->input('diket-oleh-input'),
-				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				// 'diver_oleh' => $request->input('diver-oleh-input'),
 				'updated_by' => Auth::user()->id, 
 				'updated_time' => date('Y-m-d H:i:s')
 				]);
@@ -615,12 +601,6 @@ class bk010215Controller extends Controller
 				'cpk_t_pdk_thn' => $request->input('cpk-t-pdk-thn'),
 				'uri_img_document' => $uri_document,
 				'uri_img_absensi' => $uri_absensi,
-				// 'diser_tgl' => $this->date_conversion($request->input('tgl-diser-input')),
-				// 'diser_oleh' => $request->input('diser-oleh-input'),
-				// 'diket_tgl' => $this->date_conversion($request->input('tgl-diket-input')),
-				// 'diket_oleh' => $request->input('diket-oleh-input'),
-				// 'diver_tgl' => $this->date_conversion($request->input('tgl-diver-input')),
-				// 'diver_oleh' => $request->input('diver-oleh-input'),
 				'created_by' => Auth::user()->id
        			]);
 
