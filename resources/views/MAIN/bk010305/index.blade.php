@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Lokasi & Profile Permukiman @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Perencanaan Penanganan Permukiman Kota @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -26,10 +26,10 @@
                 Perencanaan
             </li>
             <li class="next">
-                Penanganan Pemukiman Kota
+                Proses Penyusunan Perencanaan Tingkat Kota
             </li>
             <li class="next">
-                Lokasi & Profile Permukiman, Produk Perencanaan, Profile Kumuh
+                Perencanaan Penanganan Permukiman Kota
             </li>
         </ul>
     </div>
@@ -40,7 +40,7 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>Lokasi & Profile Permukiman, Produk Perencanaan, Profile Kumuh</b>
+                    <b>Perencanaan Penanganan Permukiman Kota</b>
                 </div>
                 @if( ! empty($detil['270']))
                 <div class="tools pull-right">
@@ -51,14 +51,24 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="pokja">
+                    <table class="table table-striped" id="pokja" width="1700px">
                         <thead>
                             <tr>
                                 <th>Kode</th>
                                 <th>Tahun</th>
-                                <th>Propinsi</th>
                                 <th>Kota</th>
-                                <th>Created Time</th>
+                                <th>Nomor SK Kumuh</th>
+                                <th>Luas Kumuh sesuai SK</th>
+                                <th>Luas Kumuh sesuai Hasil Verifikasi (Ha)</th>
+                                <th>Status Dokumen RP2KP-KP</th>
+                                <th>Dasar Hukum RP2KP-KP</th>
+                                <th>Jumlah Kelurahan Kumuh</th>
+                                <th>Luas Kumuh Berat (Ha)</th>
+                                <th>Luas Kumuh Sedang (Ha)</th>
+                                <th>Luas Kumuh Ringan (Ha)</th>
+                                <th>Jumlah RT Kumuh Berat</th>
+                                <th>Jumlah RT Kumuh Sedang</th>
+                                <th>Jumlah RT Kumuh Ringan</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -87,9 +97,19 @@
             "columns": [
                 { "data": "kode" , name:"kode"},
                 { "data": "tahun" , name:"tahun"},
-                { "data": "kode_prop" , name:"kode_prop"},
                 { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "created_time" , name:"created_time"},
+                { "data": "lpp_sk_kmh" , name:"lpp_sk_kmh"},
+                { "data": "lpp_l_kmh_sk" , name:"lpp_l_kmh_sk"},
+                { "data": "lpp_l_kmh_ver" , name:"lpp_l_kmh_ver"},
+                { "data": "rp2kp_stat_dok" , name:"rp2kp_stat_dok"},
+                { "data": "rp2kp_ds_hukum" , name:"rp2kp_ds_hukum"},
+                { "data": "pkkl_q_kel_kmh_thn_curr" , name:"pkkl_q_kel_kmh_thn_curr"},
+                { "data": "tk_berat_l_wil" , name:"tk_berat_l_wil"},
+                { "data": "tk_sedang_l_wil" , name:"tk_sedang_l_wil"},
+                { "data": "tk_ringan_l_wil" , name:"tk_ringan_l_wil"},
+                { "data": "tk_berat_q_rt" , name:"tk_berat_q_rt"},
+                { "data": "tk_sedang_q_rt" , name:"tk_sedang_q_rt"},
+                { "data": "tk_ringan_q_rt" , name:"tk_ringan_q_rt"},
                 { "data": "option" , name:"option",orderable:false}
             ],
             "order":[[0,"desc"]]

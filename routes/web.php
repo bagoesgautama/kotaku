@@ -680,38 +680,46 @@ Route::post('/main/persiapan/kelurahan/pemilu_bkm/data/anggota/create', 'MAIN\bk
 Route::get('/main/persiapan/kelurahan/pemilu_bkm/data/anggota/delete', 'MAIN\bk010235Controller@anggota_delete');
 
 //perencanaan
-Route::get('/main/perencanaan/penanganan/pembangunan_visi', 'MAIN\bk010301Controller@index');
-Route::get('/main/perencanaan/penanganan/pembangunan_visi/select', 'MAIN\bk010301Controller@select');
-Route::post('/main/perencanaan/penanganan/pembangunan_visi', 'MAIN\bk010301Controller@post');
-Route::get('/main/perencanaan/penanganan/pembangunan_visi/create', 'MAIN\bk010301Controller@create');
-Route::post('/main/perencanaan/penanganan/pembangunan_visi/create', 'MAIN\bk010301Controller@post_create');
-Route::get('/main/perencanaan/penanganan/pembangunan_visi/delete', 'MAIN\bk010301Controller@delete');
-Route::get('/main/perencanaan/penanganan/pembangunan_visi/show', 'MAIN\bk010301Controller@show');
+// Route::get('/main/perencanaan/penanganan/pembangunan_visi', 'MAIN\bk010301Controller@index');
+// Route::get('/main/perencanaan/penanganan/pembangunan_visi/select', 'MAIN\bk010301Controller@select');
+// Route::post('/main/perencanaan/penanganan/pembangunan_visi', 'MAIN\bk010301Controller@post');
+// Route::get('/main/perencanaan/penanganan/pembangunan_visi/create', 'MAIN\bk010301Controller@create');
+// Route::post('/main/perencanaan/penanganan/pembangunan_visi/create', 'MAIN\bk010301Controller@post_create');
+// Route::get('/main/perencanaan/penanganan/pembangunan_visi/delete', 'MAIN\bk010301Controller@delete');
+// Route::get('/main/perencanaan/penanganan/pembangunan_visi/show', 'MAIN\bk010301Controller@show');
 
-Route::get('/main/perencanaan/penanganan/pelaksanaan_rpk', 'MAIN\bk010302Controller@index');
-Route::get('/main/perencanaan/penanganan/pelaksanaan_rpk/select', 'MAIN\bk010302Controller@select');
-Route::post('/main/perencanaan/penanganan/pelaksanaan_rpk', 'MAIN\bk010302Controller@post');
-Route::get('/main/perencanaan/penanganan/pelaksanaan_rpk/create', 'MAIN\bk010302Controller@create');
-Route::post('/main/perencanaan/penanganan/pelaksanaan_rpk/create', 'MAIN\bk010302Controller@post_create');
-Route::get('/main/perencanaan/penanganan/pelaksanaan_rpk/delete', 'MAIN\bk010302Controller@delete');
-Route::get('/main/perencanaan/penanganan/pelaksanaan_rpk/show', 'MAIN\bk010302Controller@show');
+// Route::get('/main/perencanaan/penanganan/pelaksanaan_rpk', 'MAIN\bk010302Controller@index');
+// Route::get('/main/perencanaan/penanganan/pelaksanaan_rpk/select', 'MAIN\bk010302Controller@select');
+// Route::post('/main/perencanaan/penanganan/pelaksanaan_rpk', 'MAIN\bk010302Controller@post');
+// Route::get('/main/perencanaan/penanganan/pelaksanaan_rpk/create', 'MAIN\bk010302Controller@create');
+// Route::post('/main/perencanaan/penanganan/pelaksanaan_rpk/create', 'MAIN\bk010302Controller@post_create');
+// Route::get('/main/perencanaan/penanganan/pelaksanaan_rpk/delete', 'MAIN\bk010302Controller@delete');
+// Route::get('/main/perencanaan/penanganan/pelaksanaan_rpk/show', 'MAIN\bk010302Controller@show');
 
-Route::get('/main/perencanaan/penanganan/lokakarya_perencanaan', 'MAIN\bk010303Controller@index');
-Route::get('/main/perencanaan/penanganan/lokakarya_perencanaan/select', 'MAIN\bk010303Controller@select');
-Route::post('/main/perencanaan/penanganan/lokakarya_perencanaan', 'MAIN\bk010303Controller@post');
-Route::get('/main/perencanaan/penanganan/lokakarya_perencanaan/create', 'MAIN\bk010303Controller@create');
-Route::post('/main/perencanaan/penanganan/lokakarya_perencanaan/create', 'MAIN\bk010303Controller@post_create');
-Route::get('/main/perencanaan/penanganan/lokakarya_perencanaan/delete', 'MAIN\bk010303Controller@delete');
-Route::get('/main/perencanaan/penanganan/lokakarya_perencanaan/show', 'MAIN\bk010303Controller@show');
+// Route::get('/main/perencanaan/penanganan/lokakarya_perencanaan', 'MAIN\bk010303Controller@index');
+// Route::get('/main/perencanaan/penanganan/lokakarya_perencanaan/select', 'MAIN\bk010303Controller@select');
+// Route::post('/main/perencanaan/penanganan/lokakarya_perencanaan', 'MAIN\bk010303Controller@post');
+// Route::get('/main/perencanaan/penanganan/lokakarya_perencanaan/create', 'MAIN\bk010303Controller@create');
+// Route::post('/main/perencanaan/penanganan/lokakarya_perencanaan/create', 'MAIN\bk010303Controller@post_create');
+// Route::get('/main/perencanaan/penanganan/lokakarya_perencanaan/delete', 'MAIN\bk010303Controller@delete');
+// Route::get('/main/perencanaan/penanganan/lokakarya_perencanaan/show', 'MAIN\bk010303Controller@show');
 
-Route::get('/main/perencanaan/penanganan/konsultasi_perencanaan', 'MAIN\bk010304Controller@index');
-Route::get('/main/perencanaan/penanganan/konsultasi_perencanaan/select', 'MAIN\bk010304Controller@select');
-Route::get('/main/perencanaan/penanganan/konsultasi_perencanaan/select', 'MAIN\bk010304Controller@select');
-Route::post('/main/perencanaan/penanganan/konsultasi_perencanaan', 'MAIN\bk010304Controller@post');
-Route::get('/main/perencanaan/penanganan/konsultasi_perencanaan/create', 'MAIN\bk010304Controller@create');
-Route::post('/main/perencanaan/penanganan/konsultasi_perencanaan/create', 'MAIN\bk010304Controller@post_create');
-Route::get('/main/perencanaan/penanganan/konsultasi_perencanaan/delete', 'MAIN\bk010304Controller@delete');
-Route::get('/main/perencanaan/penanganan/konsultasi_perencanaan/show', 'MAIN\bk010304Controller@show');
+// Route::get('/main/perencanaan/penanganan/konsultasi_perencanaan', 'MAIN\bk010304Controller@index');
+// Route::get('/main/perencanaan/penanganan/konsultasi_perencanaan/select', 'MAIN\bk010304Controller@select');
+// Route::get('/main/perencanaan/penanganan/konsultasi_perencanaan/select', 'MAIN\bk010304Controller@select');
+// Route::post('/main/perencanaan/penanganan/konsultasi_perencanaan', 'MAIN\bk010304Controller@post');
+// Route::get('/main/perencanaan/penanganan/konsultasi_perencanaan/create', 'MAIN\bk010304Controller@create');
+// Route::post('/main/perencanaan/penanganan/konsultasi_perencanaan/create', 'MAIN\bk010304Controller@post_create');
+// Route::get('/main/perencanaan/penanganan/konsultasi_perencanaan/delete', 'MAIN\bk010304Controller@delete');
+// Route::get('/main/perencanaan/penanganan/konsultasi_perencanaan/show', 'MAIN\bk010304Controller@show');
+
+Route::get('/main/perencanaan/penyusunan', 'MAIN\bk010320Controller@index');
+Route::get('/main/perencanaan/penyusunan/select', 'MAIN\bk010320Controller@select');
+Route::post('/main/perencanaan/penyusunan', 'MAIN\bk010320Controller@post');
+Route::get('/main/perencanaan/penyusunan/create', 'MAIN\bk010320Controller@create');
+Route::post('/main/perencanaan/penyusunan/create', 'MAIN\bk010320Controller@post_create');
+Route::get('/main/perencanaan/penyusunan/delete', 'MAIN\bk010320Controller@delete');
+Route::get('/main/perencanaan/penyusunan/show', 'MAIN\bk010320Controller@show');
 
 Route::get('/main/perencanaan/penanganan/lokasi_profile', 'MAIN\bk010305Controller@index');
 Route::get('/main/perencanaan/penanganan/lokasi_profile/select', 'MAIN\bk010305Controller@select');
