@@ -40,7 +40,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                        <form id="form-validation" enctype="multipart/form-data" class="form-horizontal form-bordered">
                             <div class="form-group striped-col">
                                 <div class="control-label" style="text-align: center;"><label style="text-decoration: underline; font-weight: bold;">Data Forum</label></div>
                             </div>
@@ -50,8 +50,8 @@
                                 <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
                                     <select id="jns-forum-input" name="jns-forum-input" class="form-control select2" size="1" required>
                                         <option value>Please Select</option>
-                                        <option value="1" {!! $jns_forum=='1' ? 'selected':'' !!}>BKM/LKM Tingkat Kota</option>
-                                        <option value="2" {!! $jns_forum=='2' ? 'selected':'' !!}>Kolaborasi Tingkat Kota</option>
+                                        <option value="1" {!! $jns_forum=='1' ? 'selected':'' !!}>BKM/LKM Tingkat Kecamatan</option>
+                                        <option value="2" {!! $jns_forum=='2' ? 'selected':'' !!}>Kolaborasi Tingkat Kecamatan</option>
                                     </select>
                                 </div>
                             </div>
@@ -101,19 +101,19 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Laki-laki</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" data-bv-callback="true" data-bv-callback-message="Jumlah peserta melebihi dari peserta BKM/Forum Kolaborasi yang dipilih." data-bv-callback-callback="laki">
+                                    <input type="number" id="q-laki-input" name="q-laki-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_p}}" min="0" data-bv-callback="true" data-bv-callback-message="Jumlah peserta melebihi dari peserta BKM/Forum Kolaborasi yang dipilih." data-bv-callback-callback="laki">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Perempuan</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" data-bv-callback="true" data-bv-callback-message="Jumlah peserta melebihi dari peserta BKM/Forum Kolaborasi yang dipilih." data-bv-callback-callback="perempuan">
+                                    <input type="number" id="q-perempuan-input" name="q-perempuan-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_w}}" min="0" data-bv-callback="true" data-bv-callback-message="Jumlah peserta melebihi dari peserta BKM/Forum Kolaborasi yang dipilih." data-bv-callback-callback="perempuan">
                                 </div>
                             </div>
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label" for="kode">Anggota Pemda</label>
                                 <div class="col-sm-6">
-                                    <input type="number" id="q-pemda-input" name="q-pemda-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_pemda}}" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan" data-bv-callback-callback="check">
+                                    <input type="number" id="q-pemda-input" name="q-pemda-input" class="form-control" placeholder="Jumlah" value="{{$q_peserta_pemda}}" min="0">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -311,7 +311,7 @@
         $('#tgl-kegiatan-input')
             .on('changeDate show', function(e) {
                 // Revalidate the date when user change it
-                $('#form').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
+                $('#form-validation').bootstrapValidator('revalidateField', 'tgl-kegiatan-input');
                 $("#submit").prop('disabled', false);
         });
 

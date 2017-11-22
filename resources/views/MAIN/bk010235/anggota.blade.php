@@ -8,8 +8,6 @@
 <link href="{{asset('vendors/selectize/css/selectize.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectric/css/selectric.css')}}" rel="stylesheet" type="text/css">
 <link href="{{asset('vendors/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/pnotify/css/pnotify.buttons.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/pnotify/css/pnotify.css')}}" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -20,6 +18,8 @@
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/scroller.bootstrap.css')}}">
 <link href="{{asset('vendors/hover/css/hover-min.css')}}" rel="stylesheet">
 <link href="{{asset('css/buttons_sass.css')}}" rel="stylesheet">
+
+<link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -63,7 +63,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Jenis Kelamin</label>
                                 <div class="col-sm-6">
-                                    <select id="jenis_kelamin" name="jenis_kelamin" class="form-control" size="1">
+                                    <select id="jenis_kelamin" name="jenis_kelamin" class="form-control select2" size="1" data-bv-callback="true" data-bv-callback-message="Jumlah peserta pemilu BKM terpilih dengan jenis kelamin yang dipiilih tidak boleh melebihi jumlah yang ada." data-bv-callback-callback="gender">
                                         <option value>Please Select</option>
                                         <option value="L" {!! $jenis_kelamin=='L'?'selected':'' !!}>Laki-laki</option>
                                         <option value="P" {!! $jenis_kelamin=='P'?'selected':'' !!}>Perempuan</option>
@@ -73,8 +73,8 @@
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Status Sosial</label>
                                 <div class="col-sm-6">
-                                    <select id="status_sosial" name="status_sosial" class="form-control" size="1">
-                                        <option value {!! $status_sosial==null?'selected':'' !!}>Please Select</option>
+                                    <select id="status_sosial" name="status_sosial" class="form-control select2" size="1" data-bv-callback="true" data-bv-callback-message="Jumlah peserta pemilu BKM terpilih MBR/Miskin tidak boleh melebihi jumlah yang ada." data-bv-callback-callback="mbr">
+                                        <option value>Please Select</option>
                                         <option value="0" {!! $status_sosial=='0'?'selected':'' !!}>Miskin dan Rentan</option>
                                         <option value="1" {!! $status_sosial=='1'?'selected':'' !!}>Non Miskin</option>
                                     </select>
@@ -114,6 +114,7 @@
                                     <input type="number" id="jml_dukungan" name="jml_dukungan" class="form-control" maxlength="6" required min="0" placeholder="Jumlah Pendukung" value="{{$jml_dukungan}}">
                                 </div>
                             </div>
+                            @if($kode_anggota!=null)
                             <div class="form-group striped-col">
                                 <label class="col-sm-3 control-label">Status</label>
                                 <div class="col-sm-6">
@@ -124,9 +125,10 @@
                                     </select>
                                 </div>
                             </div>
+                            @endif
                             <div class="form-group form-actions">
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <a href="/main/persiapan/kelurahan/pemilu_bkm/data/create?kode={{$kode_bkm}}" type="button" class="btn btn-effect-ripple btn-danger">
+                                    <a href="/main/persiapan/kelurahan/pemilu_bkm/data/create?kode={{$kode}}" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
@@ -146,6 +148,95 @@
 </div>
 @stop
 {{-- local scripts --}} @section('footer_scripts')
+
+<script>
+    function gender(value, validator) {
+        var pemilu_bkm = {!! json_encode($pemilu_bkm) !!};
+        var anggota_pemilu_bkm_p = {!! json_encode($anggota_pemilu_bkm_p) !!};
+        var anggota_pemilu_bkm_w = {!! json_encode($anggota_pemilu_bkm_w) !!};
+
+        var res = true;
+        var jenis_kelamin = $('#jenis_kelamin').val();
+        if(jenis_kelamin=="P"){
+            if(pemilu_bkm[0].q_terpilih_w==anggota_pemilu_bkm_w[0].cnt){
+                res=false;
+            }
+        }else if(jenis_kelamin=="L"){
+            if(pemilu_bkm[0].q_terpilih_p==anggota_pemilu_bkm_p[0].cnt){
+                res=false;
+            }
+        }
+        
+        return res;
+    }; 
+    function mbr(value, validator) {
+        var pemilu_bkm = {!! json_encode($pemilu_bkm) !!};
+        var anggota_pemilu_bkm_mbr = {!! json_encode($anggota_pemilu_bkm_mbr) !!};
+
+        var res = true;
+        var status_sosial = parseInt($('#status_sosial').val());
+        if(status_sosial==0){
+            if(pemilu_bkm[0].q_terpilih_mbr==anggota_pemilu_bkm_mbr[0].cnt){
+                res=false;
+            }
+        }
+        
+        return res;
+    }; 
+      $(document).ready(function () {
+        var kode = $('#kode').val();
+
+        $("#select-kode-pendidikan-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+        $("#select-kode-pekerjaan-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+        $("#jenis_kelamin").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+        $("#status_sosial").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
+
+        $('#form').bootstrapValidator().on('success.form.bv', function(e) {
+            $('#form').on('submit', function (e) {
+                e.preventDefault();
+                var form_data = new FormData(this);
+              $.ajax({
+                type: 'post',
+                processData: false,
+                contentType: false,
+                "url": "/main/persiapan/kelurahan/pemilu_bkm/data/anggota/create",
+                data: form_data,
+                beforeSend: function (){
+                    $("#submit").prop('disabled', true);
+                },
+                success: function () {
+
+                // alert('From Submitted.');
+                window.location.href = "/main/persiapan/kelurahan/pemilu_bkm/data/create?kode="+kode;
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                  alert(xhr.status);
+                  alert(thrownError);
+                  $("#submit").prop('disabled', false);
+                }
+              });
+            });
+        }).on('error.form.bv', function(e) {
+            $("#submit").prop('disabled', false);
+        });
+      });
+</script>
 <script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
@@ -154,9 +245,6 @@
 <script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
-
-<script type="text/javascript" src="{{asset('vendors/pnotify/js/pnotify.js')}}"></script>
-<script src="{{asset('js/custom_js/notifications.js')}}"></script>
 
 <script type="text/javascript" src="{{asset('vendors/datatables/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.html5.js')}}"></script>
@@ -171,46 +259,6 @@
 <script type="text/javascript" src="{{asset('vendors/datatables/js/buttons.print.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendors/datatables/js/dataTables.scroller.js')}}"></script>
 <script src="{{asset('js/custom_js/alert.js')}}" type="text/javascript"></script>
-<script>
-      $(document).ready(function () {
-        $('.ui-pnotify').remove();
-        var kode = $('#kode').val();
 
-        $("#select-kode-pendidikan-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width: "100%"
-        });
-        $("#select-kode-pekerjaan-input").select2({
-            theme: "bootstrap",
-            placeholder: "Please Select",
-            width: "100%"
-        });
-
-        $('#form').on('submit', function (e) {
-            e.preventDefault();
-            var form_data = new FormData(this);
-          $.ajax({
-            type: 'post',
-            processData: false,
-            contentType: false,
-            "url": "/main/persiapan/kelurahan/pemilu_bkm/data/anggota/create",
-            data: form_data,
-            beforeSend: function (){
-                $("#submit").prop('disabled', true);
-            },
-            success: function () {
-
-            // alert('From Submitted.');
-            window.location.href = "/main/persiapan/kelurahan/pemilu_bkm/data/create?kode="+kode;
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-              alert(xhr.status);
-              alert(thrownError);
-              $("#submit").prop('disabled', false);
-            }
-          });
-        });
-      });
-</script>
+<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
 @stop
