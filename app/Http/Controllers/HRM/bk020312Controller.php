@@ -28,7 +28,7 @@ class bk020312Controller extends Controller
     public function index()
     {
 		$user = Auth::user();
-        $akses= $user->menu()->where('kode_apps', 2)->get();
+        /*$akses= $user->menu()->where('kode_apps', 2)->get();
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
@@ -37,7 +37,7 @@ class bk020312Controller extends Controller
 			}
 		}else{
 			return Redirect::to('/');
-		}
+		}*/
 		$data['username'] = $user->name;
 		$data['user']=$user;
 		return view('HRM/bk020312/index',$data);
@@ -66,7 +66,7 @@ class bk020312Controller extends Controller
 			'no_hp2' => $request->input('no_hp2-input'),
 			'uri_img_profile' => $url3,
 			'updated_time' => date('Y-m-d H:i:s'),
-			'updated_by' => Auth::user()->id
+			'updated_by' => $user->id
 			]);
 		if($upload3 == true){
 			$file3->move(public_path('/uploads/profil'), $user->id."_".$file3->getClientOriginalName());

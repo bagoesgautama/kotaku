@@ -27,24 +27,20 @@ class bk020301Controller extends Controller
     public function index()
     {
         $user = Auth::user();
-        $akses= $user->menu()->where('kode_apps', 2)->get();
+		$akses= $user->menu()->where('kode_apps', 2)->get();
 		if(count($akses) > 0){
 			foreach ($akses as $item) {
 				$data['menu'][$item->kode_menu] =  'a' ;
 				if($item->kode_menu==230)
 					$data['detil'][$item->kode_menu_detil]='a';
 			}
-			if(!empty($data['detil'])){
-			    $data['username'] = $user->name;
-				$this->log_aktivitas('View', 729);
-				return view('HRM/bk020301/index',$data);
-			}
-			else {
-				return Redirect::to('/');
-			}
-		}else{
+		}/*else{
 			return Redirect::to('/');
-		}
+		}*/
+		$data['username'] = $user->name;
+		$this->log_aktivitas('View', 729);
+		return view('HRM/bk020301/index',$data);
+        $akses= $user->menu()->where('kode_apps', 2)->get();
     }
 
 	public function Post(Request $request)
@@ -92,14 +88,14 @@ class bk020301Controller extends Controller
 					$nestedData['tgl_pesan_masuk'] = $post->tgl_pesan_masuk;
 				}
 				//$nestedData['status'] = $post->status;
-				$user = Auth::user();
+				/*$user = Auth::user();
 		        $akses= $user->menu()->where('kode_apps', 2)->get();
 				if(count($akses) > 0){
 					foreach ($akses as $item) {
 						if($item->kode_menu==230)
 							$detil[$item->kode_menu_detil]='a';
 					}
-				}
+				}*/
 
 				$option = '';
 				//if(!empty($detil['535'])){

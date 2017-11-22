@@ -44,117 +44,87 @@
 		</ul>
     </li>
 	@endif
-	@if( ! empty($menu['198']))
 	<li {!! (Request::is( 'hrm/profil/*')? 'class="active"': "") !!}>
         <a href="javascript:void(0)">
             <span class="mm-text ">Profil Saya</span>
 			<span class="fa arrow"></span>
         </a>
 		<ul class="sub-menu form-submenu">
-			@if( ! empty($menu['199']))
 			<li {!! (Request::is( 'hrm/profil/user*')? 'class="active"': "") !!}>
 				<a href="/hrm/profil/user">
 					<span class="mm-text ">Data diri</span>
 				</a>
 			</li>
-			@endif
-			@if( ! empty($menu['200']))
 			<li {!! (Request::is( 'hrm/profil/pendidikan*')? 'class="active"': "") !!}>
 				<a href="/hrm/profil/pendidikan">
 					<span class="mm-text ">Data Pendidikan</span>
 				</a>
 			</li>
-			@endif
-			@if( ! empty($menu['201']))
 			<li {!! (Request::is( 'hrm/profil/pelatihan*')? 'class="active"': "") !!}>
 				<a href="/hrm/profil/pelatihan">
 					<span class="mm-text ">Data Pelatihan</span>
 				</a>
 			</li>
-			@endif
-			@if( ! empty($menu['202']))
 			<li {!! (Request::is( 'hrm/profil/penghargaan*')? 'class="active"': "") !!}>
 				<a href="/hrm/profil/penghargaan">
 					<span class="mm-text ">Data Piagam Penghargaan</span>
 				</a>
 			</li>
-			@endif
-			@if( ! empty($menu['204']))
 			<li {!! (Request::is( 'hrm/profil/password*')? 'class="active"': "") !!}>
 				<a href="/hrm/profil/password">
 					<span class="mm-text ">Melihat Track Record</span>
 				</a>
 			</li>
-			@endif
-			@if( ! empty($menu['205']))
 			<li {!! (Request::is( 'hrm/profil/password*')? 'class="active"': "") !!}>
 				<a href="/hrm/profil/password">
 					<span class="mm-text ">Melihat Hasil Evaluasi Kinerja</span>
 				</a>
 			</li>
-			@endif
-			@if( ! empty($menu['206']))
 			<li {!! (Request::is( 'hrm/profil/password*')? 'class="active"': "") !!}>
 				<a href="/hrm/profil/password">
 					<span class="mm-text ">Update Password</span>
 				</a>
 			</li>
-			@endif
-			@if( ! empty($menu['230']))
 			<li {!! (Request::is( 'hrm/profil/pesan*')? 'class="active"': "") !!}>
 				<a href="/hrm/profil/pesan">
 					<span class="mm-text ">Pesan</span>
 				</a>
 			</li>
-			@endif
 		</ul>
 	</li>
-	@endif
-	@if( ! empty($menu['207']))
 	<li {!! (Request::is( 'hrm/management_diri/*')? 'class="active"': "") !!}>
 		<a href="javascript:void(0)">
 			<span class="mm-text ">Management Diri Saya</span>
 			<span class="fa arrow"></span>
 		</a>
 		<ul class="sub-menu form-submenu">
-			@if( ! empty($menu['208']))
 			<li {!! (Request::is( 'hrm/management_diri/aktivasi*')? 'class="active"': "") !!}>
 				<a href="/hrm/management_diri/aktivasi">
 					<span class="mm-text ">Aktivasi Diri</span>
 				</a>
 			</li>
-			@endif
-			@if( ! empty($menu['209']))
 			<li {!! (Request::is( 'hrm/management_diri/mutasi*')? 'class="active"': "") !!}>
 				<a href="/hrm/management_diri/mutasi">
 					<span class="mm-text ">Mutasi Diri</span>
 				</a>
 			</li>
-			@endif
-			@if( ! empty($menu['210']))
 			<li {!! (Request::is( 'hrm/management_diri/demosi*')? 'class="active"': "") !!}>
 				<a href="/hrm/management_diri/demosi">
 					<span class="mm-text ">Demosi Diri</span>
 				</a>
 			</li>
-			@endif
-			@if( ! empty($menu['229']))
 			<li {!! (Request::is( 'hrm/management_diri/promosi*')? 'class="active"': "") !!}>
 				<a href="/hrm/management_diri/promosi">
 					<span class="mm-text ">Promosi Diri</span>
 				</a>
 			</li>
-			@endif
-			@if( ! empty($menu['211']))
 			<li {!! (Request::is( 'hrm/management_diri/evaluasi*')? 'class="active"': "") !!}>
 				<a href="/hrm/management_diri/evaluasi">
 					<span class="mm-text ">Evaluasi Kinerja</span>
 				</a>
 			</li>
-			@endif
 		</ul>
 	</li>
-	@endif
 	@if( ! empty($menu['212']))
 	<li {!! (Request::is( 'hrm/management_personil/*')? 'class="active"': "") !!}>
 		<a href="javascript:void(0)">
