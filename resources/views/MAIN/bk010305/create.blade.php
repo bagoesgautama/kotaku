@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Lokasi & Profile Permukiman Form @stop {{-- local styles --}} @section('header_styles')
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Perencanaan Penanganan Permukiman Kota @stop {{-- local styles --}} @section('header_styles')
 <link href="{{asset('vendors/iCheck/css/all.css')}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{asset('css/form_layouts.css')}}">
 <link href="{{asset('vendors/bootstrap-datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
@@ -11,8 +11,6 @@
 <link href="{{asset('vendors/bootstrap-fileinput/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 <link href="{{asset('vendors/bootstrapvalidator/css/bootstrapValidator.min.css')}}" rel="stylesheet"/>
 <link href="{{asset('css/custom_css/wizard.css')}}" rel="stylesheet" type="text/css"/>
-<link href="{{asset('vendors/pnotify/css/pnotify.buttons.css')}}" rel="stylesheet" type="text/css">
-<link href="{{asset('vendors/pnotify/css/pnotify.css')}}" rel="stylesheet" type="text/css">
 @stop {{-- Page Header--}} @section('page-header')
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -26,7 +24,7 @@
             </li>
             <li class="next">
                 <a href="/main/perencanaan/penanganan/lokasi_profile">
-                    Perencanaan / Penanganan Pemukiman Kota / Lokasi & Profile Permukiman, Produk Perencanaan, Profile Kumuh
+                    Perencanaan / Proses Penyusunan Perencanaan Tingkat Kota / Perencanaan Penanganan Permukiman Kota
                 </a>
             </li>
             <li class="next">
@@ -54,7 +52,7 @@
                     </li>
                     <li>
                         <a href="#tab3" data-toggle="tab">
-                                        Produk Rencana Penanganan Rusuh
+                                        Produk Rencana Penanganan Kumuh
                                     </a>
                     </li>
                     <li>
@@ -74,13 +72,13 @@
                     </li>
                     <li>
                         <a href="#tab7" data-toggle="tab">
-                                        Tambahan Data
+                                        Dokumen
                                     </a>
                     </li>
                 </ul>
             </div>
             <div class="panel-body">
-                <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                <form id="form" enctype="multipart/form-data" class="form-horizontal form-bordered" data-bv-excluded="disabled">
                 <div class="tab-content">
                     <div id="tab1" class="tab-pane fade active in">
                         <div class="panel " >
@@ -90,20 +88,16 @@
                                         <label class="col-sm-3 control-label" for="kode">Tahun</label>
                                         <div class="col-sm-6">
                                         <input type="hidden" id="kode" name="kode" value="{{ $kode }}">
-                                            <input type="number" id="tahun-input" name="tahun-input" placeholder="Tahun" value="{{$tahun}}" required maxlength="4" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Propinsi</label>
-                                        <div class="col-sm-6">
-                                            <select id="select-kode-prop-input" name="kode-prop-input" class="form-control select2" size="1" required>
+                                            <select id="tahun-input" name="tahun-input" class="form-control select2" size="1" required data-bv-callback="true" data-bv-callback-message="Tahun melebihi current year." data-bv-callback-callback="tahun">
                                                 <option value>Please select</option>
-                                                @foreach ($kode_prop_list as $kpl)
-                                                    <option value="{{$kpl->kode}}" {!! $kode_prop==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
+                                                @foreach($tahun_list as $list)
+                                                    <option value="{{ $list->tahun }}" {!! $list->tahun==$tahun?"selected":"" !!}>{{ $list->tahun }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
+                                    
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Kota</label>
                                         <div class="col-sm-6">
@@ -117,19 +111,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label">Korkot</label>
-                                        <div class="col-sm-6">
-                                            <select id="select-kode-korkot-input" name="kode-korkot-input" class="form-control select2" size="1" required>
-                                                <option value>Please select</option>
-                                                @if ($kode_korkot_list!=null)
-                                                @foreach ($kode_korkot_list as $kkl)
-                                                    <option value="{{$kkl->kode}}" {!! $kode_korkot==$kkl->kode ? 'selected':'' !!}>{{$kkl->nama}}</option>
-                                                @endforeach
-                                                @endif
-                                            </select>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -145,21 +127,24 @@
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Luas Kumuh sesuai SK (HA)</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Luas Kumuh sesuai SK (Ha)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="lpp-l-kmh-sk" name="lpp-l-kmh-sk" class="form-control" value="{{$lpp_l_kmh_sk}}" maxlength="9">
+                                            <input type="number" id="lpp-l-kmh-sk" name="lpp-l-kmh-sk" class="form-control" value="{{$lpp_l_kmh_sk}}" maxlength="9" step="0.01">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Luas Kumuh sesuai Hasil Verifikasi (HA)</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Luas Kumuh sesuai Hasil Verifikasi (Ha)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="lpp-l-kmh-ver" name="lpp-l-kmh-ver" class="form-control" value="{{$lpp_l_kmh_ver}}" maxlength="9">
+                                            <input type="number" id="lpp-l-kmh-ver" name="lpp-l-kmh-ver" class="form-control" value="{{$lpp_l_kmh_ver}}" maxlength="9" step="0.01">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Profile Permukiman Kota (*)</label>
                                         <div class="col-sm-6">
-                                            <input type="text" id="prof-pmkm-kota" name="prof-pmkm-kota" class="form-control" value="{{$prof_pmkm_kota}}" maxlength="100">
+                                            <select id="prof-pmkm-kota" name="prof-pmkm-kota" class="form-control" size="1">
+                                                <option value="0" {!! $prof_pmkm_kota==0 ? 'selected':'' !!}>Tidak</option>
+                                                <option value="1" {!! $prof_pmkm_kota==1 ? 'selected':'' !!}>Ya</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -173,7 +158,12 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Status Dokumen RP2KP-KP</label>
                                         <div class="col-sm-6">
-                                            <input type="text" id="rp2kp-stat-dok" name="rp2kp-stat-dok" class="form-control" value="{{$rp2kp_stat_dok}}" maxlength="50">
+                                            <select id="rp2kp-stat-dok" name="rp2kp-stat-dok" class="form-control" size="1">
+                                                <option value="0" {!! $rp2kp_stat_dok=='0' ? 'selected':'' !!}>Proses Awal</option>
+                                                <option value="1" {!! $rp2kp_stat_dok=='1' ? 'selected':'' !!}>Review</option>
+                                                <option value="2" {!! $rp2kp_stat_dok=='2' ? 'selected':'' !!}>Final</option>
+                                                <option value="3" {!! $rp2kp_stat_dok=='3' ? 'selected':'' !!}>Disahkan</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -183,13 +173,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Jumlah RP2KP-KP diKelurahan Kumuh</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Jumlah RPLP diKelurahan Kumuh</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="rp2kp-q-dkel-kmh" name="rp2kp-q-dkel-kmh" class="form-control" value="{{$rp2kp_q_dkel_kmh}}" maxlength="5">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
-                                        <label class="col-sm-3 control-label" for="example-text-input1">Jumlah RP2KP-KP diKelurahan Non Kumuh</label>
+                                        <label class="col-sm-3 control-label" for="example-text-input1">Jumlah RPLP diKelurahan Non Kumuh</label>
                                         <div class="col-sm-6">
                                             <input type="number" id="rp2kp-q-dkel-non-kmh" name="rp2kp-q-dkel-non-kmh" class="form-control" value="{{$rp2kp_q_dkel_non_kmh}}" maxlength="5">
                                         </div>
@@ -220,7 +210,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Luas RT Kumuh pada Tahun Berjalan (Ha)</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pkkl-l-rt-kmh-thn-curr" name="pkkl-l-rt-kmh-thn-curr" class="form-control" value="{{$pkkl_l_rt_kmh_thn_curr}}" maxlength="9">
+                                            <input type="number" id="pkkl-l-rt-kmh-thn-curr" name="pkkl-l-rt-kmh-thn-curr" class="form-control" value="{{$pkkl_l_rt_kmh_thn_curr}}" maxlength="9" step="0.01">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -241,7 +231,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Jumlah Penduduk MBR</label>
                                         <div class="col-sm-6">
-                                            <input type="number" id="pkkp-q-pddk-mbr" name="pkkp-q-pddk-mbr" class="form-control" value="{{$pkkp_q_pddk_mbr}}" maxlength="11">
+                                            <input type="number" id="pkkp-q-pddk-mbr" name="pkkp-q-pddk-mbr" class="form-control" value="{{$pkkp_q_pddk_mbr}}" maxlength="11" data-bv-callback="true" data-bv-callback-message="Jumlah melebihi total anggota laki-laki & perempuan." data-bv-callback-callback="check">
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
@@ -267,7 +257,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Non Kumuh (*)</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="tk-non-kmh-l-wil" name="tk-non-kmh-l-wil" class="form-control" value="{{$tk_non_kmh_l_wil}}" maxlength="9" placeholder="Luas (Ha)">
+                                            <input type="number" id="tk-non-kmh-l-wil" name="tk-non-kmh-l-wil" class="form-control" value="{{$tk_non_kmh_l_wil}}" maxlength="9" placeholder="Luas (Ha)" step="0.01">
                                         </div>
                                         <div class="col-sm-3">
                                             <input type="number" id="tk-non-kmh-q-rt" name="tk-non-kmh-q-rt" class="form-control" value="{{$tk_non_kmh_q_rt}}" maxlength="9" placeholder="Jumlah RT">
@@ -276,7 +266,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Berat (*)</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="tk-berat-l-wil" name="tk-berat-l-wil" class="form-control" value="{{$tk_berat_l_wil}}" maxlength="9" placeholder="Luas (Ha)">
+                                            <input type="number" id="tk-berat-l-wil" name="tk-berat-l-wil" class="form-control" value="{{$tk_berat_l_wil}}" maxlength="9" placeholder="Luas (Ha)" step="0.01">
                                         </div>
                                         <div class="col-sm-3">
                                             <input type="number" id="tk-berat-q-rt" name="tk-berat-q-rt" class="form-control" value="{{$tk_berat_q_rt}}" maxlength="9" placeholder="Jumlah RT">
@@ -285,7 +275,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Sedang (*)</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="tk-sedang-l-wil" name="tk-sedang-l-wil" class="form-control" value="{{$tk_sedang_l_wil}}" maxlength="9" placeholder="Luas (Ha)">
+                                            <input type="number" id="tk-sedang-l-wil" name="tk-sedang-l-wil" class="form-control" value="{{$tk_sedang_l_wil}}" maxlength="9" placeholder="Luas (Ha)" step="0.01">
                                         </div>
                                         <div class="col-sm-3">
                                             <input type="number" id="tk-sedang-q-rt" name="tk-sedang-q-rt" class="form-control" value="{{$tk_sedang_q_rt}}" maxlength="9" placeholder="Jumlah RT">
@@ -294,7 +284,7 @@
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label" for="example-text-input1">Ringan (*)</label>
                                         <div class="col-sm-3">
-                                            <input type="number" id="tk-ringan-l-wil" name="tk-ringan-l-wil" class="form-control" value="{{$tk_ringan_l_wil}}" maxlength="9" placeholder="Luas (Ha)">
+                                            <input type="number" id="tk-ringan-l-wil" name="tk-ringan-l-wil" class="form-control" value="{{$tk_ringan_l_wil}}" maxlength="9" placeholder="Luas (Ha)" step="0.01">
                                         </div>
                                         <div class="col-sm-3">
                                             <input type="number" id="tk-ringan-q-rt" name="tk-ringan-q-rt" class="form-control" value="{{$tk_ringan_q_rt}}" maxlength="9" placeholder="Jumlah RT">
@@ -401,19 +391,23 @@
                             <div class="panel-body border">
                                 <div class="row">
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">File Dokumen</label>
+                                        <label class="col-sm-3 control-label">Format Input Manual SIM</label>
                                         <div class="col-sm-6">
-                                            <input id="file-dokumen-input" type="file" class="file" data-show-preview="false" name="file-dokumen-input">
+                                            <input id="uri_img_document-input" type="file" class="file" accept="image/*" name="uri_img_document-input">
                                             <br>
-                                            <input type="text" class="btn btn-warning btn-modify" id="uploaded-file-dokumen" name="uploaded-file-dokumen" value="{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'' !!} readonly>
+                                            <img id="uri_img_document" alt="gallery" src="/uploads/perencanaan/penyusunan/lokasi_profile/{{$uri_img_document}}" {!! $uri_img_document==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                            <input type="hidden" id="uri_img_document-file" name="uri_img_document-file" value="{{$uri_img_document}}">
+                                            <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_document==null ? 'style="display:none"':'' !!} onclick="test('uri_img_document')">Delete</button>
                                         </div>
                                     </div>
                                     <div class="form-group striped-col">
                                         <label class="col-sm-3 control-label">File Absensi</label>
                                         <div class="col-sm-6">
-                                            <input id="file-absensi-input" type="file" class="file" data-show-preview="false" name="file-absensi-input">
+                                            <input id="uri_img_absensi-input" type="file" class="file" accept="image/*" name="uri_img_absensi-input">
                                             <br>
-                                            <input type="text" class="btn btn-warning btn-modify" id="uploaded-file-absensi" name="uploaded-file-absensi" value="{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} readonly>
+                                            <img id="uri_img_absensi" alt="gallery" src="/uploads/perencanaan/penyusunan/lokasi_profile/{{$uri_img_absensi}}" {!! $uri_img_absensi==null ? 'style="display:none"':'style="width:150px"' !!} >
+                                            <input type="hidden" id="uri_img_absensi-file" name="uri_img_absensi-file" value="{{$uri_img_absensi}}">
+                                            <button type="button" class="btn btn-effect-ripple btn-danger" {!! $uri_img_absensi==null ? 'style="display:none"':'' !!} onclick="test('uri_img_absensi')">Delete</button>
                                         </div>
                                     </div>
                                     <!-- <div class="form-group striped-col">
@@ -464,7 +458,7 @@
                             <a href="/main/perencanaan/penanganan/lokasi_profile" type="button" class="btn btn-effect-ripple btn-danger">
                                 Cancel
                             </a>
-                            @if ($detil_menu=='271' || $detil_menu=='272')
+                            @if ($detil_menu=='271' || $detil_menu=='270')
                             <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                 Submit
                             </button>
@@ -482,22 +476,38 @@
 </div>
 @stop
 {{-- local scripts --}} @section('footer_scripts')
-<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
-<script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
-
-<script src="{{asset('vendors/bootstrapwizard/js/jquery.bootstrap.wizard.js')}}" type="text/javascript"></script>
-<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/custom_js/form_wizards.js')}}" type="text/javascript"></script>
-
-<script type="text/javascript" src="{{asset('vendors/pnotify/js/pnotify.js')}}"></script>
-<script src="{{asset('js/custom_js/notifications.js')}}"></script>
 <script>
+    function check(value, validator) {
+        var p = parseInt($('#pkkp-q-pddk').val());
+        var w = parseInt($('#pkkp-q-pddk-w').val());
+
+        var mbr = parseInt($('#pkkp-q-pddk-mbr').val())|| 0;
+        var sum = p+w;
+        var res = true;
+        if(mbr>sum){
+            res=false;
+        }
+
+        return res;
+    };
+    function tahun(value, validator) {
+        var yearNow = (new Date()).getFullYear();
+        var thn = parseInt($('#tahun-input').val());
+        
+        var res = true;
+        if(thn>yearNow){
+            res=false;
+        }
+        return res;
+    };
+    function test(id){
+        console.log(id)
+        var elem = document.getElementById(id);
+        elem.parentNode.removeChild(elem);
+        var elem2 = $('#'+id+'-file');
+        elem2.removeAttr('value');
+        return false;
+    }
       $(document).ready(function () {
 		$("#file-dokumen-input").fileinput({
   	  		showUpload: false
@@ -505,29 +515,54 @@
   	  	$("#file-absensi-input").fileinput({
   	  		showUpload: false
   	  	});
-        $('#form').on('submit', function (e) {
-          e.preventDefault();
-          var form_data = new FormData(this);
-          $.ajax({
-            type: 'post',
-            processData: false,
-            contentType: false,
-            "url": "/main/perencanaan/penanganan/lokasi_profile/create",
-            data: form_data,
-            beforeSend: function (){
-                $("#submit").prop('disabled', true);
-            },
-            success: function () {
+        $("#uri_img_document-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
 
-            alert('From Submitted.');
-            window.location.href = "/main/perencanaan/penanganan/lokasi_profile";
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-              alert(xhr.status);
-              alert(thrownError);
-              $("#submit").prop('disabled', false);
-            }
-          });
+        $("#uri_img_absensi-input").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-success",
+            browseLabel: " Pick Image",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "Delete",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
+        $('#form').bootstrapValidator().on('success.form.bv', function(e) {
+            $('#form').on('submit', function (e) {
+              e.preventDefault();
+              var form_data = new FormData(this);
+              $.ajax({
+                type: 'post',
+                processData: false,
+                contentType: false,
+                "url": "/main/perencanaan/penanganan/lokasi_profile/create",
+                data: form_data,
+                beforeSend: function (){
+                    $("#submit").prop('disabled', true);
+                },
+                success: function () {
+
+                alert('From Submitted.');
+                window.location.href = "/main/perencanaan/penanganan/lokasi_profile";
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                  alert(xhr.status);
+                  alert(thrownError);
+                  $("#submit").prop('disabled', false);
+                }
+              });
+            });
+        }).on('error.form.bv', function(e) {
+            $("#submit").prop('disabled', false);
         });
         $("#select-kode-kota-input").select2({
             theme: "bootstrap",
@@ -541,18 +576,11 @@
             theme: "bootstrap",
             placeholder: "Please Select"
         });
-        $('.ui-pnotify').remove();
-        document.addEventListener('invalid', (function () {
-          return function (e) {
-            e.preventDefault();
-            console.log(e)
-            new PNotify({
-                title: 'Pengisian Form Tidak Lengkap',
-                text: 'Field input '+e.target.id+' belum diisi.',
-                type: 'error'
-            });
-          };
-        })(), true);
+        $("#tahun-input").select2({
+            theme: "bootstrap",
+            placeholder: "Please Select",
+            width: "100%"
+        });
 
         function enforce_maxlength(event) {
             var t = event.target;
@@ -565,39 +593,40 @@
         var prop = $('#select-kode-prop-input');
         var kota = $('#select-kode-kota-input');
         var korkot = $('#select-kode-korkot-input');
+        var rplp_kmh = $('#rp2kp-q-dkel-kmh');
+        var rplp_non_kmh = $('#rp2kp-q-dkel-non-kmh');
         var prop_id,kota_id,korkot_id;
 
-        prop.change(function(){
-            prop_id=prop.val();
-            if(prop_id!=null){
-                kota.empty();
-                kota.append("<option value>Please select</option>");
-                $.ajax({
-                    type: 'get',
-                    "url": "/main/perencanaan/penanganan/lokasi_profile/select?prop="+prop_id,
-                    success: function (data) {
-                        data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
-                    }
-                });
-            }
-        });
+        // prop.change(function(){
+        //     prop_id=prop.val();
+        //     if(prop_id!=null){
+        //         kota.empty();
+        //         kota.append("<option value>Please select</option>");
+        //         $.ajax({
+        //             type: 'get',
+        //             "url": "/main/perencanaan/penanganan/lokasi_profile/select?prop="+prop_id,
+        //             success: function (data) {
+        //                 data=JSON.parse(data)
+        //                 for (var i=0;i<data.length;i++){
+        //                     kota.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
+        //                 }
+        //             }
+        //         });
+        //     }
+        // });
 
         kota.change(function(){
             kota_id=kota.val();
             if(kota_id!=null){
-                korkot.empty();
-                korkot.append("<option value>Please select</option>");
+                rplp_kmh.empty();
+                rplp_non_kmh.empty();
                 $.ajax({
                     type: 'get',
                     "url": "/main/perencanaan/penanganan/lokasi_profile/select?kota="+kota_id,
                     success: function (data) {
                         data=JSON.parse(data)
-                        for (var i=0;i<data.length;i++){
-                            korkot.append("<option value="+data[i].kode+" >"+data[i].nama+"</option>");
-                        }
+                        rplp_kmh.val(data[0].kmh);
+                        rplp_non_kmh.val(data[0].non_kmh);
                     }
                 });
             }
@@ -605,5 +634,18 @@
 
       });
 </script>
+<script src="{{asset('vendors/iCheck/js/icheck.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_layouts.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('vendors/bootstrap-multiselect/js/bootstrap-multiselect.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/select2/js/select2.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/selectize/js/standalone/selectize.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/selectric/js/jquery.selectric.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/custom_elements.js')}}" type="text/javascript"></script>
+
+<script src="{{asset('vendors/bootstrapwizard/js/jquery.bootstrap.wizard.js')}}" type="text/javascript"></script>
+<script src="{{asset('vendors/bootstrapvalidator/js/bootstrapValidator.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/custom_js/form_wizards.js')}}" type="text/javascript"></script>
+
 <script src="{{asset('vendors/bootstrap-fileinput/js/fileinput.min.js')}}" type="text/javascript"></script>
 @stop

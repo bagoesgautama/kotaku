@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Rencana Investasi Tahunan @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Rencana Investasi Tahunan @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -26,7 +26,7 @@
                 Perencanaan
             </li>
             <li class="next">
-                Penanganan Pemukiman Kota
+                Proses Penyusunan Perencanaan Tingkat Kota
             </li>
             <li class="next">
                RP2KP-KP/SIAP
@@ -54,18 +54,16 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="pokja" width="1500px">
+                    <table class="table table-striped" id="pokja">
                         <thead>
                             <tr>
                                 <th>Kode</th>
                                 <th>Tahun</th>
-                                <th>Skala Kegiatan</th>
-                                <th>SubKomponen Kegiatan</th>
-                                <th>Detail SubKomponen Kegiatan</th>
                                 <th>Kota</th>
                                 <th>Jenis Kegiatan</th>
+                                <th>SubKomponen Kegiatan</th>
+                                <th>Detail SubKomponen Kegiatan</th>
                                 <th>Lokasi Kegiatan</th>
-                                <th>Created Time</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -94,13 +92,11 @@
             "columns": [
                 { "data": "kode" , name:"kode"},
                 { "data": "tahun" , name:"tahun"},
-                { "data": "skala_kegiatan" , name:"skala_kegiatan"},
-                { "data": "id_subkomponen" , name:"id_subkomponen"},
-                { "data": "id_dtl_subkomponen" , name:"id_dtl_subkomponen"},
                 { "data": "kode_kota" , name:"kode_kota"},
                 { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
+                { "data": "id_subkomponen" , name:"id_subkomponen"},
+                { "data": "id_dtl_subkomponen" , name:"id_dtl_subkomponen"},
                 { "data": "lok_kegiatan" , name:"lok_kegiatan"},
-                { "data": "created_time" , name:"created_time"},
                 { "data": "option" , name:"option",orderable:false}
             ],
             "order": [[0,"desc"]]

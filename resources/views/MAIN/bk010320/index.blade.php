@@ -1,4 +1,4 @@
-@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Profile Kumuh & Rencana Penanganan 5 Tahun @stop {{-- local styles --}} @section('header_styles') 
+@extends('MAIN/default') {{-- Page title --}} @section('title') Main - Proses Penyusunan Perencanaan Tingkat Kota @stop {{-- local styles --}} @section('header_styles') 
 
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/dataTables.bootstrap.css')}}" />
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/datatables/css/buttons.bootstrap.css')}}" />
@@ -29,10 +29,7 @@
                 Proses Penyusunan Perencanaan Tingkat Kota
             </li>
             <li class="next">
-               RP2KP-KP/SIAP
-            </li>
-            <li class="next">
-                Profile Kumuh & Rencana Penanganan 5 Tahun
+                Proses Penyusunan Perencanaan Tingkat Kota
             </li>
         </ul>
     </div>
@@ -43,30 +40,27 @@
         <div class="panel filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                    <b>Profile Kumuh & Rencana Penanganan 5 Tahun</b>
+                    <b>Proses Penyusunan Perencanaan Tingkat Kota</b>
                 </div>
-                @if( ! empty($detil['274']))
+                @if( ! empty($detil['746']))
                 <div class="tools pull-right">
-                    <b>bk010306 index</b>
-                    <a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/penanganan/profile_rencana_5thn/create'}}">Create</a>
-                </div>
+                    <b>bk010320 index</b>
+					<a class="button button-glow button-rounded button-primary-flat hvr-float-shadow" href="{{'/main/perencanaan/penyusunan/create'}}">Create</a>
+				</div>
                 @endif
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped" id="pokja" width="1700px">
-                        <thead>
+					<table class="table table-striped" id="pokja">
+						<thead>
                             <tr>
                                 <th>Kode</th>
-                                <th>Tahun</th>
-                                <th>Kota</th>
-                                <th>Jumlah Kawasan Kumuh yang akan ditangani</th>
-                                <th>Luas Kawasan Kumuh yang akan ditangani (Ha)</th>
-                                <th>Jumlah Kelurahan Kumuh</th>
-                                <th>Jumlah RT Kumuh</th>
-                                <th>Luas Kumuh Berat (Ha)</th>
-                                <th>Luas Kumuh Sedang (Ha)</th>
-                                <th>Luas Kumuh Ringan (Ha)</th>
+                                <th>Jenis Kegiatan</th>
+                                <th>Tgl Kegiatan</th>
+                                <th>Lokasi Kegiatan</th>
+                                <th>Jml Peserta L</th>
+                                <th>Jml Peserta P</th>
+                                <th>Jml Peserta MBR</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
@@ -81,32 +75,29 @@
 
 <script>
     $(document).ready(function () {
-        var table = $('#pokja').DataTable({
-            // dom: 'Bflrtip',
-            
-            "processing": true,
+		var table = $('#pokja').DataTable({
+	        // dom: 'Bflrtip',
+	        
+			"processing": true,
             "serverSide": true,
             "ajax":{
-                     "url": "/main/perencanaan/penanganan/profile_rencana_5thn",
+                     "url": "/main/perencanaan/penyusunan",
                      "dataType": "json",
                      "type": "POST"
                    },
 
             "columns": [
-                { "data": "kode" , name:"kode"},
-                { "data": "tahun" , name:"tahun"},
-                { "data": "kode_kota" , name:"kode_kota"},
-                { "data": "rp5_q_kaw_kmh_manage" , name:"rp5_q_kaw_kmh_manage"},
-                { "data": "rp5_l_kaw_kmh_manage" , name:"rp5_l_kaw_kmh_manage"},
-                { "data": "rp5_q_kel_kmh" , name:"rp5_q_kel_kmh"},
-                { "data": "rp5_q_rt_kmh" , name:"rp5_q_rt_kmh"},
-                { "data": "tk_l_kmh_berat" , name:"tk_l_kmh_berat"},
-                { "data": "tk_l_kmh_sedang" , name:"tk_l_kmh_sedang"},
-                { "data": "tk_l_kmh_ringan" , name:"tk_l_kmh_ringan"},
+				{ "data": "kode" , name:"kode"},
+                { "data": "jenis_kegiatan" , name:"jenis_kegiatan"},
+                { "data": "tgl_kegiatan" , name:"tgl_kegiatan"},
+                { "data": "lok_kegiatan" , name:"lok_kegiatan"},
+                { "data": "q_peserta_p" , name:"q_peserta_p"},
+                { "data": "q_peserta_w" , name:"q_peserta_w"},
+                { "data": "q_peserta_mbr" , name:"q_peserta_mbr"},
                 { "data": "option" , name:"option",orderable:false}
             ],
             "order":[[0,"desc"]]
-        });
+	    });
         $('#pokja_filter input').unbind();
         $('#pokja_filter input').bind('keyup', function(e) {
         if(e.keyCode == 13) {
