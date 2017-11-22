@@ -153,9 +153,19 @@
 		}else if(p==0 && w==0){
 			res=false;
 		}
-
 		return res;
 	};
+
+    var p = $('#q-laki-input');
+    var w = $('#q-perempuan-input'); 
+
+    p.change(function(){
+        $('#q-bkm-input').val(0);
+    });
+    w.change(function(){
+        $('#q-bkm-input').val(0);
+    });
+
     function tahun(value, validator) {
         var yearNow = (new Date()).getFullYear();
         var thn = parseInt($('#tahun-input').val());
@@ -175,16 +185,6 @@
         }
         return res;
     };
-
-    var p = $('#q-laki-input');
-    var w = $('#q-perempuan-input'); 
-
-    p.change(function(){
-        $('#q-bkm-input').val(0);
-    });
-    w.change(function(){
-        $('#q-bkm-input').val(0);
-    });
 
     function test(id){
             console.log(id)
