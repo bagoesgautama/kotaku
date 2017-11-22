@@ -42,17 +42,17 @@
 							<input type="hidden" id="kode_prop_lama" name="kode_prop_lama" value="{{$kode_prop_lama}}">
 							<input type="hidden" id="kode_kota_lama" name="kode_kota_lama" value="{{$kode_kota_lama}}">
 							<input type="hidden" id="kode_kel_lama" name="kode_kel_lama" value="{{$kode_kel_lama}}">
-							<div class="form-group ">
-				                <label class="col-sm-3 control-label">Role Lama</label>
-				                <div class="col-sm-6">
-									<select id="kode_role_lama-input" name="kode_role_lama-input" class="form-control" size="1" required disabled="disable">
-										<option value>Please Select</option>
-										@foreach ($role as $kpl)
-				                            <option value="{{$kpl->kode}}" {!! $kode_role_lama==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>
-				                        @endforeach
-									</select>
-				                </div>
-				            </div>
+							{{--<div class="form-group ">--}}
+				                {{--<label class="col-sm-3 control-label">Role Lama</label>--}}
+				                {{--<div class="col-sm-6">--}}
+									{{--<select id="kode_role_lama-input" name="kode_role_lama-input" class="form-control" size="1" required disabled="disable">--}}
+										{{--<option value>Please Select</option>--}}
+										{{--@foreach ($role as $kpl)--}}
+				                            {{--<option value="{{$kpl->kode}}" {!! $kode_role_lama==$kpl->kode ? 'selected':'' !!}>{{$kpl->nama}}</option>--}}
+				                        {{--@endforeach--}}
+									{{--</select>--}}
+				                {{--</div>--}}
+				            {{--</div>--}}
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Role Baru</label>
 				                <div class="col-sm-6">
@@ -65,9 +65,9 @@
 				                </div>
 				            </div>
 							<div class="form-group ">
-                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Efektif</label>
+                                <label class="col-sm-3 control-label" for="example-text-input1">Tanggal Mutasi</label>
                                 <div class="col-sm-6">
-                                    <input class="form-control" id="tgl_efektif_role_baru-input" name="tgl_efektif_role_baru-input" placeholder="Tanggal Penghargaan" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_efektif_role_baru}}" required>
+                                    <input class="form-control" id="tgl_efektif_role_baru-input" name="tgl_efektif_role_baru-input" placeholder="Tanggal Mutasi" data-provide="datepicker" data-date-format="yyyy-mm-dd" value="{{$tgl_efektif_role_baru}}" required>
                                 </div>
                             </div>
 							<div class="form-group striped-col">
@@ -209,11 +209,11 @@
                                     <a href="/hrm/management_diri/mutasi" type="button" class="btn btn-effect-ripple btn-danger">
                                         Cancel
                                     </a>
-									@if( empty($divalidasi_oleh) && $kode_user==$id)
+									{{--@if( empty($divalidasi_oleh) && $kode_user==$id)--}}
                                     <button type="submit" id="submit" class="btn btn-effect-ripple btn-primary">
                                         Submit
                                     </button>
-									@endif
+									{{--@endif--}}
 									<button type="reset" class="btn btn-effect-ripple btn-default reset_btn2">
                                         Reset
                                     </button>
