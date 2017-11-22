@@ -52,12 +52,17 @@
 				                    <input type="text" id="bidang_studi-input" name="bidang_studi-input" class="form-control" value="{{$bidang_studi}}"/>
 				                </div>
 				            </div>
-							<div class="form-group ">
-				                <label class="col-sm-3 control-label">Tingkat</label>
-				                <div class="col-sm-6">
-				                    <input type="text" id="tingkat-input" name="tingkat-input" class="form-control" value="{{$tingkat}}"/>
-				                </div>
-				            </div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Tingkat</label>
+								<div class="col-sm-6">
+									<select id="tingkat-input" name="tingkat-input" class="form-control select2" size="1">
+										<option value></option>
+										@foreach ($tingkatan as $tkt)
+											<option value="{{$tkt}}" {!! $tingkat==$tkt ? 'selected':'' !!}>{{$tkt}}</option>
+										@endforeach
+									</select>
+								</div>
+							</div>
 							<div class="form-group striped-col">
 				                <label class="col-sm-3 control-label">Tahun Masuk</label>
 				                <div class="col-sm-6">
@@ -77,7 +82,7 @@
 				                </div>
 				            </div>
 							<div class="form-group ">
-				                <label class="col-sm-3 control-label">Image 1</label>
+				                <label class="col-sm-3 control-label">Scan Ijazah</label>
 				                <div class="col-sm-6">
 									<input id="uri_img_dok1-input" type="file" class="file" accept="image/*" name="uri_img_dok1-input">
 				                    <br>
@@ -87,7 +92,7 @@
 				                </div>
 				            </div>
 							<div class="form-group striped-col">
-				                <label class="col-sm-3 control-label">Image 2</label>
+				                <label class="col-sm-3 control-label">Scan Transkrip</label>
 				                <div class="col-sm-6">
 				                    <input id="uri_img_dok2-input" type="file" class="file" accept="image/*" name="uri_img_dok2-input">
 				                    <br>
@@ -97,7 +102,7 @@
 				                </div>
 				            </div>
 							<div class="form-group ">
-				                <label class="col-sm-3 control-label">Image 3</label>
+				                <label class="col-sm-3 control-label">Lain - Lain</label>
 				                <div class="col-sm-6">
 				                    <input id="uri_img_dok3-input" type="file" class="file" accept="image/*" name="uri_img_dok3-input">
 				                    <br>
@@ -162,7 +167,6 @@
 		return false;
 	}
   $(document).ready(function () {
-
 	$('#form').on('submit', function (e) {
 		var form_data = new FormData(this);
 		e.preventDefault();
