@@ -1039,4 +1039,18 @@ Route::get('/qs/monitoring/kelurahan/prov/ppmk', 'QS\bk050201Controller@ppmk_pro
 Route::get('/qs/monitoring/kelurahan/kelurahan/bdi', 'QS\bk050201Controller@bdi');
 Route::get('/qs/monitoring/kelurahan/kota/bdi', 'QS\bk050201Controller@bdi_kota');
 Route::get('/qs/monitoring/kelurahan/prov/bdi', 'QS\bk050201Controller@bdi_prov');
+
+/**
+ *
+ *
+ *module SLUM route here
+ */
+Route::get('/slum', 'HomeController@slum');
+Route::get('/slum/profil/umum', 'SLUM\bk060101Controller@index');
+Route::post('/slum/profil/umum', 'SLUM\bk060101Controller@post');
+Route::get('/slum/profil/umum/info', 'SLUM\bk060102Controller@index');
+Route::post('/slum/profil/umum/info', 'SLUM\bk060102Controller@post');
+Route::get('/slum/profil/permukiman', 'SLUM\bk060201Controller@index');
+Route::get('/slum/profil/permukiman_kumuh', 'SLUM\bk060301Controller@index');
+
 Auth::routes();
