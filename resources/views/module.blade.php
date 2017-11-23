@@ -99,10 +99,10 @@
 		            </div>
 				</div>
 				@endif
-				@if( ! empty($apps['4']))
+				@if( ! empty($apps['6']))
 				<div class="col-md-4 ">
 					<div class="panel-body">
-						<a href='#'>
+						<a href='slum'>
 							<div class="panel panel-widget">
 					            <div class="panel-body bg-primary text-center careers-item">
 					                <div>
